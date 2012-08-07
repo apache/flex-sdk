@@ -1,0 +1,164 @@
+<UnitTester
+    testSWF="../SWFs/AnimateTransform_main.mxml"
+    testDir="spark/effects/AnimateTransform/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.AnimateTransform;
+        import Components.*;
+        import flash.utils.*;
+        
+        public var startTime:Number;
+        public var endTime:Number;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- play -->
+        <TestCase testID="AnimateTransform_play" keywords="[AnimateTransform, Methods, play]" description="Test the play() method.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+            </setup>
+            <body>
+                <RunCode code="application.fxaMethod.play()" waitTarget="fxaMethod" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- pause -->
+        <TestCase testID="AnimateTransform_pause" keywords="[AnimateTransform, Methods, pause]" description="Test the pause() method.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+                <RunCode code="application.fxaMethod.play()"/>
+                <Pause timeout="500"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaMethod.pause()"/>
+                <Pause timeout="700"/>
+                <AssertNoEvent target="fxaMethod" eventName="effectEnd" eventClass="mx.effects.EffectEvent"/>
+            </body>
+        </TestCase>
+
+        <!-- resume -->
+        <TestCase testID="AnimateTransform_resume" keywords="[AnimateTransform, Methods, resume]" description="Test the resume() method.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+                <RunCode code="application.fxaMethod.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.fxaMethod.pause()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaMethod.resume()" waitTarget="fxaMethod" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- stop -->
+        <TestCase testID="AnimateTransform_stop" keywords="[AnimateTransform, Methods, stop]" description="Test the stop() method. Start, wait 500ms, then stop in mid-effect. Verify effectEnd">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+            </setup>
+            <body>
+                <RunCode code="application.fxaMethod.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.fxaMethod.stop()" waitTarget="fxaMethod" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- reverse -->
+        <TestCase testID="AnimateTransform_reverse" keywords="[AnimateTransform, Methods, reverse]" description="Test the reverse() method. Start, wait 500ms, then reverse in mid-effect.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+            </setup>
+            <body>
+                <RunCode code="application.fxaMethod.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.fxaMethod.reverse()" waitTarget="fxaMethod" waitEvent="effectEnd"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="0"/>
+			</body>
+        </TestCase>
+
+        <!-- toString() -->
+        <TestCase testID="AnimateTransform_toString" keywords="[AnimateTransform, Methods, toString]" description="Test the toString() method.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).toString().replace('[object ','').replace(']','')" value="AnimateTransform"/>
+            </body>
+        </TestCase>
+
+        <!-- getAffectedProperties -->
+        <TestCase testID="AnimateTransform_getAffectedProperties" keywords="[AnimateTransform, method, getAffectedProperties]" description="Test the getAffectedProperties() method.">
+            <body>
+                <AssertMethodValue method="value=application.fxaMethod.getAffectedProperties.call()" value="translationX,translationY,translationZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ,postLayoutTranslationX,postLayoutTranslationY,postLayoutTranslationZ,postLayoutRotationX,postLayoutRotationY,postLayoutRotationZ,postLayoutScaleX,postLayoutScaleY,postLayoutScaleZ,left,right,top,bottom,horizontalCenter,verticalCenter,baseline,width,height"/>
+            </body>
+        </TestCase>
+
+        <!-- createInstance -->
+        <TestCase testID="AnimateTransform_createInstance" keywords="[AnimateTransform, method, createInstances]" description="Test the createInstance() method.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.fxaMethod.createInstance().toString().replace('[object ', '').replace(']','')" value="AnimateTransformInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- createInstances -->
+        <TestCase testID="AnimateTransform_createInstances" keywords="[AnimateTransform, method, createInstances]" description="Test the createInstances() method.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.fxaMethod.createInstances().toString().replace('[object ', '').replace(']','')" value="AnimateTransformInstance"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_createInstances_targets" keywords="[AnimateTransform, method, createInstances]" description="Test the createInstances() method with more than one target.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <RunCode code="application.uiComponent2 = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent2)" />
+                <RunCode code="application.fxaMethod.targets = [application.uiComponent, application.uiComponent2];" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.fxaMethod.createInstances().length" value="2"/>
+            </body>
+        </TestCase>
+
+   </testCases>
+</UnitTester>
+

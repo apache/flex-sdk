@@ -1,0 +1,164 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_Default"
+        description="Test the default value of the autoPlay property."
+        keywords="[VideoPlayer]">
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.autoPlay" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_load_streaming"
+        description="Test the load behavior when autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_true_changeSource_streaming"
+        description="Change the source while playing and autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_false_changeSource_streaming"
+        description="Change the source while playing and autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.streamingVid2"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_false_streamingProgressive"
+        description="Set autoPlay to false and change source to progressive. Verify the video is still downloaded."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.autoPlay = false" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_load_progressive"
+        description="Test the load behavior when autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_true_changeSource_progressive"
+        description="Change the source while playing and autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_false_changeSource_progressive"
+        description="Change the source while playing and autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoPlay_false_progressiveStreaming"
+        description="Set autoPlay to false and change source to progressive. Verify the video is still downloaded."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.autoPlay = false" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

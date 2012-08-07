@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_decimalSeparator_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="NV_decimalSeparator_default_test1" description="the test case is for test default decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_default_script_test2" description="the test case is for test default decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_period_test3" description="the test case is for test set valid value to decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator='.'" />
+				<SetStyle target="nv1" styleName="locale" value="ar-SA" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="decimalSeparator" value="." waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_comma_test4" description="the test case is for test set valid value to decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-BE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=','" />
+				<SetStyle target="nv1" styleName="locale" value="fr-BE" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="decimalSeparator" value="," waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_colon_test5" description="the test case is for test set valid value to decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE@collaction=phonebook')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=':'" />
+				<SetStyle target="nv1" styleName="locale" value="de-DE@collaction=phonebook" waitEvent="change"/>
+				<RunCode code="application.nv1.decimalSeparator = ':'"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_semicolon_script_test6" description="the test case is for test set valid value to decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('bn-BD')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=';'" />
+				<SetStyle target="nvScript1" styleName="locale" value="bn-BD" waitEvent="change"/>
+				<RunCode code="application.nvScript1.decimalSeparator = ';'"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_inline_star_test7" description="the test case is for test set valid value to decimalSeparator inline" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator='*'" />
+				<SetStyle target="nvInline" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_inline_semicolon_test8" description="the test case is for test set valid value to decimalSeparator inline" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CH')" />
+				<RunCode code="nfGSLib.decimalSeparator=';'" />
+				<SetStyle target="nvInline2" styleName="locale" value="fr-CH" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline2" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_binding_colon_test9" description="Binding property by lable text" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru-RU')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=':'" />
+				<SetStyle target="nvBinding" styleName="locale" value="ru-RU" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="decimalSeparator" value=":" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_binding_comma_test10" description="Binding property by lable text" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja-JP')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=','" />
+				<SetStyle target="nvBinding" styleName="locale" value="ja-JP" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="decimalSeparator" value="," waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_binding_semicolon_script_test11" description="Binding property by lable text" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=';'" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_binding_star_script_test12" description="Binding property by lable text" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-GB')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator='*'" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="en-GB" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_invalid_null_test13" description="the test case is for test set invalid value to decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid,'decimalSeparator',null)" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'decimalSeparator',null)"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_invalid_empty_script_test14" description="the test case is for test set invalid value to decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvScriptInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid,'decimalSeparator','')" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'decimalSeparator','')"/>
+				<AssertPropertyValue target="nvScriptInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_bindingWithLocaleChange_test15" description="Binding property when locale change" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+				<SetStyle target="nvBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvBindingLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<AssertEvent target="nvBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_bindingWithLocaleChange_test16" description="Binding property when locale change" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')"/>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<AssertEvent target="nvScriptBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvScriptBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nvScriptBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_function_semicolon_test17" description="Test function with property decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				
+				<SetProperty target="nvFunction1" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-1234;6" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_function_star_test18" description="Test function with property decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvFunction2" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-1234.5" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT2"/>
+				<AssertEvent target="nvFunction2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_function_semicolon_script_test19" description="Test function with property decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="decimalSeparator" value=";"  waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="12345678;9" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_decimalSeparator_function_colon_script_test20" description="Test function with property decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvScriptFunction4" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction4" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction4" propertyName="trigger" valueExpression="value=application.triggerBT4"/>
+				<SetProperty target="nvScriptFunction4" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction4" propertyName="decimalSeparator" value=":" waitEvent="change"/>
+				<SetProperty target="nvScriptFunction4" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction4" styleName="locale" value="de-DE" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1234:5" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT4"/>
+				<AssertEvent target="nvScriptFunction4" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction4" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_function_period_script_test21" description="Test function with property decimalSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvScriptFunction5" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction5" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction5" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptFunction5" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction5" propertyName="decimalSeparator" value="." waitEvent="change"/>
+				<SetStyle target="nvScriptFunction5" styleName="locale" value="ja-JP" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1234:5678" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptFunction5" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction5" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_getterWithoutLocale_test22" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetStyle target="nvGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="decimalSeparator" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_getterWithoutLocale_script_test23" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetStyle target="nvScriptGetWithoutLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="decimalSeparator" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_sameWithGroupingSeparator_script_test24" description="the test case is for test set decimalSeparator same as groupingSeparator" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvScriptsameGS" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptsameGS" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptsameGS" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptsameGS" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptsameGS" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+				<SetProperty target="nvScriptsameGS" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				<SetStyle target="nvScriptsameGS" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1234,5678" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptsameGS" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptsameGS" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_sameWithNegativeSymbol_script_test25" description="the test case is for test set decimalSeparator same as negativeSymbol" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvScriptsameNS" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptsameNS" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptsameNS" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptsameNS" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptsameNS" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+				<SetProperty target="nvScriptsameNS" propertyName="decimalSeparator" valueExpression="value=application.nvScriptsameNS.negativeSymbol" waitEvent="change"/>
+				<SetStyle target="nvScriptsameNS" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" valueExpression="value='1234'+application.nvScriptsameNS.negativeSymbol+'5678'" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptsameNS" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptsameNS" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_setToNumber_test26" description="the test case is for test set decimalSeparator as number" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvNumber" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+				<SetProperty target="nvNumber" propertyName="decimalSeparator" valueExpression="value=3" waitEvent="change"/>
+				<SetStyle target="nvNumber" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" valueExpression="value=12312456" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT7"/>
+				<AssertEvent target="nvNumber" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvNumber" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_decimalSeparator_setToNumber_script_test27" description="the test case is for test set decimalSeparator as number" keywords="[NumberValidator, decimalSeparator]">
+			<setup>
+				<SetProperty target="nvScriptNumber" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptNumber" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptNumber" propertyName="trigger" valueExpression="value=application.triggerBT6"/>
+				<SetProperty target="nvScriptNumber" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptNumber" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+				<SetProperty target="nvScriptNumber" propertyName="decimalSeparator" valueExpression="value=3" waitEvent="change"/>
+				<SetStyle target="nvScriptNumber" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="124356" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT6"/>
+				<AssertEvent target="nvScriptNumber" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptNumber" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

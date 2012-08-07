@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Author : Min  13 Mar-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  13-Mar-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="10">
+        <content><p><span>Test start a new sub-path with moveto commands (M, m).</span></p>
+        <p><span>M 50.00000 80.00000 L 150.00000 180.00000 m 50 0 l 50 -50</span></p></content>
+      </TextGraphic>
+        <Path winding="nonZero"  data="M 50.00000 50.00000 L 100.00000 100.00000 m 50 0 l 50 -50" >
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+      <Rect x="48" y="48" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="98" y="98" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="148" y="98" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="198" y="48" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="130">
+        <content><p><span>If a relative moveto (m) appears as the first element of the Path, </span></p>
+        <p><span>then it is treated as a pair of absolute coordinates. </span></p>
+        <p><span>m 50.00000 200.00000 L 150.00000 200.00000</span></p></content>
+      </TextGraphic>
+        <Path winding="nonZero"  data="m 50.00000 200.00000 L 150.00000 200.00000" >
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+      <Rect x="48" y="198" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="148" y="198" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="250">
+        <content><p><span>When a moveto is used in the middle of the data for an FXG Path, </span></p>
+        <p><span>the previous sub-path is implicitly closed. An implicitly closed path is </span></p>
+        <p><span>filled as though there were a final lineTo segment from the final point of </span></p>
+        <p><span>the path to the starting point. This implicit line segment is not stroked.</span></p>
+        <p><span>M 50 350  L 100 400   150 350  M 150 400  L 200 350</span></p></content>
+      </TextGraphic>
+        <Path winding="nonZero"  data="M 50 350  L 100 400   150 350  M 150 400  L 200 350" >
+		<fill>
+		  <SolidColor color="#00c000"/>
+		</fill>
+         <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>        
+      <Rect x="48" y="348" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="98" y="398" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="148" y="398" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="198" y="348" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="450">
+        <content><p><span>If a moveto is followed by multiple pairs of coordinates, the subsequent pairs are treated as </span></p>
+        <p><span>implicit lineto commands.</span></p>
+        <p><span>M 50 500  l 50 50   50 -50   m 0 50   100 0   0 -50  l 100 0</span></p></content>
+      </TextGraphic>
+        <Path winding="nonZero"  data="M 50 500  l 50 50   50 -50   m 0 50   100 0   0 -50  l 100 0" >
+		<fill>
+		  <SolidColor color="#ff0000"/>
+		</fill>
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>        
+      <Rect x="48" y="498" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="98" y="548" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="148" y="498" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="148" y="548" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="248" y="548" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="248" y="498" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+      <Rect x="348" y="498" width="4" height="4">
+	<fill>
+	  <SolidColor color="#00c000"/>
+	</fill>
+      </Rect>
+</Graphic>

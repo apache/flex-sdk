@@ -1,0 +1,242 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+
+        public function PlayHeadLessThanOne(value:Number):Boolean
+        {
+            return(value < 1);
+        }
+
+        private function currentTimeInRange(low:Number, high:Number):Boolean
+        {
+            return((application.testPlayer.currentTime > low) && (application.testPlayer.currentTime < high));
+        }
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_seek_nullSource"
+        description="Seek when source is null." keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.seek(43)" />
+            </body>
+        </TestCase>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_seek_beyond_streaming"
+        description="Test the seek() method beyond stream length."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.seek(200)"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <!-- Nothing should happen, so verify currentTime stays at 0 (since video never played) -->
+                <AssertMethodValue method="value=this.application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_seek_playing_streaming"
+        description="Test the seek() method while playing."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.seek(111)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="112.384"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="112.384"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_seek_paused_streaming"
+        description="Test the seek() method while paused."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.pause()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(43)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="43"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="43"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+        testID="VideoPlayer_seek_stopped_streaming"
+        description="Test the seek() method while stopped."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.stop()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(43)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="43"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="43"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_seek_backwards_streaming"
+        description="Test the seek() method going backwards."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="6000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.pause()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="1000"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 1)" value="true"/>
+                <RunCode code="application.testPlayer.seek(1)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="1000"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="1"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_seek_beyond_progressive"
+        description="Test the seek() method beyond stream length."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.seek(100)"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <!-- Nothing should happen, so verify currentTime stays at 0 (since video never played) -->
+                <AssertMethodValue method="value=this.application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_seek_playing_progressive"
+        description="Test the seek() method while playing."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.seek(15)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="16.296"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_seek_paused_progressive"
+        description="Test the seek() method while paused."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.pause()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.seek(14)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="14"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="14.081"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+        testID="VideoPlayer_seek_stopped_progressive"
+        description="Test the seek() method while stopped."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.stop()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(14)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="14"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="14.081"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_seek_backwards_progressive"
+        description="Test the seek() method going backwards."
+        keywords="[VideoPlayer, Seek]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="6000"/>
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.pause()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="1000"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 1)" value="true"/>
+                <RunCode code="application.testPlayer.seek(1)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="1000"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="1"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

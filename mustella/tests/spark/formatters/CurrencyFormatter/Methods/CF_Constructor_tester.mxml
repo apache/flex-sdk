@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="CF_Constructor.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.CurrencyFormatter;
+		import assets.CFConstant;
+		
+		public var cfGSLib:flash.globalization.CurrencyFormatter;
+		public var cfGSLib1:flash.globalization.CurrencyFormatter;
+		public var cfGSLib2:flash.globalization.CurrencyFormatter;
+		public var cfGSLib3:flash.globalization.CurrencyFormatter;
+		public var cfGSLib4:flash.globalization.CurrencyFormatter;
+		
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test Constructing a new CurrencyFormatter object -->
+<testCases>
+	<!--testcase for Default CF without locale setting  -->
+	<TestCase testID="CF_Constructor_noLocaleSet_test1" description="testcase for Default CF without locale setting" keywords="[CurrencyFormatter, Constructor]">
+		<body>
+			<AssertPropertyValue target="cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value='en-US'" />
+			<AssertPropertyValue target="cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=CFConstant.noErrorMsg"/>
+			
+			<AssertPropertyValue target="cfNoLocale" propertyName="actualLocaleIDName" valueExpression="value='en-US'" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct CF with no parameter in action scripts , then set locale to some supported locale -->
+	<TestCase testID="CF_Constructor_setLocale_i_default_test2" description="testcase for Construct CF with no parameter in action scripts , then set locale to some supported locale" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('i-default')" />
+			<ResetComponent target="cfTest" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfTest.initialized(null,'cfTest')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfTest" styleName="locale" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfTest" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="cfTest" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct CF with no parameter in action scripts , then set locale to some supported locale -->
+	<TestCase testID="CF_Constructor_setLocale_zh_TW_test3" description="testcase for Construct CF with no parameter in action scripts , then set locale to some supported locale" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh_TW')" />
+			<ResetComponent target="cfTest" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfTest.initialized(null,'cfTest')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfTest" styleName="locale" value="zh_TW" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfTest" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct CF with no parameter in action scripts , then set some properties in action scripts  -->
+	<TestCase testID="CF_Constructor_setProperty_useGrouping_true_test4" description="testcase for Construct CF with no parameter in action scripts , then set some properties in action scripts" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<ResetComponent target="cfTest" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfTest.initialized(null,'cfTest')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.useGrouping=true"/>
+			<SetStyle target="cfTest" styleName="locale" value="en_US" waitEvent="change"/>
+			<RunCode code="application.setCFuseGrouping()"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfTest" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="cfTest" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct CF with no parameter in action scripts , then set some properties in action scripts  -->
+	<TestCase testID="CF_Constructor_setProperty_groupingSeparator_semicolon_test5" description="testcase for Construct CF with no parameter in action scripts , then set some properties in action scripts" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<ResetComponent target="cfTest" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfTest.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.groupingSeparator=';'"/>
+			<SetStyle target="cfTest" styleName="locale" value="en_US" waitEvent="change"/>
+			<RunCode code="application.setCFgroupingSeparator()"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfTest" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare a cf with <fx:Declareation> -->
+	<TestCase testID="CF_Constructor_setLocaleInline_test6" description="testcase for Declare a cf inline" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cf" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare cf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="CF_Constructor_setPropertyInline_trailingZeros_false_test7" description="testcase for Declare cf object inline with some properties" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.trailingZeros=false"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cf1" propertyName="trailingZeros" value="false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cf1" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="cf1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare cf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="CF_Constructor_setPropertyInline_decimalSeparator_semicolon_test8" description="testcase for Declare cf object inline with some properties" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cf2" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cf2" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare cf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="CF_Constructor_setPropertyInline_groupingSeparator_semicolon_test9" description="testcase for Declare cf object inline with some properties" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.groupingSeparator=';'"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cf3" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cf3" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare cf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="CF_Constructor_setPropertyInline_fractionalDigits_3_test10" description="testcase for Declare cf object inline with some properties" keywords="[CurrencyFormatter, Constructor]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.fractionalDigits=3"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cf4" propertyName="fractionalDigits" valueExpression="value=3" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cf4" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--Binding lastOperationStatus by lable text-->
+	<TestCase testID="CF_Constructor_binding_lastOperationStatus_test11" description="Binding lastOperationStatus by lable text" keywords="[CurrencyFormatter, Constructor, binding, lastOperationStatus]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfBinding" styleName="locale" value="ar-JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLabel" propertyName="text" valueExpression="value=cfGSLib.lastOperationStatus" />
+			<AssertPropertyValue target="cfBinding" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	
+</testCases>
+</UnitTester>

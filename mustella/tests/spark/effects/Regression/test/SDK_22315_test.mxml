@@ -1,0 +1,38 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_22315.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_22315" 
+			keywords="[SDK_22315]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-21874">
+			<!--bugs>
+				<Bug bugID="SDK-22315"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.seqS7.playheadTime = 300" />
+				<Pause timeout="500"/>
+				<AssertMethodValue method="value=application.g1.postLayoutTransformOffsets.x" value="32.725425"/>
+				<AssertMethodValue method="value=application.g1.postLayoutTransformOffsets.y" value="-32.725425"/>
+
+				<AssertMethodValue method="value=application.g3.postLayoutTransformOffsets.x" value="-32.725425"/>
+				<AssertMethodValue method="value=application.g3.postLayoutTransformOffsets.y" value="-32.725425"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

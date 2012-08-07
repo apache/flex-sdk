@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/Move/States/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Move_States_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.Move;
+        import Controls.*;
+        import Containers.*;
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="Move_Gumbo_TransitionToStateTwo"  keywords="[Move, Transition, ChangeState]" description="Verify the Move effect works in a transition composite effect.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="stateTwo" waitTarget="toStateTwo" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="x" value="150"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="40"/>
+                <AssertPropertyValue target="testButton2" propertyName="x" value="150"/>
+                <AssertPropertyValue target="testButton2" propertyName="y" value="80"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Gumbo_TransitionToStateOne"  keywords="[Move, Transition, ChangeState]" description="Verify the Move effect works in a transition composite effect.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="currentState" value="stateTwo" waitTarget="toStateTwo" waitEvent="effectEnd" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="stateOne" waitTarget="toStateOne" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="x" value="150"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="10"/>
+                <AssertPropertyValue target="testButton2" propertyName="x" value="150"/>
+                <AssertPropertyValue target="testButton2" propertyName="y" value="50"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

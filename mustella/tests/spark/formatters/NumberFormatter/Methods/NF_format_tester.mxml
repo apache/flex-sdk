@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_format.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NFConstants;
+		
+		import flash.globalization.*;
+		
+		public var nfGSLib:flash.globalization.NumberFormatter;
+		public var nfGSLib1:flash.globalization.NumberFormatter;
+		public var nfGSLib2:flash.globalization.NumberFormatter;
+		public var nfGSLib3:flash.globalization.NumberFormatter;
+		public var nfGSLib4:flash.globalization.NumberFormatter;
+		public var nfGSLib5:flash.globalization.NumberFormatter;
+		
+			
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!-- This test file is to test format() int, unit and number value when setting with different properties -->
+
+<testCases>
+	<!--test format int value with default property seting  -->
+	<TestCase testID="NF_format_defaultProperty_test1" 
+			  description="test format int value with default property seting" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nf.format(-1234567)" valueExpression="value=nfGSLib.formatNumber(-1234567)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(1234567)" valueExpression="value=nfGSLib.formatNumber(1234567)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(1.3e10)" valueExpression="value=nfGSLib.formatNumber(1.3e10)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(1.6e-100)" valueExpression="value=nfGSLib.formatNumber(1.6e-100)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format large or small int value with default property   -->
+	<TestCase testID="NF_format_defaultProperty_largeOrSmallValue_test2" 
+			  description="test format large or small int value with default property" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nf.format(1.72e309)" valueExpression="value=nfGSLib.formatNumber(1.72e309)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(1.72e-309)" valueExpression="value=nfGSLib.formatNumber(1.72e-309)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number value with default property   -->
+	<TestCase testID="NF_format_number_defaultProperty_test3" 
+			  description="test format number value with default property " keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nf.format(-123456789.87654)" 
+							   valueExpression="value=nfGSLib.formatNumber(-123456789.87654)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(123456789.87654)" 
+							   valueExpression="value=nfGSLib.formatNumber(123456789.87654)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format unit value with default property    -->
+	<TestCase testID="NF_format_unit_defaultProperty_test4" 
+			  description="test format unit value with default property" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nf.format(0xFFFFFFFF)" valueExpression="value=nfGSLib.formatNumber(0xFFFFFFFF)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(0x8675543)" valueExpression="value=nfGSLib.formatNumber(0x8675543)" />
+			<AssertMethodValue method="value=application.nf.format(0xddddd)" valueExpression="value=nfGSLib.formatNumber(0xddddd)" />
+			<AssertMethodValue method="value=application.nf.format(0x1)" valueExpression="value=nfGSLib.formatNumber(0x1)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nf.format(0x0)" valueExpression="value=nfGSLib.formatNumber(0x0)" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_trailingZeros_true_decimalSeparator_period_groupingSeparator_period_fractionalDigits_1_leadingZero_true_test5" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<RunCode code="nfGSLib.decimalSeparator='.'"/>
+			<RunCode code="nfGSLib.groupingSeparator='.'"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<RunCode code="nfGSLib.leadingZero=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline1.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline1.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline1.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_decimalSeparator_space_groupingPattern_3_digitsType_ARABIC_INDIC_test6" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=' '"/>
+			<RunCode code="nfGSLib.groupingPattern='3'"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.ARABIC_INDIC"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline2.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline2.format(-0.00234567)" valueExpression="value=nfGSLib.formatNumber(-0.00234567)" />
+			<AssertPropertyValue target="nfMultiInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline2.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_negativeSymbol_asterisk_negativeNumberFormat_4_useGrouping_false_test7" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='*'"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=4"/>
+			<RunCode code="nfGSLib.useGrouping=false"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline3.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline3" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline3.format(-0.00234567)" valueExpression="value=nfGSLib.formatNumber(-0.00234567)" />
+			<AssertPropertyValue target="nfMultiInline3" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline3.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline3" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_leadingZero_true_useGrouping_true_groupingSeparator_semicolon_test8" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr_FR')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.leadingZero=true"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<RunCode code="nfGSLib.groupingSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline4.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline4" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline4.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline4" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline4.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline4" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_trailingZeros_true_fractionalDigits_100_useGrouping_true_test9" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<RunCode code="nfGSLib.fractionalDigits=100"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline5.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline5" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline5.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline5" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline5.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline5" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_decimalSeparator_pound_fractionalDigits_1_groupingPattern_3semicolon2semicolonStar_groupingSeparator_comma_test10" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator='#'"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<RunCode code="nfGSLib.groupingPattern='3;2;*'"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline6.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline6" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline6.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline6" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline6.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline6" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_decimalSeparator_pound_digitsType_LAO_leadingZero_true_test11" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator='#'"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.LAO"/>
+			<RunCode code="nfGSLib.leadingZero=false"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline7.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline7" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline7.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline7" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline7.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline7" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_negativeSymbol_doubleHyphen_negativeNumberFormat_0_leadingZero_true_test12" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=0"/>
+			<RunCode code="nfGSLib.leadingZero=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline8.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline8" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline8.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline8" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline8.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline8" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_negativeSymbol_at_fractionalDigits_4_groupingSeparator_at_test13" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='@'"/>
+			<RunCode code="nfGSLib.fractionalDigits=4"/>
+			<RunCode code="nfGSLib.groupingSeparator='@'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline9.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline9" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline9.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline9" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline9.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline9" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_digitsType_FULL_WIDTH_decimalSeparator_at_trailingZeros_true_test14" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.FULL_WIDTH"/>
+			<RunCode code="nfGSLib.decimalSeparator='@'"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline10.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline10" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline10.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline10" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline10.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline10" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_digitsType_1_decimalSeparator_comma_fractionalDigits_8_test15" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.digitsType=1"/>
+			<RunCode code="nfGSLib.decimalSeparator=','"/>
+			<RunCode code="nfGSLib.fractionalDigits=8"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline11.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline11" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline11.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline11" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline11.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline11" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_trailingZeros_true_groupingPattern_3_useGrouping_true_test16" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<RunCode code="nfGSLib.groupingPattern='3'"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline12.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline12" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline12.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline12" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline12.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline12" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_decimalSeparator_hyphen_fractionalDigits_0_negativeSymbol_1_test17" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('es_AR')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator='-'"/>
+			<RunCode code="nfGSLib.fractionalDigits=0"/>
+			<RunCode code="nfGSLib.negativeSymbol='1'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline13.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline13" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline13.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline13" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline13.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline13" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_negativeNumberFormat_3_negativeSymbol_3_groupingSeparator_3_test18" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('sr_Cyrl_ME')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=3"/>
+			<RunCode code="nfGSLib.negativeSymbol='3'"/>
+			<RunCode code="nfGSLib.groupingSeparator='3'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline14.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline14" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline14.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline14" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline14.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline14" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by inline -->
+	<TestCase testID="NF_format_setMultiPropertiesInline_leadingZero_false_decimalSeparator_period_fractionalDigits_1_test19" 
+			  description="test format number with multiple properties setting by inline" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.leadingZero=false"/>
+			<RunCode code="nfGSLib.decimalSeparator='.'"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiInline15.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiInline15" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline15.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiInline15" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiInline15.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiInline15" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_trailingZeros_true_decimalSeparator_period_groupingSeparator_period_fractionalDigits_1_leadingZero_true_test20" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<RunCode code="nfGSLib.decimalSeparator='.'"/>
+			<RunCode code="nfGSLib.groupingSeparator='.'"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<RunCode code="nfGSLib.leadingZero=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro1" propertyName="trailingZeros" valueExpression="value=true"/>
+			<SetProperty target="nfMultiSetPro1" propertyName="decimalSeparator" value="."/>
+			<SetProperty target="nfMultiSetPro1" propertyName="groupingSeparator" value="."/>
+			<SetProperty target="nfMultiSetPro1" propertyName="fractionalDigits" valueExpression="value=1" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro1.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro1.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro1.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_decimalSeparator_space_groupingPattern_3_digitsType_ARABIC_INDIC_test21" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=' '"/>
+			<RunCode code="nfGSLib.groupingPattern='3'"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.ARABIC_INDIC"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro2" propertyName="decimalSeparator" value=" "/>
+			<SetProperty target="nfMultiSetPro2" propertyName="groupingPattern" value="3"/>
+			<SetProperty target="nfMultiSetPro2" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro2.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro2.format(-0.00234567)" valueExpression="value=nfGSLib.formatNumber(-0.00234567)" />
+			<AssertPropertyValue target="nfMultiSetPro2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro2.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_negativeSymbol_asterisk_negativeNumberFormat_4_useGrouping_false_test22" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='*'"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=4"/>
+			<RunCode code="nfGSLib.useGrouping=false"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro3" propertyName="negativeSymbol" value="*"/>
+			<SetProperty target="nfMultiSetPro3" propertyName="negativeNumberFormat" valueExpression="value=4"/>
+			<SetProperty target="nfMultiSetPro3" propertyName="useGrouping" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro3.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro3" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro3.format(-0.00234567)" valueExpression="value=nfGSLib.formatNumber(-0.00234567)" />
+			<AssertPropertyValue target="nfMultiSetPro3" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro3.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro3" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_leadingZero_true_useGrouping_true_groupingSeparator_semicolon_test23"
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr_FR')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.leadingZero=true"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<RunCode code="nfGSLib.groupingSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro4" propertyName="leadingZero" valueExpression="value=true"/>
+			<SetProperty target="nfMultiSetPro4" propertyName="useGrouping" valueExpression="value=true"/>
+			<SetProperty target="nfMultiSetPro4" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro4.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro4" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro4.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro4" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro4.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro4" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_trailingZeros_true_fractionalDigits_100_useGrouping_true_test24" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<RunCode code="nfGSLib.fractionalDigits=100"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro5" propertyName="trailingZeros" valueExpression="value=true"/>
+			<SetProperty target="nfMultiSetPro5" propertyName="fractionalDigits" valueExpression="value=100"/>
+			<SetProperty target="nfMultiSetPro5" propertyName="useGrouping" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro5.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro5" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro5.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro5" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro5.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro5" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_decimalSeparator_pound_fractionalDigits_1_groupingPattern_3semicolon2semicolonStar_groupingSeparator_comma_test25" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator='#'"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<RunCode code="nfGSLib.groupingPattern='3;2;*'"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro6" propertyName="decimalSeparator" value="#"/>
+			<SetProperty target="nfMultiSetPro6" propertyName="fractionalDigits" valueExpression="value=1"/>
+			<SetProperty target="nfMultiSetPro6" propertyName="groupingPattern" value="3;2;*"/>
+			<SetProperty target="nfMultiSetPro6" propertyName="groupingSeparator" value="," waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro6.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro6" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro6.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro6" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro6.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro6" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_decimalSeparator_pound_digitsType_LAO_leadingZero_false_test26" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator='#'"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.LAO"/>
+			<RunCode code="nfGSLib.leadingZero=false"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro7" propertyName="decimalSeparator" value="#"/>
+			<SetProperty target="nfMultiSetPro7" propertyName="digitsType" valueExpression="value=NationalDigitsType.LAO"/>
+			<SetProperty target="nfMultiSetPro7" propertyName="leadingZero" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro7.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro7" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro7.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro7" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro7.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro7" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_negativeSymbol_doubleHyphen_negativeNumberFormat_0_leadingZero_true_test27" 
+			  description="test format number with multiple properties setting by SetProperty " keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=0"/>
+			<RunCode code="nfGSLib.leadingZero=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro8" propertyName="negativeSymbol" value="--"/>
+			<SetProperty target="nfMultiSetPro8" propertyName="negativeNumberFormat" valueExpression="value=0"/>
+			<SetProperty target="nfMultiSetPro8" propertyName="leadingZero" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro8.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro8" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro8.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro8" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro8.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro8" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_negativeSymbol_at_fractionalDigits_4_groupingSeparator_at_test28" 
+			  description="test format number with multiple properties setting by SetProperty " keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='@'"/>
+			<RunCode code="nfGSLib.fractionalDigits=4"/>
+			<RunCode code="nfGSLib.groupingSeparator='@'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro9" propertyName="negativeSymbol" value="@"/>
+			<SetProperty target="nfMultiSetPro9" propertyName="fractionalDigits" valueExpression="value=4"/>
+			<SetProperty target="nfMultiSetPro9" propertyName="groupingSeparator" value="@" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro9.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro9" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro9.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro9" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro9.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro9" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_digitsType_FULL_WIDTH_decimalSeparator_at_trailingZeros_true_test29" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.FULL_WIDTH"/>
+			<RunCode code="nfGSLib.decimalSeparator='@'"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro10" propertyName="digitsType" valueExpression="value=NationalDigitsType.FULL_WIDTH"/>
+			<SetProperty target="nfMultiSetPro10" propertyName="decimalSeparator" value="@"/>
+			<SetProperty target="nfMultiSetPro10" propertyName="trailingZeros" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro10.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro10" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro10.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro10" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro10.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro10" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_digitsType_1_decimalSeparator_comma_fractionalDigits_8_test30" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.digitsType=1"/>
+			<RunCode code="nfGSLib.decimalSeparator=','"/>
+			<RunCode code="nfGSLib.fractionalDigits=8"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro11" propertyName="digitsType" valueExpression="value=1"/>
+			<SetProperty target="nfMultiSetPro11" propertyName="decimalSeparator" value=","/>
+			<SetProperty target="nfMultiSetPro11" propertyName="fractionalDigits" valueExpression="value=8" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro11.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro11" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro11.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro11" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro11.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro11" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_trailingZeros_true_groupingPattern_3_useGrouping_true_test31" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true"/>
+			<RunCode code="nfGSLib.groupingPattern='3'"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro12" propertyName="trailingZeros" valueExpression="value=true"/>
+			<SetProperty target="nfMultiSetPro12" propertyName="groupingPattern" value="3"/>
+			<SetProperty target="nfMultiSetPro12" propertyName="useGrouping" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro12.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro12" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro12.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro12" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro12.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro12" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_decimalSeparator_hyphen_fractionalDigits_0_negativeSymbol_1_test32" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('es_AR')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator='-'"/>
+			<RunCode code="nfGSLib.fractionalDigits=0"/>
+			<RunCode code="nfGSLib.negativeSymbol='1'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro13" propertyName="decimalSeparator" value="-"/>
+			<SetProperty target="nfMultiSetPro13" propertyName="fractionalDigits" valueExpression="value=0"/>
+			<SetProperty target="nfMultiSetPro13" propertyName="negativeSymbol" value="1" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro13.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro13" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro13.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro13" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro13.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro13" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_negativeNumberFormat_3_negativeSymbol_3_groupingSeparator_3_test33" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('sr_Cyrl_ME')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=3"/>
+			<RunCode code="nfGSLib.negativeSymbol='3'"/>
+			<RunCode code="nfGSLib.groupingSeparator='3'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro14" propertyName="negativeNumberFormat" valueExpression="value=3"/>
+			<SetProperty target="nfMultiSetPro14" propertyName="negativeSymbol" value="3"/>
+			<SetProperty target="nfMultiSetPro14" propertyName="groupingSeparator" value="3" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro14.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro14" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro14.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro14" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro14.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro14" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format number with multiple properties setting by SetProperty -->
+	<TestCase testID="NF_format_setMultiPropertiesUsingMethod_leadingZero_false_decimalSeparator_period_fractionalDigits_1_test34" 
+			  description="test format number with multiple properties setting by SetProperty" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.leadingZero=false"/>
+			<RunCode code="nfGSLib.decimalSeparator='.'"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfMultiSetPro15" propertyName="leadingZero" valueExpression="value=false"/>
+			<SetProperty target="nfMultiSetPro15" propertyName="decimalSeparator" value="."/>
+			<SetProperty target="nfMultiSetPro15" propertyName="fractionalDigits" valueExpression="value=1" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfMultiSetPro15.format(123456789.123)" valueExpression="value=nfGSLib.formatNumber(123456789.123)" />
+			<AssertPropertyValue target="nfMultiSetPro15" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro15.format(-234.567)" valueExpression="value=nfGSLib.formatNumber(-234.567)" />
+			<AssertPropertyValue target="nfMultiSetPro15" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.nfMultiSetPro15.format(0)" valueExpression="value=nfGSLib.formatNumber(0)" />
+			<AssertPropertyValue target="nfMultiSetPro15" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="NF_format_binding_setProperty_trailingZeros_false_test35" 
+			  description="Binding property by lable text" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=false" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfBinding1" propertyName="trailingZeros" value="false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLabel1" propertyName="text" valueExpression="value=nfGSLib.formatNumber(1.123)" />
+			<AssertPropertyValue target="nfBinding1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="NF_format_binding_setProperty_trailingZeros_true_test36" 
+			  description="Binding property by lable text" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfBinding2" propertyName="trailingZeros" value="true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLabel2" propertyName="text" valueExpression="value=nfGSLib.formatNumber(2.123)" />
+			<AssertPropertyValue target="nfBinding2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--test format with object which doesn't set locale -->
+	<TestCase testID="NF_format_noLocale_test37" 
+			  description="test format with object which doesn't set locale" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfNoLocale.format(-1234567)" valueExpression="value=nfGSLib.formatNumber(-1234567)"/>
+			<AssertPropertyValue target="nfNoLocale" propertyName="lastOperationStatus" value="noError"/>
+			<AssertMethodValue method="value=application.nfNoLocaleScript.format(-1234567)" valueExpression="value=nfGSLib.formatNumber(-1234567)"/>
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+
+	<!--test case for format an object : null or any Number object  -->
+	<TestCase testID="NF_format_object_test38" 
+			  description="test case for format an object : null or any Number object" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfTestObj.format(null)" valueExpression="value=null"/>
+			<AssertPropertyValue target="nfTestObj" propertyName="lastOperationStatus" value="noError"/>
+			<AssertMethodValue method="value=application.nfTestObj.format('notaNumber')" valueExpression="value=NFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue target="nfTestObj" propertyName="lastOperationStatus" valueExpression="value=NFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.nfTestObj.format( new Object() )" valueExpression="value=NFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue target="nfTestObj" propertyName="lastOperationStatus" valueExpression="value=NFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.nfTestObj.format(application.value)" valueExpression="value=nfGSLib.formatNumber(-12345678)"/>
+			<AssertPropertyValue target="nfTestObj" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Number object  -->
+	<TestCase testID="NF_format_object_test39" 
+			  description="test case for format an object : null or any Number object" keywords="[NumberFormatter, format]">
+		<setup>
+			<SetProperty target="nfTestInvalidObj" propertyName="errorText" valueExpression="value=NFConstants.ERROR_1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInvalidLabel" propertyName="text" valueExpression="value=NFConstants.ERROR_1" />
+			<AssertMethodValue method="value=application.nfTestInvalidObj.format(Number.NaN)" valueExpression="value=NFConstants.ERROR_1"/>
+			<AssertPropertyValue target="nfTestInvalidObj" propertyName="lastOperationStatus" valueExpression="value=NFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.nfTestInvalidObj.format('notaNumber')" valueExpression="value=NFConstants.ERROR_1"/>
+			<AssertPropertyValue target="nfTestInvalidObj" propertyName="lastOperationStatus" valueExpression="value=NFConstants.illegalParamMsg"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Number object  -->
+	<TestCase testID="NF_format_object_test40" 
+			  description="test case for format an object : null or any Number object" keywords="[NumberFormatter, format]">
+		<setup>
+			<SetProperty target="nfTestInvalidObj2" propertyName="errorText" valueExpression="value=NFConstants.ERROR_2" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInvalidLabel2" propertyName="text" valueExpression="value=NFConstants.ERROR_2" />
+			<AssertMethodValue method="value=application.nfTestInvalidObj2.format(Number.NaN)" valueExpression="value=NFConstants.ERROR_2"/>
+			<AssertPropertyValue target="nfTestInvalidObj2" propertyName="lastOperationStatus" valueExpression="value=NFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.nfTestInvalidObj2.format('notaNumber')" valueExpression="value=NFConstants.ERROR_2"/>
+			<AssertPropertyValue target="nfTestInvalidObj2" propertyName="lastOperationStatus" valueExpression="value=NFConstants.illegalParamMsg"/>
+		</body>
+	</TestCase>
+
+</testCases>
+
+</UnitTester>

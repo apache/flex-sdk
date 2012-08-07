@@ -1,0 +1,631 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Fallback/" testSWF="CV_fallback_Properties.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:assets="assets.*" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			import assets.FallbackCF;
+			import assets.FallbackCV;
+			import assets.FallbackComp;
+			
+			import flash.globalization.CurrencyFormatter;
+			import flash.globalization.LocaleID;
+			
+			import spark.globalization.LastOperationStatus;
+			import spark.validators.CurrencyValidator;
+		
+			
+		
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_fallback_get_currencyISOCode_inline_nolocale_test_1" description="test get fallback inline CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyISOCode_script_nolocale_test_2" description="test get fallback script CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyISOCode_inline_locale_test_3" description="test get fallback inline CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyISOCode_script_locale_test_4" description="test get fallback script CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_currencyISOCode_inline_nolocale_test_5" description="test get fallback inline CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyISOCode_script_nolocale_test_6" description="test get fallback script CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyISOCode_inline_locale_test_7" description="test get fallback inline CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyISOCode_script_locale_test_8" description="test get fallback script CV's currencyISOCode" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>            
+			</setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="currencyISOCode" valueExpression="value=application.fbComp.cf.currencyISOCode"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_inline_nolocale_test_9" description="test get fallback inline CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_script_nolocale_test_10" description="test get fallback script CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_inline_locale_test_11" description="test get fallback inline CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_script_locale_test_12" description="test get fallback script CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_currencySymbol_inline_nolocale_test_13" description="test get fallback inline CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_script_nolocale_test_14" description="test get fallback script CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_inline_locale_test_15" description="test get fallback inline CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencySymbol_script_locale_test_16" description="test get fallback script CV's currencySymbol" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="currencySymbol" value="￥" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="currencySymbol" valueExpression="value=application.fbComp.cf.currencySymbol"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_inline_nolocale_test_17" description="test get fallback inline CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_script_nolocale_test_18" description="test get fallback script CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_inline_locale_test_19" description="test get fallback inline CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_script_locale_test_20" description="test get fallback script CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_negativeCurrencyFormat_inline_nolocale_test_21" description="test get fallback inline CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_script_nolocale_test_22" description="test get fallback script CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_inline_locale_test_23" description="test get fallback inline CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormat_script_locale_test_24" description="test get fallback script CV's negativeCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="negativeCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="negativeCurrencyFormat" valueExpression="value=application.fbComp.cf.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_inline_nolocale_test_25" description="test get fallback inline CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_script_nolocale_test_26" description="test get fallback script CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_inline_locale_test_27" description="test get fallback inline CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_script_locale_test_28" description="test get fallback script CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_positiveCurrencyFormat_inline_nolocale_test_29" description="test get fallback inline CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_script_nolocale_test_30" description="test get fallback script CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_inline_locale_test_31" description="test get fallback inline CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormat_script_locale_test_32" description="test get fallback script CV's positiveCurrencyFormat" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <SetProperty target="fbComp.cf" propertyName="positiveCurrencyFormat" value="3" waitEvent="change"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="positiveCurrencyFormat" valueExpression="value=application.fbComp.cf.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_inline_nolocale_test_33" description="test get fallback inline CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="currencyStringError" value="Currency name is repeated or not correct."/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_script_nolocale_test_34" description="test get fallback script CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="fbComp.cvScript" propertyName="currencyStringError" value="Currency name is repeated or not correct."/>
+				<AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_inline_locale_test_35" description="test get fallback inline CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="fbComp.cvInline" propertyName="currencyStringError" value="Currency name is repeated or not correct."/>
+				<AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_script_locale_test_36" description="test get fallback script CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="fbComp.cvScriptL" propertyName="currencyStringError" value="Currency name is repeated or not correct."/>
+				<AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_currencyStringError_inline_nolocale_test_37" description="test get fallback inline CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="currencyStringError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cv" propertyName="currencyStringError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_script_nolocale_test_38" description="test get fallback script CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="currencyStringError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="currencyStringError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_inline_locale_test_39" description="test get fallback inline CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="currencyStringError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="currencyStringError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_currencyStringError_script_locale_test_40" description="test get fallback script CV's currencyStringError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="currencyStringError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="currencyStringError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_inline_nolocale_test_41" description="test get fallback inline CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_script_nolocale_test_42" description="test get fallback script CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_inline_locale_test_43" description="test get fallback inline CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_script_locale_test_44" description="test get fallback script CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_negativeCurrencyFormatError_inline_nolocale_test_45" description="test get fallback inline CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="negativeCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cv" propertyName="negativeCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_script_nolocale_test_46" description="test get fallback script CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="negativeCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="negativeCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_inline_locale_test_47" description="test get fallback inline CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="negativeCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="negativeCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_negativeCurrencyFormatError_script_locale_test_48" description="test get fallback script CV's negativeCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="negativeCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="negativeCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_inline_nolocale_test_49" description="test get fallback inline CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cv" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_script_nolocale_test_50" description="test get fallback script CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_inline_locale_test_51" description="test get fallback inline CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_script_locale_test_52" description="test get fallback script CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_set_positiveCurrencyFormatError_inline_nolocale_test_53" description="test get fallback inline CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cv" propertyName="positiveCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cv" propertyName="positiveCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_script_nolocale_test_54" description="test get fallback script CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScript" propertyName="positiveCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="positiveCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_inline_locale_test_55" description="test get fallback inline CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvInline" propertyName="positiveCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="positiveCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_get_positiveCurrencyFormatError_script_locale_test_56" description="test get fallback script CV's positiveCurrencyFormatError" keywords="[FallbackCurrencyValidator, Properties]">
+            <setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.cvScriptL" propertyName="positiveCurrencyFormatError" value="it's new" />
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="positiveCurrencyFormatError" value="it's new"/>
+                <AssertPropertyValue target="fbComp.cvScriptL" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

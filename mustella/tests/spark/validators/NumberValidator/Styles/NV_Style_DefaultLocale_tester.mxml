@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="NV_Style_DefaultLocale.mxml">
+	
+    <mx:Script>
+    <![CDATA[
+		import assets.NVConstants;
+		import mx.validators.NumberValidatorDomainType;
+		import flash.globalization.NumberFormatter;
+		public var flashNF:flash.globalization.NumberFormatter;
+		
+		public static function init(o:DisplayObject):void      
+		{
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<testCases>
+	<TestCase testID="NV_Style_DefaultLocale_allowNegative_test1" description="test allowNegative without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvFractionalD" propertyName="actualLocaleIDName" valueExpression="value=flashNF.actualLocaleIDName"/>
+			<AssertPropertyValue target="nvFractionalD" propertyName="allowNegative" value="true" />
+			<AssertPropertyValue target="nvFractionalD" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_decimalSeparator_test2" description="test decimalSeparator without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvDecialSep" propertyName="actualLocaleIDName" valueExpression="value=flashNF.actualLocaleIDName"/>
+			<AssertPropertyValue target="nvDecialSep" propertyName="decimalSeparator" valueExpression="value=flashNF.decimalSeparator" />
+			<AssertPropertyValue target="nvDecialSep" propertyName="lastOperationStatus" valueExpression="value=flashNF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_digitsType_test3" description="test digitsType without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvDigitsT" propertyName="actualLocaleIDName" valueExpression="value=flashNF.actualLocaleIDName"/>
+			<AssertPropertyValue target="nvDigitsT" propertyName="digitsType" valueExpression="value=flashNF.digitsType" />
+			<AssertPropertyValue target="nvDigitsT" propertyName="lastOperationStatus" valueExpression="value=flashNF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_domain_test4" description="test domain without locale setting" keywords="[NumberValidator, default locale]">
+		<body>
+			<AssertPropertyValue target="nvDomain" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" />
+			<AssertPropertyValue target="nvDomain" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_Style_DefaultLocale_fractionalDigits_test5" description="test fractionalDigits without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvFractionalD" propertyName="fractionalDigits" valueExpression="value=flashNF.fractionalDigits" />
+			<AssertPropertyValue target="nvFractionalD" propertyName="lastOperationStatus" valueExpression="value=flashNF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_groupingSeparator_test6" description="test groupingSeparator without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvGroupSep" propertyName="actualLocaleIDName" valueExpression="value=flashNF.actualLocaleIDName"/>
+			<AssertPropertyValue target="nvGroupSep" propertyName="groupingSeparator" valueExpression="value=flashNF.groupingSeparator" />
+			<AssertPropertyValue target="nvGroupSep" propertyName="lastOperationStatus" valueExpression="value=flashNF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_maxValue_test7" description="test maxValue without locale setting" keywords="[NumberValidator, default locale]">
+		<body>
+			<AssertPropertyValue target="nvMaxValue" propertyName="maxValue" value="NaN" />
+			<AssertPropertyValue target="nvMaxValue" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_minValue_test8" description="test minValue without locale setting" keywords="[NumberValidator, default locale]">
+		<body>
+			<AssertPropertyValue target="nvMinValue" propertyName="minValue" value="NaN" />
+			<AssertPropertyValue target="nvMinValue" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_negativeNumberFormat_test9" description="test negativeNumberFormat without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvNegFormat" propertyName="actualLocaleIDName" valueExpression="value=flashNF.actualLocaleIDName"/>
+			<AssertPropertyValue target="nvNegFormat" propertyName="negativeNumberFormat" valueExpression="value=flashNF.negativeNumberFormat" />
+			<AssertPropertyValue target="nvNegFormat" propertyName="lastOperationStatus" valueExpression="value=flashNF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_negativeSymbol_test10" description="test negativeSymbol without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvNegSym" propertyName="actualLocaleIDName" valueExpression="value=flashNF.actualLocaleIDName"/>
+			<AssertPropertyValue target="nvNegSym" propertyName="negativeSymbol" valueExpression="value=flashNF.negativeSymbol" />
+			<AssertPropertyValue target="nvNegSym" propertyName="lastOperationStatus" valueExpression="value=flashNF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_validate_test11" description="test validate without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="nvValidate" propertyName="source" valueExpression="value=application.validateSourceTI"/>
+			<SetProperty target="nvValidate" propertyName="property" value="text"/>
+		</setup>
+		<body>
+			<SetProperty target="validateSourceTI" propertyName="text" valueExpression="value=flashNF.formatNumber(1234567)" waitEvent="updateComplete"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvValidate" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="nvValidate" eventName="invalid" />
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_validateNumber_test12" description="test validateNumber without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="uiProgType" propertyName="text" value="nvScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="validateNumberSourceTI" propertyName="text" valueExpression="value=flashNF.formatNumber(12345607)" waitEvent="updateComplete"/>
+			<DispatchMouseEvent target="validateNumberBT" type="click" waitEvent="updateComplete" waitTarget="validateNumberResultTI"/>		 
+			<AssertPropertyValue target="validateNumberResultTI" propertyName="text" value="noValidateError"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_validateAll_test13" description="test validateAll without locale setting" keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="nvValidateAll1" propertyName="source" valueExpression="value=application.validateAllSourceTI1"/>
+			<SetProperty target="nvValidateAll1" propertyName="property" value="text"/>
+			<SetProperty target="nvValidateAll1" propertyName="required" value="false"/>
+			<SetProperty target="nvValidateAll2" propertyName="source" valueExpression="value=application.validateAllSourceTI2"/>
+			<SetProperty target="nvValidateAll2" propertyName="property" value="text"/>
+			<SetProperty target="nvValidateAll2" propertyName="required" value="false"/>
+			<SetProperty target="nvValidateAll3" propertyName="source" valueExpression="value=application.validateAllSourceTI3"/>
+			<SetProperty target="nvValidateAll3" propertyName="property" value="text"/>
+			<SetProperty target="nvValidateAll3" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="validateAllSourceTI1" propertyName="text" valueExpression="value=flashNF.formatNumber(12345607)" waitEvent="updateComplete"/>
+			<SetProperty target="validateAllSourceTI2" propertyName="text" valueExpression="value=flashNF.formatNumber(12445)" waitEvent="updateComplete"/>
+			<SetProperty target="validateAllSourceTI3" propertyName="text" valueExpression="value=flashNF.formatNumber(145)" waitEvent="updateComplete"/>
+			<DispatchMouseEvent target="validateAllBT" type="click" waitEvent="updateComplete" waitTarget="validateAllResultTI"/> 
+			<AssertEvent target="nvValidateAll1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvValidateAll1" eventName="invalid"/>
+			<AssertEvent target="nvValidateAll2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvValidateAll2" eventName="invalid"/>
+			<AssertEvent target="nvValidateAll3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvValidateAll3" eventName="invalid"/>
+			<AssertPropertyValue target="validateAllResultTI" propertyName="text" valueExpression="value=0"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+	
+</UnitTester>

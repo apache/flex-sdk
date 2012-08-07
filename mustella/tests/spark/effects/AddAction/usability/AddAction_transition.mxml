@@ -1,0 +1,153 @@
+﻿<UnitTester
+    testDir="spark/effects/AddAction/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/AddAction_transition_main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="AddAction_s1s2"
+        description="Verify targets after transitioning to state 2."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s2" waitTarget="rubik.seq_1_2" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s2s1"
+        description="Verify targets after transitioning to state 2 and back."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s2" waitTarget="rubik.seq_1_2" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_2_1" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s2s1s2s1s2"
+        description="Verify targets after transitioning to state 2 and back several times."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s2" waitTarget="rubik.seq_1_2" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_2_1" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s2" waitTarget="rubik.seq_1_2" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_2_1" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s2" waitTarget="rubik.seq_1_2" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s3"
+        description="Verify targets after transitioning to state 3."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s3" waitTarget="rubik.seq_1_3" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s3s1"
+        description="Verify targets after transitioning to state 3 and back."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s3" waitTarget="rubik.seq_1_3" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_3_1" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s3s1s3s1s3"
+        description="Verify targets after transitioning to state 3 and back several times."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s3" waitTarget="rubik.seq_1_3" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_3_1" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s3" waitTarget="rubik.seq_1_3" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_3_1" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s3" waitTarget="rubik.seq_1_3" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s4"
+        description="Verify targets after transitioning to state 4."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s4" waitTarget="rubik.seq_1_4" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s4s1"
+        description="Verify targets after transitioning to state 4 and back."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s4" waitTarget="rubik.seq_1_4" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_4_1" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AddAction_s1s4s1s4s1s4"
+        description="Verify targets after transitioning to state 4 and back."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <ChangeState changeTarget="rubik" toState="s4" waitTarget="rubik.seq_1_4" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_4_1" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s4" waitTarget="rubik.seq_1_4" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s1" waitTarget="rubik.seq_4_1" waitEvent="effectEnd"/>
+                <ChangeState changeTarget="rubik" toState="s4" waitTarget="rubik.seq_1_4" waitEvent="effectEnd"/>
+                <CompareBitmap target="rubik" url="../usability/baseline/$testID.png"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

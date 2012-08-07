@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	width="600" height="800"
+	backgroundColor="0x000000">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+
+	<fx:Declarations>
+		<s:Parallel id="p_rm" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="p_rm_act" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" autoCenterTransform="true" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="p_rm_acpl" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" applyChangesPostLayout="true" applyLocalProjection="false"/>
+		</s:Parallel>
+		<!-- FAIL -->
+		<s:Parallel id="p_rm_act_acpl" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" autoCenterTransform="true" applyChangesPostLayout="true" applyLocalProjection="false" />
+		</s:Parallel>
+
+
+		<s:Parallel id="p_rmr" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" applyLocalProjection="false"/>
+			<s:Rotate3D angleZFrom="0" angleZTo="360" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="p_rmr_act" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" autoCenterTransform="true" applyLocalProjection="false"/>
+			<s:Rotate3D angleZFrom="0" angleZTo="360" target="{invader1}" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="p_rmr_acpl" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200" target="{invader1}"/>
+			<s:Move3D yFrom="0" yTo="700" applyChangesPostLayout="true" target="{invader1}" applyLocalProjection="false"/>
+			<s:Rotate3D angleZFrom="0" angleZTo="360" target="{invader1}" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="p_rmr_act_acpl" target="{invader1}" duration="3000" >
+			<s:Resize widthFrom="100" widthTo="200"/>
+			<s:Move3D yFrom="0" yTo="700" autoCenterTransform="true" applyChangesPostLayout="true" applyLocalProjection="false"/>
+			<s:Rotate3D angleZFrom="0" angleZTo="360" target="{invader1}" applyLocalProjection="false"/>
+		</s:Parallel>
+
+		<!-- Transition effects -->
+		<s:Parallel id="t_rm" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="t_rm_act" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D autoCenterTransform="true" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="t_rm_acpl" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D applyChangesPostLayout="true" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="t_rm_act_acpl" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D autoCenterTransform="true" applyChangesPostLayout="true" applyLocalProjection="false" />
+		</s:Parallel>
+
+		<s:Parallel id="t_rmr" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D applyLocalProjection="false" />
+			<s:Rotate3D applyLocalProjection="false" />
+		</s:Parallel>
+		<s:Parallel id="t_rmr_act" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D autoCenterTransform="true" applyLocalProjection="false"/>
+			<s:Rotate3D autoCenterTransform="true" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="t_rmr_acpl" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D applyChangesPostLayout="true" applyLocalProjection="false"/>
+			<s:Rotate3D applyChangesPostLayout="true" applyLocalProjection="false"/>
+		</s:Parallel>
+		<s:Parallel id="t_rmr_act_acpl" target="{invader1}" duration="3000" >
+			<s:Resize />
+			<s:Move3D autoCenterTransform="true" applyChangesPostLayout="true" applyLocalProjection="false" />
+			<s:Rotate3D autoCenterTransform="true" applyChangesPostLayout="true" applyLocalProjection="false" />
+		</s:Parallel>
+
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import mx.effects.Effect;
+			public function Reset():void
+			{
+				currentState='State1';
+				
+				invader1.width = 100;
+				invader1.height = 100;
+				invader1.x = 250;
+				invader1.y = 0;
+				invader1.rotationX = 0;
+				invader1.rotationY = 0;
+				invader1.rotationZ = 0;
+				
+				if(invader1.postLayoutTransformOffsets != null)
+				{
+					invader1.postLayoutTransformOffsets.x = 0;
+					invader1.postLayoutTransformOffsets.y = 0;
+					invader1.postLayoutTransformOffsets.z = 0;
+
+					invader1.postLayoutTransformOffsets.rotationX = 0;
+					invader1.postLayoutTransformOffsets.rotationY = 0;
+					invader1.postLayoutTransformOffsets.rotationZ = 0;
+				}
+			}
+			
+			public function PlayTransition(effect:Effect):void
+			{
+				t_s1s2.effect = effect;
+				currentState = "State2";
+			}
+			
+			public function PlayTransitionToS3(effect:Effect):void
+			{
+				t_s1s3.effect = effect;
+				currentState = "State3";
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="State1"/>
+		<s:State name="State2"/>
+		<s:State name="State3"/>
+	</s:states>
+
+	<s:transitions>
+		<s:Transition id="t_s1" fromState="*" toState="State1"/>
+		<s:Transition id="t_s1s2" fromState="State1" toState="State2"/>
+		<s:Transition id="t_s1s3" fromState="State1" toState="State3"/>
+	</s:transitions>
+
+	<!-- Background -->
+	<mx:VRule x="300" height="800"/>
+
+	<s:Group id="invader1"
+			 x.State1="250" x.State2="200" x.State3="200"
+			 y.State1="0" y.State2="700" y.State3="700"
+			 width.State1="100" width.State2="200" width.State3="250"
+			 rotationZ.State1="0" rotationZ.State2="0" rotationZ.State3="180">
+
+		<s:Rect left="0" right="0" top="0" bottom="0">
+			<s:fill>
+				<s:SolidColor color="0x999999"/>
+			</s:fill>
+		</s:Rect>
+		<s:BitmapImage source="@Embed('Invader.png')" left="0" right="0" top="0" bottom="0"/>
+		<s:filters>
+			<s:DropShadowFilter/>
+		</s:filters>
+	</s:Group>
+
+	<s:VGroup left="0">
+		<s:Button label="Reset" click="Reset()" width="150"/>
+		<mx:HRule width="150"/>
+		<s:Button label="P_RM" click="p_rm.play()" width="150"/>
+		<s:Button label="P_RM_ACT" click="p_rm_act.play()" width="150"/>
+		<s:Button label="P_RM_ACPL" click="p_rm_acpl.play()" width="150"/>
+		<s:Button label="P_RM_ACT_ACPL" click="p_rm_act_acpl.play()" width="150"/>
+		<mx:HRule width="150"/>
+		<s:Button label="P_RMR" click="p_rmr.play()" width="150"/>
+		<s:Button label="P_RMR_ACT" click="p_rmr_act.play()" width="150"/>
+		<s:Button label="P_RMR_ACPL" click="p_rmr_acpl.play()" width="150"/>
+		<s:Button label="P_RMR_ACT_ACPL" click="p_rmr_act_acpl.play()" width="150"/>
+	</s:VGroup>
+
+	<s:VGroup right="0">
+		<s:Button label="To S1" click="currentState='State1'" width="150"/>
+		<s:Button label="T_RM" click="PlayTransition(t_rm)" width="150"/>
+		<s:Button label="T_RM_ACT" click="PlayTransition(t_rm_act)" width="150"/>
+		<s:Button label="T_RM_ACPL" click="PlayTransition(t_rm_acpl)" width="150"/>
+		<s:Button label="T_RM_ACT_ACPL" click="PlayTransition(t_rm_act_acpl)" width="150"/>
+		<mx:HRule width="150"/>
+		<s:Button label="T_RMR" click="PlayTransitionToS3(t_rmr)" width="150"/>
+		<s:Button label="T_RMR_ACT" click="PlayTransitionToS3(t_rmr_act)" width="150"/>
+		<s:Button label="T_RMR_ACPL" click="PlayTransitionToS3(t_rmr_acpl)" width="150"/>
+		<s:Button label="T_RMR_ACT_ACPL" click="PlayTransitionToS3(t_rmr_act_acpl)" width="150"/>
+	</s:VGroup>
+
+	<mx:HRule width="400" y="100" chromeColor="red"/>
+	<mx:HRule width="400" y="700" chromeColor="red"/>
+	<mx:HRule width="400" y="750" chromeColor="red"/>
+	<mx:HRule width="300" y="790" chromeColor="red"/>
+
+</s:Application>

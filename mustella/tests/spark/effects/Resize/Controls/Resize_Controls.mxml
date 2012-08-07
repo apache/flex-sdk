@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/Resize/Controls/"  
+    testSWF="../SWFs/Resize_Main.mxml" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Controls.*;
+		
+		[Bindable]private var timeout:int = 250;
+
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <testCases>
+        <TestCase testID="Resize_Controls_Button_FromTo" keywords="[Resize, Controls, Button]" description="Resize a Button control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 114, 294, 106, 157, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="294"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="157"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_Button_By" keywords="[Resize, Controls, Button]" description="Resize a Button control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixButton();" />
+                <SetProperty target="uiComponent" propertyName="width" value="114" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="106" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 180, 51, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="294"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="157"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_ComboBox_FromTo" keywords="[Resize, Controls, ComboBox]" description="Resize a ComboBox control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixComboBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 75, 155, 68, 131, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="155"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="131"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_ComboBox_By" keywords="[Resize, Controls, ComboBox]" description="Resize a ComboBox control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixComboBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="75" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="68" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 80, 63, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="155"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="131"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_DateField_FromTo" keywords="[Resize, Controls, DateField]" description="Resize a DateField control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDateField();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 107, 266, 76, 193, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="266"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="193"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_DateField_By" keywords="[Resize, Controls, DateField]" description="Resize a DateField control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDateField();" />
+                <SetProperty target="uiComponent" propertyName="width" value="107" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="76" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 159, 117, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="266"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="193"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_HScrollBar_FromTo" keywords="[Resize, Controls, HScrollBar]" description="Resize a HScrollBar control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHScrollBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 116, 347, 102, 166, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="347"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="166"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_HScrollBar_By" keywords="[Resize, Controls, HScrollBar]" description="Resize a HScrollBar control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHScrollBar();" />
+                <SetProperty target="uiComponent" propertyName="width" value="116" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="102" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 231, 64, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="347"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="166"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_List_FromTo" keywords="[Resize, Controls, List]" description="Resize a List control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 60, 231, 82, 220, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="231"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="220"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_List_By" keywords="[Resize, Controls, List]" description="Resize a List control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixList();" />
+                <SetProperty target="uiComponent" propertyName="width" value="60" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="82" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 171, 138, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="231"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="220"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_NumericStepper_FromTo" keywords="[Resize, Controls, NumericStepper]" description="Resize a NumericStepper control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 102, 204, 132, 207, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="204"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="207"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_NumericStepper_By" keywords="[Resize, Controls, NumericStepper]" description="Resize a NumericStepper control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixNumericStepper();" />
+                <SetProperty target="uiComponent" propertyName="width" value="102" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="132" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 102, 75, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="204"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="207"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_PopUpButton_FromTo" keywords="[Resize, Controls, PopUpButton]" description="Resize a PopUpButton control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixPopUpButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 91, 252, 94, 157, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="252"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="157"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_PopUpButton_By" keywords="[Resize, Controls, PopUpButton]" description="Resize a PopUpButton control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixPopUpButton();" />
+                <SetProperty target="uiComponent" propertyName="width" value="91" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="94" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 161, 63, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="252"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="157"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_RichTextEditor_FromTo" keywords="[Resize, Controls, RichTextEditor]" description="Resize a RichTextEditor control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixRichTextEditor();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 133, 282, 120, 162, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <Pause timeout="1000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="282"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="162"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_RichTextEditor_By" keywords="[Resize, Controls, RichTextEditor]" description="Resize a RichTextEditor control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixRichTextEditor();" />
+                <SetProperty target="uiComponent" propertyName="width" value="133" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="120" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 149, 42, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <Pause timeout="1000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="282"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="162"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_Tree_FromTo" keywords="[Resize, Controls, Tree]" description="Resize a Tree control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTree();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 134, 340, 147, 209, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <Pause timeout="1000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="340"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="209"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Resize_Controls_Tree_By" keywords="[Resize, Controls, Tree]" description="Resize a Tree control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTree();" />
+                <SetProperty target="uiComponent" propertyName="width" value="134" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="147" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 206, 62, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <Pause timeout="1000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="width" value="340"/>
+				<AssertPropertyValue target="uiComponent" propertyName="height" value="209"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

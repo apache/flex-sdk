@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="cf_negativeCurrencyFormat.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.CFConstant;			
+			import flash.globalization.*;
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			// for testing function of negativeCurrencyFormat by setting useCurrencySymbol as true 
+			public var cfGSLibFormat1:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat3:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat4:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat5:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat6:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat7:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat8:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat9:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat10:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat11:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat12:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat13:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat14:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat15:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat16:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			
+			// for testing function of negativeCurrencyFormat without setting useCurrencySymbol
+			public var cfGSLibRandomFormat1:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat3:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat4:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat5:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			
+			public static function init(o:DisplayObject):void
+			{ 
+				
+			} 
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		
+		[Mixin]
+		
+		]]>
+	</mx:Metadata>
+	
+<!--This test file tests negativeCurrencyFormat property-->
+<testCases>
+	<!--Set/Get default negativeCurrencyFormat properties -->
+	<TestCase testID="cf_negativeCurrencyFormat_default_test1" description="Set/Get default negativeCurrencyFormat properties" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfNoLocaleInline" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+			<AssertPropertyValue target="cfNoLocaleInline" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--get negativeCurrencyFormat default value with setting locale to "ar-JO"-->
+	<TestCase testID="cf_negativeCurrencyFormat_ar_JO_test2" description="get negativeCurrencyFormat default value with setting locale to ar-JO" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<ResetComponent target="cfNoLocaleInline" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfNoLocaleInline.initialized(null,'cfNoLocaleInline')"/>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfNoLocaleInline" styleName="locale" value="ar-JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfNoLocaleInline" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!--get negativeCurrencyFormat default value with setting locale to "zh_CN"-->
+	<TestCase testID="cf_negativeCurrencyFormat_zh_CN_test3" description="get negativeCurrencyFormat default value with setting locale to zh_CN" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<ResetComponent target="cfNoLocaleInline" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfNoLocaleInline.initialized(null,'cfNoLocaleInline')"/>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh_CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfNoLocaleInline" styleName="locale" value="zh_CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfNoLocaleInline" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!--set negativeCurrencyFormate as positive value-->
+	<TestCase testID="cf_negativeCurrencyFormat_setValue_positive_test4" description="set negativeCurrencyFormate as positive value" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=0" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfPositive1" propertyName="negativeCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+			<SetStyle target="cfPositive1" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfPositive1" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+			<AssertPropertyValue target="cfPositive1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--set negativeCurrencyFormate as positive value-->
+	<TestCase testID="cf_negativeCurrencyFormat_setValue_positive_test5" description="set negativeCurrencyFormate as positive value" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=5" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfPositive2" propertyName="negativeCurrencyFormat" valueExpression="value=5" waitEvent="change"/>
+			<SetStyle target="cfPositive1" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfPositive2" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+			<AssertPropertyValue target="cfPositive2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--set negativeCurrencyFormate as positive value-->
+	<TestCase testID="cf_negativeCurrencyFormat_setValue_positive_test6" description="set negativeCurrencyFormate as positive value" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=15" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfPositive3" propertyName="negativeCurrencyFormat" valueExpression="value=15" waitEvent="change"/>
+			<SetStyle target="cfPositive3" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfPositive3" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+			<AssertPropertyValue target="cfPositive3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--set negativeCurrencyFormate as illegal value-->
+	<TestCase testID="cf_negativeCurrencyFormat_illegal_test7" description="set negativeCurrencyFormate as illegal value" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="application.setGSLibnegativeCurrencyFormat('en-US',-1)" />
+			<SetStyle target="cfScript" styleName="locale" value="en-US" waitEvent="change"/>
+			<RunCode code="application.setcfnegativeCurrencyFormat(application.cfScript,-1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfErrorLabel" propertyName="text" valueExpression="value=application.cfGslibErrorLabel.text"/>
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.cfGSLibTestError.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--set negativeCurrencyFormate as illegal value-->
+	<TestCase testID="cf_negativeCurrencyFormat_illegal_test8" description="set negativeCurrencyFormate as illegal value" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibnegativeCurrencyFormat('en-US',18)" />
+			<SetStyle target="cfScript" styleName="locale" value="en-US" waitEvent="change"/>
+			<RunCode code="application.setcfnegativeCurrencyFormat(application.cfScript,18)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfErrorLabel" propertyName="text" valueExpression="value=application.cfGslibErrorLabel.text"/>
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.cfGSLibTestError.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set negativeCurrencyFormat with inline definition -->
+	<TestCase testID="cf_negativeCurrencyFormat_inline_test9" description="Set negativeCurrencyFormat with inline definition" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=7" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfInline" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set negativeCurrencyFormat from <fx:script>-->
+	<TestCase testID="cf_negativeCurrencyFormat_setFromScript_test10" description="Set negativeCurrencyFormat in script" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setcfnegativeCurrencyFormat(application.cfScript,13)" />
+			<RunCode code="cfGSLib.negativeCurrencyFormat=13" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!-- test binding negativeCurrencyFormat value by changing Property-->
+	<TestCase testID="cf_negativeCurrencyFormat_binding_test11" description="test binding negativeCurrencyFormat value by changing Property" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=14" />
+			<SetProperty target="cfBinding" propertyName="negativeCurrencyFormat" valueExpression="value=14" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLabel" propertyName="text" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!-- Test function of negativeCurrencyFormat by setting useCurrencySymbol as true -->
+	<TestCase testID="cf_negativeCurrencyFormat_useCurrencySymbol_test12" description="Test function of negativeCurrencyFormat by setting useCurrencySymbol as true" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLibFormat1.negativeCurrencyFormat=0" />
+			<RunCode code="cfGSLibFormat2.negativeCurrencyFormat=1" />
+			<RunCode code="cfGSLibFormat3.negativeCurrencyFormat=2" />
+			<RunCode code="cfGSLibFormat4.negativeCurrencyFormat=3" />
+			<RunCode code="cfGSLibFormat5.negativeCurrencyFormat=4" />
+			<RunCode code="cfGSLibFormat6.negativeCurrencyFormat=5" />
+			<RunCode code="cfGSLibFormat7.negativeCurrencyFormat=6" />
+			<RunCode code="cfGSLibFormat8.negativeCurrencyFormat=7" />
+			<RunCode code="cfGSLibFormat9.negativeCurrencyFormat=8" />
+			<RunCode code="cfGSLibFormat10.negativeCurrencyFormat=9" />
+			<RunCode code="cfGSLibFormat11.negativeCurrencyFormat=10" />
+			<RunCode code="cfGSLibFormat12.negativeCurrencyFormat=11" />
+			<RunCode code="cfGSLibFormat13.negativeCurrencyFormat=12" />
+			<RunCode code="cfGSLibFormat14.negativeCurrencyFormat=13" />
+			<RunCode code="cfGSLibFormat15.negativeCurrencyFormat=14" />
+			<RunCode code="cfGSLibFormat16.negativeCurrencyFormat=15" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLibFormat1.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat2.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat3.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat4.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat5.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat6.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat7.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat8.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat9.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat10.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat11.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat12.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat13.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat14.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat15.setCurrency('USD','$')" />
+			<RunCode code="cfGSLibFormat16.setCurrency('USD','$')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfFormat1" propertyName="negativeCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+			<SetProperty target="cfFormat2" propertyName="negativeCurrencyFormat" valueExpression="value=1" waitEvent="change"/>
+			<SetProperty target="cfFormat3" propertyName="negativeCurrencyFormat" valueExpression="value=2" waitEvent="change"/>
+			<SetProperty target="cfFormat4" propertyName="negativeCurrencyFormat" valueExpression="value=3" waitEvent="change"/>
+			<SetProperty target="cfFormat5" propertyName="negativeCurrencyFormat" valueExpression="value=4" waitEvent="change"/>
+			<SetProperty target="cfFormat6" propertyName="negativeCurrencyFormat" valueExpression="value=5" waitEvent="change"/>
+			<SetProperty target="cfFormat7" propertyName="negativeCurrencyFormat" valueExpression="value=6" waitEvent="change"/>
+			<SetProperty target="cfFormat8" propertyName="negativeCurrencyFormat" valueExpression="value=7" waitEvent="change"/>
+			<SetProperty target="cfFormat9" propertyName="negativeCurrencyFormat" valueExpression="value=8" waitEvent="change"/>
+			<SetProperty target="cfFormat10" propertyName="negativeCurrencyFormat" valueExpression="value=9" waitEvent="change"/>
+			<SetProperty target="cfFormat11" propertyName="negativeCurrencyFormat" valueExpression="value=10" waitEvent="change"/>
+			<SetProperty target="cfFormat12" propertyName="negativeCurrencyFormat" valueExpression="value=11" waitEvent="change"/>
+			<SetProperty target="cfFormat13" propertyName="negativeCurrencyFormat" valueExpression="value=12" waitEvent="change"/>
+			<SetProperty target="cfFormat14" propertyName="negativeCurrencyFormat" valueExpression="value=13" waitEvent="change"/>
+			<SetProperty target="cfFormat15" propertyName="negativeCurrencyFormat" valueExpression="value=14" waitEvent="change"/>
+			<SetProperty target="cfFormat16" propertyName="negativeCurrencyFormat" valueExpression="value=15" waitEvent="change"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfFormat1.format(-12345789.456)" valueExpression="value=cfGSLibFormat1.format(-12345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat2.format(-22345789.456)" valueExpression="value=cfGSLibFormat2.format(-22345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat3.format(-32345789.456)" valueExpression="value=cfGSLibFormat3.format(-32345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat4.format(-42345789.456)" valueExpression="value=cfGSLibFormat4.format(-42345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat5.format(-52345789.456)" valueExpression="value=cfGSLibFormat5.format(-52345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat6.format(-62345789.456)" valueExpression="value=cfGSLibFormat6.format(-62345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat7.format(-72345789.456)" valueExpression="value=cfGSLibFormat7.format(-72345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat8.format(-82345789.456)" valueExpression="value=cfGSLibFormat8.format(-82345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat9.format(-92345789.456)" valueExpression="value=cfGSLibFormat9.format(-92345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat10.format(-102345789.456)" valueExpression="value=cfGSLibFormat10.format(-102345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat11.format(-112345789.456)" valueExpression="value=cfGSLibFormat11.format(-112345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat12.format(-122345789.456)" valueExpression="value=cfGSLibFormat12.format(-122345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat13.format(-132345789.456)" valueExpression="value=cfGSLibFormat13.format(-132345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat14.format(-142345789.456)" valueExpression="value=cfGSLibFormat14.format(-142345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat15.format(-152345789.456)" valueExpression="value=cfGSLibFormat15.format(-152345789.456,true)" />
+			<AssertMethodValue method="value=application.cfFormat16.format(-162345789.456)" valueExpression="value=cfGSLibFormat16.format(-162345789.456,true)" />			
+		</body>
+	</TestCase>	
+	
+	<!-- Test function of negativeCurrencyFormat without setting useCurrencySymbol-->
+	<TestCase testID="cf_negativeCurrencyFormat_not_useCurrencySymbol_test13" description="Test function of negativeCurrencyFormat without setting useCurrencySymbol" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLibRandomFormat1.negativeCurrencyFormat=0" />
+			<RunCode code="cfGSLibRandomFormat2.negativeCurrencyFormat=3" />
+			<RunCode code="cfGSLibRandomFormat3.negativeCurrencyFormat=9" />
+			<RunCode code="cfGSLibRandomFormat4.negativeCurrencyFormat=12" />
+			<RunCode code="cfGSLibRandomFormat5.negativeCurrencyFormat=15" />
+			<Pause timeout="{CFConstant.pauseTime}"/>			
+			<SetProperty target="cfRandomFormat1" propertyName="negativeCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+			<SetProperty target="cfRandomFormat2" propertyName="negativeCurrencyFormat" valueExpression="value=3" waitEvent="change"/>
+			<SetProperty target="cfRandomFormat3" propertyName="negativeCurrencyFormat" valueExpression="value=9" waitEvent="change"/>
+			<SetProperty target="cfRandomFormat4" propertyName="negativeCurrencyFormat" valueExpression="value=12" waitEvent="change"/>
+			<SetProperty target="cfRandomFormat5" propertyName="negativeCurrencyFormat" valueExpression="value=15" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfRandomFormat1.format(-12345789.456)" valueExpression="value=cfGSLibRandomFormat1.format(-12345789.456)" />
+			<AssertMethodValue method="value=application.cfRandomFormat2.format(-22345789.456)" valueExpression="value=cfGSLibRandomFormat2.format(-22345789.456)" />
+			<AssertMethodValue method="value=application.cfRandomFormat3.format(-32345789.456)" valueExpression="value=cfGSLibRandomFormat3.format(-32345789.456)" />
+			<AssertMethodValue method="value=application.cfRandomFormat4.format(-42345789.456)" valueExpression="value=cfGSLibRandomFormat4.format(-42345789.456)" />
+			<AssertMethodValue method="value=application.cfRandomFormat5.format(-52345789.456)" valueExpression="value=cfGSLibRandomFormat5.format(-52345789.456)" />
+		</body>
+	</TestCase>	
+	
+	<!-- binding negativeCurrencyFormat value by changing locale-->
+	<TestCase testID="cf_negativeCurrencyFormat_binding_test14" description="binding negativeCurrencyFormat value by changing locale" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<ResetComponent target="cfBinding" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLabel" propertyName="text" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property when locale change-->
+	<TestCase testID="CF_negativeCurrencyFormat_binding_test15" description="Binding property when locale change" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfBLocale1" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<SetStyle target="cfBLocale1" styleName="locale" value="ar-JO"/>
+			<AssertEvent target="cfLa" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+			<AssertPropertyValue target="cfLa" propertyName="text" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property when locale change-->
+	<TestCase testID="CF_negativeCurrencyFormat_binding_test16" description="Binding property when locale change" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfBLocale2" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<SetStyle target="cfBLocale2" styleName="locale" value="zh-CN"/>
+			<AssertEvent target="cfLb" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+			<AssertPropertyValue target="cfLb" propertyName="text" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+		</body>
+	</TestCase>	
+	
+	<!-- if property negativeCurrencyFormat has been set inline, it doesnot change with locale -->
+	<TestCase testID="CF_negativeCurrencyFormat_inline_changeLocale_test17" description="if property negativeCurrencyFormat has been set inline, it doesnot change with locale" keywords="[CurrencyFormatter, negativeCurrencyFormat]">
+		<setup>
+			<SetStyle target="cfInline_ChangeLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfInline_ChangeLocale" propertyName="negativeCurrencyFormat" valueExpression="value=5"/>
+		</body>
+	</TestCase>	
+	
+</testCases>
+</UnitTester>

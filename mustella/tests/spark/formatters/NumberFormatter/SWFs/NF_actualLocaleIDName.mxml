@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:NumberFormatter id="nf"/>
+		
+		<s:NumberFormatter id="nfInline1" locale="ar-JO"/>
+		<s:NumberFormatter id="nfInline2" locale="bn-BD"/>
+		<s:NumberFormatter id="nfInline3" locale="so-DJ"/>
+		<s:NumberFormatter id="nfInline4" locale="ps_AF"/>
+		
+		<s:NumberFormatter id="nfInline_en" locale="en"/>
+		
+		<s:NumberFormatter id="nfBinding" locale="en-US"/>
+		
+		<s:NumberFormatter id="nfUndefineInline"  locale="{undefined}"/>
+		<s:NumberFormatter id="nfEmptyInline"  locale=""/>
+		<s:NumberFormatter id="nfSetUndefined"/>
+		
+		<s:NumberFormatter id="childNF"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			public var nfScript:spark.formatters.NumberFormatter = new spark.formatters.NumberFormatter();
+			
+			public var nfChildScript:spark.formatters.NumberFormatter = new spark.formatters.NumberFormatter();
+			
+			public function setNFLocale(nfS:spark.formatters.NumberFormatter, localeName:String):void
+			{
+				this.addStyleClient(nfS);
+				nfS.setStyle("locale",localeName);
+			}
+			public function addStyleChildren(parentLabel:Label,childObject:spark.formatters.NumberFormatter):void
+			{
+				parentLabel.addStyleClient(childObject);
+			}
+			
+			public function setLocaleUndefined():void{
+				nfSetUndefined.setStyle("locale" , undefined ) ; 
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Label id="nfLabel" text="{nfBinding.actualLocaleIDName}" />
+	
+	<s:Label id="parentNF" locale="{undefined}" />
+
+</s:Application>

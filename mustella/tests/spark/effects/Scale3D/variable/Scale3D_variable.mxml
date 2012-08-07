@@ -1,0 +1,231 @@
+﻿<UnitTester
+    testSWF="../SWFs/Scale3D_main.mxml"
+    testDir="spark/effects/Scale3D/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.Scale3D;
+        import Components.*;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- scaleXFrom -->
+        <TestCase testID="Scale3D_scaleXFrom_Default" keywords="[Scale3D, variable, scaleXFrom]" description="Test the default value of the scaleXFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleXFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- scaleXTo -->
+        <TestCase testID="Scale3D_scaleXTo_Default" keywords="[Scale3D, variable, scaleXTo]" description="Test the default value of the scaleXTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleXTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- scaleXBy -->
+        <TestCase testID="Scale3D_scaleXBy_Default" keywords="[Scale3D, variable, scaleXBy]" description="Test the default value of the scaleXBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleXBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleXFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleXFrom and scaleXTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXFromTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXFromTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.327254"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleXFromBy" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleXFrom and scaleXBy.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXFromBy.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXFromBy.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXFromBy.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.327254"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleXByTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleXBy and scaleXTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXByTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXByTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleXByTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.327254"/>
+			</body>
+        </TestCase>
+
+
+
+
+
+
+        <!-- scaleZFrom -->
+        <TestCase testID="Scale3D_scaleZFrom_Default" keywords="[Scale3D, variable, scaleZFrom]" description="Test the default value of the scaleZFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleZFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- scaleZTo -->
+        <TestCase testID="Scale3D_scaleZTo_Default" keywords="[Scale3D, variable, scaleZTo]" description="Test the default value of the scaleZTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleZTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- scaleZBy -->
+        <TestCase testID="Scale3D_scaleZBy_Default" keywords="[Scale3D, variable, scaleZBy]" description="Test the default value of the scaleZBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleZBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleZFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleZFrom and scaleZTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZFromTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZFromTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.327254"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleZFromBy" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleZFrom and scaleZBy.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZFromBy.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZFromBy.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZFromBy.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.327254"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleZByTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleZBy and scaleZTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZByTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZByTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleZByTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.327254"/>
+			</body>
+        </TestCase>
+
+
+
+
+
+        <!-- scaleYFrom -->
+        <TestCase testID="Scale3D_scaleYFrom_Default" keywords="[Scale3D, variable, scaleYFrom]" description="Test the default value of the scaleYFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleYFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- scaleYTo -->
+        <TestCase testID="Scale3D_scaleYTo_Default" keywords="[Scale3D, variable, scaleYTo]" description="Test the default value of the scaleYTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleYTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- scaleYBy -->
+        <TestCase testID="Scale3D_scaleYBy_Default" keywords="[Scale3D, variable, scaleYBy]" description="Test the default value of the scaleYBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Scale3D()).scaleYBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleYFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleYFrom and scaleYTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYFromTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYFromTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.327254"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleYFromBy" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleYFrom and scaleYBy.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYFromBy.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYFromBy.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYFromBy.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.327254"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_scaleYByTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with scaleYBy and scaleYTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYByTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYByTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_scaleYByTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.327254"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

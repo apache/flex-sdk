@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+        xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:comps="comps.*"
+        width="700" height="550">
+<fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: ArialEmbedded;
+            embedAsCFF: true;
+        }
+
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: ArialEmbedded;
+            embedAsCFF: true;
+        }
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: ArialEmbedded;
+            embedAsCFF: true;
+
+        }
+
+        @font-face {
+            src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: ArnoEmbedded;
+            embedAsCFF: true;
+        }
+
+        s|RichText {
+            fontAntiAliasType: "normal";
+            fontFamily: ArialEmbedded;
+            fontLookup: "embeddedCFF";
+        }
+
+    </fx:Style>
+
+    <fx:Declarations>
+         <s:Group x="4" y="5" id="ellipseMask95">
+                <s:Ellipse width="95" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+         </s:Group>
+         <s:Group x="4" y="25" id="ellipseMask85">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+         </s:Group>
+         <s:Group x="24" y="5" id="ellipseMask105">
+                <s:Ellipse width="105" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+         </s:Group>
+    </fx:Declarations>
+ 
+    <comps:RichTextMaskComp id="richTextComp1" />
+    <comps:RichTextComp id="richTextComp2" />
+    <s:Group maskType="alpha" x="10" y="250" id="group2">
+        <s:mask>
+          <s:Group>
+              <s:RichText x="5" y="10" width="200" height="250" fontSize="10">
+                  <s:content>
+                    <s:p fontSize="30">This is 15 point Courier
+                    <s:span fontSize="30">and 24 point Myriad Pro and</s:span>
+                    <s:span fontSize="24" textDecoration="underline">now</s:span>
+                    back to Courier.
+                    </s:p>
+                  </s:content>
+             </s:RichText>
+         </s:Group>
+      </s:mask>
+        <s:Ellipse x="0.5" y="0.5" width="270" height="185">
+          <s:fill>
+            <s:LinearGradient x="0" y="93" scaleX="278">
+              <s:GradientEntry ratio="0" color="#FFFFFF"/>
+              <s:GradientEntry ratio="1"/>
+            </s:LinearGradient>
+          </s:fill>
+        </s:Ellipse>
+      </s:Group>
+    
+</s:Application>

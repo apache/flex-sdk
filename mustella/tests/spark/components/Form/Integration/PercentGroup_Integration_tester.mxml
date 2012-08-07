@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Integration/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="PercentGroup_Integration_main.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			
+			import spark.layouts.*;
+			import comps.*;
+			import spark.components.Group;
+			import flash.utils.getQualifiedClassName;
+			
+			
+		]]>
+	</fx:Script>
+	<testCases>
+		<TestCase testID="PercentGroup_States_fixedWidths_fixedHeights" keywords="[Group, States, skin]" description="Different widths and heights in different states">
+			<setup>
+				<ResetComponent target="psg" className="comps.PercentStatesGroup" waitEvent="updateComplete" waitTarget="psg" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="fixedState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentGroup_States_percentWidths_percentHeights" keywords="[Group, States, skin]" description="Different widths and heights in different states">
+			<setup>
+				<ResetComponent target="psg" className="comps.PercentStatesGroup" waitEvent="updateComplete" waitTarget="psg" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="percentState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentGroup_States_fixedandPercentWidths_fixedandPercentHeights" keywords="[Group, States, skin]" description="Different widths and heights in different states">
+			<setup>
+				<ResetComponent target="psg" className="comps.PercentStatesGroup" waitEvent="updateComplete" waitTarget="psg" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="fixedPerState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentGroup_States_fixedtoPercents" keywords="[Group, States, skin]" description="Different widths and heights in different states">
+			<setup>
+				<ResetComponent target="psg" className="comps.PercentStatesGroup" waitEvent="updateComplete" waitTarget="psg" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="fixedState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				
+				<SetProperty propertyName="currentState" value="percentState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="psg"/>
+			
+				<SetProperty propertyName="currentState" value="defaultState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_3.png" target="psg"/>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="PercentGroup_States_percentsToFixed" keywords="[Group, States, skin]" description="Different widths and heights in different states">
+			<setup>
+				<ResetComponent target="psg" className="comps.PercentStatesGroup" waitEvent="updateComplete" waitTarget="psg" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="percentState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				
+				<SetProperty propertyName="currentState" value="fixedState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="psg"/>
+
+				<SetProperty propertyName="currentState" value="fixedPerState" target="psg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_3.png" target="psg"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentGroup_States_parentWidth_change_runtime" keywords="[Group, States, skin]" description="Different widths and heights for Group in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="percentState" target="psgState" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_default.png" target="psgState"/>
+				
+				<SetProperty propertyName="currentState" value="wh500" target="" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_500.png" target="psgState"/>
+
+				<SetProperty propertyName="currentState" value="wh600" target="" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_600.png" target="psgState"/>
+
+				<SetProperty propertyName="currentState" value="wh300" target="" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_300.png" target="psgState"/>
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentGroup_States_constraints_to_explicit" keywords="[Group, States, skin]" description="Different widths and heights for Group in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<ResetComponent target="pscg" className="comps.PercentStatesContentGroup" waitEvent="updateComplete" waitTarget="pscg" />
+			</setup>
+			<body>
+				<SetProperty propertyName="includeInLayout" value="false" target="psg"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="psgState" />
+				<SetProperty propertyName="visible" value="false" target="psg" />
+				<SetProperty propertyName="visible" value="false" target="psgState" waitEvent="updateComplete" waitTarget=""/>
+				
+				<SetProperty propertyName="currentState" value="percentState" target="pscg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_percentState1.png" target="pscg"/>
+
+				<SetProperty propertyName="currentState" value="defaultState" target="pscg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_defaultState.png" target="pscg"/>
+
+				<SetProperty propertyName="currentState" value="percentState" target="pscg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_percentState2.png" target="pscg"/>
+				
+				<SetProperty propertyName="currentState" value="fixedState" target="pscg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_fixedState.png" target="pscg"/>
+				
+				<SetProperty propertyName="currentState" value="fixedPerState" target="pscg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_fixedPerState.png" target="pscg"/>
+				
+				<SetProperty propertyName="currentState" value="defaultState" target="pscg" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Integration/baselines/$testID_defaultState_2.png" target="pscg"/>
+
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

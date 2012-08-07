@@ -1,0 +1,42 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21275" 
+            keywords="[VideoPlayer]" 
+            description="AutoRewind Does Not Work For Streaming (Non-Live)">
+            <!--bugs>
+                <Bug bugID="SDK-21275"/>
+            </bugs-->
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = true"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>  
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.seek(9)"/>
+                <Pause timeout="4000" reason="Let the video finish so the scrubber reaches end."/>            
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

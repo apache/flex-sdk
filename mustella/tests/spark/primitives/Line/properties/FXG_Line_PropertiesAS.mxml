@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Line/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Line_Main.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import comps.LineBasic;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!-- property: xFrom, yFrom, xTo, yTo -->
+        <TestCase testID="FXG_Line_xFrom_positive" description="Line xFrom is set to a positive int" keywords="[Line, xFrom, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line1" propertyName="xFrom" value="7" /> <!--  waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0xFF0000" x="7" y="5" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="6" y="5" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="7" y="6" target="graphic1" />
+		    </body>
+		</TestCase>
+        <TestCase testID="FXG_Line_xFrom_zero" description="Line xFrom set to zero" keywords="[Line, xFrom, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line1" propertyName="xFrom" value="0" /> <!--  waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="5" target="graphic1" />
+			    <AssertPixelValue value="0xFF0000" x="2" y="5" target="graphic1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Line_xFrom_negative" description="Line xFrom set to a negative int" keywords="[Line, xFrom, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line1" propertyName="xFrom" value="-20" /> <!--  waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="5" target="graphic1" />
+			    <AssertPixelValue value="0xFF0000" x="2" y="5" target="graphic1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Line_xTo_positive" description="Line xTo is set to a positive int" keywords="[Line, xTo, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line1" propertyName="xTo" value="70"  /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0xFF0000" x="69" y="5" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="72" y="5" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="70" y="6" target="graphic1" />
+		    </body>
+		</TestCase>
+      <TestCase testID="FXG_Line_yFrom_positive" description="Line yFrom is set to a positive int" keywords="[Line, yFrom, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line2" propertyName="yFrom" value="50"  /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="50" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="85" y="48" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="84" y="50" target="graphic1" />
+		    </body>
+		</TestCase>
+        <TestCase testID="FXG_Line_yFrom_zero" description="Line yFrom set to zero" keywords="[Line, yFrom, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line2" propertyName="yFrom" value="0" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="0" target="graphic1" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="25" target="graphic1" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="89" target="graphic1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Line_yFrom_negative" description="Line yFrom set to a negative int" keywords="[Line, yFrom, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line2" propertyName="yFrom" value="-20" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="0" target="graphic1" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="46" target="graphic1" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="89" target="graphic1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Line_yTo_positive" description="Line yTo is set to a positive int" keywords="[Line, yTo, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line2" propertyName="yTo" value="70" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="69" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="85" y="71" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="84" y="70" target="graphic1" />
+		    </body>
+		</TestCase>
+        <TestCase testID="FXG_Line_yTo_zero" description="Line yTo set to zero" keywords="[Line, yTo, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line2" propertyName="yTo" value="0"  /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="0" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="85" y="11" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="85" y="49" target="graphic1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Line_yTo_negative" description="Line yTo set to a negative int" keywords="[Line, yTo, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.line2" propertyName="yTo" value="-20" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+			    <Pause timeout="100" />
+			    <AssertPixelValue value="0x0000FF" x="85" y="0" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="85" y="11" target="graphic1" />
+			    <AssertPixelValue value="0xFFFFFF" x="85" y="49" target="graphic1" />
+			</body>
+		</TestCase>
+<!-- Various Line orientations: NW -> SE, NE -> SW, SW -> NE, SE -> NW -->
+		<TestCase testID="FXG_Line_NWSE" description="Line going in the SE direction" keywords="[Line, xTo, yTo, Graphic]">
+		 <setup>
+			<ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="graphic1.line2" propertyName="yFrom" value="10" />
+		    <SetProperty target="graphic1.line2" propertyName="xFrom" value="25" />
+		    <SetProperty target="graphic1.line2" propertyName="yTo" value="50"  />
+		    <SetProperty target="graphic1.line2" propertyName="xTo" value="95" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <SetProperty target="graphic1.line2.stroke" propertyName="weight" value="5" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <Pause timeout="100" />
+		    <AssertPixelValue value="0x0000FF" x="25" y="10" target="graphic1" />
+		    <AssertPixelValue value="0x0000FF" x="95" y="50" target="graphic1" />
+		    <AssertPixelValue value="0xFFFFFF" x="98" y="50" target="graphic1" />
+		</body>
+		</TestCase>
+		<TestCase testID="FXG_Line_NESW" description="Line going in the SW direction" keywords="[Line, xTo, yTo, Graphic]">
+		 <setup>
+			<ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="graphic1.line2" propertyName="yFrom" value="10" />
+		    <SetProperty target="graphic1.line2" propertyName="xFrom" value="95" />
+		    <SetProperty target="graphic1.line2" propertyName="yTo" value="80"  />
+		    <SetProperty target="graphic1.line2" propertyName="xTo" value="15" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <SetProperty target="graphic1.line2.stroke" propertyName="weight" value="5" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <Pause timeout="100" />
+		    <AssertPixelValue value="0x0000FF" x="95" y="10" target="graphic1" />
+		    <AssertPixelValue value="0x0000FF" x="15" y="80" target="graphic1" />
+		    <AssertPixelValue value="0x0000FF" x="19" y="77" target="graphic1" />
+		    <AssertPixelValue value="0xFFFFFF" x="18" y="81" target="graphic1" />
+		</body>
+		</TestCase>
+		<TestCase testID="FXG_Line_SWNE" description="Line going in the NE direction" keywords="[Line, xTo, yTo, Graphic]">
+		 <setup>
+			<ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="graphic1.line2" propertyName="yFrom" value="90" />
+		    <SetProperty target="graphic1.line2" propertyName="xFrom" value="10" />
+		    <SetProperty target="graphic1.line2" propertyName="yTo" value="20"  />
+		    <SetProperty target="graphic1.line2" propertyName="xTo" value="80" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <SetProperty target="graphic1.line2.stroke" propertyName="color" value="0xFFFF00" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <SetProperty target="graphic1.line2.stroke" propertyName="weight" value="2" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <Pause timeout="100" />
+		    <AssertPixelValue value="0xFFFF00" x="79" y="20" target="graphic1" />
+		    <AssertPixelValue value="0xFFFF00" x="10" y="89" target="graphic1" />
+		    <AssertPixelValue value="0xFFFFFF" x="10" y="91" target="graphic1" />
+		    <AssertPixelValue value="0xFFFF00" x="18" y="81" target="graphic1" />
+		</body>
+		</TestCase>
+		<TestCase testID="FXG_Line_SENW" description="Line going in the NW direction" keywords="[Line, xTo, yTo, Graphic]">
+		 <setup>
+			<ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="graphic1.line2" propertyName="yFrom" value="-5" />
+		    <SetProperty target="graphic1.line2" propertyName="xFrom" value="-10" />
+		    <SetProperty target="graphic1.line2" propertyName="yTo" value="60"  />
+		    <SetProperty target="graphic1.line2" propertyName="xTo" value="40" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <SetProperty target="graphic1.line2.stroke" propertyName="color" value="0xFFFF00" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <SetProperty target="graphic1.line2.stroke" propertyName="weight" value="2" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+		    <Pause timeout="100" />
+		    <AssertPixelValue value="0xFFFF00" x="39" y="59" target="graphic1" />
+		    <AssertPixelValue value="0xFFFF00" x="0" y="8" target="graphic1" />
+		    <AssertPixelValue value="0xFFFFFF" x="40" y="61" target="graphic1" />
+		    <AssertPixelValue value="0xFFFF00" x="11" y="23" target="graphic1" />
+		</body>
+		</TestCase>
+<!-- visible property -->
+		<TestCase testID="FXG_Line_visibleFalse" description="Line visible property set to false" keywords="[Line, visible, Graphic]">
+		 <setup>
+			<ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="graphic1.line2" propertyName="visible" value="false" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete"  />
+		    <AssertPixelValue value="0xFFFFFF" x="85" y="10" target="graphic1" />
+		    <AssertPixelValue value="0xFFFFFF" x="85" y="60" target="graphic1" />
+	        <AssertPixelValue value="0xFFFFFF" x="85" y="90" target="graphic1" />
+		</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_visibleTrue" description="Line visible property set to true" keywords="[Line, visible, Graphic]">
+		 <setup>
+			<ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="graphic1.line2" propertyName="visible" value="false" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete"  />
+		    <SetProperty target="graphic1.line2" propertyName="visible" value="true" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete"  />
+		    <AssertPixelValue value="0x0000FF" x="85" y="10" target="graphic1" />
+		    <AssertPixelValue value="0x0000FF" x="85" y="60" target="graphic1" />
+	        <AssertPixelValue value="0x0000FF" x="85" y="89" target="graphic1" />
+		</body>
+	    </TestCase>
+
+<!-- Using Line primitives with various cap settings on SolidColorStroke -->
+		<TestCase testID="FXG_Line_SolidColorStroke_caps_default" description="Line with a solidColorStroke and caps='round'" keywords="[Line, SolidColorStroke, caps]">
+			 <setup>
+				<ResetComponent target="graphic2" className="comps.LineBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="graphic2.line1.stroke" propertyName="weight" value="10" waitTarget="graphic2.getElementAt(0)" waitEvent="updateComplete"  />
+				<AssertPropertyValue value="round" propertyName="caps" target="graphic2.line1.stroke" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_SolidColorStroke_caps_none" description="Line with a solidColorStroke and caps='none'" keywords="[Line, SolidColorStroke, caps]">
+			 <setup>
+				<ResetComponent target="graphic2" className="comps.LineBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="graphic2.line1.stroke" propertyName="weight" value="10" waitTarget="graphic2.getElementAt(0)" waitEvent="updateComplete"  />
+				<SetProperty target="graphic2.line1.stroke" propertyName="caps" value="none" waitTarget="graphic2.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_SolidColorStroke_caps_square" description="Line with a solidColorStroke and caps='square'" keywords="[Line, SolidColorStroke, caps]">
+			 <setup>
+				<ResetComponent target="graphic2" className="comps.LineBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="graphic2.line1.stroke" propertyName="weight" value="10" waitTarget="graphic2.getElementAt(0)" waitEvent="updateComplete"  />
+				<SetProperty target="graphic2.line1.stroke" propertyName="caps" value="square" waitTarget="graphic2.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_LinearGradientStroke_caps_default" description="Line with a LinearGradientStroke and caps='round'" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke" className="comps.LineGradientStroke" waitTarget="line_gradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="round" propertyName="caps" target="line_gradientStroke.line1.stroke" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_LinearGradientStroke_caps_none" description="Line with a LinearGradientStroke and caps='none'" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke" className="comps.LineGradientStroke" waitTarget="line_gradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke.line1.stroke" propertyName="caps" value="none" waitTarget="line_gradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_LinearGradientStroke_caps_square" description="Line with a LinearGradientStroke and caps='square'" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke" className="comps.LineGradientStroke" waitTarget="line_gradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke.line1.stroke" propertyName="caps" value="square" waitTarget="line_gradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_LinearGradientStroke_vertical" description="Test that a Line with a LinearGradientStroke draws correctly when its totally vertical" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke" className="comps.LineGradientStroke" waitTarget="line_gradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke.line1" propertyName="xTo" value="5"  />
+				<SetProperty target="line_gradientStroke.line1" propertyName="yTo" value="50" waitTarget="line_gradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_RadialGradientStroke_caps_default" description="Line with a RadialGradientStroke and caps='round'" keywords="[Line, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_radialGradientStroke" className="comps.LineRadialGradientStroke" waitTarget="line_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="round" propertyName="caps" target="line_radialGradientStroke.line1.stroke" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_RadialGradientStroke_caps_none" description="Line with a RadialGradientStroke and caps='none'" keywords="[Line, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_radialGradientStroke" className="comps.LineRadialGradientStroke" waitTarget="line_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_radialGradientStroke.line1.stroke" propertyName="caps" value="none" waitTarget="line_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Line_RadialGradientStroke_caps_square" description="Line with a RadialGradientStroke and caps='square'" keywords="[Line, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_radialGradientStroke" className="comps.LineRadialGradientStroke" waitTarget="line_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_radialGradientStroke.line1.stroke" propertyName="caps" value="square" waitTarget="line_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+<!-- Lines using LinearGradientStrokes and different x and y values -->
+		<TestCase testID="FXG_HorizontalLine_LinearGradientStroke_xy_0_0" description="Line with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke2" className="comps.LineGradientStroke2" waitTarget="line_gradientStroke2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke2" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_HorizontalLine_LinearGradientStroke_xy_20_0" description="Line with a LinearGradientStroke and and (x,y)=(20,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke2" className="comps.LineGradientStroke2" waitTarget="line_gradientStroke2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke2.line1" propertyName="xFrom" value="20" waitTarget="line_gradientStroke2.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke2" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_HorizontalLine_LinearGradientStroke_xy_0_20" description="Line with a LinearGradientStroke and and (x,y)=(20,20)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke2" className="comps.LineGradientStroke2" waitTarget="line_gradientStroke2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke2.line1" propertyName="yFrom" value="20" />
+				<SetProperty target="line_gradientStroke2.line1" propertyName="yTo" value="20" waitTarget="line_gradientStroke2.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke2" timeout="2500" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_VerticalLine_LinearGradientStroke_xy_20_0" description="Line with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke2" className="comps.LineGradientStroke2" waitTarget="line_gradientStroke2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke2.line1" propertyName="xTo" value="40" />
+				<SetProperty target="line_gradientStroke2.line1" propertyName="xFrom" value="40" />
+				<SetProperty target="line_gradientStroke2.line1" propertyName="yTo" value="60" waitTarget="line_gradientStroke2.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke2" timeout="2500" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_VerticalLine_LinearGradientStroke_xy_0_20" description="Line with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="line_gradientStroke2" className="comps.LineGradientStroke2" waitTarget="line_gradientStroke2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="line_gradientStroke2.line1" propertyName="xTo" value="0" />
+				<SetProperty target="line_gradientStroke2.line1" propertyName="xFrom" value="0" />
+				<SetProperty target="line_gradientStroke2.line1" propertyName="yFrom" value="20" />
+				<SetProperty target="line_gradientStroke2.line1" propertyName="yTo" value="60" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke2" timeout="2500" />
+			</body>
+	    </TestCase>
+	</testCases>
+
+</UnitTester>

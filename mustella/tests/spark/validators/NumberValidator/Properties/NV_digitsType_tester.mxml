@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_digitsType_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			import flash.globalization.NationalDigitsType;
+				
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="NV_digitsType_default_test1" description="the test case is for test default digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_default_script_test2" description="the test case is for test default digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_ARABIC_test3" description="the test case is for test set valid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.ARABIC_INDIC" />
+				<SetStyle target="nv1" styleName="locale" value="ar-SA" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_LEPCHA_test4" description="the test case is for test set valid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-BE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.LEPCHA" />
+				<SetStyle target="nv1" styleName="locale" value="fr-BE" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="digitsType" valueExpression="value=NationalDigitsType.LEPCHA" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_BALINESE_test5" description="the test case is for test set valid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE@collaction=phonebook')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.BALINESE" />
+				<SetStyle target="nv1" styleName="locale" value="de-DE@collaction=phonebook" waitEvent="change"/>
+				<RunCode code="application.nv1.digitsType = NationalDigitsType.BALINESE"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_DEVANAGARI_script_test6" description="the test case is for test set valid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('bn-BD')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.DEVANAGARI" />
+				<SetStyle target="nvScript1" styleName="locale" value="bn-BD" waitEvent="change"/>
+				<RunCode code="application.nvScript1.digitsType = NationalDigitsType.DEVANAGARI"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_inline_LAO_test7" description="the test case is for test set valid value to digitsType inline" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.LAO" />
+				<SetStyle target="nvInline" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_inline_EUROPEAN_test8" description="the test case is for test set valid value to digitsType inline" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CH')" />
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.EUROPEAN" />
+				<SetStyle target="nvInline2" styleName="locale" value="fr-CH" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline2" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_binding_CHAM_test9" description="Binding property by lable text" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru-RU')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.CHAM" />
+				<SetStyle target="nvBinding" styleName="locale" value="ru-RU" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_binding_ORIYA_test10" description="Binding property by lable text" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja-JP')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.ORIYA" />
+				<SetStyle target="nvBinding" styleName="locale" value="ja-JP" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="digitsType" valueExpression="value=NationalDigitsType.ORIYA" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_binding_TAMIL_script_test11" description="Binding property by lable text" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.TAMIL" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="digitsType" valueExpression="value=NationalDigitsType.TAMIL" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_binding_VAI_script_test12" description="Binding property by lable text" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-GB')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.digitsType=NationalDigitsType.VAI" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="en-GB" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="digitsType" valueExpression="value=NationalDigitsType.VAI" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_invalid_null_test13" description="the test case is for test set invalid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid,'digitsType',null)" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'digitsType',null)"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_invalid_empty_script_test14" description="the test case is for test set invalid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvScriptInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid,'digitsType','')" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'digitsType','')"/>
+				<AssertPropertyValue target="nvScriptInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_invalid_1_test15" description="the test case is for test set invalid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvInvalid2" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid2,'digitsType','1')" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'digitsType','1')"/>
+				<AssertPropertyValue target="nvInvalid2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_invalid_abc_script_test16" description="the test case is for test set invalid value to digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvScriptInvalid2" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid2,'digitsType','abc')" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'digitsType','abc')"/>
+				<AssertPropertyValue target="nvScriptInvalid2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_bindingWithLocaleChange_test17" description="Binding property when locale change" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')" />
+				<SetStyle target="nvBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvBindingLocale" styleName="locale" value="ar-SA" waitEvent="change"/>
+				<AssertEvent target="nvBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_bindingWithLocaleChange_test18" description="Binding property when locale change" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')"/>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="ar-SA" waitEvent="change"/>
+				<AssertEvent target="nvScriptBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvScriptBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.digitsType" />
+				<AssertPropertyValue target="nvScriptBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_function_ARABIC_INDIC_test19" description="Test function with property digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="allowNegative" value="true" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+																<SetProperty target="nvSourceTI" propertyName="text" value="١٢٣٤٥٦٧٨٩٠-" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_function_DEVANAGARI_test20" description="Test function with property digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<SetProperty target="nvFunction2" propertyName="digitsType" valueExpression="value=NationalDigitsType.DEVANAGARI" waitEvent="change"/>
+				<SetProperty target="nvFunction2" propertyName="decimalSeparator" valueExpression="value='.'" waitEvent="change"/>
+				<SetProperty target="nvFunction2" propertyName="fractionalDigits" value="value=7" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="१.२३४५६७८९" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT2"/>
+				<AssertEvent target="nvFunction2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<!--When set digitsType to value like GUJARATI, 1234567890 still be seem as valid chars.-->
+		<TestCase testID="NV_digitsType_function_GUJARATI_script_test21" description="Test function with property digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="digitsType" valueExpression="value=NationalDigitsType.GUJARATI"  waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="123456789" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_digitsType_function_ARABIC_INDIC_script_test22" description="Test function with property digitsType" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<SetProperty target="nvScriptFunction4" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction4" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction4" propertyName="trigger" valueExpression="value=application.triggerBT4"/>
+				<SetProperty target="nvScriptFunction4" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction4" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+				<SetProperty target="nvScriptFunction4" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction4" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="२३४५६७८९" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT4"/>
+				<AssertEvent target="nvScriptFunction4" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction4" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_getterWithoutLocale_test23" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<SetStyle target="nvGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="digitsType" value="0" />
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_digitsType_getterWithoutLocale_script_test24" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, digitsType]">
+			<setup>
+				<SetStyle target="nvScriptGetWithoutLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="digitsType" value="0" />
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

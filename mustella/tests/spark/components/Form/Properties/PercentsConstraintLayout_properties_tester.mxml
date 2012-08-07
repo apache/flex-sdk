@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="PercentsConstraintLayout_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+  		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+
+		import spark.layouts.*;
+		import comps.*;
+		import spark.components.Group;
+		import flash.utils.getQualifiedClassName;
+		
+
+		]]>
+	</fx:Script>
+	<testCases>
+	
+		<!--Percentage Columns-->
+		
+		<TestCase testID="PercentColumn_over100percentagesized_unconstrained" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and no constraints should all be 0 width">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="60"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="74"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="120"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_unconstrained" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column column is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_100percent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column column is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="percentWidth" value="100" target="perGrp.col1" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="width" value="NaN" target="perGrp.col2" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="width" value="NaN" target="perGrp.col3" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="width" value="NaN" target="perGrp.col4" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="width" value="NaN" target="perGrp.col5" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="width" value="500" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="500"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_100percent_fixedWidthGreaterThanParent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column column is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="percentWidth" value="100" target="perGrp.col1" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="width" value="600" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="180"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_fixedWidthGreaterThanParent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is greater than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="0"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+				
+				<SetProperty propertyName="left" value="col1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="21"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_singlePercentageColumn_fixedWidthGreaterThanParent_resizeLargerRuntime" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is greater than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="0"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<SetProperty propertyName="left" value="col1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="21"/>
+				
+				<SetProperty propertyName="width" value="600" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="150"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="130"/>
+			
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_singlePercentageColumn_fixedWidthGreaterThanParent_resizeSmallerRuntime" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is greater than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="0"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<SetProperty propertyName="left" value="col1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="21"/>
+
+				<SetProperty propertyName="width" value="300" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="0"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="21"/>
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_singlePercentageColumn_fixedWidthLessThanParent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is less than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="175"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+							
+				<SetProperty propertyName="left" value="col1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="155"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentColumn_singlePercentageColumn_fixedWidthLessThanParent_resizeSmallerRuntime" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is less than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="175"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+							
+				<SetProperty propertyName="left" value="col1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="155"/>	
+				
+				<SetProperty propertyName="width" value="500" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="80"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="60"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_fixedWidthLessThanParent_resizeLargerRuntime" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is less than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="175"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<SetProperty propertyName="left" value="col1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="155"/>	
+
+				<SetProperty propertyName="width" value="800" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="200"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+
+				<AssertPropertyValue propertyName="width" target="perGrp.btn1" value="180"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_leftItem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is less than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="left" value="col1:10" target="perGrp.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="175"/>
+				<AssertPropertyValue propertyName="x" target="perGrp.cb" value="10"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.cb" value="146"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_singlePercentageColumn_rightItem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is less than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="left" value="NaN" target="perGrp.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="175"/>
+				<!-- col1 width is 175 cb width is 146 and right is 15 so x is 14 -->
+				<AssertPropertyValue propertyName="x" target="perGrp.cb" value="14"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.cb" value="146"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentColumn_singlePercentageColumn_leftrightItem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column and fixed width columns whose width is less than the group width">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="left" value="col1:10" target="perGrp.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col1:15" target="perGrp.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="175"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.cb" value="150"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col2" value="90"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col3" value="110"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col4" value="100"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col5" value="120"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentColumn_singlePercentageColumn_constrained" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column column is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="500" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="80"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_singlePercentageColumn_fit" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with one percentage sized column column is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="width" target="perGrp.col1" value="150"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_allpercentagesized_unconstrained" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and no constraints should all be 0 width">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="allPer.col1" value="55"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col2" value="82"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col3" value="41"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col4" value="55"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_allpercentagesized_constrained" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="allPer" waitEvent="updateComplete" waitTarget="allPer"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col1" value="120"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col2" value="180"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col3" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col4" value="120"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_allpercentagesized_addItem_removeItem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="allPer" waitEvent="updateComplete" waitTarget="allPer"/>
+				<SetProperty propertyName="left" value="col3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="allPer.col1" value="120"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col2" value="180"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col3" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.cb" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col4" value="120"/>
+				
+				<SetProperty propertyName="left" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="allPer.col1" value="120"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col2" value="180"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col3" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.cb" value="146"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col4" value="120"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_allpercentagesized_addfixedwidthitem_removefixedwidthitem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="allPer" waitEvent="updateComplete" waitTarget="allPer"/>
+				<SetProperty propertyName="width" value="100" target="allPer.cb" waitEvent="updateComplete" waitTarget="allPer.cb"/>
+				<SetProperty propertyName="left" value="col3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="allPer.col1" value="120"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col2" value="180"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col3" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.cb" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col4" value="120"/>
+				
+				<SetProperty propertyName="left" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="allPer.col1" value="120"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col2" value="180"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col3" value="90"/>
+				<AssertPropertyValue propertyName="width" target="allPer.cb" value="100"/>
+				<AssertPropertyValue propertyName="width" target="allPer.col4" value="120"/>
+
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_over100percentagesized" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="overPer" waitEvent="updateComplete" waitTarget="overPer"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="104"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_over100percentagesized_addItem_removeItem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="overPer" waitEvent="updateComplete" waitTarget="overPer"/>
+				<SetProperty propertyName="left" value="col2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="104"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
+				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="157"/>
+				
+				<SetProperty propertyName="left" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="104"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
+				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="95"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentColumn_over100percentagesized_addfixedwidthitem_removefixedwidthitem" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="overPer" waitEvent="updateComplete" waitTarget="overPer"/>
+				<SetProperty propertyName="width" value="100" target="overPer.btn1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="left" value="col2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="col2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="104"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
+				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="157"/>
+				
+				<SetProperty propertyName="width" value="200" target="overPer.btn1" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="104"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
+				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="157"/>
+				
+				<SetProperty propertyName="left" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="right" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="overPer.col1" value="104"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
+				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
+				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="200"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_contentSized" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="content" className="comps.ContentSizedConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="content" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="content" waitEvent="updateComplete" waitTarget="content"/>
+				
+				<AssertPropertyValue propertyName="width" target="content.col1" value="210"/>
+				<AssertPropertyValue propertyName="width" target="content.col2" value="60"/>
+				<AssertPropertyValue propertyName="width" target="content.col3" value="150"/>
+				<AssertPropertyValue propertyName="width" target="content.col4" value="180"/>
+
+				<AssertPropertyValue propertyName="width" target="content.btn1" value="210"/>
+				<AssertPropertyValue propertyName="width" target="content.btn2" value="45"/>
+				<AssertPropertyValue propertyName="width" target="content.ti" value="140"/>
+				<AssertPropertyValue propertyName="width" target="content.cb" value="175"/>
+				
+				<SetProperty propertyName="width" value="100" target="content" waitEvent="updateComplete" waitTarget="content"/>
+				<AssertPropertyValue propertyName="width" target="content.col1" value="35"/>
+				<AssertPropertyValue propertyName="width" target="content.col2" value="10"/>
+				<AssertPropertyValue propertyName="width" target="content.col3" value="25"/>
+				<AssertPropertyValue propertyName="width" target="content.col4" value="30"/>
+
+				<AssertPropertyValue propertyName="width" target="content.btn1" value="35"/>
+				<AssertPropertyValue propertyName="width" target="content.btn2" value="21"/>
+				<AssertPropertyValue propertyName="width" target="content.ti" value="15"/>
+				<AssertPropertyValue propertyName="width" target="content.cb" value="25"/>
+
+				
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_contentSized_and_percentSized" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="175"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="150"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="175"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="135"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+				
+				<SetProperty propertyName="minWidth" value="115" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+				<SetProperty propertyName="width" value="NaN" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+				
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="168"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="144"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="138"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="168"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="129"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="128"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+
+				
+				<SetProperty propertyName="width" value="200" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+				<SetProperty propertyName="minWidth" value="NaN" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+				<SetProperty propertyName="width" value="115" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+				
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="0"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="0"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="21"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="21"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_contentSized_and_percentSized_minWidth" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout respects minWidth">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="minWidth" value="175" target="contentPer.col2"/>
+				<SetProperty propertyName="width" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+				
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="150"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="175"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="150"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="160"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_contentSized_and_percentSized_minWidth_visible" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout respects minWidth">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+				<SetProperty propertyName="width" value="800" target=""/>
+				<SetProperty propertyName="visible" value="true" target="contentPer"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="minWidth" value="195" target="contentPer.col1"/>
+				<SetProperty propertyName="minWidth" value="175" target="contentPer.col2"/>
+				<SetProperty propertyName="width" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="195"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="175"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="195"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="160"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="" />
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_contentSized_and_percentSized_maxWidth" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout respects maxWidth">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="maxWidth" value="125" target="contentPer.col2"/>
+				<SetProperty propertyName="width" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="200"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="200"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="110"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentColumn_contentSized_and_percentSized_maxWidth_100percent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout respects maxWidth">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="percentWidth" value="100" target="contentPer.col2"/>
+				<SetProperty propertyName="maxWidth" value="125" target="contentPer.col2"/>
+				<SetProperty propertyName="width" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="200"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="200"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="110"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentColumn_contentSized_and_percentSized_smallerThanParent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="229"/> 
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="196"/> 
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="229"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="181"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentColumn_contentSized_and_percentSized_100percent" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout with all percentage sized columns and constrained should have the appropriate width">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+				<SetProperty propertyName="percentWidth" value="100" target="contentPer.col2" waitEvent="updateComplete" waitTarget="contentPer"/>
+				
+				<AssertPropertyValue propertyName="width" target="contentPer.col1" value="110"/> 
+				<AssertPropertyValue propertyName="width" target="contentPer.col2" value="315"/> 
+				<AssertPropertyValue propertyName="width" target="contentPer.col3" value="125"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.col4" value="150"/>
+
+				<AssertPropertyValue propertyName="width" target="contentPer.btn1" value="110"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.btn2" value="300"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
+			</body>
+		</TestCase>
+		
+		<!--Percentage Rows-->
+		
+		<TestCase testID="PercentRow_over100percentagesized_unconstrained" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and no constraints should all be 0 height">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="14"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="17"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="11"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="21"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="24"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentRow_singlePercentageRow_unconstrained" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row row is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentRow_singlePercentageColumn_100percent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row row is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="percentHeight" value="100" target="perGrp.row1" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="height" value="NaN" target="perGrp.row2" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="height" value="NaN" target="perGrp.row3" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="height" value="NaN" target="perGrp.row4" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="height" value="NaN" target="perGrp.row5" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="height" value="500" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="500"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="PercentRow_singlePercentageColumn_100percent_fixedHeightGreaterThanParent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row row is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="percentHeight" value="100" target="perGrp.row1" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="height" value="600" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="450"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentRow_singlePercentageColumn_fixedHeightGreaterThanParent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is greater than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="120" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="0"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<SetProperty propertyName="top" value="row1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="21"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_singlePercentageColumn_fixedHeightGreaterThanParent_resizeLargerRuntime" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is greater than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="400" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="100"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<SetProperty propertyName="top" value="row1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="80"/>
+
+				<SetProperty propertyName="height" value="600" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="150"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="130"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_singlePercentageColumn_fixedHeightGreaterThanParent_resizeSmallerRuntime" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is greater than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="140" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="0"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<SetProperty propertyName="top" value="row1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="21"/>
+
+				<SetProperty propertyName="height" value="100" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="0"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="21"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_singlePercentageColumn_fixedHeightLessThanParent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is less than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="175"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<SetProperty propertyName="top" value="row1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="155"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_singlePercentageColumn_fixedHeightLessThanParent_resizeSmallerRuntime" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is less than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="175"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<SetProperty propertyName="top" value="row1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="155"/>	
+
+				<SetProperty propertyName="height" value="320" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="80"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="60"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentRow_singlePercentageColumn_fixedHeightLessThanParent_resizeLargerRuntime" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is less than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="175"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<SetProperty propertyName="top" value="row1:5" target="perGrp.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="155"/>	
+
+				<SetProperty propertyName="height" value="800" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="200"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+
+				<AssertPropertyValue propertyName="height" target="perGrp.btn1" value="180"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentRow_singlePercentageColumn_topItem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is less than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="top" value="row1:10" target="perGrp.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="175"/>
+				<AssertPropertyValue propertyName="y" target="perGrp.cb" value="10"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.cb" value="23"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_singlePercentageColumn_bottomItem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is less than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="top" value="NaN" target="perGrp.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="175"/>
+				<AssertPropertyValue propertyName="y" target="perGrp.cb" value="137"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.cb" value="23"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentRow_singlePercentageColumn_topbottomItem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row and fixed height rows whose height is less than the group height">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<SetProperty propertyName="top" value="row1:10" target="perGrp.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row1:15" target="perGrp.cb" waitEvent="updateComplete" />
+			
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="175"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.cb" value="150"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row2" value="30"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row4" value="25"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row5" value="45"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_singlePercentageColumn_constrained" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row row is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="200" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="50"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentRow_singlePercentageColumn_fit" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with one percentage sized row row is sized correctly">
+			<setup>
+				<ResetComponent target="perGrp" className="comps.PercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="perGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="perGrp" waitEvent="updateComplete" waitTarget="perGrp"/>
+				<AssertPropertyValue propertyName="height" target="perGrp.row1" value="150"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_allpercentagesized_unconstrained" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and no constraints should all be 0 height">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="17"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="27"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row3" value="13"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="21"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentRow_allpercentagesized_constrained" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="allPer" waitEvent="updateComplete" waitTarget="allPer"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row3" value="90"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="150"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_allpercentagesized_addItem_removeItem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="allPer" waitEvent="updateComplete" waitTarget="allPer"/>
+				<SetProperty propertyName="top" value="row3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row3" value="90"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="150"/>
+				<AssertPropertyValue propertyName="height" target="allPer.cb" value="90"/>
+				
+				<SetProperty propertyName="top" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row3" value="90"/>
+				<AssertPropertyValue propertyName="height" target="allPer.cb" value="23"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="150"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_allpercentagesized_addfixedheightitem_removefixedheightitem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="allPer" waitEvent="updateComplete" waitTarget="allPer"/>
+				<SetProperty propertyName="height" value="100" target="allPer.cb" waitEvent="updateComplete" waitTarget="allPer.cb"/>
+				<SetProperty propertyName="top" value="row3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row3:0" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row3" value="90"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="150"/>
+				<AssertPropertyValue propertyName="height" target="allPer.cb" value="90"/>
+		
+				<SetProperty propertyName="top" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="NaN" target="allPer.cb" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row3" value="90"/>
+				<AssertPropertyValue propertyName="height" target="allPer.cb" value="100"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="150"/>
+
+			</body>
+		</TestCase>
+		<TestCase testID="PercentRow_over100percentagesized" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="overPer" waitEvent="updateComplete" waitTarget="overPer"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="96"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="120"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="72"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="144"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="168"/>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="PercentRow_over100percentagesized_addItem_removeItem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="overPer" waitEvent="updateComplete" waitTarget="overPer"/>
+				<SetProperty propertyName="top" value="row2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="96"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="120"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="72"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="144"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="168"/>
+				
+				<AssertPropertyValue propertyName="height" target="overPer.btn1" value="120"/>
+
+				<SetProperty propertyName="top" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="96"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="120"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="72"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="144"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="168"/>
+				
+				<AssertPropertyValue propertyName="height" target="overPer.btn1" value="21"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_over100percentagesized_addfixedheightitem_removefixedheightitem" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="overPer" className="comps.OverPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="overPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="overPer" waitEvent="updateComplete" waitTarget="overPer"/>
+				<SetProperty propertyName="height" value="100" target="overPer.btn1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" value="row2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="row2:0" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="96"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="120"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="72"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="144"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="168"/>
+				<AssertPropertyValue propertyName="height" target="overPer.btn1" value="120"/>
+
+				<SetProperty propertyName="height" value="200" target="overPer.btn1" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="96"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="120"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="72"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="144"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="168"/>
+				<AssertPropertyValue propertyName="height" target="overPer.btn1" value="120"/>
+
+				<SetProperty propertyName="top" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<SetProperty propertyName="bottom" value="NaN" target="overPer.btn1" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="height" target="overPer.row1" value="96"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="120"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="72"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row4" value="144"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="168"/>
+				<AssertPropertyValue propertyName="height" target="overPer.btn1" value="200"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_contentSized" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="content" className="comps.ContentSizedConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="content" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="content" waitEvent="updateComplete" waitTarget="content"/>
+
+				<AssertPropertyValue propertyName="height" target="content.row1" value="150"/>
+				<AssertPropertyValue propertyName="height" target="content.row2" value="60"/>
+				<AssertPropertyValue propertyName="height" target="content.row3" value="120"/>
+				<AssertPropertyValue propertyName="height" target="content.row4" value="90"/>
+				<AssertPropertyValue propertyName="height" target="content.row5" value="150"/>
+
+				<AssertPropertyValue propertyName="height" target="content.btn1" value="150"/>
+				<AssertPropertyValue propertyName="height" target="content.btn2" value="45"/>
+				<AssertPropertyValue propertyName="height" target="content.ti" value="110"/>
+				<AssertPropertyValue propertyName="height" target="content.cb" value="145"/>
+
+				<SetProperty propertyName="height" value="100" target="content" waitEvent="updateComplete" waitTarget="content"/>
+				<AssertPropertyValue propertyName="height" target="content.row1" value="25"/>
+				<AssertPropertyValue propertyName="height" target="content.row2" value="10"/>
+				<AssertPropertyValue propertyName="height" target="content.row3" value="20"/>
+				<AssertPropertyValue propertyName="height" target="content.row4" value="15"/>
+				<AssertPropertyValue propertyName="height" target="content.row5" value="25"/>
+
+				<AssertPropertyValue propertyName="height" target="content.btn1" value="25"/>
+				<AssertPropertyValue propertyName="height" target="content.btn2" value="21"/>
+				<AssertPropertyValue propertyName="height" target="content.ti" value="10"/>
+				<AssertPropertyValue propertyName="height" target="content.cb" value="23"/>
+
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PercentRow_contentSized_and_percentSized" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="120"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="165"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="115"/>
+
+				<SetProperty propertyName="minHeight" value="115" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+				<SetProperty propertyName="height" value="NaN" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="115"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="120"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="165"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="115"/>
+
+
+				<SetProperty propertyName="height" value="200" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+				<SetProperty propertyName="minHeight" value="NaN" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+				<SetProperty propertyName="height" value="115" target="contentPer.ti" waitEvent="updateComplete" waitTarget="contentPer.ti"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="24"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="37"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="115"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="24"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="22"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="115"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="23"/>
+
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_contentSized_and_percentSized_minHeight" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout respects minHeight">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="minHeight" value="195" target="contentPer.row2"/>
+				<SetProperty propertyName="height" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+				
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="195"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="120"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="180"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="115"/>
+			</body>
+		</TestCase>
+<!-- I think this is wrong
+		<TestCase testID="PercentRow_contentSized_and_percentSized_minHeight_visible" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout respects minHeight">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+				<SetProperty propertyName="height" value="800" target=""/>
+				<SetProperty propertyName="visible" value="true" target="contentPer"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="minHeight" value="195" target="contentPer.row1"/>
+				<SetProperty propertyName="minHeight" value="175" target="contentPer.row2"/>
+				<SetProperty propertyName="height" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="195"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="175"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="50"/>	
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="195"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="160"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="45"/>
+
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="" />
+			</body>
+		</TestCase>-->
+		
+		<TestCase testID="PercentRow_contentSized_and_percentSized_maxHeight" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout respects maxHeight">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="maxHeight" value="125" target="contentPer.row2"/>
+				<SetProperty propertyName="height" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="125"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="120"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="110"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="115"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_contentSized_and_percentSized_maxHeight_100percent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout respects maxHeight">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="percentHeight" value="100" target="contentPer.row2"/>
+				<SetProperty propertyName="maxHeight" value="125" target="contentPer.row2"/>
+				<SetProperty propertyName="height" value="600" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="125"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="120"/>
+		
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="120"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="110"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="115"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PercentRow_contentSized_and_percentSized_smallerThanParent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="140"/> 
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="210"/> 
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="140"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="140"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="195"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="135"/>
+			</body>
+		</TestCase>
+		<TestCase testID="PercentRow_contentSized_and_percentSized_100percent" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
+			<setup>
+				<ResetComponent target="contentPer" className="comps.ContentPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="contentPer" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="700" target="contentPer" waitEvent="updateComplete" waitTarget="contentPer"/>
+				<SetProperty propertyName="percentHeight" value="100" target="contentPer.row2" waitEvent="updateComplete" waitTarget="contentPer"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.row1" value="89"/> 
+				<AssertPropertyValue propertyName="height" target="contentPer.row2" value="442"/> 
+				<AssertPropertyValue propertyName="height" target="contentPer.row3" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row4" value="0"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.row5" value="89"/>
+
+				<AssertPropertyValue propertyName="height" target="contentPer.btn1" value="89"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.btn2" value="427"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.ti" value="80"/>
+				<AssertPropertyValue propertyName="height" target="contentPer.cb" value="84"/>
+			</body>
+		</TestCase>
+
+	</testCases>	
+</UnitTester>

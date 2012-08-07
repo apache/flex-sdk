@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ViewStack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="400" height="300">
+  
+	<s:states>
+		<s:State name="state1" />
+		<s:State name="state2" />
+		<s:State name="state3" />
+		<s:State name="state4" />
+	</s:states>
+
+	<s:NavigatorContent id="view1" label="View 1" excludeFrom="state4">
+		<s:layout>
+			<s:VerticalLayout />
+		</s:layout>
+		<s:Button id="myButton_view1" width="200" height="25" label="Button_View1State1_2And3" label.state2="Button_View1State2" />
+		<s:CheckBox id="myCheckBox_view1" width="200" height="25" label="CheckBox_View1_2And3" includeIn="state2, state3"/>
+		<s:TextInput id="myTextInput_view1" width="200" height="25" text="TextInput_View1_2And3" color.state3="0xFF0000" />				
+	</s:NavigatorContent> 
+
+	<s:NavigatorContent id="view2" label="View 2" includeIn="state2">
+		<s:Label id="myLabel_view2" text="Label in View 2, includeIn state2"/>
+	</s:NavigatorContent>
+
+	<s:NavigatorContent id="view3" label="View 3" includeIn="state1, state3">		
+		<s:Label id="myLabel_view3" text="Label in View 3, include in state1 and state3"/>
+	</s:NavigatorContent>
+	
+	<s:NavigatorContent id="view4" label="View 4" includeIn="state4">		
+		<s:Label id="myLabel_view4" text="Label in View 4, include in state4"/>
+	</s:NavigatorContent>
+	
+</s:ViewStack>

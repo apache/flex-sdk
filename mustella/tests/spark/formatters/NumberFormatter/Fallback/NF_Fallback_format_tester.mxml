@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_Fallback_format.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NFConstants;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	
+	<testCases>
+		<TestCase testID="NF_Fallback_format_int_test1" description="format value using inline nf object set nothing property" keywords="[NumberFormatter, format]">
+			<setup>
+
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.nf_inline.format(-1234567)" valueExpression="value=(-1234567).toFixed(0)"/>
+				<AssertPropertyValue  target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=application.nf_inline.format(0)" valueExpression="value=(0).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(1234567)" valueExpression="value=(1234567).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(1.3e10)" valueExpression="value=(1.3e10).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(1.6-100)" valueExpression="value=(1.6-100).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(1.82e308)" valueExpression="value=(1.82e308).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(1.62e-308)" valueExpression="value=(1.62e-308).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(0xFFFFFFFF)" valueExpression="value=(0xFFFFFFFF).toFixed(0)"/>			
+				<AssertMethodValue method="value=application.nf_inline.format(0x0)" valueExpression="value=(0x0).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf_inline.format(0xFc99)" valueExpression="value=(0xFc99).toFixed(0)"/>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_format_int_script_test2" description="format value using script nf object set nothing property" keywords="[NumberFormatter, format]">
+			<setup>
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.nf.format(-1234567)" valueExpression="value=(-1234567).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(0)" valueExpression="value=(0).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(1234567)" valueExpression="value=(1234567).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(1.3e10)" valueExpression="value=(1.3e10).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(1.6-100)" valueExpression="value=(1.6-100).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(1.82e308)" valueExpression="value=(1.82e308).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(1.62e-308)" valueExpression="value=(1.62e-308).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(0xFFFFFFFF)" valueExpression="value=(0xFFFFFFFF).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(0x0)" valueExpression="value=(0x0).toFixed(0)"/>				
+				<AssertMethodValue method="value=application.nf.format(0xFc99)" valueExpression="value=(0xFc99).toFixed(0)"/>
+				<AssertPropertyValue  target="nf" propertyName="lastOperationStatus" value="noError"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_format_int_fractionalDigits_3_test3" description="format value using inline nf object set fractionalDigits to 3" keywords="[NumberFormatter, format]">
+			<setup>
+
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(-1234567)" valueExpression="value=(-1234567).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(0)" valueExpression="value=(0).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(1234567)" valueExpression="value=(1234567).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(1.3e10)" valueExpression="value=(1.3e10).toFixed(3)"/>			
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(1.6-100)" valueExpression="value=(1.6-100).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(-123456789.87654)" valueExpression="value=(-123456789.87654).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf_fractionalDigits.format(123456789.87654)" valueExpression="value=(123456789.87654).toFixed(3)"/>
+				<AssertPropertyValue  target="nf_fractionalDigits" propertyName="lastOperationStatus" value="noError"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_format_int_fractionalDigits_3_script_test4" description="format value using script nf object set fractionalDigits to 3" keywords="[NumberFormatter, format]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nf" propertyName="fractionalDigits" valueExpression="value=3" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.nf.format(-1234567)" valueExpression="value=(-1234567).toFixed(3)"/>
+				<AssertPropertyValue  target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=application.nf.format(0)" valueExpression="value=(0).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf.format(1234567)" valueExpression="value=(1234567).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf.format(1.3e10)" valueExpression="value=(1.3e10).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf.format(1.6-100)" valueExpression="value=(1.6-100).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf.format(-123456789.87654)" valueExpression="value=(-123456789.87654).toFixed(3)"/>				
+				<AssertMethodValue method="value=application.nf.format(123456789.87654)" valueExpression="value=(123456789.87654).toFixed(3)"/>				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

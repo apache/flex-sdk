@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Style source="EmbeddedFonts.css"/>
+
+	<s:VideoPlayer id="videoDisplay"
+     source="http://helpexamples.com/flash/video/cuepoints.flv" />
+
+    <s:Button id="stopAndNull"
+     click="videoDisplay.stop(); videoDisplay.source = null;" />
+
+</s:Application>
+

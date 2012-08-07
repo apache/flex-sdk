@@ -1,0 +1,244 @@
+﻿<UnitTester 
+    testSWF="../SWFs/CrossFade_main.mxml" 
+    testDir="spark/effects/CrossFade/variable/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.CrossFade;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- bitmapFrom -->
+        <TestCase testID="CrossFade_bitmapFrom_Default" keywords="[CrossFade, variable, bitmapFrom]" description="Test the default value of the bitmapFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).bitmapFrom" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_bitmapFrom_Undeclared" keywords="[CrossFade, variable, bitmapFrom]" description="Test an undeclared bitmapFrom does not cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_bitmapFrom_Valid" keywords="[CrossFade, variable, bitmapFrom]" description="Test a valid bitmapFrom.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_bitmapFrom_Null" keywords="[CrossFade, variable, bitmapFrom]" description="Test setting a bitmapFrom to null does not cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapFrom = null;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- shaderProperties -->
+        <TestCase testID="CrossFade_shaderProperties_Default" keywords="[CrossFade, variable, shaderProperties]" description="Test the default value of the shaderProperties variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).shaderProperties" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- bitmapTo -->
+        <TestCase testID="CrossFade_bitmapTo_Default" keywords="[CrossFade, variable, bitmapTo]" description="Test the default value of the bitmapTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).bitmapTo" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_bitmapTo_Undeclared" keywords="[CrossFade, variable, bitmapTo]" description="Test a non declared bitmapTo doesn't cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 100" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_bitmapTo_Valid" keywords="[CrossFade, variable, bitmapTo]" description="Test a valid bitmapTo.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_bitmapTo_Null" keywords="[CrossFade, variable, bitmapTo]" description="Test setting a bitmapTo to null does not cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapTo = null;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- repeatBehavior -->
+        <TestCase testID="CrossFade_repeatBehavior_Default" keywords="[CrossFade, variable, repeatBehavior]" description="Test the default value of the repeatBehavior variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).repeatBehavior" value="loop"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_repeatBehavior_reverse" keywords="[CrossFade, variable, repeatBehavior]" description="Test repeatBehavior reverse.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.repeatBehavior = 'reverse';" />
+                <RunCode code="application.e_CrossFade.repeatCount = 2;" />
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 700" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- interpolator -->
+        <TestCase testID="CrossFade_interpolator_Default" keywords="[CrossFade, variable, interpolator]" description="Test the default value of the interpolator variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).interpolator" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- disableLayout -->
+        <TestCase testID="CrossFade_disableLayout_Default" keywords="[CrossFade, variable, disableLayout]" description="Test the default value of the disableLayout variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).disableLayout" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- motionPaths -->
+        <TestCase testID="CrossFade_motionPaths_Default" keywords="[CrossFade, variable, motionPaths]" description="Test the default value of the motionPaths variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).motionPaths" value="null"/>
+            </body>
+        </TestCase>
+        
+        <!-- repeatDelay -->
+        <TestCase testID="CrossFade_repeatDelay_Default" keywords="[CrossFade, variable, repeatDelay]" description="Test the default value of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_repeatDelay" keywords="[CrossFade, variable, repeatDelay]" description="Test wipe with a repeatDelay.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.repeatCount = 2;" />
+                <RunCode code="application.e_CrossFade.repeatDelay = 100;" />
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 700" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- repeatCount -->
+        <TestCase testID="CrossFade_repeatCount_Default" keywords="[CrossFade, variable, repeatCount]" description="Test the default value of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_repeatCount" keywords="[CrossFade, variable, repeatCount]" description="Test wipe with a repeatCount greater than 1.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.repeatCount = 2;" />
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 800" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="CrossFade_startDelay_Default" keywords="[CrossFade, variable, startDelay]" description="Test the default value of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_startDelay" keywords="[CrossFade, variable, startDelay]" description="Test wipe with a startDelay greater than 0.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.startDelay = 500;" />
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls4" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- instanceClass -->
+        <TestCase testID="CrossFade_instanceClass_Default" keywords="[CrossFade, variable, instanceClass]" description="Test the default value of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).instanceClass.toString().replace('[class ', '').replace(']','')" value="AnimateTransitionShaderInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="CrossFade_suspendBackgroundProcessing_Default" keywords="[CrossFade, variable, suspendBackgroundProcessing]" description="Test the default value of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

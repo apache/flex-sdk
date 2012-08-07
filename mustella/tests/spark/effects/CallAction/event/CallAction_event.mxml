@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/CallAction/event/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/CallAction_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+
+    <testCases>
+        <TestCase testID="CallAction_EffectStart" keywords="[CallAction, Events, EffectStart]" description="Verify EffectStart is raised.">
+            <body>
+                <RunCode code="application.tp1.play()" waitTarget="tp1" waitEvent="effectEnd" />
+                <AssertEvent target="tp1" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="CallAction_EffectEnd" keywords="[CallAction, Events, EffectEnd]" description="Verify EffectEnd is raised.">
+            <body>
+                <RunCode code="application.tp1.play()" waitTarget="tp1" waitEvent="effectEnd" />
+                <AssertEvent target="tp1" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

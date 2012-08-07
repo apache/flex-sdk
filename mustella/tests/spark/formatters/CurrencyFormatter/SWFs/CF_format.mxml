@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" >
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			
+			import spark.formatters.CurrencyFormatter;
+			
+			public var cfNoLocaleScript:spark.formatters.CurrencyFormatter = new spark.formatters.CurrencyFormatter();
+			public var cfScript:spark.formatters.CurrencyFormatter = new spark.formatters.CurrencyFormatter();
+			
+			public var value:Object = -12345678.90 ; 
+			
+			public function setGSLibPropertyGrouping(cfGSLib:flash.globalization.CurrencyFormatter,
+											  curSymbol:String, curISO:String, negCurFormat:int, posCurFormat:int,
+											  decSep:String, negSymbol:String, useG:Boolean, gpPtn:String, gpSep:String):void
+			{
+				cfGSLib.setCurrency(curISO,curSymbol);
+				cfGSLib.negativeCurrencyFormat = negCurFormat;
+				cfGSLib.positiveCurrencyFormat = posCurFormat;
+				
+				cfGSLib.decimalSeparator = decSep;
+				cfGSLib.negativeSymbol = negSymbol;
+				cfGSLib.useGrouping = useG;
+				cfGSLib.groupingPattern = gpPtn;
+				cfGSLib.groupingSeparator = gpSep;
+			}
+			
+			public function setCFPropertyGrouping(cf:spark.formatters.CurrencyFormatter,
+										   curSymbol:String, curISO:String, negCurFormat:int, posCurFormat:int,
+										   decSep:String, negSymbol:String, useG:Boolean, gpPtn:String, gpSep:String, useCurSymbol:Boolean = false):void
+			{
+				cf.currencySymbol = curSymbol;
+				cf.currencyISOCode = curISO;
+				cf.negativeCurrencyFormat = negCurFormat;
+				cf.positiveCurrencyFormat = posCurFormat;
+				cf.useCurrencySymbol = useCurSymbol;
+				
+				cf.decimalSeparator = decSep;
+				cf.negativeSymbol = negSymbol;
+				cf.useGrouping = useG;
+				cf.groupingPattern = gpPtn;
+				cf.groupingSeparator = gpSep;
+			}
+			
+			public function setGSLibPropertyDigits(cfGSLib:flash.globalization.CurrencyFormatter,
+											  curSymbol:String, curISO:String, negCurFormat:int, posCurFormat:int,
+											  decSep:String, negSymbol:String, lZero:Boolean, tZero:Boolean, fracDigits:int):void
+			{
+				cfGSLib.setCurrency(curISO,curSymbol);
+				cfGSLib.negativeCurrencyFormat = negCurFormat;
+				cfGSLib.positiveCurrencyFormat = posCurFormat;
+				
+				cfGSLib.decimalSeparator = decSep;
+				cfGSLib.negativeSymbol = negSymbol;
+				cfGSLib.leadingZero = lZero;
+				cfGSLib.trailingZeros = tZero;
+				cfGSLib.fractionalDigits = fracDigits;
+			}
+			
+			public function setCFPropertyDigits(cf:spark.formatters.CurrencyFormatter,
+										   curSymbol:String, curISO:String, negCurFormat:int, posCurFormat:int,
+										   decSep:String, negSymbol:String, lZero:Boolean, tZero:Boolean, fracDigits:int, useCurSymbol:Boolean = false):void
+			{
+				cf.currencySymbol = curSymbol;
+				cf.currencyISOCode = curISO;
+				cf.negativeCurrencyFormat = negCurFormat;
+				cf.positiveCurrencyFormat = posCurFormat;
+				cf.useCurrencySymbol = useCurSymbol;
+				
+				cf.decimalSeparator = decSep;
+				cf.negativeSymbol = negSymbol;
+				cf.leadingZero = lZero;
+				cf.trailingZeros = tZero;
+				cf.fractionalDigits = fracDigits;
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!--set no locale inline-->
+		<s:CurrencyFormatter id="cfNoLocale"/> 
+		
+		<!--cf with inline locale-->
+		<s:CurrencyFormatter id="cf1" locale="zh-CN"/>
+		<s:CurrencyFormatter id="cf2" locale="fr-FR"/>
+		<s:CurrencyFormatter id="cf3" locale="ja-JP"/>
+		
+		<!--Set propertiy inline -->
+		<s:CurrencyFormatter id="cfInline1" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"/>
+		<s:CurrencyFormatter id="cfInline2" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"/>
+		<s:CurrencyFormatter id="cfInline3" locale="ja-JP" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"/>
+		<s:CurrencyFormatter id="cfInline4" locale="ja-JP" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"/>
+		<s:CurrencyFormatter id="cfInline5" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{1}" positiveCurrencyFormat="{3}" useCurrencySymbol="{true}"/>
+		<s:CurrencyFormatter id="cfInline6" locale="ja-JP" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{1}" positiveCurrencyFormat="{3}" useCurrencySymbol="{true}"/>
+		
+		<!--Set multiple properties by inline definition-->
+		<s:CurrencyFormatter id="cfMulInline1" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator="," negativeSymbol="-" useGrouping="{true}" groupingPattern="3" groupingSeparator="*" />
+		<s:CurrencyFormatter id="cfMulInline2" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator="." negativeSymbol="-" useGrouping="{false}" groupingPattern="3;2;*" groupingSeparator=" "/>
+		<s:CurrencyFormatter id="cfMulInline3" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator=":" negativeSymbol="--" useGrouping="{true}" groupingPattern="3;*" groupingSeparator="-"/>
+		<s:CurrencyFormatter id="cfMulInline4" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator=";" negativeSymbol="--" useGrouping="{false}" groupingPattern="3" groupingSeparator=","/>
+		<s:CurrencyFormatter id="cfMulInline5" locale="zh-CN" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator="," negativeSymbol="-" useGrouping="{true}" groupingPattern="3" groupingSeparator="*" />
+		<s:CurrencyFormatter id="cfMulInline6" locale="zh-CN" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator="." negativeSymbol="-" useGrouping="{false}" groupingPattern="3;2;*" groupingSeparator=" "/>
+		<s:CurrencyFormatter id="cfMulInline7" locale="zh-CN" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator=":" negativeSymbol="--" useGrouping="{true}" groupingPattern="3;*" groupingSeparator="-"/>
+		<s:CurrencyFormatter id="cfMulInline8" locale="zh-CN" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator=";" negativeSymbol="--" useGrouping="{false}" groupingPattern="3" groupingSeparator=","/>
+		
+		<s:CurrencyFormatter id="cfMulInline9" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator="," negativeSymbol="-" useGrouping="{true}" groupingPattern="3" groupingSeparator="*" />
+		<s:CurrencyFormatter id="cfMulInline10" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator="." negativeSymbol="-" useGrouping="{false}" groupingPattern="3;2;*" groupingSeparator=" "/>
+		<s:CurrencyFormatter id="cfMulInline11" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator=":" negativeSymbol="--" useGrouping="{true}" groupingPattern="3;*" groupingSeparator="-"/>
+		<s:CurrencyFormatter id="cfMulInline12" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator=";" negativeSymbol="--" useGrouping="{false}" groupingPattern="3" groupingSeparator=","/>
+		
+		<s:CurrencyFormatter id="cfMulInline13" locale="fr-FR" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}" useCurrencySymbol="{true}"
+							 decimalSeparator="," negativeSymbol="-" useGrouping="{true}" groupingPattern="3" groupingSeparator="*" />
+		<s:CurrencyFormatter id="cfMulInline14" locale="fr-FR" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}" useCurrencySymbol="{true}"
+							 decimalSeparator="." negativeSymbol="-" useGrouping="{false}" groupingPattern="3;2;*" groupingSeparator=" "/>
+		<s:CurrencyFormatter id="cfMulInline15" locale="fr-FR" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}" useCurrencySymbol="{true}"
+							 decimalSeparator=":" negativeSymbol="--" useGrouping="{true}" groupingPattern="3;*" groupingSeparator="-"/>
+		<s:CurrencyFormatter id="cfMulInline16" locale="fr-FR" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}" useCurrencySymbol="{true}"
+							 decimalSeparator=";" negativeSymbol="--" useGrouping="{false}" groupingPattern="3" groupingSeparator=","/>
+		
+		
+		<s:CurrencyFormatter id="cfMulInline21" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator="," negativeSymbol="-" leadingZero="{true}" trailingZeros="{true}" fractionalDigits="{0}"/>
+		<s:CurrencyFormatter id="cfMulInline22" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator="." negativeSymbol="-" leadingZero="{false}" trailingZeros="{true}" fractionalDigits="{5}"/>
+		<s:CurrencyFormatter id="cfMulInline23" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator=":" negativeSymbol="--" leadingZero="{true}" trailingZeros="{false}" fractionalDigits="{0}"/>
+		<s:CurrencyFormatter id="cfMulInline24" locale="zh-CN" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator=";" negativeSymbol="--" leadingZero="{false}" trailingZeros="{false}" fractionalDigits="{5}"/>
+		<s:CurrencyFormatter id="cfMulInline25" locale="zh-CN" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator="," negativeSymbol="-" leadingZero="{true}" trailingZeros="{true}" fractionalDigits="{2}" />
+		<s:CurrencyFormatter id="cfMulInline26" locale="zh-CN" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator="." negativeSymbol="-" leadingZero="{false}" trailingZeros="{true}" fractionalDigits="{10}"/>
+		<s:CurrencyFormatter id="cfMulInline27" locale="zh-CN" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator=":" negativeSymbol="--" leadingZero="{true}" trailingZeros="{false}" fractionalDigits="{2}"/>
+		<s:CurrencyFormatter id="cfMulInline28" locale="zh-CN" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator=";" negativeSymbol="--" leadingZero="{false}" trailingZeros="{false}" fractionalDigits="{10}"/>
+		
+		<s:CurrencyFormatter id="cfMulInline29" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator="," negativeSymbol="-" leadingZero="{true}" trailingZeros="{true}" fractionalDigits="{0}" />
+		<s:CurrencyFormatter id="cfMulInline30" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator="." negativeSymbol="-" leadingZero="{false}" trailingZeros="{true}" fractionalDigits="{5}"/>
+		<s:CurrencyFormatter id="cfMulInline31" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}"
+							 decimalSeparator=":" negativeSymbol="--" leadingZero="{true}" trailingZeros="{false}" fractionalDigits="{0}"/>
+		<s:CurrencyFormatter id="cfMulInline32" locale="fr-FR" currencySymbol="@zh@" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}"
+							 decimalSeparator=";" negativeSymbol="--" leadingZero="{false}" trailingZeros="{false}" fractionalDigits="{5}"/>
+		
+		<s:CurrencyFormatter id="cfMulInline33" locale="fr-FR" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}" useCurrencySymbol="{true}"
+							 decimalSeparator="," negativeSymbol="-" leadingZero="{true}" trailingZeros="{true}" fractionalDigits="{2}" />
+		<s:CurrencyFormatter id="cfMulInline34" locale="fr-FR" currencySymbol="$" currencyISOCode="CNY" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}" useCurrencySymbol="{true}"
+							 decimalSeparator="." negativeSymbol="-" leadingZero="{false}" trailingZeros="{true}" fractionalDigits="{10}"/>
+		<s:CurrencyFormatter id="cfMulInline35" locale="fr-FR" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{2}" positiveCurrencyFormat="{2}" useCurrencySymbol="{true}"
+							 decimalSeparator=":" negativeSymbol="--" leadingZero="{true}" trailingZeros="{false}" fractionalDigits="{2}"/>
+		<s:CurrencyFormatter id="cfMulInline36" locale="fr-FR" currencySymbol="$" currencyISOCode="CAD" negativeCurrencyFormat="{10}" positiveCurrencyFormat="{0}" useCurrencySymbol="{true}"
+							 decimalSeparator=";" negativeSymbol="--" leadingZero="{false}" trailingZeros="{false}" fractionalDigits="{10}"/>
+
+		<s:CurrencyFormatter id="cfTestObj" locale="zh-CN" /> 
+		<s:CurrencyFormatter id="cfTestInvalidObj" locale="zh-CN" /> 
+		<s:CurrencyFormatter id="cfTestInvalidObj2" locale="zh-CN" /> 
+		
+		<!--cf for testing Binding-->
+		<s:CurrencyFormatter id="cfBinding1" locale="en-US" currencySymbol="$" currencyISOCode="UDD"/>
+		<s:CurrencyFormatter id="cfBinding2" locale="en-US" decimalSeparator=";"/>
+
+	</fx:Declarations>
+	
+	<s:Label id = "cfLabel1"  text = "{cfBinding1.format(-1.123)}" />
+	<s:Label id = "cfLabel2"  text = "{cfBinding2.format(2.123)}" />
+	
+	<s:Label id = "cfInvalidLabel1"  text = "{cfTestInvalidObj.errorText}" />
+	<s:Label id = "cfInvalidLabel2"  text = "{cfTestInvalidObj2.errorText}" />
+
+</s:Application>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" x="0" y="0">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.layouts.supportClasses.LayoutBase;
+			
+			// Change the layout at runtime
+			public function changeLayout():Boolean {
+				var hLayout:HorizontalLayout = new HorizontalLayout();
+				view2.layout = hLayout as LayoutBase;
+				return true;
+			}
+			
+			// Add a view at runtime and count number of children\elements in VS
+			public function addView():Boolean {
+				var btn:Button = new Button();
+				
+				btn.label = "Dynamic view button";
+				var navCon:NavigatorContent = new NavigatorContent();
+				navCon.id="dynamicNavCon";
+				navCon.addElement(btn);
+				mainViewStack.addElement(navCon);
+				return true;
+			}
+			
+			// Add a view at the beginning of the viewStack
+			public function addViewAtBeginning():Boolean {
+				var btn:Button = new Button();
+				
+				btn.label = "Dynamic view button 1";
+				var navCon:NavigatorContent = new NavigatorContent();
+				navCon.id="dynamicNavCon1";
+				navCon.addElement(btn);
+				mainViewStack.addElementAt(navCon, 0);
+				return true;
+			}
+			
+			// Remove a view at the beginning of the viewStack
+			public function removeViewAtBeginning():Boolean {
+				mainViewStack.removeElement(view1);
+				return true;
+			}
+			
+			// Remove a view at the middle of the viewStack
+			public function removeViewAtMiddle():Boolean {
+				mainViewStack.removeElement(view3);
+				return true;
+			}
+			
+			// Remove a view at the end of the viewStack
+			public function removeViewAtEnd():Boolean {
+				mainViewStack.removeElement(view5);
+				return true;
+			}
+			
+			// Change the view of the ViewStack using selectedElement
+			public function changeSelectedElements():Boolean {
+				mainViewStack.selectedElement = view5;
+				return true;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:Button id="btnSelectedElements" label="change selectedElements" click="changeSelectedElements()"/>
+
+	<s:ViewStack id="mainViewStack">
+		<s:NavigatorContent id="view1" label="View 1">
+			<s:layout>
+				<s:HorizontalLayout />
+			</s:layout>
+			<s:Rect width="20" height="20">
+				<s:stroke>
+					<s:SolidColorStroke weight="1" color="0x880000" />
+				</s:stroke>
+				<s:fill>
+					<s:SolidColor alpha="1" color="0x008800" />
+				</s:fill>
+			</s:Rect>
+			<s:Button label="Button"/>
+			<s:CheckBox label="CheckBox"/>
+			<s:TextInput text="TextInput" width="60" />
+		</s:NavigatorContent>
+		<s:NavigatorContent id="view2" label="View 2"> <!--label="{dynamicLabel}"-->
+			<s:layout>
+				<s:VerticalLayout />
+			</s:layout>
+			<s:Rect width="20" height="20" >
+				<s:stroke>
+					<s:SolidColorStroke weight="1" color="0x880000" />
+				</s:stroke>
+				<s:fill>
+					<s:SolidColor alpha="1" color="0x008800" />
+				</s:fill>
+			</s:Rect>
+			<s:Button label="Button" />
+			<s:CheckBox label="CheckBox" />
+			<s:TextInput text="TextInput" width="60" />
+		</s:NavigatorContent>
+		<s:NavigatorContent id="view3" label="View 3" >
+			<s:Scroller width="100%" height="100%" >
+				<s:Group>
+					<s:layout>
+						<s:HorizontalLayout />
+					</s:layout>
+					
+					<s:Rect width="20" height="20" >
+						<s:stroke>
+							<s:SolidColorStroke weight="1" color="0x880000" />
+						</s:stroke>
+						<s:fill>
+							<s:SolidColor alpha="1" color="0x008800" />
+						</s:fill>
+					</s:Rect>
+					<s:Button label="Button" />
+					<s:CheckBox label="CheckBox" />
+					<s:TextInput text="TextInput" width="60" />
+				</s:Group>
+			</s:Scroller>
+		</s:NavigatorContent>
+		<s:NavigatorContent id="view4" label="View 4" >
+			<s:Scroller width="100%" height="100%" >
+				<s:Group>
+					<s:TextArea>
+						A little boy was so exited because his mom told him he is getting a baby brother. 
+						He repeated that to his techer every day, when he came to school, "Im getting a brother." 
+						One day his mom alllowed him to feel the baby's kicks in her belly. 
+						The next day he came to school and didnt say anything to his teacher, so the teacher asked him, what happend to his brother. 
+						He replyed, "I think mommy ate him."
+					</s:TextArea>
+				</s:Group>
+			</s:Scroller>
+		</s:NavigatorContent> 
+		<s:NavigatorContent id="view5" label="View 5" >
+			<s:Button width="600" label="This button should clip" />
+		</s:NavigatorContent> 
+	</s:ViewStack>
+</s:Group>

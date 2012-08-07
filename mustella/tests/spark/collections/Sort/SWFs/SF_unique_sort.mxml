@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   minWidth="955" minHeight="600" 
+			   xmlns:newComps="newComps.*">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.SFCommon;
+			import assets.newClasses.SFConstant;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ISortField ;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField; 
+			
+			public var sortS:Sort = new Sort() ; 
+			
+			[bindable] 
+			public var myStr:String ; 
+					
+
+			// set unique value from mustella please
+			protected function btnSort_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var myArrayC:mx.collections.ArrayCollection ;
+				
+				if( lbType.text == "CollectionWithoutIdentical" ) {
+					myArrayC = myAC ; 
+				}else if ( lbType.text == "CollectionWithIdentical"  ) {
+					myArrayC = myACwithIdentical ; 
+				}else if ( lbType.text == "myCustomWithIdentical"  ) {
+					myArrayC = myCustomeACwithIdentical ; 
+				}
+					
+				try{
+					mySortField.name = "label" ;
+					mySortField.setStyle("locale", "en-US" ) ; 
+					sDefault.fields = ([mySortField] );
+						
+					myArrayC.sort = sDefault ;		
+					myArrayC.refresh() ;
+					sList.dataProvider = myArrayC ;
+				}catch(e:Error) {
+					lb.text = e.toString() ;
+					return ; 
+				}
+				
+				lb.text = SFCommon.getSorttedStringFromCollection(myArrayC, "label" , null , null, null ) ; 
+				return ; 
+			}
+
+
+			//set unique value from action scripts pls
+			protected function btnSortScript_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var myArrayC:mx.collections.ArrayCollection ;
+				
+				if( lbType.text == "CollectionWithoutIdentical" ) {
+					myArrayC = myAC ; 
+				}else if ( lbType.text == "CollectionWithIdentical" ) {
+					myArrayC = myACwithIdentical ; 
+				}
+				try{
+					
+					var sortA:Sort = new Sort();
+					sortA.setStyle("locale", "en-US" ) ; 
+					//sortA.fields = [new SortField("label")];
+					var sortf:SortField = new SortField("label") ;
+					sortf.setStyle("locale" , "en-US" ) ; 
+					sortA.fields = [ sortf ] ; 
+					sortA.unique = true ; 
+					myArrayC.sort=sortA;
+					myArrayC.refresh() ;
+					sList.dataProvider = myArrayC ;
+				}catch ( e:Error) {
+					lb.text = e.toString() ;
+					return ; 
+				}
+				
+				lb.text = SFCommon.getSorttedStringFromCollection(myArrayC, "label" , null , null, null ) ; 
+				return ; 
+			}
+
+
+			//set inline unique value 
+			protected function btnSortInline_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var myArrayC:mx.collections.ArrayCollection ;
+				
+				if( lbType.text == "CollectionWithoutIdentical" ) {
+					myArrayC = myAC ; 
+				}else if ( lbType.text == "CollectionWithIdentical" ) {
+					myArrayC = myACwithIdentical ; 
+				}
+				try{
+					sortInline.fields = [mySortField] ; 
+					mySortField.name = "label" ; 
+					myArrayC.sort = sortInline ;
+					
+					myArrayC.refresh() ;
+					sList.dataProvider = myArrayC ;
+				}catch ( e:Error){
+					lb.text = e.toString() ; 
+					return ; 
+				}
+				
+				lb.text = SFCommon.getSorttedStringFromCollection(myArrayC, "label" , null , null, null ) ; 
+				return ; 
+			}
+			
+
+			// Sort String from short length to long length 
+			public function mySortCompareFunction(item1:Object, item2:Object , fields:Array = null):int {
+				
+				var fdName:String ; 
+				
+				if ( item1 == null && item2 == null ) 
+					return 0 ;
+				
+				if ( fields != null && fields.length == 1 ) {
+					if ( fields[0] is ISortField ) 
+					{
+						var fd:ISortField = fields[0] ;
+						fdName = fd.name ; 
+					}
+					
+				}
+				
+				if ( fields == null  ) {
+					if (item1.length > item2.length)
+						return 1 ; 
+					else if ( item1.length == item2.length)
+						return 0 ; 
+					else 
+						return -1 ; 
+				}else if ( fields.length == 1 ) {
+					//var name:String = fields[0] ; 
+					//trace ( fields[0].toString() ) ; 
+					var aStr:String = item1[fdName] ;
+					var bStr:String = item2[fdName] ; 
+					if ( aStr == null && bStr == null ) 
+						return 0 ; 
+					if (aStr.length > bStr.length)
+						return 1 ; 
+					else if ( aStr.length == bStr.length)
+						return 0 ; 
+					else 
+						return -1 ; 
+				}else
+					return 1 ; 
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:ArrayCollection id="myAC">
+			<!-- Use an fx:Array tag to associate an id with the array. --> 
+			<fx:Array id="myArray1">
+				<fx:Object label="MI" data="Lansing"/>
+				<fx:Object label="MO" data="Jefferson City"/>
+				<fx:Object label="MA" data="Boston"/>
+				<fx:Object label="MT" data="Helena"/>
+				<fx:Object label="ME" data="Augusta"/>
+				<fx:Object label="MS" data="Jackson"/>
+				<fx:Object label="MN" data="Saint Paul"/>
+			</fx:Array> 
+		</mx:ArrayCollection>
+
+		<mx:ArrayCollection id="myACwithIdentical">
+			<!-- Use an fx:Array tag to associate an id with the array. --> 
+			<fx:Array id="myArray2">
+				<fx:Object label="MI" data="Lansing"/>
+				<fx:Object label="MO" data="Jefferson City"/>
+				<fx:Object label="MA" data="Boston"/>
+				<fx:Object label="MT" data="Helena"/>
+				<fx:Object label="MT" data="Helen"/>
+				<fx:Object label="ME" data="Augusta"/>
+				<fx:Object label="MS" data="Jackson"/>
+				<fx:Object label="MN" data="Saint Paul"/>
+			</fx:Array> 
+		</mx:ArrayCollection>
+		
+		<mx:ArrayCollection id="myCustomeACwithIdentical">
+			<!-- Use an fx:Array tag to associate an id with the array. --> 
+			<fx:Array id="myArray3">
+				<fx:Object label="ab" data="Lansing"/>
+				<fx:Object label="AB" data="Jefferson City"/>
+				<fx:Object label="bcd" data="Boston"/>
+				<fx:Object label="with" data="Helena"/>
+				<fx:Object label="apple" data="Helen"/>
+				<fx:Object label="bindable" data="Augusta"/>
+				<fx:Object label="H" data="Jackson"/>
+				<fx:Object label="smiles" data="Saint Paul"/>
+			</fx:Array> 
+		</mx:ArrayCollection>
+		
+		<s:Sort id="sDefault" /> 
+		<s:SortField id="mySortField" /> 
+		<s:Sort id="sortInline" unique="true"  fields="{[new SortField('label')]}"/>
+		
+	</fx:Declarations>
+	<s:VGroup>
+		<s:List id="sList" /> 
+		
+		
+		<s:Button  label="click and use s:Sort" id="btnSort" click="btnSort_clickHandler(event)" />
+		<s:Button label="click and use sort from scripts" id="btnSortScript" click="btnSortScript_clickHandler(event)" />
+		<s:Button label="click and use inline property" id="btnSortInline" click="btnSortInline_clickHandler(event)" /> 
+		
+		<s:Label id="lbType" /> 
+		
+		<s:Label id="lb"/>
+		
+	</s:VGroup>
+	
+</s:Application>

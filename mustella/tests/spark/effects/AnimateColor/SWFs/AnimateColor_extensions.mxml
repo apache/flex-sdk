@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+	width="400" height="300"
+    backgroundColor="0xFFFFFF" 
+	creationComplete="HandleCreationComplete()">
+
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera0;
+		embedAsCFF: false;
+		}
+
+		@font-face{
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera1;
+		embedAsCFF: true;
+		}
+
+		s|SkinnableComponent {
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: black;
+		}
+	</fx:Style>
+
+
+	<fx:Script>
+		public var delayQuanta:int = 500;
+
+		public function Reset():void
+		{
+		this.textArea.setStyle("color", "0x000000");
+		this.textArea.setStyle("chromeColor", "0xFFFFFF");
+		this.textArea.setStyle("contentBackgroundColor", "0xFFFFFF");
+		this.textArea.setStyle("symbolColor", "0xFFFFFF");
+		}
+
+		public function HandleCreationComplete():void
+		{
+		textArea.text = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+		}
+	</fx:Script>
+
+    <fx:Declarations>
+        <s:AnimateColor id="fxac"
+			target="{textArea}"
+			colorFrom="0xFFFFFF" colorTo="0xFF0000"
+            duration="1000"/>
+    </fx:Declarations>
+
+
+    <s:TextArea id="textArea" 
+            x="20" y="20"
+    		chromeColor="0xFFFFFF"
+    		symbolColor="0xFFFFFF"
+    		contentBackgroundColor="0xFFFFFF"
+            width="300"
+            height="205">
+    </s:TextArea>
+
+
+
+</s:Application>
+

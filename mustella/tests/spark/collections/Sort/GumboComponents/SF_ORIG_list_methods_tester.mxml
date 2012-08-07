@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/GumboComponents/" 
+			xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" 
+			xmlns="*" testSWF="SF_ORIG_ListBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+        import spark.layouts.*;
+        import mx.collections.ArrayCollection;
+        import mx.core.mx_internal;
+        use namespace mx_internal;
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <!--            dataProvider.addItemAt          -->
+
+        <TestCase testID="List_method_arrayCollection_binding_addItemAt" keywords="[List, method,arrayCollection,binding, dataProvider.addItemAt, bug15940]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            </setup>
+            <body>
+                <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.sortAC();application.createPlayersAC()" />
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.ac" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <RunCode code="application.ac.addItemAt(application.newPlayer, 0);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="5" />
+                <RunCode code="application.list1.dataProvider.addItemAt(application.newPlayer, 0);" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="8" />
+
+            </body>
+        </TestCase>
+        
+        <!--             dataProvider.removeItemAt                          -->
+
+        <TestCase testID="List_method_arrayCollection_binding_removeItemAt" keywords="[List, method,arrayCollection,binding, bug15925]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            </setup>
+            <body>
+                <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.sortAC();application.createPlayersAC()" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.ac" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="7" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="4" />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(0).team" value="ATeam" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(0).firstName" value="AdName" />
+                <RunCode code="application.ac.removeItemAt(0);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="3" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(1).firstName" value="RaPlayer" />
+                <RunCode code="application.ac.removeItemAt(0);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(0).firstName" value="RaPlayer" />
+                <RunCode code="application.ac.removeItemAt(0);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="1" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(0).firstName" value="DaName" />
+                <RunCode code="application.ac.removeItemAt(0);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+
+        <!--             removeAll                        -->
+
+        <TestCase testID="List_method_arrayCollection_binding_removeAll" keywords="[List, method,arrayCollection,binding, removeAll, bug15925]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            </setup>
+            <body>
+                <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.sortAC();application.createPlayersAC()" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.ac" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <RunCode code="application.ac.removeAll();" />
+                <RunCode code="application.list1.dataProvider.removeAll();" waitEvent="updateComplete"  waitTarget="list1.dataGroup" />
+                <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="0" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="0" />
+
+            </body>
+        </TestCase>
+       
+
+    </testCases>
+
+
+</UnitTester>

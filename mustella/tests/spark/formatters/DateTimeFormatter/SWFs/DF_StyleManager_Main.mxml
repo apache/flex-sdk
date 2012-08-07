@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="1000" height="100%">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		.myStyle {
+			locale:'ru_RU';
+		}	
+	 	s|DateTimeFormatter {
+			locale:'en_US';
+		} 
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			import flash.utils.setTimeout;
+			import mx.collections.ArrayCollection;
+			import mx.effects.Effect;
+			import mx.effects.EffectInstance;
+			import mx.styles.IStyleManager2;
+			import spark.events.TextOperationEvent;
+			
+			private var aDate:Date =  new Date(2009, 12, 1);
+			private var myStyleManager:IStyleManager2 ;
+			
+			public function testDateFormatter(Object:String):void {
+				aDate =  new Date(2009, 12, 1);
+				switch (Object)
+				{
+					//case 1 is for testing current styles
+					case '1':						
+						myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+						break;
+					//case 2 is using styleManger API to set styles using global Selector CSS style 
+					case '2':
+						myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+						if(myStyleManager.getStyleDeclaration("spark.formatters.DateTimeFormatter") != null) {
+							myStyleManager.getStyleDeclaration("spark.formatters.DateTimeFormatter").clearStyle("locale");
+						};
+						myStyleManager.getStyleDeclaration("global").setStyle("locale", "fr_FR");
+						break;
+					//case 3 is using styleManger API to set styles using Type Selector CSS style
+					case '3':						
+						myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+						myStyleManager.getStyleDeclaration("spark.formatters.DateTimeFormatter").setStyle("locale", "ru_RU");
+						break;
+					//case 4 is using styleManger API to set styles using Class Selector CSS style
+					case '4':
+						myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+						myStyleManager.getStyleDeclaration(".myStyle").setStyle("locale", "ja_JP");
+						break;
+					//loading Class Selector style CSS declaration using styleManager  API
+					case '5':
+						myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+						myStyleManager.loadStyleDeclarations("assets/myCSSname.swf");
+						break;	
+					//case 6 is using styleManger API to clear style
+					case '6':
+						myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+						myStyleManager.getStyleDeclaration("global").clearStyle("locale");
+						myStyleManager.getStyleDeclaration(".myStyle").clearStyle("locale");
+						myStyleManager.getStyleDeclaration(".myStyle").setStyle("locale", "en-US");
+						/*
+						if(myStyleManager.getStyleDeclaration("spark.formatters.DateTimeFormatter") != null) {
+							myStyleManager.getStyleDeclaration("spark.formatters.DateTimeFormatter").clearStyle("locale");
+						};*/
+						
+						break;
+				} // end of switch	
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+	<!-- the DateTimeFormatter for test type selector -->
+	<s:DateTimeFormatter id="dFShort" />
+	<s:DateTimeFormatter id="dFLong"/>
+	<s:DateTimeFormatter id="dFNone" />
+	<s:DateTimeFormatter id="dFMedium"/>
+	<s:DateTimeFormatter id="tFShort" />
+	<s:DateTimeFormatter id="tFLong" />
+	<s:DateTimeFormatter id="tFNone" />
+	<s:DateTimeFormatter id="tFMedium"/>
+	<s:DateTimeFormatter id="dFShort2" />
+	<s:DateTimeFormatter id="dFLong2"/>
+	<s:DateTimeFormatter id="dFNone2" />
+	<s:DateTimeFormatter id="dFMedium2"/>
+	<s:DateTimeFormatter id="tFShort2" />
+	<s:DateTimeFormatter id="tFLong2" />
+	<s:DateTimeFormatter id="tFNone2" />
+	<s:DateTimeFormatter id="tFMedium2"/>
+	<s:DateTimeFormatter id="dFShort3" />
+	<s:DateTimeFormatter id="dFLong3"/>
+	<s:DateTimeFormatter id="dFNone3" />
+	<s:DateTimeFormatter id="dFMedium3"/>
+	<s:DateTimeFormatter id="tFShort3" />
+	<s:DateTimeFormatter id="tFLong3" />
+	<s:DateTimeFormatter id="tFNone3" />
+	<s:DateTimeFormatter id="tFMedium3"/>
+	<s:DateTimeFormatter id="dFShort5" />
+	<s:DateTimeFormatter id="dFLong5"/>
+	<s:DateTimeFormatter id="dFNone5" />
+	<s:DateTimeFormatter id="dFMedium5"/>
+	<s:DateTimeFormatter id="tFShort5" />
+	<s:DateTimeFormatter id="tFLong5" />
+	<s:DateTimeFormatter id="tFNone5" />
+	<s:DateTimeFormatter id="tFMedium5"/>
+		
+	<!-- the DateTimeFormatter for test class selector -->
+	<s:DateTimeFormatter id="dFLocalShort"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="dFLocalLong"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="dFLocalNone"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="dFLocalMedium"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalShort"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalLong"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalNone"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalMedium"  styleName="myStyle"/>	
+	<s:DateTimeFormatter id="dFLocalShort6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="dFLocalLong6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="dFLocalNone6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="dFLocalMedium6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalShort6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalLong6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalNone6"  styleName="myStyle"/>
+	<s:DateTimeFormatter id="tFLocalMedium6"  styleName="myStyle"/>	
+	</fx:Declarations>
+	
+</s:Application>

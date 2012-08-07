@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" 
+		 xmlns:newComps="newComps.*">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			
+			public var SFNoLocaleScriptSort:spark.collections.Sort = new spark.collections.Sort();
+			public var SFNoLocaleScriptField:spark.collections.SortField = new spark.collections.SortField();
+			
+			public var flashCollator:Collator;
+			
+			public function set flashCollatorLocale(localeStr:String):void {
+				flashCollator = new Collator(localeStr, CollatorMode.SORTING);
+			}
+			
+			public function get flashSortedArray():Array {
+				if (listDataProvider != null && 
+					flashCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(listValueField, listDataProvider);
+					fieldArr.sort(flashCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function revertArray(arr:Array):Array{
+				if(arr!=null){
+					return arr.reverse();
+				}
+				else
+					return null;
+			}
+			
+			[Bindable]
+			public var listValueField:String;
+			[Bindable]
+			public var listDataProvider:ArrayCollection;
+			
+			public function get listSelectFieldValue():* {
+				if (uiList != null && uiList.selectedItem != null) {
+					var selectedValue:* = uiList.selectedItem;
+					
+					return selectedValue[listValueField];
+				}
+				
+				return null;
+			}
+			
+			public function getCatchErrRefresh():String {
+				var error:String = 'noError';
+				try
+				{
+					listDataProvider.refresh();
+				}
+				catch(e:Error)
+				{
+					error = e.toString();
+				}
+				return error;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Sort id="SFDecl_sort" />
+		<s:SortField id="SFDecl_field" />
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<newComps:BaseDataComp id="dataComp"/>
+	
+	<s:List id="uiList" labelField="{listValueField}" dataProvider="{listDataProvider}">
+		
+	</s:List>
+	
+</s:Group>

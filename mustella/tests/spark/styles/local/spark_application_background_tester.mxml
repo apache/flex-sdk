@@ -1,0 +1,130 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="spark_application_background_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <fx:Style>
+    	.myStyle{
+			backgroundColor: #00FF00;
+			backgroundAlpha: 1;
+		}
+    </fx:Style>
+    <testCases>    
+
+  		<TestCase testID="spark_application_backgroundColor_backgroundAlpha_mxml_getStyle" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+  			<body>
+				<AssertStyleValue styleName="backgroundColor" value="255" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.2" target=""/>
+				<CompareBitmap target="" url="../local/baselines/$testID.png" />
+  			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="spark_Panel_backgroundColor_backgroundAlpha_mxml_getStyle" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target="spnl"/>
+				<CompareBitmap target="spnl" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+  		
+		<TestCase testID="mx_Panel_backgroundColor_backgroundAlpha_mxml_getStyle" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target="mxpnl"/>
+				<CompareBitmap target="mxpnl" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+  		
+		<TestCase testID="spark_TitleWindow_backgroundColor_backgroundAlpha_binding" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetProperty propertyName="selectedColor" value="0xFF0000" target="cp"/>
+				<SetProperty propertyName="value" value="1" target="slide" waitEvent="updateComplete"/>	
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="twin"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target="twin"/>
+				<CompareBitmap target="twin" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="spark_application_backgroundColor_backgroundAlpha_mxml_change_runtime" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetStyle styleName="backgroundColor" value="yellow" target="" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16776960" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.2" target=""/>
+				<CompareBitmap target="" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		  		
+		<TestCase testID="spark_Panel_backgroundColor_backgroundAlpha_mxml_change_runtime" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetStyle styleName="backgroundColor" value="yellow" target="spnl"/>
+				<SetStyle styleName="backgroundAlpha" value="0.2" target="spnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16776960" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.2" target="spnl"/>
+				<CompareBitmap target="spnl" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mx_Panel_backgroundColor_backgroundAlpha_mxml_change_runtime" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetStyle styleName="backgroundColor" value="yellow" target="mxpnl"/>
+				<SetStyle styleName="backgroundAlpha" value="0.2" target="mxpnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16776960" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.2" target="mxpnl"/>
+				<CompareBitmap target="mxpnl" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+  	
+  		<TestCase testID="backgroundColor_backgroundAlpha_mxml_change_state" keywords="[backgroundAlpha, backgroundColor]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetProperty propertyName="currentState" value="state1" target="" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="32768" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target=""/>
+				
+				<AssertStyleValue styleName="backgroundColor" value="32768" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.7" target="spnl"/>
+				
+				<AssertStyleValue styleName="backgroundColor" value="32768" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.7" target="mxpnl"/>
+				<CompareBitmap target="" url="../local/baselines/$testID_1.png" />
+				
+				<SetProperty propertyName="currentState" value="defaultState" target="" waitEvent="currentStateChange"/>
+				
+				<AssertStyleValue styleName="backgroundColor" value="255" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.2" target=""/>
+
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target="spnl"/>
+
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target="mxpnl"/>
+				<CompareBitmap target="" url="../local/baselines/$testID_2.png" />
+			</body>
+		</TestCase>
+  		
+   </testCases>
+</UnitTester>

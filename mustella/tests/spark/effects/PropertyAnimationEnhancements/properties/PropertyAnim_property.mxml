@@ -1,0 +1,583 @@
+<UnitTester testSWF="../swfs/propertyAnim_main.mxml"
+            testDir="spark/effects/PropertyAnimationEnhancements/properties/"
+            xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns="*">
+    
+    <fx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void{
+            }
+            
+            import mx.core.FlexGlobals;
+            import mx.core.UIComponent;
+            import comps.*;
+            
+            public function objBounds(target:UIComponent):String {
+                return target.getBounds(target.parent).toString();
+            }
+            
+            public const DELAY:int = 1000;
+            
+            /** ********** ********** ********** **********
+             * left and right constraints bounds, state 1
+             ********** ********** ********** ********** */
+            public const B1_S1_BOUNDS:String = "b1:s1:(x=9, y=99, w=91, h=23)";
+            public const B2_S1_BOUNDS:String = "b2:s1:(x=200, y=149, w=91, h=23)";
+            public const B3_S1_BOUNDS:String = "b3:s1:(x=9, y=199, w=282, h=23)";
+            public const B4_S1_BOUNDS:String = "b4:s1:(x=9, y=249, w=72, h=23)";
+            public const B5_S1_BOUNDS:String = "b5:s1:(x=219, y=299, w=72, h=23)";
+            
+            /** ********** ********** ********** **********
+             * left and right constraints bounds, state 2
+             ********** ********** ********** ********** */
+            public const B1_S2_BOUNDS:String = "b1:s2:(x=200, y=99, w=91, h=23)";
+            public const B2_S2_BOUNDS:String = "b2:s2:(x=9, y=149, w=91, h=23)";
+            public const B3_S2_BOUNDS:String = "b3:s2:(x=9, y=199, w=77, h=23)";
+            public const B4_S2_BOUNDS:String = "b4:s2:(x=99, y=249, w=72, h=23)";
+            public const B5_S2_BOUNDS:String = "b5:s2:(x=129, y=299, w=72, h=23)";
+            
+            
+            /** ********** ********** ********** **********
+             * top and bottom constraints bounds, state 1
+             ********** ********** ********** ********** */
+            public const B6_S1_BOUNDS:String =  "b6:s1:(x=-1, y=99, w=101, h=23)";
+            public const B7_S1_BOUNDS:String =  "b7:s1:(x=99, y=258, w=101, h=23)";
+            public const B8_S1_BOUNDS:String =  "b8:s1:(x=199, y=99, w=87, h=182)";
+            public const B9_S1_BOUNDS:String =  "b9:s1:(x=199, y=-1, w=72, h=23)";
+            public const B10_S1_BOUNDS:String = "b10:s1:(x=199, y=358, w=72, h=23)";
+            
+            /** ********** ********** ********** **********
+             * top and bottom constraints bounds, state 2
+             ********** ********** ********** ********** */
+            public const B6_S2_BOUNDS:String =  "b6:s2:(x=-1, y=258, w=101, h=23)";
+            public const B7_S2_BOUNDS:String =  "b7:s2:(x=99, y=99, w=101, h=23)";
+            public const B8_S2_BOUNDS:String =  "b8:s2:(x=199, y=99, w=87, h=23)";
+            public const B9_S2_BOUNDS:String =  "b9:s2:(x=199, y=49, w=72, h=23)";
+            public const B10_S2_BOUNDS:String = "b10:s2:(x=199, y=308, w=72, h=23)";
+            
+            
+            /** ********** ********** ********** **********
+             * horizontalCenter and verticalCenter constraints bounds, state 1
+             ********** ********** ********** ********** */
+            public const B11_S1_BOUNDS:String = "b11:s1:(x=114, y=49, w=72, h=23)";
+            public const B12_S1_BOUNDS:String = "b12:s1:(x=114, y=79, w=72, h=23)";
+            public const B13_S1_BOUNDS:String = "b13:s1:(x=110, y=109, w=80, h=23)";
+            public const B14_S1_BOUNDS:String = "b14:s1:(x=-1, y=179, w=72, h=23)";
+            public const B15_S1_BOUNDS:String = "b15:s1:(x=99, y=179, w=72, h=23)";
+            public const B16_S1_BOUNDS:String = "b16:s1:(x=199, y=179, w=105, h=23)";
+            
+            /** ********** ********** ********** **********
+             * horizontalCenter and verticalCenter constraints bounds, state 2
+             ********** ********** ********** ********** */
+            public const B11_S2_BOUNDS:String = "b11:s2:(x=164, y=49, w=72, h=23)";
+            public const B12_S2_BOUNDS:String = "b12:s2:(x=64, y=79, w=72, h=23)";
+            public const B13_S2_BOUNDS:String = "b13:s2:(x=9, y=109, w=80, h=23)";
+            public const B14_S2_BOUNDS:String = "b14:s2:(x=-1, y=229, w=72, h=23)";
+            public const B15_S2_BOUNDS:String = "b15:s2:(x=99, y=129, w=72, h=23)";
+            public const B16_S2_BOUNDS:String = "b16:s2:(x=199, y=258, w=105, h=23)";
+            
+            
+            /** ********** ********** ********** **********
+             * percentWidth constraint bounds, state 1
+             ********** ********** ********** ********** */
+            public const B17_S1_BOUNDS:String = "b17:s1:(x=-1, y=49, w=152, h=23)";
+            public const B18_S1_BOUNDS:String = "b18:s1:(x=-1, y=79, w=302, h=23)";
+            public const B19_S1_BOUNDS:String = "b19:s1:(x=-1, y=109, w=152, h=23)";
+            
+            /** ********** ********** ********** **********
+             * percentWidth constraint bounds, state 2
+             ********** ********** ********** ********** */
+            public const B17_S2_BOUNDS:String = "b17:s2:(x=-1, y=49, w=302, h=23)";
+            public const B18_S2_BOUNDS:String = "b18:s2:(x=74, y=79, w=152, h=23)";
+            public const B19_S2_BOUNDS:String = "b19:s2:(x=-1, y=109, w=202, h=23)";
+            
+            
+            /** ********** ********** ********** **********
+             * percentHeight constraint bounds, state 1
+             ********** ********** ********** ********** */
+            public const B20_S1_BOUNDS:String = "b20:s1:(x=-1, y=-1, w=74, h=40)";
+            public const B21_S1_BOUNDS:String = "b21:s1:(x=79, y=-1, w=74, h=382)";
+            public const B22_S1_BOUNDS:String = "b22:s1:(x=159, y=-1, w=126, h=192)";
+            
+            /** ********** ********** ********** **********
+             * percentHeight constraint bounds, state 2
+             ********** ********** ********** ********** */
+            public const B20_S2_BOUNDS:String = "b20:s2:(x=-1, y=-1, w=74, h=192)";
+            public const B21_S2_BOUNDS:String = "b21:s2:(x=79, y=94, w=74, h=192)";
+            public const B22_S2_BOUNDS:String = "b22:s2:(x=159, y=-1, w=126, h=302)";
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[[Mixin]]]>
+    </fx:Metadata>
+    
+    <testCases>
+        
+        <!-- left and right constraints -->
+        <TestCase testID="leftRightContraints_basic" keywords="[left, right, constraints]" description="Various tests for animating left and right constraints.">
+            <setup>
+                <ResetComponent target="leftRight" className="comps.LeftRightComp" waitEvent="updateComplete" waitTarget="leftRight" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b1:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S1_BOUNDS" />
+                <AssertMethodValue method="value='b2:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S1_BOUNDS" />
+                <AssertMethodValue method="value='b3:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S1_BOUNDS" />
+                <AssertMethodValue method="value='b4:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S1_BOUNDS" />
+                <AssertMethodValue method="value='b5:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S1_BOUNDS" />
+                
+                <SetProperty target="leftRight" propertyName="currentState" value="s2" waitTarget="leftRight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b1:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S2_BOUNDS" />
+                <AssertMethodValue method="value='b2:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S2_BOUNDS" />
+                <AssertMethodValue method="value='b3:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S2_BOUNDS" />
+                <AssertMethodValue method="value='b4:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S2_BOUNDS" />
+                <AssertMethodValue method="value='b5:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="leftRightContraints_reverse" keywords="[left, right, constraints]" description="Various tests for animating left and right constraints.">
+            <setup>
+                <ResetComponent target="leftRight" className="comps.LeftRightComp" waitEvent="updateComplete" waitTarget="leftRight" />
+            </setup>
+            <body>
+                <SetProperty target="leftRight" propertyName="currentState" value="s2" waitTarget="leftRight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b1:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S2_BOUNDS" />
+                <AssertMethodValue method="value='b2:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S2_BOUNDS" />
+                <AssertMethodValue method="value='b3:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S2_BOUNDS" />
+                <AssertMethodValue method="value='b4:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S2_BOUNDS" />
+                <AssertMethodValue method="value='b5:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S2_BOUNDS" />
+                
+                <SetProperty target="leftRight" propertyName="currentState" value="s1" waitTarget="leftRight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b1:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S1_BOUNDS" />
+                <AssertMethodValue method="value='b2:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S1_BOUNDS" />
+                <AssertMethodValue method="value='b3:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S1_BOUNDS" />
+                <AssertMethodValue method="value='b4:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S1_BOUNDS" />
+                <AssertMethodValue method="value='b5:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="leftRightContraints_startDelay" keywords="[left, right, startDelay, constraints]" description="Various tests for animating left and right constraints.">
+            <setup>
+                <ResetComponent target="leftRight" className="comps.LeftRightComp" waitEvent="updateComplete" waitTarget="leftRight" />
+            </setup>
+            <body>
+                <SetProperty target="leftRight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="leftRight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b1:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S1_BOUNDS" />
+                <AssertMethodValue method="value='b2:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S1_BOUNDS" />
+                <AssertMethodValue method="value='b3:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S1_BOUNDS" />
+                <AssertMethodValue method="value='b4:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S1_BOUNDS" />
+                <AssertMethodValue method="value='b5:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S1_BOUNDS" />
+                
+                <SetProperty target="leftRight" propertyName="currentState" value="s2" waitTarget="leftRight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b1:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S2_BOUNDS" />
+                <AssertMethodValue method="value='b2:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S2_BOUNDS" />
+                <AssertMethodValue method="value='b3:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S2_BOUNDS" />
+                <AssertMethodValue method="value='b4:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S2_BOUNDS" />
+                <AssertMethodValue method="value='b5:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="leftRightContraints_reverse_startDelay" keywords="[left, right, startDelay, constraints]" description="Various tests for animating left and right constraints.">
+            <setup>
+                <ResetComponent target="leftRight" className="comps.LeftRightComp" waitEvent="updateComplete" waitTarget="leftRight" />
+            </setup>
+            <body>
+                <SetProperty target="leftRight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="leftRight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <SetProperty target="leftRight" propertyName="currentState" value="s2" waitTarget="leftRight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b1:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S2_BOUNDS" />
+                <AssertMethodValue method="value='b2:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S2_BOUNDS" />
+                <AssertMethodValue method="value='b3:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S2_BOUNDS" />
+                <AssertMethodValue method="value='b4:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S2_BOUNDS" />
+                <AssertMethodValue method="value='b5:s2:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S2_BOUNDS" />
+                
+                <SetProperty target="leftRight" propertyName="currentState" value="s1" waitTarget="leftRight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="leftRight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b1:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b1)" valueExpression="value=B1_S1_BOUNDS" />
+                <AssertMethodValue method="value='b2:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b2)" valueExpression="value=B2_S1_BOUNDS" />
+                <AssertMethodValue method="value='b3:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b3)" valueExpression="value=B3_S1_BOUNDS" />
+                <AssertMethodValue method="value='b4:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b4)" valueExpression="value=B4_S1_BOUNDS" />
+                <AssertMethodValue method="value='b5:s1:' + objBounds(FlexGlobals.topLevelApplication.leftRight.b5)" valueExpression="value=B5_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        
+        
+        <!-- top and bottom constraints -->
+        <TestCase testID="topBottomContraints_basic" keywords="[top, bottom, constraints]" description="Basic (state1-to-state2) tests for animating top and bottom constraints.">
+            <setup>
+                <ResetComponent target="topBottom" className="comps.TopBottomComp" waitEvent="updateComplete" waitTarget="topBottom" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b6:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S1_BOUNDS" />
+                <AssertMethodValue method="value='b7:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S1_BOUNDS" />
+                <AssertMethodValue method="value='b8:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S1_BOUNDS" />
+                <AssertMethodValue method="value='b9:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S1_BOUNDS" />
+                <AssertMethodValue method="value='b10:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S1_BOUNDS" />
+                
+                <SetProperty target="topBottom" propertyName="currentState" value="s2" waitTarget="topBottom" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b6:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S2_BOUNDS" />
+                <AssertMethodValue method="value='b7:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S2_BOUNDS" />
+                <AssertMethodValue method="value='b8:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S2_BOUNDS" />
+                <AssertMethodValue method="value='b9:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S2_BOUNDS" />
+                <AssertMethodValue method="value='b10:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="topBottomContraints_reverse" keywords="[top, bottom, constraints]" description="Reverse (state2-to-state1) tests for animating top and bottom constraints.">
+            <setup>
+                <ResetComponent target="topBottom" className="comps.TopBottomComp" waitEvent="updateComplete" waitTarget="topBottom" />
+            </setup>
+            <body>
+                <SetProperty target="topBottom" propertyName="currentState" value="s2" waitTarget="topBottom" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b6:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S2_BOUNDS" />
+                <AssertMethodValue method="value='b7:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S2_BOUNDS" />
+                <AssertMethodValue method="value='b8:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S2_BOUNDS" />
+                <AssertMethodValue method="value='b9:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S2_BOUNDS" />
+                <AssertMethodValue method="value='b10:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S2_BOUNDS" />
+                
+                <SetProperty target="topBottom" propertyName="currentState" value="s1" waitTarget="topBottom" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b6:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S1_BOUNDS" />
+                <AssertMethodValue method="value='b7:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S1_BOUNDS" />
+                <AssertMethodValue method="value='b8:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S1_BOUNDS" />
+                <AssertMethodValue method="value='b9:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S1_BOUNDS" />
+                <AssertMethodValue method="value='b10:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="topBottomContraints_startDelay" keywords="[top, bottom, startDelay, constraints]" description="Various tests for animating top and bottom constraints.">
+            <setup>
+                <ResetComponent target="topBottom" className="comps.TopBottomComp" waitEvent="updateComplete" waitTarget="topBottom" />
+            </setup>
+            <body>
+                <SetProperty target="topBottom" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="topBottom" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b6:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S1_BOUNDS" />
+                <AssertMethodValue method="value='b7:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S1_BOUNDS" />
+                <AssertMethodValue method="value='b8:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S1_BOUNDS" />
+                <AssertMethodValue method="value='b9:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S1_BOUNDS" />
+                <AssertMethodValue method="value='b10:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S1_BOUNDS" />
+                
+                <SetProperty target="topBottom" propertyName="currentState" value="s2" waitTarget="topBottom" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b6:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S2_BOUNDS" />
+                <AssertMethodValue method="value='b7:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S2_BOUNDS" />
+                <AssertMethodValue method="value='b8:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S2_BOUNDS" />
+                <AssertMethodValue method="value='b9:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S2_BOUNDS" />
+                <AssertMethodValue method="value='b10:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="topBottomContraints_reverse_startDelay" keywords="[top, bottom, startDelay, constraints]" description="Various tests for animating top and bottom constraints.">
+            <setup>
+                <ResetComponent target="topBottom" className="comps.TopBottomComp" waitEvent="updateComplete" waitTarget="topBottom" />
+            </setup>
+            <body>
+                <SetProperty target="topBottom" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="topBottom" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <SetProperty target="topBottom" propertyName="currentState" value="s2" waitTarget="topBottom" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b6:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S2_BOUNDS" />
+                <AssertMethodValue method="value='b7:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S2_BOUNDS" />
+                <AssertMethodValue method="value='b8:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S2_BOUNDS" />
+                <AssertMethodValue method="value='b9:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S2_BOUNDS" />
+                <AssertMethodValue method="value='b10:s2:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S2_BOUNDS" />
+                
+                <SetProperty target="topBottom" propertyName="currentState" value="s1" waitTarget="topBottom" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="topBottom" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b6:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b6)" valueExpression="value=B6_S1_BOUNDS" />
+                <AssertMethodValue method="value='b7:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b7)" valueExpression="value=B7_S1_BOUNDS" />
+                <AssertMethodValue method="value='b8:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b8)" valueExpression="value=B8_S1_BOUNDS" />
+                <AssertMethodValue method="value='b9:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b9)" valueExpression="value=B9_S1_BOUNDS" />
+                <AssertMethodValue method="value='b10:s1:' + objBounds(FlexGlobals.topLevelApplication.topBottom.b10)" valueExpression="value=B10_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        
+        
+        <!-- horizontalCenter and verticalCenter constraints -->
+        <TestCase testID="horizontalCenterVerticalCenterContraints_basic" keywords="[horizontalCenter, verticalCenter, constraints]" description="Basic (state1-to-state2) tests for animating horizontalCenter and verticalCenter constraints.">
+            <setup>
+                <ResetComponent target="hCenterVCenter" className="comps.HCenterVCenterComp" waitEvent="updateComplete" waitTarget="hCenterVCenter" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b11:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S1_BOUNDS" />
+                <AssertMethodValue method="value='b12:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S1_BOUNDS" />
+                <AssertMethodValue method="value='b13:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S1_BOUNDS" />
+                <AssertMethodValue method="value='b14:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S1_BOUNDS" />
+                <AssertMethodValue method="value='b15:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S1_BOUNDS" />
+                <AssertMethodValue method="value='b16:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S1_BOUNDS" />
+                
+                <SetProperty target="hCenterVCenter" propertyName="currentState" value="s2" waitTarget="hCenterVCenter" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b11:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S2_BOUNDS" />
+                <AssertMethodValue method="value='b12:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S2_BOUNDS" />
+                <AssertMethodValue method="value='b13:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S2_BOUNDS" />
+                <AssertMethodValue method="value='b14:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S2_BOUNDS" />
+                <AssertMethodValue method="value='b15:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S2_BOUNDS" />
+                <AssertMethodValue method="value='b16:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="horizontalCenterVerticalCenterContraints_reverse" keywords="[horizontalCenter, verticalCenter, constraints]" description="Reverse (state2-to-state1) tests for animating horizontalCenter and verticalCenter constraints.">
+            <setup>
+                <ResetComponent target="hCenterVCenter" className="comps.HCenterVCenterComp" waitEvent="updateComplete" waitTarget="hCenterVCenter" />
+            </setup>
+            <body>
+                <SetProperty target="hCenterVCenter" propertyName="currentState" value="s2" waitTarget="hCenterVCenter" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b11:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S2_BOUNDS" />
+                <AssertMethodValue method="value='b12:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S2_BOUNDS" />
+                <AssertMethodValue method="value='b13:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S2_BOUNDS" />
+                <AssertMethodValue method="value='b14:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S2_BOUNDS" />
+                <AssertMethodValue method="value='b15:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S2_BOUNDS" />
+                <AssertMethodValue method="value='b16:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S2_BOUNDS" />
+                
+                <SetProperty target="hCenterVCenter" propertyName="currentState" value="s1" waitTarget="hCenterVCenter" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b11:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S1_BOUNDS" />
+                <AssertMethodValue method="value='b12:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S1_BOUNDS" />
+                <AssertMethodValue method="value='b13:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S1_BOUNDS" />
+                <AssertMethodValue method="value='b14:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S1_BOUNDS" />
+                <AssertMethodValue method="value='b15:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S1_BOUNDS" />
+                <AssertMethodValue method="value='b16:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="horizontalCenterVerticalCenterContraints_startDelay" keywords="[horizontalCenter, verticalCenter, startDelay, constraints]" description="Basic (state1-to-state2) tests for animating horizontalCenter and verticalCenter constraints with startDelay.">
+            <setup>
+                <ResetComponent target="hCenterVCenter" className="comps.HCenterVCenterComp" waitEvent="updateComplete" waitTarget="hCenterVCenter" />
+            </setup>
+            <body>
+                <SetProperty target="hCenterVCenter" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b11:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S1_BOUNDS" />
+                <AssertMethodValue method="value='b12:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S1_BOUNDS" />
+                <AssertMethodValue method="value='b13:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S1_BOUNDS" />
+                <AssertMethodValue method="value='b14:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S1_BOUNDS" />
+                <AssertMethodValue method="value='b15:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S1_BOUNDS" />
+                <AssertMethodValue method="value='b16:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S1_BOUNDS" />
+                
+                <SetProperty target="hCenterVCenter" propertyName="currentState" value="s2" waitTarget="hCenterVCenter" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b11:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S2_BOUNDS" />
+                <AssertMethodValue method="value='b12:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S2_BOUNDS" />
+                <AssertMethodValue method="value='b13:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S2_BOUNDS" />
+                <AssertMethodValue method="value='b14:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S2_BOUNDS" />
+                <AssertMethodValue method="value='b15:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S2_BOUNDS" />
+                <AssertMethodValue method="value='b16:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="horizontalCenterVerticalCenterContraints_reverse_startDelay" keywords="[horizontalCenter, verticalCenter, startDelay, constraints]" description="Reverse (state2-to-state1) tests for animating horizontalCenter and verticalCenter constraints with startDelay.">
+            <setup>
+                <ResetComponent target="hCenterVCenter" className="comps.HCenterVCenterComp" waitEvent="updateComplete" waitTarget="hCenterVCenter" />
+            </setup>
+            <body>
+                <SetProperty target="hCenterVCenter" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <SetProperty target="hCenterVCenter" propertyName="currentState" value="s2" waitTarget="hCenterVCenter" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b11:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S2_BOUNDS" />
+                <AssertMethodValue method="value='b12:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S2_BOUNDS" />
+                <AssertMethodValue method="value='b13:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S2_BOUNDS" />
+                <AssertMethodValue method="value='b14:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S2_BOUNDS" />
+                <AssertMethodValue method="value='b15:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S2_BOUNDS" />
+                <AssertMethodValue method="value='b16:s2:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S2_BOUNDS" />
+                
+                <SetProperty target="hCenterVCenter" propertyName="currentState" value="s1" waitTarget="hCenterVCenter" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="hCenterVCenter" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b11:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b11)" valueExpression="value=B11_S1_BOUNDS" />
+                <AssertMethodValue method="value='b12:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b12)" valueExpression="value=B12_S1_BOUNDS" />
+                <AssertMethodValue method="value='b13:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b13)" valueExpression="value=B13_S1_BOUNDS" />
+                <AssertMethodValue method="value='b14:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b14)" valueExpression="value=B14_S1_BOUNDS" />
+                <AssertMethodValue method="value='b15:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b15)" valueExpression="value=B15_S1_BOUNDS" />
+                <AssertMethodValue method="value='b16:s1:' + objBounds(FlexGlobals.topLevelApplication.hCenterVCenter.b16)" valueExpression="value=B16_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        
+        
+        <!-- percentWidth constraint -->
+        <TestCase testID="percentWidthContraints_basic" keywords="[percentWidth, constraints]" description="Basic (state1-to-state2) tests for animating percentWidth constraint.">
+            <setup>
+                <ResetComponent target="pctWidth" className="comps.PctWidthComp" waitEvent="updateComplete" waitTarget="pctWidth" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b17:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S1_BOUNDS" />
+                <AssertMethodValue method="value='b18:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S1_BOUNDS" />
+                <AssertMethodValue method="value='b19:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S1_BOUNDS" />
+                
+                <SetProperty target="pctWidth" propertyName="currentState" value="s2" waitTarget="pctWidth" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b17:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S2_BOUNDS" />
+                <AssertMethodValue method="value='b18:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S2_BOUNDS" />
+                <AssertMethodValue method="value='b19:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="percentWidthContraints_reverse" keywords="[percentWidth, constraints]" description="Reverse (state2-to-state1) tests for animating percentWidth constraint.">
+            <setup>
+                <ResetComponent target="pctWidth" className="comps.PctWidthComp" waitEvent="updateComplete" waitTarget="pctWidth" />
+            </setup>
+            <body>
+                <SetProperty target="pctWidth" propertyName="currentState" value="s2" waitTarget="pctWidth" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b17:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S2_BOUNDS" />
+                <AssertMethodValue method="value='b18:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S2_BOUNDS" />
+                <AssertMethodValue method="value='b19:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S2_BOUNDS" />
+                
+                <SetProperty target="pctWidth" propertyName="currentState" value="s1" waitTarget="pctWidth" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b17:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S1_BOUNDS" />
+                <AssertMethodValue method="value='b18:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S1_BOUNDS" />
+                <AssertMethodValue method="value='b19:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="percentWidthContraints_startDelay" keywords="[percentWidth, startDelay, constraints]" description="Basic (state1-to-state2) tests for animating percentWidth constraint with startDelay.">
+            <setup>
+                <ResetComponent target="pctWidth" className="comps.PctWidthComp" waitEvent="updateComplete" waitTarget="pctWidth" />
+            </setup>
+            <body>
+                <SetProperty target="pctWidth" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="pctWidth" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b17:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S1_BOUNDS" />
+                <AssertMethodValue method="value='b18:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S1_BOUNDS" />
+                <AssertMethodValue method="value='b19:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S1_BOUNDS" />
+                
+                <SetProperty target="pctWidth" propertyName="currentState" value="s2" waitTarget="pctWidth" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b17:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S2_BOUNDS" />
+                <AssertMethodValue method="value='b18:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S2_BOUNDS" />
+                <AssertMethodValue method="value='b19:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="percentWidthContraints_reverse_startDelay" keywords="[percentWidth, startDelay, constraints]" description="Reverse (state2-to-state1) tests for animating percentWidth constraint with startDelay.">
+            <setup>
+                <ResetComponent target="pctWidth" className="comps.PctWidthComp" waitEvent="updateComplete" waitTarget="pctWidth" />
+            </setup>
+            <body>
+                <SetProperty target="pctWidth" propertyName="currentState" value="s2" waitTarget="pctWidth" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b17:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S2_BOUNDS" />
+                <AssertMethodValue method="value='b18:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S2_BOUNDS" />
+                <AssertMethodValue method="value='b19:s2:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S2_BOUNDS" />
+                
+                <SetProperty target="pctWidth" propertyName="currentState" value="s1" waitTarget="pctWidth" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctWidth" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b17:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b17)" valueExpression="value=B17_S1_BOUNDS" />
+                <AssertMethodValue method="value='b18:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b18)" valueExpression="value=B18_S1_BOUNDS" />
+                <AssertMethodValue method="value='b19:s1:' + objBounds(FlexGlobals.topLevelApplication.pctWidth.b19)" valueExpression="value=B19_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        
+        
+        <!-- percentHeight constraint -->
+        <TestCase testID="percentHeightContraints_basic" keywords="[percentHeight, constraints]" description="Basic (state1-to-state2) tests for animating percentHeight constraint.">
+            <setup>
+                <ResetComponent target="pctHeight" className="comps.PctHeightComp" waitEvent="updateComplete" waitTarget="pctHeight" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b20:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S1_BOUNDS" />
+                <AssertMethodValue method="value='b21:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S1_BOUNDS" />
+                <AssertMethodValue method="value='b22:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S1_BOUNDS" />
+                
+                <SetProperty target="pctHeight" propertyName="currentState" value="s2" waitTarget="pctHeight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b20:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S2_BOUNDS" />
+                <AssertMethodValue method="value='b21:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S2_BOUNDS" />
+                <AssertMethodValue method="value='b22:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="percentHeightContraints_reverse" keywords="[percentHeight, constraints]" description="Reverse (state2-to-state1) tests for animating percentHeight constraint.">
+            <setup>
+                <ResetComponent target="pctHeight" className="comps.PctHeightComp" waitEvent="updateComplete" waitTarget="pctHeight" />
+            </setup>
+            <body>
+                <SetProperty target="pctHeight" propertyName="currentState" value="s2" waitTarget="pctHeight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b20:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S2_BOUNDS" />
+                <AssertMethodValue method="value='b21:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S2_BOUNDS" />
+                <AssertMethodValue method="value='b22:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S2_BOUNDS" />
+                
+                <SetProperty target="pctHeight" propertyName="currentState" value="s1" waitTarget="pctHeight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b20:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S1_BOUNDS" />
+                <AssertMethodValue method="value='b21:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S1_BOUNDS" />
+                <AssertMethodValue method="value='b22:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S1_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="percentHeightContraints_startDelay" keywords="[percentHeight, startDelay, constraints]" description="Basic (state1-to-state2) tests for animating percentHeight constraint with startDelay.">
+            <setup>
+                <ResetComponent target="pctHeight" className="comps.PctHeightComp" waitEvent="updateComplete" waitTarget="pctHeight" />
+            </setup>
+            <body>
+                <SetProperty target="pctHeight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="pctHeight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b20:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S1_BOUNDS" />
+                <AssertMethodValue method="value='b21:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S1_BOUNDS" />
+                <AssertMethodValue method="value='b22:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S1_BOUNDS" />
+                
+                <SetProperty target="pctHeight" propertyName="currentState" value="s2" waitTarget="pctHeight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b20:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S2_BOUNDS" />
+                <AssertMethodValue method="value='b21:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S2_BOUNDS" />
+                <AssertMethodValue method="value='b22:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S2_BOUNDS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="percentHeightContraints_reverse_startDelay" keywords="[percentHeight, startDelay, constraints]" description="Reverse (state2-to-state1) tests for animating percentHeight constraint with startDelay.">
+            <setup>
+                <ResetComponent target="pctHeight" className="comps.PctHeightComp" waitEvent="updateComplete" waitTarget="pctHeight" />
+            </setup>
+            <body>
+                <SetProperty target="pctHeight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                <AssertPropertyValue target="pctHeight" propertyName="pauseTime" valueExpression="value=DELAY" />
+                
+                <SetProperty target="pctHeight" propertyName="currentState" value="s2" waitTarget="pctHeight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s2" />
+                <AssertMethodValue method="value='b20:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S2_BOUNDS" />
+                <AssertMethodValue method="value='b21:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S2_BOUNDS" />
+                <AssertMethodValue method="value='b22:s2:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S2_BOUNDS" />
+                
+                <SetProperty target="pctHeight" propertyName="currentState" value="s1" waitTarget="pctHeight" waitEvent="customEffectEnd" />
+                <AssertPropertyValue target="pctHeight" propertyName="currentState" value="s1" />
+                <AssertMethodValue method="value='b20:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b20)" valueExpression="value=B20_S1_BOUNDS" />
+                <AssertMethodValue method="value='b21:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b21)" valueExpression="value=B21_S1_BOUNDS" />
+                <AssertMethodValue method="value='b22:s1:' + objBounds(FlexGlobals.topLevelApplication.pctHeight.b22)" valueExpression="value=B22_S1_BOUNDS" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

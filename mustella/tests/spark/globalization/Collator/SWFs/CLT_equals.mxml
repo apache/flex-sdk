@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			
+			import spark.globalization.MatchingCollator;
+			import spark.globalization.SortingCollator;
+			
+			[Bindable]
+			public var cltBindInstance_sorting:spark.globalization.SortingCollator = new spark.globalization.SortingCollator;
+			[Bindable]
+			public var cltBindInstance_matching:spark.globalization.MatchingCollator = new spark.globalization.MatchingCollator;
+			
+			private var errorInfo:String;
+			private var errorInfoGSLib:String;
+			
+			public var cltGSLib:flash.globalization.Collator = new flash.globalization.Collator('en-US');
+			public var clt_sorting:spark.globalization.SortingCollator = new spark.globalization.SortingCollator;
+			public var clt_matching:spark.globalization.MatchingCollator = new spark.globalization.MatchingCollator;
+			
+			public var cltErrorScript_sorting:spark.globalization.SortingCollator = new spark.globalization.SortingCollator;
+			public var cltErrorScript_matching:spark.globalization.MatchingCollator = new spark.globalization.MatchingCollator;
+			
+			public function testError_sorting():Boolean
+			{
+				return cltErrorDeclaration_sorting.equals(null,null);
+			}
+
+			public function testError_matching():Boolean
+			{
+				return cltErrorDeclaration_matching.equals(null,null);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!--declare Collator instances for Error testing-->
+		<s:SortingCollator id="cltErrorDeclaration_sorting" />
+		<s:MatchingCollator id="cltErrorDeclaration_matching" />
+		
+		<!--declare Collator instances for binding mechanism-->
+		<s:SortingCollator id="cltBindingInline_sorting" locale="zh-CN"/>
+		<s:MatchingCollator id="cltBindingInline_matching" locale="zh-CN"/>
+		
+		<!--declare Collator instances when all basic properties set to default values-->
+		<s:SortingCollator id="inlineClt_sorting" locale="zh-CN"/>
+		<s:MatchingCollator id="inlineClt_matching" locale="en-US"/>
+		
+		<!--declare Collator instances when set initialMode to sorting and set each properties to true/false-->
+		<s:SortingCollator id="inlineClt_ignrCaseF_sorting" locale="zh-CN" ignoreCase="false"/>
+		<s:SortingCollator id="inlineClt_ignrCaseT_sorting" locale="zh-CN" ignoreCase="true"/>
+		<s:SortingCollator id="inlineClt_ignrWidthF_sorting" locale="zh-CN" ignoreCharacterWidth="false"/>
+		<s:SortingCollator id="inlineClt_ignrWidthT_sorting" locale="zh-CN" ignoreCharacterWidth="true"/>
+		<s:SortingCollator id="inlineClt_ignrDiacF_sorting" locale="zh-CN" ignoreDiacritics="false"/>
+		<s:SortingCollator id="inlineClt_ignrDiacT_sorting" locale="zh-CN" ignoreDiacritics="true"/>
+		<s:SortingCollator id="inlineClt_ignrKanaF_sorting" locale="zh-CN" ignoreKanaType="false"/>
+		<s:SortingCollator id="inlineClt_ignrKanaT_sorting" locale="zh-CN" ignoreKanaType="true"/>
+		<s:SortingCollator id="inlineClt_ignrSymbF_sorting" locale="zh-CN" ignoreSymbols="false"/>
+		<s:SortingCollator id="inlineClt_ignrSymbT_sorting" locale="zh-CN" ignoreSymbols="true"/>
+		<s:SortingCollator id="inlineClt_numCompF_sorting" locale="zh-CN" numericComparison="false"/>
+		<s:SortingCollator id="inlineClt_numCompT_sorting" locale="zh-CN" numericComparison="true"/>
+		
+		<!--declare Collator instances when set initialMode to matching and set each properties to true/false-->
+		<s:MatchingCollator id="inlineClt_ignrCaseF_matching"  locale="zh-CN" ignoreCase="false"/>
+		<s:MatchingCollator id="inlineClt_ignrCaseT_matching"  locale="zh-CN" ignoreCase="true"/>
+		<s:MatchingCollator id="inlineClt_ignrWidthF_matching"  locale="zh-CN" ignoreCharacterWidth="false"/>
+		<s:MatchingCollator id="inlineClt_ignrWidthT_matching"  locale="zh-CN" ignoreCharacterWidth="true"/>
+		<s:MatchingCollator id="inlineClt_ignrDiacF_matching"  locale="zh-CN" ignoreDiacritics="false"/>
+		<s:MatchingCollator id="inlineClt_ignrDiacT_matching"  locale="zh-CN" ignoreDiacritics="true"/>
+		<s:MatchingCollator id="inlineClt_ignrKanaF_matching"  locale="zh-CN" ignoreKanaType="false"/>
+		<s:MatchingCollator id="inlineClt_ignrKanaT_matching"  locale="zh-CN" ignoreKanaType="true"/>
+		<s:MatchingCollator id="inlineClt_ignrSymbF_matching"  locale="zh-CN" ignoreSymbols="false"/>
+		<s:MatchingCollator id="inlineClt_ignrSymbT_matching"  locale="zh-CN" ignoreSymbols="true"/>
+		<s:MatchingCollator id="inlineClt_numCompF_matching"  locale="zh-CN" numericComparison="false"/>
+		<s:MatchingCollator id="inlineClt_numCompT_matching"  locale="zh-CN" numericComparison="true"/>
+		
+		<!--declare Collator instances when set mutiple properties to true/false-->
+		<s:SortingCollator id="inlineCompound_sorting" locale="zh-CN" ignoreCase="true" ignoreCharacterWidth="true" ignoreDiacritics="false" ignoreKanaType="false" ignoreSymbols="true" numericComparison="false"/>
+		<s:MatchingCollator id="inlineCompound_matching"  locale="zh-CN" ignoreCase="true" ignoreCharacterWidth="true" ignoreDiacritics="false" ignoreKanaType="false" ignoreSymbols="true" numericComparison="false"/>
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout>
+			
+		</s:VerticalLayout>
+	</s:layout>
+	
+	<s:VGroup horizontalAlign="center" verticalAlign="top">
+		<s:Label text="equals() method testing" fontSize="25" fontWeight="bold" color="blue"/>
+		<s:HGroup>
+			<s:Panel title="Binding test with property change">
+				<mx:Form >
+					<mx:FormItem label="AS instance: ignoreCase change from 'true' to 'false'">
+						<s:TextInput text="{cltBindInstance_sorting.equals('abc','aBc')}" id="cltBinding_sorting" />
+					</mx:FormItem>
+					<mx:FormItem label="AS instance: ignoreCase change from 'true' to 'false'">
+						<s:TextInput text="{cltBindInstance_matching.equals('abc','aBc')}" id="cltBinding_matching" />
+					</mx:FormItem>
+					<mx:FormItem label="Inline instances: ignoreCase change from 'true' to 'false'">
+						<s:TextInput text="{cltBindingInline_sorting.equals('abc','aBc')}" id="bindingInline_sorting"/>
+					</mx:FormItem>
+					<mx:FormItem label="Inline instances: ignoreCase change from 'true' to 'false'">
+						<s:TextInput text="{cltBindingInline_matching.equals('abc','aBc')}" id="bindingInline_matching"/>
+					</mx:FormItem>
+				</mx:Form>
+			</s:Panel>
+		</s:HGroup>
+	</s:VGroup>
+	
+</s:Application>

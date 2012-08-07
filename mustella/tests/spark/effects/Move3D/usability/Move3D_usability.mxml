@@ -1,0 +1,551 @@
+﻿<UnitTester
+    testSWF="../SWFs/Move3D_main.mxml"
+    testDir="spark/effects/Move3D/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.AnimateTransform;
+        import Controls.*;
+        import Components.*;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="Move3D_Button" keywords="[Move3D, usability]" description="Move3D a Button.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_CheckBox" keywords="[Move3D, usability]" description="Move3D a CheckBox.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_ColorPicker" keywords="[Move3D, usability]" description="Move3D a ColorPicker.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixColorPicker();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_ComboBox" keywords="[Move3D, usability]" description="Move3D a ComboBox.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixComboBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_DataGrid" keywords="[Move3D, usability]" description="Move3D a DataGrid.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixDataGrid();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_DateChooser" keywords="[Move3D, usability]" description="Move3D a DateChooser.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixDateChooser();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_DateField" keywords="[Move3D, usability]" description="Move3D a DateField.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixDateField();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_HorizontalList" keywords="[Move3D, usability]" description="Move3D a HorizontalList.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixHorizontalList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_HRule" keywords="[Move3D, usability]" description="Move3D a HRule.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixHRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_HSlider" keywords="[Move3D, usability]" description="Move3D a HSlider.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixHSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_Image" keywords="[Move3D, usability]" description="Move3D a Image.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixImage();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_Label" keywords="[Move3D, usability]" description="Move3D a Label.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixLabel();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_List" keywords="[Move3D, usability]" description="Move3D a List.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_NumericStepper" keywords="[Move3D, usability]" description="Move3D a NumericStepper.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_PopUpButton" keywords="[Move3D, usability]" description="Move3D a PopUpButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixPopUpButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_PopUpMenuButton" keywords="[Move3D, usability]" description="Move3D a PopUpMenuButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixPopUpMenuButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_ProgressBar" keywords="[Move3D, usability]" description="Move3D a ProgressBar.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixProgressBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_RadioButton" keywords="[Move3D, usability]" description="Move3D a RadioButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_RichTextEditor" keywords="[Move3D, usability]" description="Move3D a RichTextEditor.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixRichTextEditor();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="1000" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_Text" keywords="[Move3D, usability]" description="Move3D a Text.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixText();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_TextArea" keywords="[Move3D, usability]" description="Move3D a TextArea.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixTextArea();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_TextInput" keywords="[Move3D, usability]" description="Move3D a TextInput.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_Tree" keywords="[Move3D, usability]" description="Move3D a Tree.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixTree();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="1000" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_VRule" keywords="[Move3D, usability]" description="Move3D a VRule.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixVRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_VScrollBar" keywords="[Move3D, usability]" description="Move3D a VScrollBar.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixVScrollBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_VSlider" keywords="[Move3D, usability]" description="Move3D a VSlider.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixVSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkRect" keywords="[Move3D, usability]" description="Move3D a SparkRect.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkRect();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkButton" keywords="[Move3D, usability]" description="Move3D a SparkButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkCheckBox" keywords="[Move3D, usability]" description="Move3D a SparkCheckBox.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkList" keywords="[Move3D, usability]" description="Move3D a SparkList.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkNumericStepper" keywords="[Move3D, usability]" description="Move3D a SparkNumericStepper.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkRadioButton" keywords="[Move3D, usability]" description="Move3D a SparkRadioButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_SparkTextInput" keywords="[Move3D, usability]" description="Move3D a SparkTextInput.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

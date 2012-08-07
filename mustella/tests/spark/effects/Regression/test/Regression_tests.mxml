@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:mx="library://ns.adobe.com/flex/mx" 
+            xmlns:s="library://ns.adobe.com/flex/spark" 
+            xmlns="*" 
+            testSWF="../SWFs/Regression_main.mxml"
+            testDir="spark/effects/Regression/test/">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+	<testCases>
+
+        <TestCase testID="SDK_22094" keywords="[SDK_22094]" description="http://bugs.adobe.com/jira/browse/SDK-22094">
+			<!--bugs>
+				<Bug bugID="SDK-22094"/>
+			</bugs -->
+			<setup>
+				<ResetComponent target="root3" className="comps.Root3" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="application.root3.duplicateSequence.play();" waitTarget="root3.duplicateSequence" waitEvent="effectEnd"/>
+				<AssertPropertyValue target="root3" propertyName="numberValue0" value="90"/>
+			</body>
+        </TestCase>
+        
+        <TestCase testID="SDK_29446" keywords="[SDK_29446]" description="http://bugs.adobe.com/jira/browse/SDK-29446">
+            <!--bugs>
+                <Bug bugID="SDK-29446" />
+            </bugs -->
+            <body>
+                <ResetComponent target="root1" className="comps.Root1" waitEvent="updateComplete" />
+                <ChangeState changeTarget="root1" toState="state2" waitEvent="effectEnd" waitTarget="root1.effect1" />
+                <ChangeState changeTarget="root1" toState="state1" waitEvent="effectEnd" waitTarget="root1.effect1" />
+                <AssertPropertyValue target="root1.target" propertyName="height" value="100" />
+                <AssertPropertyValue target="root1.target" propertyName="width" value="100" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SDK_26434" keywords="[SDK_26434]" description="http://bugs.adobe.com/jira/browse/SDK-26434">
+            <!--bugs>
+                <Bug bugID="SDK-26434" />
+            </bugs -->
+            <body>
+                <ResetComponent target="root2" className="comps.Root2" waitEvent="updateComplete" />
+                <ChangeState changeTarget="root2" toState="open" waitEvent="effectEnd" waitTarget="root2.effect1" />
+                <ChangeState changeTarget="root2" toState="close" waitEvent="effectEnd" waitTarget="root2.effect2" />
+                <ChangeState changeTarget="root2" toState="open" waitEvent="effectEnd" waitTarget="root2.effect1" />
+                <CompareBitmap target="root2" url="../test/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>
+

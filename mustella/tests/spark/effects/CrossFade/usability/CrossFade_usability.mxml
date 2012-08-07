@@ -1,0 +1,176 @@
+﻿<UnitTester 
+    testSWF="../SWFs/CrossFade_main.mxml" 
+    testDir="spark/effects/CrossFade/usability/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.CrossFade;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- states wipe -->
+        <TestCase testID="CrossFade_stateChange" keywords="[CrossFade, usability, state]" description="Test CrossFade when used in a state transition.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+            </setup>
+            <body>
+                <RunCode code="application.card.currentState = 'flipped';" waitTarget="card.e_toFlipped" waitEvent="effectEnd"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- custom easer -->
+        <TestCase testID="CrossFade_different_easer" keywords="[CrossFade, usability, state]" description="Test CrossFade when used with a custom easer.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+            </setup>
+            <body>
+                <RunCode code="application.card.currentState = 'easer_flipped';" waitTarget="card.e_toEaserFlipped" waitEvent="effectEnd"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- wipe scaled -->
+        <TestCase testID="CrossFade_scaled" keywords="[CrossFade, usability, scaleX]" description="Test CrossFade on a scaled object.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.card;" />
+                <RunCode code="application.card.scaleX = .5;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <!-- wipe rotated -->
+        <TestCase testID="CrossFade_rotated" keywords="[CrossFade, usability, rotationZ]" description="Test CrossFade on a rotated object.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.card;" />
+                <RunCode code="application.card.rotation = 45;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- wipe mis-sized -->
+        <TestCase testID="CrossFade_missized" keywords="[CrossFade, usability, rotationZ]" description="Test CrossFade on an object larger than the bitmap.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.card;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- CrossFade + fxAnimate -->
+        <TestCase testID="CrossFade_FxAnimate" keywords="[CrossFade, usability, FxAnimate]" description="Test CrossFade in a parallel with FxAnimate.">
+            <setup>
+                <RunCode code="application.p_CrossFade_fxAnimate.stop();" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_CrossFade_fxAnimate.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_CrossFade_fxAnimate.play()" waitTarget="p_CrossFade_fxAnimate" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- CrossFade + fxAnimateColor -->
+        <TestCase testID="CrossFade_FxAnimateColor" keywords="[CrossFade, usability, FxAnimateColor]" description="Test CrossFade in a parallel with FxAnimateColor.">
+            <setup>
+                <RunCode code="application.p_CrossFade_fxAnimateColor.stop();" />
+                <ResetComponent target="controls2" className="assets.Controls2" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls2);" />
+                <RunCode code="application.p_CrossFade_fxAnimateColor.target = application.controls2.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_CrossFade_fxAnimateColor.play()" waitTarget="p_CrossFade_fxAnimateColor" waitEvent="effectEnd" />
+				<AssertStyleValue target="controls2.control2" styleName="color" value="255"/>
+            </body>
+        </TestCase>
+
+        <!-- CrossFade + fxFade -->
+        <TestCase testID="CrossFade_FxFade" keywords="[CrossFade, usability, FxFade]" description="Test CrossFade in a parallel with FxFade.">
+            <setup>
+                <RunCode code="application.p_CrossFade_fxFade.stop();" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_CrossFade_fxFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_CrossFade_fxFade.play()" waitTarget="p_CrossFade_fxFade" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" numColorVariances="40" maxColorVariance="0xFFFFFF"/>
+            </body>
+        </TestCase>
+
+        <!-- CrossFade + fxResize -->
+        <TestCase testID="CrossFade_FxResize" keywords="[CrossFade, usability, FxResize]" description="Test CrossFade in a parallel with FxResize.">
+            <setup>
+                <RunCode code="application.p_CrossFade_fxResize.stop();" />
+                <ResetComponent target="controls3" className="assets.Controls3" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls3);" />
+                <RunCode code="application.p_CrossFade_fxResize.target = application.controls3.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_CrossFade_fxResize.play()" waitTarget="p_CrossFade_fxResize" waitEvent="effectEnd" />
+                <CompareBitmap target="controls3" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- CrossFade + fxRotate -->
+        <TestCase testID="CrossFade_FxRotate" keywords="[CrossFade, usability, FxRotate]" description="Test CrossFade in a parallel with FxRotate.">
+            <setup>
+                <RunCode code="application.p_CrossFade_fxRotate.stop();" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_CrossFade_fxRotate.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_CrossFade_fxRotate.play()" waitTarget="p_CrossFade_fxRotate" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- CrossFade + fxRotate3D -->
+        <TestCase testID="CrossFade_FxRotate3D" keywords="[CrossFade, usability, FxRotate3D]" description="Test CrossFade in a parallel with FxRotate3D.">
+            <setup>
+                <RunCode code="application.p_CrossFade_fxRotate3D.stop();" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_CrossFade_fxRotate3D.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_CrossFade_fxRotate3D.play()" waitTarget="p_CrossFade_fxRotate3D" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

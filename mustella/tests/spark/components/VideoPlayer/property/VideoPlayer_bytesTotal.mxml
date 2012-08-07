@@ -1,0 +1,102 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_bytesTotal_noSource"
+            keywords="[VideoPlayer]"
+            description="Get the bytesLoaded property when there is no source.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_bytesTotal_streaming"
+            keywords="[VideoPlayer]"
+            description="Get the bytesTotal property when source is streaming">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+            </setup>
+            <body>
+                 <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- PROGRESSIVE -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_bytesTotal_progressive"
+            keywords="[VideoPlayer]"
+            description="Get the bytesTotal property when source is progressive">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                 <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="83817"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_bytesTotal_changeSource_progressive"
+            keywords="[VideoPlayer]"
+            description="Get the bytesTotal property when source is changed">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+		<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+            </setup>
+            <body>
+                 <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="83817"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_bytesTotal_removeSource_progressive"
+            keywords="[VideoPlayer]"
+            description="Get the bytesTotal property when source is removed">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+		<Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.source =null" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                 <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="0"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

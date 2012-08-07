@@ -1,0 +1,291 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="cv_negativeCurrencyFormat.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.CurrencyFormatter;
+			
+			import spark.globalization.LastOperationStatus;
+			import spark.validators.CurrencyValidator;
+			import flash.globalization.LocaleID;
+			
+			public var cvGSLib:flash.globalization.CurrencyFormatter;
+			// for testing function of negativeCurrencyFormat by setting useCurrencySymbol as true 
+			public var cvGSLibFormat1:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat3:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat4:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat5:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat6:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat7:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat8:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat9:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat10:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat11:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat12:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat13:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat14:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat15:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibFormat16:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			
+			// for testing function of negativeCurrencyFormat without setting useCurrencySymbol
+			public var cvGSLibRandomFormat1:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibRandomFormat2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibRandomFormat3:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibRandomFormat4:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cvGSLibRandomFormat5:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			
+			public static function init(o:DisplayObject):void
+			{ 
+				
+			} 
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="cv_negativeCurrencyFormat_default_test_1" description="Set default negativeCurrencyFormat properties" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvNoLocaleInline" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="cvNoLocaleInline" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="cv_negativeCurrencyFormat_default_test_1_2" description="Set default negativeCurrencyFormat properties" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+			<setup>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="application.createCV()"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+				<AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="cv_negativeCurrencyFormat_ar_JO_test_2" description="get negativeCurrencyFormat default value with setting locale to ar-JO" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvNoLocaleInline" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvNoLocaleInline.initialized(null,'cvNoLocaleInline')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvNoLocaleInline" styleName="locale" value="ar-JO" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvNoLocaleInline" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_zh_CN_test_3" description="get negativeCurrencyFormat default value with setting locale to zh_CN" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="application.createCV()"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvScript" styleName="locale" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="cv_negativeCurrencyFormat_setValue_positive_test_4" description="set negativeCurrencyFormate as positive value" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.negativeCurrencyFormat=0"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="cvPositive1" propertyName="negativeCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+                <SetStyle target="cvPositive1" styleName="locale" value="en-US" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvPositive1" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="cvPositive1" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_setValue_positive_test_5" description="set negativeCurrencyFormate as positive value" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-FR')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.negativeCurrencyFormat=5"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="cvPositive2" propertyName="negativeCurrencyFormat" valueExpression="value=5" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvPositive2" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="cvPositive2" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+		<TestCase testID="cv_negativeCurrencyFormat_setValue_positive_test_5_2" description="set negativeCurrencyFormate as positive value" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+			<setup>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-FR')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="cvGSLib.negativeCurrencyFormat=15"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<SetProperty target="cvPositive2" propertyName="negativeCurrencyFormat" valueExpression="value=15" waitEvent="change"/>
+				<SetStyle target="cvPositive1" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvPositive2" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+				<AssertPropertyValue target="cvPositive2" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="cv_negativeCurrencyFormat_illegal_test_6" description="set negativeCurrencyFormate as illegal value" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="application.setGSLibnegativeCurrencyFormat('en-US',-1)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvScript" styleName="locale" value="en-US" waitEvent="change"/>
+                <RunCode code="application.setcvnegativeCurrencyFormat(application.cvScript,-1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvErrorLabel" propertyName="text" valueExpression="value=application.cvGslibErrorLabel.text"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.cvGSLibTestError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_illegal_test_7" description="set negativeCurrencyFormate as illegal value" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setGSLibnegativeCurrencyFormat('en-US',18)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvScript" styleName="locale" value="en-US" waitEvent="change"/>
+                <RunCode code="application.setcvnegativeCurrencyFormat(application.cvScript,18)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvErrorLabel" propertyName="text" valueExpression="value=application.cvGslibErrorLabel.text"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.cvGSLibTestError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_no_test_8" description="set negativeCurrencyFormate as null" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setGSLibnegativeCurrencyFormat('en-US',null)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvScript" styleName="locale" value="en-US" waitEvent="change"/>
+                <RunCode code="application.setcvnegativeCurrencyFormat(application.cvScript,null)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvErrorLabel" propertyName="text" valueExpression="value=application.cvGslibErrorLabel.text"/>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=application.cvGSLibTestError.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.cvGSLibTestError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_empty_test_9" description="set negativeCurrencyFormate as empty string" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setGSLibnegativeCurrencyFormat('en-US','')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvScript" styleName="locale" value="en-US" waitEvent="change"/>
+                <RunCode code="application.setcvnegativeCurrencyFormat(application.cvScript,'')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvErrorLabel" propertyName="text" valueExpression="value=application.cvGslibErrorLabel.text"/>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=application.cvGSLibTestError.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.cvGSLibTestError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_inline_test_10" description="Set negativeCurrencyFormat with inline definition" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.negativeCurrencyFormat=7"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_setFromScript_test_11" description="Set negativeCurrencyFormat in script" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setcvnegativeCurrencyFormat(application.cvScript,13)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.negativeCurrencyFormat=13"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormat" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_binding_test_12" description="test binding negativeCurrencyFormat value by changing Property" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.negativeCurrencyFormat=14"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="cvBinding" propertyName="negativeCurrencyFormat" valueExpression="value=14" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvLabel" propertyName="text" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="cv_negativeCurrencyFormat_binding_test_13" description="binding negativeCurrencyFormat value by changing locale" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="cvBinding" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvBinding.initialized(null,'cvBinding')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvLabel" propertyName="text" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_negativeCurrencyFormat_binding_test_14" description="Binding property when locale change" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBLocale1" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetStyle target="cvBLocale1" styleName="locale" value="ar-JO"/>
+                <AssertEvent target="cvLa" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+                <AssertPropertyValue target="cvLa" propertyName="text" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_negativeCurrencyFormat_binding_test_15" description="Binding property when locale change" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBLocale2" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetStyle target="cvBLocale2" styleName="locale" value="zh-CN"/>
+                <AssertEvent target="cvLb" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+                <AssertPropertyValue target="cvLb" propertyName="text" valueExpression="value=cvGSLib.negativeCurrencyFormat"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_negativeCurrencyFormat_inline_changeLocale_test_16" description="if property negativeCurrencyFormat has been set inline, it doesnot change with locale" keywords="[CurrencyValidator, negativeCurrencyFormat]">
+            <setup>
+                <SetStyle target="cvInline_ChangeLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline_ChangeLocale" propertyName="negativeCurrencyFormat" valueExpression="value=5"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

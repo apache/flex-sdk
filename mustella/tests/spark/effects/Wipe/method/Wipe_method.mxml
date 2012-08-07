@@ -1,0 +1,177 @@
+<UnitTester 
+    testSWF="../SWFs/Wipe_main.mxml" 
+    testDir="spark/effects/Wipe/method/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.Wipe;
+        import spark.effects.WipeDirection;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- getAffectedProperties -->
+        <TestCase testID="Wipe_getAffectedProperties" keywords="[Wipe, method, getAffectedProperties]" description="Test the getAffectedProperties() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.startDelay = 500;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.controls1.control_Button;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.e_Wipe.getAffectedProperties.call()" value="bitmapInfo,visible,parent"/>
+            </body>
+        </TestCase>
+
+        <!-- createInstance -->
+        <TestCase testID="Wipe_createInstance" keywords="[Wipe, method, createInstances]" description="Test the createInstance() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.controls1.control_Button;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.e_Wipe.createInstance().toString().replace('[object ', '').replace(']','')" value="AnimateTransitionShaderInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- createInstances -->
+        <TestCase testID="Wipe_createInstances" keywords="[Wipe, method, createInstances]" description="Test the createInstances() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.controls1.control_Button;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.RIGHT" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.e_Wipe.createInstances().toString().replace('[object ', '').replace(']','')" value="AnimateTransitionShaderInstance"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Wipe_createInstances_targets" keywords="[Wipe, method, createInstances]" description="Test the createInstances() method with more than one target.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.UP" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.e_Wipe.createInstances().length" value="2"/>
+            </body>
+        </TestCase>
+
+        <!-- play -->
+        <TestCase testID="Wipe_play" keywords="[Wipe, method, play]" description="Test the play() method.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls4.control1, application.controls4.control2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();" waitTarget="e_Wipe" waitEvent="effectEnd" />
+                <CompareBitmap target="controls4" url="../method/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- pause -->
+        <TestCase testID="Wipe_pause" keywords="[Wipe, method, pause]" description="Test the pause() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.duration = 1000;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.DOWN" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.e_Wipe.pause();"/>
+                <AssertMethodValue method="value=application.IsInRange(application.e_Wipe.playheadTime, 400, 750)" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- resume -->
+        <TestCase testID="Wipe_resume" keywords="[Wipe, method, resume]" description="Test the resume() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.duration = 1000;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.DOWN" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.e_Wipe.pause();"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.e_Wipe.resume();" waitTarget="e_Wipe" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- stop -->
+        <TestCase testID="Wipe_stop" keywords="[Wipe, method, stop]" description="Test the stop() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.duration = 1000;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.DOWN" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.e_Wipe.stop();" waitTarget="e_Wipe" waitEvent="effectStop"/>
+            </body>
+        </TestCase>
+
+        <!-- end -->
+        <TestCase testID="Wipe_end" keywords="[Wipe, method, end]" description="Test the end() method.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.duration = 1000;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.DOWN" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.e_Wipe.end();" waitTarget="e_Wipe" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- toString -->
+        <TestCase testID="Wipe_toString" keywords="[Wipe, method, toString]" description="Test the toString() method.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).toString().replace('[object ', '').replace(']','')" value="Wipe"/>
+            </body>
+
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

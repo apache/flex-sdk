@@ -1,0 +1,227 @@
+<UnitTester testDir="spark/collections/Sort/Methods/" testSWF="SF_sortField_initializeDefaultCompareFunction.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+		import assets.newClasses.SFConstant;
+		
+		import flash.globalization.LastOperationStatus;
+		
+		public static function init(o:DisplayObject):void
+		{
+			
+		}
+	]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_withCF_inline_1" keywords="[SortField, initializeDefaultCompareFunction, withCF]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <SetProperty target="sfComp.st" propertyName="compareFunction" valueExpression="value=application.sfComp.myCompare"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" value="3"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_withCF_script_2" keywords="[SortField, initializeDefaultCompareFunction, withCF]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <SetProperty target="sfComp.stScript" propertyName="compareFunction" valueExpression="value=application.sfComp.myCompare"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" value="3"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_inline_3" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" value="1"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="3"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_inline_4" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.dateAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" valueExpression="value=new Date('2010-10-21')"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " valueExpression="value=new Date('2010-10-22')"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " valueExpression="value=new Date('2010-10-23')"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_inline_5" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.stringAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" value="a"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="b"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="c"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_inline_6" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.employeeCol)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_inline_7" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_script_8" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" value="1"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="3"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_script_9" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.dateAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" valueExpression="value=new Date('2010-10-21')"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " valueExpression="value=new Date('2010-10-22')"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " valueExpression="value=new Date('2010-10-23')"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_script_10" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.stringAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current" value="a"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="b"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current " value="c"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_script_11" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.employeeCol)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_noFields_script_12" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_Fields_inline_13" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.addField(application.sfComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.employeeCol)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_Fields_inline_14" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.addField(application.sfComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st, application.sfComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_Fields_script_15" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.addField(application.sfComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.employeeCol)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_method_initializeDefaultCompareFunction_Fields_script_16" keywords="[SortField, initializeDefaultCompareFunction, noFields]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_initializeDefaultCompareFunction" waitEvent="updateComplete"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.addField(application.sfComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript, application.sfComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.sfComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

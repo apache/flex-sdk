@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/Other/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SF_module_sparkButtonBar.mxml">
+	<mx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import flash.globalization.*;
+			import flash.globalization.LastOperationStatus;
+			
+			import spark.globalization.SortingCollator;
+			
+			public var clt:spark.globalization.SortingCollator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="SortField_module_sparkButtonBar_default_test1" description="sort items with default property setting"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField,application.NVModule.child.mySortField2]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='ja-JP'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortField2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   value="TJ,Izzy,barmen,Bo,Danny,Bunny,Molly,Daisy,Moe,cadbury,Umbra,Imari,Matisse,Chumley,Ted"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_default_script_test2" description="sort items with default property setting"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript,application.NVModule.child.mySortFieldScript2]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='zh-CN'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   value="TJ,Izzy,barmen,Bo,Danny,Bunny,Molly,Daisy,Moe,cadbury,Umbra,Imari,Matisse,Chumley,Ted"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_descending_true_test3" description="sort items with descending true"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="true" />
+				<SetProperty target="NVModule.child.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortField2" propertyName="descending" value="true" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField,application.NVModule.child.mySortField2]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="NVModule.child.mySortField2" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.revertArray(application.NVModule.child.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   value="Ted,Chumley,Matisse,Imari,Umbra,cadbury,Moe,Daisy,Molly,Bunny,Danny,Bo,barmen,Izzy,TJ"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_descending_true_script_test4" description="sort items with descending true"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="true" />
+				<SetProperty target="NVModule.child.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortFieldScript2" propertyName="descending" value="true" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript,application.NVModule.child.mySortFieldScript2]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.revertArray(application.NVModule.child.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   value="Ted,Chumley,Matisse,Imari,Umbra,cadbury,Moe,Daisy,Molly,Bunny,Danny,Bo,barmen,Izzy,TJ"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_unique_true_test5" description="sort items with unique true"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="NVModule.child.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+				
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="active" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortField2" propertyName="name" value="active" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField,application.NVModule.child.mySortField2]" />
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="true" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertStyleValue target="NVModule.child.mySortField2" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertMethodValue method="value=application.NVModule.child.VerifyUniqueError()" 
+								   value="Error: Non-unique values in items."/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_unique_true_script_test6" description="sort items with unique true"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortFieldScript2" propertyName="name" value="active" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript,application.NVModule.child.mySortFieldScript2]" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="true" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.NVModule.child.VerifyUniqueError()" 
+								   value="Error: Non-unique values in items."/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_numeric_true_test7" description="sort items with numeric true"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="true" />
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="numeric" value="true" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<SetProperty target="NVModule.child.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="NVModule.child.myMxSortField" propertyName="name" valueExpression="value='age'"/>
+				<SetProperty target="NVModule.child.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.NVModule.child.myMxSortField]"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.mxSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_numeric_true_script_test8" description="sort items with numeric true"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='en-GB'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="true" />
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+				
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="numeric" value="true" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<SetProperty target="NVModule.child.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="NVModule.child.myMxSortField" propertyName="name" valueExpression="value='age'"/>
+				<SetProperty target="NVModule.child.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.NVModule.child.myMxSortField]"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.mxSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_diff_locale_test9" description="sort items based on different locale on Sort and SortField"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="address" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_diff_locale_script_test10" description="sort items based on different locale on Sort and SortField"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="address" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='zh-CN'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_localeChange_SortField_test11" description="sort items based locale change of SortField"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="address" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_localeChange_SortField_test12" description="sort items based on locale change of SortField"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+				
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="address" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='en-US'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_localeChange_Sort_test13" description="sort items based locale change of Sort"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="address" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_localeChange_Sort_test14" description="sort items based on locale change of Sort"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="NVModule.child.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+				
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="address" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='en-US'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_reverse_test15" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortField2" propertyName="descending" value="true" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField,application.NVModule.child.mySortField2]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<RunCode code="application.NVModule.child.mySort.reverse()" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.revertArray(application.NVModule.child.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   value="Chumley,Ted,Umbra,Imari,Matisse,cadbury,Daisy,Moe,Molly,Bunny,Danny,Bo,Izzy,barmen,TJ"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_reverse_script_test16" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript2" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="age" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="NVModule.child.mySortFieldScript2" propertyName="descending" value="true" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript,application.NVModule.child.mySortFieldScript2]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<RunCode code="application.NVModule.child.mySortScript.reverse()" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.revertArray(application.NVModule.child.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   value="Chumley,Ted,Umbra,Imari,Matisse,cadbury,Daisy,Moe,Molly,Bunny,Danny,Bo,Izzy,barmen,TJ"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_changeSource_test17" description="sort items after change source"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="name" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataXmlListArrSAdd" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_changeSource_script_test18" description="sort items after change source"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataXmlListArrSAdd" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_function_test19" description="verify sort items of ButtonBar will not affect the original function"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySort" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="name" value="name" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySort" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortField]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySort" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetProperty target="NVModule.child.uiButtonBar" propertyName="selectedIndex" value="0" />
+				<AssertPropertyValue target="NVModule.child" propertyName="listSelectFieldValue" value="barmen" />
+				<SetProperty target="NVModule.child.uiButtonBar" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target="NVModule.child" propertyName="listSelectFieldValue" value="cadbury" />
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_module_sparkButtonBar_function_script_test20" description="verify sort items of ButtonBar will not affect the original function"  keywords="[Sort, sparkButtonBar]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="NVModule.child.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="NVModule.child.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="NVModule.child.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="NVModule.child" propertyName="buttonBarDataProvider" valueExpression="value=application.NVModule.child.dataComp.dataXmlListArrS" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="NVModule.child.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="NVModule.child.mySortScript" propertyName="fields" valueExpression="value=[application.NVModule.child.mySortFieldScript]" />
+				<SetProperty target="NVModule.child.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.NVModule.child.mySortScript" />
+				<RunCode code="application.NVModule.child.buttonBarDataProvider.refresh()" />
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.NVModule.child.buttonBarDataProvider)" 
+								   valueExpression="value=application.NVModule.child.sparkSortedArray"/>
+				<SetProperty target="NVModule.child.uiButtonBar" propertyName="selectedIndex" value="0" />
+				<AssertPropertyValue target="NVModule.child" propertyName="listSelectFieldValue" value="barmen" />
+				<SetProperty target="NVModule.child.uiButtonBar" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target="NVModule.child" propertyName="listSelectFieldValue" value="cadbury" />
+			</body>
+		</TestCase>  
+		<!--Module locale style-->
+		<TestCase testID="SortField_module_sparkButtonBar_localeStyle_appSelector_test21" description="test application selector of locale style in module" keywords="[Sort, Sort Field Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetStyle target="NVModule.child.mySort" styleName="locale" valueExpression="value=undefined" />
+				<SetStyle target="NVModule.child.mySortField" styleName="locale" valueExpression="value=undefined" />
+				<SetStyle target="NVModule.child.mySortField2" styleName="locale" valueExpression="value=undefined" />
+				<SetProperty target="" propertyName="appLocale" value="fr-FR"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.mySort" styleName="locale" value="fr-FR" />
+				<AssertStyleValue target="NVModule.child.mySortField" styleName="locale" value="fr-FR" />
+				<AssertStyleValue target="NVModule.child.mySortField2" styleName="locale" value="fr-FR" />
+			</body>
+		</TestCase>	
+		<TestCase testID="SortField_module_sparkButtonBar_localeStyle_classSelector_test22" description="test class selector of locale style in module" keywords="[Sort, Sort Field Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.classSort" styleName="locale" value="ja-JP" />
+				<AssertStyleValue target="NVModule.child.classSortField" styleName="locale" value="ja-JP" />
+			</body>
+		</TestCase>	
+		<TestCase testID="SortField_module_sparkButtonBar_localeStyle_IDSelector_test23" description="test id selector of locale style in module" keywords="[Sort, Sort Field Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.idSortField" styleName="locale" value="fr-CA" />
+				<AssertStyleValue target="NVModule.child.idSort" styleName="locale" value="fr-CA" />
+			</body>
+		</TestCase>	
+		<TestCase testID="SortField_module_sparkButtonBar_localeStyle_inlineLocale_test24" description="test set locale inline in module" keywords="[Sort, Sort Field Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="NVModule.child.inlineSortField" styleName="locale" value="de-DE" />
+				<AssertStyleValue target="NVModule.child.inlineSort" styleName="locale" value="de-DE" />
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

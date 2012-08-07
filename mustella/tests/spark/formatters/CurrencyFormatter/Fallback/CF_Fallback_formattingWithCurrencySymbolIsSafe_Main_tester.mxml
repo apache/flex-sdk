@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_Fallback_formattingWithCurrencySymbolIsSafe_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.*;
+		
+		import flash.globalization.*;
+		
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+
+<testCases>
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_USD_declarations_test1" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'USD'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value='true'"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_CNY_declarations_test2" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'CNY'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.formattingWithCurrencySymbolIsSafe('CNY')" 
+							   valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_CNY_declarations_test3" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'CNY'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetStyle target="cf_inline" styleName="locale" valueExpression="value='zh_CN'" waitEvent="change"/>
+			<SetProperty target="cf_inline" propertyName="currencyISOCode" valueExpression="value='CNY'" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.formattingWithCurrencySymbolIsSafe('CNY')" 
+							   valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_invalid_declarations_test4" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to invalid string" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.formattingWithCurrencySymbolIsSafe('invalid')" 
+							   valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_USD_script_test5" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'USD'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_RUR_script_test6" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'RUR'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf.formattingWithCurrencySymbolIsSafe('RUR')" 
+							   valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_RUR_script_test7" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'RUR'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cf" styleName="locale" valueExpression="value='ru_RU'" waitEvent="change"/>
+			
+			<SetProperty target="cf" propertyName="currencyISOCode" valueExpression="value='RUR'" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf.formattingWithCurrencySymbolIsSafe('RUR')"
+							   valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_formattingWithCurrencySymbolIsSafe_null_script_test8" description="verify the formattingWithCurrencySymbolIsSafe result when input the requestISOCode parameter to 'null'" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<!--<AssertMethodValue method="value=application.cf.formattingWithCurrencySymbolIsSafe(null)" 
+							   valueExpression="value=false"/>-->
+			<AssertMethodValue method="value=application.checkError()" valueExpression="value=CFConstant.paramNullErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+</UnitTester>

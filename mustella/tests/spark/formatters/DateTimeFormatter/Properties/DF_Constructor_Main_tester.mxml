@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="DF_Constructor_Main.mxml">
+    <mx:Script>
+		
+    <![CDATA[
+        import flash.globalization.DateTimeFormatter;
+		
+		public var flashDFTest1:flash.globalization.DateTimeFormatter; 
+		public var flashDFTest2:flash.globalization.DateTimeFormatter; 
+		public var flashDF:flash.globalization.DateTimeFormatter = new flash.globalization.DateTimeFormatter('ru-RU');
+		private var aDate:Date =  new Date(2000, 1, 1);
+		
+		public static function init(o:DisplayObject):void
+        {
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test ArgumentError and TypeError when define a DateTimeFormatter in constructor -->
+<testCases>
+	<!--Test cases 1-3 are to test throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM -->
+	<TestCase testID="DF_Constructor_ArgumentError_invalid_dateStyle_test1" description="test throws ArgumentError if the property value is not a valid DateTimeStyle constant" keywords="[DateTimeFormatter, dateStyle, ArgumentError]">
+		<setup>
+			<RunCode code="application.testArgError('dateStyle')" waitEvent="updateComplete" waitTarget="testArgErrorL"/>
+			<RunCode code="application.testGslibArgError('dateStyle')" waitEvent="updateComplete" waitTarget="testGslibArgErrorL"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testArgErrorL" valueExpression="value=application.testGslibArgErrorL.text"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 1-3 are to test throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM -->
+	<TestCase testID="DF_Constructor_ArgumentError_invalid_timeStyle_test2" description="test throws ArgumentError if the property value is not a valid DateTimeStyle constant" keywords="[DateTimeFormatter, timeStyle, ArgumentError]">
+		<setup>
+			<RunCode code="application.testArgError('timeStyle')" waitEvent="updateComplete" waitTarget="testArgErrorL"/>
+			<RunCode code="application.testGslibArgError('timeStyle')" waitEvent="updateComplete" waitTarget="testGslibArgErrorL"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testArgErrorL" valueExpression="value=application.testGslibArgErrorL.text"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 1-3 are to test throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM -->
+	<TestCase testID="DF_Constructor_ArgumentError_invalid_dateTimeStyle_test3" description="test throws ArgumentError if the property value is not a valid DateTimeStyle constant" keywords="[DateTimeFormatter, timeStyle, dateStyle, ArgumentError]">
+		<setup>
+			<RunCode code="application.testArgError('both')" waitEvent="updateComplete" waitTarget="testArgErrorL"/>
+			<RunCode code="application.testGslibArgError('both')" waitEvent="updateComplete" waitTarget="testGslibArgErrorL"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testArgErrorL" valueExpression="value=application.testGslibArgErrorL.text"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 4-6 are to test throws TypeError if the dateStyle or timeStyle parameter is null. -->
+	<TestCase testID="DF_Constructor_TypeError_dateStyle_null_test4" description="test throws TypeError if the dateStyle parameter is null" keywords="[DateTimeFormatter, dateStyle, TypeError]">
+		<setup>
+			<RunCode code="application.testTypeError('dateStyle')" waitEvent="updateComplete" waitTarget="testArgErrorL"/>
+			<RunCode code="application.testGslibTypeError('dateStyle')" waitEvent="updateComplete" waitTarget="testGslibArgErrorL"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testArgErrorL" valueExpression="value=application.testGslibArgErrorL.text"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 4-6 are to test throws TypeError if the dateStyle or timeStyle parameter is null. -->
+	<TestCase testID="DF_Constructor_TypeError_timeStyle_null_test5" description="test throws TypeError if the timeStyle parameter is null" keywords="[DateTimeFormatter, timeStyle, TypeError]">
+		<setup>
+			<RunCode code="application.testTypeError('timeStyle')" waitEvent="updateComplete" waitTarget="testArgErrorL"/>
+			<RunCode code="application.testGslibTypeError('timeStyle')" waitEvent="updateComplete" waitTarget="testGslibArgErrorL"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testArgErrorL" valueExpression="value=application.testGslibArgErrorL.text"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 4-6 are to test throws TypeError if the dateStyle or timeStyle parameter is null. -->
+	<TestCase testID="DF_Constructor_TypeError_dateTimeStyle_null_test6" description="test throws TypeError if the dateStyle and timeStyle parameter is null" keywords="[DateTimeFormatter, timeStyle, dateStyle, TypeError]">
+		<setup>
+			<RunCode code="application.testTypeError('both')" waitEvent="updateComplete" waitTarget="testArgErrorL"/>
+			<RunCode code="application.testGslibTypeError('both')" waitEvent="updateComplete" waitTarget="testGslibArgErrorL"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testArgErrorL" valueExpression="value=application.testGslibArgErrorL.text"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 7-12 are to test define a DateTimeFormatter in ActionScript rather than in mxml 'Declarations', 
+	and verify whether properties and methods can return expected result-->
+	<TestCase testID="DF_Constructor_declaration_locale_test7" description="define a DateTimeFormatter in ActionScript, verify locale return the expected value" keywords="[DateTimeFormatter, setStyle, getStyle]">
+		<setup>
+			<SetStyle target="dtfGetStyle" styleName="locale" value="ru-RU" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertStyleValue target="dtfGetStyle" styleName="locale" valueExpression="value=flashDF.actualLocaleIDName"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 7-12 are to test define a DateTimeFormatter in ActionScript rather than in mxml 'Declarations', 
+	and verify whether properties and methods can return expected result-->
+	<TestCase testID="DF_Constructor_declaration_actualLocaleIDName_test8" description="define a DateTimeFormatter in ActionScript, verify actualLocaleIDName return the expected value" keywords="[DateTimeFormatter, setStyle, actualLocaleIDName]">
+		<setup>
+			<SetStyle target="dtfActualLocale" styleName="locale" value="ru-RU" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtfActualLocale" propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 7-12 are to test define a DateTimeFormatter in ActionScript rather than in mxml 'Declarations', 
+	and verify whether properties and methods can return expected result-->
+	<TestCase testID="DF_Constructor_declaration_format_test9" description="define a DateTimeFormatter in ActionScript, verify format() return the expected value" keywords="[DateTimeFormatter, setStyle, format]">
+		<setup>
+			<ResetComponent target="dtfFormat" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtfFormat.initialized(null , 'dtfFormat')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtfFormat" styleName="locale" value="ru-RU" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfFormat.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 7-12 are to test define a DateTimeFormatter in ActionScript rather than in mxml 'Declarations', 
+	and verify whether properties and methods can return expected result-->
+	<TestCase testID="DF_Constructor_declaration_getFirstWeekday_test10" description="define a DateTimeFormatter in ActionScript, verify getFirstWeekday return the expected value" keywords="[DateTimeFormatter, setStyle, getFirstWeekday]">
+		<setup>
+			<SetStyle target="dtfGetFirstWeekday" styleName="locale" value="ru-RU" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfGetFirstWeekday.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 7-12 are to test define a DateTimeFormatter in ActionScript rather than in mxml 'Declarations', 
+	and verify whether properties and methods can return expected result-->
+	<TestCase testID="DF_Constructor_declaratoin_getMonthNames_test11" description="define a DateTimeFormatter in ActionScript, verify getMonthNames return the expected value" keywords="[DateTimeFormatter, setStyle, getMonthNames]">
+		<setup>
+			<ResetComponent target="dtfGetMonthNames" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtfGetMonthNames.initialized(null , 'dtfGetMonthNames')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtfGetMonthNames" styleName="locale" value="ru-RU" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfGetMonthNames.getMonthNames()" valueExpression="value=flashDF.getMonthNames()"/>
+		</body>
+	</TestCase>
+	
+	<!--Test cases 7-12 are to test define a DateTimeFormatter in ActionScript rather than in mxml 'Declarations', 
+	and verify whether properties and methods can return expected result-->
+	<TestCase testID="DF_Constructor_declaration_getWeekdayNames_test12" description="define a DateTimeFormatter in ActionScript, verify getWeekdayNames return the expected value" keywords="[DateTimeFormatter, setStyle, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtfGetWeekdayNames" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtfGetWeekdayNames.initialized(null , 'dtfGetWeekdayNames')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtfGetWeekdayNames" styleName="locale" value="ru-RU" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfGetWeekdayNames.getWeekdayNames()" valueExpression="value=flashDF.getWeekdayNames()"/>
+		</body>
+	</TestCase>
+	
+	<!--This test case is to test define DateTimeFormatter in  ActionScript whithout setting any locale, and verify fallBack locale-->
+	<TestCase testID="DF_Constructor_script_withoutSettingLocale_test13" description="test define DateTimeFormatter in  ActionScript whithout setting any locale, and verify fallBack locale" keywords="[DateTimeFormatter, default Locale]">
+		<body>
+			<AssertPropertyValue target="dtfLocale" propertyName="lastOperationStatus" value="noError" />
+		</body>
+	</TestCase>
+
+	<!--This test case is to test define DateTimeFormatter in mxml 'Declarations' whithout setting any locale, and verify fallBack locale-->
+	<TestCase testID="DF_Constructor_decl_noLocale_test14" description="test define DateTimeFormatter in Declarations whithout setting any locale and verify fallBack locale" keywords="[DateTimeFormatter, default Locale]">
+		<setup>
+			<ResetComponent target="dtfLocaleInline" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtfLocaleInline.initialized(null , 'dtfLocaleInline')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtfLocaleInline" propertyName="lastOperationStatus" value="noError" />
+		</body>
+	</TestCase>
+		
+</testCases>
+	
+</UnitTester>

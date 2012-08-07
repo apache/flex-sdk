@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="400" height="300">
+
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.validators.NumberValidator;
+			import spark.validators.supportClasses.GlobalizationValidatorBase;
+			
+			public var nvNoLocale:spark.validators.NumberValidator = new NumberValidator();
+			
+			public var nvValidate:spark.validators.NumberValidator = new NumberValidator();
+			public var nvScript:spark.validators.NumberValidator = new NumberValidator();
+			
+			public var nvValidateAll1:spark.validators.NumberValidator = new NumberValidator();
+			public var nvValidateAll2:spark.validators.NumberValidator = new NumberValidator();
+			public var nvValidateAll3:spark.validators.NumberValidator = new NumberValidator();
+			
+			private var _validatorsArr:Array;
+			
+			protected function uiBTvalidateNumber_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				var resultArr:Array ; 
+				
+				if ( 'nvScript' == uiProgType.text){  // validate a UI object , like TextInput
+					resultArr = nvScript.validateNumber(validateNumberSourceTI.text , "text") ; 
+					
+				} else if ( 'nvNull' == uiProgType.text){ //validateNumber(null , null) 
+					try{
+						resultArr = nvDefault.validateNumber(null , null ) ; 
+					}catch ( e:Error){
+						validateNumberResultTI.text = e.toString() ;
+					}
+					
+				}else if ( 'nonString' == uiProgType.text){ //validateNumber(non-String-object , null) 
+					try{
+						resultArr = nvDefault.validateNumber(validateNumberSourceTI , null ) ; 
+					}catch ( e:Error){
+						validateNumberResultTI.text = e.toString() ;
+					}
+					
+				}
+				
+				if (resultArr != null) {
+					if ( (resultArr.length == 1) && ( resultArr[0].isError == true  ) ) {
+						validateNumberResultTI.text = new String("Error");
+						
+					}else if ( (resultArr.length == 1) && ( resultArr[0].isError == false  ) ) {
+						validateNumberResultTI.text = new String("noError");
+					}else if ( resultArr.length == 0 ) {
+						validateNumberResultTI.text = new String("noValidateError");
+					}
+				} else {
+					validateNumberResultTI.text = "NoResult";
+				}
+				
+				return ; 
+			}
+			
+			private function initValidatorArraySpark():void {
+				_validatorsArr = [nvValidateAll1, nvValidateAll2, nvValidateAll3];
+			}
+			
+			protected function btVALLspark_clickHandler(event:MouseEvent):void
+			{
+				var resultArr:Array ; 
+				
+				initValidatorArraySpark();
+				
+				resultArr = GlobalizationValidatorBase.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					validateAllResultTI.text = new String(resultArr.length);
+				} else {
+					validateAllResultTI.text = "";
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:NumberValidator id="nvDefault"/>
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:TextInput id="validateSourceTI"/>
+	<s:TextInput id="validateAllSourceTI1"/>
+	<s:TextInput id="validateAllSourceTI2"/>
+	<s:TextInput id="validateAllSourceTI3"/>
+	<s:TextInput id="validateAllResultTI"/>
+	
+	<s:TextInput id="validateNumberSourceTI"/>
+	<s:TextInput id="validateNumberResultTI"/>
+	
+	
+	<mx:TextInput id="uiProgType" />
+	<s:Button id="validateNumberBT" click="uiBTvalidateNumber_clickHandler(event)"/>
+	<s:Button id="validateAllBT" click="btVALLspark_clickHandler(event)"/>
+</s:Group>

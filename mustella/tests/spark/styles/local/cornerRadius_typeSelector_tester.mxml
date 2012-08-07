@@ -1,0 +1,652 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="cornerRadius_typeSelector_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+	
+	<fx:Style>
+		.myCorner{
+			cornerRadius: 10;
+		}
+	</fx:Style>
+
+    <testCases>  
+    	<!--***************-->
+		<!-- type selector -->
+		<!--***************-->
+	
+		<TestCase testID="cornerRadius_visualverification_classSelector" keywords="[cornerRadius]" description="compare bitmap of cornerRadius set via classSelector for all components">
+  			<setup>	
+  				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete" waitTarget="ci"/>
+			</setup>
+ 			<body>
+  				<CompareBitmap url="../local/baselines/$testID.png" target="ci" numColorVariances="5" ignoreMaxColorVariance="true"/>
+  			</body>
+  		</TestCase>
+  		<TestCase testID="cornerRadius_classSelector_sparkButton" keywords="[cornerRadius, Button]" description="cornerRadius set with class selector applies to Spark Button">
+  			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.sparkBtn" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="cornerRadius_sparkPanel_with_controlBar" keywords="[cornerRadius, Button]" description="cornerRadius set on Spark Panel with ControlBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.pnlwithControlBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.pnlwithControlBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="cornerRadius_classSelector_sparkToggleButton" keywords="[cornerRadius, ToggleButton]" description="cornerRadius set with class selector applies to Spark ToggleButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.sparkTogBtn" />
+			</body>
+		</TestCase>
+  		
+  		<TestCase testID="cornerRadius_classSelector_sparkNumericStepper" keywords="[cornerRadius, NumericStepper]" description="cornerRadius set with class selector applies to Spark NumericStepper">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.sparkNS" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_classSelector_sparkSpin" keywords="[cornerRadius, Spinner]" description="cornerRadius set with class selector applies to Spark Spinner">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.sparkSpin" />
+			</body>
+		</TestCase>
+  		
+  		<TestCase testID="cornerRadius_classSelector_sparkDDL" keywords="[cornerRadius, DropDownList]" description="cornerRadius set with class selector applies to Spark DropDownList">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.sparkDDL" />
+			</body>
+		</TestCase>
+  		
+  		<TestCase testID="cornerRadius_classSelector_sparkPnl" keywords="[cornerRadius, Panel]" description="cornerRadius set with class selector applies to Spark Panel">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.sparkPnl" />
+			</body>
+		</TestCase>
+  		
+  		<TestCase testID="cornerRadius_classSelector_sparkButtonBar" keywords="[cornerRadius, ButtonBar]" description="cornerRadius set with class selector applies to Spark ButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_classSelector_haloComboBox" keywords="[cornerRadius, ComboBox]" description="cornerRadius set with class selector applies to Halo ComboBox">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloCB" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="cornerRadius_classSelector_haloPopUpButton" keywords="[cornerRadius, PopUpButton]" description="cornerRadius set with class selector applies to Halo PopUpButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.popB" />
+			</body>
+		</TestCase>
+
+  		<TestCase testID="cornerRadius_classSelector_haloPanel" keywords="[cornerRadius, Panel]" description="cornerRadius set with class selector applies to Halo Panel">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloPnl" />
+			</body>
+		</TestCase>
+	
+  		<TestCase testID="cornerRadius_classSelector_haloTitleWindow" keywords="[cornerRadius, TitleWindow]" description="cornerRadius set with class selector applies to Halo TitleWindow">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloTW" />
+			</body>
+		</TestCase>
+	 	
+	 	<TestCase testID="cornerRadius_classSelector_haloDateChooser" keywords="[cornerRadius, DateChooser]" description="cornerRadius set with class selector applies to Halo DateChooser">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloDC" />
+			</body>
+		</TestCase>
+	
+	 	<TestCase testID="cornerRadius_classSelector_haloButton" keywords="[cornerRadius, Button]" description="cornerRadius set with class selector applies to Halo Button">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloBtn" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_classSelector_haloLinkButton" keywords="[cornerRadius, LinkButton]" description="cornerRadius set with class selector applies to Halo LinkButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloLnkBtn" />
+			</body>
+		</TestCase>
+			
+		<TestCase testID="cornerRadius_classSelector_haloNumericStepper" keywords="[cornerRadius, NumericStepper]" description="cornerRadius set with class selector applies to Halo NumericStepper">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloNS" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_classSelector_haloButtonBar" keywords="[cornerRadius, ButtonBar]" description="cornerRadius set with class selector applies to Halo ButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_classSelector_haloLinkBar" keywords="[cornerRadius, LinkBar]" description="cornerRadius set with class selector applies to Halo LinkBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloLnkBar" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_classSelector_haloTabBar" keywords="[cornerRadius, TabBar]" description="cornerRadius set with class selector applies to Halo TabBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="20" target="ci.haloTB" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_classSelector_haloToggleButtonBar" keywords="[cornerRadius, ToggleButtonBar]" description="cornerRadius set with class selector applies to Halo ToggleButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTogBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<!--***************-->
+		<!-- type selector -->
+		<!--***************-->
+	 	
+		<TestCase testID="cornerRadius_typeSelector_sparkButton" keywords="[cornerRadius, Button]" description="cornerRadius set with type selector applies to Spark Button">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.sparkBtn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.sparkBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_sparkToggleButton" keywords="[cornerRadius, ToggleButton]" description="cornerRadius set with type selector applies to Spark ToggleButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.sparkTogBtn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.sparkTogBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkTogBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		  		
+		<TestCase testID="cornerRadius_typeSelector_sparkNumericStepper" keywords="[cornerRadius, NumericStepper]" description="cornerRadius set with type selector applies to Spark NumericStepper">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.sparkNS" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.sparkNS" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkTogBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_sparkSpin" keywords="[cornerRadius, Spinner]" description="cornerRadius set with type selector applies to Spark Spinner">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.sparkSpin" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.sparkSpin" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkSpin" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		  		
+		<TestCase testID="cornerRadius_typeSelector_sparkDDL" keywords="[cornerRadius, DropDownList]" description="cornerRadius set with type selector applies to Spark DropDownList">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.sparkDDL" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.sparkDDL" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkDDL" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_sparkPnl" keywords="[cornerRadius, Panel]" description="cornerRadius set with type selector applies to Spark Panel">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.sparkPnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.sparkPnl" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkPnl" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_typeSelector_haloComboBox" keywords="[cornerRadius, ComboBox]" description="cornerRadius set with type selector applies to Halo ComboBox">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloCB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloCB" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloCB" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="cornerRadius_typeSelector_haloPopUpButton" keywords="[cornerRadius, PopUpButton]" description="cornerRadius set with type selector applies to Halo PopUpButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.popB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.popB" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.popB" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_typeSelector_haloPanel" keywords="[cornerRadius, Panel]" description="cornerRadius set with type selector applies to Halo Panel">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloPnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloPnl" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloPnl" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="cornerRadius_typeSelector_haloTitleWindow" keywords="[cornerRadius, TitleWindow]" description="cornerRadius set with type selector applies to Halo TitleWindow">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloTW" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloTW" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTW" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+			 	
+		<TestCase testID="cornerRadius_typeSelector_haloDateChooser" keywords="[cornerRadius, DateChooser]" description="cornerRadius set with type selector applies to Halo DateChooser">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloDC" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloDC" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloDC" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="cornerRadius_typeSelector_haloButton" keywords="[cornerRadius, Button]" description="cornerRadius set with type selector applies to Halo Button">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloBtn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_haloLinkButton" keywords="[cornerRadius, LinkButton]" description="cornerRadius set with type selector applies to Halo LinkButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloLnkBtn" waitEvent="updateComplete"/>
+
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloLnkBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloLnkBtn" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_haloNumericStepper" keywords="[cornerRadius, NumericStepper]" description="cornerRadius set with type selector applies to Halo NumericStepper">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloNS" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloNS" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloNS" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_haloButtonBar" keywords="[cornerRadius, ButtonBar]" description="cornerRadius set with type selector applies to Halo ButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloBtnBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloBtnBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_haloLinkBar" keywords="[cornerRadius, LinkBar]" description="cornerRadius set with type selector applies to Halo LinkBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloLnkBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloLnkBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloLnkBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_typeSelector_haloTabBar" keywords="[cornerRadius, TabBar]" description="cornerRadius set with type selector applies to Halo TabBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloTB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloTB" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTB" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="cornerRadius_typeSelector_haloToggleButtonBar" keywords="[cornerRadius, ToggleButtonBar]" description="cornerRadius set with type selector applies to Halo ToggleButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myCorner" target="ci.haloTogBtnBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="10" target="ci.haloTogBtnBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTogBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+	 	<!--****************-->
+	 	<!-- change runtime -->
+	 	<!--****************-->
+	 	
+		<TestCase testID="cornerRadius_change_runtime_sparkButton" keywords="[cornerRadius, Button]" description="cornerRadius changed at runtime applies to Spark Button">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.sparkBtn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.sparkBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_sparkToggleButton" keywords="[cornerRadius, ToggleButton]" description="cornerRadius changed at runtime applies to Spark ToggleButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.sparkTogBtn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.sparkTogBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkTogBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_sparkNumericStepper" keywords="[cornerRadius, NumericStepper]" description="cornerRadius changed at runtime applies to Spark NumericStepper">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.sparkNS" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.sparkNS" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkNS" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_sparkSpin" keywords="[cornerRadius, Spinner]" description="cornerRadius changed at runtime applies to Spark Spinner">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.sparkSpin" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.sparkSpin" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkSpin" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_sparkDDL" keywords="[cornerRadius, DropDownList]" description="cornerRadius changed at runtime applies to Spark DropDownList">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.sparkDDL" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.sparkDDL" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkDDL" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_sparkPnl" keywords="[cornerRadius, Panel]" description="cornerRadius changed at runtime applies to Spark Panel">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.sparkPnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.sparkPnl" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.sparkPnl" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloComboBox" keywords="[cornerRadius, ComboBox]" description="cornerRadius changed at runtime applies to Halo ComboBox">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloCB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloCB" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloCB" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloPopUpButton" keywords="[cornerRadius, PopUpButton]" description="cornerRadius changed at runtime applies to Halo PopUpButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.popB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.popB" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.popB" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloPanel" keywords="[cornerRadius, Panel]" description="cornerRadius changed at runtime applies to Halo Panel">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloPnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloPnl" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloPnl" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloTitleWindow" keywords="[cornerRadius, TitleWindow]" description="cornerRadius changed at runtime applies to Halo TitleWindow">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloTW" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloTW" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTW" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloDateChooser" keywords="[cornerRadius, DateChooser]" description="cornerRadius changed at runtime applies to Halo DateChooser">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloDC" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloDC" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloDC" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloButton" keywords="[cornerRadius, Button]" description="cornerRadius changed at runtime applies to Halo Button">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloBtn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloLinkButton" keywords="[cornerRadius, LinkButton]" description="cornerRadius changed at runtime applies to Halo LinkButton">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloLnkBtn" waitEvent="updateComplete"/>
+
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloLnkBtn" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloLnkBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloNumericStepper" keywords="[cornerRadius, NumericStepper]" description="cornerRadius changed at runtime applies to Halo NumericStepper">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloNS" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloNS" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloNS" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloButtonBar" keywords="[cornerRadius, ButtonBar]" description="cornerRadius changed at runtime applies to Halo ButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloBtnBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloBtnBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloLinkBar" keywords="[cornerRadius, LinkBar]" description="cornerRadius changed at runtime applies to Halo LinkBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloLnkBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloLnkBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloLnkBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloTabBar" keywords="[cornerRadius, TabBar]" description="cornerRadius changed at runtime applies to Halo TabBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloTB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloTB" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTB" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="cornerRadius_change_runtime_haloToggleButtonBar" keywords="[cornerRadius, ToggleButtonBar]" description="cornerRadius changed at runtime applies to Halo ToggleButtonBar">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="2" target="ci.haloTogBtnBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="2" target="ci.haloTogBtnBar" />
+				<CompareBitmap url="../local/baselines/$testID.png" target="ci.haloTogBtnBar" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_change_state" keywords="[cornerRadius]" description="verify changing state changes the cornerRadius to the correct value">
+			<setup>
+				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="ci" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.sparkBtn" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.sparkTogBtn" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.sparkNS" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.sparkSpin" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.sparkDDL" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.sparkPnl" />
+				
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloCB" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.popB" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloPnl" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloTW" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloDC" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloBtn" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloLnkBtn" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloNS" />
+				<AssertStyleValue styleName="cornerRadius" value="5" target="ci.haloLnkBar" />
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

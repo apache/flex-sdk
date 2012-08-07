@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/AnimateColor/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*" 
+    testSWF="../SWFs/AnimateColor_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateColor;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!--constructor-->
+        <TestCase testID="AnimateColor_constructorNull" keywords="[AnimateColorInstance, Methods, constructor]" description="Test the TintInstance constructor with null parameters.">
+            <body>
+                <AssertMethodValue method="value=application.NullConstructor();" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateColor_constructorValid" keywords="[AnimateColorInstance, Methods, constructor]" description="Test the TintInstance constructor with a valid object.">
+            <body>
+                <AssertMethodValue method="value=application.ValidConstructor();" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateColor_constructorTarget" keywords="[AnimateColorInstance, Methods, constructor]" description="Test the TintInstance constructor with a valid object and verify the target after instantiation.">
+            <body>
+                <AssertMethodValue method="value=application.TargetConstructor();" value="true"/>
+            </body>
+        </TestCase>
+
+        <!--play()-->
+        <TestCase testID="AnimateColor_Play" keywords="[AnimateColor, Methods, Play]" description="Test the Tint.Play method.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1A.play();" waitTarget="tp1A" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xBBBBBB" />
+            </body>
+        </TestCase>
+
+        <!-- getAffectedProperties -->
+        <TestCase testID="AnimateColor_GetAffectedProperties" keywords="[AnimateColor, Methods, GetAffectedProperties]" description="Test the Tint.GetAffectedProperties method.">
+            <body>
+                <AssertMethodValue method="value=application.tp1A.getAffectedProperties()" value="color" />
+            </body>
+        </TestCase>
+        
+        
+    </testCases>
+
+</UnitTester>

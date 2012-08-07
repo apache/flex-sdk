@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/MXCollections/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+			testSWF="SF_ORIG_ListCollectionView.mxml">
+	<mx:Script>
+		<![CDATA[
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import spark.collections.*;
+			import mx.collections.IList;
+			public var obj1:Object ;
+			public var obj2:Object ;
+			
+			public function do_disableAutoUpdate():void
+			{
+				application.airportCollection.disableAutoUpdate();
+				application.view1.disableAutoUpdate();
+				application.view2.disableAutoUpdate();
+			}
+			public function testEditView1():void
+			{
+				obj1= application.view1.getItemAt(2);
+				obj1.international = true;
+				obj1.abbreviation = "SJXX"
+				application.view1.itemUpdated(obj1);
+				
+				application.view1.enableAutoUpdate();
+				application.view1.refresh();
+				
+				obj2 = IList(application.grid1.dataProvider).getItemAt(11);
+				
+			}
+			
+			//should cause a re-range - BUG 146748
+			public function testEditView2():void
+			{
+				obj1 = application.view2.getItemAt(2);
+				obj1.name = "Albequerque";
+				application.view2.itemUpdated(obj1);
+				
+				application.view2.enableAutoUpdate();
+				application.view2.refresh();
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		
+		
+		<TestCase testID="ListCollectionView_Method_Sort_ASC" keywords="[ListCollectionView, Method, filter,getItemAt]">
+			<setup>
+				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+						 { return item.team == 'TeamA'; };
+						 application.xSortField = new spark.collections.SortField('jerseyNumber', false, true);
+						 application.addStyleClient(application.xSortField);
+						 application.addStyleClient(application.xSort);
+						 application.xSort.fields = [application.xSortField];
+						 application.playerView.sort = application.xSort;
+						 application.playerView.refresh(); " />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="2" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="7" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(4).jerseyNumber"  value="12" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="93" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ListCollectionView_Method_Sort_DescendingSort" keywords="[ListCollectionView, Method, filter,getItemAt">
+			<setup>
+				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+						 { return item.team == 'TeamA'; };
+						 application.xSortField = new spark.collections.SortField('jerseyNumber', true, true);
+						 application.addStyleClient(application.xSortField);
+						 application.addStyleClient(application.xSort);
+						 application.xSort.fields = [application.xSortField];
+						 application.playerView.sort = application.xSort;
+						 application.playerView.refresh(); " />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="93" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="54" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(4).jerseyNumber"  value="50" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="2" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ListCollectionView_Method_Sort_twoFiels" keywords="[ListCollectionView, Method, filter,getItemAt,sort">
+			<setup>
+				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+						 { return item.team == 'TeamA'; };
+						 application.xSortField = new spark.collections.SortField('jerseyNumber');
+						 application.ySortField = new spark.collections.SortField('lastName');
+						 application.addStyleClient(application.xSortField);
+						 application.addStyleClient(application.ySortField);
+						 application.addStyleClient(application.xSort);
+						 application.xSort.fields = [application.xSortField,application.ySortField];
+						 application.playerView.sort = application.xSort;
+						 application.playerView.refresh(); " />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="2" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(2).jerseyNumber"  value="7" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(2).lastName"  value="FuPlayer" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="7" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).lastName"  value="RePlayer" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="93" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ListCollectionView_Method_Sort_twoFielsDesc" keywords="[ListCollectionView, Method, filter,getItemAt,sort">
+			<setup>
+				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+						 { return item.team == 'TeamA'; };
+						 application.xSortField = new spark.collections.SortField('jerseyNumber', true, true);
+						 application.ySortField = new spark.collections.SortField('lastName', false);
+						 application.addStyleClient(application.xSortField);
+						 application.addStyleClient(application.ySortField);
+						 application.addStyleClient(application.xSort);
+						 application.xSort.fields = [application.xSortField,application.ySortField];
+						 application.playerView.sort = application.xSort;
+						 application.playerView.refresh(); " />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="2" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).lastName"  value="FuPlayer" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(9).jerseyNumber"  value="7" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(9).lastName"  value="RePlayer" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(8).jerseyNumber"  value="7" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(8).lastName"  value="FuPlayer" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="93" />
+				<AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).lastName"  value="SePlayer" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

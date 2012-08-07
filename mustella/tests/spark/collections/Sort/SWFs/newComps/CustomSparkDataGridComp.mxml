@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 updateComplete="group1_updateCompleteHandler(event)"
+		 width="400" height="300" xmlns:newComps="newComps.*">
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import mx.charts.chartClasses.RenderData;
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.controls.dataGridClasses.DataGridHeader;
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			
+			import spark.events.GridEvent;
+			import spark.events.IndexChangeEvent;
+			
+			public var mySortScript:spark.collections.Sort = new spark.collections.Sort();
+			public var mySortFieldScript: spark.collections.SortField = new spark.collections.SortField();
+			public var mySortFieldScript2:spark.collections.SortField = new spark.collections.SortField();
+			//public var event2:GridEvent;
+			
+			protected function group1_updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(mySortScript);
+				this.addStyleClient(mySortFieldScript);
+				this.addStyleClient(mySortFieldScript2);
+			}
+			
+			[Bindable]
+			public var sparkDataGridValueField:String;
+			[Bindable]
+			public var sparkDataGridDataProvider:XMLListCollection;
+			
+			public function get listSelectFieldValue():* {
+				if (uiSparkDataGrid != null && uiSparkDataGrid.selectedItem != null) {
+					var selectedValue:* = uiSparkDataGrid.selectedItem;
+					return selectedValue[sparkDataGridValueField];
+				}
+				
+				return null;
+			}
+			
+			public function get sparkSortedArray():Array {
+				if (uiSparkDataGrid != null && 
+					uiSparkDataGrid.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(sparkDataGridValueField, sparkDataGridDataProvider);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function get mxSortedArray():Array {
+				if (sparkDataGridDataProvider != null) {
+					var newArrList:XMLListCollection = SFConstant.deepCloneXmlC(sparkDataGridDataProvider);
+					newArrList.sort = myMxSort;
+					newArrList.refresh();
+					
+					return SFConstant.getArrayOfField(sparkDataGridValueField, newArrList);
+				}
+				
+				return null;
+			}
+			
+			public function sparkSortedArrayField(field:String):Array {
+				if (uiSparkDataGrid != null && 
+					uiSparkDataGrid.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(field, sparkDataGridDataProvider);
+					fieldArr.sort(sparkCollator.compare);
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function revertArray(arr:Array):Array{
+				if(arr!=null){
+					return arr.reverse();
+				}
+				else
+					return null;
+			}
+			
+			public function VerifyUniqueError():String{
+				var error:String = 'noError';
+				try
+				{
+					sparkDataGridDataProvider.refresh();
+				}
+				catch(e:Error)
+				{
+					error = e.toString();
+				}
+				return error;
+			}
+			
+			public function mySortCompFunc(a:Object, b:Object, column:GridColumn):int {
+				column = uiSparkDataGridColumn;
+				return mySort.compareFunction(a, b);
+			}
+			
+			public function mySortScriptCompFunc(a:Object, b:Object, column:GridColumn):int {
+				column = uiSparkDataGridColumn;
+				return mySortScript.compareFunction(a, b);
+			}
+			
+			protected function clickHeaderBT_clickHandler(event:MouseEvent):void
+			{
+				event2 = new GridEvent('gridClick',true,false,event.localX,event.localY,null,false,false,false,false,0,-1,0,uiSparkDataGridColumn,null,null);
+				uiSparkDataGrid.columnHeaderGroup.dispatchEvent(event2);
+			}
+			
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			
+			import spark.components.Label;
+			import spark.events.GridEvent;
+			import spark.events.RendererExistenceEvent;
+			
+			public var event2:GridEvent;
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				event2 = new GridEvent('gridClick',true,false,event.localX,event.localY,null,false,false,false,false,0,-1,0,uiSparkDataGridColumn,null,null);
+				uiSparkDataGrid.columnHeaderGroup.dispatchEvent(event2);
+			}
+			
+			public function updateSort_aryColl():void {
+				setStyle('locale', 'ru-RU'); 
+				collection.refresh();
+			}
+			public function updateSort_xmlList():void {
+				setStyle('locale', 'ru-RU'); 
+				dataXmlListArrS_locale.refresh();
+			}
+			
+			public function get sparkSortedArrayCollection():Array {
+				if (aryDG != null && 
+					aryDG.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField('last', collection);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			public function get sparkSortedXMLList():Array {
+				if (xmlDG != null && 
+					xmlDG.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField('last', dataXmlListArrS_locale);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:SortingCollator id="sparkCollator" />
+		
+		<s:Sort id="mySort"/>
+		
+		<s:SortField id="mySortField"/>
+		<s:SortField id="mySortField2"/>
+		
+		<mx:Sort id="myMxSort" />
+		<mx:SortField id="myMxSortField" />
+		
+		<fx:XMLList
+			id="dataXmlListAdd">
+			<employee>
+				<name>FFF</name>
+				<address>ffff</address>
+				<age>10</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Ted</name>
+				<address>Canidae</address>
+				<age>9</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Imari</name>
+				<address>fr cote</address>
+				<age>8</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Umbra</name>
+				<address>Felidae</address>
+				<age>8</age>
+				<active>false</active>
+			</employee>
+			<employee>
+				<name>Izzy</name>
+				<address>fr côte</address>
+				<age>12</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>TJ</name>
+				<address>fr coté</address>
+				<age>1</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Bo</name>
+				<address>fr côté</address>
+				<age>16</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Danny</name>
+				<address>Equidae</address>
+				<age>20</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Molly</name>
+				<address>fr Cote</address>
+				<age>4</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Matisse</name>
+				<address>fr cOte</address>
+				<age>8</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>barmen</name>
+				<address>fr cöte</address>
+				<age>12</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Chumley</name>
+				<address>bovidae</address>
+				<age>9</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Moe</name>
+				<address>fr COTE</address>
+				<age>6</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>cadbury</name>
+				<address>leporidae</address>
+				<age>7</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Bunny</name>
+				<address>fr coTe</address>
+				<age>3</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Daisy</name>
+				<address>fr cotE</address>
+				<age>6</age>
+				<active>true</active>
+			</employee>
+		</fx:XMLList>
+		
+		<s:XMLListCollection id="dataXmlListArrSAdd" source="{dataXmlListAdd}">
+		</s:XMLListCollection>
+		
+		<!--For locale dependent sort test-->
+		<s:Sort id="sortbyLastName_FirstName">
+			<s:fields>
+				<s:SortField name="last"/>
+				<s:SortField name="first"/>
+			</s:fields>
+		</s:Sort>
+		<mx:ArrayCollection id="collection" sort="{sortbyLastName_FirstName}">
+			<mx:source>
+				<fx:Object first="Anders" last="Öhlund"/>
+				<fx:Object first="Eileen" last="Oehland"/>
+				<fx:Object first="Aiden" last="Zorn"/>
+				<fx:Object first="Steve" last="Ohlin"/>
+			</mx:source>
+		</mx:ArrayCollection>
+		
+		<fx:XMLList
+			id="dataXmlList_locale">
+			<element>
+				<first>Anders</first>
+				<last>Öhlund</last>
+			</element>
+			<element>
+				<first>Eileen</first>
+				<last>Oehland</last>
+			</element>
+			<element>
+				<first>Aiden</first>
+				<last>Zorn</last>
+			</element>
+			<element>
+				<first>Steve</first>
+				<last>Ohlin</last>
+			</element>
+		</fx:XMLList>
+		
+		<s:XMLListCollection id="dataXmlListArrS_locale" source="{dataXmlList_locale}" sort="{sortbyLastName_FirstName}">
+		</s:XMLListCollection>
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<newComps:BaseDataComp id="dataComp"/>
+	<s:DataGrid id="uiSparkDataGrid" dataProvider="{sparkDataGridDataProvider}">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn id="uiSparkDataGridColumn" dataField="{sparkDataGridValueField}"/>
+			</s:ArrayList>
+		</s:columns>
+	</s:DataGrid>
+	
+	<!--For locale dependent sort test-->
+	<s:DataGrid id="aryDG" dataProvider="{collection}">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn dataField="last"/>
+				<s:GridColumn dataField="first"/>
+			</s:ArrayList>
+		</s:columns>
+	</s:DataGrid> 
+	<s:DataGrid id="xmlDG" dataProvider="{dataXmlListArrS_locale}">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn dataField="last"/>
+				<s:GridColumn dataField="first"/>
+			</s:ArrayList>
+		</s:columns>
+	</s:DataGrid> 
+	
+	
+	<s:Button id="clickHeaderBT" click="button1_clickHandler(event)"/>
+</s:Group>

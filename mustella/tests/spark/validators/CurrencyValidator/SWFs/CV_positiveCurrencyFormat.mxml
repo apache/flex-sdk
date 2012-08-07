@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.CurrencyFormatter;
+			
+			import spark.validators.CurrencyValidator;
+			
+			public var cvNoLocaleScript: spark.validators.CurrencyValidator = new spark.validators.CurrencyValidator();
+			public var cvScript:spark.validators.CurrencyValidator = new spark.validators.CurrencyValidator();
+			public var cvGSLibTestError:flash.globalization.CurrencyFormatter;
+			[Bindable]
+			public var cvError:String = "NO_ERROR";
+			[Bindable]
+			public var cvGslibError:String = "NO_ERROR";
+			
+			public function createCV():void
+			{
+				this.addStyleClient(cvScript);
+			}
+			public function setcvpositiveCurrencyFormat(obj:*, value:int):void
+			{
+				this.addStyleClient(obj);
+				obj.setStyle("locale","en-US");
+				try{
+					obj.positiveCurrencyFormat= value;
+				}catch(e:Error){
+					cvError = e.toString();
+				}
+				trace(cvError);
+			}
+			public function setGSLibpositiveCurrencyFormat(locale:String,value:int):void
+			{
+				cvGSLibTestError = new flash.globalization.CurrencyFormatter(locale);
+				try{
+					cvGSLibTestError.positiveCurrencyFormat = value;
+				}catch(e:Error){
+					cvGslibError = e.toString();
+				}
+				trace(cvGslibError);
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->		
+		<s:CurrencyValidator id="cvNoLocaleInline" />
+		<s:CurrencyValidator id="cvPositive1"  />
+		<s:CurrencyValidator id="cvPositive2" />
+		<s:CurrencyValidator id="cvInline" positiveCurrencyFormat="{3}"/>
+		<s:CurrencyValidator id="cvNegative1" locale="en-US" />
+		<s:CurrencyValidator id="cvNegative2" locale="en-US" />
+		<!-- Test function of positiveCurrencyFormat by setting useCurrencySymbol as true -->
+<!--		<s:CurrencyValidator id="cvFormat1" locale="en-US" useCurrencySymbol="true" negativeSymbol="-"/>
+		<s:CurrencyValidator id="cvFormat2" locale="en-US" useCurrencySymbol="true" negativeSymbol="-"/>
+		<s:CurrencyValidator id="cvFormat3" locale="en-US" useCurrencySymbol="true" negativeSymbol="-"/>
+		<s:CurrencyValidator id="cvFormat4" locale="en-US" useCurrencySymbol="true" negativeSymbol="-"/>-->
+		<!-- Test function of positiveCurrencyFormat without setting useCurrencySymbol-->
+<!--		<s:CurrencyValidator id="cvRandomFormat1" locale="en-US" negativeSymbol="-"/>
+		<s:CurrencyValidator id="cvRandomFormat2" locale="en-US" negativeSymbol="-"/>
+		<s:CurrencyValidator id="cvRandomFormat3" locale="en-US" negativeSymbol="-"/>
+		<s:CurrencyValidator id="cvRandomFormat4" locale="en-US" negativeSymbol="-"/>-->
+		<s:CurrencyValidator id="cvBinding" locale="en-US"/>
+		<s:CurrencyValidator id="cvBLocale1"/>
+		<s:CurrencyValidator id="cvBLocale2"/>
+		
+		<s:CurrencyValidator id="cvInline_ChangeLocale" locale="zh-CN" positiveCurrencyFormat="{1}"/>
+	</fx:Declarations> 	
+	<s:Label id="cvLabel" text="{cvBinding.positiveCurrencyFormat}" />
+	<s:Label id="cvErrorLabel" text="{cvError}" />
+	<s:Label id="cvGslibErrorLabel" text="{cvGslibError}" />
+	<s:Label id="cvLa" text="{cvBLocale1.positiveCurrencyFormat}"/>
+	<s:Label id="cvLb" text="{cvBLocale2.positiveCurrencyFormat}"/>
+</s:Application>

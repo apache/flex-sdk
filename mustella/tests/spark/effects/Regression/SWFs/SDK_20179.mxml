@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:em="*"
+	width="800" height="800"
+	backgroundColor="0x999999">
+
+	<fx:Declarations>
+		<s:Move id="mover" duration="2000" target="{button0}" xBy="200"/>
+		<s:Parallel id="parMover" target="{button1}">
+			<s:Move duration="2000" xBy="200"/>
+		</s:Parallel>
+		<s:Parallel id="parParMover" target="{button2}">
+			<s:Parallel>
+				<s:Move duration="2000" xBy="200"/>
+			</s:Parallel>
+		</s:Parallel>
+	</fx:Declarations>
+
+	<s:Button id="button0" click="mover.playheadTime = 2000; button0.label=String(mover.playheadTime)"/>
+	<s:Button id="button1" y="50" click="parMover.playheadTime = 2000; button1.label=String(parMover.playheadTime)"/>
+	<s:Button id="button2" y="100" click="parParMover.playheadTime = 2000; button2.label=String(parParMover.playheadTime)"/>
+
+</s:Application>

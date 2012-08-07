@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/StringTools/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ST_fallback_actualLocaleIDName.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.StringToolsTestConstants;
+		
+		import flash.globalization.StringTools;
+		import flashx.textLayout.tlf_internal;
+		
+		public var stGSLib:flash.globalization.StringTools;
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test "actualLocaleIDName" property-->
+<testCases>
+	<TestCase testID="ST_fallback_actualLocalIDName_inline_nolocale_test1" description="fx:Declarations StringTools instance without locale 's actualLocaleIDName should be 'en-US'" keywords="[StringTools, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="stInline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stInline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_script_nolocale_test2" description="fx:script StringTools instance without locale 's actualLocaleIDName should be 'en-US'" keywords="[StringTools, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="stScript"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stScript"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_inline_validlocale_test3" description="fx:Declarations StringTools instance with valid locale 's actualLocaleIDName should be 'en-US'" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="stInline" className="assets.FallbackST"/> 
+			<RunCode code="application.stInline.initialized(null,'stInline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="stInline" styleName="locale" value="fr-FR" waitEvent="change"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="stInline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_script_validlocale_test4" description="fx:script StringTools instance with valid locale 's actualLocaleIDName should be 'en-US'" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="stScript" className="assets.FallbackST"/> 
+			<RunCode code="application.stScript.initialized(null,'stScript')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="stScript" styleName="locale" value="fr-FR" waitEvent="change"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="stScript"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_script_binding_test5" description="fx:script StringTools instance 's actualLocaleIDName binding , before change" keywords="[StringTools, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue target="scriptButton" propertyName="label" value="en-US" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_script_binding_test6" description="fx:script StringTools instance 's actualLocaleIDName binding , after change" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<!--test binding here, so not use resetComponent -->
+			<SetStyle target="stScriptBinding" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="scriptButton" propertyName="label" value="en-US" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_inline_binding_test7" description="fx:Declarations StringTools instance 's actualLocaleIDName binding , before change" keywords="[StringTools, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue target="inlineButton" propertyName="label" value="en-US" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="ST_fallback_actualLocalIDName_inline_binding_test8" description="fx:Declarations StringTools instance 's actualLocaleIDName binding , after change" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<!--test binding here, so not use resetComponent -->
+			<SetStyle target="stInlineBinding" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="inlineButton" propertyName="label" value="en-US" />
+		</body>
+	</TestCase>
+	
+</testCases>
+</UnitTester>

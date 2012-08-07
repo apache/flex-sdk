@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_Fallback_Binding_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.*;
+		
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+
+<testCases>
+	<TestCase testID="CF_Fallback_Binding_currencyISOCode_USD_declarations_test1" description="test binding mechanism, currencyISOCode is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="USD" target="inlineBinding_currencyISOCode"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_currencyISOCode_CYY_declarations_test2" description="test binding mechanism, set currencyISOCode to CYY" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="currencyISOCode" value="CYY" target="cfBinding_inline"/>
+			<AssertPropertyValue propertyName="text" value="CYY" target="inlineBinding_currencyISOCode"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cfBinding_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_currencyISOCode_USD_script_test3" description="test binding mechanism, currencyISOCode is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="USD" target="scriptBinding_currencyISOCode"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_currencyISOCode_UDD_script_test4" description="test binding mechanism, set currencyISOCode to UDD" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="currencyISOCode" value="UDD" target="cfBinding"/>
+			<AssertPropertyValue propertyName="text" value="UDD" target="scriptBinding_currencyISOCode"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cfBinding"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="CF_Fallback_Binding_currencySymbol_default_declarations_test5" description="test binding mechanism, currencySymbol is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="$" target="inlineBinding_currencySymbol"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_currencySymbol_declarations_test6" description="test binding mechanism, set currencySymbol to ¥" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="currencySymbol" value="¥" target="cfBinding_inline"/>
+			<AssertPropertyValue propertyName="text" value="¥" target="inlineBinding_currencySymbol"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cfBinding_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_currencySymbol_default_script_test7" description="test binding mechanism, currencySymbol is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="$" target="scriptBinding_currencySymbol"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_currencySymbol_script_test8" description="test binding mechanism, set currencySymbol to €" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="currencySymbol" value="€" target="cfBinding"/>
+			<AssertPropertyValue propertyName="text" value="€" target="scriptBinding_currencySymbol"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cfBinding"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_useCurrencySymbol_false_declarations_test9" description="test binding mechanism, useCurrencySymbol is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=false" target="inlineBinding_useCurrencySymbol"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_useCurrencySymbol_true_declarations_test10" description="test binding mechanism, set useCurrencySymbol to true" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="useCurrencySymbol" valueExpression="value=true" target="cfBinding_inline"/>
+			<AssertPropertyValue propertyName="text" valueExpression="value=true" target="inlineBinding_useCurrencySymbol"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cfBinding_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_useCurrencySymbol_false_script_test11" description="test binding mechanism, useCurrencySymbol is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=false" target="scriptBinding_useCurrencySymbol"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_useCurrencySymbol_true_script_test12" description="test binding mechanism, set useCurrencySymbol to true" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="useCurrencySymbol" valueExpression="value=true" target="cfBinding"/>
+			<AssertPropertyValue propertyName="text" valueExpression="value=true" target="scriptBinding_useCurrencySymbol"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cfBinding"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_actualLocaleIDName_en_US_declarations_test13" description="test binding mechanism, actualLocaleIDName is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="en-US" target="inlineBinding_actualLocaleIDName"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_actualLocaleIDName_fr_FR_declarations_test14" description="test binding mechanism, set actualLocaleIDName to fr-FR" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cfBinding_inline" styleName="locale" value="fr-FR" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="en-US" target="inlineBinding_actualLocaleIDName"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_actualLocaleIDName_en_US_script_test15" description="test binding mechanism, actualLocaleIDName is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="en-US" target="scriptBinding_actualLocaleIDName"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_actualLocaleIDName_zh_CN_script_test16" description="test binding mechanism, set actualLocaleIDName to zh-CN" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cfBinding" styleName="locale" value="zh_CN" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="en-US" target="scriptBinding_actualLocaleIDName"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_errorText_declarations_test17" description="test binding mechanism, errorText is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=''" target="inlineBinding_errorText"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_errorText_declarations_test18" description="test binding mechanism, set locale to undefined, then verify the errorText value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding_inline.initialized(null,'cfBinding_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cfBinding_inline" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			<AssertPropertyValue propertyName="errorText" valueExpression="value=null" target="cfBinding_inline"/>
+			<AssertPropertyValue propertyName="text" valueExpression="value=''" target="inlineBinding_errorText"/>
+			
+			<SetStyle target="cfBinding_inline" styleName="locale" valueExpression="value='zh_CN'" waitEvent="change"/>
+			<SetProperty target="cfBinding_inline" propertyName="errorText" valueExpression="value=application.CUSTOM_ERROR_TEXT" />
+			<AssertPropertyValue propertyName="errorText" valueExpression="value=application.CUSTOM_ERROR_TEXT" target="cfBinding_inline"/>
+			<AssertPropertyValue propertyName="text" valueExpression="value=application.CUSTOM_ERROR_TEXT" target="inlineBinding_errorText"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_errorText_script_test19" description="test binding mechanism, errorText is default value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=''" target="scriptBinding_errorText"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_Binding_errorText_script_test20" description="test binding mechanism, set locale to invalid, then verify the errorText value" keywords="[CurrencyFormatter, Binding]">
+		<setup>
+			<ResetComponent target="cfBinding" className="assets.FallbackCF"/> 
+			<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cfBinding" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			<AssertPropertyValue propertyName="errorText" valueExpression="value=null" target="cfBinding"/>
+			<AssertPropertyValue propertyName="text" valueExpression="value=''" target="scriptBinding_errorText"/>
+			
+			<SetStyle target="cfBinding" styleName="locale" valueExpression="value='zh_CN'" waitEvent="change"/>
+			<SetProperty target="cfBinding" propertyName="errorText" valueExpression="value=application.CUSTOM_ERROR_TEXT" />
+			<AssertPropertyValue propertyName="errorText" valueExpression="value=application.CUSTOM_ERROR_TEXT" target="cfBinding"/>
+			<AssertPropertyValue propertyName="text" valueExpression="value=application.CUSTOM_ERROR_TEXT" target="scriptBinding_errorText"/>
+
+		</body>
+	</TestCase>
+	
+</testCases>
+</UnitTester>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    width="1000" height="1000"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:trix="Components.*"
+    backgroundColor="0xFFFFFF">
+
+	<fx:Style source="EmbeddedFonts.css"/>
+
+	<fx:Script>
+        <![CDATA[
+
+            [Bindable]
+            public var progressiveVid:String = 'http://helpexamples.com/flash/video/cuepoints.flv';
+    
+            [Bindable]
+            public var progressiveVid2:String = 'http://helpexamples.com/flash/video/water.flv';
+    
+            [Bindable]
+            public var progressiveVid3:String = 'http://hdgallery.adobe.com/media/SpaceAlone_480.flv';
+    
+            [Bindable]
+            public var GreenBoxVid:String = 'video/GreenBox.flv';
+                
+            [Bindable]
+            public var dhttpVidHost:String = "http://10.60.147.127/vod/";
+            [Bindable]
+            public var rtmpVidHost:String = "rtmp://10.60.147.127/vod/";
+            
+            // DHTTP (Waltham)
+            [Bindable]
+            public var dhttpStream150:String = "mp4:sample1_150kbps.f4m";
+            [Bindable]
+            public var dhttpStream500:String = "mp4:sample1_500kbps.f4m";
+            [Bindable]
+            public var dhttpStream700:String = "mp4:sample1_700kbps.f4m";
+            [Bindable]
+            public var dhttpStream1000:String = "mp4:sample1_1000kbps.f4m";
+            [Bindable]
+            public var dhttpStream1500:String = "mp4:sample1_1500kbps.f4m";
+            
+            // RTMP (Waltham)
+            [Bindable]
+            public var rtmpStream150:String = "sample";
+            [Bindable]
+            public var rtmpStream500:String = "mp4:sample1_500kbps.f4v";
+            [Bindable]
+            public var rtmpStream700:String = "mp4:sample1_700kbps.f4v";
+            [Bindable]
+            public var rtmpStream1000:String = "mp4:sample1_1000kbps.f4v";
+            [Bindable]
+            public var rtmpStream1500:String = "mp4:sample1_1500kbps.f4v";
+
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        
+        <!-- SF Endpoints -->
+	<s:DynamicStreamingVideoSource id="streamingVid" host="rtmp://10.59.8.148/vod/">
+	    <s:DynamicStreamingVideoItem streamName="mp4:sample1_150kbps.f4v"/>
+	</s:DynamicStreamingVideoSource>
+	<s:DynamicStreamingVideoSource id="streamingVid2" host="rtmp://10.59.8.148/vod/">
+	    <s:DynamicStreamingVideoItem streamName="mp4:sample1_500kbps.f4v"/>
+	</s:DynamicStreamingVideoSource>
+	<s:DynamicStreamingVideoSource id="GreenBoxVidStream" host="rtmp://10.59.8.148/vod/">
+	    <s:DynamicStreamingVideoItem streamName="GreenBoxStream" />
+	</s:DynamicStreamingVideoSource>
+    </fx:Declarations>
+
+
+    <trix:TrixSparkVideoPlayer id="testPlayer" />
+
+</s:Application>

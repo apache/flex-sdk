@@ -1,0 +1,155 @@
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  width="100%" height="100%" 
+		  updateComplete="updateCompleteHandler(event)" xmlns:assets="assets.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.validators.ValidationResult;
+			
+			[Bindable]
+			public var cvScript:FallbackCV = new FallbackCV();
+			
+			private var _currencyStr:Object;
+			private var _currencyScriptStr:Object;
+			
+			[Bindable]
+			public function set currencyStr(value:Object):void {
+				this._currencyStr = value;
+			}
+			public function get currencyStr():Object {
+				return this._currencyStr;
+			}	
+			
+			[Bindable]
+			public function set currencyScriptStr(value:Object):void {
+				this._currencyScriptStr = value;
+			}
+			public function get currencyScriptStr():Object {
+				return this._currencyScriptStr;
+			}	
+			
+			// validate a normal Currency Object 
+			protected function uiBTMethod_clickHandler(event:MouseEvent):void
+			{
+				var resultArr:Array;
+				
+				var invalidNum:int = 0;
+				var otherNum:int = 0;
+				var validNum:int = 0;
+				
+				resultArr = cvDefault.validateCurrency(currencyStr, null) ; 
+				
+				if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == true) ) {
+					invalidNum++;
+				} else if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == false) ) {
+					otherNum++;
+				} else {
+					validNum++;
+				}
+				
+				resultArr = cvScript.validateCurrency(currencyScriptStr, "text") ;
+				
+				if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == true) ) {
+					invalidNum++;
+				} else if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == false) ) {
+					otherNum++;
+				} else {
+					validNum++;
+				}
+				
+				uiValidLb.text = new String(validNum);
+				uiOtherLb.text = new String(otherNum);
+				uiInvalidLb.text = new String(invalidNum);
+			}
+			
+			// validate a UI object , like TextInput
+			protected function uiBTMethodScript_clickHandler(event:MouseEvent):void
+			{
+				var resultArr:Array;
+				
+				var invalidNum:int = 0;
+				var otherNum:int = 0;
+				var validNum:int = 0;
+				
+				var prop:String = uiValidLb.text;
+				resultArr = cvDefault.validateCurrency(uiTI[prop], null) ; 
+				
+				if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == true) ) {
+					invalidNum++;
+				} else if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == false) ) {
+					otherNum++;
+				} else {
+					validNum++;
+				}
+				
+				var propScript:String = uiInvalidLb.text;
+				resultArr = cvScript.validateCurrency(uiScriptTI[propScript], "text") ;
+				
+				if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == true) ) {
+					invalidNum++;
+				} else if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == false) ) {
+					otherNum++;
+				} else {
+					validNum++;
+				}
+				
+				uiValidLb.text = new String(validNum);
+				uiOtherLb.text = new String(otherNum);
+				uiInvalidLb.text = new String(invalidNum);
+			}
+
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(cvScript);
+			}
+
+			private static function getIsErrorLabel(results:Array):String {
+				var retVal:String = 'false';
+				if (results != null && results.length > 0) {
+					var result:ValidationResult = results[0] as ValidationResult;
+					if (result.isError) {
+						retVal = "true";
+					}
+				}
+				
+				return retVal;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<assets:FallbackCV id="cvDefault" />
+	</fx:Declarations>
+	
+	<s:RichEditableText id="uiTI" />
+	<mx:RichTextEditor id="uiScriptTI" />
+	<s:Label id="uiValidLb" />
+	<s:Label id="uiOtherLb" />
+	<s:Label id="uiInvalidLb" />
+	<s:Button id="uiBTMethod" label="uiBTMethod" click="uiBTMethod_clickHandler(event)"/>
+	<s:Button id="uiBTMethodScript" label="uiBTMethodScript" click="uiBTMethodScript_clickHandler(event)"/>
+	
+	<s:Label id="uiBindableLb" text="{getIsErrorLabel(cvDefault.validateCurrency(currencyStr, null))}" />
+	<s:Label id="uiBindableLbScript" text="{getIsErrorLabel(cvScript.validateCurrency(currencyScriptStr, null))}" />
+</s:VGroup>

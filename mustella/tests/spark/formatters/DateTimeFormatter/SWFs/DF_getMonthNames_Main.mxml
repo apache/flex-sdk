@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			
+			import flash.globalization.DateTimeFormatter;
+			import spark.formatters.DateTimeFormatter;
+			
+			public var dtfLocale:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var gslibDF:flash.globalization.DateTimeFormatter = new flash.globalization.DateTimeFormatter('en-US');
+			[Bindable]
+			private var gslibErrorStr:String;
+			[Bindable]
+			private var errorStr:String;
+			public function testGslibArgError(errorObject:String):void				
+			{				
+				try					
+				{					
+					gslibErrorStr = "No Error";					
+					switch(errorObject)						
+					{						
+						case 'DateTimeNameStyle':						
+							gslibDF.getMonthNames('invalid','standalone');							
+						case 'DateTimeNameContext':							
+							gslibDF.getMonthNames('full','invalid');							
+						case 'both':							
+							gslibDF.getMonthNames('invalid','invalid');							
+					}					
+				}catch(e:Error)					
+				{					
+					gslibErrorStr = e.toString();					
+				}				
+				trace(gslibErrorStr);				
+			}
+			
+			public function testArgError(errorObject:String):void
+			{
+				try
+				{
+					errorStr = "No Error";
+					switch(errorObject)
+					{
+						case 'DateTimeNameStyle':
+							dtFormatter.getMonthNames('invalid','standalone');
+						case 'DateTimeNameContext':
+							dtFormatter.getMonthNames('full','invalid');
+						case 'both':
+							dtFormatter.getMonthNames('invalid','invalid');
+					}
+				}
+				catch(e:Error)
+				{
+					errorStr = e.toString();
+				}
+				trace(errorStr);
+			}
+			public function testGslibTypeError(errorObject:String):void				
+			{				
+				try					
+				{					
+					gslibErrorStr = "No Error";					
+					switch(errorObject)						
+					{						
+						case 'DateTimeNameStyle':							
+							gslibDF.getMonthNames(null,'standalone');							
+						case 'DateTimeNameContext':							
+							gslibDF.getMonthNames('full',null);							
+						case 'both':							
+							gslibDF.getMonthNames(null,null);							
+					}					
+				}				
+				catch(e:Error)					
+				{					
+					gslibErrorStr = e.toString();					
+				}				
+				trace(gslibErrorStr);				
+			}
+			
+			public function testTypeError(errorObject:String):void
+			{
+				try
+				{
+					errorStr = "No Error";
+					switch(errorObject)
+					{
+						case 'DateTimeNameStyle':
+							dtFormatter.getMonthNames(null,'standalone');
+						case 'DateTimeNameContext':
+							dtFormatter.getMonthNames('full',null);
+						case 'both':
+							dtFormatter.getMonthNames(null,null);
+					}
+				}
+				catch(e:Error)
+				{
+					errorStr = e.toString();
+				}
+				trace(errorStr);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->	
+		<s:DateTimeFormatter id="dtFormatter"/>
+		<s:DateTimeFormatter id="dtfLocaleInline"/>
+	</fx:Declarations>
+	
+	<s:VGroup>
+		<s:Label id="testErrorL" text="{errorStr}"/>
+		<s:Label id="testGslibErrorL" text="{gslibErrorStr}"/>
+	</s:VGroup>
+	
+</s:Application>

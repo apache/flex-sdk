@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="SF_Constructor.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.*;
+			
+			import newComps.*;
+			import assets.newClasses.SFConstant;
+			
+			import spark.collections.*;
+
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		
+		<TestCase testID="Sort_Constructor_tag_null_field_test1" 
+				  description="Construct a sort in declaration tag with null field, test it can sort one field item array collection" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySort" propertyName="fields" valueExpression="value=null" /> 
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.myNameStrArr" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySort" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.myNameStrArr" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField(null)" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField(null)"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_Constructor_script_null_field_test2" 
+				  description="Construct a sort in declaration tag with null field, test it can sort one field item array collection" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortScript" propertyName="fields" valueExpression="value=null" /> 
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.myNameStrArr" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySortScript" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.myNameStrArr" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField(null)" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField(null)"/>
+			</body>
+		</TestCase>
+		
+		<!--No sortError , but it will not sort correctly --> 
+		<TestCase testID="Sort_Constructor_tag_non_field_multi_field_ac_sortError_test3" 
+				  description="Construct a sort in declaration tag with null field, test it cannot sort multiple field item array collection" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySort" propertyName="fields" valueExpression="value=null" /> 
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySort" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField(null)" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField(null)"/>
+			</body>
+		</TestCase>
+		
+		<!--No sortError , but it will not sort correctly --> 
+		<TestCase testID="Sort_Constructor_script_non_field_multip_ac_sortError_test4" 
+				  description="Construct a sort in declaration tag with null field, test it cannot sort multiple field item array collection" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortScript" propertyName="fields" valueExpression="value=null" /> 
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySortScript" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField(null)" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField(null)"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_tag_sort_assign_to_another_test5" 
+				  description="assign one sort object to another and check properties" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortField" propertyName="name" value="name" /> 
+				<SetProperty target="uiCustomConstructorComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomConstructorComp.mySortField]" /> 
+				<RunCode code="application.uiCustomConstructorComp.mySortNew = application.uiCustomConstructorComp.mySort" />
+				<Pause timeout="500"/>
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySortNew" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getSortFieldName('mySortNew')" value="name" />
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('name')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('name')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_tag_sort_assign_to_another_test6" 
+				  description="assign one sort object to another and check ac can sort correctly" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortField" propertyName="name" value="name" /> 
+				<SetProperty target="uiCustomConstructorComp.mySortField2" propertyName="name" value="address" /> 
+				<SetStyle target="uiCustomConstructorComp.mySortField2" styleName="locale" value="fr-FR" /> 
+				<SetProperty target="uiCustomConstructorComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomConstructorComp.mySortField]" /> 
+				<SetProperty target="uiCustomConstructorComp.mySortNew" propertyName="fields" valueExpression="value=[application.uiCustomConstructorComp.mySortField2]" /> 
+				<RunCode code="application.uiCustomConstructorComp.mySort = application.uiCustomConstructorComp.mySortNew " />
+				<Pause timeout="500"/>
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySort" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider"/>
+				<SetStyle target="uiCustomConstructorComp.sparkCollator" styleName="locale" value="fr-FR" /> 
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getSortFieldName('mySort')" value="address" />
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('address')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('address')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_tag_sort_assign_to_another_scripts_test7" 
+				  description="assign one sort object to another in action script and check ac can sort correctly" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<RunCode code="application.uiCustomConstructorComp.assign_script_sort_object( )" />
+				<Pause timeout="500"/>
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySortScript" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getSortFieldName('mySortScript')" value="name" />
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('name')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('name')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_tag_sortfield_assign_to_another_test8" 
+				  description="assign one sortfield object to another and check ac can sort correctly" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortField" propertyName="name" value="name" /> 
+				<SetStyle target="uiCustomConstructorComp.mySortField2" styleName="locale" value="en-US" /> 
+				<SetProperty target="uiCustomConstructorComp.mySortField2" propertyName="name" value="address" /> 
+				<SetStyle target="uiCustomConstructorComp.mySortField2" styleName="locale" value="fr-FR" /> 
+				<RunCode code="application.uiCustomConstructorComp.mySortField2 = application.uiCustomConstructorComp.mySortField" />
+				<Pause timeout="1000"/>		 
+				<SetProperty target="uiCustomConstructorComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomConstructorComp.mySortField2]" /> 
+				
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySort" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="uiCustomConstructorComp.mySortField2" propertyName="name" value="name" />
+				<AssertStyleValue target="uiCustomConstructorComp.mySortField2" styleName="locale" value="en" />
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('name')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('name')"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_Constructor_tag_sortfield_assign_to_another_scripts_test9" 
+				  description="assign one sort object to another and check ac can sort correctly" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<RunCode code="application.uiCustomConstructorComp.assign_script_sortfield_object( )" />
+				<Pause timeout="1000"/>
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySortScript" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="uiCustomConstructorComp.mySortFieldScript2" propertyName="name"  value="address" />
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('address')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('address')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_tag_locale_test10" 
+				  description="Construct a sort in declaration tag, set locale in both Sort and SortField, sortFiled has higher priority" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortField" propertyName="name" value="address" /> 
+				<SetStyle target="uiCustomConstructorComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiCustomConstructorComp.mySort" styleName="locale" valueExpression="value='en-US'"/>
+				<SetStyle target="uiCustomConstructorComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiCustomConstructorComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomConstructorComp.mySortField]" /> 
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySort" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('address')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('address')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_script_locale_test11" 
+				  description="Construct a sort in declaration tag, set locale in both Sort and SortField, sortFiled has higher priority" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetProperty target="uiCustomConstructorComp.mySortFieldScript" propertyName="name" value="name" /> 
+				<SetStyle target="uiCustomConstructorComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiCustomConstructorComp.mySortScript" styleName="locale" valueExpression="value='en-US'"/>
+				<SetStyle target="uiCustomConstructorComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiCustomConstructorComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomConstructorComp.mySortFieldScript]" /> 
+				<SetProperty target="uiCustomConstructorComp.baseDataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomConstructorComp.mySortScript" /> 
+				<SetProperty target="uiCustomConstructorComp.mxDataGrid" propertyName="dataProvider" valueExpression="value=application.uiCustomConstructorComp.baseDataComp.dataArrCollS" /> 
+				<RunCode code="application.uiCustomConstructorComp.mxDataGrid.dataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiCustomConstructorComp.mxDataGrid.dataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.getArrayOfField('name')" 
+								   valueExpression="value=application.uiCustomConstructorComp.sparkSortedArrayField('name')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_Constructor_toString_test12" 
+				  description="test Sort and SortField's toString method" 
+				  keywords="[Sort, SortField, toString]">
+			<setup>
+				<ResetComponent target="uiCustomConstructorComp" className="newComps.CustomConstructorComp" waitEvent="updateComplete" waitTarget="uiCustomConstructorComp" />
+				<SetStyle target="uiCustomConstructorComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiCustomConstructorComp.mySortScript" styleName="locale" valueExpression="value='en-US'"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.sortPrintOut(application.uiCustomConstructorComp.mySortScript)" 
+								   value="true"/>
+				<AssertMethodValue method="value=application.uiCustomConstructorComp.sortFieldPrintOut(application.uiCustomConstructorComp.mySortFieldScript)" 
+								   value="true"/>
+			</body>
+		</TestCase>
+		
+	</testCases>	
+</UnitTester>

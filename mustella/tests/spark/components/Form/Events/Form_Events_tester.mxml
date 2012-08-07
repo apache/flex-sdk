@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Events/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Form_main.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			
+			import spark.layouts.*;
+			import comps.*;
+			import spark.components.Group;
+			import flash.utils.getQualifiedClassName;
+			
+			
+		]]>
+	</fx:Script>
+	<testCases>
+		<TestCase testID="FormItem_Validator_invalid_event" keywords="[Form, Validator, event, invalid]" description="FormItem with a validator fires an invalid event">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.BasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="text" value="1234567890" target="basicFrm.ti1" waitEvent="textChanged" waitTarget="basicFrm.ti1"/> 
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="invalid" />
+				<CompareBitmap url="../Events/baselines/$testID.png" target="basicFrm" />
+				
+				<AssertMethodValue method="value=application.basicFrm.fi1.elementErrorStrings[0]" value="This string is longer than the maximum allowed length. This must be less than 8 characters long." />
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_Validator_valid_event" keywords="[Form, Validator, event, invalid]" description="FormItem with a validator fires a valid event">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.BasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="invalid" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Events/baselines/$testID_1.png" target="basicFrm" />
+				<SetProperty propertyName="text" value="1234567" target="basicFrm.ti1" waitEvent="valid" waitTarget="basicFrm.ti1"/> 
+				<CompareBitmap url="../Events/baselines/$testID_2.png" target="basicFrm" />
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_enter_event_defaultButton" keywords="[Form, Validator, event, invalid]" description="FormItem with a validator fires a valid event">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.BasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn"/>
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="propertyChange" waitTarget="basicFrm.fi4.skin"/>
+				<Pause timeout="200"/>
+				<AssertPropertyValue propertyName="text" target="basicFrm.newLbl" value="submitted" />
+				<CompareBitmap url="../Events/baselines/$testID.png" target="basicFrm" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

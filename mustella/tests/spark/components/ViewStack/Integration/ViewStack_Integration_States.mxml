@@ -1,0 +1,102 @@
+<UnitTester testDir="spark/components/ViewStack/Integration/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ViewStack_states.mxml">
+	
+	<!-- Default code for all tests -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void{} 
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<testCases>
+		<!--This test will fail due to SDK-31532
+		<TestCase testID="ViewStack_States_bitmapCheck" keywords="[ViewStack, States]" description="Test that components appear correctly based on ViewStack state">
+			<setup>
+				<ResetComponent target="myVS_States" className="components.vsWithStates" waitEvent="updateComplete"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myVS_States" url="../integration/Baselines/$testID_state1.png"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myVS_States" url="../integration/Baselines/$testID_state2.png"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myVS_States" url="../integration/Baselines/$testID_state3.png"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state4" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myVS_States" url="../integration/Baselines/$testID_state4.png"/>
+			</body>
+		</TestCase>
+		-->
+	
+		<!-- uncomment when ViewStack is available
+		<TestCase testID="ViewStack_States_colorStyle" keywords="[ViewStack, States]" description="Test that a color style changes based on ViewStack state">
+			<setup>
+				<ResetComponent target="myVS_States" className="components.vsWithStates" waitEvent="updateComplete"/>
+			</setup>
+			<body>				
+				<SetProperty target="myVS_States" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<AssertStyleValue target="myVS_States.myTextInput_view1" styleName="color" value="0xFF0000"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ViewStack_States_labelProperty" keywords="[ViewStack, States]" description="Test that a label property changes based on ViewStack state">
+			<setup>
+				<ResetComponent target="myVS_States" className="components.vsWithStates" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVS_States.myButton_view1" propertyName="label" value="Button_View1State1_2And3"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myVS_States.myButton_view1" propertyName="label" value="Button_View1State2"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myVS_States.myButton_view1" propertyName="label" value="Button_View1State1_2And3"/>
+			</body>
+		</TestCase>        	
+        	
+		<TestCase testID="ViewStack_States_selectedPropertyPersist" keywords="[ViewStack, States]" description="Test that selected property of Checkbox persists when changing the states">
+			<setup>
+				<ResetComponent target="myVS_States" className="components.vsWithStates" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVS_States.view1" propertyName="numElements" value="2"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<SetProperty target="myVS_States.myCheckBox_view1" propertyName="selected" value="true" waitEvent="updateComplete"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state1" waitEvent="currentStateChange"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myVS_States.myCheckBox_view1" propertyName="selected" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewStack_States_numElements_ViewStack" keywords="[ViewStack, States]" description="Test number of elements in the ViewStack based on current state">
+			<setup>
+				<ResetComponent target="myVS_States" className="components.vsWithStates" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVS_States" propertyName="numElements" value="2"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myVS_States" propertyName="numElements" value="2"/>
+				<SetProperty target="myVS_States" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myVS_States" propertyName="numElements" value="2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewStack_States_selectedIndex_basedOnStates" keywords="[ViewStack, States]" description="Test that selectedIndex is updated based on the NavigatorContents exisiting in the current state">
+			<setup>
+				<ResetComponent target="myVS_States" className="components.vsWithStates" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="myVS_States" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>			
+				<CompareBitmap target="myVS_States" url="../integration/Baselines/$testID_state1SelectedIndex1.png"/>
+			</body>
+		</TestCase>
+		uncomment when ViewStack is available -->
+	</testCases>
+</UnitTester>

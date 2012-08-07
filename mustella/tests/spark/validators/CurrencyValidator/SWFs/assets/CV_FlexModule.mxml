@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" 
+		   width="400" height="300"
+		   updateComplete="module1_updateCompleteHandler(event)" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			
+			public var cvScript:spark.validators.CurrencyValidator = new spark.validators.CurrencyValidator();
+			
+			protected function uiBTMethod_clickHandler(event:MouseEvent):void
+			{
+				cvProg.listener = uiTI;
+				
+				if ('disabled' == uiProgType.text) {
+					cvProg.enabled = false;
+				} else {
+					cvProg.enabled = true;
+				}
+				
+				var result:ValidationResultEvent = cvProg.validate(uiTI.text);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+			
+			protected function uiBTMethodScript_clickHandler(event:MouseEvent):void
+			{
+				cvScript.listener = uiTI;
+				
+				if ('disabled' == uiProgType.text) {
+					cvScript.enabled = false;
+				} else {
+					cvScript.enabled = true;
+				}
+				
+				var result:ValidationResultEvent = cvScript.validate(uiTI.text);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+			
+			protected function module1_updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(cvScript);
+			}
+			
+			/* public function set cvDefaultTriggerProperties(value:String):void {
+				cvDefault.source = uiTI;
+				cvDefault.property = 'text';
+			}
+			
+			public function set cvDefaultTriggerPropertiesWithTrigger(value:String):void {
+				cvDefault.source = uiTI;
+				cvDefault.property = 'text';
+				cvDefault.trigger = uiBT;
+				cvDefault.triggerEvent = 'click';
+			}
+			
+			public function set cvDefaultTriggerPropertiesWithModule(value:String):void {
+				cvDefault.source = userInfo;
+				cvDefault.property = 'moneyNum';
+				cvDefault.trigger = uiTI;
+				cvDefault.listener = uiTI;
+			} */
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:CurrencyValidator id="cvDefault" />
+		
+		<fx:Model id="userInfo">
+			<bankInfo>
+				<moneyNum>{uiTI.text}</moneyNum>
+			</bankInfo>
+		</fx:Model>
+		
+		<s:CurrencyValidator id="cvProg" />
+		
+		<s:CurrencyFormatter id="cf" />
+	</fx:Declarations>
+	
+	<s:VGroup>
+		<mx:TextInput id="uiTI" />
+		<mx:TextInput id="uiProgType" />
+		<mx:Label id="uiLb" />
+		<mx:Button id="uiBT" label="uiBT"/>
+		<mx:Button id="uiBTMethod" label="uiBTMethod" click="uiBTMethod_clickHandler(event)"/>
+		<mx:Button id="uiBTMethodScript" label="uiBTMethodScript" click="uiBTMethodScript_clickHandler(event)"/>
+	</s:VGroup>
+	
+</mx:Module>

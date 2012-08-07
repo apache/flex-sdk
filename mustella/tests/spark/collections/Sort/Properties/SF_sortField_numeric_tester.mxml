@@ -1,0 +1,159 @@
+<UnitTester testDir="spark/collections/Sort/Properties/" testSWF="SF_sortField_numeric.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+			import flash.globalization.LastOperationStatus;
+			import assets.newClasses.SFConstant;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_Property_numeric_default_inline_1" keywords="[SortField, numeric, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sf" propertyName="numeric" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_default_script_2" keywords="[SortField, numeric, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sfScript" propertyName="numeric" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_set_inline_3" keywords="[SortField, numeric, set]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sfInline" propertyName="numeric" valueExpression="value=true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_binding_inline_4" keywords="[SortField, numeric, binding]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="sfComp.sfInlineBinding" propertyName="numeric" valueExpression="value=true" waitEvent="numericChanged"/>
+                <AssertPropertyValue target="sfComp.LabelInlineBinding" propertyName="text" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_binding_script_5" keywords="[SortField, numeric, binding]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="sfComp.sfScriptBinding" propertyName="numeric" valueExpression="value=true" waitEvent="numericChanged"/>
+                <AssertPropertyValue target="sfComp.LabelScriptBinding" propertyName="text" value="true"/>
+            </body>
+        </TestCase>
+		
+		
+        <TestCase testID="SortField_Property_numeric_true_inline_6" keywords="[SortField, numeric, true]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,application.sfComp.personAC,true,false,'age','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="7"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age" value="8"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age" value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_true_script_7" keywords="[SortField, numeric, true]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,application.sfComp.personAC,true,false,'age','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="7"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_false_inline_8" keywords="[SortField, numeric, false]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,application.sfComp.personAC,false,false,'age','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="20"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="7"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_false_script_9" keywords="[SortField, numeric, false]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,application.sfComp.personAC,false,false,'age','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="20"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="7"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+            </body>
+        </TestCase>
+		
+		
+        <TestCase testID="SortField_Property_numeric_number_no_inline_10" keywords="[SortField, numeric, number, no]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,application.sfComp.personAC,null,false,'age','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="20"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="7"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_number_no_script_11" keywords="[SortField, numeric, number, no]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,application.sfComp.personAC,null,false,'age','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="20"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="7"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="SortField_Property_numeric_string_no_inline_12" keywords="[SortField, numeric, string, no]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,application.sfComp.personAC,null,false,'address','salary')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="20"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="7"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_numeric_string_no_script_13" keywords="[SortField, numeric, string, no]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_numeric" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,application.sfComp.personAC,null,false,'address','salary')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.age " value="20"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="8"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.age " value="7"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

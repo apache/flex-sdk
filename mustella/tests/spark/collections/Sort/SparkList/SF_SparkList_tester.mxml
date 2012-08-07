@@ -1,0 +1,587 @@
+<UnitTester testDir="spark/collections/Sort/SparkList/" testSWF="SF_SparkList.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import spark.globalization.SortingCollator;
+			
+			public var clt:spark.globalization.SortingCollator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_sparkList_default_test_1" 
+				  description="sort items with default property setting" 
+				  keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField, application.uiListComp.mySortField2]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_default_script_test_2" description="sort items with default property setting" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortFieldScript2" propertyName="name" value="salary"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript,application.uiListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('salary',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.sparkSortedArrayField('salary')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_descending_true_test_3" description="sort items with descending true" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="true"/>
+                <SetProperty target="uiListComp.mySortField2" propertyName="name" value="salary"/>
+                <SetProperty target="uiListComp.mySortField2" propertyName="descending" value="true"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField,application.uiListComp.mySortField2]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiListComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.revertArray(application.uiListComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('salary',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.revertArray(application.uiListComp.sparkSortedArrayField('salary'))"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_descending_true_script_test_4" description="sort items with descending true" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="true"/>
+                <SetProperty target="uiListComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySortFieldScript2" propertyName="descending" value="true"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript,application.uiListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.revertArray(application.uiListComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.revertArray(application.uiListComp.sparkSortedArrayField('address'))"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_unique_true_test_5" description="sort items with unique true" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <!--<SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-CA'"/>-->
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiListComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+				
+                <!--<SetProperty target="uiListComp" propertyName="listValueField" value="age"/>-->
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+				
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="age"/>
+                <!--<SetProperty target="uiListComp.mySortField2" propertyName="name" value="address"/>-->
+                <SetProperty target="uiListComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="true"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+				<!--<RunCode code="application.uiListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertStyleValue target="uiListComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+				
+				<AssertMethodValue method="value=application.uiListComp.getCatchErrRefresh()" 
+								   value="Error: Non-unique values in items."/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_unique_true_script_test_6" description="sort items with unique true" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <!--<SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>-->
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <!--<SetProperty target="uiListComp" propertyName="listValueField" value="salary"/>-->
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="age"/>
+                <!--<SetProperty target="uiListComp.mySortFieldScript2" propertyName="name" value="address"/>-->
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" 
+							 valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="true"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+				<!--<RunCode code="application.uiListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<AssertMethodValue method="value=application.uiListComp.getCatchErrRefresh()" 
+								   value="Error: Non-unique values in items."/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_numeric_true_test_7" description="sort items with numeric true" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <!--<SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="true"/>-->
+				
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+				
+                <SetProperty target="uiListComp" propertyName="listValueField" value="salary"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="salary"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="numeric" value="true"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <SetProperty target="uiListComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiListComp.myMxSortField" propertyName="name" valueExpression="value='salary'"/>
+				<SetProperty target="uiListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField('salary',application.uiListComp.listDataProvider)" 
+					valueExpression="value=application.uiListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_numeric_true_script_test_8" description="sort items with numeric true" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <!--<SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='en-GB'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="true"/>-->
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="salary"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="salary"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="numeric" value="true"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+				<SetProperty target="uiListComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiListComp.myMxSortField" propertyName="name" valueExpression="value='salary'"/>
+				<SetProperty target="uiListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField('salary',application.uiListComp.listDataProvider)" 
+					valueExpression="value=application.uiListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_diff_locale_test_9" description="sort items based on different locale on Sort and SortField" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="address"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_diff_locale_script_test_10" description="sort items based on different locale on Sort and SortField" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="address"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_localeChange_SortField_test_11" description="sort items based locale change of SortField" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="address"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_localeChange_SortField_test_12" description="sort items based on locale change of SortField" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="address"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_localeChange_Sort_test_13" description="sort items based locale change of Sort" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="address"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_localeChange_Sort_test_14" description="sort items based on locale change of Sort" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiListComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="address"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertStyleValue target="uiListComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_reverse_test_15" description="reverse items sort order based on different descending setting of SortField" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySortField2" propertyName="descending" value="true"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField,application.uiListComp.mySortField2]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <RunCode code="application.uiListComp.mySort.reverse()"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.revertArray(application.uiListComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_reverse_script_test_16" description="reverse items sort order based on different descending setting of SortField" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiListComp.mySortFieldScript2" propertyName="descending" value="true"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript,application.uiListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <RunCode code="application.uiListComp.mySortScript.reverse()"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.revertArray(application.uiListComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiListComp.listDataProvider)" 
+								   valueExpression="value=application.uiListComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_changeSource_test_17" description="sort items after change source" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_changeSource_script_test_18" description="sort items after change source" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_function_test_19" description="verify sort items of sparkList will not affect the original function" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySort" propertyName="fields" valueExpression="value=[application.uiListComp.mySortField]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySort"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetProperty target="uiListComp.uiList" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiListComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiListComp.uiList" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiListComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkList_function_script_test_20" description="verify sort items of sparkList will not affect the original function" keywords="[Sort, sparkList]">
+            <setup>
+                <ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+                <SetStyle target="uiListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiListComp" propertyName="listDataProvider" valueExpression="value=application.uiListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiListComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiListComp.mySortFieldScript]"/>
+                <SetProperty target="uiListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiListComp.mySortScript"/>
+                <RunCode code="application.uiListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiListComp.listDataProvider"/>
+                
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiListComp.listDataProvider)" valueExpression="value=application.uiListComp.sparkSortedArray"/>
+                <SetProperty target="uiListComp.uiList" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiListComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiListComp.uiList" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiListComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+		<!--Cases for locale dependent sort test-->
+		<TestCase testID="SortField_sparkList_locale_dependent_aryColl_test_21" description="verify locale dependent sort" keywords="[Sort, sparkList]">
+			<setup>
+				<ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+				<RunCode code="application.uiListComp.updateSort_aryColl()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiListComp.collection)" valueExpression="value=application.uiListComp.sparkSortedArrayCollection"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SortField_sparkList_locale_dependent_xmlList_test_22" description="verify locale dependent sort" keywords="[Sort, sparkList]">
+			<setup>
+				<ResetComponent target="uiListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiListComp"/>
+				<RunCode code="application.uiListComp.updateSort_xmlList()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiListComp.dataXmlListArrS_locale)" valueExpression="value=application.uiListComp.sparkSortedXMLList"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

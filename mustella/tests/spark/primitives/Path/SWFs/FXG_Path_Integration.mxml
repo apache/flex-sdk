@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:mx="library://ns.adobe.com/flex/mx"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:comps="comps.*"
+        width="800" height="700">
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+<fx:Script>
+    <![CDATA[
+    
+        import spark.primitives.Path;
+        
+        public function createPathLinearGradientStroke(): void
+        {
+	    var thePath:Path = new Path();
+	    thePath.x = 200;
+	    thePath.y = 50;
+	    thePath.width = 100;
+	    thePath.height = 100;
+	    thePath.data = "M 75.95 122.85 L 0.03 8.68 136.87 0.02 Z";
+				
+	    var gradEnt1:GradientEntry = new GradientEntry();
+	    gradEnt1.color = 0x5380D0;
+	    gradEnt1.ratio = 0;
+	    gradEnt1.alpha = 1;
+				
+	    var gradEnt2:GradientEntry = new GradientEntry();
+	    gradEnt2.color = 0xFDFF00;
+	    gradEnt2.ratio = 1;
+	    gradEnt2.alpha = 1;
+				
+	    var linGradStr:LinearGradientStroke = new LinearGradientStroke();
+	    linGradStr.weight = 12;
+	    linGradStr.entries = [gradEnt1, gradEnt2];
+				
+	    thePath.stroke = linGradStr;
+				
+	    group5.addElement(thePath);
+	 }
+    ]]>
+</fx:Script>
+<s:Button id="custom_Button" skinClass="assets.pathSkin" />
+
+    <s:Group id="group1">
+        <s:Path data="M 0 0 L 75 0 L 75 127.19999999999999 L 3.196222583476404e-15 127.19999999999999 L 0 0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x000000" weight="2" />
+            </s:stroke>
+        </s:Path>
+
+    </s:Group>
+    
+    <s:Group id="group2" >
+        <s:Path id="g1"  rotation="0" alpha="0.9" left="0" top="0"
+            data="M 66.64 78.31 L 41.20 64.94 15.76 78.31 20.62 49.99 0.04 29.93 28.48 25.79 41.20 0.02 53.92 25.79 82.36 29.93 61.78 49.99 Z">
+            <s:stroke>
+                <s:SolidColorStroke caps="none" color="#7f7fff" joints="miter" miterLimit="10" weight="8"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+    
+    <s:Group id="group3">
+        <s:Path winding="nonZero"  data="M 50 100  l 50 50   50 -50   m 0 50   100 0   0 -50  l 100 0" >
+            <s:fill>
+                <s:SolidColor color="#ff0000"/>
+            </s:fill>
+            <s:stroke>
+                <s:SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+            </s:stroke>
+        </s:Path> 
+    </s:Group>
+    <s:HGroup>
+        <s:Group id="group4" >
+	    <s:Path x="50" y="50" width="100" height="100" data="M 75.95 122.85 L 0.03 8.68 136.87 0.02 Z"> 
+		<s:stroke> 
+			<s:LinearGradientStroke weight="12"> 
+				<s:GradientEntry color="#5380D0" ratio="0" alpha="1"/> 
+				<s:GradientEntry color="#FDFF00" ratio="1" alpha="1"/> 
+			</s:LinearGradientStroke> 
+		</s:stroke> 
+	    </s:Path>
+        </s:Group>
+        <s:Group id="group5" />
+    </s:HGroup>
+</s:Application>

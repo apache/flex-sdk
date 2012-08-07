@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test interaction of filter and various of blend modes.                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 18 March-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  18-March-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group x="3.5752" y="10">
+	<Group>
+		<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="3.80206">
+		<content><p><span>BlurFilter applied to BitmapGraphic with blendMode.</span></p></content>
+		</TextGraphic>
+		<TextGraphic fontFamily="MyVeraSpark" fontSize="14" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="25">
+		<content><p><span>blurX="1" blurY="4" quality="3"</span></p></content>
+		</TextGraphic>
+		<Group>
+		    <filters>
+			<BlurFilter blurX="4" blurY="2" quality="3"/>
+		    </filters>
+		    <Group x="15.5498" y="40">
+		      <BitmapGraphic x="133.876" scaleX="3.825" scaleY="380" width="100" height="1" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false"/>
+		      <Group x="94.875" y="18.3228" alpha="0.5" blendMode="normal">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="68.3228" alpha="0.5" blendMode="add">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="118.523" blendMode="alpha">
+			<BitmapGraphic width="551" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="167.323" alpha="0.5" blendMode="darken">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="217.323" alpha="0.5" blendMode="difference">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="267.323" alpha="0.5" blendMode="erase">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="317.323" alpha="0.5" blendMode="hardlight">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+	            </Group>
+	      	</Group>
+		<TextGraphic fontFamily="MyVeraSpark" fontSize="14" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="440">
+		<content><p><span>blurX="4" blurY="1" quality="2""</span></p></content>
+		</TextGraphic>
+		<Group y="460">
+		    <filters>
+			<BlurFilter blurX="1" blurY="4" quality="1"/>
+		    </filters>
+		    <Group x="15.5498">
+		      <BitmapGraphic x="133.876" y="0" scaleX="3.825" scaleY="380" width="100" height="1" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false"/>
+		      <Group x="94.875" y="17.323" alpha="0.5" blendMode="invert">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="67.323" alpha="0.5" blendMode="layer">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="117.323" alpha="0.5" blendMode="lighten">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="167.323" alpha="0.5" blendMode="multiply">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="217.323" alpha="0.5" blendMode="subtract">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="267.323" alpha="0.5" blendMode="screen">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+		      <Group x="94.875" y="317.323" alpha="0.5" blendMode="overlay">
+			<BitmapGraphic width="552" height="47" source="@Embed('../../../../../../../Assets/Images/bluerect.jpg')" repeat="false"/>
+		      </Group>
+	            </Group>
+	      </Group>	      
+	</Group>
+	<Group y="67.8755">
+	      <Group>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="3.80206">
+			  <content><p><span>Normal</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="53.5281">
+			  <content><p><span>Add</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="103.252">
+			  <content><p><span>Alpha</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="152.978">
+			  <content><p><span>Darken</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="202.704">
+			  <content><p><span>Difference</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="252.427">
+			  <content><p><span>Erase</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="302.153">
+			  <content><p><span>Hardlight</span></p></content>
+			</TextGraphic>
+	      </Group>
+	      <Group y="75">
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="351.9134">
+			  <content><p><span>Invert</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="401.63944">
+			  <content><p><span>Layer</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="451.36538">
+			  <content><p><span>Lighten</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="501.019052">
+			  <content><p><span>Multiply</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="550.744992">
+			  <content><p><span>Subtract</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="600.470932">
+			  <content><p><span>Screen</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" y="650.196872">
+			  <content><p><span>Overlay</span></p></content>
+			</TextGraphic>
+	      </Group>
+	  </Group>
+	  <Rect x="0.25" y="0.25" width="604.35" height="850">
+	      <stroke>
+		<SolidColorStroke caps="none" weight="0.5" joints="miter" miterLimit="4"/>
+	      </stroke>
+	  </Rect>
+    </Group>
+</Graphic>

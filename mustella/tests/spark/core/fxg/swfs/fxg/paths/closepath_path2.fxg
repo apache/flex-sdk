@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Author : Min Plunkett  13 Mar-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  13-Mar-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="20">
+        <content><p><span>Test closepath (Z).</span></p>
+        <p><span>M 50 80 L 150 180 M 250 80 Z</span></p></content>
+      </TextGraphic>
+        <Path winding="nonZero"  data="M 50 80 L 150 180 M 250 80 Z" >
+          <stroke>
+            <SolidColorStroke caps="none" weight="3" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="220">
+        <content><p><span>Test closepath (z).</span></p>
+        <p><span>M 50 250 l 100 100 m 100 -100 z</span></p></content>
+      </TextGraphic>
+        <Path winding="nonZero"  data="M 50 250 l 100 100 m 100 -100 z" >
+          <stroke>
+            <SolidColorStroke caps="none" weight="3" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+     
+</Graphic>

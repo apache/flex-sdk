@@ -1,0 +1,36 @@
+<s:Ellipse
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="60" height="70" rotation="50">
+
+
+    <s:fill>
+        <s:LinearGradient>
+			<s:GradientEntry color="#FF0000" alpha="1" ratio="0"/>
+			<s:GradientEntry color="#000000" alpha="0" ratio="1"/>
+		</s:LinearGradient>
+    </s:fill>
+
+    <s:stroke>
+        <mx:SolidColorStroke color="0x666666" weight="1"/>
+    </s:stroke>
+
+    <!-- This matrix should cause the rotation of the Ellipse be 20 degrees -->
+
+    <s:transform>
+        <s:Transform>
+            <s:matrix>
+                <s:Matrix a="0.939692620786"
+                          b="0.34202014332"
+                          c="0.34202014332"
+                          d="0.939692620786"
+                          tx="100"
+                          ty="310"
+                />
+            </s:matrix>
+        </s:Transform>
+    </s:transform>
+
+</s:Ellipse>
+

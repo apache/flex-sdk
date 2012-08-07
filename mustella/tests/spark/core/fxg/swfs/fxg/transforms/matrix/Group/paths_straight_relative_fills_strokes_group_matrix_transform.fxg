@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Tests of Paths for the basic capability to handle the 'path' element with a coordinate matrix transform, and its data attribute (d)
+in combination with the straight-line path commands.
+Two pairs of concentric equilateral triangles are drawn using respectively
+M,L,Z and m,l,z. The shapes in each pair are identical, with one stroked and
+one filled.   The fill-mode default of "even-odd" means that 
+the inner triangle is hollow.  
+
+ The top group comprises of 2 equilateral triangles and the bottom group comrpises of the same triangles with the exception that 
+different transforms have been applied to each of those elements.
+
+                                                                      			            -->
+<!-- Author : Vivek Agrawal  3 March-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--   3 March-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" viewHeight="359" viewWidth="479" xmlns="http://ns.adobe.com/fxg/2008">
+	   <!--======================================================================-->
+	   <!--Content of Test Case follows...                  =====================-->
+	   <!--======================================================================-->
+
+        <!-- ====================================================================== -->
+		<!-- Second Group of Triangles using m, l & z commands===================== -->
+		<!-- ====================================================================== -->
+<Group x="17.7251" y="14.0522">
+        <Path winding="nonZero" data="   m   62.00000  190.00000    l   51.96152   90.00000   l -103.92304    0.00000    l   51.96152  -90.00000   z    m    0.00000   15.00000   l   38.97114   67.50000   l  -77.91228    0.00000   l   38.97114  -67.50000   z  " >
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+        <Rect x="60.00000" y="188.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="111.96152" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="8.03848" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="60.00000" y="203.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="98.97114" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="21.02886" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Path winding="nonZero"  data="   m  177.00000  190.00000    l   51.96152   90.00000   l -103.92304    0.00000    l   51.96152  -90.00000   z    m    0.00000   15.00000   l   38.97114   67.50000   l  -77.91228    0.00000   l   38.97114  -67.50000   z  " >
+          <fill>
+            <SolidColor color="#00c000"/>
+          </fill>
+        </Path>
+        <Rect x="175.00000" y="188.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="226.96152" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="123.03848" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect  x="175.00000" y="203.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="213.97114" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="136.02886" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+    <Rect x="0.5" y="0.5" width="478" height="358">
+      <stroke>
+        <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+      </stroke>
+    </Rect>
+</Group>
+<Group >
+        <Path winding="nonZero" data="   m   62.00000  190.00000    l   51.96152   90.00000   l -103.92304    0.00000    l   51.96152  -90.00000   z    m    0.00000   15.00000   l   38.97114   67.50000   l  -77.91228    0.00000   l   38.97114  -67.50000   z  " >
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+        <Rect x="60.00000" y="188.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="111.96152" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="8.03848" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="60.00000" y="203.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="98.97114" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="21.02886" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Path winding="nonZero"  data="   m  177.00000  190.00000    l   51.96152   90.00000   l -103.92304    0.00000    l   51.96152  -90.00000   z    m    0.00000   15.00000   l   38.97114   67.50000   l  -77.91228    0.00000   l   38.97114  -67.50000   z  " >
+          <fill>
+            <SolidColor color="#00c000"/>
+          </fill>
+        </Path>
+        <Rect x="175.00000" y="188.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="226.96152" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="123.03848" y="278.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect  x="175.00000" y="203.00000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="213.97114" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="136.02886" y="270.50000" width="4" height="4">
+          <fill>
+            <SolidColor color="#ff0000"/>
+          </fill>
+        </Rect>
+        <Rect x="0.5" y="0.5" width="478" height="358">
+      		<stroke>
+        		<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+      		</stroke>
+    	</Rect>
+        <transform>
+		<Transform>
+			<matrix>
+				<Matrix tx="240.0" ty="200.0" a="1" b="0" c="-1.0" d="1"/>
+			</matrix>
+		</Transform>
+        </transform>
+</Group>
+
+</Graphic>

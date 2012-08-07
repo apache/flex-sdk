@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_getWeekdayNames_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.DateTimeFormatter;
+			import flash.globalization.DateTimeNameContext;
+			import flash.globalization.DateTimeNameStyle;
+			import flash.globalization.DateTimeStyle;
+			public var flashDF:flash.globalization.DateTimeFormatter;
+			public static function init(o:DisplayObject):void
+			{ 
+			}
+		]]>
+	</mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test "getWeekdayNames()" method-->
+<testCases>
+	<!--test case for setting Style to 'ar-JO', then test getWeekdayNames() -->
+	<TestCase testID="DF_getWeekdayNames_ar_JO_test1" description="ar-JO" keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar-JO')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="ar-JO" waitEvent="change"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','format')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for setting Style to 'en_US', then test getWeekdayNames() -->
+	<TestCase testID="DF_getWeekdayNames_en_US_test2" description="en_US" keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US')" />
+			<SetStyle styleName="locale" target="dtFormatter" value="en_US" waitEvent="change"/>	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','format')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+
+	<!--test case for setting Style to 'sr-Cyrl-RS', then test getWeekdayNames() -->
+	<TestCase testID="DF_getWeekdayNames_sr_Cyrl_RS_test3" description="sr-Cyrl-RS" keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr-Cyrl-RS')" />
+			<SetStyle styleName="locale" target="dtFormatter" value="sr-Cyrl-RS" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','format')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for setting Style to '123', then test getWeekdayNames() -->
+	<TestCase testID="DF_getWeekdayNames_123_test4" description="123" keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123')" />
+			<SetStyle styleName="locale" target="dtFormatter" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','format')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for setting Style to 'i-default', then test getWeekdayNames() -->
+	<TestCase testID="DF_getWeekdayNames_default_test5" description="i-default" keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default')" />
+			<SetStyle styleName="locale" target="dtFormatter" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','format')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test case for setting Style to 'zh_CN', then test getWeekdayNames() -->
+	<TestCase testID="DF_getWeekdayNames_zh_CN_test6" description="zh_CN" keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')" />
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('full','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('longAbbreviation','format')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','standalone')"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   valueExpression="value=flashDF.getWeekdayNames('shortAbbreviation','format')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	<!--Throws ArgumentError if the <code>nameStyle</code> or <code>context</code> parameter is invalid.  -->
+	<TestCase testID="DF_getWeekdayNames_ArgumentError_DateTimeNameStyle_test7" description="Throws ArgumentError if the DateTimeNameStyle parameter is invalid. " keywords="[DateTimeFormatter, getWeekdayNames,DateTimeNameStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+			<RunCode code="application.testArgError('DateTimeNameStyle')"/>
+			<RunCode code="application.testGslibArgError('DateTimeNameStyle')"/>
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testErrorL" valueExpression="value=application.testGslibErrorL.text"/>
+		</body>
+	</TestCase>	
+	<!--Throws ArgumentError if the <code>nameStyle</code> or <code>context</code> parameter is invalid.  -->
+	<TestCase testID="DF_getWeekdayNames_ArgumentError_DateTimeNameContext_test8" description="Throws ArgumentError if the DateTimeNameContext parameter is invalid." keywords="[DateTimeFormatter, getWeekdayNames,DateTimeNameContext, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+			<RunCode code="application.testArgError('DateTimeNameContext')"/>
+			<RunCode code="application.testGslibArgError('DateTimeNameContext')"/>
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testErrorL" valueExpression="value=application.testGslibErrorL.text"/>
+		</body>
+	</TestCase>	
+	<!--Throws ArgumentError if the <code>nameStyle</code> or <code>context</code> parameter is invalid.  -->
+	<TestCase testID="DF_getWeekdayNames_ArgumentError_DateTimeNameStyle_DateTimeNameContext_test9" description="Throws ArgumentError if the DateTimeNameContext and DateTimeNameStyle parameter is invalid." keywords="[DateTimeFormatter, getWeekdayNames,DateTimeNameStyle,DateTimeNameContext, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+			<RunCode code="application.testArgError('both')"/>
+			<RunCode code="application.testGslibArgError('both')"/>
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testErrorL" valueExpression="value=application.testGslibErrorL.text"/>
+		</body>
+	</TestCase>	
+	<!--Throws TypeError if the <code>nameStyle</code> or <code>context</code> parameter is null.  -->
+	<TestCase testID="DF_getWeekdayNames_TypeError_nullDateTimeNameStyle_test10" description="Throws TypeError if the DateTimeNameStyle parameter is null. " keywords="[DateTimeFormatter, getWeekdayNames,DateTimeNameStyle, TypeError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+			<RunCode code="application.testTypeError('DateTimeNameStyle')"/>
+			<RunCode code="application.testGslibTypeError('DateTimeNameStyle')"/>
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testErrorL" valueExpression="value=application.testGslibErrorL.text"/>
+		</body>
+	</TestCase>	
+	<!--Throws TypeError if the <code>nameStyle</code> or <code>context</code> parameter is null.  -->
+	<TestCase testID="DF_getWeekdayNames_TypeError_DateTimeNameContext_test11" description="Throws TypeError if the DateTimeNameContext parameter is null." keywords="[DateTimeFormatter, getWeekdayNames,DateTimeNameContext, TypeError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+			<RunCode code="application.testTypeError('DateTimeNameContext')"/>
+			<RunCode code="application.testGslibTypeError('DateTimeNameContext')"/>
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testErrorL" valueExpression="value=application.testGslibErrorL.text"/>
+		</body>
+	</TestCase>	
+	<!--Throws TypeError if the <code>nameStyle</code> or <code>context</code> parameter is null.  -->
+	<TestCase testID="DF_getWeekdayNames_TypeError_DateTimeNameContext_DateTimeNameStyle_test12" description="Throws TypeError if the DateTimeNameStyle and DateTimeNameContext parameter is null." keywords="[DateTimeFormatter, getWeekdayNames,DateTimeNameContext,DateTimeNameStyle, TypeError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change"/>
+			<RunCode code="application.testTypeError('both')"/>
+			<RunCode code="application.testGslibTypeError('both')"/>
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testErrorL" valueExpression="value=application.testGslibErrorL.text"/>
+		</body>
+	</TestCase>	
+	
+	<!--this test case is to test calling getWeekdayNames() method of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_getWeekdayNames_script_withoutSettingLocale_test13" description=" test calling getWeekdayNames() method of dtf defined in fx:script without setting locale " keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<Pause timeout="200"/>		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocale.getWeekdayNames('full','standalone')" valueExpression="value=flashDF.getWeekdayNames('full','standalone')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtfLocale"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling getWeekdayNames() method of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_getWeekdayNames_declaration_withoutSettingLocale_test14" description="test calling getWeekdayNames() method of dtf defined in fx:Declaration without setting locale " keywords="[DateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInline" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocaleInline.getWeekdayNames('full','standalone')" valueExpression="value=undefined"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInline"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

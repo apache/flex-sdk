@@ -1,0 +1,56 @@
+<UnitTester
+    testSWF="../SWFs/MotionPath_main.mxml"
+    testDir="spark/effects/MotionPath/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.animation.MotionPath;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        public function CloneTest():Boolean
+        {
+            var cloneMotionPath:MotionPath = application.mp1.clone();
+            
+            cloneMotionPath.property = "x";
+            
+            return((application.mp1.property == "y") && (cloneMotionPath.property == "x"));
+        }
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- clone -->
+        <TestCase testID="MotionPath_clone" keywords="[MotionPath, method, clone]" description="Test the clone() method.">
+            <body>
+                <AssertMethodValue method="value=this.CloneTest()" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- getValue -->
+        <TestCase testID="MotionPath_getValue" keywords="[MotionPath, method, getValue]" description="Test the getValue() method.">
+            <body>
+                <AssertMethodValue method="value=application.mp1.getValue(0)" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_getValue_atKeyframeTime" keywords="[MotionPath, method, getValue]" description="Test the getValue() method at a specific keyFrame time and verify it matches keyFrame value.">
+            <body>
+                <AssertMethodValue method="value=application.mp1.getValue(.5)" value="350"/>
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_getValue_differentInterpolator" keywords="[MotionPath, method, getValue]" description="Test the getValue() method with an non-default interpolator.">
+            <body>
+                <AssertMethodValue method="value=application.mp2.getValue(.5)" value="0x7F7F7F"/>
+            </body>
+        </TestCase>
+        
+
+    </testCases>
+</UnitTester>
+

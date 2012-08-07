@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/Elastic/Tests/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Elastic_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.Power;
+        
+        public static function init(o:DisplayObject):void{}
+		
+		[Bindable] public var delay:int = 250;
+		
+		private function Reset():void
+		{
+			application.rl.y = 100;
+			application.bl.y = 100;
+			application.ball.y = -200;
+		}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Elastic_Play" keywords="[Elastic, easer]" description="Test Elastic.">
+            <setup><RunCode code="this.Reset();"/></setup>
+            <body>
+                <RunCode code="application.ep.play()" waitTarget="ep" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="450"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="450"/>
+			</body>
+        </TestCase>
+
+		<TestCase testID="Elastic_500" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ep.playheadTime = 500" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="553.55"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="237.15"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_1000" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ep.playheadTime = 1000"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="423.350"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="493.75"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_1500" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ep.playheadTime = 1500"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="455.45"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="445.2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_2000" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ep.playheadTime = 2000"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="449.4"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="448.45"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_2500" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ep.playheadTime = 2500"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="449.8"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="451.35"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_3000" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ep.playheadTime = 3000"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="450"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="449.3"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_ParallelDuration" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bpd.playheadTime = 1250"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="450.15"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="470.55"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_InlineBind" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ibp.playheadTime = 2650"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="487.8"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500.2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_ASBind" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.BindEaserThruAS()" waitTarget="asbp" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_ASSwap" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.Swap()" waitTarget="sem" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_Sequence" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ibs.play()" waitTarget="ibs" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Elastic_RepeatStuff" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.rrp.play()" waitTarget="rrp" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="100"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_AnimateColor" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.sac.playheadTime = 1950"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="blColor" propertyName="color" value="0x0101FF"/>
+				<AssertPropertyValue target="rlColor" propertyName="color" value="0x4545FF"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_Rotate" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.rotate.playheadTime = 1700" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="445.152539"/>
+				<AssertPropertyValue target="ball" propertyName="rotationZ" value="-5.429000"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_Scale" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.rotate.playheadTime = 1940" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="447.915515"/>
+				<AssertPropertyValue target="ball" propertyName="scaleX" value="1"/>
+				<AssertPropertyValue target="ball" propertyName="scaleY" value="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_Resize" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.resize.playheadTime = 700" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="width" value="198.277192"/>
+				<AssertPropertyValue target="ball" propertyName="height" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Elastic_Animate" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.animate.playheadTime = 2350" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="width" value="198.277192"/>
+				<AssertPropertyValue target="ball" propertyName="height" value="100"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Elastic_Transition" keywords="[Elastic, easer]" description="Test Elastic.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<ChangeState changeTarget="" toState="S2" waitTarget="transy" waitEvent="effectEnd" timeout="6000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+		</TestCase>
+
+
+	</testCases>
+</UnitTester>

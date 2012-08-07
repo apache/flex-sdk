@@ -1,0 +1,49 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="compiler_styles_tests_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+   <fx:Style>
+   </fx:Style>
+   <testCases>
+   		<TestCase testID="backgroundColor_Application_css" keywords="[backgroundColor, Application]" description="Set backgroundColor via css">
+			<body>
+				<Pause timeout="1000"/>
+				<AssertStyleValue styleName="backgroundColor" target="" value="255"/>
+			</body>
+		</TestCase>
+   		
+   		<TestCase testID="binding_getStyle" keywords="[binding, getStyle]" description="Bind to getStyle">
+			<setup>
+				<AssertStyleValue styleName="backgroundColor" target="pnl" value="255"/>
+				<RunCode code="application.setStyle('backgroundColor', 'red')" waitEvent="updateComplete" waitTarget="pnl"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" target="pnl" value="16711680"/>
+			</body>
+   		</TestCase>
+   		
+		<TestCase testID="contentBackgroundColor_super_typeSelector" keywords="[cornerRadius, typeSelector]" description="Set cornerRadius via super class">
+			<body>
+				<Pause timeout="1000"/>
+				<AssertStyleValue styleName="contentBackgroundColor" target="ti" value="16711680"/>
+			</body>
+		</TestCase>
+   	</testCases>
+</UnitTester>
+	

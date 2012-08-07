@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Path/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Path_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import spark.primitives.*;
+       import mx.graphics.*;
+       import spark.components.Group;
+
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="Path_methods_getBoundsXAtSize_static" description="Call getBoundsXAtSize on an Path that is static." keywords="[getBoundsXAtSize, Path]">
+            <setup>
+                <ResetComponent target="greenStar" className="comps.PathStar" waitTarget="greenStar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <AssertMethodValue method="value=Math.round(application.greenStar.getElementAt(0).getBoundsXAtSize(application.greenStar.width, application.greenStar.height))" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Path_methods_getBoundsYAtSize_static" description="Call getBoundsYAtSize on an Path that is static." keywords="[getBoundsYAtSize, Path]">
+            <setup>
+                <ResetComponent target="greenStar" className="comps.PathStar" waitTarget="greenStar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <AssertMethodValue method="value=Math.round(application.greenStar.getElementAt(0).getBoundsYAtSize(application.greenStar.width, application.greenStar.height))" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Path_methods_getBoundsXAtSize_afterMove" description="Call getBoundsXAtSize on an Path that changed its x and y coordinates." keywords="[getBoundsXAtSize, Path]">
+            <!--bugs>
+                <Bug bugID="SDK-17514" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="greenStar" className="comps.PathStar" waitTarget="greenStar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <SetProperty target="greenStar.getElementAt(0)" propertyName="y" value="15" />
+               <SetProperty target="greenStar.getElementAt(0)" propertyName="x" value="8" waitEvent="updateComplete"
+                   waitTarget="greenStar.getElementAt(0)" />
+               <AssertMethodValue method="value=application.greenStar.getElementAt(0).getBoundsXAtSize(application.greenStar.width, application.greenStar.height)" value="8" />
+            </body>
+        </TestCase>
+        <TestCase testID="Path_methods_getBoundsYAtSize_afterMove" description="Call getBoundsYAtSize on an Path that changed its x and y coordinates." keywords="[getBoundsYAtSize, Path]">
+            <!--bugs>
+                <Bug bugID="SDK-17514" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="greenStar" className="comps.PathStar" waitTarget="greenStar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <SetProperty target="greenStar.getElementAt(0)" propertyName="y" value="20" />
+               <SetProperty target="greenStar.getElementAt(0)" propertyName="x" value="10" waitEvent="updateComplete"
+                   waitTarget="greenStar.getElementAt(0)" />
+               <AssertMethodValue method="value=application.greenStar.getElementAt(0).getBoundsYAtSize(application.greenStar.width, application.greenStar.height)" value="20.022460" />
+            </body>
+        </TestCase>
+        <TestCase testID="Path_methods_getBoundsXAtSize_500" description="Call getBoundsXAtSize on an Path that is static." keywords="[getBoundsXAtSize, Path]">
+            <setup>
+                <ResetComponent target="greenStar" className="comps.PathStar" waitTarget="greenStar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <AssertMethodValue method="value=application.greenStar.getElementAt(0).getBoundsXAtSize(500, application.greenStar.height)" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Path_methods_getBoundsYAtSize_500" description="Call getBoundsYAtSize on an Path that is static." keywords="[getBoundsYAtSize, Path]">
+            <setup>
+                <ResetComponent target="greenStar" className="comps.PathStar" waitTarget="greenStar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <AssertMethodValue method="value=application.greenStar.getElementAt(0).getBoundsYAtSize(application.greenStar.width, 500)" value="0.022460" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

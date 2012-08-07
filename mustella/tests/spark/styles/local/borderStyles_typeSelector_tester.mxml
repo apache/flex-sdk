@@ -1,0 +1,831 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="borderStyles_typeSelector_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <fx:Style>
+    	.myStyle{
+			borderColor: #00FF00;
+			borderAlpha: 0.7;
+		}
+		
+		.noBorder{
+			borderVisible: false;
+		}
+		
+		.showBorder{
+			borderVisible: true;
+		}
+    </fx:Style>
+    <testCases>    
+
+  		<TestCase testID="borderColor_classSelector" keywords="[borderColor]" description="Test borderColor and borderAlpha applies to all components">
+  			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+  				<CompareBitmap target="bi" url="../local/baselines/$testID.png" />
+  			</body>
+  		</TestCase>
+ 		
+ 		<TestCase testID="borderStyles_typeSelector_styleName_sparkTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.sparkTI" waitEvent="updateComplete" waitTarget="bi.sparkTI.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="borderStyles_typeSelector_styleName_sparkTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.sparkTA" waitEvent="updateComplete" waitTarget="bi.sparkTA.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+		<TestCase testID="borderStyles_typeSelector_styleName_sparkPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.sparkPnl" waitEvent="updateComplete" waitTarget="bi.sparkPnl.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="borderStyles_typeSelector_styleName_sparkNumericStepper" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.sparkNS" waitEvent="updateComplete" waitTarget="bi.sparkNS.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="borderStyles_typeSelector_styleName_sparkList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.sparkList" waitEvent="updateComplete" waitTarget="bi.sparkList.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+		<TestCase testID="borderStyles_typeSelector_styleName_haloTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.haloTI" waitEvent="updateComplete" waitTarget="bi.haloTI"/>
+				<CompareBitmap target="bi.haloTI" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderStyles_typeSelector_styleName_haloTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.haloTA" waitEvent="updateComplete" waitTarget="bi.haloTA"/>
+				<CompareBitmap target="bi.haloTA" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderStyles_typeSelector_styleName_haloDateChooser" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.haloDC" waitEvent="updateComplete" waitTarget="bi.haloDC"/>
+				<CompareBitmap target="bi.haloDC" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="borderStyles_typeSelector_styleName_haloPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.haloPnl" waitEvent="updateComplete" waitTarget="bi.haloPnl"/>
+				<CompareBitmap target="bi.haloPnl" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderStyles_typeSelector_styleName_haloList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.haloList" waitEvent="updateComplete" waitTarget="bi.haloList"/>
+				<CompareBitmap target="bi.haloList" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderStyles_typeSelector_styleName_haloNumericStepper" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.haloNS" waitEvent="updateComplete" waitTarget="bi.haloNS"/>
+				<CompareBitmap target="bi.haloNS" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderStyles_typeSelector_styleName_haloTabNavigator" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="myStyle" target="bi.tn" waitEvent="updateComplete" waitTarget="bi.tn"/>
+				<CompareBitmap target="bi.tn" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<!--*************-->
+		<!-- borderColor -->
+		<!--*************-->
+		
+		<TestCase testID="borderColor_runtime_as_sparkTextInput" keywords="[borderColor, TextInput]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.sparkTI" waitEvent="updateComplete" waitTarget="bi.sparkTI.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_sparkTextArea" keywords="[borderColor, TextArea]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.sparkTA" waitEvent="updateComplete" waitTarget="bi.sparkTA.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_sparkPanel" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.sparkPnl" waitEvent="updateComplete" waitTarget="bi.sparkPnl.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_sparkNumericStepper" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.sparkNS" waitEvent="updateComplete" waitTarget="bi.sparkNS.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_runtime_as_sparkList" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.sparkList" waitEvent="updateComplete" waitTarget="bi.sparkList.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_haloTextInput" keywords="[borderColor, TextInput]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.haloTI" waitEvent="updateComplete" waitTarget="bi.haloTI"/>
+				<CompareBitmap target="bi.haloTI" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_haloTextArea" keywords="[borderColor, TextArea]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.haloTA" waitEvent="updateComplete" waitTarget="bi.haloTA"/>
+				<CompareBitmap target="bi.haloTA" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_haloPanel" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.haloPnl" waitEvent="updateComplete" waitTarget="bi.haloPnl"/>
+				<CompareBitmap target="bi.haloPnl" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_runtime_as_haloDateChooser" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.haloDC" waitEvent="updateComplete" waitTarget="bi.haloDC"/>
+				<CompareBitmap target="bi.haloDC" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_haloList" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.haloList" waitEvent="updateComplete" waitTarget="bi.haloList"/>
+				<CompareBitmap target="bi.haloList" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderColor_runtime_as_haloNumericStepper" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.haloNS" waitEvent="updateComplete" waitTarget="bi.haloNS"/>
+				<CompareBitmap target="bi.haloNS" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_runtime_as_haloTabNavigator" keywords="[borderColor]" description="Test borderColor and borderColor changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.tn" waitEvent="updateComplete" waitTarget="bi.tn"/>
+				<AssertPixelValue target="bi.tn" x="199" y="95" value="#8080FF"/>
+			</body>
+		</TestCase>
+		
+		<!--*************-->
+		<!-- borderAlpha -->
+		<!--*************-->
+		
+		<TestCase testID="borderAlpha_runtime_as_sparkTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.sparkTI" waitEvent="updateComplete" waitTarget="bi.sparkTI.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="borderAlpha_runtime_as_sparkTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.sparkTA" waitEvent="updateComplete" waitTarget="bi.sparkTA.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="borderAlpha_runtime_as_sparkNumericStepper" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.sparkNS" waitEvent="updateComplete" waitTarget="bi.sparkNS.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+		<TestCase testID="borderAlpha_runtime_as_sparkPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.sparkPnl" waitEvent="updateComplete" waitTarget="bi.sparkPnl.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="borderAlpha_runtime_as_sparkList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.sparkList" waitEvent="updateComplete" waitTarget="bi.sparkList.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+  		</TestCase>
+  		
+		<TestCase testID="borderAlpha_runtime_as_haloTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.haloTI" waitEvent="updateComplete" waitTarget="bi.haloTI"/>
+				<CompareBitmap target="bi.haloTI" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderAlpha_runtime_as_haloTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.haloTA" waitEvent="updateComplete" waitTarget="bi.haloTA"/>
+				<CompareBitmap target="bi.haloTA" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderAlpha_runtime_as_haloPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.haloPnl" waitEvent="updateComplete" waitTarget="bi.haloPnl"/>
+				<CompareBitmap target="bi.haloPnl" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderAlpha_runtime_as_haloDateChooser" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.haloDC" waitEvent="updateComplete" waitTarget="bi.haloDC"/>
+				<CompareBitmap target="bi.haloDC" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderAlpha_runtime_as_haloList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.haloList" waitEvent="updateComplete" waitTarget="bi.haloList"/>
+				<CompareBitmap target="bi.haloList" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderAlpha_runtime_as_haloNumericStepper" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.haloNS" waitEvent="updateComplete" waitTarget="bi.haloNS"/>
+				<CompareBitmap target="bi.haloNS" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderAlpha_runtime_as_haloTabNavigator" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderAlpha" value="0.1" target="bi.tn" waitEvent="updateComplete" waitTarget="bi.tn"/>
+				<AssertPixelValue target="bi.tn" x="199" y="95" value="#FFE6E6"/>
+			</body>
+		</TestCase>
+		<!--***************-->
+		<!-- borderVisible -->
+		<!--***************-->
+		
+		<TestCase testID="borderVisible_false_typeSelector_sparkTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.sparkTI" waitEvent="updateComplete" waitTarget="bi.sparkTI.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_sparkTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.sparkTA" waitEvent="updateComplete" waitTarget="bi.sparkTA.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderVisible_false_typeSelector_sparkNumericStepper" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.sparkNS" waitEvent="updateComplete" waitTarget="bi.sparkNS.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_sparkPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.sparkPnl" waitEvent="updateComplete" waitTarget="bi.sparkPnl.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_sparkList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.sparkList" waitEvent="updateComplete" waitTarget="bi.sparkList.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_haloTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.haloTI" waitEvent="updateComplete" waitTarget="bi.haloTI"/>
+				<CompareBitmap target="bi.haloTI" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_haloTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.haloTA" waitEvent="updateComplete" waitTarget="bi.haloTA"/>
+				<CompareBitmap target="bi.haloTA" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_haloPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.haloPnl" waitEvent="updateComplete" waitTarget="bi.haloPnl"/>
+				<CompareBitmap target="bi.haloPnl" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderVisible_false_typeSelector_haloDateChooser" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.haloDC" waitEvent="updateComplete" waitTarget="bi.haloDC"/>
+				<CompareBitmap target="bi.haloDC" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_haloList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.haloList" waitEvent="updateComplete" waitTarget="bi.haloList"/>
+				<CompareBitmap target="bi.haloList" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_false_typeSelector_haloNumericStepper" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.haloNS" waitEvent="updateComplete" waitTarget="bi.haloNS"/>
+				<CompareBitmap target="bi.haloNS" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderVisible_false_typeSelector_haloTabNavigator" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="noBorder" target="bi.tn" waitEvent="updateComplete" waitTarget="bi.tn"/>
+				<CompareBitmap target="bi.tn" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="borderVisible_true_typeSelector_sparkTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.sparkTI" waitEvent="updateComplete" waitTarget="bi.sparkTI.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_sparkTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.sparkTA" waitEvent="updateComplete" waitTarget="bi.sparkTA.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_sparkNumericStepper" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.sparkNS" waitEvent="updateComplete" waitTarget="bi.sparkNS.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderVisible_true_typeSelector_sparkPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.sparkPnl" waitEvent="updateComplete" waitTarget="bi.sparkPnl.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_sparkList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.sparkList" waitEvent="updateComplete" waitTarget="bi.sparkList.skin"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_haloTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.haloTI" waitEvent="updateComplete" waitTarget="bi.haloTI"/>
+				<CompareBitmap target="bi.haloTI" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_haloTextArea" keywords="[borderColor, borderAlpha, TextArea]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.haloTA" waitEvent="updateComplete" waitTarget="bi.haloTA"/>
+				<CompareBitmap target="bi.haloTA" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_haloPanel" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.haloPnl" waitEvent="updateComplete" waitTarget="bi.haloPnl"/>
+				<CompareBitmap target="bi.haloPnl" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_haloDateChooser" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.haloDC" waitEvent="updateComplete" waitTarget="bi.haloDC"/>
+				<CompareBitmap target="bi.haloDC" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_haloList" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.haloList" waitEvent="updateComplete" waitTarget="bi.haloList"/>
+				<CompareBitmap target="bi.haloList" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="borderVisible_true_typeSelector_haloNumericStepper" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.haloNS" waitEvent="updateComplete" waitTarget="bi.haloNS"/>
+				<CompareBitmap target="bi.haloNS" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderVisible_true_typeSelector_haloTabNavigator" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="showBorder" target="bi.tn" waitEvent="updateComplete" waitTarget="bi.tn"/>
+				<CompareBitmap target="bi.tn" url="../local/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<!--***************-->
+		<!-- border states -->
+		<!--***************-->
+		
+		<TestCase testID="borderStyles_change_state" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+				<SetProperty  propertyName="currentState" value="state1" target="bi" waitEvent="currentStateChange" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloDC"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.tn"/>
+				
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloDC"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.tn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderStyles_change_back_default_state" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty  propertyName="currentState" value="state1" target="bi" waitEvent="currentStateChange" />
+				
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloDC"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.tn"/>
+				
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloDC"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.tn"/>
+				
+				<SetProperty  propertyName="currentState" value="defaultState" target="bi" waitEvent="currentStateChange" />
+			
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.haloDC"/>
+				<AssertStyleValue styleName="borderColor" value="16711680" target="bi.tn"/>
+				
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.haloDC"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.5" target="bi.tn"/>
+				
+			</body>
+		</TestCase>
+		<!-- need to exclude this test because NumericStepper doesn't change borderVisible-->
+		<TestCase testID="borderVisible_change_state" keywords="[borderVisible]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty  propertyName="currentState" value="noBorderState" target="bi" waitEvent="currentStateChange" />
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloDC"/>
+				
+				<SetProperty propertyName="currentState" value="defaultState" target="bi" waitEvent="currentStateChange"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderVisible" value="true" target="bi.haloDC"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_errorString_SparkTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderColor" value="blue" target="bi.sparkTI" waitEvent="updateComplete" />
+				<SetProperty propertyName="errorString" value="Error border color should display" target="bi.sparkTI" waitEvent="updateComplete"/>
+				<CompareBitmap url="../local/baselines/$testID_1.png" target="bi.textGrp" numColorVariances="10" ignoreMaxColorVariance="true" />
+				<SetProperty propertyName="errorString" value="" target="bi.sparkTI" waitEvent="updateComplete" />
+				<CompareBitmap url="../local/baselines/$testID_2.png" target="bi.textGrp" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_errorString_HaloTextInput" keywords="[borderColor, borderAlpha, TextInput]" description="Test borderColor and borderAlpha changes">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty  propertyName="currentState" value="state1" target="bi" waitEvent="currentStateChange" />
+				<SetProperty propertyName="errorString" value="Error border color should display" target="bi.haloTI" waitEvent="updateComplete"/>
+				<CompareBitmap url="../local/baselines/$testID_1.png" target="bi.textGrp" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<SetProperty propertyName="errorString" value="" target="bi.haloTI" waitEvent="updateComplete"/>
+				<CompareBitmap url="../local/baselines/$testID_2.png" target="bi.textGrp" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<!--****************-->
+		<!--integration test-->
+		<!--****************-->
+		
+		<TestCase testID="borderVisible_toggle_runtime_borderColor_set" keywords="[borderColor, borderVisible]" description="Toggle borderVisible with borderColor set">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle styleName="borderVisible" value="false" target="bi.sparkList" waitEvent="updateComplete" waitTarget="bi.sparkList"/>
+				<CompareBitmap target="bi.sparkGrp" url="../local/baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

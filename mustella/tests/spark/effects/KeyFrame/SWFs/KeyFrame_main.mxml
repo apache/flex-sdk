@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="500" width="500"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:trix="Components.*"
+    backgroundColor="0xFFFFFF">
+
+    <fx:Declarations>
+        <s:Power id="pow"/>
+        <s:Linear id="lin"/>
+
+        <s:Animate id="fxa1">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="y">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="350"/>
+                        <s:Keyframe time="1000" value="50"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:Animate>
+
+        <s:Animate id="fxa2">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="y">
+                    <s:keyframes>
+                        <s:Keyframe time="0" easer="{pow}"/>
+                        <s:Keyframe time="500" value="350" valueBy="200" easer="{lin}"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:Animate>
+
+        <s:Animate id="fxa3">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="y">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="50" valueBy="400" />
+                        <s:Keyframe time="500" valueBy="200" />
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:Animate>
+    </fx:Declarations>
+
+    <trix:TrixSparkButton id="t1"
+		x="0" y="0"
+		label="T1"/>
+
+</s:Application>

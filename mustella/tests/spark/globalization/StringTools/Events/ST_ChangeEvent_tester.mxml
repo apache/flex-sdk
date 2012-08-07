@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/StringTools/Events/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ST_ChangeEvent.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.StringTools;
+			import spark.globalization.StringTools;
+			
+			import assets.StringToolsTestConstants;
+			
+			import mx.core.Application;
+			
+			public static function init(o:DisplayObject):void
+			{
+				// public var localListInTest = Application.
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test whether change event of a StringTools can be dispatched by changing locale, properties -->
+	<testCases>
+		<!--test change for locale, instance defined in <fx:Declarations> -->
+		<TestCase testID="StringTools_ChangeEvent_locale_Change_inline_test1" description="test change for locale, instance defined in Declarations" keywords="[StringTools, changeEvent]">
+			<setup>
+				<SetStyle target="st_inline" styleName="locale" value="ru-RU" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="st_inline" styleName="locale" value="zh-CN" waitEvent="change"/>	
+				<AssertEvent target="st_inline" eventName="change" eventClass="flash.events::Event"  />
+			</body>
+		</TestCase>
+		
+		<!--test no change for locale, instance defined in <fx:Declarations> -->
+		<TestCase testID="StringTools_ChangeEvent_locale_NOChange_inline_test2" description="test no change for locale, instance defined in Declarations" keywords="[StringTools, changeEvent]">
+			<setup>
+				<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+				<RunCode code="application.st_inline.initialized(null , 'st_inline')" />
+				<Pause timeout="{StringToolsTestConstants.pauseTime}" />
+				
+				<SetStyle target="st_inline" styleName="locale" value="zh-CN" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="st_inline" styleName="locale" value="zh-CN"/>	
+				<AssertNoEvent target="st_inline" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for locale, instance defined in <fx:Script> -->
+		<TestCase testID="StringTools_ChangeEvent_locale_Change_script_test3" description="test change for locale, instance defined in ActionScript code" keywords="[StringTools, changeEvent]">
+			<setup>
+				<SetStyle target="st_Script" styleName="locale" value="ru-RU" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="st_Script" styleName="locale" value="zh-CN" waitEvent="change"/>	
+				<AssertEvent target="st_Script" eventName="change" eventClass="flash.events::Event"  />
+			</body>
+		</TestCase>
+		
+		<!--test no change for locale, instance defined in <fx:Script> -->
+		<TestCase testID="StringTools_ChangeEvent_locale_NOChange_script_test4" description="test no change for locale, instance defined in ActionScript code" keywords="[StringTools, changeEvent]">
+			<setup>
+				<ResetComponent target="st_Script" className="spark.globalization.StringTools"/>
+				<RunCode code="application.st_Script.initialized(null , 'st_Script')" />
+				<Pause timeout="{StringToolsTestConstants.pauseTime}" />
+				
+				<SetStyle target="st_Script" styleName="locale" value="zh-CN" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="st_Script" styleName="locale" value="zh-CN"/>	
+				<AssertNoEvent target="st_Script" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
+	
+</UnitTester>

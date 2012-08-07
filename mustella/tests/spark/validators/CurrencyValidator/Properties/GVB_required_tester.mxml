@@ -1,0 +1,169 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="GVB_required.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.LocaleID;
+			import spark.globalization.LastOperationStatus;
+			import spark.validators.CurrencyValidator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="GVB_required_default_inline_test_1" description="the test case is for Checking default required in declaration" keywords="[GlobalizationValidatorBase, required]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="required" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_default_script_test_2" description="the test case is for Checking required in script" keywords="[GlobalizationValidatorBase, required]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="required" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_default_inline_test_3" description="the test case is for Checking default required in declaration" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvb" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="required" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_default_script_test_4" description="the test case is for Checking required in script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvbScript" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="required" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_set_script_test_5" description="the test case is for setting required from script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="gvbScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="required" value="false"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_set_script_test_6" description="the test case is for setting required from script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="gvb" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="required" value="false"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_set_inline_test_7" description="set required inline" keywords="[GlobalizationValidatorBase, required]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbInline" propertyName="required" value="false"/>
+                <AssertPropertyValue target="gvbInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_norequired_script_test_8" description="set script required to norequired from script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'required',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="required" value="false"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_norequired_script_test_9" description="set inline required to norequired from script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'required',null)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="required" value="false"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_norequired_inline_test_10" description="set required to norequired inline" keywords="[GlobalizationValidatorBase, required]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbNull,'required',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbNull" propertyName="required" value="false"/>
+                <AssertPropertyValue target="gvbNull" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="GVB_required_emptystring_script_test_11" description="set script required to norequired from script" keywords="[GlobalizationValidatorBase, required]">
+			<setup>
+				<ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'required','')" value="No Error"/>
+				<AssertPropertyValue target="gvbScript" propertyName="required" value="false"/>
+				<AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GVB_required_emptystring_script_test_12" description="set inline required to norequired from script" keywords="[GlobalizationValidatorBase, required]">
+			<setup>
+				<ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.gvb.initialized(null,'gvb')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'required','')" value="No Error"/>
+				<AssertPropertyValue target="gvb" propertyName="required" value="false"/>
+				<AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+			</body>
+		</TestCase>
+		
+		
+        <TestCase testID="GVB_required_invalid_script_test_13" description="set script required to norequired from script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'required','invalid')" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="required" value="true"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_required_invalid_script_test_14" description="set inline required to norequired from script" keywords="[GlobalizationValidatorBase, required]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'required','invalid')" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="required" value="true"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

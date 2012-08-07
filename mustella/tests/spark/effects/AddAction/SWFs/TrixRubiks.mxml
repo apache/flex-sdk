@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Tile
+    width="170"
+    horizontalCenter="0" verticalCenter="0"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <mx:states>
+        <mx:State name="s1"/>
+        <mx:State name="s2"/>
+        <mx:State name="s3"/>
+        <mx:State name="s4"/>
+    </mx:states>
+
+    <mx:transitions>
+        <mx:Transition id="trans_1_2" fromState="s1" toState="s2">
+            <mx:Sequence id="seq_1_2">
+                <s:Fade target="{r1}" alphaFrom="1" alphaTo=".2"/>
+                <s:RemoveAction id="ra1" targets="{[r5,r4]}" startDelay="0"/>
+                <s:RemoveAction target="{r6}" startDelay="500"/>
+                <s:Fade target="{r7}" alphaFrom="1" alphaTo=".2"/>
+            </mx:Sequence>
+        </mx:Transition>
+        <mx:Transition id="trans_2_1" fromState="s2" toState="s1">
+            <mx:Sequence id="seq_2_1">
+                <s:Fade target="{r7}" alphaFrom=".2" alphaTo="1"/>
+                <s:AddAction id="aa1" targets="{[r6,r4]}" />
+                <s:AddAction target="{r5}" />
+                <s:Fade target="{r1}" alphaFrom=".2" alphaTo="1"/>
+            </mx:Sequence>
+        </mx:Transition>
+
+        <mx:Transition id="trans_1_3" fromState="s1" toState="s3">
+            <mx:Sequence id="seq_1_3">
+                <s:Rotate3D target="{g2}" angleYFrom="0" angleYTo="360" autoCenterTransform="true"/>
+                <s:RemoveAction target="{r3}" />
+                <s:RemoveAction target="{r9}" startDelay="500"/>
+            </mx:Sequence>
+        </mx:Transition>
+        <mx:Transition id="trans_3_1" fromState="s3" toState="s1">
+            <mx:Sequence id="seq_3_1">
+                <s:AddAction target="{r9}" />
+                <mx:Pause duration="500"/>
+                <s:AddAction target="{r3}" />
+                <s:Rotate3D target="{g2}" angleYFrom="0" angleYTo="360" autoCenterTransform="true"/>
+            </mx:Sequence>
+        </mx:Transition>
+
+        <mx:Transition id="trans_1_4" fromState="s1" toState="s4">
+            <mx:Sequence id="seq_1_4">
+                <s:RemoveAction target="{r8}"/>
+                <s:Rotate3D target="{g2}"  angleYFrom="0" angleYTo="360" autoCenterTransform="true"/>
+                <s:RemoveAction target="{r9}"/>
+            </mx:Sequence>
+        </mx:Transition>
+        <mx:Transition id="trans_4_1" fromState="s4" toState="s1">
+            <mx:Sequence id="seq_4_1">
+                <s:AddAction target="{r9}"/>
+                <s:Rotate3D target="{g2}"  angleYFrom="0" angleYTo="360" autoCenterTransform="true"/>
+                <s:AddAction target="{r8}"/>
+            </mx:Sequence>
+        </mx:Transition>
+    </mx:transitions>
+
+    <s:Group id="g1">
+        <s:Rect id="r1"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0xFF0000"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <s:Group id="g2">
+        <s:Rect id="r2"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0xFF8800"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <s:Group id="g3">
+        <s:Rect id="r3" excludeFrom="s3"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0xFFFF00"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <s:Group id="g4" >
+        <s:Rect id="r4" includeIn="s1"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0xFFFF00"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <mx:Box id="g5">
+        <mx:Button id="r5" includeIn="s1"
+            width="50" height="50" 
+            chromeColor="0x00FF00"/>
+    </mx:Box>
+
+    <s:Group id="g6">
+        <s:Rect id="r6" includeIn="s1"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0x0000FF"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <s:Group id="g7">
+        <s:Rect id="r7"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0x0000FF"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <s:Group id="g8">
+        <s:Rect id="r8" excludeFrom="s4"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0xFF00FF"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <s:Group id="g9">
+        <s:Rect id="r9" excludeFrom="s3,s4"
+            width="50" height="50">
+            <s:fill>
+                <mx:SolidColor color="0xFF0000"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x000000" weight="1"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Tile>

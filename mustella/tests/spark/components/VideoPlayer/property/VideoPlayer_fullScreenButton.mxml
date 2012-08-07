@@ -1,0 +1,148 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_fullscreenButton_skin"
+            keywords="[VideoPlayer]"
+            description="Test the skin of the fullscreenButton.">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.fullScreenButton" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_fullScreenButton_goFSNothing"
+            keywords="[VideoPlayer]"
+            description="Go fullscreen.">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" timeout="5000" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="4000"/>
+                <AssertMethodValue method="value=(application.testPlayer.width > 600)" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5"/>
+            </body>
+        </TestCase>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_fullScreenButton_goFSloaded_streaming"
+            description="Go fullscreen."
+            keywords="[VideoPlayer, variable, fullScreenButton]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+            </setup>
+            <body>
+            	<Pause timeout="3000"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete" timeout="3000"/>
+                <AssertMethodValue method="value=(application.testPlayer.width > 600)" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_fullScreenButton_goFSPlaying_streaming"
+            description="Go fullscreen."
+            keywords="[VideoPlayer, variable, fullScreenButton]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<Pause timeout="3000"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=(application.testPlayer.width > 600)" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_fullScreenButton_goFSPlaying_hideBar"
+            description="Go fullscreen."
+            keywords="[VideoPlayer, variable, fullScreenButton]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="6000"/>
+                <AssertMethodValue method="value=application.testPlayer.playerControls.visible" value="false"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+            testID="VideoPlayer_fullScreenButton_goFSloaded_progressive"
+            description="Go fullscreen."
+            keywords="[VideoPlayer, variable, fullScreenButton]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+            </setup>
+            <body>
+		<Pause timeout="3000"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=(application.testPlayer.width > 600)" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_fullScreenButton_goFSPlaying_progressive"
+            description="Go fullscreen."
+            keywords="[VideoPlayer, variable, fullScreenButton]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+		<Pause timeout="3000"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=(application.testPlayer.width > 600)" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

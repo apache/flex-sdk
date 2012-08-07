@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Rect/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Rect_Main.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import comps.RectBasic;
+       import spark.primitives.Rect;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	   public function setMatrix(target:Rect): void
+	   {
+	       target.transform = application.transform_move_rotate;
+	   }
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!-- property: height -->
+        <TestCase testID="FXG_Rect_height_positive" description="Rect height set to a positive int" keywords="[Rect, height, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="height" value="120" waitTarget="graphic1" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="0" target="graphic1" />
+			    <AssertPixelValue value="0x0000AA" x="0" y="120" target="graphic1" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="119" target="graphic1" />
+			    <AssertPropertyValue value="120" propertyName="height" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_height_zero" description="Rect height set to zero" keywords="[Rect, height, Graphic]">
+	         <setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="height" value="0" waitTarget="graphic1" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0x0000AA" x="0" y="0" target="graphic1" />
+			    <AssertPixelValue value="0x0000AA" x="89" y="0" target="graphic1" />
+			    <AssertPropertyValue value="0" propertyName="height" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+    <!-- property: width -->
+        <TestCase testID="FXG_Rect_width_positive" description="Rect width set to a positive int" keywords="[Rect, width Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="width" value="160" waitTarget="graphic1" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="0" target="graphic1" />
+			    <AssertPixelValue value="0x0000AA" x="161" y="0" target="graphic1" />
+			    <AssertPixelValue value="0xFF0000" x="159" y="0" target="graphic1" />
+			    <AssertPropertyValue value="160" propertyName="width" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_width_zero" description="Rect width set to a zero" keywords="[Rect, width Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="width" value="0" waitTarget="graphic1" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0x0000AA" x="0" y="0" target="graphic1" />
+			    <AssertPixelValue value="0x0000AA" x="0" y="89" target="graphic1" />
+			    <AssertPropertyValue value="0" propertyName="width" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+
+
+    <!-- property: x -->
+        <TestCase testID="FXG_Rect_x_positive" description="Rect x set to a positive int" keywords="[Rect, x, Graphic]">
+			<setup>
+			   <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic2.rect2" propertyName="x" value="10" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFFFFFF" x="9" y="0" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFF0000" x="11" y="0" target="graphic2.getChildAt(0)" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_x_zero" description="Rect x set to zero" keywords="[Rect, x, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic2.rect2" propertyName="x" value="30" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <SetProperty target="graphic2.rect2" propertyName="x" value="0" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFFFFFF" x="100" y="0" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="0" target="graphic2.getChildAt(0)" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_x_negative" description="Rect x set to a negative int" keywords="[Rect, x Graphic]">
+			<setup>
+			   <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic2.rect2" propertyName="x" value="-20" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFF0000" x="79" y="0" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="0" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFFFFFF" x="80" y="0" target="graphic2.getChildAt(0)" />
+			</body>
+		</TestCase>
+    <!-- property: y -->
+        <TestCase testID="FXG_Rect_y_positive" description="Rect y set to a positive int" keywords="[Rect, y, Graphic]">
+			<setup>
+			   <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic2.rect2" propertyName="y" value="10" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFFFFFF" x="0" y="9" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="11" target="graphic2.getChildAt(0)" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_y_zero" description="Rect y set to zero" keywords="[Rect, y, Graphic]">
+			<setup>
+			   <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic2.rect2" propertyName="y" value="30" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <SetProperty target="graphic2.rect2" propertyName="y" value="0" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFFFFFF" x="0" y="100" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="0" target="graphic2.getChildAt(0)" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_y_negative" description="Rect y set to a negative int" keywords="[Rect, y Graphic]">
+			<setup>
+			   <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic2.rect2" propertyName="y" value="-20" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="79" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFF0000" x="0" y="0" target="graphic2.getChildAt(0)" />
+			    <AssertPixelValue value="0xFFFFFF" x="0" y="80" target="graphic2.getChildAt(0)" />
+			</body>
+		</TestCase>
+   <!-- property: radiusX -->
+        <TestCase testID="FXG_Rect_radiusX_positive" description="Rect radiusX set to a positive int" keywords="[Rect, radiusX, Graphic]">
+			<setup>
+			   <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="radiusX" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+			    <CompareBitmap url="../Properties/baselines/radiusX_positiveAS.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_radiusX_zero" description="Rect radiusX set to zero" keywords="[Rect, radiusX, Graphic]">
+  			<setup>
+  			   <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+  			</setup>
+  			<body>
+  			    <SetProperty target="graphic1.rect1" propertyName="radiusX" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+  			    <SetProperty target="graphic1.rect1" propertyName="radiusX" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+  			    <CompareBitmap url="../Properties/baselines/radiusX_zeroAS.png" target="graphic1.getChildAt(0)" timeout="2000" />
+  			</body>
+		</TestCase>
+   <!-- property: radiusY -->
+        <TestCase testID="FXG_Rect_radiusY_positive" description="Rect radiusY set to a positive int" keywords="[Rect, radiusY, Graphic]">
+			<setup>
+			   <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="radiusY" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+			    <CompareBitmap url="../Properties/baselines/radiusY_positiveAS.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_radiusY_zero" description="Rect radiusY set to zero" keywords="[Rect, radiusY, Graphic]">
+  			<setup>
+  			   <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+  			</setup>
+  			<body>
+  			    <SetProperty target="graphic1.rect1" propertyName="radiusY" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+  			    <SetProperty target="graphic1.rect1" propertyName="radiusY" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+  			    <CompareBitmap url="../Properties/baselines/radiusY_zeroAS.png" target="graphic1.getChildAt(0)" timeout="2000" />
+  			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_radiusYX_positive" description="Rect radiusY and radiusX to a positive int" keywords="[radiusX, Rect, radiusY, Graphic]">
+  			<setup>
+  			   <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+  			</setup>
+  			<body>
+  			    <SetProperty target="graphic1.rect1" propertyName="radiusY" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+  			    <SetProperty target="graphic1.rect1" propertyName="radiusX" value="15" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+  			    <CompareBitmap url="../Properties/baselines/radiusYandradiusXAS.png" target="graphic1.getChildAt(0)" timeout="2000" />
+  			</body>
+		</TestCase>
+<!-- Rect using LinearGradientStrokes and different x and y values -->
+		<TestCase testID="FXG_Rect_LinearGradientStroke_xy_0_0" description="Rect with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Rect, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_LinearGradientStroke_xy_20_0" description="Rect with a LinearGradientStroke and and (x,y)=(20,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_linearGradientStroke.rect1" propertyName="x" value="20" waitTarget="rect_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_LinearGradientStroke_xy_0_20" description="Rect with a LinearGradientStroke and and (x,y)=(0,20)" keywords="[Line, LinearGradientStroke, x, y]">
+			 <setup>
+				<ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_linearGradientStroke.rect1" propertyName="y" value="20" waitTarget="rect_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_Rect_LinearGradientStroke_xy_strokeRotation" description="Rect with a LinearGradientStroke and (x,y)=(20,0), rotation=45" keywords="[Line, LinearGradientStroke, rotation]">
+			 <setup>
+				<ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_linearGradientStroke.rect1" propertyName="x" value="20" />
+				<SetProperty target="rect_linearGradientStroke.rect1" propertyName="y" value="20" />
+				<SetProperty target="rect_linearGradientStroke.rect1.stroke" propertyName="rotation" value="45" waitTarget="rect_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_Rect_LinearGradientStroke_xy_fillRotation" description="Rect with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_linearGradientStroke.rect1" propertyName="x" value="20" />
+				<SetProperty target="rect_linearGradientStroke.rect1" propertyName="y" value="20" />
+				<SetProperty target="rect_linearGradientStroke.rect1.fill" propertyName="rotation" value="45" waitTarget="rect_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+<!-- Rect using RadialGradientStrokes and different x and y values -->
+		<TestCase testID="FXG_Rect_RadialGradientStroke_xy_0_0" description="Rect with a RadialGradientStroke" keywords="[Rect, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_RadialGradientStroke_xy_20_0" description="Rect with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1" propertyName="x" value="20" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_RadialGradientStroke_xy_0_20" description="Rect with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1" propertyName="y" value="20" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_Rect_RadialGradientStroke_xy_strokeRotation" description="Rect with a RadialGradientStroke and (x,y)=(20,0), rotation=45" keywords="[Line, RadialGradientStroke, rotation]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1.stroke" propertyName="rotation" value="45" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_Rect_RadialGradientStroke_xy_fillRotation" description="Rect with a RadialGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1.fill" propertyName="rotation" value="45" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_RadialGradientStroke_fillX" description="Rect with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1.fill" propertyName="x" value="50" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_RadialGradientStroke_fillY" description="Rect with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1.fill" propertyName="y" value="30" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_RadialGradientStroke_strokeX" description="Rect with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1.stroke" propertyName="x" value="10" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+		<TestCase testID="FXG_Rect_RadialGradientStroke_strokeY" description="Rect with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
+			 <setup>
+				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="rect_radialGradientStroke.rect1.stroke" propertyName="y" value="30" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
+			</body>
+	    </TestCase>
+<!-- visibility tests -->
+	    <TestCase testID="FXG_Rect_visible_false_mxml" keywords="[FXG, GraphicTags, Visible]" description="Test a Rect when visible=false inline." >
+            <setup>
+                <ResetComponent target="myRect_Vfalse" className="comps.myRectVfalse" waitEvent="updateComplete" waitTarget="myRect_Vfalse" />
+            </setup>
+            <body>
+		        <AssertPixelValue target="stage" x="110" y="220" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Rect_visible_false_to_true" keywords="[FXG, GraphicTags, Visible]" description="Test a Rect when visible=false inline and it changes at runtime to true." >
+            <!--bugs>
+                <Bug bugID="SDK-19772"/>
+            </bugs -->
+            <setup>
+                <ResetComponent target="myRect_Vfalse" className="comps.myRectVfalse" waitEvent="updateComplete" waitTarget="myRect_Vfalse"/>
+                <SetProperty propertyName="visible" target="myRect_Vfalse" value="true" waitTarget="myRect_Vfalse" waitEvent="updateComplete" />
+            </setup>
+            <body>
+		        <AssertPixelValue target="stage" x="110" y="220" value="0x000000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_visible_true_mxml" keywords="[FXG, GraphicTags, Visible]" description="Test a Rect when visible=true inline and changed to false at runtime." >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue" />
+            </setup>
+            <body>
+		        <SetProperty propertyName="visible" target="myRect_Vtrue" value="false" waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+                <AssertPixelValue target="stage" x="10" y="320" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_visible_true_to_false" keywords="[FXG, GraphicTags, Visible]" description="Test a Rect when visible=true inline and changed to false at runtime." >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="visible" target="myRect_Vtrue" value="false" waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+                <AssertPixelValue target="stage" x="10" y="320" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+  <!-- using matrix -->
+	    <TestCase testID="FXG_Rect_matrix_xy_mxml" keywords="[FXG, GraphicTags, Matrix, Transform, x,  y]"
+	        description="Test a Rect with a matrix set with ty and tx set to 500 and 500. The Rect should move to 500,500." >
+            <!--bugs>
+                <Bug bugID="SDK-17457" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_xy_matrix" className="comps.RectMoveXYMatrix" waitEvent="updateComplete" waitTarget="rect_xy_matrix" />
+            </setup>
+            <body>
+		        <AssertPropertyValue target="rect_xy_matrix" propertyName="x" value="500" />
+		        <AssertPropertyValue target="rect_xy_matrix" propertyName="y" value="500" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_scaleXY_mxml" keywords="[FXG, GraphicTags, Matrix, Transform, scaleX,  scaleY]"
+	        description="Test a Rect with a matrix set with a and d set to 2 and 1.5. The Rect should have scaleX and scaleY: 2, 1.5." >
+            <setup>
+                <ResetComponent target="rect_scale_matrix" className="comps.RectScaleMatrix" waitEvent="updateComplete" waitTarget="rect_scale_matrix" />
+            </setup>
+            <body>
+		        <AssertPropertyValue target="rect_scale_matrix" propertyName="scaleX" value="2" />
+		        <AssertPropertyValue target="rect_scale_matrix" propertyName="scaleY" value="1.5" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_Rotation_mxml" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set. The Rect should have rotation 20." >
+            <!--bugs>
+                <Bug bugID="SDK-17435" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_rotate_matrix" className="comps.RectRotateMatrix" waitEvent="updateComplete" waitTarget="rect_rotate_matrix" />
+            </setup>
+            <body>
+		        <AssertMethodValue method="value=Math.round(application.rect_rotate_matrix.rotation)" value="20" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_xy_mxml_override" keywords="[FXG, GraphicTags, Matrix, Transform, x,  y]"
+	        description="Test a Rect with a matrix set with ty and tx set to 500 and 500. The Rect should move to 500,500." >
+            <!--bugs>
+                <Bug bugID="SDK-17665" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_xy_matrix_override" className="comps.RectMoveXYMatrix2" waitEvent="updateComplete" waitTarget="rect_xy_matrix_override" />
+                <SetProperty propertyName="visible" target="rect_xy_matrix" value="false" waitEvent="updateComplete" waitTarget="rect_xy_matrix" />
+                <SetProperty propertyName="visible" target="rect_xy_matrix_override" value="true" waitEvent="updateComplete" waitTarget="rect_xy_matrix_override" />
+            </setup>
+            <body>
+		        <AssertPropertyValue target="rect_xy_matrix_override" propertyName="x" value="500" />
+		        <AssertPropertyValue target="rect_xy_matrix_override" propertyName="y" value="500" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_scaleXY_mxml_override" keywords="[FXG, GraphicTags, Matrix, Transform, scaleX,  scaleY]"
+	        description="Test a Rect with a matrix set with a and d set to 2 and 1.5. The Rect should have scaleX and scaleY: 2, 1.5." >
+            <!--bugs>
+                <Bug bugID="SDK-17665" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_scale_matrix_override" className="comps.RectScaleMatrix2" waitEvent="updateComplete" waitTarget="rect_scale_matrix_override" />
+                <SetProperty propertyName="visible" target="rect_scale_matrix" value="false" waitEvent="updateComplete" waitTarget="rect_scale_matrix" />
+                <SetProperty propertyName="visible" target="rect_scale_matrix_override" value="true" waitEvent="updateComplete" waitTarget="rect_scale_matrix_override" />
+            </setup>
+            <body>
+		        <AssertPropertyValue target="rect_scale_matrix_override" propertyName="scaleX" value="2" />
+		        <AssertPropertyValue target="rect_scale_matrix_override" propertyName="scaleY" value="1.5" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_Rotation_mxml_override" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set. The Rect should have rotation 20." >
+            <!--bugs>
+                <Bug bugID="SDK-17665" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_rotate_matrix_override" className="comps.RectRotateMatrix2" waitEvent="updateComplete" waitTarget="rect_rotate_matrix_override" />
+                <SetProperty propertyName="visible" target="rect_rotate_matrix" value="false" waitEvent="updateComplete" waitTarget="rect_rotate_matrix" />
+                <SetProperty propertyName="visible" target="rect_rotate_matrix_override" value="true" waitEvent="updateComplete" waitTarget="rect_rotate_matrix_override" />
+            </setup>
+            <body>
+		        <AssertMethodValue method="value=Math.round(application.rect_rotate_matrix_override.rotation)" value="20" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_setInAS" keywords="[FXG, GraphicTags, Matrix]"
+	        description="Test a Rect with x and y set in mxml and apply a matrix at runtime. The matrix should update." >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="transform" target="myRect_Vtrue" valueExpression="value=application.transform_move_rotate1"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.x)" value="215" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.y)" value="400" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.rotation)" value="-20" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_RotationsetInAS_afterMatrix" keywords="[FXG, GraphicTags, Matrix]"
+	        description="Test a Rect with x and y set in mxml and apply a matrix at runtime, then a rotation. The Rect should update with the new rotation." >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="transform" target="myRect_Vtrue" valueExpression="value=application.transform_move_rotate2"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+                <SetProperty propertyName="rotation" target="myRect_Vtrue" value="45"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.x)" value="215" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.y)" value="400" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.rotation)" value="45" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_MatrixSetInAS_afterRotation" keywords="[FXG, GraphicTags, Matrix]"
+	        description="Test a Rect with x and y set in mxml and apply a matrix at runtime, then a rotation. The matrix should win" >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="rotation" target="myRect_Vtrue" value="45"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <SetProperty propertyName="transform" target="myRect_Vtrue" valueExpression="value=application.transform_move_rotate3"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.x)" value="215" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.y)" value="400" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.rotation)" value="-20" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_XYsetInAS_afterMatrix" keywords="[FXG, GraphicTags, Matrix]"
+	        description="Test a Rect with x and y set in mxml and apply a matrix at runtime, then a x y. The Rect should update with the new x and y." >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="transform" target="myRect_Vtrue" valueExpression="value=application.transform_move_rotate4"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <SetProperty propertyName="x" target="myRect_Vtrue" value="220"/>
+                <SetProperty propertyName="y" target="myRect_Vtrue" value="405"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.x)" value="220" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.y)" value="405" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.rotation)" value="-20" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_MatrixSetInAS_afterXY" keywords="[FXG, GraphicTags, Matrix]"
+	        description="Test a Rect with x and y set in mxml and apply a matrix at runtime, then a x and y. The matrix should win" >
+            <setup>
+                <ResetComponent target="myRect_Vtrue" className="comps.myRectVtrue" waitEvent="updateComplete" waitTarget="myRect_Vtrue"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="x" target="myRect_Vtrue" value="220"/>
+                <SetProperty propertyName="y" target="myRect_Vtrue" value="405"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+                <SetProperty propertyName="transform" target="myRect_Vtrue" valueExpression="value=application.transform_move_rotate5"
+		            waitTarget="myRect_Vtrue" waitEvent="updateComplete" />
+		        <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.x)" value="215" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.y)" value="400" />
+                <AssertMethodValue method="value=Math.round(application.myRect_Vtrue.rotation)" value="-20" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_matrix_alpha" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set along with alpha." >
+            <!--bugs>
+                <Bug bugID="SDK-17680" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+                <SetProperty propertyName="transform" target="rect_linearGradientStroke" valueExpression="value=application.transform_move_rotate6"
+		            waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+		        <SetProperty propertyName="alpha" target="rect_linearGradientStroke" value="0.2" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+            </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_Rotation_matrix_onLinearGradient_fill" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its LinearGradient fill that rotates the fill." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_linearGradientStroke.rect1.fill" valueExpression="value=application.transform_rotate1"
+		            waitTarget="rect_linearGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_XY_matrix_onLinearGradient_fill" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its LinearGradient fill that moves the fill by x and y." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_linearGradientStroke.rect1.fill" valueExpression="value=application.transform_xy1"
+		            waitTarget="rect_linearGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_Rotation_matrix_onLinearGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its LinearGradient stroke that rotates the fill." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_linearGradientStroke.rect1.stroke" valueExpression="value=application.transform_rotate1"
+		            waitTarget="rect_linearGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_XY_matrix_onLinearGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its LinearGradient fill that moves the fill by x and y." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_linearGradientStroke.rect1.stroke" valueExpression="value=application.transform_xy1"
+		            waitTarget="rect_linearGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_Rect_Rotation_matrix_onRadialGradient_fill" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its RadialGradient fill that rotates the fill." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitEvent="updateComplete" waitTarget="rect_radialGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_radialGradientStroke.rect1.fill" valueExpression="value=application.transform_rotate2"
+		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_XY_matrix_onRadialGradient_fill" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its RadialGradient fill that moves the fill by x and y." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitEvent="updateComplete" waitTarget="rect_radialGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_radialGradientStroke.rect1.fill" valueExpression="value=application.transform_xy2"
+		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_Rotation_matrix_onRadialGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its RadialGradient stroke that rotates the fill." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitEvent="updateComplete" waitTarget="rect_radialGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_radialGradientStroke.rect1.stroke" valueExpression="value=application.transform_rotate1"
+		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_XY_matrix_onRadialGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+	        description="Test a Rect with a matrix set on its RadialGradient fill that moves the fill by x and y." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitEvent="updateComplete" waitTarget="rect_radialGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_radialGradientStroke.rect1.stroke" valueExpression="value=application.transform_xy1"
+		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
+		    </setup>
+            <body>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_filters_default" keywords="[FXG, filters, Rect]"
+	        description="Test that the filters property of a Rect is an empty array, by default." >
+            <!--bugs>
+                <Bug bugID="SDK-17572" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitEvent="updateComplete" waitTarget="rect_radialGradientStroke" />
+            </setup>
+            <body>
+		        <AssertPropertyValue propertyName="filters" valueExpression="value=[]" target="rect_radialGradientStroke" />
+            </body>
+        </TestCase>
+	    <TestCase testID="FXG_Rect_fill_updateAtRuntime" keywords="[FXG, fill, Rect]"
+	        description="Test that changing the fill for a Rect at runtime works." >
+            <!--bugs>
+                <Bug bugID="SDK-17496" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="graphic1" className="comps.RectBasic" waitEvent="updateComplete" waitTarget="graphic1" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.getChildAt(0).getElementAt(0)" propertyName="fill" valueExpression="value=application.lg"
+                    waitTarget="graphic1.getChildAt(0).getElementAt(0)" waitEvent="updateComplete" />
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" timeout="5000" />
+            </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

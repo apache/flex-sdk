@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/Bounce/Tests/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Bounce_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.Power;
+        
+        public static function init(o:DisplayObject):void{}
+		
+		[Bindable] public var delay:int = 250;
+		
+		private function Reset():void
+		{
+			application.rl.y = 100;
+			application.bl.y = 100;
+			application.ball.y = -200;
+		}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Bounce_Play" keywords="[Bounce, easer]" description="Test Bounce.">
+            <setup><RunCode code="this.Reset();"/></setup>
+            <body>
+                <RunCode code="application.bd.play()" waitTarget="bd" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+        </TestCase>
+
+		<TestCase testID="Bounce_500" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bd.playheadTime = 500" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="184"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="130.25"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_1000" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bd.playheadTime = 1000"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="436.1"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="315.1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_1500" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bd.playheadTime = 1500"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="406.25"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="438"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_2000" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bd.playheadTime = 2000"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="444.4"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="409"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_2500" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bd.playheadTime = 2500"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="475.65"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="483"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_3000" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bd.playheadTime = 3000"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="495.1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_ParallelDuration" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.bpd.playheadTime = 1250"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="450.15"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="470.55"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_InlineBind" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ibp.playheadTime = 2650"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="487.8"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500.2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_ASBind" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.BindEaserThruAS()" waitTarget="asbp" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_ASSwap" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.Swap()" waitTarget="sem" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_Sequence" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.ibs.play()" waitTarget="ibs" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Bounce_RepeatStuff" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.rrp.play()" waitTarget="rrp" waitEvent="effectEnd" timeout="10000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="100"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_AnimateColor" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.sac.playheadTime = 1950"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="blColor" propertyName="color" value="0x2A2AFF"/>
+				<AssertPropertyValue target="rlColor" propertyName="color" value="0x4545FF"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_Rotate" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.rotate.playheadTime = 1700" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="438.091265"/>
+				<AssertPropertyValue target="ball" propertyName="rotationZ" value="-88.775"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_Scale" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.rotate.playheadTime = 1940" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="444.062288"/>
+				<AssertPropertyValue target="ball" propertyName="scaleX" value="1"/>
+				<AssertPropertyValue target="ball" propertyName="scaleY" value="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_Resize" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.resize.playheadTime = 700" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="width" value="170.586806"/>
+				<AssertPropertyValue target="ball" propertyName="height" value="150"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Bounce_Animate" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<RunCode code="application.animate.playheadTime = 2350" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="width" value="170.586806"/>
+				<AssertPropertyValue target="ball" propertyName="height" value="150"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Bounce_Transition" keywords="[Bounce, easer]" description="Test Bounce.">
+			<setup>
+				<RunCode code="this.Reset();"/>
+			</setup>
+			<body>
+				<ChangeState changeTarget="" toState="S2" waitTarget="transy" waitEvent="effectEnd" timeout="6000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="500"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="500"/>
+			</body>
+		</TestCase>
+
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         width="300" height="380">
+    <s:states> 
+        <s:State name="s1"/> 
+        <s:State name="s2"/> 
+    </s:states> 
+    <s:transitions> 
+        <s:Transition> 
+            <s:Parallel id="para" duration="500" effectEnd="callLater(dispatchCustomEffectEnd);">
+                <!-- horizontalCenter/verticalCenter -->
+                <s:Animate targets="{[b11, b12, b13]}" startDelay="{pauseTime}">
+                    <s:SimpleMotionPath property="left"/>
+                    <s:SimpleMotionPath property="horizontalCenter"/>
+                </s:Animate>
+                <s:Animate targets="{[b14, b15]}" startDelay="{pauseTime}">
+                    <s:SimpleMotionPath property="verticalCenter"/>
+                </s:Animate>
+                <s:Animate target="{b16}" startDelay="{pauseTime}">
+                    <s:SimpleMotionPath property="verticalCenter"/>
+                    <s:SimpleMotionPath property="bottom"/>
+                </s:Animate>
+                <!-- // END horizontalCenter/verticalCenter -->
+            </s:Parallel> 
+        </s:Transition> 
+    </s:transitions> 
+    
+    <fx:Script>
+        <![CDATA[
+            [Bindable]
+            public var pauseTime:Number = 0;
+            
+            protected function dispatchCustomEffectEnd():void {
+                dispatchEvent(new Event("customEffectEnd"));
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="black"/>
+        </s:stroke>
+    </s:Rect>
+    
+    
+    <s:Button id="b11"
+              label="HorCtr"
+              top="50"
+              horizontalCenter="0" horizontalCenter.s2="50" />
+    
+    <s:Button id="b12"
+              label="HorCtr"
+              top="80"
+              horizontalCenter="0" horizontalCenter.s2="-50"/>
+    
+    <s:Button id="b13"
+              label="Hor->Left"
+              top="110"
+              horizontalCenter="0" horizontalCenter.s2="{NaN}"
+              left.s2="10" />
+    
+    <s:Button id="b14"
+              label="VertCtr"
+              left="0"
+              verticalCenter="0" verticalCenter.s2="50" />
+    
+    <s:Button id="b15"
+              label="VertCtr"
+              left="100"
+              verticalCenter="0" verticalCenter.s2="-50" />
+    
+    <s:Button id="b16"
+              label="Vert->Bottom"
+              left="200"
+              verticalCenter="0" verticalCenter.s2="{NaN}"
+              bottom.s2="100"/>
+    
+</s:Group>

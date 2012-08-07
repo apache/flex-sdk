@@ -1,0 +1,67 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_22857.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+		[Bindable] public var delay:int = 250;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_22857_A" 
+			keywords="[SDK_22857]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-22857">
+			<!--bugs>
+				<Bug bugID="SDK-22857"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.eff3.playheadTime = 789" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="x" value="266.949401"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="199.622545"/>
+			</body>
+        </TestCase>
+
+		<TestCase
+			testID="SDK_22857_B"
+			keywords="[SDK_22857]"
+			description="http://bugs.adobe.com/jira/browse/SDK-22857">
+			<!--bugs>
+				<Bug bugID="SDK-22857"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.eff3.playheadTime = 2588" />
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="x" value="163"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="425.044358"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase
+			testID="SDK_22857_C"
+			keywords="[SDK_22857]"
+			description="http://bugs.adobe.com/jira/browse/SDK-22857">
+			<!--bugs>
+				<Bug bugID="SDK-22857"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.eff3.playheadTime = 7333"/>
+				<Pause timeout="{delay}"/>
+				<AssertPropertyValue target="ball" propertyName="x" value="175"/>
+				<AssertPropertyValue target="ball" propertyName="y" value="-75"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>
+

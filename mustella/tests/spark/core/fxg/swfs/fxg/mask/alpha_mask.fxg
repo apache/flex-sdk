@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test Alpha Masking applied to a group instance that contains various types of graphic content                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 25 March-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  25-March-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight="770" viewWidth="830">
+  	<Group x="20" y="30">
+	  <Group x="20" y="90">
+		<Group>
+			<Group>
+			    <Group x="30" y="80">
+				<Group>
+					<Group x="0" y="0">
+						<BitmapGraphic maskType="alpha" width="120" height="100" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false">
+							<mask>
+								<Group x="0" y="0" alpha="0.5">
+									<filters>
+										<BevelFilter distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" type="full"/>
+									</filters>	
+									<Ellipse width="140" height="70">
+										<fill>
+											<RadialGradient x="50" y="10" scaleX="100" scaleY="60" focalPointRatio="0">
+												<GradientEntry color="#0900b2" ratio="0"/>
+												<GradientEntry color="#ff0000" ratio="0.5"/>
+												<GradientEntry color="#fffc00" ratio="1"/>
+											</RadialGradient>
+										</fill>
+										<stroke>
+										  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+										</stroke>
+									</Ellipse>
+								</Group>
+							</mask>		      								
+						</BitmapGraphic>
+					</Group>
+					<Group x="230" y="0">
+						<Rect maskType="alpha" radiusX="20" radiusY="40" width="120" height="100">
+							<mask>
+								<Group x="0" y="0" alpha="0.5">
+									<filters>
+										<BevelFilter distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" type="full"/>
+									</filters>	
+									<Rect width="140" height="70">
+										<fill>
+											<LinearGradient x = "10" y = "10" scaleX = "50" rotation = "-17">
+												<GradientEntry color="#203c00" ratio="0" alpha="1"/>
+												<GradientEntry color="#1b971b" ratio="0.28" alpha="1"/>
+												<GradientEntry color="#1e4f45" ratio="0.45" alpha="1"/>
+												<GradientEntry color="#6aec01" ratio="0.6" alpha="1"/>
+												<GradientEntry color="#1b971b" ratio="0.75" alpha="1"/>
+												<GradientEntry color="#203c00" ratio="1" alpha="1"/>
+											</LinearGradient>
+										</fill>
+										<stroke>
+										  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+										</stroke>
+									</Rect>
+								</Group>
+							</mask>		      								
+							<fill>
+								<LinearGradient x = "20" y = "20" scaleX = "50" rotation = "-17">
+									<GradientEntry color="#0900b2" ratio="0"/>
+									<GradientEntry color="#ff0000" ratio="0.5"/>
+									<GradientEntry color="#fffc00" ratio="1"/>
+								</LinearGradient>
+							</fill>
+						</Rect>
+					</Group>
+				</Group>
+				<Group>
+					<Group x="0" y="150">
+						<Ellipse maskType="alpha" width="120" height="80">
+							<mask>
+								<Group x="0" y="0" alpha="0.5">
+									<Ellipse width="140" height="70">
+										<filters>
+											<BevelFilter distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" type="full"/>
+										</filters>	
+										<fill>
+											<LinearGradient x = "10" y = "10" scaleX = "50" rotation = "-17">
+												<GradientEntry color="#203c00" ratio="0" alpha="1"/>
+												<GradientEntry color="#1b971b" ratio="0.28" alpha="1"/>
+												<GradientEntry color="#1e4f45" ratio="0.45" alpha="1"/>
+												<GradientEntry color="#6aec01" ratio="0.6" alpha="1"/>
+												<GradientEntry color="#1b971b" ratio="0.75" alpha="1"/>
+												<GradientEntry color="#203c00" ratio="1" alpha="1"/>
+											</LinearGradient>
+										</fill>
+										<stroke>
+										  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+										</stroke>
+									</Ellipse>
+								</Group>
+							</mask>		      				      							
+							<filters>
+								<BlurFilter blurX="4" blurY="1" quality="3"/>
+							</filters>
+							<fill>
+								<RadialGradient x="50" y="10" scaleX="100" scaleY="60" focalPointRatio="0">
+									<GradientEntry color="#0900b2" ratio="0"/>
+									<GradientEntry color="#ff0000" ratio="0.5"/>
+									<GradientEntry color="#fffc00" ratio="1"/>
+								</RadialGradient>
+							</fill>
+							<stroke>
+							  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Ellipse>
+					</Group>
+					<Group x="230" y="150">
+						<Rect maskType="alpha" x="10" y="10" width="120" height="120">
+							<mask>
+								<Group x="-50" y="-50" alpha="0.5">
+									<Path winding="nonZero"  data="M 50 50 H 100 V 100 H 125 150 V 125 150 h 50 v 50 h -100 -50 v -100 -50" >
+										<fill>
+											<SolidColor color="#ff0000" alpha="0.75"/>
+										</fill>
+										<stroke>
+											<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+										</stroke>
+									</Path>        
+								</Group>
+							</mask>	      				      													
+							<filters>
+								<BevelFilter distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" strength="0.5"/>
+							</filters>
+							<fill>
+								<BitmapFill x="0" y="0" scaleX="0.5" scaleY="0.5" rotation="225" source="@Embed('../../../../../../../Assets/Images/greenrect.jpg')"/>
+							</fill>
+							<stroke>
+								<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Rect>
+					</Group>
+				</Group>
+				<Group>
+					<Group x="0" y="330">
+						<Ellipse maskType="alpha" width="120" height="80">
+							<mask>
+								<Group x="0" y="0" alpha="0.5">
+									<Ellipse width="140" height="70">
+										<fill>
+											<SolidColor color="#0000FF"/>
+										</fill>
+									</Ellipse>
+								</Group>
+							</mask>		      				      			      	
+							<fill>
+								<SolidColor color="#0000FF" alpha="0.5"/>
+							</fill>
+						</Ellipse>
+					</Group>
+					<Group x="230" y="310">
+						<Path maskType="alpha" winding="nonZero" y="30" data="M  72 0   q   -100   50    0   50   Q -28  50   72  100  q   100  -50   0   -50   Q   172  50    72 0 z" >
+							<mask>
+								<Group x="0" y="0" alpha="0.5">
+									<Ellipse width="140" height="70">
+										<fill>
+											<SolidColor color="#0000FF"/>
+										</fill>
+									</Ellipse>
+								</Group>
+							</mask>		      				      			      	
+							<fill>
+								<LinearGradient x = "10" y = "10" scaleX = "50" rotation = "-17">
+									<GradientEntry color="#203c00" ratio="0" alpha="1"/>
+									<GradientEntry color="#1b971b" ratio="0.28" alpha="1"/>
+									<GradientEntry color="#1e4f45" ratio="0.45" alpha="1"/>
+									<GradientEntry color="#6aec01" ratio="0.6" alpha="1"/>
+									<GradientEntry color="#1b971b" ratio="0.75" alpha="1"/>
+									<GradientEntry color="#203c00" ratio="1" alpha="1"/>
+								</LinearGradient>
+							</fill>
+							<stroke>
+							  <SolidColorStroke color="#00cf00" caps="none" weight="2" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Path>
+					</Group>
+				</Group>
+				<Group>
+					<Group x="0" y="500">
+						<Ellipse maskType="alpha" width="120" height="80">
+							<mask>
+								<Group x="0" y="0">
+									<BitmapGraphic alpha="0.5" width="140" height="70" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false"/>
+								</Group>
+							</mask>		      				      			      	
+							<filters>
+								<BlurFilter blurX="4" blurY="1" quality="3"/>
+							</filters>
+							<fill>
+								<RadialGradient x="50" y="10" scaleX="100" scaleY="60" focalPointRatio="0">
+									<GradientEntry color="#0900b2" ratio="0"/>
+									<GradientEntry color="#ff0000" ratio="0.5"/>
+									<GradientEntry color="#fffc00" ratio="1"/>
+								</RadialGradient>
+							</fill>
+							<stroke>
+							  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Ellipse>
+					</Group>
+					<Group x="230" y="500">
+						<Rect maskType="alpha" x="10" y="10" width="120" height="120" alpha="0.5">
+							<mask>
+								<Group x="0" y="0">
+									<BitmapGraphic alpha="0.5" width="140" height="70" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false"/>
+								</Group>
+							</mask>		      				      			      	
+							<filters>
+								<BevelFilter distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" strength="0.5"/>
+							</filters>
+							<fill>
+								<BitmapFill x="0" y="0" scaleX="0.5" scaleY="0.5" rotation="225" source="@Embed('../../../../../../../Assets/Images/greenrect.jpg')"/>
+							</fill>
+							<stroke>
+								<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Rect>
+					</Group>
+				</Group>								
+			    </Group>
+			</Group>
+		</Group>
+
+	    </Group>    
+	</Group>
+</Graphic>

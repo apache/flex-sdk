@@ -1,0 +1,36 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_21933.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_21933" 
+			keywords="[SDK_21933]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-21933">
+			<!--bugs>
+				<Bug bugID="SDK-21933"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.currentState = 'state2'" waitTarget="sizer" waitEvent="effectEnd"/>
+				<Pause timeout="100"/>
+				<RunCode code="application.currentState = 'state1'" waitTarget="sizer" waitEvent="effectEnd"/>
+				<AssertMethodValue method="value=application.button.height" value="250"/>
+				<AssertMethodValue method="value=application.button.width" value="200"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="NF_StyleManager.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.NumberFormatter;
+			import assets.NFConstants;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			public var nfGSLib1:flash.globalization.NumberFormatter;
+			public var nfGSLib2:flash.globalization.NumberFormatter;
+			public var nfGSLib3:flash.globalization.NumberFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test set style by StyleManager -->
+	<testCases>
+		
+		<!--Test case 1 is for testing current style -->
+		<TestCase testID="NF_StyleManager_currentStyle_test1" description="Test case 1 is for testing current style" keywords="[NumberFormatter,StyleManager]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--Test cases 2 is using styleManger API to set styles using global Selector CSS style -->		
+		<TestCase testID="NF_StyleManager_setGlobal_test2" description="using styleManger API to set styles using global Selector CSS style" keywords="[NumberFormatter,StyleManager]">
+			<setup>	
+				<RunCode code="application.testStyleManager('1')"  />
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr_FR')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfGlobalSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfGlobalSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--Test cases 3 is using styleManger API to set styles using Type Selector CSS style -->	
+		<TestCase testID="NF_StyleManager_setTypeStyle_test3" description="using styleManger API to set styles using Type Selector CSS style" keywords="[NumberFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testStyleManager('2')"  />
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru_RU')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfTypeSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfTypeSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--Test cases 4 is using styleManger API to set styles using Class Selector CSS style -->	
+		<TestCase testID="NF_StyleManager_setCLassStyle_test4" 
+				  description="Test cases 4 is using styleManger API to set styles using Class Selector CSS style" keywords="[NumberFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testStyleManager('3')"  />
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja_JP')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfClassSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfClassSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--Test cases 5 is using styleManger API to set styles using ID Selector CSS style -->
+		<TestCase testID="NF_StyleManager_IDSelector_test5" description="using styleManger API to set styles using ID Selector CSS style" keywords="[NumberFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testStyleManager('4')"  />
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh_TW')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NFlocalIDSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="NFlocalIDSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

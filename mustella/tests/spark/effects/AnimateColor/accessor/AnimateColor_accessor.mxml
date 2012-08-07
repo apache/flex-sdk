@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/AnimateColor/accessor/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*" 
+    testSWF="../SWFs/AnimateColor_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateColor;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="AnimateColor_perElementOffset_Default" keywords="[AnimateColor, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_target_Default" keywords="[AnimateColor, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).target" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_relevantProperties_Default" keywords="[AnimateColor, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).relevantProperties" value="color"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_relevantStyles_Default" keywords="[AnimateColor, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).relevantStyles" value="color"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_isPlaying_Default" keywords="[AnimateColor, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_className_Default" keywords="[AnimateColor, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).className" value="AnimateColor"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_hideFocusRing_Default" keywords="[AnimateColor, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_customFilter_Default" keywords="[AnimateColor, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_effectTargetHost_Default" keywords="[AnimateColor, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_triggerEvent_Default" keywords="[AnimateColor, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_targets_Default" keywords="[AnimateColor, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).targets" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_duration_Default" keywords="[AnimateColor, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_filter_Default" keywords="[AnimateColor, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

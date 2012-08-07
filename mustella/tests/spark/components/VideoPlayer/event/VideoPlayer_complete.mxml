@@ -1,0 +1,84 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+  <testCases>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase testID="VideoPlayer_complete_autoRewindT_S" keywords="[VideoPlayer, event, complete]" description="Verify complete is raised when video done playing.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+            </setup>
+            <body>
+            	<AssertEvent target="testPlayer" eventName="complete" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_complete_autoRewindF_S" keywords="[VideoPlayer, event, complete]" description="Verify complete is raised when video done playing.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="500"/>
+            </setup>
+            <body>
+            	<AssertEvent target="testPlayer" eventName="complete" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase testID="VideoPlayer_complete_autoRewindT_P" keywords="[VideoPlayer, event, complete]" description="Verify complete is raised when video done playing.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<RunCode code="application.testPlayer.seek(8)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <AssertEvent target="testPlayer" eventName="complete" eventClass="org.osmf.events::TimeEvent" timeout="6000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_complete_autoRewindF_P" keywords="[VideoPlayer, event, complete]" description="Verify complete is raised when video done playing.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.seek(8)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>           
+                <AssertEvent target="testPlayer" eventName="complete" eventClass="org.osmf.events::TimeEvent" timeout="6000"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

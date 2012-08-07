@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0  Test ability to handle color transforms with                                    		-->
+<!--  the 'path' element and its data attribute (d)
+in combination with the straight-line path commands.
+Two pairs of staircase figures are drawn using 
+respectively M,H,V,Z and m,h,v,z. The shapes in each pair are identical, with one stroked and
+one filled.  
+                                    		                                                -->
+<!--     															       					-->
+<!--                                                                             			-->
+<!-- Author : Vivek Agrawal  3 March-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  3 March-2009 , created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" viewHeight="359" viewWidth="479" xmlns="http://ns.adobe.com/fxg/2008">
+  	    <!--======================================================================-->
+	    <!--Content of Test Case follows...                  =====================-->
+	    <!--======================================================================-->
+
+        <!-- ====================================================================== -->
+		<!-- First Group of Stairs using M, H, V & Z commands====================== -->
+		<!-- ====================================================================== -->
+<Group x="17.7251" y="14.0522">
+        <Path winding="nonZero"  data=" M  240.00000  56.00000    H  270.00000   V  86.00000    H  300.00000   V  116.00000    H  330.00000   V  146.00000    H  240.00000   V  56.00000    Z " >
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        </Path>
+        <Rect x="238.00000" y="54.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="268.00000" y="54.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="268.00000" y="84.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="298.00000" y="84.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="298.00000" y="114.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="328.00000" y="114.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="328.00000" y="144.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="238.00000" y="144.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Path winding="nonZero" data="  M  350.00000  56.00000   H  380.00000   V  86.00000    H  410.00000   V  116.00000    H  440.00000   V  146.00000    H  350.00000   V  56.00000    Z " >
+          <fill>
+            <SolidColor color="#0000ff"/>
+          </fill>
+        </Path>
+        <Rect x="348.00000" y="54.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="378.00000" y="54.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect  x="378.00000" y="84.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="408.00000" y="84.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="408.00000" y="114.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect  x="438.00000" y="114.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="438.00000" y="144.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="348.00000" y="144.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+
+    <Rect x="0.5" y="0.5" width="478" height="358" >
+      <stroke>
+        <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+      </stroke>
+    </Rect>
+</Group>
+<Group x="17.7251" y="14.0522">
+        <Path winding="nonZero"  data=" M  240.00000  56.00000    H  270.00000   V  86.00000    H  300.00000   V  116.00000    H  330.00000   V  146.00000    H  240.00000   V  56.00000    Z " >
+          <stroke>
+            <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+          </stroke>
+        <transform>
+			<Transform>
+				<colorTransform>
+					<ColorTransform alphaMultiplier="0.5" alphaOffset="0.3" blueMultiplier="0.2" blueOffset="10" greenMultiplier="0.5" greenOffset="30" redMultiplier="5" redOffset="20"/>
+				</colorTransform>
+			</Transform>
+        </transform>	
+        </Path>
+        <Rect x="238.00000" y="54.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="268.00000" y="54.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="268.00000" y="84.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="298.00000" y="84.00000" width="7.2002" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="298.00000" y="114.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="328.00000" y="114.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="328.00000" y="144.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="238.00000" y="144.00000" width="7.2002" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Path winding="nonZero" data="  M  350.00000  56.00000   H  380.00000   V  86.00000    H  410.00000   V  116.00000    H  440.00000   V  146.00000    H  350.00000   V  56.00000    Z " >
+          <fill>
+            <SolidColor color="#0000ff"/>
+          </fill>
+        <transform>
+			<Transform>
+				<colorTransform>
+					<ColorTransform alphaMultiplier="0.5" alphaOffset="0.3" blueMultiplier="0.2" blueOffset="10" greenMultiplier="0.5" greenOffset="30" redMultiplier="5" redOffset="20"/>
+				</colorTransform>
+			</Transform>
+        </transform>	
+        </Path>
+        <Rect x="348.00000" y="54.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="378.00000" y="54.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect  x="378.00000" y="84.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="408.00000" y="84.00000" width="7.19922" height="7.19971">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="408.00000" y="114.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect  x="438.00000" y="114.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="438.00000" y="144.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+        <Rect x="348.00000" y="144.00000" width="7.19922" height="7.2002">
+          <fill>
+            <SolidColor color="#ffff00"/>
+          </fill>
+        </Rect>
+
+    <Rect x="0.5" y="0.5" width="478" height="358" >
+      <stroke>
+        <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+      </stroke>
+     </Rect>
+  </Group>
+</Graphic>

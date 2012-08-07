@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   creationComplete="application1_creationCompleteHandler(event)" 
+			   xmlns:assets="assets.*">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<assets:FallbackCF id="cf_inline"/>
+		<assets:FallbackCF id="cfBinding_inline"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			public var cf:FallbackCF = new FallbackCF();
+			
+			public var CUSTOM_ERROR_TEXT:String = "myCustomErrorText";
+			
+			[Bindable]
+			public var cfBinding:FallbackCF = new FallbackCF();
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				addStyleClient(cf);
+				addStyleClient(cfBinding);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout>
+			
+		</s:VerticalLayout>
+	</s:layout>
+	
+	<s:Label text="CurrencyFormatter Fallback - Binding"/>
+	<mx:Form label="currencyISOCode">
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{cfBinding_inline.currencyISOCode}" id="inlineBinding_currencyISOCode"/>
+		</mx:FormItem>
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{cfBinding.currencyISOCode}" id="scriptBinding_currencyISOCode" />
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Form label="currencySymbol">
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{cfBinding_inline.currencySymbol}" id="inlineBinding_currencySymbol"/>
+		</mx:FormItem>
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{cfBinding.currencySymbol}" id="scriptBinding_currencySymbol" />
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Form label="useCurrencySymbol">
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{cfBinding_inline.useCurrencySymbol}" id="inlineBinding_useCurrencySymbol"/>
+		</mx:FormItem>
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{cfBinding.useCurrencySymbol}" id="scriptBinding_useCurrencySymbol" />
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Form label="actualLocaleIDName">
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{cfBinding_inline.actualLocaleIDName}" id="inlineBinding_actualLocaleIDName"/>
+		</mx:FormItem>
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{cfBinding.actualLocaleIDName}" id="scriptBinding_actualLocaleIDName" />
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Form label="errorText">
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{cfBinding_inline.errorText}" id="inlineBinding_errorText"/>
+		</mx:FormItem>
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{cfBinding.errorText}" id="scriptBinding_errorText" />
+		</mx:FormItem>
+	</mx:Form>
+</s:Application>

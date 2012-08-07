@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_actualLocaleIDName_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test "actualLocaleIDName" property-->
+	<testCases>
+		<!--the test case is for test actualLocaleIDName property for numbervalidator object defined in declarations tag-->
+		<TestCase testID="NV_actualLocaleIDName_i_default_test1" description="the test case is for test default locale, the actual locale name should fallback to OS's default locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv" styleName="locale" value="i-default" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_en_US_test2" description="the test case is for test en-US, the actual locale name is 'en-US'" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_invalid_test3" description="the test case is for test invalid locale, the actual locale name should fallback to OS's default locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('invalidLocale')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv" styleName="locale" value="invalidLocale" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_pa_Arab_PK_test4" description="the test case is for test locale with - seperator, the actual locale name should same with set locale with _ seperator" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('pa-Arab-PK')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv" styleName="locale" value="pa_Arab_PK" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_ar_JO_test5" description="the test case is for test locale with - seperator, the actual locale name should same with set locale with _ seperator" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv" styleName="locale" value="ar_JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_binding_test6" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvL" propertyName="text" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_binding_test7" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('az-Arab')" />
+				<SetStyle target="nv" styleName="locale" value="az-Arab" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvL" propertyName="text" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			</body>
+		</TestCase>
+		<!--the test case is for test actualLocaleIDName property for numbervalidator object defined in script tag-->
+		<TestCase testID="NV_actualLocaleIDName_i_default_script_test8" description="the test case is for test default locale, the actual locale name should fallback to OS's default locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="i-default" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_en_US_script_test9" description="the test case is for test en-US, the actual locale name is 'en-US'" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_invalid_script_test10" description="the test case is for test invalid locale, the actual locale name should fallback to OS's default locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('invalidLocale')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="invalidLocale" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_pa_Arab_PK_script_test11" description="the test case is for test locale with - seperator, the actual locale name should same with set locale with _ seperator" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('pa-Arab-PK')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="pa_Arab_PK" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_ar_JO_script_test12" description="the test case is for test locale with - seperator, the actual locale name should same with set locale with _ seperator" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="ar_JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_binding_script_test13" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptL" propertyName="text" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_binding_script_test14" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('az-Arab')" />
+				<SetStyle target="nvScript" styleName="locale" value="az-Arab" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptL" propertyName="text" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_undefined_test15" description="the test case is for test set locale to undefined" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<SetStyle target="nvUndefinedLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvUndefinedLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvUndefinedLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_undefined_script_test16" description="the test case is for test set locale to undefined" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<SetStyle target="nvScriptUndefinedLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptUndefinedLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvScriptUndefinedLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_LOS_binding_test17" description="the test case is for test binding machenism of lastOperationStatus when setting with different locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<SetStyle target="nvLOSBinding" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvLOSBindingL" propertyName="text" valueExpression="value=NVConstants.noErrorMsg" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_LOS_binding_test18" description="the test case is for test binding machenism of lastOperationStatus when setting with different locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<SetStyle target="nvLOSBinding" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvLOSBindingL" propertyName="text" valueExpression="value=NVConstants.localeUndefinedErrMsg" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_LOS_binding_script_test19" description="the test case is for test binding machenism of lastOperationStatus when setting with different locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<SetStyle target="nvScriptLOSBinding" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptLOSBindingL" propertyName="text" valueExpression="value=NVConstants.noErrorMsg" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_LOS_binding_script_test20" description="the test case is for test binding machenism of lastOperationStatus when setting with different locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<SetStyle target="nvScriptLOSBinding" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptLOSBindingL" propertyName="text" valueExpression="value=NVConstants.localeUndefinedErrMsg" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_defaultLocale_test21" description="the test case is for test default locale of numbervalidator" keywords="[NumberValidator, actualLocaleIDName]">
+			<body>
+				<AssertPropertyValue target="nvDef" propertyName="actualLocaleIDName" value="en-US"/>
+				<AssertPropertyValue target="nvDef" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_defaultLocale_script_test22" description="the test case is for test default locale of numbervalidator" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptDef" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScriptDef" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_undefinedLocale_test23" description="the test case is for test undefined locale of numbervalidator in declaration tag" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<SetStyle target="nvSetUnLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvSetUnLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+				<AssertPropertyValue target="nvSetUnLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_inherit_undefined_test24" description="inline object inherit undefined locale from parent label" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="application.addStyleChildren(application.parentL,application.nvIheritUnLocale)"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvIheritUnLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvIheritUnLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_inherit_undefined_script_test25" description="script object inherit undefined locale from parent label" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="application.addStyleChildren(application.parentL,application.nvScriptIheritUnLocale)"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptIheritUnLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvScriptIheritUnLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_emptyLocale_test26" description="the test case is for test setting empty string to locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvEmptyLocale" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nvEmptyLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_emptyLocale_script_test27" description="the test case is for test setting empty string to locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScriptEmptyLocale" styleName="locale" value="" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptEmptyLocale" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nvScriptEmptyLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_setStyle_undefined_script_test28" description="set locale to undefined by calling setStyle" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="application.setLocaleUndefined(application.nvSetUnLocaleAS)"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvSetUnLocaleAS" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvSetUnLocaleAS" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_setStyle_undefined_script_test29" description="script object inherit undefined locale from parent label" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="application.setLocaleUndefined(application.nvScriptSetUnLocaleAS)"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptSetUnLocaleAS" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvScriptSetUnLocaleAS" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_setStyle_en_test30" description="the test case is for set locale to en by calling setStyle method in AS" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<RunCode code="application.nv.setStyle('locale','en')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_setStyle_en_script_test31" description="the test case is for set locale to en by calling setStyle method in AS" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<RunCode code="application.nvScript.setStyle('locale','en')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_setStyle_fr_test32" description="the test case is for set locale to fr-CH by calling setStyle method in AS" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nv" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv.initialized(null,'nv')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CH')" />
+				<RunCode code="application.nv.setStyle('locale','fr-CH')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nv" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_setStyle_fr_script_test33" description="the test case is for set locale to fr-CA by calling setStyle method in AS" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvScript" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CA')" />
+				<RunCode code="application.nvScript.setStyle('locale','fr-CA')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_en_test34" description="the test case is for test default locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvNoLocale" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvNoLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_actualLocaleIDName_en_script_test35" description="the test case is for test default locale" keywords="[NumberValidator, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptNoLocale" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScriptNoLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

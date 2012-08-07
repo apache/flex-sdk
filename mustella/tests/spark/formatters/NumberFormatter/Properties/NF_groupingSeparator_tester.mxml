@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_groupingSeparator.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.NFConstants;
+			
+			import flash.globalization.*;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			
+			public var nfDefaultGSLib1:flash.globalization.NumberFormatter;
+			public var nfDefaultGSLib2:flash.globalization.NumberFormatter;
+			public var nfDefaultGSLib3:flash.globalization.NumberFormatter;
+			public var nfDefaultGSLib4:flash.globalization.NumberFormatter;
+		
+			public static function init(o:DisplayObject):void
+			{ 
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test decimalSeparator property-->
+<testCases>
+	<!--test default groupingSeparator-->
+	<TestCase testID="NF_groupingSeparator_defaultValue_test1" description="test default groupingSeparator" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfDefaultGSLib1=new flash.globalization.NumberFormatter('ar-JO')"/>
+			<RunCode code="nfDefaultGSLib2=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<RunCode code="nfDefaultGSLib3=new flash.globalization.NumberFormatter('i-default')"/>
+			<RunCode code="nfDefaultGSLib4=new flash.globalization.NumberFormatter('sr-Cyrl-RS')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfDefault1" propertyName="groupingSeparator" valueExpression="value=nfDefaultGSLib1.groupingSeparator"/>
+			<AssertPropertyValue target="nfDefault1" propertyName="lastOperationStatus" valueExpression="value=nfDefaultGSLib1.lastOperationStatus"/>
+			<AssertPropertyValue target="nfDefault2" propertyName="groupingSeparator" valueExpression="value=nfDefaultGSLib2.groupingSeparator"/>
+			<AssertPropertyValue target="nfDefault2" propertyName="lastOperationStatus" valueExpression="value=nfDefaultGSLib2.lastOperationStatus"/>
+			<AssertPropertyValue target="nfDefault3" propertyName="groupingSeparator" valueExpression="value=nfDefaultGSLib3.groupingSeparator"/>
+			<AssertPropertyValue target="nfDefault3" propertyName="lastOperationStatus" valueExpression="value=nfDefaultGSLib3.lastOperationStatus"/>
+			<AssertPropertyValue target="nfDefault4" propertyName="groupingSeparator" valueExpression="value=nfDefaultGSLib4.groupingSeparator"/>
+			<AssertPropertyValue target="nfDefault4" propertyName="lastOperationStatus" valueExpression="value=nfDefaultGSLib4.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparator_setPositiveValue_space_test2" description="Set/Get groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=' '"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+			<SetProperty target="nfPositive1" propertyName="groupingSeparator" value=" " waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfPositive1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfPositive1.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+			<AssertPropertyValue target="nfPositive1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparator_setPositiveValue_comma_test3" description="Set/Get groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+			<SetProperty target="nfPositive2" propertyName="groupingSeparator" value="," waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfPositive2" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfPositive2.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparator_setPositiveValue_period_test4" description="Set/Get groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator='.'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+			<SetProperty target="nfPositive3" propertyName="groupingSeparator" value="." waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfPositive3" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfPositive3.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparator_setPositiveValue_colon_test5" description="Set/Get groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=':'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+			<SetProperty target="nfPositive4" propertyName="groupingSeparator" value=":" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfPositive4" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfPositive4.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+		</body>
+	</TestCase>
+	
+	<!--Set/Get groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparatorr_setPositiveValue_semicolon_test6" description="Set/Get groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+			<SetProperty target="nfPositive5" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfPositive5" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfPositive5.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+		</body>
+	</TestCase>
+	
+	<!--Set/Get Inline groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparator_setInlinePositiveValue_period_test7" 
+			  description="Set/Get Inline groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator='.'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInline1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfInline1.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+			<AssertPropertyValue target="nfInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get Inline groupingSeparator as positive value and format numbers-->
+	<TestCase testID="NF_groupingSeparator_setInlinePositiveValue_semicolon_test8" 
+			  description="Set/Get Inline groupingSeparator as positive value and format numbers" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInline2" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfInline2.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get groupingSeparator within <fx:Sript> -->
+	<TestCase testID="NF_groupingSeparator_setValueInScript_colon_test9" description="Set/Get groupingSeparator within fx:Sript" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=':'" />
+			<RunCode code="application.setNFDecimalSeparator()"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="NF_groupingSeparator_binding_test10" description="Binding property by lable text" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=':'" />
+			<SetProperty target="nfBinding" propertyName="groupingSeparator" value=":" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLabel" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set illegal groupingSeparator properties-->
+	<TestCase testID="NF_groupingSeparator_setIllegalValue_null_test11" description="Set illegal groupingSeparator properties" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative1,'groupingSeparator',null)" 
+							   valueExpression="value=NFConstants.testArgError(nfGSLib,'groupingSeparator',null)"/>
+			<AssertPropertyValue target="nfNegative1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfNegative1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Set illegal groupingSeparator properties-->
+	<TestCase testID="NF_groupingSeparator_setIllegalValue_emptyString_test12" description="Set illegal groupingSeparator properties" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative2,'groupingSeparator','')" 
+							   valueExpression="value=NFConstants.testArgError(nfGSLib,'groupingSeparator','')"/>
+			<AssertPropertyValue target="nfNegative2" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfNegative2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Binding property when locale change-->
+	<TestCase testID="NF_groupingSeparator_bindingAndChangeLocale_test13" description="Binding property when locale change" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetStyle target="nfBLocale1" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<SetStyle target="nfBLocale1" styleName="locale" value="fr-FR" waitEvent="change"/>
+			<AssertEvent target="nfLa" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+			<AssertPropertyValue target="nfLa" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfBLocale1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Binding property when locale change-->
+	<TestCase testID="NF_groupingSeparator_bindingAndChangeLocale_test14" description="Binding property when locale change" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetStyle target="nfBLocale2" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<SetStyle target="nfBLocale2" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<AssertEvent target="nfLb" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+			<AssertPropertyValue target="nfLb" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+		</body>
+	</TestCase>
+	
+	<!--	test property without setting any locale -->
+	<TestCase testID="NF_groupingSeparator_without_locale_test15" description="test property without setting any locale" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfNoLocaleInline" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfNoLocaleInline" propertyName="lastOperationStatus" value="noError"/>
+			
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+	
+	<!-- if property groupingSeparator has been set inline, it doesnot change with locale -->
+	<TestCase testID="NF_groupingSeparator_inline_changeLocale_test16" description="if property groupingSeparator has been set inline, it doesnot change with locale" keywords="[NumberFormatter, groupingSeparator]">
+		<setup>
+			<SetStyle target="nfInline_ChangeLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInline_ChangeLocale" propertyName="groupingSeparator" value="."/>
+		</body>
+	</TestCase>	
+
+</testCases>
+</UnitTester>

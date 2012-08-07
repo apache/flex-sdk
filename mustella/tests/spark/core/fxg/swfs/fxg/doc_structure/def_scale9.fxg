@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test a FXG document fragment contains a group definition of path segments with scale9 grid applied.                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 20 April-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  20 April-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+	<Library>
+		<Definition name="MyPath">
+    			<Group scaleGridLeft="50" scaleGridTop="50" scaleGridRight="100" scaleGridBottom="100">
+				<Path winding="nonZero"  data="  M   0  0  L  50  50  L  0  50  L  0  0  Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+				<Path winding="nonZero"  data="  M  50 0  L  100  50  L  50  50  L  50 0 Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+					<fill>
+						<SolidColor color="#ff00ff"/>
+					</fill>
+				</Path>
+				<Path winding="nonZero"  data="  M  100 0 L  150  50  L  100  50  L  100 0 Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+				<Path winding="nonZero"  data="  M   0  50  L  50  100  L  0  100  L  0  50  Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+					<fill>
+						<SolidColor color="#ff00ff"/>
+					</fill>
+				</Path>
+				<Path winding="nonZero"  data="  M  50 50  L  100  100  L  50  100  L  50 50 Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+				<Path winding="nonZero"  data="  M  100 50 L  150  100  L  100  100  L  100 50 Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+					<fill>
+						<SolidColor color="#ff00ff"/>
+					</fill>
+				</Path>
+				<Path winding="nonZero"  data="  M   0  100  L  50  150  L  0  150  L  0  100  Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+				<Path winding="nonZero"  data="  M  50 100  L  100  150  L  50  150  L  50 100 Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+					<fill>
+						<SolidColor color="#ff00ff"/>
+					</fill>
+				</Path>
+				<Path winding="nonZero"  data="  M  100 100 L  150  150  L  100  150  L  100 100 Z " >
+					<stroke>
+						<SolidColorStroke caps="none" weight="5" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+        		</Group>
+		</Definition>
+	</Library>
+	<MyPath x="20" y="20" scaleX="2" scaleY="2"/>
+	<TextGraphic x="20" y="340" fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on">
+		<content><p><span>A group definition of path segments with scale9 grid applied</span></p></content>
+	</TextGraphic>	
+</Graphic>

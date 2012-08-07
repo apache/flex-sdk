@@ -1,0 +1,519 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+
+    <mx:Script>
+        import org.osmf.display.*;
+	  import org.osmf.events.MediaPlayerStateChangeEvent;
+	  import org.osmf.media.MediaPlayerState;
+
+	  private function testPlayerInit():void
+        {
+            application.testPlayer.addEventListener("mediaPlayerStateChange", mediaPlayerStateChangeHandler);
+        }
+            
+        private function mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+        {
+            if (event.state == MediaPlayerState.READY)
+                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsReady"));
+            else if (event.state == MediaPlayerState.PLAYING)
+                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPlaying"));
+        }
+
+    </mx:Script>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_Default"
+        description="Test the default value of the scaleMode property."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="scaleMode" value="letterbox"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE - wide -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_default_progressive"
+        description="Test the behavior when the scaleMode property is default (letterbox)."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.LETTERBOX" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="300" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="300" />
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="367"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="275"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_none_progressive"
+        description="Test the behavior when the scaleMode property is none."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+       	    <SetProperty target="testPlayer" propertyName="scaleMode" value="none" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.NONE" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="300" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="300" />
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="320"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="240"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_stretch_progressive"
+        description="Test the behavior when the scaleMode property is stretch."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.STRETCH" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="300" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="300" />
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="398"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="275"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_zoom_progressive"
+        description="Test the behavior when the scaleMode property is zoom."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="zoom" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.ZOOM" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="300" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="300" />
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="398"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="299"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE - tall -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_default_progressive2"
+        description="Test the behavior when the scaleMode property is default (letterbox)."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.LETTERBOX" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="600" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="600" />
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="398"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="299"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_none_progressive2"
+        description="Test the behavior when the scaleMode property is none."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="none" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.NONE" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="600" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="600" />
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="320"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="240"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_stretch_progressive2"
+        description="Test the behavior when the scaleMode property is stretch."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.STRETCH" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="600" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="600" />
+            	<Pause timeout="3000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="398"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="575"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_zoom_progressive2"
+        description="Test the behavior when the scaleMode property is zoom."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+      	    <SetProperty target="testPlayer" propertyName="scaleMode" value="zoom" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.ZOOM" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+
+            	<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="resize" />
+            	<SetProperty target="testPlayer" propertyName="height" value="600" waitTarget="testPlayer" waitEvent="resize" />
+            	<AssertPropertyValue target="testPlayer" propertyName="width" value="400" />
+            	<AssertPropertyValue target="testPlayer" propertyName="height" value="600" />
+            	<Pause timeout="3000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="767"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="575"/>
+                <CompareBitmap url="../property/baseline/$testID.png" numColorVariances="7" maxColorVariance="10" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_extendWidth_progressive"
+        description="Change the width and verify the height changes accordingly."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+                <SetProperty target="testPlayer" propertyName="width" value="600" waitTarget="testPlayer" waitEvent="resize" />
+                <AssertPropertyValue target="testPlayer" propertyName="width" value="600" />
+                <Pause timeout="4000"/>
+                <AssertMethodValue method="value=application.testPlayer.videoDisplay.width" value="598"/>
+                <AssertMethodValue method="value=application.testPlayer.videoDisplay.height" value="213"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoObject.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoObject.height" value="213"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_extendHeight_progressive"
+        description="Change the height and verify the width changes accordingly."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+                <SetProperty target="testPlayer" propertyName="height" value="600" waitTarget="testPlayer" waitEvent="resize" />
+                <AssertPropertyValue target="testPlayer" propertyName="height" value="600" />
+                <Pause timeout="4000"/>
+                <AssertMethodValue method="value=application.testPlayer.videoDisplay.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoDisplay.height" value="575"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoObject.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoObject.height" value="213"/>
+            </body>
+        </TestCase>
+
+	<!-- *********** -->
+	<!--No width/height set-->
+	<!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_letterbox_noWH"
+        description="scaleMode has no effect when no width/height set - letterbox."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.width" value="320"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.height" value="213"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoObject.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoObject.height" value="213"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_none_noWH"
+        description="scaleMode has no effect when no width/height set - none."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+       	    <SetProperty target="testPlayer" propertyName="scaleMode" value="none" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.width" value="320"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.height" value="213"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoObject.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoObject.height" value="213"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_zoom_noWH"
+        description="scaleMode has no effect when no width/height set - zoom."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="zoom" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.width" value="320"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.height" value="213"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoObject.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoObject.height" value="213"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_stretch_noWH"
+        description="scaleMode has no effect when no width/height set - stretch."
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.width" value="320"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoDisplay.height" value="213"/>
+            	<AssertMethodValue method="value=application.testPlayer.videoObject.width" value="320"/>
+                <AssertMethodValue method="value=application.testPlayer.videoObject.height" value="213"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_default_progressiveFS"
+        description="Test the behavior when the scaleMode property is default (letterbox) - full screen"
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.LETTERBOX" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+            	<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            	<AssertMethodValue method="value=(application.testPlayer.videoObject.width > 800)" value="true"/>
+            	<AssertMethodValue method="value=(application.testPlayer.videoObject.height > 600)" value="true"/>
+		<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+		<Pause timeout="1000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="320"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="213"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_scaleMode_none_progressiveFS"
+        description="Test the behavior when the scaleMode property is none - full screen"
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="none" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.NONE" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+            	<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="1440"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="900"/>
+		<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+		<Pause timeout="1000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="320"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="213"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_stretch_progressiveFS"
+        description="Test the behavior when the scaleMode property is stretch - full screen"
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.STRETCH" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+            	<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            	<AssertMethodValue method="value=(application.testPlayer.videoObject.width > 800)" value="true"/>
+            	<AssertMethodValue method="value=(application.testPlayer.videoObject.height > 600)" value="true"/>
+		<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+		<Pause timeout="1000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="320"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="213"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_scaleMode_zoom_progressiveFS"
+        description="Test the behavior when the scaleMode property is zoom - full screen"
+        keywords="[VideoPlayer, scaleMode]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="testPlayerInit()"/>
+		    <SetProperty target="testPlayer" propertyName="scaleMode" value="zoom" />
+                <SetProperty target="testPlayer" propertyName="muted" value="true" />
+                <SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+                <SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="scaleMode" valueExpression="value=ScaleMode.ZOOM" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="261" />
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="159" />
+            	<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            	<AssertMethodValue method="value=(application.testPlayer.videoObject.width > 800)" value="true"/>
+            	<AssertMethodValue method="value=(application.testPlayer.videoObject.height > 600)" value="true"/>
+		<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+		<Pause timeout="1000"/>
+            	<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="320"/>
+                <AssertPropertyValue target="testPlayer.videoObject" propertyName="height" value="213"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:CurrencyFormatter id="cfLocaleU" locale="zh-CN"/>
+		<s:CurrencyFormatter id="cfLocaleC" locale="zh-CN"/>
+		
+		<s:CurrencyFormatter id="cfDecSptU" locale="zh-CN" decimalSeparator=","/>
+		<s:CurrencyFormatter id="cfDecSptC" locale="zh-CN" decimalSeparator="."/>
+		
+		<s:CurrencyFormatter id="cfFracDigU" locale="zh-CN" fractionalDigits="{1}"/>
+		<s:CurrencyFormatter id="cfFracDigC" locale="zh-CN" fractionalDigits="{1}"/>
+		
+		<s:CurrencyFormatter id="cfDigTypeU" locale="zh-CN" digitsType="{NationalDigitsType.ARABIC_INDIC}"/>
+		<s:CurrencyFormatter id="cfDigTypeC" locale="zh-CN" digitsType="{NationalDigitsType.ARABIC_INDIC}"/>
+		
+		<s:CurrencyFormatter id="cfGPtnU" locale="zh-CN" groupingPattern="3;*"/>
+		<s:CurrencyFormatter id="cfGPtnC" locale="zh-CN" groupingPattern="3;*"/>
+		
+		<s:CurrencyFormatter id="cfGSptU" locale="zh-CN" groupingSeparator=":"/>
+		<s:CurrencyFormatter id="cfGSptC" locale="zh-CN" groupingSeparator=":"/>
+		
+		<s:CurrencyFormatter id="cfNegSybU" locale="zh-CN" negativeSymbol="--"/>
+		<s:CurrencyFormatter id="cfNegSybC" locale="zh-CN" negativeSymbol="--"/>
+		
+		<s:CurrencyFormatter id="cfLZeroU" locale="zh-CN" leadingZero="{true}"/>
+		<s:CurrencyFormatter id="cfLZeroC" locale="zh-CN" leadingZero="{true}"/>
+		
+		<s:CurrencyFormatter id="cfTZeroU" locale="zh-CN" trailingZeros="{true}"/>
+		<s:CurrencyFormatter id="cfTZeroC" locale="zh-CN" trailingZeros="{true}"/>
+		
+		<s:CurrencyFormatter id="cfUGroupU" locale="zh-CN" useGrouping="{false}"/>
+		<s:CurrencyFormatter id="cfUGroupC" locale="zh-CN" useGrouping="{false}"/>
+		
+		<!--new properties for cf-->		
+		<s:CurrencyFormatter id="cfISOU" locale="zh-CN" currencyISOCode="AFN"/>
+		<s:CurrencyFormatter id="cfISOC" locale="zh-CN" currencyISOCode="AFN"/>
+		
+		<s:CurrencyFormatter id="cfCurSymbolU" locale="zh-CN" currencySymbol="€"/>
+		<s:CurrencyFormatter id="cfCurSymbolC" locale="zh-CN" currencySymbol="€"/>
+		
+		<s:CurrencyFormatter id="cfNCurFormatU" locale="zh-CN" negativeCurrencyFormat="{1}"/>
+		<s:CurrencyFormatter id="cfNCurFormatC" locale="zh-CN" negativeCurrencyFormat="{1}"/>
+		
+		<s:CurrencyFormatter id="cfPCurFormatU" locale="zh-CN" positiveCurrencyFormat="{2}"/>
+		<s:CurrencyFormatter id="cfPCurFormatC" locale="zh-CN" positiveCurrencyFormat="{2}"/>
+		
+		<s:CurrencyFormatter id="cfUseCurSymbolU" locale="zh-CN" useCurrencySymbol="{true}"/>
+		<s:CurrencyFormatter id="cfUseCurSymbolC" locale="zh-CN" useCurrencySymbol="{true}"/>
+		
+
+	</fx:Declarations>
+</s:Application>

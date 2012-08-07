@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="NF_Constructor.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.NumberFormatter;
+		import assets.NFConstants;
+		
+		public var nfGSLib:flash.globalization.NumberFormatter;
+		public var nfGSLib1:flash.globalization.NumberFormatter;
+		public var nfGSLib2:flash.globalization.NumberFormatter;
+		public var nfGSLib3:flash.globalization.NumberFormatter;
+		public var nfGSLib4:flash.globalization.NumberFormatter;
+		
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test Constructing a new NumberFormatter object -->
+<testCases>
+	<!--testcase for Default NF without locale setting  -->
+	<TestCase testID="NF_Constructor_DefaultLocale_test1" 
+			  description="testcase for Default NF without locale setting" keywords="[NumberFormatter, Constructor]">
+		<body>
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value='en-US'" />
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+			
+			<AssertPropertyValue target="nfNoLocale" propertyName="actualLocaleIDName" valueExpression="value='en-US'" />
+			<AssertPropertyValue target="nfNoLocale" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct NF with no parameter in action scripts , then set locale to some supported locale -->
+	<TestCase testID="NF_Constructor_setLocale_i_default_test2" 
+			  description="testcase for Construct NF with no parameter in action scripts , then set locale to some supported locale" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+			<ResetComponent target="nfTest" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nfTest.initialized(null,'nfTest')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetStyle target="nfTest" styleName="locale" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfTest" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nfTest" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct NF with no parameter in action scripts , then set locale to some supported locale -->
+	<TestCase testID="NF_Constructor_setLocale_zh_TW_test3" 
+			  description="testcase for Construct NF with no parameter in action scripts , then set locale to some supported locale" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh_TW')" />
+			<ResetComponent target="nfTest" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nfTest.initialized(null,'nfTest')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetStyle target="nfTest" styleName="locale" value="zh_TW" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfTest" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct NF with no parameter in action scripts , then set some properties in action scripts  -->
+	<TestCase testID="NF_Constructor_setProperty_useGrouping_true_test4" 
+			  description="testcase for Construct NF with no parameter in action scripts , then set some properties in action scripts" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<ResetComponent target="nfTest" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nfTest.initialized(null,'nfTest')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.useGrouping=true"/>
+			<SetStyle target="nfTest" styleName="locale" value="en_US" waitEvent="change"/>
+			<RunCode code="application.setNFuseGrouping()"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfTest" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nfTest" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Construct NF with no parameter in action scripts , then set some properties in action scripts  -->
+	<TestCase testID="NF_Constructor_setProperty_groupingSeparator_semicolon_test5" 
+			  description="testcase for Construct NF with no parameter in action scripts , then set some properties in action scripts" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<ResetComponent target="nfTest" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nfTest.initialized(null,'nf')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=';'"/>
+			<SetStyle target="nfTest" styleName="locale" value="en_US" waitEvent="change"/>
+			<RunCode code="application.setNFgroupingSeparator()"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfTest" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare a nf with <fx:Declareation> -->
+	<TestCase testID="NF_Constructor_defaultInDeclareation_test6" 
+			  description="testcase for Declare a nf with fx:Declareation" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare nf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="NF_Constructor_setPropertyInline_changePropertyInScript_trailingZeros_test7" 
+			  description="testcase for Declare nf object with some inline properties with fx:Declareation" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=false"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf1" propertyName="trailingZeros" value="false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf1" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nf1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare nf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="NF_Constructor_setPropertyInline_changePropertyInScript_decimalSeparator_test8" 
+			  description="testcase for Declare nf object with some inline properties with fx:Declareation" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf2" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf2" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare nf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="NF_Constructor_setPropertyInline_changePropertyInScript_groupingSeparator_test9" 
+			  description="testcase for Declare nf object with some inline properties with fx:Declareation" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf3" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf3" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--testcase for Declare nf object with some inline properties with <fx:Declareation>-->
+	<TestCase testID="NF_Constructor_setPropertyInline_changePropertyInScript_fractionalDigits_test10" 
+			  description="testcase for Declare nf object with some inline properties with fx:Declareation" keywords="[NumberFormatter, Constructor]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=3"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf4" propertyName="fractionalDigits" valueExpression="value=3" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf4" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--Binding lastOperationStatus by lable text-->
+	<TestCase testID="NF_Constructor_Binding_lastOperationStatus_test11" 
+			  description="Binding lastOperationStatus by lable text" keywords="[NumberFormatter, Constructor, binding, lastOperationStatus]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetStyle target="nfBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLabel" propertyName="text" valueExpression="value=nfGSLib.lastOperationStatus" />
+			<AssertPropertyValue target="nfBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	
+</testCases>
+</UnitTester>

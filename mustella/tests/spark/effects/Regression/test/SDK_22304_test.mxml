@@ -1,0 +1,52 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_22304.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_22304_A" 
+			keywords="[SDK_22304]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-22304">
+			<!--bugs>
+				<Bug bugID="SDK-22304"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.seqS4.playheadTime = 300" />
+				<Pause timeout="500"/>
+
+				<AssertMethodValue method="value=application.s4.postLayoutTransformOffsets.x" value="28.143865"/>
+				<AssertMethodValue method="value=application.s4.postLayoutTransformOffsets.y" value="16.362712429686844"/>
+			</body>
+        </TestCase>
+
+		<TestCase
+			testID="SDK_22304_B"
+			keywords="[SDK_22304]"
+			description="http://bugs.adobe.com/jira/browse/SDK-22304">
+			<!--bugs>
+				<Bug bugID="SDK-22304"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.seqS3.playheadTime = 300" />
+				<Pause timeout="500"/>
+
+				<AssertMethodValue method="value=application.s3.x" value="28.340218"/>
+				<AssertMethodValue method="value=application.s3.y" value="-16.362712"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>
+

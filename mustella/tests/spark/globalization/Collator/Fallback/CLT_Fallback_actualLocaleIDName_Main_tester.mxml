@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_Fallback_actualLocaleIDName_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.CollatorTestConstants;
+		
+		import flash.globalization.Collator;
+		public var flashCL:flash.globalization.Collator;
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+
+<testCases>
+	<TestCase testID="CLT_actualLocaleIDName_defaultLocale_declarations_test1" description="test default locale, the actualLocaleIDName is 'en-US'" keywords="[MatchingCollator, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="cltMatch_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocaleIDName_defaultLocale_script_test2" description="test default locale, the actualLocaleIDName is 'en-US'" keywords="[SortingCollator, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="cltSort"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocalIDName_Zh_CN_declarations_test3" description="set locale to a valid value, verify the actualLocaleIDName" keywords="[MatchingCollator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="cltMatch_inline" className="assets.FallbackMatchingCLT"/> 
+			<RunCode code="application.cltMatch_inline.initialized(null,'cltMatch_inline')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cltMatch_inline" styleName="locale" value="zh_CN" waitEvent="change"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="cltMatch_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocalIDName_Zh_CN_script_test4" description="set locale to a valid value, verify the actualLocaleIDName" keywords="[SortingCollator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="cltSort" className="assets.FallbackSortingCLT"/> 
+			<RunCode code="application.cltSort.initialized(null,'cltSort')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cltSort" styleName="locale" value="zh_CN" waitEvent="change"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="cltSort"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocalIDName_Zh_CN_script_test5" description="set locale to a valid value, verify the actualLocaleIDName" keywords="[MatchingCollator, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="text" value="en-US" target="scriptBinding"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocalIDName_Zh_CN_script_test6" description="set locale to a valid value, verify the actualLocaleIDName" keywords="[MatchingCollator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="cltBinding" className="assets.FallbackMatchingCLT"/> 
+			<RunCode code="application.cltBinding.initialized(null,'cltBinding')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle target="cltBinding" styleName="locale" value="zh_CN" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="en-US" target="scriptBinding"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocalIDName_Zh_CN_declaration_test7" description="set locale to a valid value, verify the actualLocaleIDName" keywords="[SortingCollator, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="text" value="en-US" target="inlineBinding"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_actualLocalIDName_Zh_CN_declaration_test8" description="set locale to a valid value, verify the actualLocaleIDName" keywords="[SortingCollator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="cltBinding_inline" className="assets.FallbackSortingCLT"/> 
+			<RunCode code="application.cltBinding_inline.initialized(null,'cltBinding_inline')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="en-US" target="inlineBinding"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+</UnitTester>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Others/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_ComponentUsage.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+		import flash.globalization.NumberFormatter;
+		import flash.globalization.NationalDigitsType;
+		import assets.NFConstants;
+		public var nfGSLib:flash.globalization.NumberFormatter;
+		
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!-- tests property and method of Component -->
+<testCases>
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setLocale_ar_JO_test1" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+			<SetProperty target="nfcLocale" propertyName="locale" value="ar-JO"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcLocale" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+			<AssertPropertyValue target="nfcLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_decimalSeparator_space_test2" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=' '"/>
+			<SetProperty target="nfcDecimalSeparator" propertyName="decimalSeparator" value=" "/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcDecimalSeparator" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator"/>
+			<AssertMethodValue method="value=application.nfcDecimalSeparator.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+			<AssertPropertyValue target="nfcDecimalSeparator" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_ARABIC_INDIC_test3" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.digitsType=NationalDigitsType.ARABIC_INDIC"/>
+			<SetProperty target="nfcDigitsType" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" />
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcDigitsType" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType"/>
+			<AssertMethodValue method="value=application.nfcDigitsType.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+			<AssertPropertyValue target="nfcDigitsType" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_fractionalDigits_1_test4" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfcFractionalDigits" propertyName="fractionalDigits" valueExpression="value=1"/>
+			<AssertPropertyValue target="nfcFractionalDigits" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+			<AssertPropertyValue target="nfcFractionalDigits" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_groupingPattern_3semicolonStar_test5" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingPattern='3;*'" />
+			<SetProperty target="nfcGroupingPattern" propertyName="groupingPattern" value="3;*"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcGroupingPattern" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+			<AssertPropertyValue target="nfcGroupingPattern" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_groupingSeparator_space_test6" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=' '"/>
+			<SetProperty target="nfcGroupingSeparator" propertyName="groupingSeparator" value=" "/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcGroupingSeparator" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+			<AssertMethodValue method="value=application.nfcGroupingSeparator.format(-1234567.89012)" valueExpression="value=nfGSLib.formatNumber(-1234567.89012)" />
+			<AssertPropertyValue target="nfcGroupingSeparator" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_leadingZero_true_test7" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.leadingZero=true" />
+			<SetProperty target="nfcLeadingZero" propertyName="leadingZero" valueExpression="value=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcLeadingZero" propertyName="leadingZero" valueExpression="value=nfGSLib.leadingZero"/>
+			<AssertMethodValue method="value=application.nfcLeadingZero.format(0.12)" valueExpression="value=nfGSLib.formatNumber(0.12)"/>
+			<AssertPropertyValue target="nfcLeadingZero" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperties_fractionalDigits_3_trailingZeros_true_test8" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=3"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<SetProperty target="nfcTrailingZeros" propertyName="fractionalDigits" valueExpression="value=3"/>
+			<SetProperty target="nfcTrailingZeros" propertyName="trailingZeros" valueExpression="value=true"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcTrailingZeros" propertyName="trailingZeros" valueExpression="value=nfGSLib.trailingZeros"/>
+			<AssertMethodValue method="value=application.nfcTrailingZeros.format(123.4)" valueExpression="value=nfGSLib.formatNumber(123.4)"/>
+			<AssertPropertyValue target="nfcTrailingZeros" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_negativeNumberFormat_0_test9" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=0" />
+			<SetProperty target="nfcNegativeNumberFormat" propertyName="negativeNumberFormat" valueExpression="value=0"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcNegativeNumberFormat" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat"/>
+			<AssertMethodValue method="value=application.nfcNegativeNumberFormat.format(-1234)" valueExpression="value=nfGSLib.formatNumber(-1234)"/>
+			<AssertPropertyValue target="nfcNegativeNumberFormat" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_negativeSymbol_doubleHyphen_test10" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'" />
+			<SetProperty target="nfcNegativeSymbol" propertyName="negativeSymbol" value="--"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcNegativeSymbol" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol"/>
+			<AssertPropertyValue target="nfcNegativeSymbol" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test properties of component-->
+	<TestCase testID="NF_ComponentUsage_setProperty_useGrouping_true_test11" description="test properties of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.useGrouping=true" />
+			<RunCode code="nfGSLib.groupingPattern='3'"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<SetProperty target="nfcUseGrouping" propertyName="useGrouping" valueExpression="value=true"/>
+			<SetProperty target="nfcUseGrouping" propertyName="groupingPattern" value="3"/>
+			<SetProperty target="nfcUseGrouping" propertyName="groupingSeparator" value=","/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfcUseGrouping" propertyName="useGrouping" valueExpression="value=nfGSLib.useGrouping"/>
+			<AssertMethodValue method="value=application.nfcUseGrouping.format(123456789.22)" valueExpression="value=nfGSLib.formatNumber(123456789.22)"/>
+			<AssertPropertyValue target="nfcUseGrouping" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test method of component-->
+	<TestCase testID="NF_ComponentUsage_method_format_test12" description="test method of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfcFormat1.format(1.3e10)" valueExpression="value=nfGSLib.formatNumber(1.3e10)" />
+			<AssertPropertyValue target="nfcFormat1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test method of component-->
+	<TestCase testID="NF_ComponentUsage_method_format_test13" description="" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=1"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfcFormat2.format(12.345)" valueExpression="value=nfGSLib.formatNumber(12.345)" />
+			<AssertPropertyValue target="nfcFormat2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test method of component-->
+	<TestCase testID="NF_ComponentUsage_method_parse_test14" description="test method of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfcParse1.parse('-1234')" valueExpression="value=nfGSLib.parse('-1234')" />
+			<AssertPropertyValue target="nfcParse1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test method of component-->
+	<TestCase testID="NF_ComponentUsage_method_parse_test15" description="test method of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=' '"/>
+			<SetProperty target="nfcParse2" propertyName="groupingSeparator" value=" "/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfcParse2.parse('aa-123,456.45')" valueExpression="value=nfGSLib.parse('aa-123,456.45')" />
+			<AssertPropertyValue target="nfcParse2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test method of component-->
+	<TestCase testID="NF_ComponentUsage_method_parseNumber_test16" description="test method of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfcParseNumber1.parseNumber('-1234')" valueExpression="value=nfGSLib.parseNumber('-1234')" />
+			<AssertPropertyValue target="nfcParseNumber1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test method of component-->
+	<TestCase testID="NF_ComponentUsage_method_parseNumber_test17" description="test method of component" keywords="[NumberFormatter, Component]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfcParseNumber2.parseNumber('1234.5 6 7')" valueExpression="value=nfGSLib.parseNumber('1234.5 6 7')" />
+			<AssertPropertyValue target="nfcParseNumber2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

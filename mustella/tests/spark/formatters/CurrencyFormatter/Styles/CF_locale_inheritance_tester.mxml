@@ -1,0 +1,69 @@
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Styles/" testSWF="CF_locale_inheritance.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import flash.globalization.CurrencyFormatter;
+			import assets.CFConstant;
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CF_locale_inheritance_default_test_1" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en')"/>
+                <ResetComponent target="styleComp" className="assets.CF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_test_2" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en')"/>
+                <ResetComponent target="styleComp" className="assets.CF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="currencyISOCode" valueExpression="value=cfGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_test_3" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en')"/>
+                <ResetComponent target="styleComp" className="assets.CF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="currencySymbol" valueExpression="value=cfGSLib.currencySymbol"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="decimalSeparator" valueExpression="value=cfGSLib.decimalSeparator"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="digitsType" valueExpression="value=cfGSLib.digitsType"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="fractionalDigits" valueExpression="value=cfGSLib.fractionalDigits"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="groupingPattern" valueExpression="value=cfGSLib.groupingPattern"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="groupingSeparator" valueExpression="value=cfGSLib.groupingSeparator"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="leadingZero" valueExpression="value=cfGSLib.leadingZero"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="negativeSymbol" valueExpression="value=cfGSLib.negativeSymbol"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="trailingZeros" valueExpression="value=cfGSLib.trailingZeros"/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="useGrouping" valueExpression="value=cfGSLib.useGrouping"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_test_16" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+                <ResetComponent target="styleComp" className="assets.CF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+                <SetProperty target="" propertyName="appLocale" value="zh-CN" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+                <AssertPropertyValue target="styleComp.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertEvent target="styleComp.cfNoLocaleScript" eventName="change" eventClass="flash.events::Event"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

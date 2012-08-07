@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" layout="absolute" width="400" height="300"
+		    implements="assets.INVModuleInterface">
+	<fx:Style> 
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		.myStyle {
+			locale:'ja-JP';
+		}
+		
+		#nvcID { 
+			locale:'fr-CA';
+		}
+		
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import assets.INVModuleInterface;
+			
+			import flash.globalization.NumberParseResult;
+			
+			public function get actualLocaleIDName():String{
+				return nvC.actualLocaleIDName;
+			}
+			public function set locale(value:String):void{
+				nvC.setStyle("locale",value);
+			}
+			public function get allowNegative():Boolean{
+				return nvC.allowNegative;
+			}
+			public function set allowNegative(value:Boolean):void{
+				nvC.allowNegative = value;
+			}
+			public function get decimalSeparator():String{
+				return nvC.decimalSeparator;
+			}
+			public function set decimalSeparator(value:String):void{
+				nvC.decimalSeparator = value;
+			}
+			public function get domain():String{
+				return nvC.domain;
+			}
+			public function set domain(value:String):void{
+				nvC.domain = value;
+			}
+			public function get fractionalDigits():int{
+				return nvC.fractionalDigits;
+			}
+			public function set fractionalDigits(value:int):void{
+				nvC.fractionalDigits = value;
+			}
+			public function get digitsType():uint{
+				return nvC.digitsType;
+			}
+			public function set digitsType(value:uint):void{
+				nvC.digitsType = value;
+			}
+			public function get groupingSeparator():String{
+				return nvC.groupingSeparator;
+			}
+			public function set groupingSeparator(value:String):void{
+				nvC.groupingSeparator = value;
+			}
+			public function get maxValue():Number{
+				return nvC.maxValue;
+			}
+			public function set maxValue(value:Number):void{
+				nvC.maxValue = value;
+			}
+			public function get minValue():Number{
+				return nvC.minValue;
+			}
+			public function set minValue(value:Number):void{
+				nvC.minValue = value;
+			}
+			public function get negativeNumberFormat():uint{
+				return nvC.negativeNumberFormat;
+			}
+			public function set negativeNumberFormat(value:uint):void{
+				nvC.negativeNumberFormat = value;
+			}
+			public function get negativeSymbol():String{
+				return nvC.negativeSymbol;
+			}
+			public function get decimalPointCountError():String{
+				return nvC.decimalPointCountError;
+			}
+			public function set decimalPointCountError(value:String):void{
+				nvC.decimalPointCountError = value;
+			}
+			public function get greaterThanMaxError():String{
+				return nvC.greaterThanMaxError;
+			}
+			public function set greaterThanMaxError(value:String):void{
+				nvC.greaterThanMaxError = value;
+			}
+			public function get fractionalDigitsError():String{
+				return nvC.fractionalDigitsError;
+			}
+			public function set fractionalDigitsError(value:String):void{
+				nvC.fractionalDigitsError = value;
+			}
+			public function get notAnIntegerError():String{
+				return nvC.notAnIntegerError;
+			}
+			public function set notAnIntegerError(value:String):void{
+				nvC.notAnIntegerError = value;
+			}
+			public function get invalidCharError():String{
+				return nvC.invalidCharError;
+			}
+			public function set invalidCharError(value:String):void{
+				nvC.invalidCharError = value;
+			}
+			public function get invalidFormatCharsError():String{
+				return nvC.invalidFormatCharsError;
+			}
+			public function set invalidFormatCharsError(value:String):void{
+				nvC.invalidFormatCharsError = value;
+			}
+			public function get lessThanMinError():String{
+				return nvC.lessThanMinError;
+			}
+			public function set lessThanMinError(value:String):void{
+				nvC.lessThanMinError = value;
+			}
+			public function get negativeError():String{
+				return nvC.negativeError;
+			}
+			public function set negativeError(value:String):void{
+				nvC.negativeError = value;
+			}
+			public function get negativeSymbolError():String{
+				return nvC.negativeSymbolError;
+			}
+			public function set negativeSymbolError(value:String):void{
+				nvC.negativeSymbolError = value;
+			}
+			public function get negativeNumberFormatError():String{
+				return nvC.negativeNumberFormatError;
+			}
+			public function set negativeNumberFormatError(value:String):void{
+				nvC.negativeNumberFormatError = value;
+			}
+			public function get parseError():String{
+				return nvC.parseError;
+			}
+			public function set parseError(value:String):void{
+				nvC.parseError = value;
+			}
+			public function get localeUndefinedError():String{
+				return nvC.localeUndefinedError;
+			}
+			public function set localeUndefinedError(value:String):void{
+				nvC.localeUndefinedError = value;
+			}
+			public function get lastOperationStatus():String{
+				return nvC.lastOperationStatus;
+			}
+			public function set source(value:Object):void{
+				nvC.source = value;
+			}
+			public function set property(value:String):void{
+				nvC.property = value;
+			}
+			public function set trigger(value:IEventDispatcher):void{
+				nvC.trigger = value;
+			}
+			public function set triggerEvent(value:String):void{
+				nvC.triggerEvent = value;
+			}
+			
+			public function get actualLocaleIDNameClass():String{
+				return nvcClass.actualLocaleIDName;
+			}
+			public function get actualLocaleIDNameID():String{
+				return nvcID.actualLocaleIDName;
+			}
+			public function get actualLocaleIDNameInline():String{
+				return nvcInline.actualLocaleIDName;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:NumberValidator id="nvC"/>
+		
+		<!-- Instance for test locale style-->
+		<s:NumberValidator id="nvcClass" styleName="myStyle"/>
+		<s:NumberValidator id="nvcID"/>
+		<s:NumberValidator id="nvcInline" locale="de-DE"/>
+		
+	</fx:Declarations>
+</mx:Module>

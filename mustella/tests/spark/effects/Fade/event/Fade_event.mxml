@@ -1,0 +1,42 @@
+<UnitTester 
+    testSWF="../SWFs/Fade_main.mxml" 
+    testDir="spark/effects/Fade/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.Fade;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="Fade_effectStart" keywords="[Fade, event, effectStart]" description="Verify effectStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Fade, 500, 0, 1, 0)" waitTarget="eff_Fade" waitEvent="effectEnd" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="Fade_effectEnd" keywords="[Fade, event, effectEnd]" description="Verify effectEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Fade, 500, 0, 1, 0)" waitTarget="eff_Fade" waitEvent="effectEnd" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

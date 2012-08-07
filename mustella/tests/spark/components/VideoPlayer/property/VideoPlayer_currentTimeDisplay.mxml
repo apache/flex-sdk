@@ -1,0 +1,329 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_Default"
+            keywords="[VideoPlayer]"
+            description="Test the default value of the currentTimeDisplay.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.currentTimeDisplay" url="../property/baseline/$testID.png" />
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="isTruncated" value="false"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="showTruncationTip" value="false"/><AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="maxDisplayedLines" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_withSource_S"
+            keywords="[VideoPlayer]"
+            description="Test the currentTimeDisplay with video source.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_seek_S"
+            keywords="[VideoPlayer]"
+            description="Test the currentTimeDisplay with seeking video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+		<Pause timeout="4000"/>
+		<RunCode code="application.testPlayer.seek(25)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:25"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_dragSeek_S"
+            keywords="[VideoPlayer]"
+            description="Test the currentTimeDisplay with dragging scrubBar to seek video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.scrubBar" localX="7" localY="12" />
+                <Pause timeout="1000"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="testPlayer.scrubBar" localX="146" localY="12"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.scrubBar" localX="146" localY="12" />
+                <Pause timeout="1000"/>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:07"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_seekBack_S"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay updates when seeking back.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+		<Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(8)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.seek(2)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:02"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_playToEnd_autoRewindFalse_S"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when video reaches end.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(111)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="1:52"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_playToEnd_autoRewindTrue_S"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when video reaches end and rewinds.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(111)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+		<Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_changeSource_S"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(8)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+		<Pause timeout="2000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:08"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="3000"/>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_removeSource_S"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when source is removed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="3000"/>
+		<Pause timeout="2000"/>
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.source = null" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="3000"/>
+		<Pause timeout="3000"/>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+      <TestCase
+            testID="VideoPlayer_currentTimeDisplay_withSource_P"
+            keywords="[VideoPlayer]"
+            description="Test the currentTimeDisplay with video source.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_seek_P"
+            keywords="[VideoPlayer]"
+            description="Test the currentTimeDisplay with seeking video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.seek(10)" waitTarget="testPlayer" waitEvent="currentTimeChange" timeout="3000" />
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_dragSeek_P"
+            keywords="[VideoPlayer]"
+            description="Test the currentTimeDisplay with dragging scrubBar to seek video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.scrubBar" localX="8" localY="12" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="testPlayer.scrubBar" localX="40" localY="12"/>
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.scrubBar" localX="40" localY="12" />
+                <Pause timeout="4000"/>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:03"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_seekBack_P"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay updates when seeking back.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.seek(25)"/>
+                <Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(10)"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_playToEnd_autoRewindFalse_P"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when video reaches end.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" timeout="3000"/>
+                <Pause timeout="4500"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_playToEnd_autoRewindTrue_P"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when video reaches end and rewinds.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" timeout="3000"/>
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_changeSource_P"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.seek(10)" waitTarget="testPlayer" waitEvent="currentTimeChange" timeout="3000" />
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:10"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+		<Pause timeout="2000"/>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_currentTimeDisplay_removeSource_P"
+            keywords="[VideoPlayer]"
+            description="Test currentTimeDisplay when source is removed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="4000"/>
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.source = null" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="3000"/>
+		<AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,64 @@
+﻿<UnitTester
+testSWF="../SWFs/Regression_sdk_21138.mxml"
+testDir="spark/thermo/Regression/tests/"
+xmlns:mx="http://www.adobe.com/2006/mxml" 
+xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <testCases>
+
+        <TestCase
+            testID="SDK_21138_state2"
+            description="Go to dest state."
+            keywords="[SDK-21138]">
+            <setup>
+                <ChangeState toState="Page1"/>
+            </setup>
+            <body>
+                <ChangeState toState="Page2" waitTarget="p_1_2" waitEvent="effectEnd"/>
+                <CompareBitmap url="../tests/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <TestCase
+            testID="SDK_21138_state1"
+            description="Dest state to start state."
+            keywords="[SDK-21138]">
+            <setup>
+                <ChangeState toState="Page1"/>
+            </setup>
+            <body>
+                <ChangeState toState="Page2" waitTarget="p_1_2" waitEvent="effectEnd"/>
+                <ChangeState toState="Page1" waitTarget="p_2_1" waitEvent="effectEnd"/>
+                <CompareBitmap url="../tests/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="SDK_21138_circuit"
+            description="Rotate states a few times."
+            keywords="[SDK-21138]">
+            <setup>
+                <ChangeState toState="Page1"/>
+            </setup>
+            <body>
+                <ChangeState toState="Page2" waitTarget="p_1_2" waitEvent="effectEnd"/>
+                <ChangeState toState="Page1" waitTarget="p_2_1" waitEvent="effectEnd"/>
+                <ChangeState toState="Page2" waitTarget="p_1_2" waitEvent="effectEnd"/>
+                <ChangeState toState="Page1" waitTarget="p_2_1" waitEvent="effectEnd"/>
+                <ChangeState toState="Page2" waitTarget="p_1_2" waitEvent="effectEnd"/>
+                <ChangeState toState="Page1" waitTarget="p_2_1" waitEvent="effectEnd"/>
+                <CompareBitmap url="../tests/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

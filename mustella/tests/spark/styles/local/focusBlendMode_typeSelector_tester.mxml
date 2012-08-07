@@ -1,0 +1,85 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="focusBlendMode_typeSelector_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+	
+		<!-- ***************-->
+		<!-- focusBlendMode -->
+		<!-- ***************-->
+		
+		<TestCase testID="focusBlendMode_typeSelector" keywords="[focusBlendMode]" description="Set focusBlendMode in mxml">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusThickness" value="10" target="btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="btn" value="{BlendMode.DARKEN}" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="btn"/>
+				<CompareBitmap target="" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_typeSelector_focusAlpha" keywords="[focusBlendMode]" description="Set focusBlendMode in mxml">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusColor" value="red" target="btn"/>
+				<SetStyle styleName="focusAlpha" value="0.1" target="btn" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusThickness" value="10" target="btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="btn" value="{BlendMode.DARKEN}" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="btn"/>
+				<CompareBitmap target="" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_typeSelector_cornerRadius" keywords="[focusBlendMode]" description="Set focusBlendMode in mxml">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusThickness" value="9" target="btn" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="9" target="btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="btn" value="{BlendMode.DARKEN}" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="btn"/>
+				<CompareBitmap target="" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<!-- ***********************-->		
+		<!-- integration test cases -->
+		<!-- ***********************-->		
+		
+		<TestCase testID="focus_contentBackgroundAlpha_0_TextArea_TextInput" keywords="[contentBackgroundAlpha, focus]" description="TextArea and TextInput with contentBackgroundAlpha set to 0 can still have focus">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" target="ti" value="true" />	
+				<SetProperty propertyName="visible" target="ta" value="true" /> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="btn"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="ti"/>
+				<CompareBitmap target="" url="../local/baselines/$testID_1.png"  numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="ta"/>
+				<CompareBitmap target="" url="../local/baselines/$testID_2.png"  numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

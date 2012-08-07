@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Events/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_Change.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.CurrencyFormatter;
+			import flash.globalization.NationalDigitsType;
+			import assets.CFConstant;
+			
+			import mx.core.Application;
+			
+			public static function init(o:DisplayObject):void
+			{
+				// public var localListInTest = Application.
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test whether change event of a CurrencyFormatter can be dispatched by changing locale,(........) -->
+	<testCases>
+		<!--test: change event will dispatch if locale change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeLocale_sr_Cyrl_RS_test1" description="change event will dispatch if locale change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetStyle target="cfLocaleU" styleName="locale" value="sr-Cyrl-RS"/>
+				<AssertEvent target="cfLocaleU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if locale change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeLocale_zh_CN_test2" description="change event will not dispatch if locale doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetStyle target="cfLocaleC" styleName="locale" value="zh-CN"/>
+				<AssertNoEvent target="cfLocaleC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_decimalSeparator_comma_test3" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfDecSptU" propertyName="decimalSeparator" value=","/>
+				<AssertNoEvent target="cfDecSptU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_decimalSeparator_colon_test4" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfDecSptC" propertyName="decimalSeparator" value=":"/>
+				<AssertEvent target="cfDecSptC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_fractionalDigits_1_test5" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfFracDigU" propertyName="fractionalDigits" valueExpression="value=1"/>
+				<AssertNoEvent target="cfFracDigU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_fractionalDigits_3_test6" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfFracDigC" propertyName="fractionalDigits" valueExpression="value=3"/>
+				<AssertEvent target="cfFracDigC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_digitsType_ARABIC_INDIC_test7" description="change event will not dispatch if property deosnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfDigTypeU" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC"/>
+				<AssertNoEvent target="cfDigTypeU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_digitsType_BALINESE_test8" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfDigTypeC" propertyName="digitsType" valueExpression="value=NationalDigitsType.BALINESE"/>
+				<AssertEvent target="cfDigTypeC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_groupingPattern_3semicolonStar_test9" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfGPtnU" propertyName="groupingPattern" value="3;*"/>
+				<AssertNoEvent target="cfGPtnU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_groupingPattern_3_test10" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfGPtnC" propertyName="groupingPattern" value="3"/>
+				<AssertEvent target="cfGPtnC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_groupingSeparator_colon_test11" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfGSptU" propertyName="groupingSeparator" value=":"/>
+				<AssertNoEvent target="cfGSptU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty__groupingSeparator_semicolon_test12" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfGSptC" propertyName="groupingSeparator" value=";"/>
+				<AssertEvent target="cfGSptC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_negativeSymbol_doubleHyphen_test13" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfNegSybU" propertyName="negativeSymbol" value="--"/>
+				<AssertNoEvent target="cfNegSybU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_negativeSymbol_star_test14" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfNegSybC" propertyName="negativeSymbol" value="*"/>
+				<AssertEvent target="cfNegSybC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_negativeCurrencyFormat_1_test15" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfNCurFormatU" propertyName="negativeCurrencyFormat" valueExpression="value=1"/>
+				<AssertNoEvent target="cfNCurFormatU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_negativeCurrencyFormat_10_test16" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfNCurFormatC" propertyName="negativeCurrencyFormat" valueExpression="value=10"/>
+				<AssertEvent target="cfNCurFormatC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_leadingZero_true_test17" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfLZeroU" propertyName="leadingZero" valueExpression="value=true"/>
+				<AssertNoEvent target="cfLZeroU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_leadingZero_false_test18" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfLZeroC" propertyName="leadingZero" valueExpression="value=false"/>
+				<AssertEvent target="cfLZeroC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_trailingZeros_true_test19" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfTZeroU" propertyName="trailingZeros" valueExpression="value=true"/>
+				<AssertNoEvent target="cfTZeroU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_trailingZeros_false_test20" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfTZeroC" propertyName="trailingZeros" valueExpression="value=false"/>
+				<AssertEvent target="cfTZeroC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_useGrouping_false_test21" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfUGroupU" propertyName="useGrouping" valueExpression="value=false"/>
+				<AssertNoEvent target="cfUGroupU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_useGrouping_true_test22" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfUGroupC" propertyName="useGrouping" valueExpression="value=true"/>
+				<AssertEvent target="cfUGroupC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_currencyISOCode_AFN_test23" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<setup>
+				<SetProperty target="cfISOU" propertyName="currencyISOCode" valueExpression="value='AFN'"/>
+			</setup>
+			<body>
+				<SetProperty target="cfISOU" propertyName="currencyISOCode" valueExpression="value='AFN'"/>
+				<AssertNoEvent target="cfISOU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_currencyISOCode_EUR_test24" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfISOC" propertyName="currencyISOCode" valueExpression="value='EUR'"/>
+				<AssertEvent target="cfISOC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_currencySymbol_euro_test25" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<setup>
+				<SetProperty target="cfCurSymbolU" propertyName="currencySymbol" valueExpression="value='€'"/>
+			</setup>
+			<body>
+				<SetProperty target="cfCurSymbolU" propertyName="currencySymbol" valueExpression="value='€'"/>
+				<AssertNoEvent target="cfCurSymbolU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_currencySymbol_RMB_test26" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfCurSymbolC" propertyName="currencySymbol" valueExpression="value='￥'"/>
+				<AssertEvent target="cfCurSymbolC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_positiveCurrencyFormat_2_test27" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfPCurFormatU" propertyName="positiveCurrencyFormat" valueExpression="value=2"/>
+				<AssertNoEvent target="cfPCurFormatU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_positiveCurrencyFormat_0_test28" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfPCurFormatC" propertyName="positiveCurrencyFormat" valueExpression="value=0"/>
+				<AssertEvent target="cfPCurFormatC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_unchangeProperty_useCurrencySymbol_true_test29" description="change event will not dispatch if property doesnot change" keywords="[CurrencyFormatter, changeEvent]">
+			<setup>
+				<SetProperty target="cfUseCurSymbolU" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			</setup>
+			<body>
+				<SetProperty target="cfUseCurSymbolU" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+				<AssertNoEvent target="cfUseCurSymbolU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CF_ChangeEvent_changeProperty_useCurrencySymbol_false_test30" description="change event will dispatch if property change" keywords="[CurrencyFormatter, changeEvent]">
+			<body>
+				<SetProperty target="cfUseCurSymbolC" propertyName="useCurrencySymbol" valueExpression="value=false"/>
+				<AssertEvent target="cfUseCurSymbolC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+	
+	</testCases>
+	
+</UnitTester>

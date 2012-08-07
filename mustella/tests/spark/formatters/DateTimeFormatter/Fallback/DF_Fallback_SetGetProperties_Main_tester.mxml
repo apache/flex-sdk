@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="DF_Fallback_SetGetProperties_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.DFConstants;
+		
+		public static function init(o:DisplayObject):void 
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test properties: dateStyle, timeStyle, useUTC and dateTimePattern, using set and get -->
+<testCases>
+	<TestCase testID="FallbackDateTimeFormatter_dateStyle_short_test1" description="test cases for test short datestyle" keywords="[FallbackDateTimeFormatter,  dateStyle, set property, get property]">
+		<setup>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="short" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateStyle_medium_test2" description="test cases for test medium datestyle" keywords="[FallbackDateTimeFormatter,  dateStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="medium" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="medium" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateStyle_long_test3" description="test cases for test long datestyle" keywords="[FallbackDateTimeFormatter,  dateStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="long"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="long" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateStyle_none_test4" description="test cases for test none datestyle" keywords="[FallbackDateTimeFormatter,  dateStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="none" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="none" />
+		</body>
+	</TestCase>
+	
+	<!--test cases for test timestyle-->
+	<TestCase testID="FallbackDateTimeFormatter_timeStyle_short_test5" description="test cases for test short timeStyle" keywords="[FallbackDateTimeFormatter,  timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="short" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="short" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_timeStyle_medium_test6" description="test cases for test medium timeStyle" keywords="[FallbackDateTimeFormatter,  timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="medium" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="medium" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_timeStyle_long_test7" description="test cases for test long timeStyle" keywords="[FallbackDateTimeFormatter,  timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="long"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="long" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_timeStyle_none_test8" description="test cases for test none timeStyle" keywords="[FallbackDateTimeFormatter,  timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="none" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="none" />
+		</body>
+	</TestCase>
+	
+	<!--test cases for test datetimepattern-->
+	<TestCase testID="FallbackDateTimeFormatter_long_long_test9" description="dateTimePattern return 'LONGDATEPATTERN + LONGTIMEPATTERN' as default" keywords="[FallbackDateTimeFormatter,  dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM. d, yyyy 'at' h:mm a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="dddd, mmmm d, yyyy hh:mm:ss a" />
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_short_short_test10" description="set dateStyle and timeStyle as short, and dateTimePattern return 'SHORTDATEPATTERN + SHORTTIMEPATTERN'" keywords="[FallbackDateTimeFormatter,  dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="short" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="m/d/yyyy hh:mm a" />
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_medium_none_test11" description="set dateStyle as medium and timeStyle as none, and dateTimePattern return 'MEDIUMDATEPATTERN + NONETIMEPATTERN'" keywords="[FallbackDateTimeFormatter,  dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="medium" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="none" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="dddd, mmmm d, yyyy" />
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_none_long_test12" description="set dateStyle as none and timeStyle as long, and dateTimePattern return 'NONEDATEPATTERN + LONGTIMEPATTERN'" keywords="[FallbackDateTimeFormatter,  dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="none" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="long"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="hh:mm:ss a" />
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_none_none_test13" description="set dateStyle and timeStyle as none, and dateTimePattern return 'NONEDATEPATTERN + NONETIMEPATTERN' " keywords="[FallbackDateTimeFormatter,  dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="none" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="none" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="FallbackDateTimeFormatter_useUTC_true_test14" description="test cases for test true useUTC" keywords="[FallbackDateTimeFormatter,  useUTC, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="useUTC" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="useUTC" valueExpression="value=true"/>
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_useUTC_false_test15" description="test cases for test false useUTC" keywords="[FallbackDateTimeFormatter,  useUTC, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="useUTC" valueExpression="false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="useUTC" valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<!--test cases for set dateStyle,timeStyle and dateTimePattern in different order. When set dateTimePattern at the last, 
+	it will not overrides the current time and date styles for this DateTimeFormatter object. -->
+	<TestCase testID="FallbackDateTimeFormatter_dateTimeStyle_first_test16" description="set dateStyle as short and timeStyle as medium, and dateTimePattern return 'SHORTDATEPATTERN + MEDIUMTIMEPATTERN'" keywords="[FallbackDateTimeFormatter,  dateStyle, timeStyle, dateTimePattern, order, set property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="medium" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM dd, yyyy h:mm:ss a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="short"/>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="medium"/>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="m/d/yyyy hh:mm:ss a" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateTimePattern_first_test17" description="set dateTimePattern first" keywords="[FallbackDateTimeFormatter,  dateStyle, timeStyle, dateTimePattern, order, set property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM dd, yyyy h:mm:ss a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="medium" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="short"/>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="medium"/>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="m/d/yyyy hh:mm:ss a"/>
+		</body>
+	</TestCase>
+	
+	<!--test cases for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="FallbackDateTimeFormatter_dateTimeStyle_inline_long_long_test18" description="" keywords="[FallbackDateTimeFormatter,  dateStyle, timeStyle, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterDT1" propertyName="dateStyle" value="long" />
+			<AssertPropertyValue target="dtFormatterDT1" propertyName="timeStyle" value="long" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateTimeStyle_inline_short_medium_test19" description="" keywords="[FallbackDateTimeFormatter,  dateStyle, timeStyle, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterDT2" propertyName="dateStyle" value="short" />
+			<AssertPropertyValue target="dtFormatterDT2" propertyName="timeStyle" value="medium" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateTimeStyle_inline_none_none_test20" description="" keywords="[FallbackDateTimeFormatter,  dateStyle, timeStyle, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterDT3" propertyName="dateStyle" value="none" />
+			<AssertPropertyValue target="dtFormatterDT3" propertyName="timeStyle" value="none" />
+		</body>
+	</TestCase>
+	<!--dateTimePattern return 'LONGDATEPATTERN + LONGTIMEPATTERN' as default-->
+	<TestCase testID="FallbackDateTimeFormatter_dateTimePattern_test21" description="" keywords="[FallbackDateTimeFormatter,  dateTimePattern, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterP1" propertyName="dateTimePattern" value="dddd, mmmm d, yyyy hh:mm:ss a" />
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_dateTimePattern_h_test22" description="" keywords="[FallbackDateTimeFormatter,  dateTimePattern, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterP2" propertyName="dateTimePattern" value="dddd, mmmm d, yyyy hh:mm:ss a" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_useUTC_true_test23" description="" keywords="[FallbackDateTimeFormatter,  useUTC, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterUTCT" propertyName="useUTC" valueExpression="value=true"/>
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_useUTC_false_test24" description="" keywords="[FallbackDateTimeFormatter,  useUTC, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterUTCF" propertyName="useUTC" valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FallbackDateTimeFormatter_dateStyle_invalid_test25" description="" keywords="[FallbackDateTimeFormatter,  dateStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="invalidDateStyle"/>
+			<AssertError value="ArgumentError: Parameter long must be one of the accepted values."/>
+		</body>
+	</TestCase>
+	<TestCase testID="FallbackDateTimeFormatter_timeStyle_invalid_test26" description="" keywords="[FallbackDateTimeFormatter,  timeStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="invalidTimeStyle"/>
+			<AssertError value="ArgumentError: Parameter long must be one of the accepted values."/>
+		</body>
+	</TestCase>
+
+</testCases>
+
+</UnitTester>

@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="700">
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			import flash.globalization.DateTimeNameContext;
+			import flash.globalization.DateTimeNameStyle;
+			import flash.globalization.DateTimeStyle;
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var formattedDate:String;
+			[Bindable]
+			private var formatTD:String;	
+			private var styleAry: Array = new Array('ss','sl','sm','sn','ls','ll','lm','ln','ms','ml','mm','mn','ns','nl','nm','nn');			
+			[Bindable]
+			private var styleAryCollection:ArrayCollection = new ArrayCollection(styleAry);
+			private var localeAry: Array = new Array("en_US","zh_TW", "ru_RU","de_CH", "hi_IN", "fr_FR",
+				"de_DE", "lv_LV", "123");			
+			[Bindable]
+			private var localeAryCollection:ArrayCollection = new ArrayCollection(localeAry);
+			
+			[Bindable]
+			private var aDate:Date = new Date(2000,0,1);
+			
+			[Bindable]
+			private var _maskFull:String ="EEEE, MMMM. d, yyyy 'at' h:mm a";
+			[Bindable]
+			private var _maskLong:String ="MMM. d, yyyy 'at' h:mm a";
+			[Bindable]
+			private var _maskMedium:String ="MMM. d, yyyy";
+			[Bindable]
+			private var _maskTime:String ="h:mm a";
+			[Bindable]
+			private var _yy:String="yy";
+			[Bindable]
+			private var _yyyy:String ="yyyy";
+			[Bindable]
+			private var _M:String ="M";
+			[Bindable]
+			private var _MM:String ="MM";
+			[Bindable]
+			private var _MMM:String ="MMM";
+			[Bindable]
+			private var _MMMM:String ="MMMM";
+			[Bindable]
+			private var _d:String ="d";
+			[Bindable]
+			private var _dd:String ="dd";
+			[Bindable]
+			private var _E:String="E";
+			[Bindable]
+			private var _EEE:String ="EEE";
+			[Bindable]
+			private var _EEEE:String ="EEEE";
+			[Bindable]
+			private var _a:String ="a";
+			[Bindable]
+			private var _H:String ="H";
+			[Bindable]
+			private var _k:String ="k";
+			[Bindable]
+			private var _K:String ="K";
+			[Bindable]
+			private var _h:String ="h";
+			[Bindable]
+			private var _m:String ="m";
+			[Bindable]
+			private var _mm:String ="mm";
+			[Bindable]
+			private var _s:String ="s";			
+			/* Set locales and dateTimePattern for flex instance*/		
+			
+			public function testDateFormatter(localeName:String):void
+			{
+				dtFormatter.setStyle('locale',localeName);
+				dFormatterShort.setStyle('locale',localeName);
+				dFormatterMedium.setStyle('locale',localeName);
+				dFormatterLong.setStyle('locale',localeName);
+				dFormatterNone.setStyle('locale',localeName);
+				tFormatterShort.setStyle('locale',localeName);
+				tFormatterLong.setStyle('locale',localeName);
+				tFormatterNone.setStyle('locale',localeName);
+				tFormatterMedium.setStyle('locale',localeName); 
+				dtFormatterMaskFull.setStyle('locale',localeName);
+				dtFormatterMaskLong.setStyle('locale',localeName);
+				dtFormatterMaskMedium.setStyle('locale',localeName);
+				dtFormatterMaskTime.setStyle('locale',localeName);
+				dtFormatterDatePartyy.setStyle('locale',localeName);
+				dtFormatterDatePartyyyy.setStyle('locale',localeName);
+				dtFormatterDatePartM.setStyle('locale',localeName);
+				dtFormatterDatePartMM.setStyle('locale',localeName);
+				dtFormatterDatePartMMM.setStyle('locale',localeName);
+				dtFormatterDatePartMMMM.setStyle('locale',localeName);
+				dtFormatterDatePartd.setStyle('locale',localeName);
+				dtFormatterDatePartdd.setStyle('locale',localeName);
+				dtFormatterDatePartE.setStyle('locale',localeName);
+				dtFormatterDatePartEEE.setStyle('locale',localeName);
+				dtFormatterDatePartEEEE.setStyle('locale',localeName);
+				dtFormatterDateParta.setStyle('locale',localeName);
+				dtFormatterDatePartH.setStyle('locale',localeName);
+				dtFormatterDatePartk.setStyle('locale',localeName);
+				dtFormatterDatePartK.setStyle('locale',localeName);
+				dtFormatterDateParth.setStyle('locale',localeName);
+				dtFormatterDatePartm.setStyle('locale',localeName);
+				dtFormatterDatePartmm.setStyle('locale',localeName);
+				dtFormatterDateParts.setStyle('locale',localeName);
+				dtFormatterMaskFull.dateTimePattern = _maskFull;
+				dtFormatterMaskLong.dateTimePattern = _maskLong;
+				dtFormatterMaskMedium.dateTimePattern = _maskMedium;
+				dtFormatterMaskTime.dateTimePattern = _maskTime;				
+				dtFormatterDatePartyy.dateTimePattern = _yy;
+				dtFormatterDatePartyyyy.dateTimePattern = _yyyy;
+				dtFormatterDatePartM.dateTimePattern = _M;
+				dtFormatterDatePartMM.dateTimePattern = _MM;
+				dtFormatterDatePartMMM.dateTimePattern = _MMM;
+				dtFormatterDatePartMMMM.dateTimePattern = _MMMM;
+				dtFormatterDatePartd.dateTimePattern = _d;
+				dtFormatterDatePartdd.dateTimePattern = _dd;
+				dtFormatterDatePartE.dateTimePattern = _E;
+				dtFormatterDatePartEEE.dateTimePattern = _EEE;
+				dtFormatterDatePartEEEE.dateTimePattern = _EEEE;
+				dtFormatterDateParta.dateTimePattern = _a;
+				dtFormatterDatePartH.dateTimePattern = _H;
+				dtFormatterDatePartk.dateTimePattern = _k;						
+				dtFormatterDatePartK.dateTimePattern = _K;
+				dtFormatterDateParth.dateTimePattern = _h;
+				dtFormatterDatePartm.dateTimePattern = _m;
+				dtFormatterDatePartmm.dateTimePattern = _mm;
+				dtFormatterDateParts.dateTimePattern = _s;	
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:DateTimeFormatter id="dtFormatter" />
+		
+		<!-- Use for test bingding of lastOperationStatus -->
+		<s:DateTimeFormatter id="dtfLOS"/>
+		
+		<!-- Declare dateStyle, timeStyle and dateTimePattern-->
+		<s:DateTimeFormatter id="dFormatterShort" dateStyle="short"/>	
+		<s:DateTimeFormatter id="dFormatterMedium" dateStyle="medium"/>
+		<s:DateTimeFormatter id="dFormatterLong" dateStyle="long"/>	
+		<s:DateTimeFormatter id="dFormatterNone" dateStyle="none"/>			
+		<s:DateTimeFormatter id="tFormatterShort" timeStyle="short"/>	
+		<s:DateTimeFormatter id="tFormatterLong" timeStyle="long"/>	
+		<s:DateTimeFormatter id="tFormatterNone"  timeStyle="none"/>	
+		<s:DateTimeFormatter id="tFormatterMedium" timeStyle="medium"/>		
+		<s:DateTimeFormatter id="dtFormatterMaskFull" />
+		<s:DateTimeFormatter id="dtFormatterMaskLong" />		
+		<s:DateTimeFormatter id="dtFormatterMaskMedium" />
+		<s:DateTimeFormatter id="dtFormatterMaskTime" />	
+		<s:DateTimeFormatter id="dtFormatterDatePartyy" />
+		<s:DateTimeFormatter id="dtFormatterDatePartyyyy" />
+		<s:DateTimeFormatter id="dtFormatterDatePartM" />
+		<s:DateTimeFormatter id="dtFormatterDatePartMM" />
+		<s:DateTimeFormatter id="dtFormatterDatePartMMM" />
+		<s:DateTimeFormatter id="dtFormatterDatePartMMMM" />
+		<s:DateTimeFormatter id="dtFormatterDatePartd" />
+		<s:DateTimeFormatter id="dtFormatterDatePartdd" />
+		<s:DateTimeFormatter id="dtFormatterDatePartE" />
+		<s:DateTimeFormatter id="dtFormatterDatePartEEE" />
+		<s:DateTimeFormatter id="dtFormatterDatePartEEEE" />
+		<s:DateTimeFormatter id="dtFormatterDateParta" />
+		<s:DateTimeFormatter id="dtFormatterDatePartH" />
+		<s:DateTimeFormatter id="dtFormatterDatePartk" />
+		<s:DateTimeFormatter id="dtFormatterDatePartK" />
+		<s:DateTimeFormatter id="dtFormatterDateParth" />
+		<s:DateTimeFormatter id="dtFormatterDatePartm" />
+		<s:DateTimeFormatter id="dtFormatterDatePartmm" />
+		<s:DateTimeFormatter id="dtFormatterDateParts" />
+	</fx:Declarations>
+	
+	<!--UI components-->
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" gap="20"/>
+	</s:layout>
+	
+	<s:VGroup gap="20" paddingTop="20" horizontalAlign="center" textAlign="left" verticalAlign="top" x="0" y="0" width="980" height="700">
+		<s:Label text="Flex Integration Test Case - Methods - Binding" fontSize="15" fontWeight="bold"/>
+		<s:HGroup>
+			<!--Panel for trigger flex result-->
+			<s:Panel title="Enter Choice" height="100%" width="156">				
+				<mx:ComboBox id="choiceCB" dataProvider="{localeAryCollection}"
+							 change="testDateFormatter(choiceCB.selectedItem.toString())" x="12" y="24" width="130"/>
+			</s:Panel>
+			<!--Panel for display flex DateTimeFormatter Methods-->
+			<s:Panel title="Methods in DateTimeFormatter" height="642" width="373">
+				<mx:Form width="370" x="0" y="0" height="59">
+					<s:Label text="format - dateStyle and timeStyle:" x="9" y="110"/>
+					<mx:FormItem label="dateShort">
+						<s:TextInput id="dateShort" text="{dFormatterShort.format(aDate)}"  width="210"/>
+					</mx:FormItem>
+					<mx:FormItem label="dateMedium">
+						<s:TextInput id="dateMedium" text="{dFormatterMedium.format(aDate)}"  width="210"/>
+					</mx:FormItem>
+					<mx:FormItem label="dateLong">
+						<s:TextInput id="dateLong" text="{dFormatterLong.format(aDate)}"  width="210"/>
+					</mx:FormItem>
+					<mx:FormItem label="dateNone">
+						<s:TextInput id="dateNone" text="{dFormatterNone.format(aDate)}"  width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="timeShort">
+						<s:TextInput id="timeShort" text="{tFormatterShort.format(aDate)}"  width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="timeLong">
+						<s:TextInput id="timeLong" text="{tFormatterLong.format(aDate)}"  width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="timeNone">
+						<s:TextInput id="timeNone" text="{tFormatterNone.format(aDate)}"  width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="timeMedium">
+						<s:TextInput id="timeMedium" text="{tFormatterMedium.format(aDate)}"  width="200"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form width="370" height="86" x="1" y="60">
+					<s:Label text="format - DateTimePattern:" x="9" y="127"/>
+					<mx:FormItem label="DefaultMaskFull">
+						<s:TextInput id="dateFormatOutputDefaultMaskFull" text="{dtFormatterMaskFull.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="DefaultMaskLong">
+						<s:TextInput id="dateFormatOutputDefaultMaskLong" text="{dtFormatterMaskLong.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="DefaultMaskMedium">
+						<s:TextInput id="dateFormatOutputDefaultMaskMedium" text="{dtFormatterMaskMedium.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="DefaultMaskTime">						
+						<s:TextInput id="dateFormatOutputDefaultMaskTime" text="{dtFormatterMaskTime.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="yy">
+						<s:TextInput id="datePartyy" text="{dtFormatterDatePartyy.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="yyyy">
+						<s:TextInput id="datePartyyyy" text="{dtFormatterDatePartyyyy.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="M">
+						<s:TextInput id="datePartM" text="{dtFormatterDatePartM.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="MM">
+						<s:TextInput id="datePartMM" text="{dtFormatterDatePartMM.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="MMM">
+						<s:TextInput id="datePartMMM" text="{dtFormatterDatePartMMM.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="MMMM">
+						<s:TextInput id="datePartMMMM" text="{dtFormatterDatePartMMMM.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="d">
+						<s:TextInput id="datePartd" text="{dtFormatterDatePartd.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="dd">
+						<s:TextInput id="datePartdd" text="{dtFormatterDatePartdd.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="E">
+						<s:TextInput id="datePartE" text="{dtFormatterDatePartE.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="EEE">
+						<s:TextInput id="datePartEEE" text="{dtFormatterDatePartEEE.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="EEEE">
+						<s:TextInput id="datePartEEEE" text="{dtFormatterDatePartEEEE.format(aDate)}" width="190"/>			  
+					</mx:FormItem>
+					<mx:FormItem label="a">
+						<s:TextInput id="dateParta" text="{dtFormatterDateParta.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="H">
+						<s:TextInput id="datePartH" text="{dtFormatterDatePartH.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="k">
+						<s:TextInput id="datePartk" text="{dtFormatterDatePartk.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="K">
+						<s:TextInput id="datePartK" text="{dtFormatterDatePartK.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="h">
+						<s:TextInput id="dateParth" text="{dtFormatterDateParth.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="m">
+						<s:TextInput id="datePartm" text="{dtFormatterDatePartm.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="mm">
+						<s:TextInput id="datePartmm" text="{dtFormatterDatePartmm.format(aDate)}" width="190"/>
+					</mx:FormItem>
+					<mx:FormItem label="s">
+						<s:TextInput id="dateParts" text="{dtFormatterDateParts.format(aDate)}" width="190"/>
+					</mx:FormItem>					
+				</mx:Form>
+				<mx:Form x="0" y="241" width="371" height="61">
+					<s:Label text="getMonthNames" />
+					<mx:FormItem label="getMonthNames:" width="323" >
+						<s:TextInput id="monthName_1" text="{dtFormatter.getMonthNames(DateTimeNameStyle.FULL,DateTimeNameContext.FORMAT)}" width="200" />
+						<s:TextInput id="monthName_2" text="{dtFormatter.getMonthNames(DateTimeNameStyle.FULL,DateTimeNameContext.STANDALONE)}" width="200" />
+						<s:TextInput id="monthName_3" text="{dtFormatter.getMonthNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.FORMAT)}" width="200" />
+						<s:TextInput id="monthName_4" text="{dtFormatter.getMonthNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.STANDALONE)}" width="200" />
+						<s:TextInput id="monthName_5" text="{dtFormatter.getMonthNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.FORMAT)}" width="200" />
+						<s:TextInput id="monthName_6" text="{dtFormatter.getMonthNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.STANDALONE)}" width="200" />
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form x="1" y="315" width="370" height="61">
+					<s:Label text="getWeekdayNames" />
+					<mx:FormItem label="getWeekdayNames:" width="320">
+						<s:TextInput id="weekdayName_1" text="{dtFormatter.getWeekdayNames(DateTimeNameStyle.FULL,DateTimeNameContext.FORMAT)}" width="185"/>
+						<s:TextInput id="weekdayName_2" text="{dtFormatter.getWeekdayNames(DateTimeNameStyle.FULL,DateTimeNameContext.STANDALONE)}" width="185"/>
+						<s:TextInput id="weekdayName_3" text="{dtFormatter.getWeekdayNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.FORMAT)}" width="185"/>
+						<s:TextInput id="weekdayName_4" text="{dtFormatter.getWeekdayNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.STANDALONE)}" width="185"/>
+						<s:TextInput id="weekdayName_5" text="{dtFormatter.getWeekdayNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.FORMAT)}" width="185"/>
+						<s:TextInput id="weekdayName_6" text="{dtFormatter.getWeekdayNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.STANDALONE)}" width="185"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form x="0" y="157" width="371">
+					<s:Label text="getFirstWeekday" />
+					<mx:FormItem label="getFirstWeekday:">
+						<s:TextInput id="getFirstWeekday" text="{dtFormatter.getFirstWeekday()}" width="226"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form width="371" height="217" x="-1" y="384">
+					<s:Label text="getAvailableLocaleIDNames" />
+					<mx:FormItem label="getAvailableLocaleIDNames:" height="164">
+						<s:TextArea id="getAvailableLocaleIDNames" text="{spark.formatters.DateTimeFormatter.getAvailableLocaleIDNames()}" width="158" height="146"/>
+					</mx:FormItem>
+				</mx:Form>
+			</s:Panel>
+			<!--Panel for display flex getters-->
+			<s:Panel title="Getters in DateTimeFormatter" height="642" width="384">					
+				<mx:Form width="369" x="3" y="0">
+					<s:Label text="get actualLocaleIDName"/>
+					<mx:FormItem label="actualLocaleIDName:">
+						<s:TextInput id="actualLocaleIDName" text="{dtFormatter.actualLocaleIDName}"  width="198"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form width="372" x="2" y="80" height="519">
+					<s:Label text="get dateTimePattern"/>
+					<mx:FormItem label="dateTimePattern:" width="338" height="448">
+						<s:TextInput id="dtPattern" text="{dtFormatter.dateTimePattern}" width="215"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form>
+					<s:Label text="get lastOperationStatus"/>
+					<mx:FormItem label="lastOperationStatus:" width="338" height="448">
+						<s:TextInput id="dtlosTI" text="{dtfLOS.lastOperationStatus}" width="215"/>
+					</mx:FormItem>
+				</mx:Form>
+			</s:Panel>
+		</s:HGroup>
+	</s:VGroup>	
+	<s:VGroup>
+	</s:VGroup>
+	
+</s:Application>

@@ -1,0 +1,2179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_compare.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		
+		import assets.CollatorTestConstants;
+		import flash.globalization.*;
+		import spark.globalization.SortingCollator;
+		import spark.globalization.MatchingCollator;
+		
+		public var cltGSLib:flash.globalization.Collator;
+		
+        public static function init(o:DisplayObject):void
+        { 
+        }
+		
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test "compare()" method-->
+<testCases>
+	<!--case1 to case44 test Collator instances created in <fx:Script> block -->
+	<!--test SortingCollator instance with all basic properties set to default values-->
+	<TestCase testID="SortingCollator_compare_defalult_script_test1" description="test SortingCollator instance with all basic properties set to default values" keywords="[SortingCollator, compare]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test ignoreCase property with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('ae','Æ')" valueExpression="value=cltGSLib.compare('ae','Æ')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('SS','ß')" valueExpression="value=cltGSLib.compare('SS','ß')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test ignoreCharacterwidth property with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ァ','ｧ')" valueExpression="value=cltGSLib.compare('ァ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test ignoreDiacritics property with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('côte','coté')" valueExpression="value=cltGSLib.compare('côte','coté')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('ぁ','あ')" valueExpression="value=cltGSLib.compare('ぁ','あ')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test ignoreKanatype property with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test ignoreSymbols property with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test numericComparison property with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('version2','version10')" valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('z2.txt','z15.txt')" valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test always different string with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test always same string with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ae','æ')" valueExpression="value=cltGSLib.compare('ae','æ')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test ignoreDiacritcs, CharacterWidth and Kanatype properties with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('あ','ｧ')" valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test ignoreCase, Diacritcs and CharacterWidth properties with default value-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ä','ａ')" valueExpression="value=cltGSLib.compare('Ä','ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with all basic properties set to default values-->
+	<TestCase testID="MatchingCollator_compare_defalult_script_test2" description="test MatchingCollator instance with all basic properties set to default values" keywords="[MatchingCollator, compare]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test ignoreCase property with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('ae','Æ')" valueExpression="value=cltGSLib.compare('ae','Æ')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('SS','ß')" valueExpression="value=cltGSLib.compare('SS','ß')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test ignoreCharacterwidth property with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ァ','ｧ')" valueExpression="value=cltGSLib.compare('ァ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test ignoreDiacritics property with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('côte','coté')" valueExpression="value=cltGSLib.compare('côte','coté')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('ぁ','あ')" valueExpression="value=cltGSLib.compare('ぁ','あ')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test ignoreKanatype property with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test ignoreSymbols property with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test numericComparison property with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('version2','version10')" valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('z2.txt','z15.txt')" valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test always different string with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test always same string with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ae','æ')" valueExpression="value=cltGSLib.compare('ae','æ')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test ignoreDiacritcs, CharacterWidth and Kanatype properties with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('あ','ｧ')" valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test ignoreCase, Diacritcs and CharacterWidth properties with default value-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Ä','ａ')" valueExpression="value=cltGSLib.compare('Ä','ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreCase property-->
+	<TestCase testID="SortingCollator_compare_ignoreCase_ture_script_test3" description="test SortingCollator instance with ignoreCase property set to true" keywords="[SortingCollator, compare, ignoreCase]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreCase_false_script_test4" description="test SortingCollator instance with ignoreCase property set to false" keywords="[SortingCollator, compare, ignoreCase]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreCase property-->
+	<TestCase testID="MatchingCollator_compare_ignoreCase_true_script_test5" description="test MatchingCollator instance with ignoreCase property set to true" keywords="[MatchingCollator, compare, ignoreCase]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.clt_matching.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreCase_false_script_test6" description="test MatchingCollator instance with ignoreCase property set to false" keywords="[MatchingCollator, compare, ignoreCase]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.clt_matching.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreCharacterWidth property-->
+	<TestCase testID="SortingCollator_compare_ignoreCharacterWidth_true_script_test7" description="test SortingCollator instance with ignoreCharacterWidth property set to true" keywords="[SortingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('A','Ａ')" valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('a','Ａ')" valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreCharacterWidth_false_script_test8" description="test SortingCollator instance with ignoreCharacterWidth property set to false" keywords="[SortingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('A','Ａ')" valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('a','Ａ')" valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreCharacterWidth property-->
+	<TestCase testID="MatchingCollator_compare_ignoreCharacterWidth_true_script_test9" description="test MatchingCollator instance with ignoreCharacterWidth property set to true" keywords="[MatchingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_matching.compare('A','Ａ')" valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_matching.compare('a','Ａ')" valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreCharacterWidth_false_script_test10" description="test MatchingCollator instance with ignoreCharacterWidth property set to false" keywords="[MatchingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_matching.compare('A','Ａ')" valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.clt_matching.compare('a','Ａ')" valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreDiacritics property-->
+	<TestCase testID="SortingCollator_compare_ignoreDiacritics_true_script_test11" description="test SortingCollator instance with ignoreDiacritics property set to true" keywords="[SortingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('ｧ','ｱ')" valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ｧ','ア')" valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreDiacritics_false_script_test12" description="test SortingCollator instance with ignoreDiacritics property set to false" keywords="[SortingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('ｧ','ｱ')" valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ｧ','ア')" valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreDiacritics property-->
+	<TestCase testID="MatchingCollator_compare_ignoreDiacritics_true_script_test13" description="test MatchingCollator instance with ignoreDiacritics property set to true" keywords="[MatchingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('ｧ','ｱ')" valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ｧ','ア')" valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreDiacritics_false_script_test14" description="test MatchingCollator instance with ignoreDiacritics property set to false" keywords="[MatchingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('ｧ','ｱ')" valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ｧ','ア')" valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+		</body>
+	</TestCase>	
+
+	<!--test SortingCollator instance with ignoreKanaType property-->
+	<TestCase testID="SortingCollator_compare_ignoreKanaType_true_script_test15" description="test SortingCollator instance with ignoreKanaType property set to true" keywords="[SortingCollator, compare, ignoreKanaType]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ぁ','ｧ')" valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreKanaType_false_script_test16" description="test SortingCollator instance with ignoreKanaType property set to false" keywords="[SortingCollator, compare, ignoreKanaType]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ぁ','ｧ')" valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreKanaType property-->
+	<TestCase testID="SortingCollator_compare_ignoreKanaType_true_script_test17" description="test MatchingCollator instance with ignoreKanaType property set to true" keywords="[MatchingCollator, compare, ignoreKanaType]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ぁ','ｧ')" valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreKanaType_false_script_test18" description="test MatchingCollator instance with ignoreKanaType property set to false" keywords="[MatchingCollator, compare, ignoreKanaType]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ぁ','ｧ')" valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+		</body>
+	</TestCase>	
+
+	<!--test SortingCollator instance with ignoreSymbols property-->
+	<TestCase testID="SortingCollator_compare_ignoreSymbols_true_script_test19" description="test SortingCollator instance with ignoreSymbols property set to true" keywords="[SortingCollator, compare, ignoreSymbols]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Obrain','O!@brain')" valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Obrain','O!@brAin')" valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreSymbols_false_script_test20" description="test SortingCollator instance with ignoreSymbols property set to false" keywords="[SortingCollator, compare, ignoreSymbols]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Obrain','O!@brain')" valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('Obrain','O!@brAin')" valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreSymbols property-->
+	<TestCase testID="MatchingCollator_compare_ignoreSymbols_true_script_test21" description="test MatchingCollator instance with ignoreSymbols property set to true" keywords="[MatchingCollator, compare, ignoreSymbols, matching]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Obrain','O!@brain')" valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Obrain','O!@brAin')" valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreSymbols_false_script_test22" description="test MatchingCollator instance with ignoreSymbols property set to false" keywords="[MatchingCollator, compare, ignoreSymbols]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.clt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Obrain','O!@brain')" valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.clt_matching.compare('Obrain','O!@brAin')" valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with numericComparison-->
+	<TestCase testID="SortingCollator_compare_numericComparison_true_script_test23" description="test SortingCollator instance with numericComparison set to true" keywords="[SortingCollator, compare, numericComparison]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.clt_sorting.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_numericComparison_false_script_test24" description="test SortingCollator instance with numericComparison set to false" keywords="[SortingCollator, compare, numericComparison]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.clt_sorting.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with numericComparison-->
+	<TestCase testID="MatchingCollator_compare_numericComparison_true_script_test25" description="test MatchingCollator instance with numericComparison set to true" keywords="[MatchingCollator, compare, numericComparison]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.clt_matching.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_numericComparison_false_script_test26" description="test MatchingCollator instance with numericComparison set to false" keywords="[MatchingCollator, compare, numericComparison]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.clt_matching.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance when set all basic properties with true or false-->
+	<TestCase testID="SortingCollator_compare_all_script_test27" description="test SortingCollator instance when set all basic properties with true or false" keywords="[SortingCollator, compare]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=false" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=false" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.clt_sorting.compare('あ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('Ô','ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance when set all basic properties with true or false-->
+	<TestCase testID="MatchingCollator_compare_all_script_test28" description="test MatchingCollator instance when set all basic properties with true or false" keywords="[MatchingCollator, compare]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=false" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=false" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.clt_matching.compare('あ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('Ô','ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>	
+	
+	<!--test binding mechanism of SortingCollator instances when ignoreCase change from 'true' to 'false'-->
+	<TestCase testID="SortingCollator_compare_binding_property_script_test29" description="test binding mechanism of SortingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindInstance_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cltBindInstance_sorting" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltBinding_sorting" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_property_script_test30" description="test binding mechanism of SortingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindInstance_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.cltBindInstance_sorting.initialized(null,'cltBindInstance_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindInstance_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cltBindInstance_sorting" propertyName="ignoreCase" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltBinding_sorting" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when ignoreCase change from 'true' to 'false'-->
+	<TestCase testID="MatchingCollator_compare_binding_property_script_test31" description="test binding mechanism MatchingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindInstance_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cltBindInstance_matching" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltBinding_matching" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_property_script_test32" description="test binding mechanism MatchingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindInstance_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindInstance_matching.initialized(null,'cltBindInstance_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindInstance_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cltBindInstance_matching" propertyName="ignoreCase" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltBinding_matching" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism SortingCollator instances when locale change from 'en-US' to 'fr-FR'-->
+	<TestCase testID="SortingCollator_compare_binding_locale_script_test33" description="test binding mechanism SortingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('en-US','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingEF_sorting" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltEF_sorting" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_locale_script_test34" description="test binding mechanism SortingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingEF_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.cltBindingEF_sorting.initialized(null,'cltBindingEF_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('fr-FR','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingEF_sorting" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltEF_sorting" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism SortingCollator instances when locale change from 'zh-CN' to 'lt-LT'-->
+	<TestCase testID="SortingCollator_compare_binding_locale_script_test35" description="test binding mechanism SortingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingZL_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltZL_sorting" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_locale_script_test36" description="test binding mechanism SortingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingZL_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.cltBindingZL_sorting.initialized(null,'cltBindingZL_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('lt-LT','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingZL_sorting" styleName="locale" value="lt-LT" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltZL_sorting" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism SortingCollator instances when locale change from 'ru-RU' to 'sv-SE'-->
+	<TestCase testID="SortingCollator_compare_binding_locale_script_test37" description="test binding mechanism SortingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('ru-RU','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingRS_sorting" styleName="locale" value="ru-RU" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltRS_sorting" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_locale_script_test38" description="test binding mechanism SortingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingRS_sorting" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.cltBindingRS_sorting.initialized(null,'cltBindingRS_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('sv-SE','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingRS_sorting" styleName="locale" value="sv-SE" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltRS_sorting" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when locale change from 'en-US' to 'fr-FR'-->
+	<TestCase testID="MatchingCollator_compare_binding_locale_script_test39" description="test binding mechanism MatchingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('en-US','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingEF_matching" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltEF_matching" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_locale_script_test40" description="test binding mechanism MatchingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingEF_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingEF_matching.initialized(null,'cltBindingEF_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('fr-FR','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingEF_matching" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltEF_matching" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when locale change from 'zh-CN' to 'lt-LT'-->
+	<TestCase testID="MatchingCollator_compare_binding_locale_script_test41" description="test binding mechanism MatchingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingZL_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltZL_matching" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_locale_script_test42" description="test binding mechanism MatchingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingZL_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingZL_matching.initialized(null,'cltBindingZL_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('lt-LT','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingZL_matching" styleName="locale" value="lt-LT" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltZL_matching" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when locale change from 'ru-RU' to 'sv-SE'-->
+	<TestCase testID="MatchingCollator_compare_binding_locale_script_test43" description="test binding mechanism MatchingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('ru-RU','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingRS_matching" styleName="locale" value="ru-RU" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltRS_matching" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_locale_script_test44" description="test binding mechanism MatchingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingRS_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingRS_matching.initialized(null,'cltBindingRS_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('sv-SE','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingRS_matching" styleName="locale" value="sv-SE" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltRS_matching" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<!--case45 to case88 test Collator instances defined in <fx:Declaration> block -->
+	<!--test SortingCollator with all basic properties set to default values-->
+	<TestCase testID="SortingCollator_compare_default_inline_test45" description="test SortingCollator with all basic properties set to default values" keywords="[SortingCollator, compare]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test ignoreCase property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('ae','Æ')" valueExpression="value=cltGSLib.compare('ae','Æ')"/>
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('SS','ß')" valueExpression="value=cltGSLib.compare('SS','ß')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test ignoreCharacterwidth property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('ァ','ｧ')" valueExpression="value=cltGSLib.compare('ァ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test ignoreDiacritics property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('côte','coté')" valueExpression="value=cltGSLib.compare('côte','coté')"/>
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('ぁ','あ')" valueExpression="value=cltGSLib.compare('ぁ','あ')"/>
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test ignoreKanatype property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test ignoreSymbols property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test numericComparison property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('version2','version10')" valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('z2.txt','z15.txt')" valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			
+			<!--test always different string with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test always same string with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('ae','æ')" valueExpression="value=cltGSLib.compare('ae','æ')"/>
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test ignoreDiacritcs, CharacterWidth and Kanatype properties with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('あ','ｧ')" valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+			
+			<!--test ignoreCase, Diacritcs and CharacterWidth properties with default value-->
+			<AssertMethodValue method="value=application.inlineClt_sorting.compare('Ä','ａ')" valueExpression="value=cltGSLib.compare('Ä','ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_sorting"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator with all basic properties set to default values-->
+	<TestCase testID="MatchingCollator_compare_default_inline_test46" description="test MatchingCollator with all basic properties set to default values" keywords="[MatchingCollator, compare]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('en-US','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test ignoreCase property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('Ä','ä')" valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('ae','Æ')" valueExpression="value=cltGSLib.compare('ae','Æ')"/>
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('SS','ß')" valueExpression="value=cltGSLib.compare('SS','ß')"/>
+			
+			<!--test ignoreCharacterwidth property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('ァ','ｧ')" valueExpression="value=cltGSLib.compare('ァ','ｧ')"/>
+			
+			<!--test ignoreDiacritics property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('côte','coté')" valueExpression="value=cltGSLib.compare('côte','coté')"/>
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('ぁ','あ')" valueExpression="value=cltGSLib.compare('ぁ','あ')"/>
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('Ô','Ö')" valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			
+			<!--test ignoreKanatype property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('ぁ','ァ')" valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test ignoreSymbols property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('AbC 2','aBC ! @# 2')" valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			
+			<!--test numericComparison property with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('version2','version10')" valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('z2.txt','z15.txt')" valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			
+			<!--test always different string with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('o','0')" valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test always same string with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('ae','æ')" valueExpression="value=cltGSLib.compare('ae','æ')"/>
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('ss','ß')" valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test ignoreDiacritcs, CharacterWidth and Kanatype properties with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('あ','ｧ')" valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			
+			<!--test ignoreCase, Diacritcs and CharacterWidth properties with default value-->
+			<AssertMethodValue method="value=application.inlineClt_matching.compare('Ä','ａ')" valueExpression="value=cltGSLib.compare('Ä','ａ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreCase property-->
+	<TestCase testID="SortingCollator_compare_ignoreCase_false_inline_test47" description="test SortingCollator instance with ignoreCase property set to false" keywords="[SortingCollator, compare, ignoreCase]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_sorting.compare('Ä','ä')" 
+							   valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_sorting.compare('AbC 2','aBC ! @# 2')" 
+							   valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrCaseF_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreCase_true_inline_test48" description="test SortingCollator instance with ignoreCase property set to true" keywords="[SortingCollator, compare, ignoreCase]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_sorting.compare('Ä','ä')" 
+							   valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_sorting.compare('AbC 2','aBC ! @# 2')" 
+							   valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreCase property-->
+	<TestCase testID="MatchingCollator_compare_ignoreCase_true_inline_test49" description="test MatchingCollator instance with ignoreCase property set to true" keywords="[MatchingCollator, compare, ignoreCase]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_matching.compare('Ä','ä')" 
+							   valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseT_matching.compare('AbC 2','aBC ! @# 2')" 
+							   valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrCaseT_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreCase_false_inline_test50" description="test MatchingCollator instance with ignoreCase property set to false" keywords="[MatchingCollator, compare, ignoreCase]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_matching.compare('Ä','ä')" 
+							   valueExpression="value=cltGSLib.compare('Ä','ä')"/>
+			
+			<!--test same when not only ignore case-->
+			<AssertMethodValue method="value=application.inlineClt_ignrCaseF_matching.compare('AbC 2','aBC ! @# 2')" 
+							   valueExpression="value=cltGSLib.compare('AbC 2','aBC ! @# 2')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreCharacterWidth property-->
+	<TestCase testID="SortingCollator_compare_ignoreCharacterWidth_true_inline_test51" description="test SortingCollator instance with ignoreCharacterWidth property set to true" keywords="[SortingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_sorting.compare('A','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_sorting.compare('a','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrWidthT_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreCharacterWidth_false_inline_test52" description="test SortingCollator instance with ignoreCharacterWidth property set to false" keywords="[SortingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_sorting.compare('A','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_sorting.compare('a','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreCharacterWidth property-->
+	<TestCase testID="MatchingCollator_compare_ignoreCharacterWidth_true_inline_test53" description="test MatchingCollator instance with ignoreCharacterWidth property set to true" keywords="[MatchingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_matching.compare('A','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_matching.compare('a','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrWidthT_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreCharacterWidth_false_inline_test54" description="test MatchingCollator instance with ignoreCharacterWidth property set to false" keywords="[MatchingCollator, compare, ignoreCharacterWidth]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCharacterWidth=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_matching.compare('A','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('A','Ａ')"/>
+			
+			<!--test same when not only ignore characterWidth-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthF_matching.compare('a','Ａ')" 
+							   valueExpression="value=cltGSLib.compare('a','Ａ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreDiacritics property-->
+	<TestCase testID="SortingCollator_compare_ignoreDiacritics_true_inline_test55" description="test SortingCollator instance with ignoreDiacritics property set to true" keywords="[SortingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_sorting.compare('Ô','Ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_sorting.compare('ｧ','ｱ')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrWidthT_sorting.compare('ｧ','ア')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrWidthT_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreDiacritics_false_inline_test56" description="test SortingCollator instance with ignoreDiacritics property set to false" keywords="[SortingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_sorting.compare('Ô','Ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_sorting.compare('ｧ','ｱ')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_sorting.compare('ｧ','ア')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreDiacritics property-->
+	<TestCase testID="MatchingCollator_compare_ignoreDiacritics_true_inline_test57" description="test MatchingCollator instance with ignoreDiacritics property set to true" keywords="[MatchingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_matching.compare('Ô','Ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_matching.compare('ｧ','ｱ')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacT_matching.compare('ｧ','ア')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrDiacT_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreDiacritics_false_inline_test58" description="test MatchingCollator instance with ignoreDiacritics property set to false" keywords="[MatchingCollator, compare, ignoreDiacritics]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_matching.compare('Ô','Ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','Ö')"/>
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_matching.compare('ｧ','ｱ')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ｱ')"/>
+			
+			<!--test same when not only ignore diacritics-->
+			<AssertMethodValue method="value=application.inlineClt_ignrDiacF_matching.compare('ｧ','ア')" 
+							   valueExpression="value=cltGSLib.compare('ｧ','ア')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreKanaType property-->
+	<TestCase testID="SortingCollator_compare_ignoreKanaType_true_inline_test59" description="test SortingCollator instance with ignoreKanaType property set to true" keywords="[SortingCollator, compare, ignoreKanaType]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_sorting.compare('ぁ','ァ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_sorting.compare('ぁ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrKanaT_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreKanaType_false_inline_test60" description="test SortingCollator instance with ignoreKanaType property set to false" keywords="[SortingCollator, compare, ignoreKanaType]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_sorting.compare('ぁ','ァ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_sorting.compare('ぁ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreKanaType property-->
+	<TestCase testID="MatchingCollator_compare_ignoreKanaType_true_inline_test61" description="test MatchingCollator instance with ignoreKanaType property set to true" keywords="[MatchingCollator, compare, ignoreKanaType]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_matching.compare('ぁ','ァ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaT_matching.compare('ぁ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrKanaT_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreKanaType_false_inline_test62" description="test MatchingCollator instance with ignoreKanaType property set to false" keywords="[MatchingCollator, compare, ignoreKanaType]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_matching.compare('ぁ','ァ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ァ')"/>
+			
+			<!--test same when not only ignore KanaType-->
+			<AssertMethodValue method="value=application.inlineClt_ignrKanaF_matching.compare('ぁ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('ぁ','ｧ')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with ignoreSymbols property-->
+	<TestCase testID="SortingCollator_compare_ignoreSymbols_true_inline_test63" description="test SortingCollator instance with ignoreSymbols property set to true" keywords="[SortingCollator, compare, ignoreSymbols]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_sorting.compare('Obrain','O!@brain')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_sorting.compare('Obrain','O!@brAin')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrSymbT_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_ignoreSymbols_false_inline_test64" description="test SortingCollator instance with ignoreSymbols property set to false" keywords="[SortingCollator, compare, ignoreSymbols]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_sorting.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_sorting.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_sorting.compare('Obrain','O!@brain')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_sorting.compare('Obrain','O!@brAin')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with ignoreSymbols property-->
+	<TestCase testID="MatchingCollator_compare_ignoreSymbols_true_inline_test65" description="test MatchingCollator instance with ignoreSymbols property set to true" keywords="[MatchingCollator, compare, ignoreSymbols]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_matching.compare('Obrain','O!@brain')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbT_matching.compare('Obrain','O!@brAin')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_ignrSymbT_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_ignoreSymbols_false_inline_test66" description="test MatchingCollator instance with ignoreSymbols property set to false" keywords="[MatchingCollator, compare, ignoreSymbols]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreSymbols=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<!--test always same strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_matching.compare('ss','ß')" 
+							   valueExpression="value=cltGSLib.compare('ss','ß')"/>
+			
+			<!--test always different strings-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_matching.compare('o','0')" 
+							   valueExpression="value=cltGSLib.compare('o','0')"/>
+			
+			<!--test only same when ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_matching.compare('Obrain','O!@brain')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brain')"/>
+			
+			<!--test same when not only ignore symbols-->
+			<AssertMethodValue method="value=application.inlineClt_ignrSymbF_matching.compare('Obrain','O!@brAin')" 
+							   valueExpression="value=cltGSLib.compare('Obrain','O!@brAin')"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance with numericComparison-->
+	<TestCase testID="SortingCollator_compare_numericComparison_true_inline_test67" description="test SortingCollator instance with numericComparison set to true" keywords="[SortingCollator, compare, numericComparison]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.inlineClt_numCompT_sorting.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.inlineClt_numCompT_sorting.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_numCompT_sorting"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="SortingCollator_compare_numericComparison_false_inline_test68" description="test SortingCollator instance with numericComparison set to false" keywords="[SortingCollator, compare, numericComparison]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.inlineClt_numCompF_sorting.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.inlineClt_numCompF_sorting.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_numCompF_sorting"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance with numericComparison-->
+	<TestCase testID="MatchingCollator_compare_numericComparison_true_inline_test69" description="test MatchingCollator instance with numericComparison set to true" keywords="[MatchingCollator, compare, numericComparison]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.inlineClt_numCompT_matching.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.inlineClt_numCompT_matching.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_numCompT_matching"/>
+		</body>
+	</TestCase>	
+	<TestCase testID="MatchingCollator_compare_numericComparison_false_inline_test70" description="test MatchingCollator instance with numericComparison set to false" keywords="[MatchingCollator, compare, numericComparison]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.inlineClt_numCompF_matching.compare('version2','version10')" 
+							   valueExpression="value=cltGSLib.compare('version2','version10')"/>
+			<AssertMethodValue method="value=application.inlineClt_numCompF_matching.compare('z2.txt','z15.txt')" 
+							   valueExpression="value=cltGSLib.compare('z2.txt','z15.txt')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineClt_numCompF_matching"/>
+		</body>
+	</TestCase>	
+	
+	<!--test SortingCollator instance when set all basic properties with true or false-->
+	<TestCase testID="SortingCollator_compare_all_inline_test71" description="test SortingCollator instance when set all basic properties with true or false" keywords="[SortingCollator, compare]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.inlineCompound_sorting.compare('あ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertMethodValue method="value=application.inlineCompound_sorting.compare('Ô','ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineCompound_sorting"/>
+		</body>
+	</TestCase>	
+	
+	<!--test MatchingCollator instance  when set all basic properties with true or false-->
+	<TestCase testID="MatchingCollator_compare_all_inline_test72" description="test MatchingCollator instance when set all basic properties with true or false" keywords="[MatchingCollator, compare]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<RunCode code="cltGSLib.ignoreCharacterWidth=true"/>
+			<RunCode code="cltGSLib.ignoreDiacritics=false"/>
+			<RunCode code="cltGSLib.ignoreKanaType=false"/>
+			<RunCode code="cltGSLib.ignoreSymbols=true"/>
+			<RunCode code="cltGSLib.numericComparison=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.inlineCompound_matching.compare('あ','ｧ')" 
+							   valueExpression="value=cltGSLib.compare('あ','ｧ')"/>
+			<AssertMethodValue method="value=application.inlineCompound_matching.compare('Ô','ö')" 
+							   valueExpression="value=cltGSLib.compare('Ô','ö')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="inlineCompound_matching"/>
+		</body>
+	</TestCase>	
+	
+	<!--test binding mechanism of SortingCollator instances when ignoreCase change from 'true' to 'false'-->
+	<TestCase testID="SortingCollator_compare_binding_property_inline_test73" description="test binding mechanism of SortingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetProperty target="cltBindingInline_sorting" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="bindingInline_sorting" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_property_inline_test74" description="test binding mechanism of SortingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInline_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltBindingInline_sorting.initialized(null,'cltBindingInline_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetProperty target="cltBindingInline_sorting" propertyName="ignoreCase" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="bindingInline_sorting" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism of MatchingCollator instances when ignoreCase change from 'true' to 'false'-->
+	<TestCase testID="MatchingCollator_compare_binding_property_inline_test75" description="test binding mechanism of MatchingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetProperty target="cltBindingInline_matching" propertyName="ignoreCase" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="bindingInline_matching" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_inline_test76" description="test binding mechanism of MatchingCollator instances when ignoreCase change from 'true' to 'false'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInline_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingInline_matching.initialized(null,'cltBindingInline_matching')"/>
+			<SetStyle styleName="locale" target="cltBindingInline_matching" value="zh-CN" waitEvent="change"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			<RunCode code="cltGSLib.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetProperty target="cltBindingInline_matching" propertyName="ignoreCase" valueExpression="value=false" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="bindingInline_matching" valueExpression="value=cltGSLib.compare('abc','aBc')" />
+		</body>
+	</TestCase>
+	
+	
+	<!--test binding mechanism SortingCollator instances when locale change from 'en-US' to 'fr-FR'-->
+	<TestCase testID="SortingCollator_compare_binding_locale_inline_test77" description="test binding mechanism SortingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('en-US','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineEF_sorting" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineEF_sorting" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_locale_inline_test78" description="test binding mechanism SortingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInlineEF_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltBindingInlineEF_sorting.initialized(null,'cltBindingInlineEF_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('fr-FR','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineEF_sorting" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineEF_sorting" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism SortingCollator instances when locale change from 'zh-CN' to 'lt-LT'-->
+	<TestCase testID="SortingCollator_compare_binding_locale_inline_test79" description="test binding mechanism SortingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineZL_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineZL_sorting" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_locale_inline_test80" description="test binding mechanism SortingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInlineZL_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltBindingInlineZL_sorting.initialized(null,'cltBindingInlineZL_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('lt-LT','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineZL_sorting" styleName="locale" value="lt-LT" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineZL_sorting" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism SortingCollator instances when locale change from 'ru-RU' to 'sv-SE'-->
+	<TestCase testID="SortingCollator_compare_binding_locale_inline_test81" description="test binding mechanism SortingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('ru-RU','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineRS_sorting" styleName="locale" value="ru-RU" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineRS_sorting" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SortingCollator_compare_binding_locale_inline_test82" description="test binding mechanism SortingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInlineRS_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltBindingInlineRS_sorting.initialized(null,'cltBindingInlineRS_sorting')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('sv-SE','sorting')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineRS_sorting" styleName="locale" value="sv-SE" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineRS_sorting" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when locale change from 'en-US' to 'fr-FR'-->
+	<TestCase testID="MatchingCollator_compare_binding_locale_inline_test83" description="test binding mechanism MatchingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('en-US','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineEF_matching" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineEF_matching" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_locale_inline_test84" description="test binding mechanism MatchingCollator instances when locale change from 'en-US' to 'fr-FR'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInlineEF_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingInlineEF_matching.initialized(null,'cltBindingInlineEF_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('fr-FR','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineEF_matching" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineEF_matching" valueExpression="value=cltGSLib.compare('coté','côte')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when locale change from 'zh-CN' to 'lt-LT'-->
+	<TestCase testID="MatchingCollator_compare_binding_locale_inline_test85" description="test binding mechanism MatchingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[SortingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('zh-CN','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineZL_matching" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineZL_matching" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_locale_inline_test86" description="test binding mechanism MatchingCollator instances when locale change from 'zh-CN' to 'lt-LT'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInlineZL_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingInlineZL_matching.initialized(null,'cltBindingInlineZL_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('lt-LT','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineZL_matching" styleName="locale" value="lt-LT" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineZL_matching" valueExpression="value=cltGSLib.compare('k','y')" />
+		</body>
+	</TestCase>
+	
+	<!--test binding mechanism MatchingCollator instances when locale change from 'ru-RU' to 'sv-SE'-->
+	<TestCase testID="MatchingCollator_compare_binding_locale_inline_test87" description="test binding mechanism MatchingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<RunCode code="cltGSLib = new flash.globalization.Collator('ru-RU','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineRS_matching" styleName="locale" value="ru-RU" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineRS_matching" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MatchingCollator_compare_binding_locale_inline_test88" description="test binding mechanism MatchingCollator instances when locale change from 'ru-RU' to 'sv-SE'" keywords="[MatchingCollator, compare, binding]">
+		<setup>
+			<ResetComponent target="cltBindingInlineRS_matching" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.cltBindingInlineRS_matching.initialized(null,'cltBindingInlineRS_matching')"/>
+			
+			<RunCode code="cltGSLib = new flash.globalization.Collator('sv-SE','matching')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}" />
+			
+			<SetStyle target="cltBindingInlineRS_matching" styleName="locale" value="sv-SE" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="cltInlineRS_matching" valueExpression="value=cltGSLib.compare('ä','vu')" />
+		</body>
+	</TestCase>
+	
+	<!--test SortingCollator instance's localeUndefinedError-->
+	<TestCase testID="SortingCollator_compare_localeUndefinedError_inline_test89" description="test SortingCollator instance's localeUndefinedError" keywords="[SortingCollator, IllegalOperationError]">
+		<setup>
+			<SetStyle styleName="locale" target="cltErrorDeclaration_sorting" valueExpression="value=undefined"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cltErrorDeclaration_sorting.compare('abc','aBc')" value="0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="cltErrorDeclaration_sorting"/>
+		</body>
+	</TestCase>
+	<TestCase testID="SortingCollator_compare_localeUndefinedError_script_test90" description="test SortingCollator instance's localeUndefinedError" keywords="[SortingCollator, IllegalOperationError]">
+		<setup>
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en')"/> 
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cltErrorScript_sorting.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltErrorScript_sorting"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instance's localeUndefinedError-->
+	<TestCase testID="MatchingCollator_compare_localeUndefinedError_inline_test91" description="test MatchingCollator instance's localeUndefinedError" keywords="[MatchingCollator, IllegalOperationError]">
+		<setup>
+			<SetStyle styleName="locale" target="cltErrorDeclaration_matching" valueExpression="value=undefined"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cltErrorDeclaration_matching.compare('abc','aBc')" value="0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="cltErrorDeclaration_matching"/>
+		</body>
+	</TestCase>
+	<TestCase testID="MatchingCollator_compare_localeUndefinedError_script_test92" description="test MatchingCollator instance's localeUndefinedError" keywords="[MatchingCollator, IllegalOperationError]">
+		<setup>
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en','matching')"/> 
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cltErrorScript_matching.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltErrorScript_matching"/>
+		</body>
+	</TestCase>
+	
+
+	<TestCase testID="SortingCollator_compare_TypeError_test93" description="test SortingCollator" keywords="[SortingCollator, null]">
+		<setup>
+			<SetStyle styleName="locale" target="cltErrorDeclaration_sorting" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testError_sorting()" value="false"/>
+		</body>
+	</TestCase>
+	
+
+	<TestCase testID="MatchingCollator_compare_TypeError_test94" description="test MatchingCollator" keywords="[MatchingCollator, null]">
+		<setup>
+			<SetStyle styleName="locale" target="cltErrorDeclaration_matching" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testError_matching()" value="false"/>
+		</body>
+	</TestCase>
+	
+</testCases>	
+</UnitTester>

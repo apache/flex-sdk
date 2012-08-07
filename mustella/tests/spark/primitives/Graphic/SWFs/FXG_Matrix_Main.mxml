@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:comps="comps.*"
+        width="800" height="600" backgroundColor="#ffffff"
+ >
+<s:Group id="group1">
+    <comps:EllipseMatrix3D id="ellipse1" />
+</s:Group>
+
+<fx:Declarations>
+               <s:Matrix3D id="basic3D">
+                    <s:rawData>
+                        <fx:Vector type="Number">
+                            <fx:Number>1</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>1</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>1</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>1</fx:Number>
+                        </fx:Vector>
+                    </s:rawData>
+                </s:Matrix3D>
+               <!-- rotates about 49 degrees -->
+               <s:Matrix3D id="rotate3D">
+                    <s:rawData>
+                        <fx:Vector type="Number">
+                            <fx:Number>0.65</fx:Number>
+                            <fx:Number>0.75</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>-.76</fx:Number>
+                            <fx:Number>0.64</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>1</fx:Number>
+                            <fx:Number>0</fx:Number>
+                            <fx:Number>300</fx:Number>
+                            <fx:Number>40</fx:Number>
+                            <fx:Number>45</fx:Number>
+                            <fx:Number>1</fx:Number>
+                        </fx:Vector>
+                    </s:rawData>
+                </s:Matrix3D>
+</fx:Declarations>
+
+</s:Application>

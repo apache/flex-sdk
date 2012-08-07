@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/Move/Events/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/Move_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Controls.*;
+        import Containers.*;
+
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    
+    <testCases>
+        <TestCase testID="Move_Events_EffectStart" keywords="[Move, Events, EffectStart]" description="Verify EffectStart is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Containers.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Move"/>
+                <RunCode code="application.testVBox.x = 150"/>
+                <RunCode code="application.testVBox.y = 150"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+        <TestCase testID="Move_Events_EffectEnd" keywords="[Move, Events, EffectEnd]" description="Verify EffectEnd is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Containers.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Move"/>
+                <RunCode code="application.testVBox.x = 150"/>
+                <RunCode code="application.testVBox.y = 150"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

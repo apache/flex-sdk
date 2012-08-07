@@ -1,0 +1,30 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:local="*"	
+         width="100" height="100">
+    
+    <fx:Script>
+        <![CDATA[
+            public var numberValue0:Number = 0;
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <s:Pause id="SDK_22233"/>
+        
+        <s:Sequence id="duplicateSequence" target="{rect}">
+            <s:Rotate3D id="rot1" angleYFrom="0" angleYTo="90" effectEnd="numberValue0 = rect.postLayoutTransformOffsets.rotationY" />
+            <s:Rotate3D id="rot2" angleYFrom="0" angleYTo="90" />
+        </s:Sequence>
+    </fx:Declarations>
+    
+    <s:Rect id="rect" x="25" y="25" width="50" height="50">
+        <s:fill>
+            <s:SolidColor color="0x999999"/>
+        </s:fill>
+        <s:stroke>
+            <s:SolidColorStroke color="0x000000" weight="1"/> 
+        </s:stroke>
+    </s:Rect>
+    
+</s:Group>

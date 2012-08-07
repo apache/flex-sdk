@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			
+			import mx.validators.ValidationResult;
+			import mx.validators.Validator;
+			
+			import spark.validators.CurrencyValidator;
+			import spark.validators.supportClasses.GlobalizationValidatorBase;
+			
+			[Bindable]
+			public var parseObj:String = "123,456,789.012";
+			
+			public var CVNoLocaleScript:spark.validators.CurrencyValidator = new spark.validators.CurrencyValidator();
+			
+			// Define the validator Array.
+			private var _validatorsArr:Array;
+			
+			private function initValidatorArray():void {
+				_validatorsArr = [CVNoLocaleScript, CVDecl];
+			}
+			
+			protected function uiBTAll_clickHandler(event:MouseEvent):void
+			{
+				initValidatorArray();
+				
+				var resultArr:Array = GlobalizationValidatorBase.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					uiLB.text = new String(resultArr.length);
+				} else {
+					uiLB.text = "null";
+				}
+			}
+			
+			protected function uiBTAllOld_clickHandler(event:MouseEvent):void
+			{
+				initValidatorArray();
+				
+				var resultArr:Array = Validator.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					uiLB.text = new String(resultArr.length);
+				} else {
+					uiLB.text = "null";
+				}
+			}
+			
+			private var _currencyStr:Object;
+			
+			[Bindable]
+			public function set currencyStr(value:Object):void {
+				this._currencyStr = value;
+				
+				uiLB.text = value.toString();
+			}
+			public function get currencyStr():Object {
+				return this._currencyStr;
+			}	
+			
+			// validate a normal Currency Object 
+			protected function uiBTMethod_clickHandler(event:MouseEvent):void
+			{
+				var resultArr:Array;
+				
+				var invalidNum:int = 0;
+				var otherNum:int = 0;
+				var validNum:int = 0;
+				
+				resultArr = CVNoLocaleScript.validateCurrency(currencyStr, null) ; 
+				
+				if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == true) ) {
+					invalidNum++;
+				} else if (resultArr != null && 
+					(resultArr.length == 1) &&
+					((resultArr[0] as ValidationResult).isError == false) ) {
+					otherNum++;
+				} else {
+					validNum++;
+				}
+				
+				uiValidLb.text = new String(validNum);
+				uiOtherLb.text = new String(otherNum);
+				uiInvalidLb.text = new String(invalidNum);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:CurrencyValidator id="CVDecl" />
+	</fx:Declarations>
+	
+	<s:VGroup>
+		<s:TextInput id="uiTI" />
+		
+		<s:Button id="uiBTAll" label="uiBTAll" click="uiBTAll_clickHandler(event)"/>
+		<s:Button id="uiBTAllOld" label="uiBTAllOld" click="uiBTAllOld_clickHandler(event)"/>
+		
+		<s:Button id="uiBTMethod" label="uiBTMethod" click="uiBTMethod_clickHandler(event)"/>
+		
+		<s:Label id="uiLB" text="test" />
+		
+		<s:Label id="uiValidLb" text="0" />
+		<s:Label id="uiOtherLb" text="0" />
+		<s:Label id="uiInvalidLb" text="0" />
+	</s:VGroup>
+	
+</mx:Module>

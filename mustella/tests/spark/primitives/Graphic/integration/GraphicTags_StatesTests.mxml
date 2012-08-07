@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/integration/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Integration2.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+
+	<mx:Script>
+	import mx.core.Application;
+	</mx:Script>
+
+
+	<testCases>
+<!-- AddChild Tests -->
+	  <TestCase testID="GraphicTags_States_AddChild_Rect" description="Test AddChild for a Graphic with a Rect" keywords="[Rect, States, Graphic]">
+		 <setup>
+			<ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="addRect" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="200" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="300" propertyName="width" target="vbox2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_States_AddChild_Line" description="Test AddChild for a Graphic with a Line" keywords="[Line, States, Graphic]">
+		 <setup>
+			<ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="addLine" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="101" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="121" propertyName="width" target="vbox2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_States_AddChild_Ellipse" description="Test AddChild for a Graphic with a Ellipse" keywords="[Ellipse, States, Graphic]">
+		 <setup>
+		     <ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="addEllipse" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="270" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="350" propertyName="width" target="vbox2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_States_AddChild_Path" description="Test AddChild for a Graphic with a Path" keywords="[Path, States, Graphic]">
+		 <setup>
+		     <ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="addPath" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="191" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="191" propertyName="width" target="vbox2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_States_AddChild_Group" description="Test AddChild for a Graphic with a Group" keywords="[Group, States, Graphic]">
+		 <setup>
+		    <ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="addGroup" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="191" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="200" propertyName="width" target="vbox2" />
+	    </body>
+	  </TestCase>
+
+<!-- SetProperty tests -->
+	  <TestCase testID="GraphicTags_States_SetProperty_Graphic" description="Test SetProperty on a Graphic" keywords="[Group, States, Graphic]">
+		 <setup>
+			<ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="setPropGraphic" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="200" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="200" propertyName="width" target="vbox2" />
+	    </body>
+	  </TestCase>
+
+	  <TestCase testID="GraphicTags_States_SetProperty_Group" description="Test SetProperty on a Group" keywords="[Group, States, Graphic]">
+		 <setup>
+			<ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="setPropGroup" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <Pause timeout="1000" />
+		    <AssertPropertyValue value="136" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="277" propertyName="width" target="vbox2" />
+		    <CompareBitmap url="../Integration/baselines/setProperty_Group.png" target="vbox2" timeout="2000" />
+	    </body>
+	  </TestCase>
+
+	  <TestCase testID="GraphicTags_States_SetProperty_Element" description="Test SetProperty on a Group" keywords="[Group, States, Graphic]">
+	  <!--
+		 <setup>
+		    <SetProperty target="vbox2" propertyName="currentState" value="" />
+		    <ResetComponent target="hbox1" className="comps.GraphicStatesComp" waitTarget="hbox1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="setPropElement" waitEvent="updateComplete" waitTarget="hbox1" />
+		    <AssertPropertyValue value="222" propertyName="width" target="hbox1" />
+	    </body>
+	    -->
+
+		 <setup>
+			<ResetComponent target="vbox2" className="comps.VBoxIntegrationComp" waitTarget="vbox2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="vbox2" propertyName="currentState" value="setPropElement" waitEvent="currentStateChange" waitTarget="vbox2" />
+		    <AssertPropertyValue value="191" propertyName="height" target="vbox2" />
+		    <AssertPropertyValue value="261" propertyName="width" target="vbox2" />
+	    </body>
+
+	  </TestCase>
+
+
+</testCases>
+
+
+</UnitTester>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test winding rules (nonZero, evenOdd).  -->
+<!-- Author : Min Plunkett  13 Mar-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  13-Mar-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="50" y="60">
+        <content><p><span>Test winding rules (nonZero, evenOdd).</span></p></content>
+      </TextGraphic>
+	<Group x="20" y="20">
+	      <!-- ====================================================================== -->
+	      <!-- Test  winding rule nonZero ======== -->
+	      <!-- ====================================================================== -->
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="50" y="100">
+		<content><p><span>nonZero</span></p></content>
+	      </TextGraphic>
+	      <Path winding="nonZero" data="M 133.379 133.735 c 32.103 4.928 45.214 47.507 0.72 48.985 c -44.493 1.478 -39.581 -54.406 -4.1 -66.233 c 35.482 -11.827 79.533 85.065 24.34 89.993 c -55.194 4.928 -81.65 -33.529 -72.774 -47.12 C 90.575 145.563 101.276 128.808 133.379 133.735 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+		<fill>
+		  <SolidColor color="#FFF799"/>
+		</fill>
+	      </Path>
+	      <Rect x="131.379" y="131.735" width="4" height="4">
+		<fill>
+		  <SolidColor color="#00c000"/>
+		</fill>
+	      </Rect>
+
+	      <Path winding="nonZero" data="M 87.927 149.832  c -0.277 1.754  -0.918 3.855  -0.847 5.335  c -0.485 -0.591  -0.945 -1.274  -1.334 -2.026   c -0.802 -0.041  -1.638 0.008  -2.52,0.137   C 84.872 151.666  86.343 150.996  87.927 149.832 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+	      </Path>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="130" y="190">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="120" y="150">
+		<content><p><span>2</span></p></content>
+	      </TextGraphic>
+      </Group>
+	<Group x="300" y="20">
+	      <!-- ====================================================================== -->
+	      <!-- Test  winding rule evenOdd ======== -->
+	      <!-- ====================================================================== -->
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="50" y="100">
+		<content><p><span>evenOdd</span></p></content>
+	      </TextGraphic>
+	      <Path winding="evenOdd" data="M 133.379 133.735 c 32.103 4.928 45.214 47.507 0.72 48.985 c -44.493 1.478 -39.581 -54.406 -4.1 -66.233 c 35.482 -11.827 79.533 85.065 24.34 89.993 c -55.194 4.928 -81.65 -33.529 -72.774 -47.12 C 90.575 145.563 101.276 128.808 133.379 133.735 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+		<fill>
+		  <SolidColor color="#FFF799"/>
+		</fill>
+	      </Path>
+
+	      <Path winding="nonZero" data="M 87.927 149.832  c -0.277 1.754  -0.918 3.855  -0.847 5.335  c -0.485 -0.591  -0.945 -1.274  -1.334 -2.026   c -0.802 -0.041  -1.638 0.008  -2.52,0.137   C 84.872 151.666  86.343 150.996  87.927 149.832 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+		<fill>
+		  <SolidColor color="#00c000"/>
+		</fill>
+	      </Path>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="130" y="190">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="120" y="150">
+		<content><p><span>2</span></p></content>
+	      </TextGraphic>
+	      
+      </Group>
+      <Group x="20" y="250">
+	      <Path winding="nonZero" data="M 158.236 98.79  c -1.32 19.799  -22.438 14.519  -35.638 10.559  
+	      		C 112.3 106.26  68.395 59.104  55.281 82.951 	c -4.449 8.089  59.315 59.313  84.394 52.712 
+	      		c 19.372 -5.098  45.201 -18.97  35.72 -46.113   c -8.331 -23.857  -46.151 -20.016  -62.12 -4.046
+			c -30.359 30.358  0.88 55.44  -20.24 57.2    c -35.122 2.927  -16.279 -69.08  6.16 -78.32 
+			C 117.825 56.712  158.432 95.846  158.236 98.79 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+		<fill>
+		  <SolidColor color="#FFF799"/>
+		</fill>
+	      </Path>
+	      <Rect x="156.236" y="96.79" width="4" height="4">
+		<fill>
+		  <SolidColor color="#00c000"/>
+		</fill>
+	      </Rect>
+
+	      <Path winding="nonZero" data="M 149.46 111.995  c 1.416 -1.246  2.405 -2.755  3.002 -4.184   
+	      				c 0.214 0.722  0.376 1.498  0.478 2.319
+					c 0.757 0.323  1.576 0.6  2.446 0.823 C 153.326 111.778  151.34 112.098  149.46 111.995 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+	      </Path>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="100" y="80">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="80" y="130">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="85" y="95">
+		<content><p><span>0</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="65" y="80">
+		<content><p><span>-1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="130" y="118">
+		<content><p><span>-1</span></p></content>
+	      </TextGraphic>       
+      </Group>
+      
+      <Group x="300" y="250">
+	      <Path winding="evenOdd" data="M 158.236 98.79  c -1.32 19.799  -22.438 14.519  -35.638 10.559  
+	      		C 112.3 106.26  68.395 59.104  55.281 82.951 	c -4.449 8.089  59.315 59.313  84.394 52.712 
+	      		c 19.372 -5.098  45.201 -18.97  35.72 -46.113   c -8.331 -23.857  -46.151 -20.016  -62.12 -4.046
+			c -30.359 30.358  0.88 55.44  -20.24 57.2    c -35.122 2.927  -16.279 -69.08  6.16 -78.32 
+			C 117.825 56.712  158.432 95.846  158.236 98.79 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+		<fill>
+		  <SolidColor color="#FFF799"/>
+		</fill>
+	      </Path>
+	      <Rect x="156.236" y="96.79" width="4" height="4">
+		<fill>
+		  <SolidColor color="#00c000"/>
+		</fill>
+	      </Rect>
+
+	      <Path winding="nonZero" data="M 149.46 111.995  c 1.416 -1.246  2.405 -2.755  3.002 -4.184   
+	      				c 0.214 0.722  0.376 1.498  0.478 2.319
+					c 0.757 0.323  1.576 0.6  2.446 0.823 C 153.326 111.778  151.34 112.098  149.46 111.995 z">
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+	      </Path>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="100" y="80">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="80" y="130">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="85" y="95">
+		<content><p><span>2</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="65" y="80">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>
+	      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="130" y="118">
+		<content><p><span>1</span></p></content>
+	      </TextGraphic>      
+      </Group>      
+      
+</Graphic>

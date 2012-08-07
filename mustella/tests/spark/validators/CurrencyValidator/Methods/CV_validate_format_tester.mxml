@@ -1,0 +1,32 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" 
+			testSWF="CV_validate_format.mxml" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_validate_format_result_valid_1" 
+				  description="testcase for use spark:validator to validate a result string coming from format() method of spark:formatter." 
+				  keywords="[CurrencyValidator, validate, custom validator, extends from GlobalizationValidatorBase, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+            </setup>
+            <body>
+				<RunCode code="application.uiCustomComp.testSpark()" waitTarget="uiCustomComp.uiResultTI" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="uiCustomComp.uiResultTI" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

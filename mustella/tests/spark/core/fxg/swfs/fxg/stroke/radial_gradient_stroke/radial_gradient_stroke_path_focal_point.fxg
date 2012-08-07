@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>                                                                                 		
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Warning: Illustrator CS4 doesn't render RadialGradientStroke. FXG Viewer does.                                                                                		-->
+<!-- FXG 1.0 Test Radial Gradient strokes a path with focalPointRatio.                   -->
+<!-- The RadialGradientStroke element paints a stroke along a path or shape with a continuously smooth color transition between a list of colors along the radius of a circle.
+
+The RadialGradientStroke operates almost identically to the RadialGradient fill type. As with the fill, by default a RadialGradientStroke is transformed to fill the bounding box of the path being stroked. The bounding box is computed by computing the bounding box of the anchor points of the path, and expanding its borders outward in each direction by half the weight of the stroke.
+
+Otherwise its rendering behavior is identical to that of the RadialGradientFill.
+-->
+<!-- Author : Min Plunkett  27 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:     				-->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0"  xmlns="http://ns.adobe.com/fxg/2008">
+	<Group x="50" y="50">
+	      <Path winding="nonZero" data="M26.249 6.68799C12.0864 20.874 3.3252 43.3765 1.12744 61.6382 -2.97461 95.7241 12.856 113.87 54.1167 125.304 73.6953 130.729 93.6733 132.584 112.529 130.742 143.955 127.67 172.263 114.327 190.406 90.125 202.602 73.8579 218.232 42.4248 207.878
+	 23.3457 202.042 12.5903 126.796 42.165 122.617 50.8101 117.67 61.0425 80.1611 59.958 66.7891 59.4731 66.7891 59.4731 88.1187 0.479492 89.4507 0.5 110.741 0.824219 132.009 0.819336 153.325 0.84668" >
+			<stroke>
+				<RadialGradientStroke x="10" y="20" scaleX="200" scaleY="200" focalPointRatio="1" weight="40">
+					<GradientEntry color="#0900b2" ratio="0"/>
+					<GradientEntry color="#ff0000" ratio="0.5"/>
+					<GradientEntry color="#fffc00" ratio="1"/>
+				</RadialGradientStroke>
+			</stroke>
+		</Path>
+	</Group>
+	<Group x="50" y="250">
+	      <Path winding="nonZero" data="M26.249 6.68799C12.0864 20.874 3.3252 43.3765 1.12744 61.6382 -2.97461 95.7241 12.856 113.87 54.1167 125.304 73.6953 130.729 93.6733 132.584 112.529 130.742 143.955 127.67 172.263 114.327 190.406 90.125 202.602 73.8579 218.232 42.4248 207.878
+	 23.3457 202.042 12.5903 126.796 42.165 122.617 50.8101 117.67 61.0425 80.1611 59.958 66.7891 59.4731 66.7891 59.4731 88.1187 0.479492 89.4507 0.5 110.741 0.824219 132.009 0.819336 153.325 0.84668" >
+			<stroke>
+				<RadialGradientStroke x="10" y="20" scaleX="200" scaleY="200" focalPointRatio="0" weight="40">
+					<GradientEntry color="#0900b2" ratio="0"/>
+					<GradientEntry color="#ff0000" ratio="0.5"/>
+					<GradientEntry color="#fffc00" ratio="1"/>
+				</RadialGradientStroke>
+			</stroke>
+		</Path>
+	</Group>
+	<Group x="50" y="480">
+	      <Path winding="nonZero" data="M26.249 6.68799C12.0864 20.874 3.3252 43.3765 1.12744 61.6382 -2.97461 95.7241 12.856 113.87 54.1167 125.304 73.6953 130.729 93.6733 132.584 112.529 130.742 143.955 127.67 172.263 114.327 190.406 90.125 202.602 73.8579 218.232 42.4248 207.878
+	 23.3457 202.042 12.5903 126.796 42.165 122.617 50.8101 117.67 61.0425 80.1611 59.958 66.7891 59.4731 66.7891 59.4731 88.1187 0.479492 89.4507 0.5 110.741 0.824219 132.009 0.819336 153.325 0.84668" >
+			<stroke>
+				<RadialGradientStroke x="10" y="20" scaleX="200" scaleY="200" focalPointRatio="-1" weight="40">
+					<GradientEntry color="#0900b2" ratio="0"/>
+					<GradientEntry color="#ff0000" ratio="0.5"/>
+					<GradientEntry color="#fffc00" ratio="1"/>
+				</RadialGradientStroke>
+			</stroke>
+		</Path>
+	</Group>
+</Graphic>

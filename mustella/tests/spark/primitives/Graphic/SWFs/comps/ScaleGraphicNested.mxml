@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<s:Graphic id="graphic1" height="200" width="200">
+		<s:Group id="group1">
+			<s:Rect id="rect1" x="0" y="0" width="200" height="200" radiusX="10" radiusY="10">
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<mx:GradientEntry color="0x3399FF" alpha="1" />
+						<mx:GradientEntry color="0xFFFFFF" alpha="0.8" />
+					</s:LinearGradient>
+				</s:fill>
+				<s:stroke>
+					<mx:SolidColorStroke color="0xFF6600" weight="4" />
+				</s:stroke>
+			</s:Rect>
+			<s:RichText id="textGraphic1" content="status ..." fontSize="12" x="150" y="5"  fontFamily="MyVerdana" />
+			<s:Group id="group2">
+				<s:Rect id="rect2" x="50" y="50" width="150" height="150">
+					<s:fill>
+						<mx:SolidColor color="0xFFFFFF" />
+					</s:fill>
+					<s:stroke>
+						<mx:SolidColorStroke color="0x000000" weight="4"/>
+					</s:stroke>
+				</s:Rect>
+				<s:Rect id="rect3" x="0" y="0" width="100" height="100" radiusX="10" radiusY="15">
+					<s:fill>
+						<mx:SolidColor color="0xFF6699" />
+					</s:fill>
+				</s:Rect>
+				<s:RichText id="textGraphic2" content="HELLO!" fontSize="20" x="50" y="90" />
+			</s:Group>
+		</s:Group>
+	</s:Graphic>
+
+</mx:Canvas>

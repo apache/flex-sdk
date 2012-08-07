@@ -1,0 +1,103 @@
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Styles/" testSWF="CF_locale_inheritance_module_global.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import flash.globalization.*;
+			import assets.CFConstant;
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			public var CFResult:CurrencyParseResult;
+			public var GSLibResult:CurrencyParseResult;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CF_locale_inheritance_default_test_1" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+                <ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+                <DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+            </setup>
+            <body>
+                <SetProperty target="" propertyName="globalLocale" value="zh-CN" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertEvent target="styleComp.child.cfNoLocaleScript" eventName="change" eventClass="flash.events::Event"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnLoad" waitTarget="styleComp" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_test_2" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ru')"/>
+                <ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+                <DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+            </setup>
+            <body>
+                <SetProperty target="" propertyName="globalLocale" value="ru" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertEvent target="styleComp.child.cfNoLocaleScript" eventName="change" eventClass="flash.events::Event"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnLoad" waitTarget="styleComp" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_format_test_3" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ru')"/>
+                <ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+                <DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+            </setup>
+            <body>
+                <SetProperty target="" propertyName="globalLocale" value="ru" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+                <AssertMethodValue method="value=application.styleComp.child.cfNoLocaleScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+                <AssertEvent target="styleComp.child.cfNoLocaleScript" eventName="change" eventClass="flash.events::Event"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnLoad" waitTarget="styleComp" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_format_with_test_4" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr')"/>
+				<ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+				<DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+                <SetProperty target="" propertyName="globalLocale" value="fr" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.styleComp.child.cfNoLocaleScript.formattingWithCurrencySymbolIsSafe('EUR')" valueExpression="value=(cfGSLib.currencyISOCode == application.styleComp.child.cfNoLocaleScript.currencyISOCode)"/>
+                <AssertMethodValue method="value=application.styleComp.child.cfNoLocaleScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CF_locale_inheritance_default_parse_test_5" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')"/>
+				<ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+				<DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+                <SetProperty target="" propertyName="globalLocale" value="ja-JP" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+                <RunCode code="CFResult=application.styleComp.child.cfNoLocaleScript.parse('123,456,789.012')"/>
+                <RunCode code="GSLibResult=cfGSLib.parse('123,456,789.012')"/>
+                <Pause timeout="{CFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value"/>
+                <AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="styleComp.child.cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

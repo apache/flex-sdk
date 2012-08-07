@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/MXDataGrid/" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+			testSWF="SF_ORIG_DataGridApp_halo.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+		import spark.collections.*;
+		import mx.collections.ICollectionView;
+		import mx.collections.IList;
+		import mx.collections.IViewCursor;
+		import mx.collections.ListCollectionView;
+		import mx.controls.dataGridClasses.DataGridColumn;
+        import mx.utils.ObjectUtil;
+    ]]>
+    </mx:Script>
+
+<!--
+    Notes:
+    - This is where we put all test cases related to dataProvider.
+-->
+
+    <testCases>
+
+        <TestCase testID="dataProvider_binding_change_halo" keywords="[DataGrid,properties,dataProvider]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.aBindableObject = ObjectUtil.copy(application.dataArray6)" />
+                <SetProperty target="dg1" propertyName="dataProvider" valueExpression="value=application.aBindableObject" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value=[new DataGridColumn()]" />
+                <SetProperty target="dg1.columns.0" propertyName="dataField" value="key1" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.changeData(ICollectionView(application.aBindableObject), [new SortField('key1',false)], {key1: '0'}, 'key1', 'hello')" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="hello" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

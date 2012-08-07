@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_Style_Local_TypeSelector_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		
+		private var aDate:Date =  new Date(2000, 0, 1);
+		
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test local style, it includes type selector-->
+<testCases>
+	<TestCase testID="DF_local_TypeSelector_ru_RU_long_long_test1" description="'ru-RU','long','long'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','long')" />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dtFormatter" value="long" />
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+	    </body>
+	</TestCase> 
+	<TestCase testID="DF_local_TypeSelector_ru_RU_medium_long_test2" description="'ru-RU','medium','long'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','medium','long')" />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dtFormatter2" value="medium" waitEvent="change"/>
+			<AssertMethodValue method="value=application.dtFormatter2.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase> 
+	<TestCase testID="DF_local_TypeSelector_ru_RU_none_long_test3" description="'ru-RU','none','long'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','none','long')" />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dtFormatter3" value="none" waitEvent="change"/>
+			<AssertMethodValue method="value=application.dtFormatter3.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase> 
+	<TestCase testID="DF_local_TypeSelector_ru_RU_short_long_test4" description="'ru-RU','short','long'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','short','long')" />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dtFormatter4" value="short" waitEvent="change"/>
+			<AssertMethodValue method="value=application.dtFormatter4.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase> 
+	<TestCase testID="DF_local_TypeSelector_ru_RU_long_short_test5" description="'ru-RU','long','short'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','short')" />
+			<Pause timeout="200" />
+			<SetProperty propertyName="dateStyle" target="dtFormatter" value="long" />
+		</setup>
+		<body>
+			<SetProperty propertyName="timeStyle" target="dtFormatter5" value="short" waitEvent="change"/>
+			<AssertMethodValue method="value=application.dtFormatter5.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase> 
+	<TestCase testID="DF_local_TypeSelector_ru_RU_long_medium_test6" description="'ru-RU','long','medium'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','medium')" />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+			<SetProperty propertyName="timeStyle" target="dtFormatter6" value="medium" waitEvent="change"/>
+			<AssertMethodValue method="value=application.dtFormatter6.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase> 
+	<TestCase testID="DF_local_TypeSelector_ru_RU_long_none_test7" description="'ru-RU','long','none'" keywords="[DateTimeFormatter, format(), local style]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','none')" />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+			<SetProperty propertyName="timeStyle" target="dtFormatter7" value="none" waitEvent="change"/>
+			<AssertMethodValue method="value=application.dtFormatter7.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

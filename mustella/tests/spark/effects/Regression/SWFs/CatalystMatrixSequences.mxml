@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+    xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+    backgroundColor="#ffffff" xmlns:comps="comps.*" 
+    width="1000" height="800"
+    >
+    
+    <fx:Script><![CDATA[
+        
+        //
+        // Added by stshongr as hooks to reset and update the status of a test
+        //
+        public function resetTest():void {
+            updateTestStatus("Resetting...");
+            button_clickHandler();
+        }
+        
+        public function updateTestStatus(value:String):void {
+            richtext1.text = value;
+        }
+        
+        //		
+        //
+        //
+        
+        public function button_clickHandler():void
+        {
+            currentState='Page1';
+            Sequence1.play();
+        }
+        
+        public function button_clickHandler_1():void
+        {
+            Sequence2.play();
+        }
+        
+        
+        public function button_clickHandler_2():void
+        {
+            Sequence3.play();
+        }
+        
+        
+        public function button_clickHandler_3():void
+        {
+            Sequence4.play();
+        }
+        
+        
+        public function button_clickHandler_4():void
+        {
+            Sequence5.play();
+        }
+        
+        
+        
+        
+        
+        public function button_clickHandler_6():void
+        {
+            Sequence7.play();
+        }
+        
+        
+        public function button_clickHandler_7():void
+        {
+            Sequence8.play();
+        }
+        
+        
+        public function button_clickHandler_8():void
+        {
+            Sequence9.play();
+        }
+        
+        
+        public function button_clickHandler_9():void
+        {
+            Sequence10.play();
+        }
+        
+        
+        public function button_clickHandler_10():void
+        {
+            Sequence11.play();
+        }
+        
+        
+        
+        
+        
+        public function button_clickHandler_12():void
+        {
+            Sequence12.play();
+        }
+        
+        
+        public function button_clickHandler_13():void
+        {
+            Sequence13.play();
+        }
+        
+        
+        public function button_clickHandler_14():void
+        {
+            Sequence14.play();
+        }
+        
+        
+        public function button_clickHandler_15():void
+        {
+            Sequence15.play();
+        }
+        
+        
+        public function button_clickHandler_16():void
+        {
+            Sequence16.play();
+        }
+        
+        
+        public function button_clickHandler_17():void
+        {
+            Sequence6.play();
+        }
+        
+        
+        public function _17_clickHandler():void
+        {
+            Sequence17.play();
+        }
+        
+        
+        public function _18_clickHandler():void
+        {
+            Sequence18.play();
+        }
+        
+        
+        public function _19_clickHandler():void
+        {
+            Sequence19.play();
+        }
+        
+        
+        public function _20_clickHandler():void
+        {
+            Sequence20.play();
+        }
+        
+        
+        public function _21_clickHandler():void
+        {
+            Sequence21.play();
+        }
+        
+        
+        public function _22_clickHandler():void
+        {
+            Sequence22.play();
+        }
+        
+        
+        public function _23_clickHandler():void
+        {
+            Sequence23.play();
+        }
+        
+        
+        public function _24_clickHandler():void
+        {
+            Sequence24.play();
+        }
+        
+    ]]></fx:Script>
+    <s:states>
+        <s:State name="Page1" fc:color="0xcc0000"/>
+    </s:states>
+    <!--<s:controlBarContent>
+        <comps:MatrixHelper inspectionTarget="{group1}" effect="{Sequence2}" rootDocument="{this}" />
+    </s:controlBarContent>-->
+    <fx:Declarations>
+        <s:Parallel id="Sequence1">
+            <s:Parallel target="{group1}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="400" yTo="150"/>
+                <s:Rotate autoCenterTransform="true" angleTo="0" duration="2000"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="0" duration="2000"/>
+            </s:Parallel>
+            <s:Parallel target="{group4}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="0" yTo="0"/>
+                <s:Rotate autoCenterTransform="true" duration="2000" angleTo="0"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="0" duration="2000"/>
+            </s:Parallel>
+            <s:Parallel target="{group3}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="0" yTo="6"/>
+                <s:Rotate autoCenterTransform="true" duration="2000" angleTo="0"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="0" duration="2000"/>
+            </s:Parallel>
+            <s:Parallel target="{group2}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="0" yTo="226"/>
+                <s:Rotate autoCenterTransform="true" duration="2000" angleTo="0"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="0" duration="2000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence2">
+            <s:Parallel target="{group1}">
+                <s:Move autoCenterTransform="true" xTo="200" yTo="100" duration="2000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence3">
+            <s:Parallel target="{group1}">
+                <s:Rotate autoCenterTransform="true" duration="2050" angleTo="270"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence4"/>
+        <s:Parallel id="Sequence5">
+            <s:Parallel target="{group1}">
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="360" duration="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="360" angleZTo="0" angleXTo="0" duration="500" startDelay="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="360" angleXTo="0" duration="500" startDelay="1000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence6"/>
+        <s:Parallel id="Sequence7">
+            <s:Parallel target="{group3}">
+                <s:Move autoCenterTransform="true" xTo="-150" yTo="-106" duration="2000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence8">
+            <s:Parallel target="{group3}">
+                <s:Rotate autoCenterTransform="true" duration="2000" angleTo="270"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence9"/>
+        <s:Parallel id="Sequence10">
+            <s:Parallel target="{group3}">
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="360" duration="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="360" angleZTo="0" angleXTo="0" duration="500" startDelay="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="360" angleXTo="0" duration="500" startDelay="1000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence11"/>
+        <s:Parallel id="Sequence12">
+            <s:Parallel target="{group1}">
+                <s:Rotate autoCenterTransform="true" angleTo="90" duration="2000"/>
+            </s:Parallel>
+            <s:Parallel target="{group3}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="-103" yTo="118"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence13"/>
+        <s:Parallel id="Sequence14">
+            <s:Parallel target="{group1}">
+                <s:Rotate autoCenterTransform="true" duration="2000" angleTo="90"/>
+            </s:Parallel>
+            <s:Parallel target="{group3}">
+                <s:Rotate angleBy="-180" autoCenterTransform="true" duration="2000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence15"/>
+        <s:Parallel id="Sequence16">
+            <s:Parallel target="{group1}">
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="360" duration="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="360" angleZTo="0" angleXTo="0" duration="500" startDelay="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="360" angleXTo="0" duration="500" startDelay="1000"/>
+            </s:Parallel>
+            <s:Parallel target="{group3}">
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="0" angleXTo="360" duration="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="360" angleZTo="0" angleXTo="0" duration="500" startDelay="500"/>
+                <s:Rotate3D autoCenterProjection="true" angleYFrom="0" angleXFrom="0" angleZFrom="0" autoCenterTransform="true" angleYTo="0" angleZTo="360" angleXTo="0" duration="500" startDelay="1000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence17">
+            <s:Parallel target="{group1}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="250" yTo="100"/>
+            </s:Parallel>
+            <s:Parallel target="{group3}">
+                <s:Move autoCenterTransform="true" xTo="-51" yTo="-75" duration="2000"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence18">
+            <s:Parallel target="{group1}">
+                <s:Move autoCenterTransform="true" duration="2000" xTo="250" yTo="100"/>
+            </s:Parallel>
+            <s:Parallel target="{group3}">
+                <s:Rotate autoCenterTransform="true" duration="2000" angleTo="180"/>
+            </s:Parallel>
+        </s:Parallel>
+        <s:Parallel id="Sequence19"/>
+        <s:Parallel id="Sequence20"/>
+        <s:Parallel id="Sequence21"/>
+        <s:Parallel id="Sequence22"/>
+        <s:Parallel id="Sequence23"/>
+        <s:Parallel id="Sequence24"/>
+    </fx:Declarations>
+    <fx:DesignLayer d:userLabel="controls">
+        <s:Button label="24: p-3d rt  c-fa" x="74" y="562" id="button9" width="101.95" height="20.95" d:userLabel="24" click="_24_clickHandler()"/>
+        <s:Button label="23: p-mv c-fa" x="74" y="538" id="button8" d:userLabel="23" click="_23_clickHandler()"/>
+        <s:Button label="22: p-re c-fa" x="74" y="514" id="button0" height="21.05" d:userLabel="22" click="_22_clickHandler()"/>
+        <s:Button label="21: p-rt c-fa" x="74" y="490" id="button1" width="81.95" d:userLabel="21" click="_21_clickHandler()"/>
+        <s:Button label="20: p-rt c-re" x="74" y="466" id="button3" width="82.95" d:userLabel="20" click="_20_clickHandler()"/>
+        <s:Button label="19: p-mv c-re" x="74" y="442" id="button2" height="20.95" d:userLabel="19" click="_19_clickHandler()"/>
+        <s:Button label="18: p-mv c-rt" x="74" y="418" id="button4" width="87.95" d:userLabel="18" click="_18_clickHandler()"/>
+        <s:Button label="17: p-mv c-mv" x="74" y="394" id="button5" width="96.95" height="21.05" d:userLabel="17" click="_17_clickHandler()"/>
+        <s:Button click="button_clickHandler_16()" x="74" y="370" id="button15" label="16: p-rt3d c-rt3d" d:userLabel="16"/>
+        <s:Button click="button_clickHandler_15()" x="74" y="346" id="button18" label="15: p-re c-re" d:userLabel="15"/>
+        <s:Button click="button_clickHandler_14()" x="74" y="322" id="button17" height="20.95" label="14: p-rt ch-rt" d:userLabel="14"/>
+        <s:Button click="button_clickHandler_13()" x="74" y="298" id="button19" label="13: p-re c-mv" d:userLabel="13"/>
+        <s:Button click="button_clickHandler_12()" x="74" y="274" id="button16" height="21.05" label="12: p-rt ch-mv" d:userLabel="12"/>
+        <s:Button click="button_clickHandler_10()" x="74" label="11: c-fa" y="250" id="button14" d:userLabel="11"/>
+        <s:Button click="button_clickHandler_9()" x="74" y="226" id="button13" label="10: c-rt 3d" d:userLabel="10"/>
+        <s:Button click="button_clickHandler_8()" x="74" y="202" id="button12" label="9:  c-re" d:userLabel="9"/>
+        <s:Button click="button_clickHandler_7()" x="74" y="178" id="button11" label="8: c-rt" d:userLabel="8"/>
+        <s:Button click="button_clickHandler_6()" x="74" y="154" id="button10" height="21.05" label="7: c-mv" d:userLabel="7"/>
+        <s:Button click="button_clickHandler_17()" x="74" label="6: p-fa" y="130" id="button21" d:userLabel="6"/>
+        <s:Button click="button_clickHandler_4()" label="5: p-rt 3d" x="74" y="106" id="button25" height="20.95" d:userLabel="5"/>
+        <s:Button click="button_clickHandler_3()" label="4: p-re" x="74" y="82" id="button23" d:userLabel="4"/>
+        <s:Button click="button_clickHandler_2()" label="3: p-rt" x="74" y="58" id="button22" d:userLabel="3"/>
+        <s:Button click="button_clickHandler_1()" label="2: p-mv" x="74" y="34" id="button20" height="21.05" d:userLabel="2"/>
+        <s:Button click="button_clickHandler()" label="1: reset" width="70" y="33" id="button24" height="549.05" x="2" d:userLabel="1"/>
+        <s:RichText tabStops="S0 S50 S100 S150 S200 S250 S300 S350 S400 S450 S500 S550 S600 S650" y="4" x="3" id="richtext1" color="#2B4381" fontFamily="Arial" fontSize="12" whiteSpaceCollapse="preserve">
+        <s:content><s:p><s:span><![CDATA[Default (resets to) - parent:: x:400 y:150 w:127 h:325 rt:0 rt3d: 0,0,0 alpha:100 ]]></s:span></s:p><s:p><s:span>child1:: x:0 y:0 w:127 h: 99 rt3d: 0,0,0 alpha 100 child2:: x:0 y:6 w:127 h: 313 rt3d: 0,0,0 alpha 100 child3:: x:0 y:226 w:127 h: 99 rt3d: 0,0,0 alpha 100</s:span></s:p></s:content>
+        </s:RichText>
+        <s:Line y="44.5" x="147.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="68.5" x="147.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="114.5" x="147.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="164.5" x="147.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="187.5" x="147.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="234.5" x="153.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="284.5" x="173.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="332.5" x="165.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="380.5" x="184.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="404.5" x="176.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+        <s:Line y="427.5" x="167.5" xTo="15">
+            <s:stroke>
+                <s:SolidColorStroke weight="3" caps="none" joints="miter" miterLimit="4" color="#333333"/>
+            </s:stroke>
+        </s:Line>
+    </fx:DesignLayer>
+    <fx:DesignLayer d:userLabel="Layer 1">
+        <s:Group id="group1" x="400" y="150" d:userLabel="parent">
+            <s:Group id="group4" x="0" y="0" d:userLabel="child 1">
+                <s:Rect height="99" id="rect5" width="24" x="0" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#fdff00"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect height="99" id="rect6" width="24" x="103" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#a1a005"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect height="99" id="rect8" width="24" x="50" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#c2c104"/>
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
+            <s:Group id="group3" d:userLabel="child 2" x="0" y="6">
+                <s:Rect height="99" id="rect3" width="24" x="0" y="108">
+                    <s:fill>
+                        <s:SolidColor color="#ff0000"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect height="99" id="rect2" width="24" x="103" y="108">
+                    <s:fill>
+                        <s:SolidColor color="#a00505"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect height="99" id="rect4" width="24" x="51" y="108">
+                    <s:fill>
+                        <s:SolidColor color="#c10404"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect alpha="0.5" height="313" id="rect7" width="59" x="34" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#0065ff"/>
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
+            <s:Group id="group2" x="0" y="226" d:userLabel="child 3">
+                <s:Rect height="99" id="rect1" width="24" x="0" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#00ff00"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect height="99" id="rect10" width="24" x="103" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#05a00d"/>
+                    </s:fill>
+                </s:Rect>
+                <s:Rect height="99" id="rect9" width="24" x="50" y="0">
+                    <s:fill>
+                        <s:SolidColor color="#04c10d"/>
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
+        </s:Group>
+    </fx:DesignLayer>
+    <fx:Private>
+    </fx:Private>
+</s:Application>
+

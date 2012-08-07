@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" >
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.collections.IList; 
+			
+			//Add some simple array data for testing when sort.filed is null
+			public var mySimpleStrArr:ArrayList = new  ArrayList([null,'A',null,'A','a','a1','a','B','C','D','E','F','G','H','I','J','K',
+				'L','M','N','O','P','Q','R','S','Ra','sa','T','U','V','W','X','Y','Z','a','a1','aa','aa1',null,null]);
+			
+			public var mySimpleNumArr:ArrayList = new ArrayList([1.1, 2, 3.0 , 5 , 6.34 , 9.0 , -1 , 5.3 , 10.2 , -10.8 , 0 , 999] ) ; 
+			
+			public var mySimpleDateArr:ArrayList = new ArrayList([new Date("2010/09/08"), new Date("2009/10/12"),
+																new Date("3/8/2008"), new Date( "1928/3/8" )]);
+			
+			public var mySimpleMixArr:ArrayCollection = new ArrayCollection(['abc', new Date("2010/09/08"), new Date("2009/10/12"),
+																new Date("3/8/2008"), new Date( "1928/3/8" ), 'Abc', 'bbc', 'Bbc']);
+			
+			public var mySimpleMix2Arr:ArrayCollection = new ArrayCollection(['abc', null, new Date("2009/10/12"),
+																new Date("3/8/2008"), null, 'Abc', null, 'Bbc']); 
+			
+			public var mySimpleBooleanArr:ArrayList = new ArrayList([true , false, false , true , false]); 
+			
+			public var mySimpleStrArrColl:ArrayCollection = new ArrayCollection(['Ted','Imari','Umbra','Izzy','TJ','Bo','Danny','Molly','cadbury','Matisse','barmen','Chumley','Moe','cadbury','Bunny','Daisy']);
+			
+			public var myMXNameAgeStrArr:ArrayCollection = new ArrayCollection([
+				{id:'129', name:'Ted', age:10}, 
+				{id:'124', name:'Imari', age:11}, 
+				{id:'128', name:'Umbra', age:11}, 
+				{id:'126', name:'Izzy', age:12}, 
+				{id:'127', name:'TJ', age:15}, 
+				{id:'125', name:'Bo', age:16}, 
+				{id:'123', name:'Danny', age:20}, 
+				{id:'135', name:'Molly', age:20}, 
+				{id:'131', name:'Matisse', age:30}, 
+				{id:'132', name:'barmen', age:31}, 
+				{id:'133', name:'Chumley', age:33}, 
+				{id:'134', name:'Moe', age:34}, 
+				{id:'130', name:'cadbury', age:38}, 
+				{id:'138', name:'cadbury', age:39}, 
+				{id:'136', name:'Bunny', age:60}, 
+				{id:'137', name:'Daisy', age:70} 
+			]);
+			
+			public var myNameStrArr:ArrayCollection = new ArrayCollection([
+				'Ted', 
+				'Imari', 
+				'Umbra', 
+				'Izzy', 
+				'TJ', 
+				'Bo', 
+				'Danny', 
+				'Molly', 
+				'Matisse', 
+				'barmen', 
+				'Chumley', 
+				'Moe', 
+				'cadbury', 
+				'Bunny', 
+				'Daisy'
+			]);
+			
+			public var myAddressStrArr:ArrayCollection = new ArrayCollection([
+				'Canidae', 
+				'fr cote', 
+				'delidae', 
+				'fr côte', 
+				'fr coté', 
+				'fr côté', 
+				'chquidae', 
+				'fr Cote', 
+				'fr cOte', 
+				'fr cöte', 
+				'bovidae', 
+				'fr COTE', 
+				'ceporidae', 
+				'fr coTe', 
+				'fr cotE'
+			]);
+			
+			/**
+# ö is after z in Swedish, whereas in German ö is after o
+# ch is sorted as one character between c-d in traditional Spanish
+# accented characters in French are sorted according to the last accent difference instead of the first accent difference: 
+for example, cote < côte < coté < côté instead of cote < coté < côte < côté
+			 */
+			public var sortByAgeAddressArr:ArrayCollection = new ArrayCollection([
+				'Imari', 
+				'Daisy', 
+				'Bunny', 
+				'Matisse', 
+				'Molly', 
+				'Moe', 
+				'TJ',
+				'Izzy', 
+				'Bo', 
+				'barmen', 
+				'Chumley', 
+				'Ted', 
+				'cadbury', 
+				'Danny', 
+				'Umbra', 
+			]);
+			
+			public var sortByAgeAddressFrArr:ArrayCollection = new ArrayCollection([
+				'Imari', 
+				'Daisy', 
+				'Bunny', 
+				'Matisse', 
+				'Molly', 
+				'Moe', 
+				'Izzy',
+				'barmen', 
+				'TJ', 
+				'Bo', 
+				'Chumley', 
+				'Ted', 
+				'cadbury', 
+				'Danny', 
+				'Umbra', 
+			]);
+			
+			public var sortByAgeAddressNumTrdArr:ArrayCollection = new ArrayCollection([
+				'Chumley', 
+				'Ted', 
+				'cadbury', 
+				'Danny', 
+				'Umbra', 
+				'Imari', 
+				'Daisy',
+				'Bunny', 
+				'Matisse', 
+				'Molly', 
+				'Moe', 
+				'TJ',
+				'Izzy', 
+				'Bo', 
+				'barmen', 
+			]);
+			
+			public var sortByAgeAddressNumFrTrdArr:ArrayCollection = new ArrayCollection([
+				'Chumley', 
+				'Ted', 
+				'cadbury', 
+				'Danny', 
+				'Umbra', 
+				'Imari', 
+				'Daisy',
+				'Bunny', 
+				'Matisse', 
+				'Molly', 
+				'Moe', 
+				'Izzy', 
+				'barmen', 
+				'TJ', 
+				'Bo', 
+			]);
+			
+			public var sortByIsTrueNameSwArr:ArrayCollection = new ArrayCollection([
+				'1', 
+				'4', 
+				'2', 
+				'3', 
+			]); 
+			
+ 			public var sortByIsTrueNameDeArr:ArrayCollection = new ArrayCollection([
+				'1', 
+				'4', 
+				'3', 
+				'2', 
+			]); 
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:ArrayCollection id="dataArrCollS">
+			<fx:Object name="Ted" address="Canidae" age="20" birth="2002/09/08" salary="125.63" />
+			<fx:Object name="Imari" address="fr cote" age="8" birth="2001/09/08" salary="125.630" />
+			<fx:Object name="Umbra" address="delidae" age="20" birth="2002/9/8" salary="125.61"  />
+			<fx:Object name="Izzy" address="fr côte" age="8" birth="2002/09/07" salary="100.000"  />
+			<fx:Object name="TJ" address="fr coté" age="8" birth="2002/09/09" salary="125.6300001"  />
+			<fx:Object name="Bo" address="fr côté" age="8" birth="2003/09/08" salary="5460"  />
+			<fx:Object name="Danny" address="chquidae" age="20" birth="2002/10/08" salary="NaN"  />
+			<fx:Object name="Molly" address="fr Cote" age="8" birth="2002/08/08" salary="0.0000"  />
+			<fx:Object name="Matisse" address="fr cOte" age="8" birth="2002-08-09" salary="-125.63"  />
+			<fx:Object name="barmen" address="fr cöte" age="8" birth="二零零二年九月十一日" salary="-0"  />
+			<fx:Object name="Chumley" address="bovidae" age="20" birth="20020914" salary="3+200*(65-14)/10"  />
+			<fx:Object name="Moe" address="fr COTE" age="8" birth="2002" salary="一百二十五"  />    
+			<fx:Object name="cadbury" address="ceporidae" age="20" birth="2000/1/1" salary="零点四三"  />    
+			<fx:Object name="Bunny" address="fr coTe" age="8" birth="2000/01/01" salary="589711658478985654687898965654879851165"  />
+			<fx:Object name="Daisy" address="fr cotE" age="8" birth="1999/12/31" salary="两亿"  />
+		</s:ArrayCollection>
+		
+		<mx:ArrayCollection id="dataArrCollMX2">
+			<fx:Object name="Ted" address="Canidae" age="20" birth="2002/09/08" salary="125.63" />
+			<fx:Object name="Imari" address="fr cote" age="8" birth="2001/09/08" salary="125.630" />
+			<fx:Object name="Umbra" address="delidae" age="20" birth="2002/9/8" salary="125.61"  />
+			<fx:Object name="Izzy" address="fr côte" age="8" birth="2002/09/07" salary="100.000"  />
+			<fx:Object name="TJ" address="fr coté" age="8" birth="2002/09/09" salary="125.6300001"  />
+			<fx:Object name="Bo" address="fr côté" age="8" birth="2003/09/08" salary="5460"  />
+			<fx:Object name="Danny" address="chquidae" age="20" birth="2002/10/08" salary="NaN"  />
+			<fx:Object name="Molly" address="fr Cote" age="8" birth="2002/08/08" salary="0.0000"  />
+			<fx:Object name="Matisse" address="fr cOte" age="8" birth="2002-08-09" salary="-125.63"  />
+			<fx:Object name="barmen" address="fr cöte" age="8" birth="二零零二年九月十一日" salary="-0"  />
+			<fx:Object name="Chumley" address="bovidae" age="20" birth="20020914" salary="3+200*(65-14)/10"  />
+			<fx:Object name="Moe" address="fr COTE" age="8" birth="2002" salary="一百二十五"  />    
+			<fx:Object name="cadbury" address="ceporidae" age="20" birth="2000/1/1" salary="零点四三"  />    
+			<fx:Object name="Bunny" address="fr coTe" age="8" birth="2000/01/01" salary="589711658478985654687898965654879851165"  />
+			<fx:Object name="Daisy" address="fr cotE" age="8" birth="1999/12/31" salary="两亿"  />
+		</mx:ArrayCollection>
+		
+		<mx:ArrayCollection id="dataArrCollMX">
+			<fx:Object myid="1" name="cote"  isTrue="true" when="9/9/2007" image="../../../../../Assets/Images/redrect.jpg" />
+			<fx:Object myid="2" name="czte" isTrue="true" when="9/1/1996" image="../../../../../Assets/Images/orangerect.jpg" />
+			<fx:Object myid="3" name="cöte"  isTrue="true" when="9/13/1993" image="../../../../../Assets/Images/bwrect.jpg" />
+			<fx:Object myid="4" name="côte"  isTrue="true" when="8/12/2005" image="../../../../../Assets/Images/ybrect.jpg" />
+		</mx:ArrayCollection>
+
+		<fx:XMLList
+			id="dataXmlList">
+			<employee>
+				<name>Ted</name>
+				<address>Canidae</address>
+				<age>9</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Imari</name>
+				<address>fr cote</address>
+				<age>8</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Umbra</name>
+				<address>Felidae</address>
+				<age>8</age>
+				<active>false</active>
+			</employee>
+			<employee>
+				<name>Izzy</name>
+				<address>fr côte</address>
+				<age>12</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>TJ</name>
+				<address>fr coté</address>
+				<age>1</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Bo</name>
+				<address>fr côté</address>
+				<age>16</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Danny</name>
+				<address>Equidae</address>
+				<age>20</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Molly</name>
+				<address>fr Cote</address>
+				<age>4</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Matisse</name>
+				<address>fr cOte</address>
+				<age>8</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>barmen</name>
+				<address>fr cöte</address>
+				<age>12</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Chumley</name>
+				<address>bovidae</address>
+				<age>9</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Moe</name>
+				<address>fr COTE</address>
+				<age>6</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>cadbury</name>
+				<address>leporidae</address>
+				<age>7</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Bunny</name>
+				<address>fr coTe</address>
+				<age>3</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Daisy</name>
+				<address>fr cotE</address>
+				<age>6</age>
+				<active>true</active>
+			</employee>
+		</fx:XMLList>
+		
+		<s:XMLListCollection id="dataXmlListArrS" source="{dataXmlList}">
+		</s:XMLListCollection>
+		
+		<mx:ArrayList id="dataArrListMX">
+			<fx:Object name="Ted" address="Canidae" age="9" birth="2002/09/08" salary="125.63" />
+			<fx:Object name="Imari" address="fr cote" age="8" birth="2001/09/08" salary="125.630" />
+			<fx:Object name="Umbra" address="Felidae" age="8" birth="2002/9/8" salary="125.61"  />
+			<fx:Object name="Izzy" address="fr côte" age="12" birth="2002/09/07" salary="100.000"  />
+			<fx:Object name="TJ" address="fr coté" age="1" birth="2002/09/09" salary="125.6300001"  />
+			<fx:Object name="Bo" address="fr côté" age="16" birth="2003/09/08" salary="5460"  />
+			<fx:Object name="Danny" address="Equidae" age="20" birth="2002/10/08" salary="NaN"  />
+			<fx:Object name="Molly" address="fr Cote" age="4" birth="2002/08/08" salary="0.0000"  />
+			<fx:Object name="Matisse" address="fr cOte" age="8" birth="2002-08-09" salary="-125.63"  />
+			<fx:Object name="barmen" address="fr cöte" age="12" birth="二零零二年九月十一日" salary="-0"  />
+			<fx:Object name="Chumley" address="bovidae" age="9" birth="20020914" salary="3+200*(65-14)/10"  />
+			<fx:Object name="Moe" address="fr COTE" age="6" birth="2002" salary="一百二十五"  />    
+			<fx:Object name="cadbury" address="leporidae" age="7" birth="2000/1/1" salary="零点四三"  />    
+			<fx:Object name="Bunny" address="fr coTe" age="3" birth="2000/01/01" salary="589711658478985654687898965654879851165"  />
+			<fx:Object name="Daisy" address="fr cotE" age="6" birth="1999/12/31" salary="两亿"  />
+		</mx:ArrayList>
+		
+		<mx:ListCollectionView id="dataListCollViewMX" list="{dataArrCollMX}"/>
+		<mx:ListCollectionView id="dataListCollViewArrList" list="{dataArrListMX}"/>
+		
+		<s:AsyncListView id="dataAsyncListViewS" list="{dataArrCollS}"/>
+
+		<s:AsyncListView id="dataAsyncListViewMX" list="{dataArrCollMX2}"/>
+		
+	</fx:Declarations>
+<!--	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>-->
+	
+</s:Group>

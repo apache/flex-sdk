@@ -1,0 +1,64 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="spark_application_background_css.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <fx:Style>
+    	.myStyle{
+			backgroundColor: #00FF00;
+			backgroundAlpha: 1;
+		}
+    </fx:Style>
+    <testCases>    
+
+  		<TestCase testID="spark_application_backgroundColor_backgroundAlpha_classSelector" keywords="[borderVisible]" description="Test setting backgroundAlpha and backgroundColor">
+  			<setup>
+  				<SetProperty propertyName="styleName" value="myStyle" target="" waitEvent="updateComplete"/>
+  			</setup>
+  			<body>
+				<AssertStyleValue styleName="backgroundColor" value="65280" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target=""/>
+				<CompareBitmap target="" url="../local/baselines/$testID.png" />
+  			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="spark_panel_backgroundColor_backgroundAlpha_classSelector" keywords="[borderVisible]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetProperty propertyName="styleName" value="myStyle" target="spnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="65280" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target="spnl"/>
+				<CompareBitmap target="spnl" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="mx_panel_backgroundColor_backgroundAlpha_classSelector" keywords="[borderVisible]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetProperty propertyName="styleName" value="myStyle" target="mxpnl" waitEvent="updateComplete"/>
+				<SetStyle styleName="headerHeight" value="30" target="mxpnl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			<RunCode code="trace('width' + application.mxpnl.width + ', height: ' + application.mxpnl.height + 'headerHeight ' + application.mxpnl.getStyle('headerHeight'))"/>
+				<AssertStyleValue styleName="backgroundColor" value="65280" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target="mxpnl"/>
+				<CompareBitmap target="mxpnl" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+   </testCases>
+</UnitTester>

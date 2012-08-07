@@ -1,0 +1,137 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!-- volume -->
+        <TestCase
+        testID="VideoPlayer_volume_Default"
+        description="Test the default value of the volume property."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.volume" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_volume_mutedToZero_streaming"
+        description="Test the raising of the volume property while muted."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.muted = true"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_volume_upWhileMuted_streaming"
+        description="Test the raising of the volume property while muted."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.muted = true"/>
+                <RunCode code="application.testPlayer.volume = .5"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".5"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_volume_changeSource_streaming"
+        description="Test the volume persists when changing source."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <RunCode code="application.testPlayer.volume = .5"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".5"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_volume_mutedToZero_progressive"
+        description="Test the raising of the volume property while muted."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.muted = true"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_volume_upWhileMuted_progressive"
+        description="Test the raising of the volume property while muted."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.muted = true"/>
+                <RunCode code="application.testPlayer.volume = .5"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".5"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_volume_changeSource_progressive"
+        description="Test the volume persists when changing source."
+        keywords="[VideoPlayer,volume]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <RunCode code="application.testPlayer.volume = .5"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".5"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

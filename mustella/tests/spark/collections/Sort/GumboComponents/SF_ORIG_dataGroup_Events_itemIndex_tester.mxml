@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/GumboComponents/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark"  
+			xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" 
+			testSWF="SF_ORIG_dataGroup_Events_itemIndex.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import comps.*;
+			import mx.collections.ArrayCollection;
+			import mx.events.CollectionEventKind;
+			import mx.events.CollectionEvent;
+			import flash.events.Event;
+			import spark.skins.spark.*;
+			import spark.components.Button;
+			import spark.layouts.VerticalLayout;
+			import mx.controls.Button;
+			import spark.components.DataGroup;
+		]]>
+	</fx:Script>
+
+	<testCases>
+	    <TestCase testID="DataGroup_events_itemIndex_move" keywords="[DataGroup, event, itemIndex]" description="regression test for SDK-27811">
+	    	<!--bugs>
+	    		<Bug bugID="SDK-27811" />
+	    	</bugs-->
+	    	<setup>
+	        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+				<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" waitTarget="group1" waitEvent="updateComplete" />
+				<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(comps.DataObjectRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+				<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+				<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([new comps.DataObject(1), new comps.DataObject(3), new comps.DataObject(2)]);" waitTarget="group1" waitEvent="updateComplete" />			
+	
+			 	<RunCode code="application.sortDataProvider(application.group1.dataProvider)" waitTarget="group1" waitEvent="updateComplete" />
+			 	<RunCode code="application.group1.dataProvider.getItemAt(0).num = 4" waitTarget="group1" waitEvent="updateComplete" />
+		   	</setup>
+	    	<body>
+				<AssertMethodValue method="value=application.group1.getElementAt(0).itemIndex" value="0" />
+				<AssertMethodValue method="value=application.group1.getElementAt(1).itemIndex" value="1" />
+				<AssertMethodValue method="value=application.group1.getElementAt(2).itemIndex" value="2" />
+			</body>
+	    </TestCase>
+	</testCases>
+</UnitTester>

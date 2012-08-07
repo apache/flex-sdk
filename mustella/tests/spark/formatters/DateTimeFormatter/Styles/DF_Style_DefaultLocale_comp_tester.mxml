@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="DF_Style_DefaultLocale_comp.mxml">
+	
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		import assets.DFConstants;
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		
+		public var aDate:Date =  new Date(2000, 0, 1); 
+		
+		public static function init(o:DisplayObject):void      
+		{
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<testCases>
+	<TestCase testID="DF_Style_DefaultLocale_dateStyle_comp_test1" description="test dateStyle without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="dateStyle" value="long" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_timeStyle_comp_test2" description="test timeStyle without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="timeStyle" value="long" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_dateTimePattern_comp_test3" description="test dateTimePattern without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			
+			<SetProperty target="customComp.dtFormatterNoLocale" propertyName="dateTimePattern" value="MMM. d, yyyy 'at' h:mm a" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="dateTimePattern" value="MMM. d, yyyy 'at' h:mm a" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_useUTC_comp_test4" description="test useUTC without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			
+			<SetProperty target="customComp.dtFormatterNoLocale" propertyName="useUTC" value="true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="useUTC" value="true" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DF_Style_DefaultLocale_dateStyle_setNull_comp_test5" description="test dateStyle with locale is null" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetStyle styleName="locale" target="customComp.dtFormatterNoLocale" valueExpression="value=undefined" waitEvent="change"/>	
+			
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="dateStyle" valueExpression="value=undefined" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" value="localeUndefinedError"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_timeStyle_setNull_comp_test6" description="test timeStyle with locale is null" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetStyle styleName="locale" target="customComp.dtFormatterNoLocale" valueExpression="value=undefined" waitEvent="change"/>
+			
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="timeStyle" valueExpression="value=undefined" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" value="localeUndefinedError"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_dateTimePattern_setNull_comp_test7" description="test dateTimePattern with locale is null" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetStyle styleName="locale" target="customComp.dtFormatterNoLocale" valueExpression="value=undefined" waitEvent="change"/>
+			
+			<SetProperty target="customComp.dtFormatterNoLocale" propertyName="dateTimePattern" value="dd"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="dateTimePattern" valueExpression="value=undefined" />
+			<AssertPropertyValue target="customComp.dtFormatterNoLocale" propertyName="lastOperationStatus" value="localeUndefinedError"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_format_comp_test8" description="test format without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.customComp.dtFormatterNoLocale.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=DFConstants.noErrorMsg" target="customComp.dtFormatterNoLocale"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_format_setNull_comp_test9" description="test format with locale is null" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetStyle styleName="locale" target="customComp.dtFormatterNoLocale" valueExpression="value=undefined" waitEvent="change"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.customComp.dtFormatterNoLocale.format(aDate)" valueExpression="value=undefined"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="customComp.dtFormatterNoLocale"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_formatUTC_comp_test10" description="test formatUTC without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetProperty propertyName="useUTC" target="customComp.dtFormatterNoLocale" valueExpression="value=true"/>			
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.customComp.dtFormatterNoLocale.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=DFConstants.noErrorMsg" target="customComp.dtFormatterNoLocale"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_formatUTC_setNull_comp_test11" description="test formatUTC with locale is null" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetStyle styleName="locale" target="customComp.dtFormatterNoLocale" valueExpression="value=undefined" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="customComp.dtFormatterNoLocale" valueExpression="value=true"/>			
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.customComp.dtFormatterNoLocale.format(aDate)" valueExpression="value=undefined"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="customComp.dtFormatterNoLocale"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_actualLocaleIDName_comp_test12" description="test actualLocaleIDName without locale setting" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" target="customComp.dtFormatterNoLocale" valueExpression="value=flashDF.actualLocaleIDName"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="customComp.dtFormatterNoLocale" valueExpression="value=DFConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_Style_DefaultLocale_actualLocaleIDName_setNull_comp_test13" description="test actualLocaleIDName with locale is null" keywords="[DateTimeFormatter, default locale]">
+		<setup>
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+			<SetStyle styleName="locale" target="customComp.dtFormatterNoLocale" valueExpression="value=undefined" waitEvent="change"/>
+			
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=undefined" target="customComp.dtFormatterNoLocale"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="customComp.dtFormatterNoLocale"/>
+		</body>
+	</TestCase>
+</testCases>
+	
+</UnitTester>

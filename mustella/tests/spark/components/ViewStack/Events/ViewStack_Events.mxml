@@ -1,0 +1,37 @@
+<UnitTester testDir="spark/components/ViewStack/Events/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ViewStack_basic.mxml">
+	
+	<!-- Default code for all tests -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void{} 
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<testCases>
+		<!-- uncomment when ViewStack is available
+		<TestCase testID="viewStack_event_change" keywords="[ViewStack, change]" description="Test that ViewStack triggers change event when views are changed">
+			<setup>
+				<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+			</setup>
+			<body>
+				<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1"/>
+				<AssertEvent target="vsUsingNavCon.mainViewStack" eventName="change" eventClass="spark.events::IndexChangeEvent" numExpectedEvents="1" />				
+			</body>
+		</TestCase>
+		uncomment when ViewStack is available -->
+
+	</testCases>
+</UnitTester>

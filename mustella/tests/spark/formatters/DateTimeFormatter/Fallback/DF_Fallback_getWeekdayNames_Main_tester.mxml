@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_Fallback_getWeekdayNames_Main.mxml">
+
+	<mx:Script>
+		<![CDATA[
+			import assets.DFConstants;
+			
+			public static function init(o:DisplayObject):void
+			{ 
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test "getWeekdayNames()" method-->
+<testCases>
+	<TestCase testID="DTF_Fallback_getWeekdayNames_noLocaleSet_test1" description="define a dtf instance without setting locale" keywords="[FallbackDateTimeFormatter, getWeekdayNames]">
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   value="S,M,T,W,T,F,S"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   value="S,M,T,W,T,F,S"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_getWeekdayNames_locale_zh_CN_nameStyle_context_combination_test2" description="Verify whether change locale to zh-CN will affect getWeekdayNames()" keywords="[FallbackDateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets:FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>		
+			<SetStyle styleName="locale" target="dtFormatter" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','standalone')" 
+							   value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('full','format')" 
+							   value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','standalone')" 
+							   value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('longAbbreviation','format')" 
+							   value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','standalone')" 
+							   value="S,M,T,W,T,F,S"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('shortAbbreviation','format')" 
+							   value="S,M,T,W,T,F,S"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_getWeekdayNames_locale_ar_SA_nameStyle_null_invalid_test3" description="when set DateTimeNameStyle to a invalid value or null, getWeekdayNames() should return WEEKDAYLABELS: Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday]" keywords="[FallbackDateTimeFormatter, getWeekdayNames]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets:FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>		
+			<SetStyle styleName="locale" target="dtFormatter" value="ar-SA" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('null','format')" 
+							   value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"/>
+			<AssertMethodValue method="value=application.dtFormatter.getWeekdayNames('invalid','standalone')" 
+							   value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"/>
+		</body>
+	</TestCase>
+
+</testCases>
+
+
+</UnitTester>

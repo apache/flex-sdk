@@ -1,0 +1,165 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="GVB_property.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.LocaleID;
+			import spark.globalization.LastOperationStatus;
+			import spark.validators.CurrencyValidator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="GVB_property_default_inline_test_1" description="the test case is for Checking default property in declaration" keywords="[GlobalizationValidatorBase, property]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="property" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_default_script_test_2" description="the test case is for Checking property in script" keywords="[GlobalizationValidatorBase, property]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="property" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_default_inline_test_3" description="the test case is for Checking default property in declaration" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvb" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="property" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_default_script_test_4" description="the test case is for Checking property in script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvbScript" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="property" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_set_script_test_5" description="the test case is for setting property from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="gvbScript" propertyName="property" value="name"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="property" value="name"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_set_script_test_6" description="the test case is for setting property from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="gvb" propertyName="property" value="name"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="property" value="name"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_set_inline_test_7" description="set property inline" keywords="[GlobalizationValidatorBase, property]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbInline" propertyName="property" value="name"/>
+                <AssertPropertyValue target="gvbInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_noproperty_script_test_8" description="set script property to noproperty from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'property',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="property" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_noproperty_script_test_9" description="set inline property to noproperty from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'property',null)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="property" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_noproperty_inline_test_10" description="set property to noproperty inline" keywords="[GlobalizationValidatorBase, property]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbNull,'property',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbNull" propertyName="property" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbNull" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_invalid_script_test_11" description="set script property to noproperty from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'property',true)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="property" valueExpression="value=true"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_invalid_script_test_12" description="set inline property to noproperty from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'property',true)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="property" value="true"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_emptystring_script_test_13" description="set script property to noproperty from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'property','')" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="property" value=""/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_property_emptystring_script_test_14" description="set inline property to noproperty from script" keywords="[GlobalizationValidatorBase, property]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'property','')" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="property" value=""/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

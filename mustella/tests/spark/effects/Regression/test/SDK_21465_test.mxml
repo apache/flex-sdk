@@ -1,0 +1,36 @@
+<UnitTester
+    testSWF="../SWFs/SDK_21465.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_21465" 
+			keywords="[SDK_21465]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-21465">
+			<!--bugs>
+				<Bug bugID="SDK-21465"/>
+			</bugs -->
+			<body>
+				<DispatchMouseClickEvent target="playButton" localX="5" localY="5" waitTarget="p1" waitEvent="effectEnd"/>
+				<DispatchMouseClickEvent target="tranButton" localX="5" localY="5" waitTarget="p1" waitEvent="effectEnd"/>
+				<Pause timeout="500"/>
+				<AssertMethodValue method="value=application.tranButton.x > 100" value="true"/>
+				<AssertMethodValue method="value=application.tranButton.postLayoutTransformOffsets.rotationZ" value="360"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_getFirstWeekday_Main.mxml">
+	
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		
+		public static function init(o:DisplayObject):void 
+        { 
+			
+        }
+    ]]> 
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test "getFirstWeekday()" method-->
+<testCases>
+	<!--test case 1-5 are to test usual locales-->
+	<TestCase testID="DF_getFirstWeekday_zh_CN_test1" description="test method getFirstWeekday with zh_CN" keywords="[DateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="zh_CN" waitEvent="change"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case 1-5 are to test usual locales-->
+	<TestCase testID="DF_getFirstWeekday_en_US_test2" description="test method getFirstWeekday with en_US" keywords="[DateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="en_US" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case 1-5 are to test usual locales-->
+	<TestCase testID="DF_getFirstWeekday_sr_Cyrl_RS_test3" description="test method getFirstWeekday with sr-Cyrl-RS" keywords="[DateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="sr-Cyrl-RS" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr-Cyrl-RS')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case 1-5 are to test usual locales-->
+	<TestCase testID="DF_getFirstWeekday_default_test4" description="test method getFirstWeekday with i-default" keywords="[DateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="i-default" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case 1-5 are to test usual locales-->
+	<TestCase testID="DF_getFirstWeekday_ar_JO_test5" description="test method getFirstWeekday with ar-JO" keywords="[DateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="ar-JO" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar-JO')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--This is to test invalid locale-->
+	<TestCase testID="DF_getFirstWeekday_123_test6" description="test method getFirstWeekday with 123" keywords="[DateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="123" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtFormatter" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling getFirstWeekday() method of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_getFirstWeekday_script_withoutSettingLocale_test7" description="test calling getFirstWeekday() method of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, getFirstWeekday]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocale.getFirstWeekday()" valueExpression="value=flashDF.getFirstWeekday()"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtfLocale"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling getFirstWeekday() method of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_getFirstWeekday_declaration_withoutSettingLocale_test8" description="test calling getFirstWeekday() method of dtf defined in fx:Declaration without setting locale " keywords="[DateTimeFormatter, getFirstWeekday]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInline" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocaleInline.getFirstWeekday()" value="0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInline"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

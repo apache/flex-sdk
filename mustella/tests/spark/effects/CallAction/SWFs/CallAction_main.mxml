@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	width="100%" height="100%"
+    backgroundColor="0xFFFFFF">
+
+    <fx:Script>
+        <![CDATA[
+        
+		public var WasCalled:Boolean = false;
+        public var ParamString:String = "";
+        public var CallCounter:uint = 0;
+		
+		public function Reset():void
+		{
+			this.WasCalled = false;
+            this.ParamString = "";
+            this.CallCounter = 0;
+		}
+		
+		public function TestFunction():void
+		{
+			this.WasCalled = true;
+		}
+
+		public function TestFunctionParams(param1:int, param2:String):void
+		{
+			this.WasCalled = true;
+			this.ParamString = param1.toString() + "," + param2;
+		}
+
+		public function TestFunction3(param1:int, param2:String):void
+		{
+			this.WasCalled = true;
+			this.ParamString = param1.toString() + "," + param2;
+		}
+        
+        public function TestUnknownParameters(...arguments):void
+        {
+			this.WasCalled = true;
+			this.ParamString = arguments.length.toString();
+        }
+
+        public function TestCallCount():void
+        {
+            this.CallCounter++;
+        }
+
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <s:CallAction id="testCallAction"/>
+
+        <s:CallAction id="tp1" target="{this}" functionName="TestFunction" />
+
+        <mx:Sequence id="tp2" target="{testFill}">
+            <mx:Pause duration="200"/>
+            <s:CallAction target="{this}" functionName="TestFunction" />
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x000000" />
+        </mx:Sequence>
+
+        <mx:Parallel id="tp3" >
+            <s:CallAction target="{this}" functionName="TestFunctionParams" args="{[3,'Foo']}" />
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x000000" target="{testFill}" />
+        </mx:Parallel>
+
+        <s:CallAction id="tp4" target="{this}" functionName="TestFunctionParams" args="{[3,'Foo']}" />
+
+        <s:CallAction id="tp5" target="{this}" functionName="TestFunction3" args="{[3,'Foo', 5, 8, 'Overflow']}" />
+
+        <s:CallAction id="tp6" target="{this}" functionName="TestFunction3" args="{[3]}" />
+
+        <s:CallAction id="tp7" target="{this}" functionName="TestFunction3" />
+
+        <s:CallAction id="tp8" target="{this}" functionName="TestFunction3" args="{['Foo', 3]}"/>
+
+        <s:CallAction id="tp9" target="{this}" functionName="TestUnknownParameters" args="{[0,1,2,3,4,5,6,7,8]}"/>
+
+        <s:CallAction id="tp10" target="{this}" functionName="TestCallCount" repeatCount="5"/>
+
+        <s:CallAction id="tp11" target="{this}" functionName="TestFunction" startDelay="500"/>
+
+        <s:CallAction id="tp12" target="{this}" functionName="TestCallCount" repeatDelay="500" repeatCount="3"/>
+
+        <s:CallAction id="tp13"/>
+
+        <s:CallAction id="tp14" target="{this}" functionName="TestCallCount" duration="1500"/>
+
+    </fx:Declarations>
+
+
+    <s:Group id="testGroup"
+    	left="10"
+    	top="10"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <mx:SolidColor id="testFill" color="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke id="testStroke" color="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <mx:Button id="haloButton"
+    	left="80"
+    	top="10"
+    	width="100"
+    	color="0xFF"/>
+
+</s:Application>

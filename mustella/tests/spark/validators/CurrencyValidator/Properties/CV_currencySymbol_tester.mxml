@@ -1,0 +1,320 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="CV_currencySymbol.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.CurrencyFormatter;
+			
+			import spark.globalization.LastOperationStatus;
+			import spark.validators.CurrencyValidator;
+			import flash.globalization.LocaleID;
+			
+			public var cvGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_currencySymbol_default_test_1" description="the test case is for Checking default currencySymbol" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="CV_currencySymbol_default_test_1_2" description="the test case is for Checking default currencySymbol" keywords="[CurrencyValidator, currencySymbol]">
+			<setup>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="application.createCV()"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="CV_currencySymbol_zh_CN_test_2" description="the test case is for Checking currencySymbol for specified locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="CV_currencySymbol_zh_CN_test_2_2" description="the test case is for Checking currencySymbol for specified locale" keywords="[CurrencyValidator, currencySymbol]">
+			<setup>
+				<ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+				<AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		
+        <TestCase testID="CV_currencySymbol_ar_xx_test_3" description="the test case is for Checking currencySymbol for specified locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-xx')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-xx" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_fr_xx_test_4" description="the test case is for Checking currencySymbol for specified locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-xx')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="fr-xx" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="CV_currencySymbol_de-DE_test_5" description="the test case is for Checking currencySymbol for specified locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('de-DE@collation=phonebook')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="de-DE@collation=phonebook" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="CV_currencySymbol_setCurrencySymbol_test_6" description="the test case is for setting currencySymbol for default locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en_US')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','€')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty propertyName="currencySymbol" target="cv" value="€" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_setCurrencySymbol_test_7" description="set currencySymbol for specified locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','€')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="zh_CN" waitEvent="change"/>
+                <SetProperty propertyName="currencySymbol" target="cv" value="€" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+		
+		
+        <TestCase testID="CV_currencySymbol_setCurrencySymbol_test_8" description="set currencySymbol in RTL locale to RTL string" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-AR')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','العمل معا')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-AR" waitEvent="change"/>
+                <SetProperty propertyName="currencySymbol" target="cv" value="العمل معا" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_setCurrencySymbol_test_9" description="set currencySymbol in RTL locale to LTR string" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-AR')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','123')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-AR" waitEvent="change"/>
+                <SetProperty propertyName="currencySymbol" target="cv" value="123" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_setCurrencySymbol_test_10" description="set currencySymbol in script" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','€')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN"/>
+                <RunCode code="application.setCVcurrencySymbol(application.cvScript,'€')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_inline_test_11" description="Set currencySymbol from inline" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','€')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline1" propertyName="currencySymbol" valueExpression="value=cvGSLib.currencySymbol"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_no_test_12" description="set currencySymbol to no" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVcurrencySymbol(application.cvScript,null)" valueExpression="value=application.setGScurrencySymbol(null)"/>
+                <AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value=application.CVgslibError.currencySymbol"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_invalid_test_13" description="set invalid currencySymbol" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVcurrencySymbol(application.cvScript,'3+4')" valueExpression="value=application.setGScurrencySymbol('3+4')"/>
+                <AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value=application.CVgslibError.currencySymbol"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_invalid_test_14" description="set empty string currencySymbol" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVcurrencySymbol(application.cvScript,'')" valueExpression="value=application.setGScurrencySymbol('')"/>
+                <AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value=application.CVgslibError.currencySymbol"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_binding_test_15" description="test binding currencySymbol properties by seting currencySymbol" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','€')"/>
+                <SetProperty propertyName="currencySymbol" target="cvBinding" value="€" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvLabel" propertyName="text" valueExpression="value=cvGSLib.currencySymbol"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_binding_test_16" description="bind currencySymbol properties by seting locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cvBinding" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvBinding.initialized(null,'cvBinding')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvBinding" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvLabel" propertyName="text" valueExpression="value=cvGSLib.currencySymbol"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_binding_test_17" description="Binding property when locale change" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBLocale1" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetStyle target="cvBLocale1" styleName="locale" value="ar-JO"/>
+                <AssertEvent target="cvLa" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+                <AssertPropertyValue target="cvLa" propertyName="text" valueExpression="value=cvGSLib.currencySymbol"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_binding_test_18" description="Binding property when locale change" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBLocale2" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetStyle target="cvBLocale2" styleName="locale" value="zh-CN"/>
+                <AssertEvent target="cvLb" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+                <AssertPropertyValue target="cvLb" propertyName="text" valueExpression="value=cvGSLib.currencySymbol"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_inline_changeLocale_test_19" description="if property currencySymbol has been set inline, it doesnot change with locale" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <SetStyle target="cvInline_ChangeLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline_ChangeLocale" propertyName="currencySymbol" value="￥"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencySymbol_locale_undefiend_test_20" description="the test case is for Checking currencyISOCode when locale undefined" keywords="[CurrencyValidator, currencySymbol]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

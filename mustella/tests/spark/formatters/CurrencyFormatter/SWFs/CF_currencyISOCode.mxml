@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:CurrencyFormatter id="cf"/>
+		
+		<s:CurrencyFormatter id="cfBinding" locale="en-US"/>
+		
+		<s:CurrencyFormatter id="cfInline1"  currencyISOCode="UDD"/>
+		<s:CurrencyFormatter id="cfInline2"  currencyISOCode="CYY"/>
+		
+		<s:CurrencyFormatter id="cfBLocale1"/>
+		<s:CurrencyFormatter id="cfBLocale2"/>
+		
+		<s:CurrencyFormatter id="cfInline_ChangeLocale" locale="zh-CN" currencyISOCode="JOD"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.CurrencyFormatter;
+			public var cfScript:spark.formatters.CurrencyFormatter = new spark.formatters.CurrencyFormatter();
+			public var CFgslibError:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("zh_CN");
+			public var CFgslibError2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("zh_CN");
+			
+			public var cfError:String = "No_Error";
+			public var gslibError:String = "No_Error";
+			
+			public function setCFCurrencyISOCode(obj:*, value:String):String
+			{
+				try{
+					obj.currencyISOCode=value;
+				}catch(e:Error){
+					cfError = e.toString();
+				}
+				return cfError;
+			}
+			
+			public function setGSCurrencyISOCode(obj:*, value:String):String
+			{
+				try{
+					obj.setCurrency(value,"");
+				}catch(e:Error){
+					gslibError = e.toString();
+				}
+				return gslibError;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="cfLabel" text="{cfBinding.currencyISOCode}"/>
+	
+	<s:Label id="cfLa" text="{cfBLocale1.currencyISOCode}"/>
+	<s:Label id="cfLb" text="{cfBLocale2.currencyISOCode}"/>
+
+</s:Application>

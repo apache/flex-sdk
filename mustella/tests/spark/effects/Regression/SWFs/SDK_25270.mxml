@@ -1,0 +1,44 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark">
+    <s:states>
+        <s:State name="notOver" />
+        <s:State name="over" />
+    </s:states>
+    
+    <s:transitions>
+        <s:Transition fromState="over" toState="notOver">
+            <s:RemoveAction targets="{[rect1]}"/>
+        </s:Transition>
+        <s:Transition fromState="notOver" toState="over">
+            <s:AddAction targets="{[rect1]}"/>
+        </s:Transition>
+    </s:transitions>
+    
+    <s:controlBarContent>
+        <s:Button label="change state" click="currentState=currentState=='notOver'?'over':'notOver'" />
+    </s:controlBarContent>
+    
+    <s:Group id="group1"
+             click="trace('needs mouse event defined')"
+             x="100" y="100" width="100" height="100">
+        
+        <s:Rect width="50" height="100" alpha="1">
+            <s:fill>
+                <s:SolidColor color="0x008800" />
+            </s:fill>
+        </s:Rect>
+        
+        <s:Rect x="50" width="50" height="100" alpha="0.9">
+            <s:fill>
+                <s:SolidColor color="0x008800" />
+            </s:fill>
+        </s:Rect>
+        
+        <s:Rect id="rect1" top="10" left="10" right="10" bottom="10" excludeFrom="notOver" >
+            <s:fill>
+                <s:SolidColor color="0xFF0000" />
+            </s:fill>
+        </s:Rect>
+    </s:Group>
+    
+</s:Application> 

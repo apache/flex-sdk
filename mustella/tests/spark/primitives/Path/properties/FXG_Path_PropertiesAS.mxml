@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Path/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Path_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.PathBasic;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+    <!-- LineSegment x,y -->
+        <TestCase testID="GraphicTags_PathLineSegment_x_positive" description="LineSegment x set to a positive int" keywords="[Path, LineSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 120 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathLineSegment_x_zero" description="LineSegment x set to zero" keywords="[Path, LineSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 0 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathLineSegment_x_negative" description="LineSegment x set to a negative int" keywords="[Path, LineSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L -50 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathLineSegment_y_positive" description="LineSegment y set to a positive int" keywords="[Path, LineSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 170 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathLineSegment_y_zero" description="LineSegment y set to zero" keywords="[Path, LineSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 0 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathLineSegment_y_negative" description="LineSegment y set to a negative int" keywords="[Path, LineSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 -40 C 70 0 10 80 75 90 Q -10 150 190 1150" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+    <!-- MoveSegment x,y -->
+        <TestCase testID="GraphicTags_PathMoveSegment_x_positive" description="MoveSegment x set to a positive int" keywords="[Path, MoveSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 120 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathMoveSegment_x_zero" description="MoveSegment x set to zero" keywords="[Path, MoveSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 0 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathMoveSegment_x_negative" description="MoveSegment x set to a negative int" keywords="[Path, MoveSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M -50 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathMoveSegment_y_positive" description="MoveSegment y set to a positive int" keywords="[Path, MoveSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 170 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathMoveSegment_y_zero" description="MoveSegment y set to zero" keywords="[Path, MoveSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 0 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathMoveSegment_y_negative" description="MoveSegment y set to a negative int" keywords="[Path, MoveSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 -40 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+    <!-- QuadraticBezierSegment x,y -->
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_x_positive" description="QuadraticBezierSegment x set to a positive int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 120 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_x_zero" description="QuadraticBezierSegment x set to zero" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 0 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_x_negative" description="QuadraticBezierSegment x set to a negative int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 -50 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_y_positive" description="QuadraticBezierSegment y set to a positive int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 170" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_y_zero" description="QuadraticBezierSegment y set to zero" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_y_negative" description="QuadraticBezierSegment y set to a negative int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 -40" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_control1X_positive" description="QuadraticBezierSegment control1X set to a positive int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q 170 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_control1X_zero" description="QuadraticBezierSegment control1X set to zero" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q 0 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_control1X_negative" description="QuadraticBezierSegment control1X set to a negative int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -40 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_control1Y_positive" description="QuadraticBezierSegment control1Y set to a positive int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 80 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_control1Y_zero" description="QuadraticBezierSegment control1Y set to zero" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 0 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathQuadraticBezierSegment_control1Y_negative" description="QuadraticBezierSegment control1Y set to a negative int" keywords="[Path, QuadraticBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 -40 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+    <!-- CubicBezierSegment x,y -->
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_x_positive" description="CubicBezierSegment x set to a positive int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 120 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_x_zero" description="CubicBezierSegment x set to zero" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 0 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_x_negative" description="CubicBezierSegment x set to a negative int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 -50 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_y_positive" description="CubicBezierSegment y set to a positive int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 170 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_y_zero" description="CubicBezierSegment y set to zero" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 0 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_y_negative" description="CubicBezierSegment y set to a negative int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 -40 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+    <!-- CubicBezierSegment control1X, control1Y, control2X, control2Y -->
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control1X_positive" description="CubicBezierSegment control1X set to a positive int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 120 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+         <TestCase testID="GraphicTags_PathCubicBezierSegment_control1X_negative" description="CubicBezierSegment control1X set to a negative int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C -50 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control1X_zero" description="CubicBezierSegment control1X set to zero" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 0 0 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control1Y_positive" description="CubicBezierSegment control1Y set to a positive int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 170 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control1Y_negative" description="CubicBezierSegment control1Y set to a negative int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 -40 10 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control2X_positive" description="CubicBezierSegment control2X set to a positive int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 120 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+         <TestCase testID="GraphicTags_PathCubicBezierSegment_control2X_negative" description="CubicBezierSegment control2X set to a negative int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 -50 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control2X_zero" description="CubicBezierSegment control2X set to zero" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 0 80 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control2Y_positive" description="CubicBezierSegment control2Y set to a positive int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 170 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_PathCubicBezierSegment_control2Y_negative" description="CubicBezierSegment control2Y set to a negative int" keywords="[Path, CubicBezierSegment, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 -40 75 90 Q -10 150 190 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+<!-- data property -->
+        <TestCase testID="GraphicTags_Path_data_ML" description="Use ML in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="M 100 50 L 50 180 L 150 180 Z" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_my_lower" description="Use ml in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="m 100 50 l -50 130 l 100 0 z" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+       <TestCase testID="GraphicTags_Path_data_C" description="Use C in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="M 3 184 C 3 184 1 184 1 184 C 1 189 3 194 6 194 C 14 194 21 189 21 184 C 21 172 14 164 6 164 C -2 164 -21 172 -21 184 C -21 200 -12 214 6 214 C 25 214 41 200 41 184 C 41 161 25 144 6 144 C -21 144 -41 161 -41 184 C -41 211 -21 234 6 234 C 36 234 61 211 61 184 C 61 150 36 124 6 124" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap target="graphic2" url="../Properties/baselines/data_cubicBezier.png" timeout="2000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="GraphicTags_Path_data_c_lower" description="Use c in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="m 53 234 c 0 0 -2 0 -2 0 C 51 239 53 244 56 244 C 64 244 71 239 71 234 C 71 222 64 214 56 214 C 42 214 31 222 31 234 C 31 250 42 264 56 264 C 75 264 91 250 91 234 C 91 211 75 194 56 194 C 31 194 11 211 11 234 C 11 261 31 284 56 284 C 86 284 111 261 111 234 C 111 200 86 174 56 174" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap target="graphic2" url="../Properties/baselines/data_cubicBezier_relative.png" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_Q" description="Use Q in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="M 50,50 Q -30,100 50,150 100,230 150,150 230,100 150,50 100,-30 50,50" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap target="graphic2" url="../Properties/baselines/data_quadraticBezier.png" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_q_lower" description="Use q in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="m 50 50 q -80 50 0 100 50 80 100 0 80 -50 0 -100 -50 -80 -100 0" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap target="graphic2" url="../Properties/baselines/data_quadraticBezier_relative.png" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_HV" description="Use HV in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="M 10 10 H 150 V 110 H 10 Z" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_hv_lower" description="Use hv in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="m 10 10 h 140 v 100 h -140 Z" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_CS" description="Use S in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="M 0 100 C 0 0 150 0 150 100 S300 200 300 100" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_lower" description="Use S in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="m 0 100 c 0 -100 150 -100 150 0 s 150 100 150 0" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_QT" description="Use T in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="M30 60 Q90,-15 150,60 T270,60" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_data_qt2" description="Use t in the Path data property" keywords="[Path, data, Graphic]">
+            <setup>
+                <ResetComponent target="graphic2" className="comps.PathEmpty" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.path1" propertyName="data" value="m30 60 q 60 -75 120 0 t 120 0" waitTarget="graphic2" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_data_closeInMiddle" description="This Path uses a closepath in the middle of the data." keywords="[Path, data, Graphic]">
+            <!--bugs>
+               <Bug bugID="SDK-21866" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1" propertyName="width" value="450"  />
+                <SetProperty target="graphic1" propertyName="height" value="450" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 372 130   Q 272 50   422 10   z m7 0    q  50  -150   -80  -90  z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" numColorVariances="6" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_data_cubicCurve_noPrevPoint" description="This Path test covers bug SDK-21862 using path data with a cubic curve where the previous point isn't specified."
+            keywords="[Path, data, cubic]">
+            <!--bugs>
+               <Bug bugID="SDK-21862" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1" propertyName="width" value="450"  />
+                <SetProperty target="graphic1" propertyName="height" value="450" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 360 110 s -16 36 -36 36 s -36 -16 -36 -36 s 16 -36 36 -36 s 36 16 36 36 z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_Properties_winding_evenOdd" description="This Path tests setting winding to evenOdd when both Paths are drawn clock-wise."
+            keywords="[Path, winding]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="winding" value="evenOdd" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 40 L 140 40 L 140 140 L 40 140 Z M 80 80 L 180 80 L 180 180 L 80 180 Z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_Properties_winding_nonZero_same" description="This Path tests setting winding to evenOdd when both Paths are drawn clock-wise."
+            keywords="[Path, winding]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="winding" value="nonZero" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 40 L 140 40 L 140 140 L 40 140 Z M 80 80 L 180 80 L 180 180 L 80 180 Z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_Properties_winding_nonZero_cwcc" description="This Path tests setting winding to evenOdd when one Path is drawn clock-wise and the other is counter-clockwise."
+            keywords="[Path, winding]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="winding" value="nonZero" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 40 L 40 140 L 140 140 L 140 40 Z M 80 80 L 180 80 L 180 180 L 80 180 Z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_data_startWithQuadraticCurve" description="This Path tests setting the data to start with a Quadratic curve."
+            keywords="[Path, winding]">
+            <!--bugs>
+               <Bug bugID="SDK-24457" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M  15   20      Q  30  120    130   30   M 180   80 q  -75 -100    -163  -60 z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" numColorVariances="6" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Warning: Illustrator CS4 doesn't render Graphics with LinearGradientStroke. Okay in FXG Viewer -->
+
+<!-- FXG 1.0 Test LinearGradientStroke a path using child matrix element not discreet transform attributes                      -->
+<!-- The LinearGradientStroke paints a stroke along a path or shape with a continuously smooth color transition between a list of colors along a vector. 
+
+The LinearGradientStroke operates almost identically to the LinearGradient fill type. As with the fill, By default, a LinearGradientStroke is transformed to fill the bounding box of the path being stroked. The bounding box is computed by computing the bounding box of the anchor points of the path, and expanding its borders outward in each direction by half the weight of the stroke.
+
+Otherwise its rendering behavior is identical to that of the LinearGradientFill.
+-->
+<!-- Author : Min Plunkett  27 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History: 
+  27-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group x="30" y="30">
+        <Rect x="0.5" y="0.5" width="234" height="148">
+          <fill>
+	  	<SolidColor color="#ff00ff"/>
+          </fill>
+          <stroke>
+            <LinearGradientStroke weight="50">
+              <GradientEntry color="#ffff00" ratio="0"/>
+              <GradientEntry color="#0000ff" ratio="1"/>
+              <matrix>
+              	<Matrix a="140" b="0" c="20" d="20" tx="30" ty="0"/>
+              </matrix>
+            </LinearGradientStroke>
+          </stroke>
+        </Rect>
+  </Group>
+</Graphic>

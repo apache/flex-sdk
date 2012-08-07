@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" >
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			
+			import spark.formatters.NumberFormatter;
+			
+			public var nfNoLocaleScript:spark.formatters.NumberFormatter = new spark.formatters.NumberFormatter();
+			
+			public var value:Object = -12345678 ; 
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		
+		<!--nf without any propertie-->
+		<s:NumberFormatter id="nf" locale="en_US"/>
+		
+		<!--set no locale inline-->
+		<s:NumberFormatter id="nfNoLocale"/> 
+		
+		<!--Set multiple properties by inline definition-->
+		<s:NumberFormatter id="nfMultiInline1" locale="en-US" trailingZeros="{true}" decimalSeparator="." groupingSeparator="." fractionalDigits="{1}" leadingZero="{true}"/>
+		<s:NumberFormatter id="nfMultiInline2" locale="en-US" decimalSeparator=" " groupingPattern="3" digitsType="{NationalDigitsType.ARABIC_INDIC}"/>
+		<s:NumberFormatter id="nfMultiInline3" locale="zh-CN" negativeSymbol="*" negativeNumberFormat="{4}" useGrouping="false"/>
+		<s:NumberFormatter id="nfMultiInline4" locale="fr-FR" leadingZero="{true}" useGrouping="{true}" groupingSeparator=";"/>
+		<s:NumberFormatter id="nfMultiInline5" locale="ar-JO" trailingZeros="true" fractionalDigits="{100}" useGrouping="{true}"/>
+		<s:NumberFormatter id="nfMultiInline6" locale="zh-CN" decimalSeparator="#" fractionalDigits="{1}" groupingPattern="3;2;*" groupingSeparator=","/>
+		<s:NumberFormatter id="nfMultiInline7" locale="zh-CN" decimalSeparator="#" digitsType="{NationalDigitsType.LAO}" leadingZero="{false}"/>
+		<s:NumberFormatter id="nfMultiInline8" locale="zh-CN" negativeSymbol="--" negativeNumberFormat="{0}" leadingZero="{true}"/>
+		<s:NumberFormatter id="nfMultiInline9" locale="en-US" negativeSymbol="@" fractionalDigits="{4}" groupingSeparator="@"/>
+		<s:NumberFormatter id="nfMultiInline10" locale="en-US" digitsType="{NationalDigitsType.FULL_WIDTH}" decimalSeparator="@" trailingZeros="true"/>
+		<s:NumberFormatter id="nfMultiInline11" locale="i-default" digitsType="{1}" decimalSeparator="," fractionalDigits="{8}"/>
+		<s:NumberFormatter id="nfMultiInline12" locale="123" trailingZeros="true" groupingPattern="3" useGrouping="{true}"/>
+		<s:NumberFormatter id="nfMultiInline13" locale="es_AR" decimalSeparator="-" fractionalDigits="{0}" negativeSymbol="1"/>
+		<s:NumberFormatter id="nfMultiInline14" locale="sr_Cyrl_ME" negativeNumberFormat="{3}" negativeSymbol="3" groupingSeparator="3"/>
+		<s:NumberFormatter id="nfMultiInline15" locale="en_US" leadingZero="{false}" decimalSeparator="." fractionalDigits="{1}"/>
+		
+		<s:NumberFormatter id="nfMultiSetPro1" locale="en-US"/>
+		<s:NumberFormatter id="nfMultiSetPro2" locale="en-US"/>
+		<s:NumberFormatter id="nfMultiSetPro3" locale="zh-CN"/>
+		<s:NumberFormatter id="nfMultiSetPro4" locale="fr-FR"/>
+		<s:NumberFormatter id="nfMultiSetPro5" locale="ar-JO"/>
+		<s:NumberFormatter id="nfMultiSetPro6" locale="zh-CN"/>
+		<s:NumberFormatter id="nfMultiSetPro7" locale="zh-CN"/>
+		<s:NumberFormatter id="nfMultiSetPro8" locale="zh-CN"/>
+		<s:NumberFormatter id="nfMultiSetPro9" locale="en-US"/>
+		<s:NumberFormatter id="nfMultiSetPro10" locale="en-US"/>
+		<s:NumberFormatter id="nfMultiSetPro11" locale="i-default"/>
+		<s:NumberFormatter id="nfMultiSetPro12" locale="123"/>
+		<s:NumberFormatter id="nfMultiSetPro13" locale="es-AR"/>
+		<s:NumberFormatter id="nfMultiSetPro14" locale="sr_Cyrl_ME"/>
+		<s:NumberFormatter id="nfMultiSetPro15" locale="en_US"/>
+
+		
+		<!--nf for testing Binding-->
+		<s:NumberFormatter id="nfBinding1" locale="en-US" trailingZeros="true"/>
+		<s:NumberFormatter id="nfBinding2" locale="en-US" trailingZeros="false"/>
+		
+		<!-- nf for testing format an object --> 
+		<s:NumberFormatter id="nfTestObj" locale="en-US" /> 
+		<s:NumberFormatter id="nfTestInvalidObj" locale="en-US" /> 
+		<s:NumberFormatter id="nfTestInvalidObj2" locale="en-US" /> 
+
+	</fx:Declarations>
+	
+	<s:Label id = "nfLabel1"  text = "{nfBinding1.format(1.123)}" />
+	<s:Label id = "nfLabel2"  text = "{nfBinding2.format(2.123)}" />
+	
+	<s:Label id = "nfInvalidLabel"  text = "{nfTestInvalidObj.errorText}" />
+	<s:Label id = "nfInvalidLabel2"  text = "{nfTestInvalidObj2.errorText}" />
+
+</s:Application>

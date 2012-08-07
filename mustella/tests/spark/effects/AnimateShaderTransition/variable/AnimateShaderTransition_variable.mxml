@@ -1,0 +1,262 @@
+﻿<UnitTester
+    testSWF="../SWFs/AnimateShaderTransition_main.mxml"
+    testDir="spark/effects/AnimateShaderTransition/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateTransitionShader;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- bitmapFrom -->
+        <TestCase testID="AnimateTransitionShader_bitmapFrom_Default" keywords="[AnimateTransitionShader, variable, bitmapFrom]" description="Test the default value of the bitmapFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).bitmapFrom" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_bitmapFrom_Undeclared" keywords="[AnimateTransitionShader, variable, bitmapFrom]" description="Test an undeclared bitmapFrom does not cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_bitmapFrom_Valid" keywords="[AnimateTransitionShader, variable, bitmapFrom]" description="Test a valid bitmapFrom.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_bitmapFrom_Null" keywords="[AnimateTransitionShader, variable, bitmapFrom]" description="Test setting a bitmapFrom to null does not cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = null;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- shaderProperties -->
+        <TestCase testID="AnimateTransitionShader_shaderProperties_Default" keywords="[AnimateTransitionShader, variable, shaderProperties]" description="Test the default value of the shaderProperties variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).shaderProperties" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- bitmapTo -->
+        <TestCase testID="AnimateTransitionShader_bitmapTo_Default" keywords="[AnimateTransitionShader, variable, bitmapTo]" description="Test the default value of the bitmapTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).bitmapTo" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_bitmapTo_Undeclared" keywords="[AnimateTransitionShader, variable, bitmapTo]" description="Test a non declared bitmapTo doesn't cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 100" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_bitmapTo_Valid" keywords="[AnimateTransitionShader, variable, bitmapTo]" description="Test a valid bitmapTo.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_bitmapTo_Null" keywords="[AnimateTransitionShader, variable, bitmapTo]" description="Test setting a bitmapTo to null does not cause an RTE.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapTo = null;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 250" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- repeatBehavior -->
+        <TestCase testID="AnimateTransitionShader_repeatBehavior_Default" keywords="[AnimateTransitionShader, variable, repeatBehavior]" description="Test the default value of the repeatBehavior variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).repeatBehavior" value="loop"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_repeatBehavior_reverse" keywords="[AnimateTransitionShader, variable, repeatBehavior]" description="Test repeatBehavior reverse.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.repeatBehavior = 'reverse';" />
+                <RunCode code="application.e_AnimateTransitionShader.repeatCount = 2;" />
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 700" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- disableLayout -->
+        <TestCase testID="AnimateTransitionShader_disableLayout_Default" keywords="[AnimateTransitionShader, variable, disableLayout]" description="Test the default value of the disableLayout variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).disableLayout" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- interpolator -->
+        <TestCase testID="AnimateTransitionShader_interpolator_Default" keywords="[AnimateTransitionShader, variable, interpolator]" description="Test the default value of the interpolator variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).interpolator" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- disableConstraints -->
+        <TestCase testID="AnimateTransitionShader_disableConstraints_Default" keywords="[AnimateTransitionShader, variable, disableConstraints]" description="Test the default value of the disableConstraints variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).disableLayout" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- motionPaths -->
+        <TestCase testID="AnimateTransitionShader_motionPaths_Default" keywords="[AnimateTransitionShader, variable, motionPaths]" description="Test the default value of the motionPaths variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).motionPaths" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="AnimateTransitionShader_repeatDelay_Default" keywords="[AnimateTransitionShader, variable, repeatDelay]" description="Test the default value of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_repeatDelay" keywords="[AnimateTransitionShader, variable, repeatDelay]" description="Test wipe with a repeatDelay.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.repeatCount = 2;" />
+                <RunCode code="application.e_AnimateTransitionShader.repeatDelay = 100;" />
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 700" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- repeatCount -->
+        <TestCase testID="AnimateTransitionShader_repeatCount_Default" keywords="[AnimateTransitionShader, variable, repeatCount]" description="Test the default value of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_repeatCount" keywords="[AnimateTransitionShader, variable, repeatCount]" description="Test wipe with a repeatCount greater than 1.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.repeatCount = 2;" />
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 800" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="AnimateTransitionShader_startDelay_Default" keywords="[AnimateTransitionShader, variable, startDelay]" description="Test the default value of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_startDelay" keywords="[AnimateTransitionShader, variable, startDelay]" description="Test wipe with a startDelay greater than 0.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.startDelay = 500;" />
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls4" url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- instanceClass -->
+        <TestCase testID="AnimateTransitionShader_instanceClass_Default" keywords="[AnimateTransitionShader, variable, instanceClass]" description="Test the default value of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).instanceClass.toString().replace('[class ', '').replace(']','')" value="AnimateTransitionShaderInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="AnimateTransitionShader_suspendBackgroundProcessing_Default" keywords="[AnimateTransitionShader, variable, suspendBackgroundProcessing]" description="Test the default value of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

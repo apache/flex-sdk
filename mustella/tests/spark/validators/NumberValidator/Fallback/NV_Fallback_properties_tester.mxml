@@ -1,0 +1,784 @@
+<UnitTester testDir="spark/validators/NumberValidator/Fallback/" testSWF="NV_Fallback_properties_Main.mxml" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*">
+  <mx:Script><![CDATA[
+			import assets.NVConstants;
+			import mx.validators.NumberValidatorDomainType;
+	 		import flash.globalization.NationalDigitsType;
+	  
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+  <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+  <testCases>
+    <TestCase testID="NV_Fallback_negativeNumberFormat_default_test1" description="the test case is for test default negativeNumberFormat" keywords="[NumberValidator, Fallback, negativeNumberFormat]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+        	<AssertPropertyValue target="nvComp.nv" propertyName="negativeNumberFormat" valueExpression="value=application.nvComp.nf.negativeNumberFormat"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormat_default_script_test2" description="the test case is for test default negativeNumberFormat" keywords="[NumberValidator, Fallback, negativeNumberFormat]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeNumberFormat" valueExpression="value=application.nvComp.nf.negativeNumberFormat"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormat_3_test3" description="the test case is for test valid negativeNumberFormat" keywords="[NumberValidator, Fallback, negativeNumberFormat]">
+      <setup>
+		<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="negativeNumberFormat" value="3" waitEvent="change"/>
+        <SetProperty target="nvComp.nv" propertyName="negativeNumberFormat" value="3" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeNumberFormat" valueExpression="value=application.nvComp.nf.negativeNumberFormat"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormat_4_script_test4" description="the test case is for test valid negativeNumberFormat" keywords="[NumberValidator, Fallback, negativeNumberFormat]">
+      <setup>
+		<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+        <SetProperty target="nvComp.nvScript" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeNumberFormat" valueExpression="value=application.nvComp.nf.negativeNumberFormat"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalSeparator_default_test5" description="the test case is for test default decimalSeparator" keywords="[NumberValidator, Fallback, decimalSeparator]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="decimalSeparator" valueExpression="value=application.nvComp.nf.decimalSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalSeparator_default_script_test6" description="the test case is for test default decimalSeparator" keywords="[NumberValidator, Fallback, decimalSeparator]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="decimalSeparator" valueExpression="value=application.nvComp.nf.decimalSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalSeparator_star_test7" description="the test case is for test valid decimalSeparator" keywords="[NumberValidator, Fallback, decimalSeparator]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+        <SetProperty target="nvComp.nv" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="decimalSeparator" valueExpression="value=application.nvComp.nf.decimalSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalSeparator_colon_script_test8" description="the test case is for test valid decimalSeparator" keywords="[NumberValidator, Fallback, decimalSeparator]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+        <SetProperty target="nvComp.nvScript" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="decimalSeparator" valueExpression="value=application.nvComp.nf.decimalSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigits_default_test9" description="the test case is for test default fractionalDigits" keywords="[NumberValidator, Fallback, fractionalDigits]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="fractionalDigits" valueExpression="value=application.nvComp.nf.fractionalDigits"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigits_default_script_test10" description="the test case is for test default fractionalDigits" keywords="[NumberValidator, Fallback, fractionalDigits]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="fractionalDigits" valueExpression="value=application.nvComp.nf.fractionalDigits"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigits_1_test11" description="the test case is for test valid fractionalDigits" keywords="[NumberValidator, Fallback, fractionalDigits]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+        <SetProperty target="nvComp.nv" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="fractionalDigits" valueExpression="value=application.nvComp.nf.fractionalDigits"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigits_4_script_test12" description="the test case is for test valid fractionalDigits" keywords="[NumberValidator, Fallback, fractionalDigits]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+        <SetProperty target="nvComp.nvScript" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="fractionalDigits" valueExpression="value=application.nvComp.nf.fractionalDigits"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_digitsType_default_test13" description="the test case is for test default digitsType" keywords="[NumberValidator, Fallback, digitsType]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="digitsType" valueExpression="value=application.nvComp.nf.digitsType"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_digitsType_default_script_test14" description="the test case is for test default digitsType" keywords="[NumberValidator, Fallback, digitsType]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="digitsType" valueExpression="value=application.nvComp.nf.digitsType"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_digitsType_ARABIC_INDIC_test15" description="the test case is for test valid digitsType" keywords="[NumberValidator, Fallback, digitsType]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+        <SetProperty target="nvComp.nv" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="fractionalDigits" valueExpression="value=application.nvComp.nf.fractionalDigits"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_digitsType_TIBETAN_script_test16" description="the test case is for test valid digitsType" keywords="[NumberValidator, Fallback, digitsType]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="fractionalDigits" valueExpression="value=NationalDigitsType.TIBETAN" waitEvent="change"/>
+        <SetProperty target="nvComp.nvScript" propertyName="fractionalDigits" valueExpression="value=NationalDigitsType.TIBETAN" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="fractionalDigits" valueExpression="value=application.nvComp.nf.fractionalDigits"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_groupingSeparator_default_test17" description="the test case is for test default groupingSeparator" keywords="[NumberValidator, Fallback, groupingSeparator]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="groupingSeparator" valueExpression="value=application.nvComp.nf.groupingSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_groupingSeparator_default_script_test18" description="the test case is for test default groupingSeparator" keywords="[NumberValidator, Fallback, groupingSeparator]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="groupingSeparator" valueExpression="value=application.nvComp.nf.groupingSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_groupingSeparator_colon_test19" description="the test case is for test valid groupingSeparator" keywords="[NumberValidator, Fallback, groupingSeparator]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+        <SetProperty target="nvComp.nv" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="groupingSeparator" valueExpression="value=application.nvComp.nf.groupingSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_groupingSeparator_semicolon_script_test20" description="the test case is for test valid groupingSeparator" keywords="[NumberValidator, Fallback, groupingSeparator]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nf" propertyName="groupingSeparator" value=":" waitEvent="change"/>
+        <SetProperty target="nvComp.nvScript" propertyName="groupingSeparator" value=":" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="groupingSeparator" valueExpression="value=application.nvComp.nf.groupingSeparator"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeSymbol_default_test21" description="the test case is for test default negativeSymbol" keywords="[NumberValidator, Fallback, negativeSymbol]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeSymbol" valueExpression="value=application.nvComp.nf.negativeSymbol"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeSymbol_default_script_test22" description="the test case is for test default negativeSymbol" keywords="[NumberValidator, Fallback, negativeSymbol]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeSymbol" valueExpression="value=application.nvComp.nf.negativeSymbol"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_allowNegative_default_test23" description="the test case is for test default allowNegative" keywords="[NumberValidator, Fallback, allowNegative]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="allowNegative" value="true"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_allowNegative_default_script_test24" description="the test case is for test default allowNegative" keywords="[NumberValidator, Fallback, allowNegative]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="allowNegative" value="true"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_allowNegative_false_test25" description="the test case is for test valid allowNegative" keywords="[NumberValidator, Fallback, allowNegative]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="allowNegative" value="false" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="allowNegative" value="false"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_allowNegative_false_script_test26" description="the test case is for test valid allowNegative" keywords="[NumberValidator, Fallback, allowNegative]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="allowNegative" value="false" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="allowNegative" value="false"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_domain_default_test27" description="the test case is for test default domain" keywords="[NumberValidator, Fallback, domain]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_domain_default_script_test28" description="the test case is for test default domain" keywords="[NumberValidator, Fallback, domain]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_domain_int_test29" description="the test case is for test valid domain" keywords="[NumberValidator, Fallback, domain]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_domain_int_script_test30" description="the test case is for test valid domain" keywords="[NumberValidator, Fallback, domain]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_maxValue_default_test31" description="the test case is for test default maxValue" keywords="[NumberValidator, Fallback, maxValue]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="maxValue" valueExpression="value=NaN"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_maxValue_default_script_test32" description="the test case is for test default maxValue" keywords="[NumberValidator, Fallback, maxValue]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="maxValue" valueExpression="value=NaN"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_maxValue_100_test33" description="the test case is for test valid maxValue" keywords="[NumberValidator, Fallback, maxValue]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="maxValue" value="100" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="maxValue" value="100"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_maxValue_n200_script_test34" description="the test case is for test valid maxValue" keywords="[NumberValidator, Fallback, maxValue]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="maxValue" value="-200" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="maxValue" value="-200"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_minValue_default_test35" description="the test case is for test default minValue" keywords="[NumberValidator, Fallback, minValue]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="minValue" valueExpression="value=NaN"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_minValue_default_script_test36" description="the test case is for test default minValue" keywords="[NumberValidator, Fallback, minValue]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="minValue" valueExpression="value=NaN"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_minValue_100_test37" description="the test case is for test valid minValue" keywords="[NumberValidator, Fallback, minValue]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="minValue" value="100" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="minValue" value="100"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_minValue_n200_script_test38" description="the test case is for test valid minValue" keywords="[NumberValidator, Fallback, minValue]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="minValue" value="-200" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="minValue" value="-200"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalPointCountError_default_test39" description="the test case is for test default decimalPointCountError" keywords="[NumberValidator, Fallback, decimalPointCountError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="decimalPointCountError" valueExpression="value=NVConstants.decimalPointCountErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalPointCountError_default_script_test40" description="the test case is for test default decimalPointCountError" keywords="[NumberValidator, Fallback, decimalPointCountError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="decimalPointCountError" valueExpression="value=NVConstants.decimalPointCountErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalPointCountError_custom_test41" description="the test case is for test valid decimalPointCountError" keywords="[NumberValidator, Fallback, decimalPointCountError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_decimalPointCountError_custom_script_test42" description="the test case is for test valid decimalPointCountError" keywords="[NumberValidator, Fallback, decimalPointCountError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_greaterThanMaxValue_default_test43" description="the test case is for test default greaterThanMaxValue" keywords="[NumberValidator, Fallback, greaterThanMaxValue]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="greaterThanMaxError" valueExpression="value=NVConstants.greaterThanMaxErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_greaterThanMaxValue_default_script_test44" description="the test case is for test default greaterThanMaxValue" keywords="[NumberValidator, Fallback, greaterThanMaxValue]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="greaterThanMaxError" valueExpression="value=NVConstants.greaterThanMaxErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_greaterThanMaxValue_custom_test45" description="the test case is for test valid greaterThanMaxValue" keywords="[NumberValidator, Fallback, greaterThanMaxValue]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_greaterThanMaxValue_custom_script_test46" description="the test case is for test valid greaterThanMaxValue" keywords="[NumberValidator, Fallback, greaterThanMaxValue]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigitsError_default_test47" description="the test case is for test default fractionalDigitsError" keywords="[NumberValidator, Fallback, fractionalDigitsError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.fractionalDigitsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigitsError_default_script_test48" description="the test case is for test default fractionalDigitsError" keywords="[NumberValidator, Fallback, fractionalDigitsError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.fractionalDigitsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigitsError_custom_test49" description="the test case is for test valid fractionalDigitsError" keywords="[NumberValidator, Fallback, fractionalDigitsError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_fractionalDigitsError_custom_script_test50" description="the test case is for test valid fractionalDigitsError" keywords="[NumberValidator, Fallback, fractionalDigitsError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_notAnIntegerError_default_test55" description="the test case is for test default notAnIntegerError" keywords="[NumberValidator, Fallback, notAnIntegerError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="notAnIntegerError" valueExpression="value=NVConstants.notAnIntegerErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_notAnIntegerError_default_script_test56" description="the test case is for test default notAnIntegerError" keywords="[NumberValidator, Fallback, notAnIntegerError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="notAnIntegerError" valueExpression="value=NVConstants.notAnIntegerErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_notAnIntegerError_custom_test57" description="the test case is for test valid notAnIntegerError" keywords="[NumberValidator, Fallback, notAnIntegerError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_notAnIntegerError_custom_script_test58" description="the test case is for test valid notAnIntegerError" keywords="[NumberValidator, Fallback, notAnIntegerError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidCharError_default_test59" description="the test case is for test default invalidCharError" keywords="[NumberValidator, Fallback, invalidCharError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="invalidCharError" valueExpression="value=NVConstants.invalidCharErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidCharError_default_script_test60" description="the test case is for test default invalidCharError" keywords="[NumberValidator, Fallback, invalidCharError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="invalidCharError" valueExpression="value=NVConstants.invalidCharErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidCharError_custom_test61" description="the test case is for test valid invalidCharError" keywords="[NumberValidator, Fallback, invalidCharError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidCharError_custom_script_test62" description="the test case is for test valid invalidCharError" keywords="[NumberValidator, Fallback, invalidCharError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidFormatCharError_default_test63" description="the test case is for test default invalidFormatCharError" keywords="[NumberValidator, Fallback, invalidFormatCharError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.invalidFormatCharsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidFormatCharError_default_script_test64" description="the test case is for test default invalidFormatCharError" keywords="[NumberValidator, Fallback, invalidFormatCharError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.invalidFormatCharsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidFormatCharError_custom_test65" description="the test case is for test valid invalidFormatCharError" keywords="[NumberValidator, Fallback, invalidFormatCharError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_invalidFormatCharError_custom_script_test66" description="the test case is for test valid invalidFormatCharError" keywords="[NumberValidator, Fallback, invalidFormatCharError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_lessThanMinError_default_test67" description="the test case is for test default lessThanMinError" keywords="[NumberValidator, Fallback, lessThanMinError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lessThanMinError" valueExpression="value=NVConstants.lessThanMinErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_lessThanMinError_default_script_test68" description="the test case is for test default lessThanMinError" keywords="[NumberValidator, Fallback, lessThanMinError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lessThanMinError" valueExpression="value=NVConstants.lessThanMinErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_lessThanMinError_custom_test69" description="the test case is for test valid lessThanMinError" keywords="[NumberValidator, Fallback, lessThanMinError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_lessThanMinError_custom_script_test70" description="the test case is for test valid lessThanMinError" keywords="[NumberValidator, Fallback, lessThanMinError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeError_default_test71" description="the test case is for test default negativeError" keywords="[NumberValidator, Fallback, negativeError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeError" valueExpression="value=NVConstants.negativeErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeError_default_script_test72" description="the test case is for test default negativeError" keywords="[NumberValidator, Fallback, negativeError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeError" valueExpression="value=NVConstants.negativeErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeError_custom_test73" description="the test case is for test valid negativeError" keywords="[NumberValidator, Fallback, negativeError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeError_custom_script_test74" description="the test case is for test valid negativeError" keywords="[NumberValidator, Fallback, negativeError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeSymbolError_default_test75" description="the test case is for test default negativeSymbolError" keywords="[NumberValidator, Fallback, negativeSymbolError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeSymbolError" valueExpression="value=NVConstants.negativeSymbolErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeSymbolError_default_script_test76" description="the test case is for test default negativeSymbolError" keywords="[NumberValidator, Fallback, negativeSymbolError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeSymbolError" valueExpression="value=NVConstants.negativeSymbolErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeSymbolError_custom_test77" description="the test case is for test valid negativeSymbolError" keywords="[NumberValidator, Fallback, negativeSymbolError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeSymbolError_custom_script_test78" description="the test case is for test valid negativeSymbolError" keywords="[NumberValidator, Fallback, negativeSymbolError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormatError_default_test79" description="the test case is for test default negativeNumberFormatError" keywords="[NumberValidator, Fallback, negativeNumberFormatError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.negativeNumberFormatErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormatError_default_script_test80" description="the test case is for test default negativeNumberFormatError" keywords="[NumberValidator, Fallback, negativeNumberFormatError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.negativeNumberFormatErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormatError_custom_test81" description="the test case is for test valid negativeNumberFormatError" keywords="[NumberValidator, Fallback, negativeNumberFormatError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_negativeNumberFormatError_custom_script_test82" description="the test case is for test valid negativeNumberFormatError" keywords="[NumberValidator, Fallback, negativeNumberFormatError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_parseError_default_test83" description="the test case is for test default parseError" keywords="[NumberValidator, Fallback, parseError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="parseError" valueExpression="value=NVConstants.parseErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_parseError_default_script_test84" description="the test case is for test default parseError" keywords="[NumberValidator, Fallback, parseError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="parseError" valueExpression="value=NVConstants.parseErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_parseError_custom_test85" description="the test case is for test valid parseError" keywords="[NumberValidator, Fallback, parseError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_parseError_custom_script_test86" description="the test case is for test valid parseError" keywords="[NumberValidator, Fallback, parseError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_localeUndefinedError_default_test87" description="the test case is for test default localeUndefinedError" keywords="[NumberValidator, Fallback, localeUndefinedError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="localeUndefinedError" valueExpression="value=NVConstants.localeUndefinedErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_localeUndefinedError_default_script_test88" description="the test case is for test default localeUndefinedError" keywords="[NumberValidator, Fallback, localeUndefinedError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="localeUndefinedError" valueExpression="value=NVConstants.localeUndefinedErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_localeUndefinedError_custom_test89" description="the test case is for test valid localeUndefinedError" keywords="[NumberValidator, Fallback, localeUndefinedError]">
+      <setup>
+        <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nv" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nv" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+        <AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_Fallback_localeUndefinedError_custom_script_test90" description="the test case is for test valid localeUndefinedError" keywords="[NumberValidator, Fallback, localeUndefinedError]">
+      <setup>
+         <ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+        <SetProperty target="nvComp.nvScript" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+        <AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+  </testCases>
+</UnitTester>

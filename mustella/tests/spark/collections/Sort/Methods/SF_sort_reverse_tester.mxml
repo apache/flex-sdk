@@ -1,0 +1,330 @@
+<UnitTester testDir="spark/collections/Sort/Methods/" testSWF="SF_sort_reverse.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.LastOperationStatus;
+		import assets.newClasses.SFConstant;
+		
+		public static function init(o:DisplayObject):void
+		{
+			
+		}
+	]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="Sort_method_reverse_noFields_inline_1" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="3"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_inline_2" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="1"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="3"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_inline_3" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.dateAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" valueExpression="value=new Date('2010-10-23')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-22')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-21')"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_inline_4" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.dateAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" valueExpression="value=new Date('2010-10-21')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-22')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-23')"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_inline_5" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.stringAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="c"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="b"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="a"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_inline_6" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.stringAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="a"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="b"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="c"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_script_7" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="3"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_script_8" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.numberAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="1"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="2"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="3"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_script_9" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.dateAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" valueExpression="value=new Date('2010-10-23')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-22')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-21')"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_script_10" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.dateAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" valueExpression="value=new Date('2010-10-21')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-22')"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " valueExpression="value=new Date('2010-10-23')"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_script_11" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.stringAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="c"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="b"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="a"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_noFields_script_12" keywords="[Sort, reverse, noFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.stringAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current" value="a"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="b"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current " value="c"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_oneField_inline_13" keywords="[Sort, reverse, oneField]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="WaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_oneField_inline_14" keywords="[Sort, reverse, oneField]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_oneField_script_15" keywords="[Sort, reverse, oneField]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="WaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_oneField_script_16" keywords="[Sort, reverse, oneField]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_twoFields_inline_17" keywords="[Sort, reverse, twoFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addAllFields(application.stComp.sf2,application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="WaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_twoFields_inline_18" keywords="[Sort, reverse, twoFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addAllFields(application.stComp.sf2,application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.st.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.st, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="JaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_twoFields_script_19" keywords="[Sort, reverse, twoFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addAllFields(application.stComp.sf2,application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="WaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sort_method_reverse_twoFields_script_20" keywords="[Sort, reverse, twoFields]">
+            <setup>
+                <ResetComponent target="stComp" className="newComps.CustComp_sort_reverse" waitEvent="updateComplete"/>
+                <RunCode code="application.stComp.addAllFields(application.stComp.sf2,application.stComp.sf1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.stScript.reverse()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.stComp.createView(application.stComp.stScript, application.stComp.personAC)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value =application.stComp.cursor.current.name" value="WaName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.stComp.cursor.moveNext();value =application.stComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

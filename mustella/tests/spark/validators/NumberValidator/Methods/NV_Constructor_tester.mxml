@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_Constructor.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NVConstants;
+		
+		import flash.globalization.*;
+		
+		private var nfGSLib:flash.globalization.NumberFormatter;
+		private var str:String = '';
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<testCases>
+	<!--According to latest design,  when getting actual locale id name even before createWorkingInstance() is called, 
+	fallbackLastOperationStatus is set to locale undefined error and return empty string -->
+	<TestCase testID="NV_Constructor_default_scripts_test1" 
+			  description="Test NumberValidator constructor with no locale and properties created in action Scripts, acutalLocalIDName should inherit from topLevelApp"  
+			  keywords="[NumberValidator, constructor, default, scripts, valid]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+				<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_default_declaration_test2" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, acutalLocalIDName should fallback to en-US "  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<ResetComponent target="nvDefault" className="spark.validators.NumberValidator" /> 
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<RunCode code="application.nvDefault.initialized(null,'nvDefault')"/>
+		</setup>
+		<body>
+				<AssertPropertyValue target="nvDefault" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nvDefault" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>  
+	</TestCase>
+
+	<TestCase testID="NV_Constructor_default_scripts_set_valid_locale_test3" 
+			  description="Test NumberValidator constructor with no locale and properties created in action Scripts,set valid locale by setStyle, acutalLocalIDName should be null "  
+			  keywords="[NumberValidator, constructor, default, scripts, valid]">
+		<setup>
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh_TW')" />
+			<SetStyle target="nvScript" styleName="locale" value="zh_TW" waitEvent="change"/>
+		</setup>	
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_default_declaration_set_valid_locale_test4" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, set locale by setStyle .  "  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<ResetComponent target="nvDefault" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.nvDefault.initialized(null,'nvDefault')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+			<SetStyle target="nvDefault" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvDefault" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvDefault" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_default_scripts_set_invalid_locale_test5" 
+			  description="Test NumberValidator constructor with no locale and properties created in action Scripts, set invalid locale by setStyle, it fallback to OS's default locale "  
+			  keywords="[NumberValidator, constructor, default, scripts, valid]">
+		<setup>
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.nvScript.initialized(null,'nvScript')"/>
+			<SetStyle target="nvScript" styleName="locale" value="abc123" waitEvent="change"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+		</setup>	
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.usingDefaultWarningMsg" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_default_declaration_set_invalid_locale_test6" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, set invalid locale by setStyle, it will fallback to OS default locale "  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<ResetComponent target="nvDefault" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.nvDefault.initialized(null,'nvDefault')"/>
+			<SetStyle target="nvDefault" styleName="locale" value="123abc" waitEvent="change"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvDefault" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvDefault" propertyName="lastOperationStatus" valueExpression="value=NVConstants.usingDefaultWarningMsg" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_scripts_addStyleClient_test7" 
+			  description="Test NumberValidator constructor with no locale and properties created in action Scripts, add this object into UI by addStyleClient() "  
+			  keywords="[NumberValidator, constructor, default, scripts, valid]">
+		<setup>
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<RunCode code="application.addStyleClient(application.nvScript)" />
+		</setup>	
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_declaration_set_i_default_locale_test8" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, set i-default locale, it should fallback to OS's default"  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<ResetComponent target="nvDefault" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.nvDefault.initialized(null,'nvDefault')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<SetStyle target="nvDefault" styleName="locale" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvDefault" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvDefault" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_declaration_inline_locale_zh_CN_test9" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, set inline zh-CN locale"  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInlineLocale1" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvInlineLocale1" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_default_declaration_inline_locale_en_test10" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, set inline en locale"  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInlineLocale2" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvInlineLocale2" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>  
+	</TestCase>
+	
+	
+	<TestCase testID="NV_Constructor_declaration_inline_invalid_locale_test11" 
+			  description="Test NumberValidator constructor with no locale and properties created in declaration tag, set inline invalide locale, it fallback to OS's default"  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInvalidLocale" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvInvalidLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.usingDefaultWarningMsg" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_declaration_inline_properties_groupingSeparator_semicolon_test12" 
+			  description="Test NumberValidator constructor created in declaration tag, set inline properteis , groupingSeparator as semicolon "  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<SetProperty target="nvInlinePro1" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInlinePro1" propertyName="groupingSeparator" value=";" />
+			<AssertPropertyValue target="nvInlinePro1" propertyName="fractionalDigits" value="2" />
+			<SetProperty target="ti" propertyName="text" value="123;456;789.98" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvInlinePro1" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_declaration_inline_properties_decimalSeparator_colon_test13" 
+			  description="Test NumberValidator constructor created in declaration tag, set inline properteis , decimalSeparator as colon"  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<SetProperty target="nvInlinePro2" propertyName="property" value="text"/>
+			<SetProperty target="nvInlinePro2" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInlinePro2" propertyName="decimalSeparator" value=":" />
+			<AssertPropertyValue target="nvInlinePro2" propertyName="fractionalDigits" value="2" />
+			<SetProperty target="ti" propertyName="text" value="123,456,789:98" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvInlinePro2" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_declaration_inline_properties_fractionDigits_3_test14" 
+			  description="Test NumberValidator constructor created in declaration tag, set inline properteis , fractionDigtis "  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<SetProperty target="nvInlinePro3" propertyName="property" value="text"/>
+			<SetProperty target="nvInlinePro3" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInlinePro3" propertyName="fractionalDigits" value="3" />
+			<SetProperty target="ti" propertyName="text" value="123,456,789.9888888" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvInlinePro3" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="nvInlinePro3" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_declaration_inline_properties_groupingSeparator_fractionDigits_test15" 
+			  description="Test NumberValidator constructor created in declaration tag, set inline properteis , groupingSeparator and fractionDigtis "  
+			  keywords="[NumberValidator, constructor, default, declaration, valid]">
+		<setup>
+			<ResetComponent target="nvInlinePro1" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.nvInlinePro1.initialized(null,'nvInlinePro1')"/>
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<SetProperty target="nvInlinePro1" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvInlinePro1" propertyName="property" value="text"/>
+			<SetProperty target="nvInlinePro1" propertyName="required" value="false"/>
+			<SetProperty target="nvInlinePro1" propertyName="groupingSeparator" value=";"/>
+			<SetProperty target="nvInlinePro1" propertyName="fractionalDigits" value="3"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvInlinePro1" propertyName="groupingSeparator" value=";" />
+			<AssertPropertyValue target="nvInlinePro1" propertyName="fractionalDigits" value="3" />
+			<SetProperty target="ti" propertyName="text" value="123,456,789.988" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvInlinePro1" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="nvInlinePro1" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	
+	<TestCase testID="NV_Constructor_scripts_properties_groupingSeparator_semicolon_test16" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , groupingSeparator as semicolon  "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<ResetComponent target="nvPro" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.setPro(application.nvPro, 'groupingSeparator', ';')" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<SetProperty target="nvPro" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvPro" propertyName="property" value="text"/>
+			<SetProperty target="nvPro" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvPro" propertyName="groupingSeparator" value=";" />
+			
+			<SetProperty target="ti" propertyName="text" value="123;456;789" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvPro" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+		
+			<AssertNoEvent target="nvPro" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_scripts_properties_decimalSeparator_colon_test17" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , decimalSeparator as colon "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<ResetComponent target="nvPro" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.setPro(application.nvPro, 'decimalSeparator', ':')" />
+			<RunCode code="application.setPro(application.nvPro, 'fractionalDigits', '2')" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<SetProperty target="nvPro" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvPro" propertyName="property" value="text"/>
+			<SetProperty target="nvPro" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvPro" propertyName="decimalSeparator" value=":" />
+			
+			<SetProperty target="ti" propertyName="text" value="123456789:00" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvPro" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			
+			<AssertNoEvent target="nvPro" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_scripts_properties_decimalSeparator_colon_invalid_data_test18" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , decimalSeparator as colon "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<ResetComponent target="nvPro" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.setPro(application.nvPro, 'decimalSeparator', ':')" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<SetProperty target="nvPro" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvPro" propertyName="property" value="text"/>
+			<SetProperty target="nvPro" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvPro" propertyName="decimalSeparator" value=":" />
+			
+			<SetProperty target="ti" propertyName="text" value="123456789.789" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvPro" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			
+			<AssertNoEvent target="nvPro" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	
+	<TestCase testID="NV_Constructor_scripts_properties_fractionDigits_2_invalid_data_test19" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , fractionDigits as 2 and validate invalid data "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<ResetComponent target="nvPro" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.setPro(application.nvPro, 'fractionalDigits', '2')" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<SetProperty target="nvPro" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvPro" propertyName="property" value="text"/>
+			<SetProperty target="nvPro" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvPro" propertyName="fractionalDigits" value="2" />
+			
+			<SetProperty target="ti" propertyName="text" value="123,456,789.3456" waitEvent="updateComplete" waitTarget="ti"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="nvPro" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			
+			<AssertNoEvent target="nvPro" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_binding_lastOperationStatus_test20" 
+			  description="Test NumberValidator and binding lastOperationStatus to label and test label.text "  
+			  keywords="[NumberValidator, constructor, default, lastOperationStatus, valid]">
+		<setup>
+			<SetProperty target="nvBinding" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvBinding" propertyName="property" value="text"/>
+			<SetProperty target="nvBinding" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="nvBinding" propertyName="decimalSeparator" value=";"/>
+			<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg" />
+			<AssertPropertyValue target="lbBindOperationStatus" propertyName="text" valueExpression="value=NVConstants.noErrorMsg" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_scripts_not_addStyleClient_default_properties_test21" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , groupingSeparator as semicolon  "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<SetProperty target="nvScript" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvScript" propertyName="property" value="text"/>
+			<SetProperty target="nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvScript" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			<AssertPropertyValue target="nvScript" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_scripts_not_addStyleClient_groupingSeparator_test22" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , groupingSeparator as semicolon  "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')"/>
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<SetProperty target="nvScript" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvScript" propertyName="property" value="text"/>
+			<SetProperty target="nvScript" propertyName="required" value="false"/>
+			<SetProperty target="nvScript" propertyName="groupingSeparator" value=";"/>
+			<SetProperty target="nvScript" propertyName="decimalSeparator" value="."/>
+			<RunCode code="nfGSLib.groupingSeparator=';'" />
+			<RunCode code="nfGSLib.decimalSeparator='.'" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nvScript" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nvScript" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_scripts_not_addStyleClient_decimalSeparator_test23" 
+			  description="Test NumberValidator constructor created in scripts, set properties like , groupingSeparator as semicolon  "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<ResetComponent target="nvDefault" className="spark.validators.NumberValidator" /> 
+			<SetProperty target="nvScript" propertyName="source" valueExpression="value=application.ti" />
+			<SetProperty target="nvScript" propertyName="property" value="text"/>
+			<SetProperty target="nvScript" propertyName="required" value="false"/>
+			<SetProperty target="nvScript" propertyName="decimalSeparator" value=";"/>
+			<SetProperty target="nvScript" propertyName="fractionalDigits" value="3"/>
+			<SetProperty target="nvScript" propertyName="allowNegative" value="false"/>
+			<SetProperty target="nvScript" propertyName="maxValue" value="100"/>
+			<SetProperty target="nvScript" propertyName="domain" value="int"/>
+			<SetProperty target="nvScript" propertyName="parseError" value="This is a fake parse error"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="decimalSeparator" valueExpression="value=';'" />
+			<AssertPropertyValue target="nvScript" propertyName="fractionalDigits" value="3" />
+			<AssertPropertyValue target="nvScript" propertyName="allowNegative" value="false" />
+			<AssertPropertyValue target="nvScript" propertyName="maxValue" value="100" />
+			<AssertPropertyValue target="nvScript" propertyName="domain" valueExpression="value=100"  />
+			<AssertPropertyValue target="nvScript" propertyName="parseError" valueExpression="value=application.nvDefault.parseError"  />
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_Constructor_assign_one_validator_to_another_test24" 
+			  description="Construct two validator in scripts, set some properties then assign one to another, and compare properties "  
+			  keywords="[NumberValidator, constructor, default, action scripts, valid]">
+		<setup>
+			<ResetComponent target="nvPro" className="spark.validators.NumberValidator" /> 
+			<ResetComponent target="nvScript" className="spark.validators.NumberValidator" /> 
+			<RunCode code="application.assignNVtoAnother()" />
+			<Pause timeout="{NVConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nvScript" propertyName="decimalSeparator" valueExpression="value=application.nvPro.decimalSeparator"  />
+			<AssertPropertyValue target="nvScript" propertyName="fractionalDigits" valueExpression="value=application.nvPro.fractionalDigits" />
+			<AssertPropertyValue target="nvScript" propertyName="groupingSeparator" value="^" />
+			<AssertPropertyValue target="nvScript" propertyName="allowNegative" value="false" />
+			<AssertPropertyValue target="nvScript" propertyName="maxValue" value="200" />
+			<AssertPropertyValue target="nvScript" propertyName="actualLocaleIDName" value="fr-FR" />
+		</body>  
+	</TestCase>
+	
+</testCases>
+	
+</UnitTester>

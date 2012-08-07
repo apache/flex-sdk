@@ -1,0 +1,21 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+        import spark.components.VideoPlayer;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+
+</UnitTester>

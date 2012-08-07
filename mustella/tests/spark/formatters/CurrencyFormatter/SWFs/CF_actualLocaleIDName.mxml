@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+	</fx:Style>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:CurrencyFormatter id="cf"/>
+		
+		<s:CurrencyFormatter id="cfBinding"/>
+		
+		<s:CurrencyFormatter id="cfInline1"  locale="ar-JO"/>
+		<s:CurrencyFormatter id="cfInline2"  locale="bn-BD"/>
+		<s:CurrencyFormatter id="cfInline3"  locale="so-DJ"/>
+		<s:CurrencyFormatter id="cfInline4"  locale="ps_AF"/>
+		
+		<s:CurrencyFormatter id="cfInline_en"  locale="en"/>
+		
+		<s:CurrencyFormatter id="cfUndefineInline"  locale="{undefined}"/>
+		<s:CurrencyFormatter id="cfEmptyInline"  locale=""/>
+		<s:CurrencyFormatter id="cfSetUndefined" />
+		
+		<s:CurrencyFormatter id="childCF"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			[Bindable]
+			public var cfScript:spark.formatters.CurrencyFormatter = null;
+			
+			public var cfChildScript:spark.formatters.CurrencyFormatter = new spark.formatters.CurrencyFormatter();
+			
+			public function createCF():void {
+				cfScript = new spark.formatters.CurrencyFormatter()
+			}
+			
+			public function setCFLocale(localeName:String):void
+			{
+				this.addStyleClient(cfScript);
+				cfScript.setStyle("locale", localeName);
+			}
+			
+			public function setCFLocaleUndefined():void
+			{
+				cfScript.setStyle("locale", undefined);
+			}
+			
+			public function removeCFLocale():void
+			{
+				this.removeStyleClient(cfScript);
+			}
+			
+			public function addStyleChildren(parentLabel:Label,childObject:spark.formatters.CurrencyFormatter):void
+			{
+				parentLabel.addStyleClient(childObject);
+			}
+			public function setLocaleUndefined():void {
+				cfSetUndefined.setStyle("locale" , undefined ) ; 
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Label id="cfBindingLabel" text="{cfBinding.actualLocaleIDName}"/>
+	<s:Label id="cfBindingLabel2" text="{cfBinding.lastOperationStatus}"/>
+	
+	<s:Label id="cfLabel" text="{cfScript.actualLocaleIDName}"/>
+	<s:Label id="cfLabel2" text="{cfScript.lastOperationStatus}"/>
+	
+	<s:Label id="parentCF" locale="{undefined}" />
+
+</s:Application>

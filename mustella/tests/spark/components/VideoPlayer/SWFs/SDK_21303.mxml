@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/mx"
+        width="800" height="400"
+        backgroundColor="0xAAAAAA">
+
+	<fx:Style source="EmbeddedFonts.css"/>
+
+	<s:VideoPlayer id="testPlayer"
+     horizontalCenter="0"
+     verticalCenter="0"/>
+
+    <s:Button id="it" y="100" label="SEEK" click="testPlayer.source='rtmp://10.59.8.148/vod/mp4:sample2_1000kbps.f4v';testPlayer.seek(30);"/>
+</s:Application>

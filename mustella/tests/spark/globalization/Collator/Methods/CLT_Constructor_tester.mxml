@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_Constructor.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.CollatorTestConstants;
+		
+		import flash.globalization.Collator;
+		
+		import spark.globalization.SortingCollator;
+		import spark.globalization.MatchingCollator;
+		
+		public var cltGSLib:flash.globalization.Collator;
+		
+        public static function init(o:DisplayObject):void
+        { 
+        }
+		
+    ]]>
+    </mx:Script>
+
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test Constructor of Collator-->
+<testCases>
+	<!--test SortingCollator instances defined in <fx:Script> block, test locale undefined -->
+	<TestCase testID="SortingCollator_Constructor_loclae_Undefined_script_test1" description="test SortingCollator instances defined in ActionScript code, test locale undefined" keywords="[SortingCollator, Constructor]">
+		<setup>
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			<AssertStyleValue target="clt_sorting" styleName="locale" value="en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=cltGSLib.actualLocaleIDName" target="clt_sorting"/>
+		</body>
+	</TestCase>
+	
+	<!--test SortingCollator instances defined in ActionScript code, test locale with valid value-->
+	<TestCase testID="SortingCollator_Constructor_valid_locale_script_test2" description="test SortingCollator instances defined in ActionScript code, test locale with valid value" keywords="[SortingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_sorting" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+			<AssertMethodValue method="value=application.clt_sorting.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+		</body>
+	</TestCase>
+	
+	<!--test SortingCollator instances defined in ActionScript code, test locale with invalid value-->
+	<TestCase testID="SortingCollator_Constructor_invalid_locale_script_test3" description="test SortingCollator instances defined in ActionScript code, test locale with invalid value" keywords="[SortingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_sorting" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertMethodValue method="value=application.clt_sorting.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_sorting"/>
+		</body>
+	</TestCase>
+	
+	<!--test SortingCollator instances defined in <fx:Declarations> block, test locale undefined, actualLocaleIDName is en_US-->
+	<TestCase testID="SortingCollator_Constructor_locale_undefined_inline_test4" description="test SortingCollator instances defined in Declarations, test locale undefined, actualLocaleIDName is en_US" keywords="[SortingCollator, Constructor]">
+		<setup>
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="cltDel_sorting"/>
+			<AssertStyleValue target="cltDel_sorting" styleName="locale" value="en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=cltGSLib.actualLocaleIDName" target="cltDel_sorting"/>
+		</body>
+	</TestCase>
+	
+	<!--test SortingCollator instances defined in <fx:Declarations> block, test locale with valid value -->
+	<TestCase testID="SortingCollator_Constructor_valid_locale_inline_test5" description="test SortingCollator instances defined in Declarations, test locale with valid value" keywords="[SortingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="cltDel_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltDel_sorting.initialized(null,'cltDel_sorting')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltDel_sorting" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="cltDel_sorting"/>
+			<AssertMethodValue method="value=application.cltDel_sorting.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+		</body>
+	</TestCase>
+	
+	<!--test SortingCollator instances defined in <fx:Declarations> block, test locale with invalid value -->
+	<TestCase testID="SortingCollator_Constructor_invalid_locale_inline_test6" description="test SortingCollator instances defined in Declarations, test locale with invalid value" keywords="[SortingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="cltDel_sorting" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltDel_sorting.initialized(null,'cltDel_sorting')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','sorting')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltDel_sorting" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertMethodValue method="value=application.cltDel_sorting.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="cltDel_sorting"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instances defined in ActionScript code, test locale undefined -->
+	<TestCase testID="MatchingCollator_Constructor_locale_undefined_script_test7" description="test MatchingCollator instances defined in ActionScript code, test locale undefined" keywords="[MatchingCollator, Constructor]">
+		<setup>
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','matching')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			<AssertStyleValue target="clt_matching" styleName="locale" value="en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=cltGSLib.actualLocaleIDName" target="clt_matching"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instances defined in ActionScript code, test locale with valid value-->
+	<TestCase testID="MatchingCollator_Constructor_valid_locale_script_test8" description="test MatchingCollator instances defined in ActionScript code, test locale with valid value" keywords="[MatchingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.Collator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','matching')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_matching" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+			<AssertMethodValue method="value=application.clt_matching.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instances defined in ActionScript code, test locale with invalid value-->
+	<TestCase testID="MatchingCollator_Constructor_invalid_locale_script_test9" description="test MatchingCollator instances defined in ActionScript code, test locale with invalid value" keywords="[MatchingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="clt_matching" className="spark.globalization.Collator"/>
+			<RunCode code="application.clt_matching.initialized(null,'clt_matching')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','matching')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_matching" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertMethodValue method="value=application.clt_matching.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instances defined in <fx:Declarations> block, test locale undefined, actualLocaleIDName is en_US-->
+	<TestCase testID="MatchingCollator_Constructor_locale_undefined_inline_test10" description="test MatchingCollator instances defined in Declarations, test locale undefined, actualLocaleIDName is en_US" keywords="[MatchingCollator, Constructor]">
+		<setup>
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','matching')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="cltDel_matching"/>
+			<AssertStyleValue target="cltDel_matching" styleName="locale" value="en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=cltGSLib.actualLocaleIDName" target="cltDel_matching"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instances defined in <fx:Declarations> block, test locale with valid value -->
+	<TestCase testID="MatchingCollator_Constructor_valid_locale_inline_test11" description="test MatchingCollator instances defined in Declarations, test locale with valid value" keywords="[MatchingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="cltDel_matching" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltDel_matching.initialized(null,'cltDel_matching')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','matching')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltDel_matching" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="cltDel_matching"/>
+			<AssertMethodValue method="value=application.cltDel_matching.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+		</body>
+	</TestCase>
+	
+	<!--test MatchingCollator instances defined in <fx:Declarations> block, test locale with invalid value -->
+	<TestCase testID="MatchingCollator_Constructor_invalid_locale_inline_test12" description="test MatchingCollator instances defined in Declarations, test locale with invalid value" keywords="[MatchingCollator, Constructor]">
+		<setup>
+			<ResetComponent target="cltDel_matching" className="spark.globalization.Collator"/>
+			<RunCode code="application.cltDel_matching.initialized(null,'cltDel_matching')"/>
+			
+			<RunCode code="cltGSLib=new flash.globalization.Collator('en-US','matching')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltDel_matching" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<!--Due to constructor of flash.globalization.Collator must have locale as parameter, here will not compare the result with g11n collator-->
+			<AssertMethodValue method="value=application.cltDel_matching.compare('abc','aBc')" valueExpression="value=cltGSLib.compare('abc','aBc')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=cltGSLib.lastOperationStatus" target="cltDel_matching"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>	
+</UnitTester>

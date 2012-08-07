@@ -1,0 +1,68 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="focus_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+    	
+		<TestCase testID="focusThickness_classSelector" keywords="[focusThickness, style]" description="Test setting focusThickness in a class selector">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusThickness" value="10" target="fi.btnThick" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<CompareBitmap target="fi.thickGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_classSelector_cornerRadius" keywords="[focusThickness, style]" description="Test setting focusThickness in a class selector">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnThick"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusThickness" value="10" target="fi.btnThick" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnThick"/>
+				<CompareBitmap target="fi.thickGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusAlpha_classSelector" keywords="[focusAlpha, style]" description="Test setting focusAlpha in a class selector">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusAlpha" value="0.3" target="fi.btnThick" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<CompareBitmap target="fi.thickGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusAlpha_classSelector_cornerRadius" keywords="[focusAlpha, style]" description="Test setting focusAlpha in a class selector">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnThick"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusAlpha" value="0.3" target="fi.btnThick" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnThick"/>
+				<CompareBitmap target="fi.thickGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+  

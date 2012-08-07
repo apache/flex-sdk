@@ -1,0 +1,205 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+        public static function init(o:DisplayObject):void{}
+
+        private function currentTimeInRange(low:Number, high:Number):Boolean
+        {
+            return((application.testPlayer.currentTime > low) && (application.testPlayer.currentTime < high));
+        }
+
+        private function scrubBarInRange(low:Number, high:Number):Boolean
+        {
+            return((application.testPlayer.scrubBar.value > low) && (application.testPlayer.scrubBar.value < high));
+        }
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_loop_default"
+            keywords="[VideoPlayer]"
+            description="Test the default loop property.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="loop" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_loopFalse_autoRewindFalse_streaming"
+            keywords="[VideoPlayer]"
+            description="Test the loop (false) property when autoRewind is false.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <SetProperty target="testPlayer" propertyName="autoRewind" value="false" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" timeout="3000"/>
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="10.08"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_loopFalse_autoRewindTrue_streaming"
+            keywords="[VideoPlayer]"
+            description="Test the loop (false) property when autoRewind is true.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1500"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer"/>
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.currentTime" value="0"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_loopTrue_autoRewindFalse_streaming"
+            keywords="[VideoPlayer]"
+            description="Test the loop (true) property when autoRewind is false.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<SetProperty target="testPlayer" propertyName="autoRewind" value="false" />
+		<SetProperty target="testPlayer" propertyName="loop" value="true" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=this.currentTimeInRange(9, 10)" value="true"/>
+            	<Pause timeout="3000"/>
+                <AssertMethodValue method="value=this.currentTimeInRange(0, 5)" value="true"/>
+                <AssertMethodValue method="value=this.scrubBarInRange(0, 5)" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_loopTrue_autoRewindTrue_streaming"
+            keywords="[VideoPlayer]"
+            description="Test the loop (true) property when autoRewind is true.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <SetProperty target="testPlayer" propertyName="loop" value="true" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+            </setup>
+            	<body>
+		<AssertMethodValue method="value=this.currentTimeInRange(9, 10)" value="true"/>
+            	<Pause timeout="3000"/>            
+                <AssertMethodValue method="value=this.currentTimeInRange(0, 5)" value="true"/>
+                <AssertMethodValue method="value=this.scrubBarInRange(0, 5)" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+        <!-- ********* -->
+        <!-- PROGRESSIVE -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_loopFalse_autoRewindFalse_progressive"
+            keywords="[VideoPlayer]"
+            description="Test the loop (false) property when autoRewind is false.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_loopFalse_autoRewindTrue_progressive"
+            keywords="[VideoPlayer]"
+            description="Test the loop (false) property when autoRewind is true.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_loopTrue_autoRewindFalse_progressive"
+            keywords="[VideoPlayer]"
+            description="Test the loop (true) property when autoRewind is false.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.autoRewind = false"/>
+		<RunCode code="application.testPlayer.loop = true"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=this.currentTimeInRange(9, 10)" value="true"/>
+            	<Pause timeout="2000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=this.currentTimeInRange(0, 4)" value="true"/>
+                <AssertMethodValue method="value=this.scrubBarInRange(0, 4)" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_loopTrue_autoRewindTrue_progressive"
+            keywords="[VideoPlayer]"
+            description="Test the loop (true) property when autoRewind is true.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.loop = true"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=this.currentTimeInRange(9, 10)" value="true"/>
+            	<Pause timeout="2000"/>            
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=this.currentTimeInRange(0, 4)" value="true"/>
+                <AssertMethodValue method="value=this.scrubBarInRange(0, 4)" value="true"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

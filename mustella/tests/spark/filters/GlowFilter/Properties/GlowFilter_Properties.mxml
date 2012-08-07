@@ -1,0 +1,125 @@
+<UnitTester
+    testDir="spark/filters/GlowFilter/Properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/GlowFilter_Main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+    <!-- Note, no event triggers when you update a filter at runtime -->
+
+        <TestCase testID="GlowFilter_Properties_blurX_default" keywords="[GlowFilter, blurX]" description="Test the default value of the blurX property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="blurX" value="4.0" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_blurY_default" keywords="[GlowFilter, blurY]" description="Test the default value of the blurY property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="blurY" value="4.0" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_strength_default" keywords="[GlowFilter, strength]" description="Test the default value of the strength property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="strength" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_color_default" keywords="[GlowFilter, color]" description="Test the default value of the color property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="color" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_alpha_default" keywords="[GlowFilter, alpha]" description="Test the default value of the alpha property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="alpha" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_inner_default" keywords="[GlowFilter, inner]" description="Test the default value of the inner property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="inner" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_knockout_default" keywords="[GlowFilter, knockout]" description="Test the default value of the knockout property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="knockout" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_quality_default" keywords="[GlowFilter, quality]" description="Test the default value of the quality property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="quality" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_blurX_8" keywords="[GlowFilter, blurX]" description="Test the value 8 for the blurX property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="blurX" value="8.0" />
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_blurY_8" keywords="[GlowFilter, blurY]" description="Test the value 8 for the blurY property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="blurY" value="8.0"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GlowFilter_Properties_strength_3" keywords="[GlowFilter, strength]" description="Test the value 3 for the strength property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="strength" value="3"  />
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+         <TestCase testID="GlowFilter_Properties_color_blue" keywords="[GlowFilter, color]" description="Test the value 0x0000dd for the color property.">
+             <!--bugs>
+                 <Bug bugID="SDK-18373" />
+             </bugs -->
+             <setup>
+                 <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+             </setup>
+             <body>
+                 <SetProperty target="gButton1.filters.0" propertyName="color" value="0x0000dd"  />
+                 <Pause timeout="300" />
+                 <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+             </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

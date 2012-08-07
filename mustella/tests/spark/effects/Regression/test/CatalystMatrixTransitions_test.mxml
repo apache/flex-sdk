@@ -1,0 +1,616 @@
+<UnitTester
+    testSWF="../SWFs/CatalystMatrixTransitions.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        import mx.core.FlexGlobals;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <!-- 
+    
+    Mustella Tests for the Catalyst Transitions High Priority Effects Matrix
+    
+    (http://bugs.adobe.com/jira/browse/SDK-25274)
+    
+    CAUTION: These tests depend on each other and depend on the order they run in (on purpose)
+    to simulate the way you would operate these tests manually.
+    
+    NOTE: The base test SWF has a huge startup time.  It takes around 45 seconds to startup.
+    If you are running this file in mini_run then you will want to add the -timeout=50 flag
+    to not timeout before it is done starting up.
+    
+    They are meant to be run as a complete set together to simulate how the effects matrix
+    works manually.  This checks the final position/size/rotation of all elements involved
+    but does not check anything with the motion in between the start and end of the effect, 
+    this must be verified manually (visually).
+    
+    For each test case there are two assertions: before the final state change happens (pre slam)
+    and after the final state change happens (post slam).  In most cases these values should be
+    equal, but there are some cases where that isn't true:
+    
+        - using Fade on elements causes them to be added or removed at different times
+        - some rotations rotate to 360 degrees then get snapped back to 0 post slam
+    
+    The testIDs and description correspond to which button is being pressed on the left.
+    
+    I tried to keep the base SWF as close to the original manual tests as possible, but did 
+    have to add a couple method hooks.
+    
+    The idea here is the test case "resets" by clicking the "1: reset" button then performs
+    the specified action sequence.  Instead of taking a bitmap for comparisons which was really
+    flaky and unreliable, we assert the position/rotation/size/scale of each element using the
+    EffectTesting.assertPropertySet() and EffectTesting.assertPostLayoutPropertySet() methods.
+    
+    Timeouts on some test steps are upped to 9000ms to handle some of the effects in the matrix
+    that last for more than a total of three seconds.
+    
+    -->
+
+	<testCases>
+
+        <TestCase 
+			testID="CatalystMatrixTransitions_2" 
+			keywords="[Catalyst]" 
+			description="btn2">
+			<body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" />
+                <!-- Note: First effect must Pause instead of waiting for an 'endAssertionReady' event here since its already in the Page1 state -->
+                <Pause timeout="3000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_2...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_1()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,230,50,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', 'null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,230,50,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', 'null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+			</body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_3" 
+            keywords="[Catalyst]" 
+            description="btn3">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_3...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_2()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,301,376,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '-90,0,0,-90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', 'null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,301,376,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '-90,0,0,-90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', 'null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+                
+        <TestCase 
+            testID="CatalystMatrixTransitions_4" 
+            keywords="[Catalyst]" 
+            description="btn4">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_4...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_3()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '490,571,246,22,0|490,174,0,0,0|92,174,0,0,0|92,174,398,0,0|91,174,194,0,0|490,551,0,10,0|92,173,0,191,0|92,173,398,191,0|93,173,197,191,0|229,551,131,0,0|490,174,0,397,0|92,174,0,0,0|92,174,398,0,0|91,174,194,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', 'null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '490,571,246,22,0|490,174,0,0,0|92,174,0,0,0|92,174,398,0,0|91,174,194,0,0|490,551,0,10,0|92,173,0,191,0|92,173,398,191,0|93,173,197,191,0|229,551,131,0,0|490,174,0,397,0|92,174,0,0,0|92,174,398,0,0|91,174,194,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', 'null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_5" 
+            keywords="[Catalyst]" 
+            description="btn5">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_5...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_4()" waitEvent="seekAssertionReady" timeout="9000" />
+                
+                <!-- Pre-slam and post-slam differ because a rotation is at 360 preslam then gets fixed at slam time -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,360,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_6" 
+            keywords="[Catalyst]" 
+            description="btn6">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_6...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_17()" waitEvent="seekAssertionReady" timeout="9000" />
+                
+                <!-- Pre-slam should differ than post-slam in that some elements are removed due to the fade -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,99,0,226,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_7" 
+            keywords="[Catalyst]" 
+            description="btn7">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_7...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_6()" waitEvent="seekAssertionReady" timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '230,325,297,150,0|127,99,103,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,103,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '230,325,297,150,0|127,99,103,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,103,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_8" 
+            keywords="[Catalyst]" 
+            description="btn8">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_8...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_7()" waitEvent="seekAssertionReady" timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '313,325,307,150,0|127,99,93,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,226,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,93,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|-90,0,0,-90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '313,325,307,150,0|127,99,93,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,226,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,93,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|-90,0,0,-90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_9" 
+            keywords="[Catalyst]" 
+            description="btn9">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_9...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_8()" waitEvent="seekAssertionReady" timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '281,467,323,76,0|127,99,77,74,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|281,467,0,0,0|54,148,0,161,0|53,148,228,161,0|53,148,114,161,0|129,467,76,0,0|127,99,77,300,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '281,467,323,76,0|127,99,77,74,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|281,467,0,0,0|54,148,0,161,0|53,148,228,161,0|53,148,114,161,0|129,467,76,0,0|127,99,77,300,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_10" 
+            keywords="[Catalyst]" 
+            description="btn10">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_10...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_9()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam differ because a rotation is at 360 preslam then gets fixed at slam time -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,360,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_11" 
+            keywords="[Catalyst]" 
+            description="btn11">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_11...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_10()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam should differ than post-slam in that some elements are removed due to the fade -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,450,150,0|77,99,0,0,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|77,99,0,226,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,450,150,0|77,99,0,0,0|24,99,53,0,0|24,99,0,0,0|77,99,0,226,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_12" 
+            keywords="[Catalyst]" 
+            description="btn12">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_12...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_12()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '230,431,626,146,0|127,99,103,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,118,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,103,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '230,431,626,146,0|127,99,103,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,118,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,103,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_13" 
+            keywords="[Catalyst]" 
+            description="btn13">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_13...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_13()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '524,548,249,48,0|373,167,151,0,0|70,167,0,0,0|70,167,303,0,0|72,167,148,0,0|373,529,0,10,0|70,166,0,183,0|70,166,303,183,0|70,166,151,183,0|173,529,102,0,0|373,167,151,381,0|70,167,0,0,0|70,167,303,0,0|72,167,148,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '524,548,249,48,0|373,167,151,0,0|70,167,0,0,0|70,167,303,0,0|72,167,148,0,0|373,529,0,10,0|70,166,0,183,0|70,166,303,183,0|70,166,151,183,0|173,529,102,0,0|373,167,151,381,0|70,167,0,0,0|70,167,303,0,0|72,167,148,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_14" 
+            keywords="[Catalyst]" 
+            description="btn14">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_14...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_14()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '128,325,626,249,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,127,319,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|180,0,0,180|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '128,325,626,249,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,127,319,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|180,0,0,180|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_15" 
+            keywords="[Catalyst]" 
+            description="btn15">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_15...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_15()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '498,466,261,62,0|378,109,60,56,0|72,109,0,0,0|71,109,307,0,0|71,109,149,0,0|498,466,0,0,0|95,148,0,161,0|94,148,404,161,0|94,148,201,161,0|233,466,133,0,0|378,109,60,304,0|72,109,0,0,0|71,109,307,0,0|71,109,149,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '498,466,261,62,0|378,109,60,56,0|72,109,0,0,0|71,109,307,0,0|71,109,149,0,0|498,466,0,0,0|95,148,0,161,0|94,148,404,161,0|94,148,201,161,0|233,466,133,0,0|378,109,60,304,0|72,109,0,0,0|71,109,307,0,0|71,109,149,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_16" 
+            keywords="[Catalyst]" 
+            description="btn16">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_16...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_16()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam differ because a rotation is at 360 preslam then gets fixed at slam time -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,360,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,360,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '127,325,400,150,0|127,99,0,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,0,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_17" 
+            keywords="[Catalyst]" 
+            description="btn17">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_17...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_5()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '229,325,208,150,0|127,99,102,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,102,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '229,325,208,150,0|127,99,102,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,102,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_18" 
+            keywords="[Catalyst]" 
+            description="btn18">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_18...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_11()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '313,325,186,40,0|127,99,93,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,313,99,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,93,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '313,325,186,40,0|127,99,93,0,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|127,313,313,99,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|127,99,93,226,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_19" 
+            keywords="[Catalyst]" 
+            description="btn19">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_19...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_18()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '186,459,250,29,0|127,99,30,71,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|186,459,0,0,0|35,145,0,159,0|35,145,151,159,0|35,145,75,159,0|86,459,50,0,0|127,99,29.95,297,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '186,459,250,29,0|127,99,30,71,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|186,459,0,0,0|35,145,0,159,0|35,145,151,159,0|35,145,75,159,0|86,459,50,0,0|127,99,29.95,297,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_20" 
+            keywords="[Catalyst]" 
+            description="btn20">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_20...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_19()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam and post-slam should be the same values -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '188,463,695,215,0|127,99,31,73,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|188,463,0,0,0|36,147,0,159,0|35,147,153,159,0|35,147,76,159,0|87,463,51,0,0|127,99,30.95,299,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '188,463,695,215,0|127,99,31,73,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0|188,463,0,0,0|36,147,0,159,0|35,147,153,159,0|35,147,76,159,0|87,463,51,0,0|127,99,30.95,299,0|24,99,0,0,0|24,99,103,0,0|24,99,50,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_21" 
+            keywords="[Catalyst]" 
+            description="btn21">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_21...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_20()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam should differ than post-slam in that some elements are removed due to the fade -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,651,274,0|77,99,0,0,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|77,99,0,226,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,651,274,0|77,99,0,0,0|24,99,53,0,0|24,99,0,0,0|77,99,0,226,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '90,0,0,90|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_22" 
+            keywords="[Catalyst]" 
+            description="btn22">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_22...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_21()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam should differ than post-slam in that some elements are removed due to the fade -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '290,546,451,35,0|290,168,0,0,0|24,99,0,0,0|91,168,199,0,0|90,168,0,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|290,166,0,380,0|24,99,0,0,0|91,166,199,0,0|90,166,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '290,546,451,35,0|290,168,0,0,0|91,168,199,0,0|90,168,0,0,0|290,166,0,380,0|91,166,199,0,0|90,166,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_23" 
+            keywords="[Catalyst]" 
+            description="btn23">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_23...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_22()" waitEvent="seekAssertionReady"  timeout="9000" />
+                
+                <!-- Pre-slam should differ than post-slam in that some elements are removed due to the fade -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,280,40,0|77,99,0,0,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|77,99,0,226,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,280,40,0|77,99,0,0,0|24,99,53,0,0|24,99,0,0,0|77,99,0,226,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase 
+            testID="CatalystMatrixTransitions_24" 
+            keywords="[Catalyst]" 
+            description="btn24">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.setupTransitionTest(application)" value="setupComplete" />
+                <RunCode code="application.resetTest()" waitEvent="endAssertionReady" timeout="9000" />
+                <RunCode code="application.updateTestStatus('Running CatalystMatrixTransitions_24...')" />
+                <AssertMethodValue method="EffectTesting.requestedSeek = true" />
+                <RunCode code="application.button_clickHandler_23()" waitEvent="seekAssertionReady" timeout="9000" />
+                
+                <!-- Pre-slam should differ than post-slam in that some elements are removed due to the fade and the 360 rotation gets corrected postslam -->
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,450,150,0|77,99,0,0,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0|127,313,0,6,0|24,99,0,108,0|24,99,103,108,0|24,99,51,108,0|59,313,34,0,0|77,99,0,226,0|24,99,0,0,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,360,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+                <RunCode code="EffectTesting.resumeCurrentEffect()" waitEvent="endAssertionReady" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'width,height,x,y,z', '77,325,450,150,0|77,99,0,0,0|24,99,53,0,0|24,99,0,0,0|77,99,0,226,0|24,99,53,0,0|24,99,0,0,0', 1)" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'rotation,rotationX,rotationY,rotationZ', '0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0|0,0,0,0')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.group1, 'scaleX,scaleY,scaleZ', '1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1|1,1,1')" value="PASS" />
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.group1, 'x,y,z,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ', '0,0,0,0,0,0,1,1,1|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null|null,null,null,null,null,null,null,null,null', 0.01)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        
+	</testCases>
+</UnitTester>
+

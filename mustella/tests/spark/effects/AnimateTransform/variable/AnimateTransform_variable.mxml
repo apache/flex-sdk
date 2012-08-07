@@ -1,0 +1,189 @@
+﻿<UnitTester
+    testSWF="../SWFs/AnimateTransform_variable_main.mxml"
+    testDir="spark/effects/AnimateTransform/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.AnimateTransform;
+        import Components.*;
+        
+		[Bindable]private var timeout:int = 200;
+		
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- transformX -->
+        <TestCase testID="AnimateTransform_transformX_Default" keywords="[AnimateTransform, variable, transformX]" description="Test the default value of the transformX variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).transformX" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_transformX" keywords="[AnimateTransform, variable, transformX]" description="Verify a set transformX value is applied.">
+            <setup>
+                <RunCode code="application.fxaTransform.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxaTransform.target = application.uiComponent"/>
+                <RunCode code="application.fxaTransform.transformX = 30"/>
+                <RunCode code="application.fxaTransform.transformY = 0"/>
+                <RunCode code="application.fxaTransform.transformZ = 0"/>
+                <RunCode code="application.fxaTransform.autoCenterTransform = false"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaTransform.playheadTime = 250"/>
+                <Pause timeout="{timeout}"/>
+				<AssertMethodValue method="value=application.uiComponent.rotationX &lt; 46" value="true"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="8.786797"/>
+			</body>
+        </TestCase>
+
+        <!-- transformY -->
+        <TestCase testID="AnimateTransform_transformY_Default" keywords="[AnimateTransform, variable, transformY]" description="Test the default value of the transformY variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).transformY" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_transformY" keywords="[AnimateTransform, variable, transformY]" description="Verify a set transformY value is applied.">
+            <setup>
+                <RunCode code="application.fxaTransform.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxaTransform.target = application.uiComponent"/>
+                <RunCode code="application.fxaTransform.transformX = 0"/>
+                <RunCode code="application.fxaTransform.transformY = 30"/>
+                <RunCode code="application.fxaTransform.transformZ = 0"/>
+                <RunCode code="application.fxaTransform.autoCenterTransform = false"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaTransform.playheadTime = 250"/>
+                <Pause timeout="{timeout}"/>
+				<AssertMethodValue method="value=application.uiComponent.rotationY &lt; 46" value="true"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="8.786797"/>
+			</body>
+        </TestCase>
+
+        <!-- transformZ -->
+        <TestCase testID="AnimateTransform_transformZ_Default" keywords="[AnimateTransform, variable, transformZ]" description="Test the default value of the transformZ variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).transformZ" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_transformZ" keywords="[AnimateTransform, variable, transformZ]" description="Verify a set transformZ value is applied.">
+            <setup>
+                <RunCode code="application.fxaTransform.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxaTransform.target = application.uiComponent"/>
+                <RunCode code="application.fxaTransform.transformX = 0"/>
+                <RunCode code="application.fxaTransform.transformY = 0"/>
+                <RunCode code="application.fxaTransform.transformZ = 30"/>
+                <RunCode code="application.fxaTransform.autoCenterTransform = false"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaTransform.playheadTime = 250"/>
+                <Pause timeout="{timeout}"/>
+				<AssertMethodValue method="value=application.uiComponent.rotationZ &lt; 46" value="true"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="0"/>
+			</body>
+        </TestCase>
+
+        <!-- easer -->
+        <TestCase testID="AnimateTransform_easer_Default" keywords="[AnimateTransform, variable, easer]" description="Test the default value of the easer variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).easer.ease(.4)" value=".345492"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_easer_Custom" keywords="[AnimateTransform, variable, easer]" description="Test the effect with a custom easer.">
+            <setup>
+                <RunCode code="application.fxaEaser.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxaEaser.target = application.uiComponent"/>
+                <RunCode code="application.fxaEaser.easer = application.pow"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaEaser.playheadTime = 150"/>
+                <Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="36"/>
+			</body>
+        </TestCase>
+
+        <!-- interpolator -->
+        <TestCase testID="AnimateTransform_interpolator_Default" keywords="[AnimateTransform, variable, interpolator]" description="Test the default value of the interpolator variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).interpolator" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_interpolator" keywords="[AnimateTransform, variable, interpolator]" description="Test effect with a custom interpolator.">
+            <setup>
+                <RunCode code="application.fxaInterpolator.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxaInterpolator.target = application.uiComponent"/>
+                <RunCode code="application.fxaInterpolator.interpolator = application.ht"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaInterpolator.playheadTime = 150"/>
+                <Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="0.500000"/>
+			</body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="AnimateTransform_startDelay_Default" keywords="[AnimateTransform, variable, startDelay]" description="Test the default value of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform_startDelay" keywords="[AnimateTransform, variable, startDelay]" description="Verify effect does not start until after startDelay.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxa1.target = application.uiComponent"/>
+                <RunCode code="application.fxa1.startDelay = 500"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa1.playheadTime = 150"/>
+                <Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="0"/>
+			</body>
+        </TestCase>
+        
+       <!-- repeatBehavior -->
+        <TestCase testID="AnimateTransform_repeatBehavior_Reverse" keywords="[AnimateTransform, variable, repeatBehavior]" description="Verify repeatBehavior reverse works.">
+            <setup>
+                <RunCode code="application.fxaRepeat.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+                <RunCode code="application.fxaRepeat.target = application.uiComponent"/>
+                <RunCode code="application.fxaRepeat.repeatCount = 2"/>
+                <RunCode code="application.fxaRepeat.repeatBehavior = 'reverse'"/>
+            </setup> 
+            <body>
+                <RunCode code="application.fxaRepeat.playheadTime = 750"/>
+                <Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="99.950000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="99.950000"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

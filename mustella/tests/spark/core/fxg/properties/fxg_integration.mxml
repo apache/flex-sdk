@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/core/fxg/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="fxgtemplate.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import fxg.basicdatatypes.*;
+		import fxg.bitmapgraphics.*;
+		import fxg.blend_mode.linear_gradient_blends.*;
+		import fxg.blend_mode.linear_gradient_matrix_blends.*;
+		import fxg.blend_mode.opacity.*;
+		import fxg.blend_mode.radial_gradient_blends.*;
+		import fxg.doc_structure.*;
+		import fxg.fill.bitmap_fill.*;
+		import fxg.fill.linear_gradient.*;
+		import fxg.fill.radial_gradient.*;
+		import fxg.fill.solid_color.*;
+		import fxg.filters.*;
+		//import fxg.mask.*;
+		import fxg.paths.*;
+		import fxg.scale9.*;
+		import fxg.shapes.*;
+		import fxg.stroke.linear_gradient_stroke.*;
+		import fxg.stroke.radial_gradient_stroke.*;
+		import fxg.stroke.solid_color_stroke.*;
+		import fxg.transforms.color_transform.Group.*;
+		import fxg.transforms.color_transform.ellipse.*;
+		import fxg.transforms.color_transform.line.*;
+		import fxg.transforms.color_transform.path.*;
+		import fxg.transforms.color_transform.rect.*;
+		import fxg.transforms.matrix.Group.*;
+		import fxg.transforms.matrix.ellipse.*;
+		import fxg.transforms.matrix.line.*;
+		import fxg.transforms.matrix.path.*;
+		import fxg.transforms.matrix.rect.*;
+		import fxg.visibility.*;
+		import comps.TwoRectComp;
+
+
+	]]>
+	</mx:Script>
+	
+    <testCases>
+        <TestCase testID="fxg_integration_filterApplied" keywords="[fxg, filter]" description="Use a GlowFilter on a static fxg" >
+	    <!--bugs>
+	        <Bug bugID="SDK-22869" />
+	    </bugs-->
+	    <setup>
+		<ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		<RunCode code="application.grp.addElement(new basicdatatypes_number)" waitEvent="updateComplete" waitTarget="grp"/>
+	    </setup>
+	    <body>
+		<SetProperty propertyName="filters" target="grp.getElementAt(0)" valueExpression="value=[application.glow1]" />
+		<Pause timeout="400" />
+		<CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+	    </body>
+        </TestCase>
+        <TestCase testID="fxg_drawing_halfPixels" keywords="[fxg]" description="Test drawing graphics on half pixels" >
+	    <!--bugs>
+	        <Bug bugID="SDK-24110" />
+	    </bugs-->
+	    <setup>
+		<ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		<RunCode code="application.grp.addElement(new TwoRectComp)" waitEvent="updateComplete" waitTarget="grp"/>
+	    </setup>
+	    <body>
+		<CompareBitmap url="../properties/baselines/$testID.png"  target="grp" timeout="2000" />
+	    </body>
+        </TestCase>
+		
+		
+		
+		
+    </testCases>
+</UnitTester>

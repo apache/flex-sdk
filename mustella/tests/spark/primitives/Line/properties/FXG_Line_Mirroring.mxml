@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Line/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Line_Mirroring_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.LineBasic;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+  
+        <TestCase testID="FXG_Line_Mirroring_NESW" description="Mirrored Line going in the SW direction" keywords="[Line, Mirroring, xTo, yTo, Graphic]">
+         <setup>
+            <ResetComponent target="graphic1" className="comps.LineBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="graphic1.line2" propertyName="yFrom" value="10" />
+            <SetProperty target="graphic1.line2" propertyName="xFrom" value="95" />
+            <SetProperty target="graphic1.line2" propertyName="yTo" value="80"  />
+            <SetProperty target="graphic1.line2" propertyName="xTo" value="15" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+            <SetProperty target="graphic1.line2.stroke" propertyName="weight" value="5" /> <!-- waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" -->
+            <Pause timeout="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="graphic1" />
+        </body>
+        </TestCase>
+        <TestCase testID="FXG_Line_Mirroring_LinearGradientStroke_caps_square" description="Mirrored Line with a LinearGradientStroke and caps='square'" keywords="[Line, Mirroring, LinearGradientStroke, caps]">
+             <setup>
+                <ResetComponent target="line_gradientStroke" className="comps.LineGradientStroke" waitTarget="line_gradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="line_gradientStroke.line1.stroke" propertyName="caps" value="square" waitTarget="line_gradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+    
+        <TestCase testID="FXG_Line_Mirroring_RadialGradientStroke_caps_none" description="Mirrored Line with a RadialGradientStroke and caps='none'" keywords="[Line, Mirroring, RadialGradientStroke, caps]">
+             <setup>
+                <ResetComponent target="line_radialGradientStroke" className="comps.LineRadialGradientStroke" waitTarget="line_radialGradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="line_radialGradientStroke.line1.stroke" propertyName="caps" value="none" waitTarget="line_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="line_radialGradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="FXG_VerticalLine_Mirroring_LinearGradientStroke_xy_0_20" description="Mirrored Line with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Line, Mirroring, LinearGradientStroke, caps]">
+             <setup>
+                <ResetComponent target="line_gradientStroke2" className="comps.LineGradientStroke2" waitTarget="line_gradientStroke2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="line_gradientStroke2.line1" propertyName="xTo" value="0" />
+                <SetProperty target="line_gradientStroke2.line1" propertyName="xFrom" value="0" />
+                <SetProperty target="line_gradientStroke2.line1" propertyName="yFrom" value="20" />
+                <SetProperty target="line_gradientStroke2.line1" propertyName="yTo" value="60" waitTarget="line_gradientStroke2" waitEvent="updateComplete"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="line_gradientStroke2" timeout="2500" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

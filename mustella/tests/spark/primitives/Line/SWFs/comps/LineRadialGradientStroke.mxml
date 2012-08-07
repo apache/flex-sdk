@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<s:Graphic id="graphic1" left="5" right="5" top="5" bottom="5">
+
+	<s:Line id="line1" xFrom="5" yFrom="10" xTo="50" yTo="10">
+		<s:stroke>
+            <s:RadialGradientStroke weight="20" y="0" rotation="0">
+				<s:GradientEntry color="#000000" alpha=".5" ratio="0.5"/>
+				<s:GradientEntry color="#FF0000" alpha="0.2" ratio="0.5"/>
+			</s:RadialGradientStroke>
+		</s:stroke>
+	</s:Line>
+
+	</s:Graphic>
+
+</s:Group>

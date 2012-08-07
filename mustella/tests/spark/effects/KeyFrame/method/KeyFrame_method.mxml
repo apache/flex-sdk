@@ -1,0 +1,37 @@
+﻿<UnitTester
+    testSWF="../SWFs/KeyFrame_main.mxml"
+    testDir="spark/effects/KeyFrame/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.animation.Keyframe;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        public function CloneTest():Boolean
+        {
+            var frame:Keyframe = new Keyframe(0, 350);
+            var cloneFrame:Keyframe = frame.clone();
+            
+            frame.value = 250;
+            
+            return((frame.value == 250) && (cloneFrame.value == 350));
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- clone -->
+        <TestCase testID="Keyframe_clone" keywords="[Keyframe, method, clone]" description="Test the clone() method.">
+            <body>
+                <AssertMethodValue method="value=this.CloneTest()" value="true"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

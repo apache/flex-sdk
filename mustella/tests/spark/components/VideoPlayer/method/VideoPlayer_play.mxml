@@ -1,0 +1,197 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+
+        public function PlayHeadLessThanOne(value:Number):Boolean
+        {
+            return(value < 1);
+        }
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_play_nullSource"
+        description="Play when source is null."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" />
+            </body>
+        </TestCase>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+        <TestCase
+        testID="VideoPlayer_play_loaded_streaming"
+        description="Test the play() method after loading."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_play_playing_streaming"
+        description="Test the play() method while playing."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="4000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 4)" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_play_stopped_streaming"
+        description="Test the play() method while stopped."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="5000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 4)" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_play_paused_streaming"
+        description="Test the play() method while paused."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.pause()"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 8)" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_play_loaded_progressive"
+        description="Test the play() method after loading."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_play_playing_progressive"
+        description="Test the play() method while playing."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 4)" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_play_stopped_progressive"
+        description="Test the play() method while stopped."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="6000"/>
+		<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 2)" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_play_paused_progressive"
+        description="Test the play() method while paused."
+        keywords="[VideoPlayer, Play]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.pause()"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="3000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=(application.testPlayer.currentTime > 8)" value="false"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

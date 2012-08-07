@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" >
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import mx.events.CollectionEvent;
+			import mx.collections.ICollectionView;
+			import spark.collections.*;
+			
+			[Bindable]
+			public var view:ListCollectionView;
+			public var col:ArrayCollection;
+			
+			[Bindable]
+			public var arr:Array =   [
+				{ Artist:'AABA', Price:1.99, Rating:'Excellent' },
+				{ Artist:'BBArtist', Price:10.99, Rating:'Excellent' },
+				{ Artist:'CPArtist', Price:12.97, Rating:'Excellent' },
+				{ Artist:'DMArtist', Price:12.99, Rating:'Good' },
+				{ Artist:'ESArtist', Price:11.99, Rating:'Good' },
+				{ Artist:'FZArtist', Price:5.14, Rating:'Bad' },
+			];
+			
+			public var art:Array =   [
+				{ Artist:'DMArtist', Price:12.99, Rating:'Good' },
+				{ Artist:'ESArtist', Price:11.99, Rating:'Good' },
+				{ Artist:'FZArtist', Price:5.14, Rating:'Bad' },
+			];
+			public var artCol:ArrayCollection=new ArrayCollection();
+			
+			public function createCollections():void
+			{
+				col = new ArrayCollection(arr);
+				view = new ListCollectionView(col);
+				
+			}
+			
+			public function filterFunc(item:Object):Boolean
+			{
+				return item.name >= "Paris" && item.name <= "San Jose";
+			}
+			
+			public var players:Array =[{team:"ATeam",jerseyNumber:80,lastName:"BrPlayer",firstName:"TrName"},
+				{team:"ATeam",jerseyNumber:12, lastName:"BryPlayer",firstName:"ToName"},
+				{team:"ATeam",jerseyNumber:21,lastName:"GaPlayer",firstName:"RaPlayer"},
+				{team:"ATeam",jerseyNumber:4, lastName:"ViPlayer",firstName:"AdName"},
+				{team:"ATeam",jerseyNumber:54, lastName:"BruPlayer",firstName:"TeName"},
+				{team:"ATeam",jerseyNumber:93, lastName:"SePlayer",firstName:"RiName"},
+				{team:"ATeam",jerseyNumber:50, lastName:"VrPlayer",firstName:"MiName"},
+				{team:"ATeam",jerseyNumber:55, lastName:"McgPlayer",firstName:"WiName"},
+				{team:"ATeam",jerseyNumber:2, lastName:"FuPlayer",firstName:"DoName"},
+				{team:"ATeam",jerseyNumber:7, lastName:"FuPlayer",firstName:"DoName"},
+				{team:"ATeam",jerseyNumber:7, lastName:"RePlayer",firstName:"ChName"},
+				{team:"ATeam",jerseyNumber:28, lastName:"DiPlayer",firstName:"CoName"},
+				{team:"BTeam",jerseyNumber:7, lastName:"LePlayer",firstName:"ByName"},
+				{team:"BTeam",jerseyNumber:84, lastName:"OwPlayer",firstName:"ChName"},
+				{team:"BTeam",jerseyNumber:54, lastName:"PePlayer",firstName:"MiName"},
+				{team:"BTeam",jerseyNumber:28, lastName:"TaPlayer",firstName:"FrName"},
+				{team:"CTeam",jerseyNumber:49, lastName:"WaPlayer",firstName:"TiName"},
+				{team:"CTeam",jerseyNumber:18, lastName:"DaPlayer",firstName:"JoName"},
+				{team:"CTeam",jerseyNumber:7, lastName:"TrPlayer",firstName:"NiName"},
+				{team:"CTeam",jerseyNumber:34, lastName:"OrPlayer",firstName:"DaName"},
+				{team:"CTeam",jerseyNumber:33, lastName:"VaPlayer",firstName:"JaName"},
+				{team:"DTeam",jerseyNumber:44, lastName:"HaPlayer",firstName:"ToName"},
+				{team:"DTeam",jerseyNumber:2, lastName:"SaPlayer",firstName:"AlName"}
+			];
+			
+			public var playerArrayCollection:ArrayCollection = new ArrayCollection(players);
+			[Bindable]
+			public var playerView:ICollectionView = new ListCollectionView(playerArrayCollection);
+			public var xSort:spark.collections.Sort = new spark.collections.Sort();
+			public var xSortField:spark.collections.SortField;
+			public var ySortField:spark.collections.SortField;
+			
+		]]>
+	</mx:Script>
+	
+	<mx:ArrayCollection id="airportCollection">
+		<mx:source>
+			<mx:Array>
+				<mx:Object abbreviation="IAH" name="Houston" international="true"/>
+				<mx:Object abbreviation="BOS" name="Boston" international="true"/>
+				<mx:Object abbreviation="MHT" name="Manchester" international="false"/>
+				<mx:Object abbreviation="JAX" name="Jacksonville" international="false"/>
+				<mx:Object abbreviation="CVG" name="Cincinatti" international="false"/>
+				<mx:Object abbreviation="ATL" name="Atlanta" international="true"/>
+				<mx:Object abbreviation="CDG" name="Paris" international="true"/>
+				<mx:Object abbreviation="JFK" name="New York" international="true"/>
+				<mx:Object abbreviation="LAX" name="Los Angeles" international="true"/>
+				<mx:Object abbreviation="HND" name="Tokyo" international="true"/>
+				<mx:Object abbreviation="SFO" name="San Francisco" international="true"/>
+				<mx:Object abbreviation="SJO" name="San Jose" international="false"/>
+			</mx:Array>
+		</mx:source>
+	</mx:ArrayCollection>
+	
+	<mx:ListCollectionView id="view1" list="{airportCollection}">
+		<mx:sort>
+			<mx:Sort>
+				<mx:fields>
+					<mx:Array>
+						<mx:SortField name="international" />
+					</mx:Array>
+				</mx:fields>
+			</mx:Sort>
+		</mx:sort>
+	</mx:ListCollectionView>
+	
+	<mx:ListCollectionView id="view2" list="{airportCollection}" filterFunction="filterFunc">
+		<mx:sort>
+			<mx:Sort>
+				<mx:fields>
+					<mx:Array>
+						<mx:SortField name="name"/>
+					</mx:Array>
+				</mx:fields>
+			</mx:Sort>
+		</mx:sort>
+	</mx:ListCollectionView>
+	
+	<mx:DataGrid id="grid1" dataProvider="{view1}">
+		<mx:columns>
+			<mx:Array>
+				<mx:DataGridColumn dataField="abbreviation" width="150"/>
+				<mx:DataGridColumn dataField="international" width="200"/>
+			</mx:Array>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<mx:DataGrid id="grid2" dataProvider="{view2}">
+		<mx:columns>
+			<mx:Array>
+				<mx:DataGridColumn dataField="name" width="150"/>
+				<mx:DataGridColumn dataField="international" width="200"/>
+			</mx:Array>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<mx:DataGrid id="playerDG" height="150" width="250" dataProvider= "{playerView}">
+		<mx:columns>
+			<mx:Array>
+				<mx:DataGridColumn headerText="#" dataField="jerseyNumber" width="30" />
+				<mx:DataGridColumn dataField="firstName" width="60" />
+				<mx:DataGridColumn dataField="lastName" />
+				<mx:DataGridColumn dataField="team" />
+			</mx:Array>
+		</mx:columns>
+	</mx:DataGrid>
+	
+</mx:Application>

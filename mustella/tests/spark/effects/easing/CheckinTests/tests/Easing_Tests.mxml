@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/CheckinTests/tests/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Easing_Checkin_Main.mxml">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+
+	<testCases>
+
+        <TestCase testID="Easing_CheckinTest_1" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+            <body>
+                <RunCode code="application.bd.play()" waitTarget="bd" waitEvent="effectEnd" timeout="5000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="575"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="575"/>
+			</body>
+        </TestCase>
+
+		<TestCase testID="Easing_CheckinTest_2" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+			<body>
+				<RunCode code="application.bd.playheadTime = 500"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="126.35"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="179.15"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Easing_CheckinTest_3" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+			<body>
+				<RunCode code="application.bd.playheadTime = 1000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="205.55"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="258.3"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Easing_CheckinTest_4" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+			<body>
+				<RunCode code="application.bd.playheadTime = 1500"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="337.5"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="337.5"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Easing_CheckinTest_5" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+			<body>
+				<RunCode code="application.bd.playheadTime = 2000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="469.4"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="416.65"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Easing_CheckinTest_6" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+			<body>
+				<RunCode code="application.bd.playheadTime = 2500"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="548.6"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="495.8"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Easing_CheckinTest_7" keywords="[easing]" description="Spark.Effects.Easing checkin test 1.">
+			<body>
+				<RunCode code="application.bd.playheadTime = 3000"/>
+				<AssertPropertyValue target="bl" propertyName="y" value="575"/>
+				<AssertPropertyValue target="rl" propertyName="y" value="575"/>
+			</body>
+		</TestCase>
+	</testCases>
+
+</UnitTester>

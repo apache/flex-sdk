@@ -1,0 +1,59 @@
+<UnitTester 
+    testDir="spark/effects/SimpleMotionPath/accessor/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/SimpleMotionPath_main.mxml">
+    
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.Application;
+        import spark.effects.animation.SimpleMotionPath;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!-- valueBy -->
+        <TestCase testID="SimpleMotionPath_valueBy_Default" keywords="[SimpleMotionPath, accessor, valueBy]" description="Test the default value of the valueBy.">
+            <body>
+                <AssertMethodValue method="value=(new SimpleMotionPath()).valueBy" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SimpleMotionPath_valueBy" keywords="[SimpleMotionPath, accessor, valueBy]" description="Test the value of a mxml compiler set valueBy.">
+            <body>
+                <AssertMethodValue method="value=application.ap_FromBy.valueBy" value="2"/>
+            </body>
+        </TestCase>
+
+        <!-- valueTo -->
+        <TestCase testID="SimpleMotionPath_valueTo_Default" keywords="[SimpleMotionPath, accessor, valueTo]" description="Test the default value of the valueTo.">
+            <body>
+                <AssertMethodValue method="value=(new SimpleMotionPath()).valueTo" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SimpleMotionPath_valueTo" keywords="[SimpleMotionPath, accessor, valueTo]" description="Test the value of a mxml compiler set valueTo.">
+            <body>
+                <AssertMethodValue method="value=application.ap_FromTo.valueTo" value="5"/>
+            </body>
+        </TestCase>
+
+        <!-- valueFrom -->
+        <TestCase testID="SimpleMotionPath_valueFrom_Default" keywords="[SimpleMotionPath, accessor, valueFrom]" description="Test the default value of the valueFrom.">
+            <body>
+                <AssertMethodValue method="value=(new SimpleMotionPath()).valueFrom" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SimpleMotionPath_valueFrom" keywords="[SimpleMotionPath, accessor, valueFrom]" description="Test the value of a mxml compiler set valueFrom.">
+            <body>
+                <AssertMethodValue method="value=application.ap_FromTo.valueFrom" value="0"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

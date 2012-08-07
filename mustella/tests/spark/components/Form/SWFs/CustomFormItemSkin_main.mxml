@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:comps="comps.*" >
+	<fx:Script>
+		<![CDATA[
+			import comps.ContentSkin;
+			import comps.MultipleSkin;
+			import comps.CustomFormItemSkin;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+
+		}
+
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: SparkVera;
+			fontLookup: "embeddedCFF";
+		}
+
+		mx|Panel, mx|NumericStepper, mx|List, mx|TextArea, mx|TextInput, mx|TabNavigator, mx|DateChooser, mx|ToolTip, mx|Label{
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+		}
+			
+	</fx:Style>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:Form id="frm">
+		<s:FormHeading id="fh" label="Form Heading" backgroundColor="0xFF0000" />
+		<s:FormItem width="500"/>
+		<comps:MyFormItem id="fi" width="500" backgroundColor="0x00FF00"/>
+	</s:Form>
+	
+	<s:Form id="frm2">
+		<comps:ContentFormItem id="fi2"/>
+	</s:Form>
+	
+	<s:Form id="frmWidth" backgroundColor="0xFF0000">
+		<s:FormHeading id="fhWidth" backgroundColor="0x00FF00"/>
+		<s:FormItem id="fiWidth" backgroundColor="0x0000FF">
+		</s:FormItem>
+	</s:Form>
+	
+	<s:Form id="frmMulti" >
+		<s:FormItem skinClass="comps.MultipleSkin" id="fiMulti" sequenceLabel="Multiple column label" label="LabelDisplay" />
+	</s:Form>
+	
+</s:Application>
+
+

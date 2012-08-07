@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_parse.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NFConstants;
+		
+		import flash.globalization.NumberFormatter;
+		import flash.globalization.NumberParseResult;
+		
+		public var nfGSLib:flash.globalization.NumberFormatter;
+		
+		public var nfResult:NumberParseResult;
+		public var GSLibResult:NumberParseResult;
+		
+		
+		public var inlineValue:NumberParseResult;
+		public var scriptValue:NumberParseResult;
+
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!-- This test file is to test parse() method -->
+
+<testCases>
+	<!--test Parse normal int string   -->
+	<TestCase testID="NF_method_parse_normal_string_test1" description="test Parse normal int string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('-1234')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('-1234')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string   -->
+	<TestCase testID="NF_method_parse_normal_string_test2" description="test Parse normal int string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('0000')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('0000')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string   -->
+	<TestCase testID="NF_method_parse_normal_string_test3" description="test Parse normal int string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('4567')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('4567')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string with character -->
+	<TestCase testID="NF_method_parse_string_withCharacter_test4" 
+			  description="test Parse normal int string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('abc -1234 def')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('abc -1234 def')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string with character -->
+	<TestCase testID="NF_method_parse_string_withCharacter_test5" 
+			  description="test Parse normal int string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('ab0000cd')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('ab0000cd')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string with character -->
+	<TestCase testID="NF_method_parse_string_withCharacter_test6" 
+			  description="test Parse normal int string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('00def')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('00def')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string with character -->
+	<TestCase testID="NF_method_parse_string_withCharacter_test7" 
+			  description="test Parse normal int string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('ab 000')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('ab 000')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string with character -->
+	<TestCase testID="NF_method_parse_string_withCharacter_test8" 
+			  description="test Parse normal int string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('4567 abc')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('4567 abc')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal int string with character -->
+	<TestCase testID="NF_method_parse_string_withCharacter_test9" 
+			  description="test Parse normal int string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('abc 4 5 6')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('abc 4 5 6')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal number string -->
+	<TestCase testID="NF_method_parse_normal_numberString_test10" description="test Parse normal number string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('1234.567')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('1234.567')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal number string -->
+	<TestCase testID="NF_method_parse_normal_numberString_test11" description="test Parse normal number string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse(' 1234.567')" />
+			<RunCode code="GSLibResult=nfGSLib.parse(' 1234.567')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse normal number string -->
+	<TestCase testID="NF_method_parse_normal_numberString_test12" description="test Parse normal number string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('123456.34567')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123456.34567')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with character -->
+	<TestCase testID="NF_method_parse_numberString_withCharacter_test13" 
+			  description="test Parse number string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('abc 1234.567')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('abc 1234.567')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with character -->
+	<TestCase testID="NF_method_parse_numberString_withCharacter_test14" 
+			  description="test Parse number string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('1234.567 def')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('1234.567 def')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with character -->
+	<TestCase testID="NF_method_parse_numberString_withCharacter_test15" 
+			  description="test Parse number string with character" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('ab 123456.34567 cde')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('ab 123456.34567 cde')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with decimalSeparator  -->
+	<TestCase testID="NF_method_parse_numberString_withDecimalSeparator_test16" 
+			  description="test Parse number string with decimalSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('-123;45')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('-123;45')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with decimalSeparator  -->
+	<TestCase testID="NF_method_parse_numberString_withDecimalSeparator_test17" 
+			  description="test Parse number string with decimalSeparator " keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('4567;123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('4567;123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with decimalSeparator  -->
+	<TestCase testID="NF_method_parse_numberString_withDecimalSeparator_test18" 
+			  description="test Parse number string with decimalSeparator " keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('abc -123;45')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('abc -123;45')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with decimalSeparator  -->
+	<TestCase testID="NF_method_parse_numberString_withDecimalSeparator_test19" 
+			  description="test Parse number string with decimalSeparator " keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('4567;123 def ')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('4567;123 def ')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with decimalSeparator  -->
+	<TestCase testID="NF_method_parse_numberString_withDecimalSeparator_test20" 
+			  description="test Parse number string with decimalSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('abc 123.456 def')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('abc 123.456 def')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with groupingSeparator -->
+	<TestCase testID="NF_method_parse_numberString_withGroupingSeparator_test21" 
+			  description="test Parse number string with groupingSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="groupingSeparator" value="," waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('-123,456.45')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('-123,456.45')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with groupingSeparator -->
+	<TestCase testID="NF_method_parse_numberString_withGroupingSeparator_test22" 
+			  description="test Parse number string with groupingSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="groupingSeparator" value="," waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('4,567.123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('4,567.123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with groupingSeparator -->
+	<TestCase testID="NF_method_parse_numberString_withGroupingSeparator_test23" 
+			  description="test Parse number string with groupingSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="groupingSeparator" value="," waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('aa -123,456.45')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('aa -123,456.45')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with groupingSeparator -->
+	<TestCase testID="NF_method_parse_numberString_withGroupingSeparator_test24" 
+			  description="test Parse number string with groupingSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="groupingSeparator" value="," waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('ab 4,567.123cd')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('ab 4,567.123cd')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with groupingSeparator -->
+	<TestCase testID="NF_method_parse_numberString_withGroupingSeparator_test25" 
+			  description="test Parse number string with groupingSeparator" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.groupingSeparator=','"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="groupingSeparator" value="," waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('ab 123,456.789 de ')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('ab 123,456.789 de ')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test26" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=0" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=0" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('(123)')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('(123)')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test27" 
+			  description="test Parse the number string with negativeNumberFormatter setting " keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=0" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=0" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('( 123 )')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('( 123 )')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test28" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=1" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test29" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=1" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse(' 123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse(' 123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test30" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=2" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=2" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse(' 123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse(' 123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test31" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=2" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=2" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test32" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=3" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=3" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('123-')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123-')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test33" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=3" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=3" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test34" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=4" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=4" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('123-')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123-')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the number string with negativeNumberFormatter setting  -->
+	<TestCase testID="NF_method_parse_numberString_withNegativeNumberFormatter_test35" 
+			  description="test Parse the number string with negativeNumberFormatter setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeNumberFormat=4" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=4" waitEvent="change"/>
+			<RunCode code="nfResult=application.nf.parse('123')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('123')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse the invalid string  -->
+	<TestCase testID="NF_method_parse_invalid_test36" description="test Parse the invalid string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('12ab34cd')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('12ab34cd')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse the invalid string  -->
+	<TestCase testID="NF_method_parse_invalid_test37" description="test Parse the invalid string" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('$4534*.78')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('$4534*.78')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse the special string with "+" sign -->
+	<TestCase testID="NF_method_parse_string_with'+'sign_test38" 
+			  description="test Parse the special string with '+' sign" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('+1234.56')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('+1234.56')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+			<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse the special string with "+" sign -->
+	<TestCase testID="NF_method_parse_string_with'+'sign_test39" 
+			  description="test Parse the special string with '+' sign" keywords="[NumberFormatter, parse]">
+		<setup>
+			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+			<RunCode code="application.nf.initialized(null,'nf')"/>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfResult=application.nf.parse('-4567.3400+')" />
+			<RunCode code="GSLibResult=nfGSLib.parse('-4567.3400+')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=nfResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=GSLibResult.startIndex" />
+			<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=GSLibResult.endIndex" />
+		</body>
+	</TestCase>
+	
+	<!--test Parse "null" string  -->
+	<TestCase testID="NF_method_parse_null_test40" description="" keywords="[NumberFormatter, parse]">
+		<setup>
+			<RunCode code="application.testTypeError()"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="testError" value="TypeError: Error #2007: Parameter parseString must be non-null."/>
+		</body>
+	</TestCase>
+	
+	<!--test Parse number string with character without locale setting-->
+	<TestCase testID="NF_method_parse_string_no_locale_test41" 
+			  description="test Parse number string with character without locale setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="GSLibResult=nfGSLib.parse('ab 123456.34567 cde')" />
+			<RunCode code="inlineValue=application.nfNoLocale.parse('ab 123456.34567 cde')"/>
+			<RunCode code="scriptValue=application.nfNoLocaleScript.parse('ab 123456.34567 cde')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>				
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfNoLocale" propertyName="lastOperationStatus" value="noError"/>
+			<AssertMethodValue method="value=inlineValue.endIndex" valueExpression="value=GSLibResult.endIndex"/>
+			<AssertMethodValue method="value=inlineValue.value" valueExpression="value=GSLibResult.value"/>
+			<AssertMethodValue method="value=inlineValue.startIndex" valueExpression="value=GSLibResult.startIndex"/>
+			
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" value="noError"/>
+			<AssertMethodValue method="value=scriptValue.value" valueExpression="value=GSLibResult.value"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

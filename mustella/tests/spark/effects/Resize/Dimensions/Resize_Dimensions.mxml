@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- 
+     Methods.mxml - the following testCases test the given effect's public methods.
+-->
+<UnitTester 
+    testDir="spark/effects/Resize/Dimensions/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Resize_Dimensional.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.Resize;
+        import Controls.TrixButton;
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <!-- Width Tests -->
+        <TestCase testID="Resize_Dimensions_Nothing"  keywords="[Resize, Dimensions]" description="Reset component, test that nothing happens on a non-initialized resize effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_NaNAll"  keywords="[Resize, Dimensions]" description="Test resize with all width dimensions cleared.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="widthTo" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="widthBy" value="NaN"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthFromStart"  keywords="[Resize, Dimensions]" description="Verfiy the object snaps to WidthFrom at effectStart.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="50"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="widthTo" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthFromOnly"  keywords="[Resize, Dimensions]" description="Test resize by only setting WidthFrom.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthFromToSame"  keywords="[Resize, Dimensions]" description="Test resize by setting WidthFrom AND WidthTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="widthTo" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthFromTo"  keywords="[Resize, Dimensions]" description="Test resize by setting WidthFrom AND WidthTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="widthTo" value="90"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="90"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthToOnly"  keywords="[Resize, Dimensions]" description="Test resize by only setting WidthTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthTo" value="90"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="90"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthToWidthBy"  keywords="[Resize, Dimensions]" description="Test resize by setting WidthTo AND WidthBy. Verify widthFrom">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthTo" value="90"/>
+                <SetProperty target="testEffect" propertyName="widthBy" value="200"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false); application.testEffect.pause();" />	
+                <AssertPropertyValue target="testButton" propertyName="width" value="-110"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthBy"  keywords="[Resize, Dimensions]" description="Test resize by only setting WidthBy. Verify final width">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthBy" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="200"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthByNegative"  keywords="[Resize, Dimensions]" description="Test resize by setting WidthBy to a negative value. Verify shrink">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthBy" value="-50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthByNegativeBeyondZero"  keywords="[Resize, Dimensions]" description="Test resize by setting WidthBy to a negative value to go past 0. Verify shrink">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthBy" value="-250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="-100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_WidthFromBy"  keywords="[Resize, Dimensions]" description="Test resize by setting WidthFrom AND WidthBy.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="40"/>
+                <SetProperty target="testEffect" propertyName="widthBy" value="100"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="width" value="140"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_Nothing_Height"  keywords="[Resize, Dimensions]" description="Reset component, test that nothing happens on a non-initialized resize effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="30"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_NaNAll_Height"  keywords="[Resize, Dimensions]" description="Test resize with all height dimensions cleared.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="heightTo" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="heightBy" value="NaN"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="30"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightFromStart"  keywords="[Resize, Dimensions]" description="Verfiy the object snaps to HeightFrom at effectStart.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="50"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="heightTo" value="30"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightFromOnly"  keywords="[Resize, Dimensions]" description="Test resize by only setting HeightFrom.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightFromToSame"  keywords="[Resize, Dimensions]" description="Test resize by setting HeightFrom AND HeightTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="10"/>
+                <SetProperty target="testEffect" propertyName="heightTo" value="40"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="40"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightFromTo"  keywords="[Resize, Dimensions]" description="Test resize by setting HeightFrom AND HeightTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="40"/>
+                <SetProperty target="testEffect" propertyName="heightTo" value="80"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="80"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightToOnly"  keywords="[Resize, Dimensions]" description="Test resize by only setting HeightTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightTo" value="60"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="60"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightToHeightBy"  keywords="[Resize, Dimensions]" description="Test resize by setting HeightTo AND HeightBy. Verify heightFrom">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightTo" value="50"/>
+                <SetProperty target="testEffect" propertyName="heightBy" value="100"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false);application.testEffect.pause();" />
+                <AssertPropertyValue target="testButton" propertyName="height" value="-50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightBy"  keywords="[Resize, Dimensions]" description="Test resize by only setting HeightBy. Verify final height">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightBy" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="80"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightByNegative"  keywords="[Resize, Dimensions]" description="Test resize by setting HeightBy to a negative value. Verify shrink">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightBy" value="-10"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="20"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightByNegativeBeyondZero"  keywords="[Resize, Dimensions]" description="Test resize by setting HeightBy to a negative value to go past 0. Verify shrink">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightBy" value="-60"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="-30"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Dimensions_HeightFromBy"  keywords="[Resize, Dimensions]" description="Test resize by setting HeightFrom AND HeightBy.">
+            <setup>
+                <ResetComponent target="testButton" className="Controls.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="spark.effects.Resize"/>
+                <RunCode code="application.testButton.x = 100"/>
+                <RunCode code="application.testButton.y = 100"/>
+                <RunCode code="application.testButton.width = 150"/>
+                <RunCode code="application.testButton.height = 30"/>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="40"/>
+                <SetProperty target="testEffect" propertyName="heightBy" value="100"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="height" value="140"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

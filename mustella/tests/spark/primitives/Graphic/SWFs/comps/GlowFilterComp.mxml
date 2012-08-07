@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		backgroundColor="0xFFFFFF"
+		width="250" height="250" >
+
+	<s:Graphic id="graphic1">
+		<s:filters>
+			<s:GlowFilter color="0x00FF00" />
+		</s:filters>
+		<s:Rect id="rect1" width="200" height="200" >
+			<s:fill>
+				<mx:SolidColor color="0x330099" />
+			</s:fill>
+		</s:Rect>
+		<s:Group id="group1" alpha="0.8" >
+			<s:Path id="path1" data="M 10 20 L 10 140 Q 40 160 70 140 L 70 20">
+				<s:fill>
+					<s:LinearGradient>
+						<s:entries>
+							<mx:GradientEntry color="0xC5C551" ratio="0" alpha="0.5"/>
+							<mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+							<mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+						</s:entries>
+					</s:LinearGradient>
+				</s:fill>
+				<!--
+				<segments>
+					<s:MoveSegment x="10" y="20" />
+					<s:LineSegment x="10" y="140" />
+					<s:QuadraticBezierSegment x="70" y="140" control1X="40" control1Y="160" />
+					<s:LineSegment x="70" y="20" />
+				</segments>
+				-->
+			</s:Path>
+			<s:Ellipse id="ellipse1" x="10" y="10" width="60" height="20">
+				<s:fill>
+					<mx:SolidColor color="0xCC9900" />
+				</s:fill>
+			</s:Ellipse>
+			<s:RichText id="textGraphic1" x="20" y="20" fontWeight="bold" color="0xFFFFFF">
+				<s:content>GlowFilter!!!!</s:content>
+			</s:RichText>
+		</s:Group>
+		<s:Group id="group2" y="50" x="45">
+			<s:Line id="line1" xFrom="5" xTo="5" yFrom="10" yTo="180">
+				<s:stroke>
+					<mx:SolidColorStroke color="0x00FF00" weight="3"/>
+				</s:stroke>
+			</s:Line>
+			<s:BitmapImage id="bitmapGraphic1" x="55" y="5" source="@Embed(source='../../../../../../Assets/Images/darkgreeniconwithlabel.jpg')" />
+		</s:Group>
+	</s:Graphic>
+
+</mx:Canvas>

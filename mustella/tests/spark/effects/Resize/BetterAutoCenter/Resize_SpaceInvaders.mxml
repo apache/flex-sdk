@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/Resize/BetterAutoCenter/"  
+    testSWF="../SWFs/Resize_SpaceInvaders_Main.mxml" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+		[Bindable]private var timeout:int = 200;
+		
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <testCases>
+    
+		<TestCase testID="Resize_SpaceInvaders_RM" keywords="[Resize]" description="Resize with better auto centering.">
+            <setup>
+                <RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+            </setup>
+            <body>
+                <RunCode code="application.p_rm.play();" waitTarget="p_rm" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="250"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="700"/>
+			</body>
+        </TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_RM_ACT" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rm_act.play();" waitTarget="p_rm_act" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="700"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_RM_ACPL" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rm_acpl.play();" waitTarget="p_rm_acpl" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="250"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="0"/>
+				<AssertPropertyValue target="invader1.postLayoutTransformOffsets" propertyName="y" value="700"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_RM_ACT_ACPL" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rm_act_acpl.play();" waitTarget="p_rm_act_acpl" waitEvent="effectEnd" />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertMethodValue method="value=(application.invader1.x &gt; 249)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.x &lt; 251)" value="true"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="0"/>
+				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.x &gt; -51)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.x &lt; -49)" value="true"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Resize_SpaceInvaders_RMR" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rmr.play();" waitTarget="p_rmr" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertMethodValue method="value=(application.invader1.x &lt; 251)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.x &gt; 249)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.y &lt; 701)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.y &gt; 699)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_RMR_ACT" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rmr_act.play();" waitTarget="p_rmr_act" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="700"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_RMR_ACPL" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rmr_acpl.play();" waitTarget="p_rmr_acpl" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="250"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="0"/>
+				<AssertPropertyValue target="invader1.postLayoutTransformOffsets" propertyName="y" value="700"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_RMR_ACT_ACPL" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.p_rmr_act_acpl.play();" waitTarget="p_rmr_act_acpl" waitEvent="effectEnd" />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertMethodValue method="value=(application.invader1.y &lt; 1)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.y &gt; 699)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.y &lt; 701)" value="true"/>
+			</body>
+		</TestCase>
+
+
+		
+		
+		
+		
+		<!-- Transition stuff -->
+		<TestCase testID="Resize_SpaceInvaders_Trans_RM" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<RunCode code="application.currentState='State1'" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.PlayTransition(application.t_rm)" waitTarget="t_rm" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="250"/>
+				<AssertPropertyValue target="invader1" propertyName="y" value="700"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_Trans_RM_ACT" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<RunCode code="application.currentState='State1'" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.PlayTransition(application.t_rm_act);" waitTarget="t_rm_act" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="250"/>
+				<AssertMethodValue method="value=(application.invader1.y &gt; 699)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.y &lt; 701)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_Trans_RMR" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<RunCode code="application.currentState='State1'" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.PlayTransition(application.t_rmr);" waitTarget="t_rmr" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertMethodValue method="value=(application.invader1.x &lt; 251)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.x &gt; 249)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.y &lt; 701)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.y &gt; 699)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Resize_SpaceInvaders_Trans_RMR_ACT" keywords="[Resize]" description="Resize with better auto centering.">
+			<setup>
+				<RunCode code="application.Reset()" />
+				<RunCode code="application.currentState='State1'" />
+				<Pause timeout="{timeout}"/>
+			</setup>
+			<body>
+				<RunCode code="application.PlayTransition(application.t_rmr_act);" waitTarget="t_rmr_act" waitEvent="effectEnd"  />
+				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
+				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
+				<AssertPropertyValue target="invader1" propertyName="x" value="250"/>
+				<AssertMethodValue method="value=(application.invader1.y &gt; 699)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.y &lt; 701)" value="true"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

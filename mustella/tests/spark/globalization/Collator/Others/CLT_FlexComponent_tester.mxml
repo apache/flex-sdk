@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Others/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_FlexComponent.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+		import flash.globalization.Collator;
+		import assets.CollatorTestConstants;
+		import spark.globalization.*;
+		import flash.globalization.CollatorMode;
+		public var flashCLT:flash.globalization.Collator;
+		public var collatorError:spark.globalization.SortingCollator;
+		
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test define Collator in Flex Module, also test style defined in module and application-->
+<testCases>
+	<!--check collaotr in component works well with property actualLocaleIDName-->
+	<TestCase testID="CLT_FlexComponent_actualLocaleIDName_test1" description="check collaotr in component works well with property actualLocaleIDName" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en-US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cltComponent" propertyName="actualLocaleIDName" valueExpression="value=flashCLT.actualLocaleIDName"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with property ignoreCase-->
+	<TestCase testID="CLT_FlexComponent_ignoreCase_test2" description="check collaotr in component works well with property ignoreCase" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en-US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreCase" valueExpression="value=true" />
+			<AssertPropertyValue target="cltComponent" propertyName="ignoreCase" valueExpression="value=flashCLT.ignoreCase"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with property ignoreCharacterWidth-->
+	<TestCase testID="CLT_FlexComponent_ignoreCharacterWidth_test3" description="check collaotr in component works well with property ignoreCharacterWidth" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreCharacterWidth=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreCharacterWidth" valueExpression="value=true"  />
+			<AssertPropertyValue target="cltComponent" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with property ignoreDiacritics-->
+	<TestCase testID="CLT_FlexComponent_ignoreDiacritics_test4" description="check collaotr in component works well with property ignoreDiacritics" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreDiacritics=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreDiacritics" valueExpression="value=true"  />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<AssertPropertyValue target="cltComponent" propertyName="ignoreDiacritics" valueExpression="value=flashCLT.ignoreDiacritics"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with property ignoreKanaType-->
+	<TestCase testID="CLT_FlexComponent_ignoreKanaType_test5" description="check collaotr in component works well with property ignoreKanaType" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreKanaType=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreKanaType" valueExpression="value=true"  />
+			<AssertPropertyValue target="cltComponent" propertyName="ignoreKanaType" valueExpression="value=flashCLT.ignoreKanaType"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with property ignoreSymbols-->
+	<TestCase testID="CLT_FlexComponent_ignoreSymbols_test6" description="check collaotr in component works well with property ignoreSymbols" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreSymbols=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreSymbols" valueExpression="value=true"  />
+			<AssertPropertyValue target="cltComponent" propertyName="ignoreSymbols" valueExpression="value=flashCLT.ignoreSymbols"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with property numericComparison-->
+	<TestCase testID="CLT_FlexComponent_numericComparison_test7" description="check collaotr in component works well with property numericComparison" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.numericComparison=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="numericComparison" valueExpression="value=true"  />
+			<AssertPropertyValue target="cltComponent" propertyName="numericComparison" valueExpression="value=flashCLT.numericComparison"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with method compare()-->
+	<TestCase testID="CLT_FlexComponent_compare_test8" description="check collaotr in component works well with method compare()" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US',CollatorMode.SORTING)" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreCase" valueExpression="value=false" />
+			<AssertMethodValue method="value=application.cltComponent.compare('abc','ABC')" valueExpression="value=flashCLT.compare('abc','ABC')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!--check collaotr in component works well with method equals()-->
+	<TestCase testID="CLT_FlexComponent_equals_test9" description="check collaotr in component works well with method equals()" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetProperty target="cltComponent" propertyName="locale" value="en_US" />
+			<RunCode code="flashCLT=new flash.globalization.Collator('en-US',CollatorMode.SORTING)" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCLT.ignoreCase=false"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="cltComponent" propertyName="ignoreCase" valueExpression="value=false" />
+			<AssertMethodValue method="value=application.cltComponent.equals('abc','ABC')" valueExpression="value=flashCLT.equals('abc','ABC')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	<!-- check style inheritance for collator in component--> 	
+	<TestCase testID="CLT_FlexComponent_styleInheritance_test10" description="check style inheritance for collator in component" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashCLT=new flash.globalization.Collator('fr-FR',CollatorMode.SORTING)" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cltComponent" propertyName="actualLocaleIDName" value="fr-FR"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	<!-- check style inheritance for collator in component-->
+	<TestCase testID="CLT_FlexComponent_styleInheritance_test11" description="check style inheritance for collator in component" keywords="[Collator, Flex Component]">
+		<setup>
+			<ResetComponent target="cltComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashCLT=new flash.globalization.Collator('ru-RU',CollatorMode.SORTING)" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cltComponent" propertyName="actualLocaleIDNameStyle" value="ru-RU"/>
+			<AssertPropertyValue propertyName="lastOperationStatusStyle" valueExpression="value=flashCLT.lastOperationStatus" target="cltComponent"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+</UnitTester>
+ 

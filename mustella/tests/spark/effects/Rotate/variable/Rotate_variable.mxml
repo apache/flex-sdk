@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/Rotate/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Rotate_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.Rotate;
+        import mx.managers.LayoutManager;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- angleTo -->
+        <TestCase testID="Rotate_angleTo_Default" keywords="[Rotate, variable, angleTo]" description="Test the setting of the angleTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).angleTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleTo" keywords="[Rotate, variable, angleTo]" description="Verify the object ends at rotation=angleTo.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleToFrom.play()" waitTarget="effectAngleToFrom" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="40"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleTo_480" keywords="[Rotate, variable, angleTo]" description="Verify that angleTo of 480 ends at 120.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTo480.play()" waitTarget="effectTo480" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="120"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleTo_Neg480" keywords="[Rotate, variable, angleTo]" description="Verify that angleTo of -480 ends at 240.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectToNeg480.play()" waitTarget="effectToNeg480" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="-120"/>
+            </body>
+        </TestCase>
+
+        <!-- angleFrom -->
+        <TestCase testID="Rotate_angleFrom_Default" keywords="[Rotate, variable, angleFrom]" description="Test the setting of the angleFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).angleFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleFrom" keywords="[Rotate, variable, angleFrom]" description="Verify the object starts at rotation=angleFrom.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleToFrom.play()" waitTarget="effectAngleToFrom" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="10"/>
+                <RunCode code="application.effectAngleToFrom.stop()" waitTarget="effectAngleToFrom" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleFrom480" keywords="[Rotate, variable, angleFrom]" description="Verify that angleFrom 480 starts at 120.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectFrom480.play()" waitTarget="effectFrom480" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="120"/>
+                <RunCode code="application.effectFrom480.stop()" waitTarget="effectFrom480" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleFromNeg480" keywords="[Rotate, variable, angleFrom]" description="Verify that angleFrom 480 starts at 120.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectFromNeg480.play()" waitTarget="effectFromNeg480" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="-120"/>
+                <RunCode code="application.effectFromNeg480.stop()" waitTarget="effectFromNeg480" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- angleBy -->
+        <TestCase testID="Rotate_angleBy_Default" keywords="[Rotate, variable, angleBy]" description="Test the setting of the angleBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).angleBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleBy" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleBy.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleBy.play()" waitTarget="effectAngleBy" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="30"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleByPos" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleFrom to angleBy.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleByPos.play()" waitTarget="effectAngleByPos" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="30"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleByNeg" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleBy from neg to pos rotation.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleByNeg.play()" waitTarget="effectAngleByNeg" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleByOver" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleBy over 360.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleByOver.play()" waitTarget="effectAngleByOver" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleByToPos" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleBy to AngleTo.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleByToPos.play()" waitTarget="effectAngleByToPos" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="20"/>
+                <RunCode code="application.effectAngleByToPos.stop()" waitTarget="effectAngleByToPos" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleByToNeg" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleBy to AngleTo when starting neg.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleByToNeg.play()" waitTarget="effectAngleByToNeg" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="-20"/>
+                <RunCode code="application.effectAngleByToNeg.stop()" waitTarget="effectAngleByToNeg" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_angleByToOver" keywords="[Rotate, variable, angleBy]" description="Verify the object rotates angleBy to AngleTo is greater than 360.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAngleByToOver.play()" waitTarget="effectAngleByToOver" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="-10"/>
+                <RunCode code="application.effectAngleByToOver.stop()" waitTarget="effectAngleByToOver" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        
+        <!-- autoCenterTransform -->
+        <TestCase testID="Rotate_autoCenterTransform_Default" keywords="[Rotate, variable, autoCenterTransform]" description="Test the value of the autoCenterTransform variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).autoCenterTransform" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_autoCenterTransform" keywords="[Rotate, variable, autoCenterTransform]" description="Verify the object is rotated around center.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAutoCenterTransform.play()" waitTarget="effectAutoCenterTransform" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.y)" value="50"/>
+            </body>
+        </TestCase>
+
+        <!-- motionPaths -->
+        <TestCase testID="Rotate_motionPaths_Default" keywords="[Rotate, variable, motionPaths]" description="Test the setting of the motionPaths variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).motionPaths" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatBehavior -->
+        <TestCase testID="Rotate_repeatBehavior_Default" keywords="[Rotate, variable, repeatBehavior]" description="Test the setting of the repeatBehavior variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).repeatBehavior" value="loop"/>
+            </body>
+        </TestCase>
+
+
+        <!-- repeatCount -->
+        <TestCase testID="Rotate_repeatCount_Default" keywords="[Rotate, variable, repeatCount]" description="Test the setting of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- instanceClass -->
+        <TestCase testID="Rotate_instanceClass_Default" keywords="[Rotate, variable, instanceClass]" description="Test the setting of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).instanceClass.toString().replace('[class ','').replace(']','')" value="AnimateTransformInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="Rotate_startDelay_Default" keywords="[Rotate, variable, startDelay]" description="Test the setting of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_startDelay" keywords="[Rotate, variable, startDelay]" description="Verify startDelay causes delay before effect play.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.startDelayEffect.play()"/>
+                <Pause timeout="250"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="0"/>
+                <RunCode code="application.startDelayEffect.stop()" waitTarget="startDelayEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="Rotate_repeatDelay_Default" keywords="[Rotate, variable, repeatDelay]" description="Test the setting of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="Rotate_suspendBackgroundProcessing_Default" keywords="[Rotate, variable, suspendBackgroundProcessing]" description="Test the setting of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

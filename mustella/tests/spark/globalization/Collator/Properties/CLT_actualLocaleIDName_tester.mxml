@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_actualLocaleIDName.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.CollatorTestConstants;
+		
+		import flash.globalization.Collator;
+		public var flashCL:flash.globalization.Collator;
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+
+<testCases>
+	<!--the test case is for test default locale, the actual locale name is "en-US" -->
+	<!--Set default locale, i-default -->
+	<TestCase testID="CLT_actualLocaleIDName_i_default_inline_test1" description="Set default locale, i-default" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<RunCode code="flashCL=new flash.globalization.Collator('i-default')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="clt_inline" value="i-default" waitEvent="change"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_inline"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--Set default locale, en_US -->
+	<TestCase testID="CLT_actualLocaleIDName_en_US_inline_test2" description="Set default locale, en_US" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/> 
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('en_US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="en_US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+
+	<!--the test case is for test fall back locale, the actual locale is "en-US"-->
+	<!--Set un-supported locale-->
+	<TestCase testID="CLT_actualLocaleIDName_de0_inline_test3_a" description="Set un-supported locale" keywords="[Collator, actualLocaleIDName]">
+        <setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/> 
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('de0')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="clt_inline" value="de0" waitEvent="change"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_inline"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+    </TestCase>
+	<!--Set un-supported locale-->
+	<TestCase testID="CLT_actualLocaleIDName_123_inline_test3_b" description="Set un-supported locale" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/> 
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('123')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="clt_inline" value="123" waitEvent="change"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_inline"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+
+	
+	<!--Set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_fr_CA_diffSymbol_inline_test4_a" description="Set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('fr-CA')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="fr-CA" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	<!--Set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_sr_Cyrl_RS_diffSymbol_inline_test4_b" description="Set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('sr-Cyrl-RS')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="sr-Cyrl-RS" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	<!--Set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_es_ES_diffSymbol_inline_test4_c" description="Set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('es-ES')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="es-ES" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	<!--Set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_ar_JO_diffSymbol_inline_test4_d" description="Set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('ar-JO')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="ar-JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--Set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_ps_AF_inline_test5_a" description="Set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('ps_AF')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="ps_AF" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--Set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_Kok_IN_inline_test5_b" description="Set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('Kok_IN')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="Kok_IN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--Set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_pa_Arab_PK_inline_test5_c" description="Set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('pa_Arab_PK')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="pa_Arab_PK" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--Set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_so_DJ_inline_test5_d" description="Set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('so_DJ')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_inline" value="so_DJ" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+		</body>
+	</TestCase>
+	
+	<!-- inline defined collator's actualLocaleIDName property binding case : 1. set original property -->
+	<TestCase testID="CLT_actualLocaleIDName_binding_en_US_inline_test6" description="inline defined collator's actualLocaleIDName property binding case : 1. set original property" keywords="[Collator, ActualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator" />
+			<RunCode code="application.clt.initialized(null,'clt_inline')"/>
+			<SetStyle target="clt_inline" styleName="locale" value="en-US" waitEvent="change"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCL.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+	<body>
+		<AssertPropertyValue target="inlineBinding" propertyName="text" valueExpression="value=flashCL.actualLocaleIDName" />
+	</body>
+	</TestCase>
+	
+	
+	<!-- inline defined collator's actualLocaleIDName property binding case : 2. change property and check binding -->
+	<TestCase testID="CLT_actualLocaleIDName_binding_zh_CN_inline_test7" description="inline defined collator's actualLocaleIDName property binding case : 2. change property and check binding" keywords="[Collator, ActualLocaleIDName]">
+		<setup>
+			<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+			<SetStyle target="clt_inline" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('zh-CN')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="inlineBinding" propertyName="text" valueExpression="value=flashCL.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set default locale, i-default -->
+	<TestCase testID="CLT_actualLocaleIDName_i_default_script_test8" description="Define a Collator instance in fx:Script, set default locale, i-default" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="clt" value="en-US" waitEvent="change"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	
+	<!--Define a Collator instance in <fx:Script>, set default locale, en_US -->
+	<TestCase testID="CLT_actualLocaleIDName_i_default_script_test9" description="Define a Collator instance in Script, set default locale, en_US" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('i-default')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set un-supported locale-->
+	<TestCase testID="CLT_actualLocaleIDName_de0_script_test10_a" description="Define a Collator instance in Script, set un-supported locale" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('de0')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="clt" value="de0" waitEvent="change"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set un-supported locale-->
+	<TestCase testID="CLT_actualLocaleIDName_123_script_test10_b" description="Define a Collator instance in fx:Script, set un-supported locale" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('123')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="clt" value="123" waitEvent="change"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_fr_CA_diffSymbol_script_test11_a" description="Define a Collator instance in fx:Script, set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('fr-CA')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="fr-CA" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_sr_Cyrl_RS_diffSymbol_script_test11_b" description="Define a Collator instance in fx:Script, set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('sr-Cyrl-RS')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="sr-Cyrl-RS" waitEvent="change"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_es_ES_diffSymbol_script_test11_c" description="Define a Collator instance in fx:Script, set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('es-ES')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="es-ES" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "-" in name -->
+	<TestCase testID="CLT_actualLocaleIDName_ar_JO_diffSymbol_script_test11_d" description="Define a Collator instance in fx:Script, set supported locale with '-' in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('ar-JO')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="ar-JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_ps_AF_script_test12_a" description="Define a Collator instance in fx:Script, set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('ps_AF')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="ps_AF" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_Kok_IN_script_test12_b" description="Define a Collator instance in fx:Script, set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('Kok_IN')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="Kok_IN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_pa_Arab_PK_script_test12_c" description="Define a Collator instance in fx:Script, set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('pa_Arab_PK')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="pa_Arab_PK" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set supported locale with "_"(underline) in name -->
+	<TestCase testID="CLT_actualLocaleIDName_so_DJ_script_test12_d" description="Define a Collator instance in fx:Script, set supported locale with '_'(underline) in name" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('so_DJ')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt" value="so_DJ" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+		</body>
+	</TestCase>
+
+	<!-- script defined collator's actualLocaleIDName property binding case : 1. set original property -->
+	<TestCase testID="CLT_actualLocaleIDName_binding_en_US_script_test13" description="script defined collator's actualLocaleIDName property binding case : 1. set original property " keywords="[Collator, ActualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator" />
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle target="clt" styleName="locale" value="en-US" waitEvent="change"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="flashCL.ignoreCase=true"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="scriptBinding" propertyName="text" valueExpression="value=flashCL.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	
+	<!-- script defined collator's actualLocaleIDName property binding case : 2. change property and check binding -->
+	<TestCase testID="CLT_actualLocaleIDName_binding_zh_CN_script_test14" description="script defined collator's actualLocaleIDName property binding case : 2. change property and check binding" keywords="[Collator, ActualLocaleIDName]">
+		<setup>
+			<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+			<SetStyle target="clt" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('zh-CN')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="clt" propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" />
+			<AssertPropertyValue target="scriptBinding" propertyName="text" valueExpression="value=flashCL.actualLocaleIDName" />
+		</body>
+	</TestCase>
+	
+	
+	<!--Test TypeError: Define a Collator instance in <fx:Script>, set supported locale with null, expected behavious is no error is dispatched--> 
+	<TestCase testID="CLT_actualLocaleIDName_TypeError_Null_script_test15" description="Test TypeError: Define a Collator instance in fx:Script, set supported locale with null, expected behavious is no error is dispatched" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="application.testError(application.clt_inline)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="No Error" target="errorInfoL"/>
+		</body>
+	</TestCase>
+	
+	<!--TypeError: Define a Collator instance in <fx:Declarations>, set supported locale with null -->
+	<TestCase testID="CLT_actualLocaleIDName_TypeError_Null_inline_test16" description="TypeError: Define a Collator instance in fx:Declarations, set supported locale with null" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="application.testError(application.clt)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" value="No Error" target="errorInfoL"/>
+		</body>
+	</TestCase>
+	<!--Cases 17-18 are used to test binding mechanism of lastOperationStatus when changing locale from valid value to invalid value, here use MatchingCollator instance defined in <fx:script>-->
+	<TestCase testID="CLT_actualLocaleIDName_lastOperationStatusBinding_script_test17" description="Cases 17-18 are used to test binding mechanism of lastOperationStatus when changing locale from valid value to invalid value, here use MatchingCollator instance defined in fx:script" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<RunCode code="flashCL=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltMatchLOS" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashCL.lastOperationStatus" target="cltMatchLOSBinding"/>
+		</body>
+	</TestCase>
+	<TestCase testID="CLT_actualLocaleIDName_lastOperationStatusBinding_script_test18" description="Cases 17-18 are used to test binding mechanism of lastOperationStatus when changing locale from valid value to invalid value, here use MatchingCollator instance defined in fx:script" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<RunCode code="flashCL=new flash.globalization.Collator('123')" />
+			<ResetComponent target="cltMatchLOS" className="spark.globalization.MatchingCollator"/>
+			<RunCode code="application.clt.initialized(null,'cltMatchLOS')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltMatchLOS" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashCL.lastOperationStatus" target="cltMatchLOSBinding"/>
+		</body>
+	</TestCase>
+	<!--Cases 19-20 are used to test binding mechanism of lastOperationStatus when changing locale from valid value to invalid value, here use SortingCollator instance defined in <fx:Declarations>-->
+	<TestCase testID="CLT_actualLocaleIDName_lastOperationStatusBinding_inline_test19" description="Cases 19-20 are used to test binding mechanism of lastOperationStatus when changing locale from valid value to invalid value, here use SortingCollator instance defined in fx:Declarations" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<RunCode code="flashCL=new flash.globalization.Collator('en-US')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltSortLOS_inline" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashCL.lastOperationStatus" target="cltSortLOSBinding_inline"/>
+		</body>
+	</TestCase>
+	<TestCase testID="CLT_actualLocaleIDName_lastOperationStatusBinding_inline_test20" description="Cases 19-20 are used to test binding mechanism of lastOperationStatus when changing locale from valid value to invalid value, here use SortingCollator instance defined in fx:Declarations" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<RunCode code="flashCL=new flash.globalization.Collator('123')" />
+			<ResetComponent target="cltSortLOS_inline" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'cltSortLOS_inline')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltSortLOS_inline" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashCL.lastOperationStatus" target="cltSortLOSBinding_inline"/>
+		</body>
+	</TestCase>
+	<!-- Define a Collator instance in <fx:script> without setting locale, then get the actualLocaleIDName value by calling getter
+	lastOperationStatus should be localeUndefinedError-->
+	<TestCase testID="CLT_actualLocaleIDName_localeUndefinedError_script_test21" description="Define a Collator instance in fx:script without setting locale, then get the actualLocaleIDName value by calling getter
+																									lastOperationStatus should be localeUndefinedError" keywords="[Collator,actualLocaleIDName">
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=application.globalLocale" target="clt_locale"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="clt_locale"/>
+		</body>
+	</TestCase>
+	<!-- Define a Collator instance in <fx:Declaration> without setting locale, then get the actualLocaleIDName value by calling getter
+	lastOperationStatus should be localeUndefinedError-->
+	<TestCase testID="CLT_actualLocaleIDName_localeUndefinedError_inline_test22" description="Define a Collator instance in fx:Declaration without setting locale, then get the actualLocaleIDName value by calling getter
+																									lastOperationStatus should be localeUndefinedError" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<SetStyle target="clt_inline_locale" styleName="locale" valueExpression="value=undefined"/>
+			<!--When set locale to null, no change event is dispatched, so use <Pause> here instead of waitEvent-->
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=undefined" target="clt_inline_locale"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="clt_inline_locale"/>
+		</body>
+	</TestCase>
+	<!-- Define a Collator instance in <fx:script> and inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+	lastOperationStatus should be localeUndefinedError-->
+	<TestCase testID="CLT_actualLocaleIDName_inheritLocaleUndefined_script_test23" description="Define a Collator instance in fx:script and inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+																									lastOperationStatus should be localeUndefinedError" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<RunCode code="application.inheritStyle_script()"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=application.globalLocale" target="cltInheritStyle"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltInheritStyle"/>
+			<AssertStyleValue target="cltInheritStyle" styleName="locale" valueExpression="value=application.globalLocale" />
+		</body>
+	</TestCase>
+	<!-- Define a Collator instance in <fx:Declaration> and inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+	lastOperationStatus should be localeUndefinedError-->
+	<TestCase testID="CLT_actualLocaleIDName_inheritLocaleUndefined_inline_test24" description="Define a Collator instance in fx:Declaration and inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+																									lastOperationStatus should be localeUndefinedError" keywords="[Collator,actualLocaleIDName">
+		<setup>
+			<RunCode code="application.inheritStyle_declarations()"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=application.globalLocale" target="cltInheritStyle_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltInheritStyle_inline"/>
+			<AssertStyleValue target="cltInheritStyle_inline" styleName="locale" valueExpression="value=application.globalLocale" />
+		</body>
+	</TestCase>
+	
+	<!--Define a Collator instance in <fx:Script>, set locale to an empty string-->
+	<TestCase testID="CLT_actualLocaleIDName_emptyLocale_script_test25" description="Define a Collator instance in fx:Script, set locale to an empty string" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt" className="spark.globalization.SortingCollator"/>
+			<RunCode code="application.clt.initialized(null,'clt')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('')" />
+			<RunCode code="application.test(application.clt)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<!--<SetStyle styleName="locale" target="clt"  value=""/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>-->
+			<AssertStyleValue target="clt" styleName="locale" value="" />
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt"/>
+		</body>
+	</TestCase>
+	<!--Define a Collator instance in <fx:Declaration>, set locale to an empty string-->
+	<TestCase testID="CLT_actualLocaleIDName_emptyLocale_inline_test26" description="Define a Collator instance in fx:Declaration, set locale to an empty string" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_inline" className="spark.globalization.SortingCollator"/> 
+			<RunCode code="application.clt_inline.initialized(null,'clt_inline')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('')" />
+			<RunCode code="application.test(application.clt_inline)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<!--<SetStyle styleName="locale" target="clt_inline" value=""/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>-->
+			<AssertStyleValue target="clt_inline" styleName="locale" value="" />
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a Collator instance in <fx:Declaration>, set locale to undefined by calling setStyle()-->
+	<TestCase testID="CLT_actualLocaleIDName_LOS_inline_test27" description="Define a Collator instance in fx:script, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.setLocaleUndefined(application.cltLastOSSetStyle_inline)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltLastOSSetStyle_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a Collator instance in <fx:script>, set locale to undefined by calling setStyle()-->
+	<TestCase testID="CLT_actualLocaleIDName_LOS_script_test28" description="Define a Collator instance in fx:Declaration, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.addStyleClient_script(application.cltLastOSSetStyle)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<RunCode code="application.setLocaleUndefined(application.cltLastOSSetStyle)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltLastOSSetStyle"/>
+		</body>
+	</TestCase>
+	<!--Define a Collator instance in <fx:Declaration>, set locale to undefined by calling setStyle in mustella-->
+	<TestCase testID="CLT_actualLocaleIDName_LOS_inline_test29" description="Define a Collator instance in fx:script, set locale to an empty string by calling setStyle in mustella" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<SetStyle styleName="locale" target="cltLastOS_inline" valueExpression="value=undefined"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="cltLastOS_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a Collator instance in <fx:script>, set locale to undefined by calling setStyle in mustella-->
+	<TestCase testID="CLT_actualLocaleIDName_LOS_script_test30" description="Define a Collator instance in fx:Declaration, set locale to an empty string by calling setStyle in mustella" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.addStyleClient_script(application.cltLastOS)"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="cltLastOS" valueExpression="value=undefined"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="cltLastOS"/>
+		</body>
+	</TestCase>
+	
+	<!--Set locale to en by setStyle method -->
+	<TestCase testID="CLT_actualLocaleIDName_en_test31" description="Set locale to en by setStyle method" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="clt_sorting" className="spark.globalization.SortingCollator"/> 
+			<RunCode code="application.clt_sorting.initialized(null,'clt_sorting')"/>
+			<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/> 
+			<RunCode code="application.clt_sorting.initialized(null,'clt_matching')"/>
+			<RunCode code="flashCL=new flash.globalization.Collator('en')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="clt_sorting" value="en"/>
+			<SetStyle styleName="locale" target="clt_matching" value="en"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_sorting"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_sorting"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_matching"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_matching"/>
+		</body>
+	</TestCase>
+	
+	<!--Set locale to en inline -->
+	<TestCase testID="CLT_actualLocaleIDName_en_test32" description="Set locale to en inline" keywords="[Collator, actualLocaleIDName]">
+		<setup>
+			<RunCode code="flashCL=new flash.globalization.Collator('en')" />
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_sorting_inline_en"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_sorting_inline_en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashCL.actualLocaleIDName" target="clt_matching_inline_en"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCL.lastOperationStatus" target="clt_matching_inline_en"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

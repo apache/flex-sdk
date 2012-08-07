@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/supportClasses/GraphicElement/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_GraphicElement_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import spark.primitives.*;
+       import mx.graphics.*;
+       import spark.components.Group;
+
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="GraphicElement_events_updateCompleteAfterFilter_ellipse" description="Assign a filters array on an Ellipse." keywords="[updateComplete, GraphicElement]">
+            <!--bugs>
+                <Bug bugID="SDK-17636" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="ellipseComp" className="comps.EllipseBasic" waitTarget="ellipseComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <SetProperty target="ellipseComp.getChildAt(0).getElementAt(1)" propertyName="filters"
+                   valueExpression="value=[application.glowFilter1]" waitTarget="ellipseComp.getChildAt(0).getElementAt(1)" waitEvent="updateComplete" />
+               <AssertEvent target="ellipseComp.getChildAt(0).getElementAt(1)" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicElement_events_updateCompleteAfterFilter_rect" description="Assign a filters array on an Rect." keywords="[Rect,updateComplete, GraphicElement]">
+            <!--bugs>
+                <Bug bugID="SDK-17636" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectBasic5" waitTarget="rectComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.getElementAt(0)" propertyName="filters"
+                   valueExpression="value=[application.glowFilter1]" waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+               <AssertEvent target="rectComp.getElementAt(0)" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicElement_events_updateCompleteAfterFilter_line" description="Assign a filters array on an Line." keywords="[Line,updateComplete, GraphicElement]">
+            <!--bugs>
+                <Bug bugID="SDK-17636" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="lineComp" className="comps.LineBasic3" waitTarget="lineComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="lineComp.getElementAt(0)" propertyName="filters"
+                   valueExpression="value=[application.glowFilter1]" waitTarget="lineComp.getElementAt(0)" waitEvent="updateComplete" />
+               <AssertEvent target="lineComp.getElementAt(0)" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicElement_events_updateCompleteAfterFilter_bitmapImage" description="Assign a filters array on an BitmapImage." keywords="[BitmapImage, updateComplete, GraphicElement]">
+            <!--bugs>
+                <Bug bugID="SDK-17636" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="bitmapImageComp" className="comps.BitmapImage3" waitTarget="bitmapImageComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                 <SetProperty target="bitmapImageComp.getElementAt(0)" propertyName="filters"
+                   valueExpression="value=[application.glowFilter1]" waitTarget="bitmapImageComp.getElementAt(0)" waitEvent="updateComplete" />
+               <AssertEvent target="bitmapImageComp.getElementAt(0)" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicElement_events_updateCompleteAfterFilter_Path" description="Assign a filters array on an Path." keywords="[Path, updateComplete, GraphicElement]">
+            <!--bugs>
+                <Bug bugID="SDK-17636" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="pathComp" className="comps.PathBasic3" waitTarget="pathComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <SetProperty target="pathComp.getElementAt(0)" propertyName="filters"
+                   valueExpression="value=[application.glowFilter1]" waitTarget="pathComp.getElementAt(0)" waitEvent="updateComplete" />
+               <AssertEvent target="pathComp.getElementAt(0)" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_negativeSymbol.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.NFConstants;
+			
+			import flash.globalization.*;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+		
+			public static function init(o:DisplayObject):void
+			{ 
+			} 
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+<!--This test file tests negativeSymbol property-->
+<testCases>
+	<!--Set/Get default negativeSymbol properties -->
+	<TestCase testID="NF_negativeSymbol_defaultValue_test1" description="Set/Get default negativeSymbol properties" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfDefault" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol"/>
+			<AssertPropertyValue target="nfDefault" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get negativeSymbol with positive value -->
+	<TestCase testID="NF_negativeSymbol_setPositiveValue_doubleHyphen_test2" description="Set/Get negativeSymbol with positive value" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfPositive1" propertyName="negativeSymbol" value="--" waitEvent="change"/>
+			<AssertPropertyValue target="nfPositive1" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol"/>
+			<AssertPropertyValue target="nfPositive1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get inline negativeSymbol with positive value -->
+	<TestCase testID="NF_negativeSymbol_setInlinePositiveValue_doubleHyphen_test3" description="Set/Get inline negativeSymbol with positive value" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInline1" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol"/>
+			<AssertPropertyValue target="nfInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+
+	<!-- Test function of negativeSymbol property -->
+	<TestCase testID="NF_negativeSymbol_function_format_test4" description="Test function of negativeSymbol property" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfFormat1" propertyName="negativeSymbol" value="--" waitEvent="change"/>
+			<AssertMethodValue method="value=application.nfFormat1.format(-12345)" valueExpression="value=nfGSLib.formatNumber(-12345)" />
+			<AssertPropertyValue target="nfFormat1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get negativeSymbol within <fx:Sript> -->
+	<TestCase testID="NF_negativeSymbol_setValueInScript_doubleHyphen_test5" description="Set/Get negativeSymbol within fx:Sript" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'" />
+			<RunCode code="application.setNFnegativeSymbol()"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol"/>
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="NF_negativeSymbol_binding_test6" description="Binding property by lable text" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.negativeSymbol='--'" />
+			<SetProperty target="nfBinding" propertyName="negativeSymbol" value="--"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLabel" propertyName="text" valueExpression="value=nfGSLib.negativeSymbol" />
+			<AssertPropertyValue target="nfBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+
+	<!--Set/Get negativeSymbol with negative value -->
+	<TestCase testID="NF_negativeSymbol_setNegativeValue_null_test7" description="Set/Get negativeSymbol with negative value" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative1,'negativeSymbol',null)" 
+							   valueExpression="value=NFConstants.testArgError(nfGSLib,'negativeSymbol',null)"/>
+			<AssertPropertyValue target="nfNegative1" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			<AssertPropertyValue target="nfNegative1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Set/Get negativeSymbol with negative value -->
+	<TestCase testID="NF_negativeSymbol_setNegativeValue_3_test8" description="Set/Get negativeSymbol with negative value" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative2,'negativeSymbol',3)" 
+							   valueExpression="value=NFConstants.testArgError(nfGSLib,'negativeSymbol',3)"/>
+			<AssertPropertyValue target="nfNegative2" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			<AssertPropertyValue target="nfNegative2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--	test property without setting any locale -->
+	<TestCase testID="NF_negativeSymbol_without_locale_test9" description="test property without setting any locale" keywords="[NumberFormatter, negativeSymbol]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfNoLocaleInline" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			<AssertPropertyValue target="nfNoLocaleInline" propertyName="lastOperationStatus" value="noError"/>
+			
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+
+</testCases>
+</UnitTester>

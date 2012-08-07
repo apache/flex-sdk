@@ -1,0 +1,133 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               creationComplete="init()" xmlns:comps="comps.*">
+    
+    <fx:Script>
+        <![CDATA[
+            private function init():void {
+                addEventListener("seekAssertionReady" , function(e:Event):void {trace(e.type)});
+                addEventListener("endAssertionReady", function(e:Event):void {trace(e.type)});
+            }
+            
+            private function runTests():void {
+                
+                //
+                // These have been converted to mustella unit tests located in the EffectTestingUnitTests_test.mxml file
+                //
+                
+                // NaN / undefined
+                (EffectTesting.assertPropertySet(test1, 'width, percentWidth', '70,NaN|35,50|0,NaN|70,0', 0) == 'FAIL: test1Btn.percentWidth: expected 0 plus or minus 0, but received NaN') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test1, 'width, percentWidth', '70,undefined|35,50|0,undefined|70,0', 0) == 'FAIL: test1Btn.percentWidth: expected 0 plus or minus 0, but received NaN') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test1, 'width, percentWidth', '70,NaN|35,50|0,NaN|70,NaN', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test2, 'width, percentWidth', '0,NaN', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test2, 'width, percentWidth', '0,undefined', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                
+                // Decimal
+                (EffectTesting.assertPropertySet(test3, 'width, height', '45.5,45.5', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test3, 'width, height', '50,50', 0) == 'FAIL: test3.width: expected 50 plus or minus 0, but received 45.5') ? trace('PASS') : trace('FAIL');
+                
+                // Spaces
+                (EffectTesting.assertPropertySet(test3, 'width,height', '45.5,45.5', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test3, ' width  ,  height ', '50,50', 0) == 'FAIL: test3.width: expected 50 plus or minus 0, but received 45.5') ? trace('PASS') : trace('FAIL');
+                
+                // Tolerance
+                (EffectTesting.assertPropertySet(test3, 'width, height', '45,45', 0.5) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test3, 'width, height', '46,46', 0.7) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test3, 'width, height', '46,46', 0.4) == 'FAIL: test3.width: expected 46 plus or minus 0.4, but received 45.5') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test3, 'width, height', '45,45', 0.4) == 'FAIL: test3.width: expected 45 plus or minus 0.4, but received 45.5') ? trace('PASS') : trace('FAIL');
+                
+                // Existence
+                (EffectTesting.assertPropertySet(test4, 'width', '0', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test4, 'width', '0|0', 0) == 'FAIL: number of elements (1) != number of expected elements (2)') ? trace('PASS') : trace('FAIL');
+                
+                // Special cases: root is not a container
+                (EffectTesting.assertPropertySet(test5, 'width', '70', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test5, 'width', '70', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                
+                // Post layout decimal
+                (EffectTesting.assertPostLayoutPropertySet(test6, 'rotationX, rotationY', 'null,null|45,45', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPostLayoutPropertySet(test6Btn, 'rotationX, rotationY', '45,45', 0) == 'PASS') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPostLayoutPropertySet(test6, 'rotationX, rotationY', '99,99|45,45', 0) == 'FAIL: test6.postLayoutTransformOffsets.rotationX: null, but expected 99') ? trace('PASS') : trace('FAIL');
+                
+                //  Number of properties != number of expected properties
+                (EffectTesting.assertPostLayoutPropertySet(test6, 'rotationX, rotationY', 'null|45,45', 0) == 'FAIL: number of properties != number of expected values for test6') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test6, 'rotationX, rotationY', 'null|45,45', 0) == 'FAIL: number of properties != number of expected values for test6') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPostLayoutPropertySet(test6, 'rotationX, rotationY', 'null,null,null|45,45', 0) == 'FAIL: number of properties != number of expected values for test6') ? trace('PASS') : trace('FAIL');
+                (EffectTesting.assertPropertySet(test6, 'rotationX, rotationY', 'null,null,null|45,45', 0) == 'FAIL: number of properties != number of expected values for test6') ? trace('PASS') : trace('FAIL');
+                
+                // String generation
+                (EffectTesting.generatePropertySet(test1, 'x,y') == "0,0|0,0|0,0|0,0") ? trace("PASS") : trace("FAIL");
+                (EffectTesting.generatePropertySet(test1, 'x,y', true) == "null,null|null,null|null,null|null,null") ? trace("PASS") : trace("FAIL");
+                
+                // requesting different depths 
+                (EffectTesting.generatePropertySet(test7, 'x,y', true, 1) == "null,null|null,null") ? trace("PASS") : trace("FAIL");
+                (EffectTesting.generatePropertySet(test7, 'width,height', false) == "50,50|50,50|50,50|50,50|25,25") ? trace("PASS") : trace("FAIL");
+                (EffectTesting.generatePropertySet(test7, 'width,height', false, -1) == "50,50|50,50|50,50|50,50|25,25") ? trace("PASS") : trace("FAIL");
+                (EffectTesting.generatePropertySet(test7, 'width,height', false, 0) == "50,50") ? trace("PASS") : trace("FAIL");
+                (EffectTesting.generatePropertySet(test7, 'width,height', false, 1) == "50,50|50,50") ? trace("PASS") : trace("FAIL");
+                (EffectTesting.generatePropertySet(test7, 'width,height', false, 2) == "50,50|50,50|50,50|25,25") ? trace("PASS") : trace("FAIL");
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <s:Move id="mover" target="{btn}" yBy="100" startDelay="500" duration="3000" />
+    </fx:Declarations>
+    
+    <s:states>
+        <s:State name="state1" />
+        <s:State name="state2" />
+    </s:states>
+    
+    <s:transitions>
+        <s:Transition>
+            <s:Parallel>
+                <s:Parallel>
+                    <s:Move target="{btn}" startDelay="1000" duration="4000" yTo="300" />
+                </s:Parallel>
+            </s:Parallel>
+        </s:Transition>
+    </s:transitions>
+    
+    <s:controlBarContent>
+        <!--<comps:MatrixHelper inspectionTarget="{group1}" rootDocument="{this}" effect="{mover}" />-->
+        <s:Button label="Unit tests" click="runTests()" />
+    </s:controlBarContent>
+    
+    <s:Group id="group1">
+        <s:Rect width="50%" />
+        <s:Rect id="rect" />
+        <s:Button id="btn" label="target" width="55.5" x="0" x.state2="500"  />
+    </s:Group>
+    
+    <!-- test groups -->
+    <s:Group right="0" bottom="0">
+        <s:Group id="test1">
+            <s:Rect width="50%" />
+            <s:Rect id="test1Rect" />
+            <s:Button id="test1Btn" label="target" x="0" x.state2="500"  />
+        </s:Group>
+        <s:Group id="test2" />
+        <s:Group id="test3" width="45.5" height="45.5" />
+        <s:Group id="test4">
+            <s:Rect id="test4Rect1" excludeFrom="state1,state2"/>
+        </s:Group>
+        <s:Button id="test5" />
+        <s:Group id="test6">
+            <s:Button id="test6Btn">
+                <s:postLayoutTransformOffsets>
+                    <s:TransformOffsets rotationX="45" rotationY="45" />
+                </s:postLayoutTransformOffsets>
+            </s:Button>
+        </s:Group>
+        <s:Group id="test7">
+            <s:Group id="test7B">
+                <s:Group id="test7C">
+                    <s:Rect id="test7D" width="50" height="50" />
+                </s:Group>
+                <s:Rect id="test7E" width="25" height="25" />
+            </s:Group>
+        </s:Group>
+    </s:Group>
+    
+</s:Application>

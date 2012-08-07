@@ -1,0 +1,18 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Declarations>
+        <s:Sequence id="effect" target="{target}" duration="1000">
+            <s:Move xBy="100" />
+            <s:Move yBy="100" />
+        </s:Sequence>
+    </fx:Declarations>
+    
+    <s:controlBarContent>
+        <s:Button label="play" click="effect.play();" />
+        <s:Button label="stop" click="effect.stop();" />
+    </s:controlBarContent>
+    
+    <s:Button id="target" label="target" y="50" x="50" />
+    
+</s:Application> 

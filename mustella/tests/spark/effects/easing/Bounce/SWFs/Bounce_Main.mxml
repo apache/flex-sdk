@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	width="450" height="600"
+	backgroundColor="0x000000">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+
+	<fx:Script>
+		<![CDATA[
+			import spark.effects.*;
+			import mx.effects.easing.*;
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="S1"/>
+		<s:State name="S2"/>
+	</s:states>
+
+	<s:transitions>
+		<s:Transition fromState="*" toState="*" effect="{transy}"/>
+	</s:transitions>
+
+	<s:BitmapImage id="ball" source="@Embed('Soccer.png')" horizontalCenter="0" y="-200"/>
+
+	<s:Line id="line" xFrom="{bl.x + (bl.width/2)}" yFrom="{bl.y + (bl.height/2)}" xTo="{rl.x + (rl.width/2)}" yTo="{rl.y + (rl.height/2)}">
+		<s:stroke>
+			<s:SolidColorStroke id="lColor" color="0xFFFFFF" weight="3"/>
+		</s:stroke>
+	</s:Line>
+
+	<s:Group id="bl" left="125" y.S1="100" y.S2="500">
+		<s:Ellipse width="25" height="25">
+			<s:fill>
+				<s:SolidColor id="blColor" color="white"/>
+			</s:fill>
+		</s:Ellipse>
+	</s:Group>
+
+	<s:Group id="rl" right="125" y.S1="100" y.S2="500">
+		<s:Ellipse width="25" height="25">
+			<s:fill>
+				<s:SolidColor id="rlColor" color="white"/>
+			</s:fill>
+		</s:Ellipse>
+	</s:Group>
+
+
+	<fx:Declarations>
+		<!-- Try Bounce. These also cover parallel effect test. -->
+		<s:Parallel id="bd">
+			<s:Move id="m1" duration="3000" target="{bl}" yFrom="100" yTo="500">
+				<s:easer>
+					<s:Bounce/>
+				</s:easer>
+			</s:Move>
+			<s:Move id="m2" duration="3000" target="{rl}" yFrom="100" yTo="500" startDelay="200">
+				<s:easer>
+					<s:Bounce/>
+				</s:easer>
+			</s:Move>
+		</s:Parallel>
+
+		<!-- Try Elastic -->
+		<s:Parallel id="ep">
+			<s:Move duration="3000" target="{bl}" yFrom="100" yTo="450">
+				<s:easer>
+					<s:Elastic/>
+				</s:easer>
+			</s:Move>
+			<s:Move duration="3000" target="{rl}" yFrom="100" yTo="450" startDelay="400">
+				<s:easer>
+					<s:Elastic/>
+				</s:easer>
+			</s:Move>
+		</s:Parallel>
+
+		<!-- Try duration on the parallel instead of effects -->
+		<s:Parallel id="bpd" duration="3000">
+			<s:Move target="{bl}" yFrom="100" yTo="500">
+				<s:easer>
+					<s:Bounce/>
+				</s:easer>
+			</s:Move>
+			<s:Move target="{rl}" yFrom="100" yTo="500" startDelay="200">
+				<s:easer>
+					<s:Bounce/>
+				</s:easer>
+			</s:Move>
+		</s:Parallel>
+
+		<!-- Bind easer inline -->
+		<s:Bounce id="bounce"/>
+		<s:Elastic id="elastic"/>
+		<s:Parallel id="ibp" duration="3000">
+			<s:Move target="{bl}" yFrom="100" yTo="500" easer="{bounce}"/>
+			<s:Move target="{rl}" yFrom="100" yTo="500" startDelay="200" easer="{elastic}"/>
+		</s:Parallel>
+
+		<!-- Bind easer via AS -->
+		<s:Parallel id="asbp" duration="3000">
+			<s:Move target="{bl}" yFrom="100" yTo="500" id="m14as"/>
+			<s:Move target="{rl}" yFrom="100" yTo="500" startDelay="200"  id="m24as"/>
+		</s:Parallel>
+
+		<!-- Swap easers in AS. This also covers single effect test -->
+		<s:Move target="{bl}" yFrom="100" yTo="500" id="sem" easer="{elastic}" duration="3000"/>
+
+		<!-- Sequence with easers -->
+		<s:Sequence id="ibs" duration="3000">
+			<s:Move target="{bl}" yFrom="100" yTo="500" easer="{bounce}"/>
+			<s:Move target="{rl}" yFrom="100" yTo="500" startDelay="200" easer="{elastic}"/>
+		</s:Sequence>
+
+		<!-- For transitional use-->
+		<s:Parallel id="transy" duration="3000">
+			<s:Move target="{bl}" easer="{bounce}"/>
+			<s:Move target="{rl}" startDelay="200" easer="{elastic}"/>
+		</s:Parallel>
+
+		<!-- Test with repeatCount and behavior, even though they are not supported -->
+		<s:Parallel id="rrp">
+			<s:Move target="{bl}" yFrom="100" yTo="500" repeatBehavior="reverse" repeatCount="2" duration="3000" easer="{bounce}"/>
+			<s:Move target="{rl}" yFrom="100" yTo="500" repeatBehavior="reverse" repeatCount="2" duration="3000" />
+		</s:Parallel>
+
+		<s:Parallel id="ib" duration="3000">
+			<s:Move target="{bl}" yFrom="100" yTo="500" easer="{bounce}"/>
+			<s:Move target="{rl}" yFrom="100" yTo="500" startDelay="200" easer="{elastic}"/>
+		</s:Parallel>
+
+		<s:Parallel id="sac" duration="3000">
+			<s:AnimateColor target="{blColor}" colorFrom="0xFFFFFF" colorTo="0x0000FF" easer="{bounce}"/>
+			<s:AnimateColor target="{rlColor}" colorFrom="0xFFFFFF" colorTo="0x0000FF" />
+		</s:Parallel>
+
+		<s:Parallel id="rotate">
+			<s:Move target="{ball}" yFrom="-200" yTo="450" easer="{bounce}" duration="3000" autoCenterTransform="true"/>
+			<s:Rotate target="{ball}" angleFrom="0" angleTo="360" easer="{bounce}" duration="3000" autoCenterTransform="true"/>
+		</s:Parallel>
+
+		<s:Parallel id="scale">
+			<s:Move target="{ball}" yFrom="-200" yTo="100" easer="{bounce}" duration="3000" autoCenterTransform="true"/>
+			<s:Scale target="{ball}" scaleXFrom="1" scaleXTo=".5" scaleYFrom="1" scaleYTo=".5" easer="{elastic}" duration="3000"/>
+		</s:Parallel>
+
+		<s:Parallel id="resize">
+			<s:Move target="{ball}" yFrom="-200" yTo="500" easer="{bounce}" duration="3000" autoCenterTransform="true"/>
+			<s:Resize target="{ball}" widthFrom="150" widthTo="200" easer="{bounce}" duration="3000"/>
+		</s:Parallel>
+
+
+		<s:Animate id="animate" target="{ball}" duration="3000" easer="{bounce}"/>
+
+
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+		import spark.effects.animation.MotionPath;
+		import spark.effects.animation.SimpleMotionPath;
+		import spark.effects.easing.IEaser;
+		import spark.effects.*;
+		public function BindEaserThruAS():void
+		{
+			var tempBounce:spark.effects.easing.Bounce = new spark.effects.easing.Bounce();
+			var tempElastic:spark.effects.easing.Elastic = new spark.effects.easing.Elastic();
+			
+			this.m14as.easer = tempElastic; 
+			this.m24as.easer = tempBounce;
+			
+			this.asbp.play();
+		}
+
+		public function Swap():void
+		{
+			this.sem.easer = this.bounce;
+			this.sem.play();
+		}
+		
+		public function ApplyEffect():void
+		{
+			this.animate.motionPaths = new Vector.<MotionPath>();
+			this.animate.motionPaths.push(new SimpleMotionPath("y", -100, 450, 1000));
+			this.animate.motionPaths.push(new SimpleMotionPath("alpha", 3.0, 0.5, 1000));
+
+			this.animate.play();
+		}		
+	]]>
+	</fx:Script>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+		src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera0;
+		embedAsCFF: false;
+		}
+
+		@font-face{
+		src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera1;
+		embedAsCFF: true;
+		}
+
+		s|SkinnableComponent {
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: black;
+		}
+	</fx:Style>
+</s:Application>

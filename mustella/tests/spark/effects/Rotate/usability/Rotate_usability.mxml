@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/Rotate/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Rotate_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.Rotate;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Rotate_gumboGroup" keywords="[Rotate, usability, group]" description="Affect a gumbo group.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectGumboGroup.play()" waitTarget="effectGumboGroup" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="40"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_gumboButton" keywords="[Rotate, usability, button]" description="Affect a gumbo button.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectGumboButton.play()" waitTarget="effectGumboButton" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="45"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_haloButton" keywords="[Rotate, usability, button]" description="Affect a halo button.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectHaloButton.play()" waitTarget="effectHaloButton" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_haloLabel" keywords="[Rotate, usability, label]" description="Affect a halo label.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectHaloLabel.play()" waitTarget="effectHaloLabel" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="55"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_target" keywords="[Rotate, usability, target]" description="Verify effect works with a single target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTarget.play()" waitTarget="effectTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="60"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_targets" keywords="[Rotate, usability, targets]" description="Verify effect works with multiple targets.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTargets.play()" waitTarget="effectTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="65"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="65"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="65"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="65"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_parallelTarget" keywords="[Rotate, usability, parallel, target]" description="Verify effect works in a parallel with a single target on that parallel.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelTarget.play()" waitTarget="parallelTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="70"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_parallelTargets" keywords="[Rotate, usability, parallel, targets]" description="Verify effect works in a parallel with multiple targets on that parallel.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelTargets.play()" waitTarget="parallelTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="75"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="75"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="75"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="75"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_parallelChildTarget" keywords="[Rotate, usability, parallel, target]" description="Verify effect works in a parallel with a single target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelChildTarget.play()" waitTarget="parallelChildTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="80"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_parallelChildTargets" keywords="[Rotate, usability, parallel, targets]" description="Verify effect works in a parallel with multiple targets.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelChildTargets.play()" waitTarget="parallelChildTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="85"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="85"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="85"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="85"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_sequenceTarget" keywords="[Rotate, usability, sequence, target]" description="Verify effect works in a sequence with a single target on that sequence.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceTarget.play()" waitTarget="sequenceTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="90"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_sequenceTargets" keywords="[Rotate, usability, sequence, targets]" description="Verify effect works in a sequence with multiple targets on that sequence.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceTargets.play()" waitTarget="sequenceTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="95"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="95"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="95"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="95"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloLabel" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_sequenceChildTarget" keywords="[Rotate, usability, sequence, target]" description="Verify effect works in a sequence with a single target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceChildTarget.play()" waitTarget="sequenceChildTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="100"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Rotate_sequenceChildTargets" keywords="[Rotate, usability, sequence, targets]" description="Verify effect works in a sequence with multiple targets.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceChildTargets.play()" waitTarget="sequenceChildTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="105"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="105"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="105"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="105"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+
+        <!-- Transition with simple effect - effect with target -->
+        <TestCase testID="Rotate_transitionSimpleTarget" keywords="[Rotate, usability, transition, target]" description="Verify a simple effect with a target works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTarget.play()" waitTarget="effectTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="60"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with simple effect - effect with targets -->
+        <TestCase testID="Rotate_transitionSimpleTargets" keywords="[Rotate, usability, transition, targets]" description="Verify a simple effect with multiple targets works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTargets.play()" waitTarget="effectTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="65"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="65"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="65"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="65"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - composite with target -->
+        <TestCase testID="Rotate_transitionCompositeTarget" keywords="[Rotate, usability, transition, composite, target]" description="Verify a composite effect with a target works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelTarget.play()" waitTarget="parallelTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="70"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - composite with targets -->
+        <TestCase testID="Rotate_transitionCompositeTargets" keywords="[Rotate, usability, transition, composite, targets]" description="Verify a composite effect with multiple targets works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceTargets.play()" waitTarget="sequenceTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="95"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="95"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="95"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="95"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloLabel" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - child effects with target -->
+        <TestCase testID="Rotate_transitionCompositeChildTarget" keywords="[Rotate, usability, transition, composite, target]" description="Verify a composite effect with a target on the child effect works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelChildTarget.play()" waitTarget="parallelChildTarget" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="80"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - child effects with targets -->
+        <TestCase testID="Rotate_transitionCompositeChildTargets" keywords="[Rotate, usability, transition, composite, targets]" description="Verify a composite effect with multiple targets on the child effects works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceChildTargets.play()" waitTarget="sequenceChildTargets" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="105"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="105"/>
+                <AssertMethodValue method="value=Math.round(application.haloButton.rotation)" value="105"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="105"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- BINDING/STATES SYNTAX -->
+        <!-- Transition with start/end values from the effect -->
+        <TestCase testID="Rotate_effectStartEnd" keywords="[Rotate, usability, transition, state]" description="Verify a transition effect works with start/end values from the effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState = 'State8'" waitTarget="effectStartEnd" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboGroup.rotation)" value="110"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with start/end values from the state syntax -->
+        <TestCase testID="Rotate_effectSyntaxStartEnd" keywords="[Rotate, usability, transition, state]" description="Verify a transition effect works with start/end values from the states syntax on the target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState = 'State9'" waitTarget="effectSyntaxStartEnd" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.gumboButton.rotation)" value="50"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with start value from the state syntax, end value from the effect -->
+        <TestCase testID="Rotate_effectStartSyntaxEnd" keywords="[Rotate, usability, transition, state]" description="Verify a transition effect works with start/end values from the states syntax on the target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState = 'State11'" waitTarget="effectEndSyntaxStart" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=Math.round(application.haloLabel.rotation)" value="115"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

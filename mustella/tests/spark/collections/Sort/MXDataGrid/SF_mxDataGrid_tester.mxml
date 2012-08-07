@@ -1,0 +1,693 @@
+<UnitTester testDir="spark/collections/Sort/MXDataGrid/" testSWF="SF_mxDataGrid.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import flash.globalization.*;
+			import flash.globalization.LastOperationStatus;
+			
+			import spark.globalization.SortingCollator;
+			
+			public var clt:spark.globalization.SortingCollator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_mxDataGrid_default_test_1" description="sort items with default property setting" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField,application.uiMXDataGridComp.mySortField2]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+								   valueExpression="value=application.uiMXDataGridComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_default_script_test_2" description="sort items with default property setting" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript2" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript,application.uiMXDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+								   valueExpression="value=application.uiMXDataGridComp.sparkSortedArrayField('age')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_descending_true_test_3" description="sort items with descending true" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortField2" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.mySortField2" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField,application.uiMXDataGridComp.mySortField2]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+								   valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArrayField('age'))"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_descending_true_script_test_4" description="sort items with descending true" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript2" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript,application.uiMXDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+								   valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArrayField('active'))"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_unique_true_test_5" description="sort items with unique true" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="active"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.mySortField2" propertyName="name" value="active"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField,application.uiMXDataGridComp.mySortField2]"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertMethodValue method="value=application.uiMXDataGridComp.VerifyUniqueError()" value="Error: Non-unique values in items."/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_unique_true_script_test_6" description="sort items with unique true" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="age"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript2" propertyName="name" value="active"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript,application.uiMXDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=application.uiMXDataGridComp.VerifyUniqueError()" value="Error: Non-unique values in items."/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_numeric_true_test_7" description="sort items with numeric true" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="true"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="age"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+				
+                <SetProperty target="uiMXDataGridComp.myMxSortField" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.myMxSortField" propertyName="numeric" value="true"/>
+                <SetProperty target="uiMXDataGridComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField('age',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+					valueExpression="value=application.uiMXDataGridComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_numeric_true_script_test_8" description="sort items with numeric true" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='en-GB'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="true"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="age"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="age"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+				
+				<SetProperty target="uiMXDataGridComp.myMxSortField" propertyName="name" value="age"/>
+				<SetProperty target="uiMXDataGridComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiMXDataGridComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField('age',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+					valueExpression="value=application.uiMXDataGridComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_diff_locale_test_9" description="sort items based on different locale on Sort and SortField" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="address"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_diff_locale_script_test_10" description="sort items based on different locale on Sort and SortField" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="address"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_localeChange_SortField_test_11" description="sort items based locale change of SortField" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="address"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_localeChange_SortField_test_12" description="sort items based on locale change of SortField" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="address"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_localeChange_Sort_test_13" description="sort items based locale change of Sort" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="address"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_localeChange_Sort_test_14" description="sort items based on locale change of Sort" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiMXDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="address"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_reverse_test_15" description="reverse items sort order based on different descending setting of SortField" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySortField2" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField,application.uiMXDataGridComp.mySortField2]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <RunCode code="application.uiMXDataGridComp.mySort.reverse()"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+								   valueExpression="value=application.uiMXDataGridComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_reverse_script_test_16" description="reverse items sort order based on different descending setting of SortField" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript2" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript,application.uiMXDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <RunCode code="application.uiMXDataGridComp.mySortScript.reverse()"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXDataGridComp.mXDataGridDataProvider)" 
+								   valueExpression="value=application.uiMXDataGridComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_changeSource_test_17" description="sort items after change source" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataXmlListArrSAdd"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_changeSource_script_test_18" description="sort items after change source" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataXmlListArrSAdd"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_test_19" description="verify sort items of MXDataGrid will not affect the original function" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySort"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_script_test_20" description="verify sort items of MXDataGrid will not affect the original function" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiMXDataGridComp.mXDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiMXDataGridComp.mySortScript"/>
+                <RunCode code="application.uiMXDataGridComp.mXDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXDataGridComp.mXDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_test_21" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiMXDataGridComp.mySort.compareFunction"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_script_test_22" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" valueExpression="value=application.uiMXDataGridComp.mXDataGridValueField"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiMXDataGridComp.mySortScript.compareFunction"/>
+                <!--<RunCode code="application.uiMXDataGridComp.uiMXDataGrid.addEventListener('headerRelease', application.uiMXDataGridComp.sortColumnTestFunction)" />-->
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.uiMXDataGrid.dataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.uiMXDataGrid.dataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_test_23" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortField]"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiMXDataGridComp.mySortCompFunc"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="Umbra"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="Molly"/>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_script_test_24" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiMXDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" valueExpression="value=application.uiMXDataGridComp.mXDataGridValueField"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="descending" value="true"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiMXDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXDataGridComp.mySortFieldScript]"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiMXDataGridComp.mySortScriptCompFunc"/>
+                <!--<RunCode code="application.uiMXDataGridComp.uiMXDataGrid.addEventListener('headerRelease', application.uiMXDataGridComp.sortColumnTestFunction)" />-->
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.uiMXDataGrid.dataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="Umbra"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="Molly"/>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.uiMXDataGrid.dataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_test_25" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiMXDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiMXDataGridComp.mySortField.compareFunction"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.mXDataGridDataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_mxDataGrid_function_script_test_26" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, MXDataGrid]">
+            <setup>
+                <ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridValueField" value="name"/>
+                <SetProperty target="uiMXDataGridComp" propertyName="mXDataGridDataProvider" valueExpression="value=application.uiMXDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiMXDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.mySortFieldScript" propertyName="name" valueExpression="value=application.uiMXDataGridComp.mXDataGridValueField"/>
+                <SetStyle target="uiMXDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiMXDataGridComp.mySortFieldScript.compareFunction"/>
+                <!--<RunCode code="application.uiMXDataGridComp.uiMXDataGrid.addEventListener('headerRelease', application.uiMXDataGridComp.sortColumnTestFunction)" />-->
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.uiMXDataGrid.dataProvider)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiMXDataGridComp.uiMXDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiMXDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+                <DispatchMouseClickEvent target="uiMXDataGridComp.uiMXDataGrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="uiMXDataGridComp.uiMXDataGrid" waitEvent="updateComplete"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXDataGridComp.uiMXDataGrid.dataProvider)" valueExpression="value=application.uiMXDataGridComp.revertArray(application.uiMXDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+		<!--Cases for locale dependent sort test-->
+		<TestCase testID="SortField_mxDataGrid_locale_dependent_aryColl_test_27" description="verify locale dependent sort" keywords="[Sort, mxDataGrid]">
+			<setup>
+				<ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+				<RunCode code="application.uiMXDataGridComp.updateSort_aryColl()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiMXDataGridComp.collection)" valueExpression="value=application.uiMXDataGridComp.sparkSortedArrayCollection"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SortField_mxDataGrid_locale_dependent_xmlList_test_28" description="verify locale dependent sort" keywords="[Sort, mxDataGrid]">
+			<setup>
+				<ResetComponent target="uiMXDataGridComp" className="newComps.CustomMXDataGridComp" waitEvent="updateComplete" waitTarget="uiMXDataGridComp"/>
+				<RunCode code="application.uiMXDataGridComp.updateSort_xmlList()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiMXDataGridComp.dataXmlListArrS_locale)" valueExpression="value=application.uiMXDataGridComp.sparkSortedXMLList"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

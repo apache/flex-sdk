@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/CallAction/variable/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/CallAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.CallAction;
+        import flash.utils.*;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        public function RaiseExpectedError(testID:String):Boolean
+        {
+            try
+            {
+                switch(testID)
+                {
+                    case "CallAction_args_ValidButTooMany":
+                        application.tp5.play();
+                        break;  
+                    
+                    case "CallAction_args_NotEnough":
+                        application.tp6.play();
+                        break;
+                        
+                    case "CallAction_args_GiveNoneExpectSome":
+                        application.tp7.play();
+                        break;
+                }
+            }
+            catch(error:Error)
+            {
+                return(true);
+            }
+            
+            return(false);
+        }
+        
+
+        import spark.effects.CallAction;
+        
+        public var CallCounter:uint = 0;
+        public var ca:CallAction;
+
+        public function TestCallCount():void
+        {
+            this.CallCounter++;
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+        <!-- repeatDelay -->
+        <TestCase testID="CallAction_repeatDelay_Default" keywords="[CallAction, variable, repeatDelay]" description="Test the setting of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_repeatDelay" keywords="[CallAction, variable, repeatDelay]" description="Verify the repeatDelay is obeyed between repeats.">
+            <setup>
+                <RunCode code="ca = new CallAction(this);"/>
+                <RunCode code="ca.repeatCount = 3;"/>
+                <RunCode code="ca.repeatDelay = 500;"/>
+                <RunCode code="ca.functionName = 'TestCallCount';"/>
+            </setup>
+            <body>
+                <RunCode code="ca.play();"/>
+                <!-- wait (250) ms and verify the function was called and then entered a repeat delay -->
+                <Pause timeout="250"/>
+                <AssertMethodValue method="value=this.CallCounter;" value="1"/>
+                <!-- wait another (500) ms and verify the function was called and entered another repeat delay -->
+                <Pause timeout="500"/>
+                <AssertMethodValue method="value=this.CallCounter;" value="2"/>
+                <!-- wait another (500) ms and verify the function was called finally and the effect ended -->
+                <Pause timeout="500"/>
+                <AssertMethodValue method="value=this.CallCounter;" value="3"/>
+            </body>
+        </TestCase>
+        
+        <!-- args -->
+        <TestCase testID="CallAction_args_Default" keywords="[CallAction, variable, args]" description="Test the setting of the args variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).args" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_args_None" keywords="[CallAction, variable, args]" description="Call a function properly with no args">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp1.play()" waitTarget="tp1" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_args_Valid" keywords="[CallAction, variable, args]" description="Call a function successfully with (N) args">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp4.play()" waitTarget="tp4" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+                <AssertPropertyValue propertyName="ParamString" value="3,Foo"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_args_ValidButTooMany" keywords="[CallAction, variable, args]" description="Call a function with (N + Y) args, where the function takes (N) param and the first (N) args match.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=this.RaiseExpectedError('CallAction_args_ValidButTooMany')" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_args_NotEnough" keywords="[CallAction, variable, args]" description="Call a function with (N) args, where the function takes (N + 1) args.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=this.RaiseExpectedError('CallAction_args_NotEnough')" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_args_GiveNoneExpectSome" keywords="[CallAction, variable, args]" description="Call a function with (0) args, where the function takes (N) args.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=this.RaiseExpectedError('CallAction_args_GiveNoneExpectSome')" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_args_ParamTypeMismatch" keywords="[CallAction, variable, args]" description="Call a function with (N) args, but the args don't match the signature.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp8.play()" waitTarget="tp8" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+                <AssertPropertyValue propertyName="ParamString" value="0,3"/>
+            </body>
+         </TestCase>
+        <TestCase testID="CallAction_args_UnknownLength" keywords="[CallAction, variable, args]" description="Call a function successfully with ... unknown (N+?) args">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp9.play()" waitTarget="tp9" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+                <AssertPropertyValue propertyName="ParamString" value="9"/>
+            </body>
+        </TestCase>
+
+
+        <!-- functionName -->
+        <TestCase testID="CallAction_functionName_Default" keywords="[CallAction, variable, functionName]" description="Test the setting of the functionName variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).functionName" value="null"/>
+            </body>
+        </TestCase>
+
+
+        <!-- repeatCount -->
+        <TestCase testID="CallAction_repeatCount_Default" keywords="[CallAction, variable, repeatCount]" description="Test the setting of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_repeatCount" keywords="[CallAction, variable, repeatCount]" description="Test the function is called repeatCount times.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+                <RunCode code="application.tp10.repeatCount = 5;"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="CallCounter" value="0"/>
+                <AssertPropertyValue target="tp10" propertyName="repeatCount" value="5"/>
+                <RunCode code="application.tp10.play()"/>
+                <AssertPropertyValue propertyName="CallCounter" value="5"/>
+            </body>
+        </TestCase>
+
+
+        <!-- instanceClass -->
+        <TestCase testID="CallAction_instanceClass_Default" keywords="[CallAction, variable, instanceClass]" description="Test the setting of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).instanceClass.toString().replace('[class ','').replace(']','')" value="CallActionInstance"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CallAction_suspendBackgroundProcessing_Default" keywords="[CallAction, variable, suspendBackgroundProcessing]" description="Test the setting of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="CallAction_startDelay_Default" keywords="[CallAction, variable, startDelay]" description="Test the setting of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_startDelay" keywords="[CallAction, variable, startDelay]" description="Test the startDelay is obeyed before calling the function.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp11.play()"/>
+                <!-- wait (250) ms and verify the function was not called during the startDelay -->
+                <Pause timeout="250"/>
+                <AssertPropertyValue propertyName="WasCalled" value="false"/>
+                <!-- wait another (500) ms and verify the function was called after the startDelay -->
+                <Pause timeout="500"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

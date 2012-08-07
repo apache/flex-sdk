@@ -1,0 +1,115 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+        import org.osmf.events.MediaPlayerStateChangeEvent;        
+        public static function init(o:DisplayObject):void{}
+
+        private function getBytesLoadedRange(low:Number, high:Number):Boolean
+        {
+            return((application.testPlayer.bytesLoaded > low) && (application.testPlayer.bytesLoaded < high));
+        }
+        
+        private function getBytesLoadedLow(low:Number):String
+        {
+            if (application.testPlayer.bytesLoaded > low)
+            	return('above zero');
+            else
+            	return('zero');
+        }
+        
+        private function getBytesLoadedHigh(high:Number):String
+        {
+            if (application.testPlayer.bytesLoaded < high)
+            	return('still loading');
+            else
+            	return('fully loaded');
+        }
+                
+        private function stateCheck(e:MediaPlayerStateChangeEvent):void{
+		if (e.state == "loading"){
+			application.testPlayer.dispatchEvent(new Event("videoLoading"));
+		};
+	}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_bytesLoaded_noSource"
+            keywords="[VideoPlayer]"
+            description="Get the bytesLoaded property when there is no source.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_bytesLoaded_streaming"
+            keywords="[VideoPlayer]"
+            description="Get the bytesLoaded property when source is streaming">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+            </setup>
+            <body>
+                 <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- PROGRESSIVE -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_bytesLoaded_progressive"
+            keywords="[VideoPlayer]"
+            description="Get the bytesLoaded property when source is progressive, fully downloaded">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                 <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="1161290"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_bytesLoaded_progressive2"
+            keywords="[VideoPlayer]"
+            description="Get the bytesLoaded property when source is progressive, partially downloaded">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid3" waitTarget="testPlayer" waitEvent="videoLoading" timeout="4000"/>
+            </setup>
+            <body>
+            	<Pause timeout="1000"/>
+                <AssertMethodValue method="value=this.getBytesLoadedLow(0)" value="above zero"/>
+                <AssertMethodValue method="value=this.getBytesLoadedHigh(88107049)" value="still loading"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

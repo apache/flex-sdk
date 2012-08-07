@@ -1,0 +1,171 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="CV_positiveCurrencyFormatError.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import mx.validators.CurrencyValidator;
+			
+			import flash.globalization.LocaleID;
+			import spark.validators.CurrencyValidator;
+			import spark.globalization.LastOperationStatus;
+			
+			public var cvGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_positiveCurrencyFormatError_default_test_1" description="the test case is for Checking default positiveCurrencyFormatError" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="CV_positiveCurrencyFormatError_default_test_1_2" description="the test case is for Checking default positiveCurrencyFormatError" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="application.createCV()"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvScript" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_positiveCurrencyFormatError_ar_xx_test_4" description="the test case is for Checking positiveCurrencyFormatError for specified locale" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-xx')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<SetStyle styleName="locale" target="cv" value="ar-xx" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cv" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+				<AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.USING_FALLBACK_WARNING"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_positiveCurrencyFormatError_zh_CN_test_5" description="the test case is for Checking positiveCurrencyFormatError for specified locale" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-xx')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<SetStyle styleName="locale" target="cv" value="fr-xx" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cv" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+				<AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.USING_FALLBACK_WARNING"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_positiveCurrencyFormatError_setpositiveCurrencyFormatError_test_6" description="set positiveCurrencyFormatError in script" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+			<setup>
+				<SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+				<RunCode code="application.setCVpositiveCurrencyFormatError(application.cvScript, 'this is positiveCurrencyFormatError')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvScript" propertyName="positiveCurrencyFormatError" value="this is positiveCurrencyFormatError"/>
+				<AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="CV_positiveCurrencyFormatError_setpositiveCurrencyFormatError_test_2" description="the test case is for setting positiveCurrencyFormatError for default locale" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty propertyName="positiveCurrencyFormatError" target="cv" value="this is positiveCurrencyFormatError"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="positiveCurrencyFormatError" value="this is positiveCurrencyFormatError"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormatError_setpositiveCurrencyFormatError_test_3" description="set positiveCurrencyFormatError for specified locale" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="zh_CN" waitEvent="change"/>
+                <SetProperty propertyName="positiveCurrencyFormatError" target="cv" value="this is positiveCurrencyFormatError"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="positiveCurrencyFormatError" value="this is positiveCurrencyFormatError"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CV_positiveCurrencyFormatError_inline_test_7" description="Set positiveCurrencyFormatError from inline" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="cvInline" propertyName="positiveCurrencyFormatError" value="this is positiveCurrencyFormatError"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormatError_invalid_test_8" description="set invalid positiveCurrencyFormatError" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="en-US" waitEvent="change"/>
+                <RunCode code="application.setCVpositiveCurrencyFormatError(application.cvScript,'')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormatError_nall_test_9" description="set positiveCurrencyFormatError to nall" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+                <RunCode code="application.setCVpositiveCurrencyFormatError(application.cvScript,null)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="CV_positiveCurrencyFormatError_binding_inline_test_10" description="check binding with inline CV" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cvBinding" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cvBinding.initialized(null,'cvBinding')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="cvBinding" propertyName="positiveCurrencyFormatError" value="this is new" waitEvent="change"/>
+				<AssertPropertyValue target="inlineLB" propertyName="text" value="this is new"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_positiveCurrencyFormatError_binding_script_test_11" description="check binding with script CV" keywords="[CurrencyValidator, positiveCurrencyFormatError]">
+			<setup>
+				<RunCode code="application.creCV(application.cvScriptBinding)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="cvScriptBinding" propertyName="positiveCurrencyFormatError" value="this is newer" waitEvent="change"/>
+				<AssertPropertyValue target="scriptLB" propertyName="text" value="this is newer"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

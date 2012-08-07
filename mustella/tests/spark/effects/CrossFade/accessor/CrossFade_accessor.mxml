@@ -1,0 +1,158 @@
+<UnitTester 
+    testSWF="../SWFs/CrossFade_main.mxml" 
+    testDir="spark/effects/CrossFade/accessor/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.CrossFade;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- customFilter -->
+        <TestCase testID="CrossFade_customFilter_Default" keywords="[CrossFade, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="CrossFade_className_Default" keywords="[CrossFade, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).className" value="CrossFade"/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="CrossFade_effectTargetHost_Default" keywords="[CrossFade, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="CrossFade_hideFocusRing_Default" keywords="[CrossFade, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="CrossFade_isPlaying_Default" keywords="[CrossFade, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_isPlaying" keywords="[CrossFade, accessor, isPlaying]" description="Test isPlaying during play.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.startDelay = 500;" />
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.play()" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="e_CrossFade" propertyName="isPlaying" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="CrossFade_target_Default" keywords="[CrossFade, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- playheadTime -->
+        <TestCase testID="CrossFade_playheadTime_Default" keywords="[CrossFade, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="CrossFade_duration_Default" keywords="[CrossFade, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_duration" keywords="[CrossFade, accessor, duration]" description="Test a non-default duration.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.duration = 1000;" />
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 800" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../accessor/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="CrossFade_targets_Default" keywords="[CrossFade, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).targets" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CrossFade_targets" keywords="[CrossFade, accessor, targets]" description="Test with multiple targets.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../accessor/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="CrossFade_relevantProperties_Default" keywords="[CrossFade, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).relevantProperties" value="bitmapInfo,visible,parent"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="CrossFade_triggerEvent_Default" keywords="[CrossFade, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="CrossFade_relevantStyles_Default" keywords="[CrossFade, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="CrossFade_perElementOffset_Default" keywords="[CrossFade, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="CrossFade_filter_Default" keywords="[CrossFade, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new CrossFade()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

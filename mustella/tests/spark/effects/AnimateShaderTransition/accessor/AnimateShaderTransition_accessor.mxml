@@ -1,0 +1,161 @@
+<UnitTester 
+    testSWF="../SWFs/AnimateShaderTransition_main.mxml" 
+    testDir="spark/effects/AnimateShaderTransition/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateTransitionShader;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- perElementOffset -->
+        <TestCase testID="AnimateTransitionShader_perElementOffset_Default" keywords="[AnimateTransitionShader, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="AnimateTransitionShader_relevantProperties_Default" keywords="[AnimateTransitionShader, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).relevantProperties" value="bitmapInfo,visible,parent"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="AnimateTransitionShader_className_Default" keywords="[AnimateTransitionShader, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).className" value="AnimateTransitionShader"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="AnimateTransitionShader_relevantStyles_Default" keywords="[AnimateTransitionShader, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="AnimateTransitionShader_triggerEvent_Default" keywords="[AnimateTransitionShader, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="AnimateTransitionShader_target_Default" keywords="[AnimateTransitionShader, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="AnimateTransitionShader_customFilter_Default" keywords="[AnimateTransitionShader, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="AnimateTransitionShader_effectTargetHost_Default" keywords="[AnimateTransitionShader, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="AnimateTransitionShader_hideFocusRing_Default" keywords="[AnimateTransitionShader, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="AnimateTransitionShader_isPlaying_Default" keywords="[AnimateTransitionShader, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_isPlaying" keywords="[AnimateTransitionShader, accessor, isPlaying]" description="Test isPlaying during play.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.play()" />
+                <AssertPropertyValue target="e_AnimateTransitionShader" propertyName="isPlaying" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="AnimateTransitionShader_targets_Default" keywords="[AnimateTransitionShader, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).targets" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_targets" keywords="[AnimateTransitionShader, accessor, targets]" description="Test isPlaying with target(s).">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+            <RunCode code="application.e_AnimateTransitionShader.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../accessor/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- playheadTime -->
+        <TestCase testID="AnimateTransitionShader_playheadTime_Default" keywords="[AnimateTransitionShader, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="AnimateTransitionShader_filter_Default" keywords="[AnimateTransitionShader, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="AnimateTransitionShader_duration_Default" keywords="[AnimateTransitionShader, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransitionShader()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransitionShader_duration" keywords="[AnimateTransitionShader, accessor, duration]" description="Test a non-default duration.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.duration = 1000;" />
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.controls1.control_Button;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 800" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../accessor/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

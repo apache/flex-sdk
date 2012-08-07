@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/Rotate/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Rotate_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.Rotate;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+
+        <!-- isPlaying -->
+        <TestCase testID="Rotate_isPlaying_Default" keywords="[Rotate, accessor, isPlaying]" description="Test the setting of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_isPlaying_During" keywords="[Rotate, accessor, isPlaying]" description="Verify isPlaying is true during play.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.simpleEffect.play()" waitTarget="simpleEffect" waitEvent="effectStart"/>
+                <Pause timeout="250"/>
+                <AssertPropertyValue target="simpleEffect" propertyName="isPlaying" value="true"/>
+                <RunCode code="application.simpleEffect.stop()" waitTarget="simpleEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate_isPlaying_BeforeAfter" keywords="[Rotate, accessor, isPlaying]" description="Verify isPlaying is false before/after play.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="simpleEffect" propertyName="isPlaying" value="false"/>
+                <RunCode code="application.simpleEffect.play()" waitTarget="simpleEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="simpleEffect" propertyName="isPlaying" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="Rotate_target_Default" keywords="[Rotate, accessor, target]" description="Test the setting of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="Rotate_effectTargetHost_Default" keywords="[Rotate, accessor, effectTargetHost]" description="Test the setting of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="Rotate_relevantStyles_Default" keywords="[Rotate, accessor, relevantStyles]" description="Test the setting of the relevantStyles property.">
+            <body>
+                <AssertMethodValue 
+					method="value=(new Rotate()).relevantStyles" 
+					value=""/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="Rotate_relevantProperties_Default" keywords="[Rotate, accessor, relevantProperties]" description="Test the setting of the relevantProperties property.">
+            <body>
+                <AssertMethodValue 
+					method="value=(new Rotate()).relevantProperties" 
+					value="rotationZ,postLayoutRotationZ,width,height"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="Rotate_customFilter_Default" keywords="[Rotate, accessor, customFilter]" description="Test the setting of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="Rotate_targets_Default" keywords="[Rotate, accessor, targets]" description="Test the setting of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).targets" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="Rotate_className_Default" keywords="[Rotate, accessor, className]" description="Test the setting of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).className" value="Rotate"/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="Rotate_perElementOffset_Default" keywords="[Rotate, accessor, perElementOffset]" description="Test the setting of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="Rotate_filter_Default" keywords="[Rotate, accessor, filter]" description="Test the setting of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="Rotate_hideFocusRing_Default" keywords="[Rotate, accessor, hideFocusRing]" description="Test the setting of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Rotate_duration_Default" keywords="[Rotate, accessor, duration]" description="Test the setting of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).duration" value="500"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="Rotate_triggerEvent_Default" keywords="[Rotate, accessor, triggerEvent]" description="Test the setting of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>        
+        
+        
+    </testCases>
+</UnitTester>

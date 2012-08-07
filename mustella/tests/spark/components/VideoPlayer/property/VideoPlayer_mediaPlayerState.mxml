@@ -1,0 +1,233 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+        import org.osmf.events.MediaPlayerStateChangeEvent;
+
+        public static function init(o:DisplayObject):void{}
+
+        private function getBytesLoadedRange(low:Number, high:Number):Boolean
+        {
+            return((application.testPlayer.bytesLoaded > low) && (application.testPlayer.bytesLoaded < high));
+        }
+
+        private function stateCheck(e:MediaPlayerStateChangeEvent):void{
+		if (e.state == "buffering"){
+			application.testPlayer.dispatchEvent(new Event("videoBuffering"));
+		} else if (e.state == "ready"){
+			application.testPlayer.dispatchEvent(new Event("videoReady"));
+		} else if (e.state == "loading"){
+			application.testPlayer.dispatchEvent(new Event("videoLoading"));
+		} else if (e.state == "playing"){
+			application.testPlayer.dispatchEvent(new Event("videoPlaying"));
+		} else if (e.state == "playbackError"){
+			application.testPlayer.dispatchEvent(new Event("videoPlaybackError"));
+		};
+	}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_default"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test the default mediaPlayerState">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="mediaPlayerState" value="uninitialized"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_buffering_streaming"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - buffering">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+            </setup>
+            <body>
+	         <WaitForEvent eventName="videoBuffering" target="testPlayer" timeout="4000" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_loading_streaming"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - loading">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+            </setup>
+            <body>
+            	<SetProperty target="testPlayer" propertyName="source" value="GreenBoxVidStream" waitEvent="videoLoading" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_paused_streaming"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - paused">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                 <AssertMethodValue method="value=application.testPlayer.pause()"/>
+                 <AssertPropertyValue target="testPlayer" propertyName="mediaPlayerState" value="paused"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_playbackError_streaming"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - playbackError">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+                <RunCode code="application.testPlayer.source = application.badStream"/>
+            </setup>
+            <body>
+                 <WaitForEvent eventName="videoPlaybackError" target="testPlayer" timeout="9000" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_playing_streaming"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - playing">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+            	 <WaitForEvent eventName="videoPlaying" target="testPlayer" timeout="4000" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_ready_streaming"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - ready">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream"/>
+	         <WaitForEvent eventName="videoReady" target="testPlayer" timeout="9500" />
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_buffering_progressive"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - buffering">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+            </setup>
+            <body>
+            	<RunCode code="application.testPlayer.source = application.progressiveVid3" waitTarget="testPlayer" waitEvent="videoReady" timeout="4000"/>
+	        <WaitForEvent eventName="videoBuffering" target="testPlayer" timeout="9000" />
+            </body>
+        </TestCase>                
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_loading_progressive"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - loading">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+            </setup>
+            <body>
+	         <SetProperty target="testPlayer" propertyName="source" value="GreenBoxVid" waitEvent="videoLoading" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_paused_progressive"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - paused">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                 <AssertMethodValue method="value=application.testPlayer.pause()"/>
+                 <AssertPropertyValue target="testPlayer" propertyName="mediaPlayerState" value="paused"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_playbackError_progressive"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - playbackError">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+                <RunCode code="application.testPlayer.source = 'http://www.foo.com/foo.flv'"/>
+            </setup>
+            <body>
+                  <WaitForEvent eventName="videoPlaybackError" target="testPlayer" timeout="9000" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_playing_progressive"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - playing">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid"/>
+            </setup>
+            <body>
+	         <WaitForEvent eventName="videoPlaying" target="testPlayer" timeout="9000" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_mediaPlayerState_ready_progressive"
+            keywords="[VideoPlayer, mediaPlayerState]"
+            description="Test mediaPlayerState - ready">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,stateCheck)"/>
+            </setup>
+            <body>
+	         <SetProperty target="testPlayer" propertyName="source" value="GreenBoxVid" waitEvent="videoReady" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

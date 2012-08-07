@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  creationComplete="init()"
+		  width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Sort id="st"/>
+		<s:SortField id="sf"/>
+		<s:SortField id="sfCN"/>
+		<s:SortField id="sfInline" numeric="true"/>
+		<s:SortField id="sfInlineBinding"/>
+		
+		<s:ArrayCollection id="personAC">
+			<fx:Object name="ToName" address="Canidae" age="{new String('20')}" birth="2002/09/08" salary="125.63" />
+			<fx:Object name="JaName" address="Dawn" age="{new String('8')}" birth="2001/09/08" salary="125.630" />
+			<fx:Object name="WaName" address="Felidae" age="{new String('7')}" birth="2002/9/8" salary="125.61"  />
+		</s:ArrayCollection>
+		<s:ArrayCollection id="numberAC">
+			<fx:String>7</fx:String>
+			<fx:String>20</fx:String>
+			<fx:String>8</fx:String>
+		</s:ArrayCollection>
+		
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ICollectionView;
+			import mx.collections.IViewCursor;
+			import mx.collections.ListCollectionView;
+			import mx.controls.Alert;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			import spark.validators.CurrencyValidator;
+			
+			public var stScript:Sort;
+			public var sfScript:SortField;
+			public var sfScriptCN:SortField;
+			
+			[Bindable]
+			public var sfScriptBinding:spark.collections.SortField;
+			
+			public var sf1:SortField;
+			public var sf2:SortField;
+			
+			public var myObj1:CurrencyValidator = new CurrencyValidator();
+			public var myObj2:CurrencyValidator = new CurrencyValidator();
+			public var myObj3:CurrencyValidator = new CurrencyValidator();
+			public var myObj4:CurrencyValidator = new CurrencyValidator();
+			
+			public var obj1:Object = new Object();
+			public var obj2:Object = new Object();
+	
+			public var fields1:Array = new Array();
+			public var fields2:Array = new Array();
+			
+			[Bindable]
+			public var err:String="No Error";
+			
+			[Bindable]
+			public var LOS:String;
+			
+			public var cursor:IViewCursor;
+			public var view:ListCollectionView;
+			
+			public function creST():void
+			{
+				stScript = new Sort();
+				this.addStyleClient(stScript);
+			
+				sfScript = new SortField();
+				this.addStyleClient(sfScript);
+				
+				sfScriptCN = new SortField();
+				this.addStyleClient(sfScriptCN);
+				
+				sfScriptBinding = new SortField();
+				this.addStyleClient(sfScriptBinding);
+				sfScriptBinding.numeric=false;
+				
+				sfScriptCN.setStyle("locale","zh-CN");
+				sfCN.setStyle("locale","zh-CN");
+			}
+			
+			public function createView(s:Sort,cv:ICollectionView,numeric1:*=null,numeric2:*=null,name1:String=null,name2:String=null):void 
+			{
+				sf.numeric=numeric1;
+				sf.name=name1;
+				sfScript.numeric=numeric2;
+				sfScript.name=name2;
+				
+				s.fields = [sf,sfScript];
+ 				cv.sort=s;
+				cv.refresh(); 
+				cursor = cv.createCursor();
+			}
+			
+			public function init():void
+			{
+				creST();
+				myObj3.negativeCurrencyFormatError="aa";
+				myObj3.positiveCurrencyFormatError="BB";
+				myObj4.negativeCurrencyFormatError="AA";
+				myObj4.positiveCurrencyFormatError="bb";
+				
+				sf1=new SortField("negativeCurrencyFormatError");
+				sf2=new SortField("positiveCurrencyFormatError");
+				
+				this.addStyleClient(sf1);
+				this.addStyleClient(sf2);
+				
+				fields1.push(sf1,sf2);
+				fields2.push(sf2,sf1);
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="errLabel" text="{err}"/>
+	<s:Label id="LOSLabel" text="{LOS}"/>
+	<s:Label id="LabelInlineBinding" text="{sfInlineBinding.numeric}"/>
+	<s:Label id="LabelScriptBinding" text="{sfScriptBinding.numeric}"/>
+	<!--<s:Button id="sb" label="click" click="st.fields=fields2;Alert.show(SortCompareWithFields(myObj3,myObj4,fields2,st).toString())"/>-->
+</s:VGroup>

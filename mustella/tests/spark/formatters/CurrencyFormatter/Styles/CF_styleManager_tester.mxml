@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="CF_styleManager.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.CurrencyFormatter;
+			import assets.CFConstant;
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			public var cfGSLib1:flash.globalization.CurrencyFormatter;
+			public var cfGSLib2:flash.globalization.CurrencyFormatter;
+			public var cfGSLib3:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test set style by StyleManager -->
+	<testCases>	
+		<!--using styleManger API to set styles using global Selector CSS style -->		
+		<TestCase testID="CF_styleManager_setGlobalStyle_test1" description="using styleManger API to set styles using global Selector CSS style" keywords="[CurrencyFormatter,StyleManager]">
+			<setup>	
+				<RunCode code="application.testStyleManager('1')" />
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr_FR')"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfGlobalSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfGlobalSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--using styleManger API to set styles using Type Selector CSS style -->			
+		<TestCase testID="CF_styleManager_setTypeStyle_test2" description="using styleManger API to set styles using Type Selector CSS style" keywords="[CurrencyFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testStyleManager('2')"  />
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ru_RU')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfTypeSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfTypeSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--using styleManger API to set styles using Class Selector CSS style -->	
+		<TestCase testID="CF_styleManager_setClassStyle_test3" description="using styleManger API to set styles using Class Selector CSS style" keywords="[CurrencyFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testStyleManager('3')"  />
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja_JP')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfClassSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfClassSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--using styleManger API to set styles using ID Selector CSS style -->
+		<TestCase testID="CF_styleManager_setIDStyle_test4" description="using styleManger API to set styles using ID Selector CSS style" keywords="[CurrencyFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testStyleManager('4')"  />
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh_TW')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFlocalIDSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="CFlocalIDSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/Resize/Layout/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Resize_Advanced.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+        <![CDATA[
+import spark.effects.Resize;
+        import Containers.TrixVBoxButtons;
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="Resize_Layout_ListBegin"  keywords="[Resize, layout]" description="Resize a button and verify others affected by the layout manager.">
+            <setup>
+                <ResetComponent target="testBox" className="Containers.TrixVBoxButtons" waitTarget="testBox" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.resizeBy.play([application.testBox.btn00], false)" waitTarget="resizeBy" waitEvent="effectEnd"/>
+                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Layout_ListMiddle"  keywords="[Resize, layout]" description="Resize a button and verify others affected by the layout manager.">
+            <setup>
+                <ResetComponent target="testBox" className="Containers.TrixVBoxButtons" waitTarget="testBox" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.resizeBy.play([application.testBox.btn01], false)" waitTarget="resizeBy" waitEvent="effectEnd"/>
+                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Resize_Layout_ListEnd"  keywords="[Resize, layout]" description="Resize a button and verify others affected by the layout manager.">
+            <setup>
+                <ResetComponent target="testBox" className="Containers.TrixVBoxButtons" waitTarget="testBox" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.resizeBy.play([application.testBox.btn04], false)" waitTarget="resizeBy" waitEvent="effectEnd"/>
+                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

@@ -1,0 +1,191 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_muted_Default"
+        description="Test the default value of the muted property."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_muted_streaming"
+        description="Test the default muted property while playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="false"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_muted_thenPlay_streaming"
+        description="Mute then play a video and verify it starts muted."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.volume = .4"/>
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.muted = true" />
+		<Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_muted_volume_streaming"
+        description="Test the muted property while playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.volume = .4" />
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.muted = true" />
+                <Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_muted_changeSources_streaming"
+        description="Mute then change sources and verify it starts muted."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <RunCode code="application.testPlayer.muted = true" />
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_muted_progressive"
+        description="Test the default muted property while playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_muted_thenPlay_progressive"
+        description="Mute then play a video and verify it starts muted."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.volume = .4" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.muted = true" />
+		<Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="1000"/>
+		<AssertMethodValue method="value=application.testPlayer.play()"/>
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_muted_volume_progressive"
+        description="Test the muted property while playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.volume = .5" />
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.muted = true" />
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".5"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_muted_changeSources_progressive"
+        description="Mute then change sources and verify it starts muted."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <RunCode code="application.testPlayer.muted = true" />
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

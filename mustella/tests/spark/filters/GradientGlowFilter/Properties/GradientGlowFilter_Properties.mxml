@@ -1,0 +1,140 @@
+<UnitTester
+    testDir="spark/filters/GradientGlowFilter/Properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/GradientGlowFilter_Main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+    <!-- Note, no event triggers when you update a filter at runtime -->
+
+        <TestCase testID="GradientGlowFilter_Properties_blurX_default" keywords="[GradientGlowFilter, blurX]" description="Test the default value of the blurX property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="blurX" value="4.0" />
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_blurY_default" keywords="[GradientGlowFilter, blurY]" description="Test the default value of the blurY property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="blurY" value="4.0" />
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_strength_default" keywords="[GradientGlowFilter, strength]" description="Test the default value of the strength property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="strength" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_type_default" keywords="[GradientGlowFilter, type]" description="Test the default value of the inner property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="type" value="outer" />
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_knockout_default" keywords="[GradientGlowFilter, knockout]" description="Test the default value of the knockout property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="knockout" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_quality_default" keywords="[GradientGlowFilter, quality]" description="Test the default value of the quality property.">
+            <body>
+                <AssertPropertyValue target="gButton1.filters.0" propertyName="quality" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_blurX_8" keywords="[GradientGlowFilter, blurX]" description="Test the value 8 for the blurX property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="blurX" value="8.0" />
+                <SetProperty target="gButton1.filters.0" propertyName="type" value="full"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_blurY_8" keywords="[GradientGlowFilter, blurY]" description="Test the value 8 for the blurY property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="blurY" value="8.0"/>
+                <SetProperty target="gButton1.filters.0" propertyName="type" value="full"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_strength_3" keywords="[GradientGlowFilter, strength]" description="Test the value 3 for the strength property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="strength" value="3"  />
+                <SetProperty target="gButton1.filters.0" propertyName="type" value="full"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_type_inner" keywords="[GradientGlowFilter, type]" description="Test the value inner for the type property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="type" value="inner"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_type_outer" keywords="[GradientGlowFilter, type]" description="Test the value outer for the type property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="gButton1" className="comps.GlowingButton" waitEvent="updateComplete" waitTarget="gButton1" />
+            </setup>
+            <body>
+                <SetProperty target="gButton1.filters.0" propertyName="strength" value="3"  />
+                <SetProperty target="gButton1.filters.0" propertyName="type" value="outer"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GradientGlowFilter_Properties_entries_mxml" keywords="[GradientGlowFilter, entries]" description="Test that you can access the entries property.">
+            <body>
+                <AssertPropertyValue target="ti1.filters.0.entries" propertyName="length" value="4"  />
+                <SetProperty target="ti1.filters.0.entries.0" propertyName="color" value="0xFF0000"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1" timeout="2000"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

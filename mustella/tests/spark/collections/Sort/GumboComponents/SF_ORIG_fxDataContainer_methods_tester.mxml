@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/GumboComponents/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark"  
+			xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" 
+			testSWF="SF_ORIG_fxDataContainer_methods.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+        import spark.layouts.*;
+        import mx.collections.ArrayCollection;
+        import spark.skins.spark.*;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="FxDataContainer_method_arrayCollection_binding_addItemAt" keywords="[FxDataContainer, method,arrayCollection,binding, dataProvider.addItemAt]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty    target="dc" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            </setup>
+            <body>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.sortAC();application.createPlayersAC()" />
+                <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.dataProvider.addItemAt(application.newPlayer, 0);" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty target="dc" propertyName="width" value="200" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" />
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="8" />
+                <CompareBitmap url="../GumboComponents/baselines/$testID.png" target="dc" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxDataContainer_method_arrayCollection_binding_removeAll" keywords="[FxDataContainer, method,arrayCollection,binding, removeAll]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty    target="dc" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            </setup>
+            <body>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.sortAC();application.createPlayersAC()" />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.dataProvider.removeAll();" waitEvent="updateComplete"  waitTarget="dc.dataGroup" />
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="0" />
+
+            </body>
+        </TestCase>
+
+    </testCases>
+
+
+</UnitTester>

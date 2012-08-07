@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="600" height="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import comps.*;
+			
+			import spark.skins.spark.FormHeadingSkin;
+			import spark.skins.spark.FormItemSkin;
+			import spark.skins.spark.FormSkin;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+
+		}
+
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: SparkVera;
+			fontLookup: "embeddedCFF";
+		}
+
+		mx|Panel, mx|NumericStepper, mx|List, mx|TextArea, mx|TextInput, mx|TabNavigator, mx|DateChooser, mx|ToolTip, mx|Label{
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+		}
+			
+	</fx:Style>
+	
+	<fx:Script source="../../../../../Assets/Scripts/testingStates.as" />
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:states>
+		<s:State name="defaultState"/>
+		<s:State name="state1"/>
+		<s:State name="state2"/>
+		<s:State name="state3"/>
+		<s:State name="state4"/>
+		
+	</s:states>
+	
+	<s:Button label="State1" click="currentState = 'state1'"/>
+	<s:Button label="State2" click="currentState = 'state2'"/>
+	
+	<s:Form visible.state4="false" id="frm" height="500" width="600" skinClass="spark.skins.spark.FormSkin" skinClass.state3="comps.DiffFormSkin">
+		<s:FormItem id="fi1" height="50" height.state1="100" height.state2="200" label="FormItem 1" sequenceLabel="1"/>
+		<s:FormItem id="fi2" height="25%" height.state1="50%" height.state2="30%" label="FormItem 2" sequenceLabel="2"/>
+		<s:FormItem id="fi3" width="60" width.state1="150" width.state2="250" label="FormItem 3" sequenceLabel="3"/>
+		<s:FormItem id="fi4" width="60%" width.state1="50%" width.state2="40%" label="FormItem 4" sequenceLabel="4"/>
+	</s:Form>
+	
+	<s:Form id="frmSkin">
+		<s:FormHeading skinClass="spark.skins.spark.FormHeadingSkin" skinClass.state1="comps.DiffFormHeading" skinClass.state2="comps.State2FormHeading" />
+		<s:FormItem id="fiSkin1" skinClass="spark.skins.spark.FormItemSkin" skinClass.state1="comps.FormItemSkinState1" skinClass.state2="comps.FormItemSkinState2" 
+					sequenceLabel="1" label="FormItem 1" 
+					required="true">
+			<s:helpContent>
+				<s:Label text="Please enter your SSN" />
+			</s:helpContent>
+			<s:TextInput />
+		</s:FormItem>
+		<s:FormItem id="fiSkin2" skinClass="spark.skins.spark.FormItemSkin" skinClass.state1="comps.FormItemSkinState1" skinClass.state2="comps.FormItemSkinState2" 
+					sequenceLabel="2" label="FormItem 2" label.state1="FI2 State1" label.state2="FI2 State2" required="true">
+			<s:helpContent>
+				<s:Label text="Default helpContent" />
+			</s:helpContent>
+			<s:helpContent.state1>
+				<s:Label text="State1 helpContent" />
+			</s:helpContent.state1>
+			<s:helpContent.state2>
+				<s:Label text="State2 helpContent" />
+			</s:helpContent.state2>
+			<s:TextInput />
+		</s:FormItem>
+		<s:FormItem id="fiSkin3" skinClass="spark.skins.spark.FormItemSkin" skinClass.state1="comps.FormItemSkinState1" skinClass.state2="comps.FormItemSkinState2" 
+					sequenceLabel="3" sequenceLabel.state2="three" label="FormItem 3" 
+					required="true" required.state2="false"
+					backgroundAlpha.state2="0.2" backgroundColor.state2="blue">
+			<s:helpContent>
+				<s:Label text="Please enter your SSN" />
+				<s:Button label="included state 2" includeIn="state2" height="200" /> 
+			</s:helpContent>
+			<s:TextInput />
+		</s:FormItem>
+	
+	</s:Form>
+	
+	<s:FormItem id="fiNoParts" />
+	<s:FormItem id="fiSkin4" skinClass="spark.skins.spark.FormItemSkin" skinClass.state1="comps.FormItemSkinState1" skinClass.state2="comps.FormItemSkinState2" 
+				visible="false" visible.state2="true" includeInLayout="false" includeInLayout.state2="true">
+		<s:Button label="Visible in State2"/>
+	</s:FormItem>
+</s:Application>

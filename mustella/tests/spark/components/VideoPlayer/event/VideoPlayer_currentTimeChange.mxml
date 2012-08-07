@@ -1,0 +1,136 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+  <testCases>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase testID="VideoPlayer_currentTimeChange_Play_S" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is played.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.play()" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+                <AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_currentTimeChange_seek_S" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify currentTimeChange is raised when seek video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="4000"/>
+		<RunCode code="application.testPlayer.seek(10)" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+                <AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="4000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_currentTimeChange_autoRewind_S" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is auto rewound.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+		<RunCode code="application.testPlayer.seek(111)" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+                <AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000" numExpectedEvents="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_currentTimeChange_changeSource_S" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify bytesLoadedChange is raised when video source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="3000"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase testID="VideoPlayer_currentTimeChange_play_P" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is played.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.play()"/>
+            </setup>
+            <body>
+                <AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_currentTimeChange_seek_P" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify currentTimeChange is raised when seek video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.seek(5)"/>
+            </setup>
+            <body>
+                <AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_currentTimeChange_autoRewind_P" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is auto rewound.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testPlayer.seek(16)"/>
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="complete" eventClass="org.osmf.events::TimeEvent" numExpectedEvents="1"/>
+                <AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000" numExpectedEvents="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_currentTimeChange_changeSource_P" keywords="[VideoPlayer, event, currentTimeChange]" description="Verify bytesLoadedChange is raised when video source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="5000"/>
+		<RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+		<AssertEvent target="testPlayer" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+
+
+    </testCases>
+</UnitTester>

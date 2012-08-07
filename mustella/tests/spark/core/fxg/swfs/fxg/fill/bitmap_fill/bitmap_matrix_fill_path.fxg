@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Warning: FXG Viewer doesn't render embedded file correctly. Okay in Illustrator CS4.                                                                                		-->
+<!-- FXG 1.0 Test BitmapFill fills a path with tiling                    -->
+
+<!-- The BitmapFill element fills a path or shape with a  repeating bitmap image.
+This testcase Tests tiled bitmap fills on paths with an 3x3 2D affine 
+transform matrix defined.
+   		
+-->
+<!-- Author : Vivek Agrawal  26 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+	<Group x="20" y="20">
+		<Path winding="nonZero" data="M  15   20      Q  30  120    130   30      M 180   80      q  -75 -100    -163  -60z" >
+			<fill>
+				<BitmapFill  source="@Embed('../../../../../../../../Assets/Images/next.JPG')">
+					<matrix>
+						<Matrix a="5" b="5" c="5" d="-5" tx="50" ty="350"/>
+					</matrix>
+				</BitmapFill>
+			</fill>
+			<stroke>
+				<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+			</stroke>
+		</Path>
+	</Group>
+</Graphic>

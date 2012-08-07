@@ -1,0 +1,178 @@
+<UnitTester 
+    testSWF="../SWFs/Wipe_main.mxml" 
+    testDir="spark/effects/Wipe/usability/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.Wipe;
+        import spark.effects.WipeDirection;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- states wipe -->
+        <TestCase testID="Wipe_stateChange" keywords="[Wipe, usability, state]" description="Test Wipe when used in a state transition.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+            </setup>
+            <body>
+                <RunCode code="application.card.currentState = 'flipped';" waitTarget="card.e_toFlipped" waitEvent="effectEnd"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- custom easer -->
+        <TestCase testID="Wipe_different_easer" keywords="[Wipe, usability, state]" description="Test Wipe when used with a custom easer.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+            </setup>
+            <body>
+                <RunCode code="application.card.currentState = 'easer_flipped';" waitTarget="card.e_toEaserFlipped" waitEvent="effectEnd"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- wipe scaled -->
+        <TestCase testID="Wipe_scaled" keywords="[Wipe, usability, scaleX]" description="Test Wipe on a scaled object.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapFrom = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.card;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.RIGHT;" />
+                <RunCode code="application.card.scaleX = .5;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <!-- wipe rotated -->
+        <TestCase testID="Wipe_rotated" keywords="[Wipe, usability, rotationZ]" description="Test Wipe on a rotated object.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapFrom = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.card;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.RIGHT;" />
+                <RunCode code="application.card.rotation = 45;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- wipe mis-sized -->
+        <TestCase testID="Wipe_missized" keywords="[Wipe, usability, rotationZ]" description="Test Wipe on an object larger than the bitmap.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapFrom = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.card;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.RIGHT;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- fxWipe + fxAnimate -->
+        <TestCase testID="Wipe_FxAnimate" keywords="[Wipe, usability, FxAnimate]" description="Test Wipe in a parallel with FxAnimate.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_fxWipe_fxAnimate.target = application.controls1.control_Button2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_fxWipe_fxAnimate.play()" waitTarget="p_fxWipe_fxAnimate" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- fxWipe + fxAnimateColor -->
+        <TestCase testID="Wipe_FxAnimateColor" keywords="[Wipe, usability, FxAnimateColor]" description="Test Wipe in a parallel with FxAnimateColor.">
+            <setup>
+                <ResetComponent target="controls2" className="assets.Controls2" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls2);" />
+                <RunCode code="application.p_fxWipe_fxAnimateColor.target = application.controls2.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_fxWipe_fxAnimateColor.play()" waitTarget="p_fxWipe_fxAnimateColor" waitEvent="effectEnd" />
+                
+                <AssertMethodValue method="value=application.controls2.control1.getStyle('color')" value="0x000000" />
+                <AssertMethodValue method="value=application.controls2.control2.getStyle('color')" value="0x0000FF" />
+                
+            </body>
+        </TestCase>
+
+        <!-- fxWipe + fxFade -->
+        <TestCase testID="Wipe_FxFade" keywords="[Wipe, usability, FxFade]" description="Test Wipe in a parallel with FxFade.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_fxWipe_fxFade.target = application.controls1.control_Button2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_fxWipe_fxFade.play()" waitTarget="p_fxWipe_fxFade" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- fxWipe + fxResize -->
+        <TestCase testID="Wipe_FxResize" keywords="[Wipe, usability, FxResize]" description="Test Wipe in a parallel with FxResize.">
+            <setup>
+                <ResetComponent target="controls3" className="assets.Controls3" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls3);" />
+                <RunCode code="application.p_fxWipe_fxResize.target = application.controls3.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_fxWipe_fxResize.play()" waitTarget="p_fxWipe_fxResize" waitEvent="effectEnd" />
+                <CompareBitmap target="controls3" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- fxWipe + fxRotate -->
+        <TestCase testID="Wipe_FxRotate" keywords="[Wipe, usability, FxRotate]" description="Test Wipe in a parallel with FxRotate.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <RunCode code="application.p_fxWipe_fxRotate.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_fxWipe_fxRotate.play()" waitTarget="p_fxWipe_fxRotate" waitEvent="effectEnd" />
+                <CompareBitmap target="controls4" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- fxWipe + fxRotate3D -->
+        <TestCase testID="Wipe_FxRotate3D" keywords="[Wipe, usability, FxRotate3D]" description="Test Wipe in a parallel with FxRotate3D.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <RunCode code="application.p_fxWipe_fxRotate3D.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_fxWipe_fxRotate3D.play()" waitTarget="p_fxWipe_fxRotate3D" waitEvent="effectEnd" />
+                <CompareBitmap target="controls2" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

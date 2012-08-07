@@ -1,0 +1,45 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21254" 
+            keywords="[VideoPlayer]" 
+            description="Controls disappear on Spark VideoPlayer control after switching to fullscreen and back to normal.">
+            <!--bugs>
+                <Bug bugID="SDK-21254"/>
+            </bugs-->
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.horizontalCenter = 0"/>
+                <RunCode code="application.testPlayer.verticalCenter = 0"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>            
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" />
+                <Pause timeout="1000" reason="Wait to switch into fullscreen."/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" />
+                <Pause timeout="5000" reason="Wait to switch back and 3 seconds for controls to be hidden."/>
+            </setup>
+            <body>
+                <!-- playPauseButton will not be visible when the bug is present -->
+                <CompareBitmap target="testPlayer.playPauseButton" url="../regression/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

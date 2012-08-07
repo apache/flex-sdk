@@ -1,0 +1,82 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        
+                        private function getStreamingSource():String
+		        {
+		            return(application.testPlayer.source.host + application.testPlayer.source.streamItems[0].streamName);
+	        }
+	        
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!-- duration -->
+        <TestCase
+        testID="VideoPlayer_duration_Default"
+        description="Test the default value of the duration property."
+        keywords="[VideoPlayer]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="duration" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_duration_streaming"
+        description="Test the duration property for streaming video."
+        keywords="[VideoPlayer]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="8000"/>
+            </setup>
+            <body>
+            	<Pause timeout="9500"/>
+            	<AssertMethodValue method="value=this.getStreamingSource()" value="rtmp://10.59.8.148/vod/GreenBoxStream"/>
+                <AssertPropertyValue target="testPlayer" propertyName="duration" value="10.08"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_duration_progressive"
+        description="Test the duration property for progressive video."
+        keywords="[VideoPlayer]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="8000"/>
+            </setup>
+            <body>
+            	<Pause timeout="9500"/>
+            	<AssertPropertyValue target="testPlayer" propertyName="source" value="video/GreenBox.flv"/>
+                <AssertPropertyValue target="testPlayer" propertyName="duration" value="10"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

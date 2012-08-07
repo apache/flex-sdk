@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Tests of Cubic bezier curves drawn with commands, M, m, C, c, S, s, Z, z      	-->	  	
+<!-- Author : Vivek Agrawal  12 Feb-2009
+		Min Plunkett  13 Mar-2009                       										-->
+<!--                                                                       											-->
+<!-- History:                                                              											-->
+<!--  12 Feb-2009, created by Vivek Agrawal. -->
+<!--  13 Mar-2009, modified by Min Plunkett. Added rule called out in the FXG spec:Draws a Cubic Bezier curve when there is no previous command or if the previous command was not a Q, q, T or t.        -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="60">
+        <content><p><span>Test Cubic Bezier commands (C, c, S, s).</span></p></content>
+      </TextGraphic>
+	<Group x="50" y="100">
+      <!-- ====================================================================== -->
+      <!-- First Curve "X" that has subpath utilizing M, C, S, m, c, & s ======== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero" data="M  210 130      C  145 130     110  80     110  80       S  75  25      10  25          m    0 105      c   65   0      100 -50     100 -50       s   35 -55     100 -55 " >
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke color="#00c000" caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="208" y="128" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="108" y="78" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="8" y="23" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="8" y="128" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="108" y="78" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="208" y="23" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="5" y="82">
+        <content><p><span>M, C, S, m, c, s</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- Infinity using M, c, c, c, C & z ===================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero" data="  M 240  90      c 0  30    7  50    50  0       c 43  -50    50  -30    50  0       c 0  83    -68  -34    -90  -30       C 240  60    240  90    240  90   z " >
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="238" y="88" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="288" y="88" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="338" y="88" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="248" y="58" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="253" y="50">
+        <content><p><span>M, c, c, c, C, z</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- Horizontal line utilizing M, C & Z =================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="M  80 170     C  100 170    160  170    180 170  Z" >
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="78" y="168" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="178" y="168" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="110" y="190">
+        <content><p><span>M, C, Z</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- Inverted V using M, C, c & Z ========================================= -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero" data="  M 5 260    C 40 260    60 175    55 160    c  -5  15     15 100     50 100  Z" >
+        <fill>
+          <SolidColor color="#00c000"/>
+        </fill>
+      </Path>
+      <Rect x="3" y="254.296" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="53" y="158" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="103" y="258" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="85" y="220">
+        <content><p><span>M, C, c, Z</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- Remembrance Ribbon using m, c & s ==================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="m 200 260      c  50 -40     50 -100     25 -100       s -25  60     25  100  " >
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="198" y="258" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="223" y="158" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="248" y="258" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="165" y="210">
+        <content><p><span>m, c, s</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- 90 degree arc using M & C ============================================ -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="M   360 100         C 420 90         460 140            450 190" >
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="358" y="98" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="448" y="188" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="360" y="150">
+        <content><p><span>M, C</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- Circle using M, c, s, s, s & z ======================================= -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero" data="M 360 210      c   0  20    -16  36    -36  36       s -36 -16    -36 -36       s  16 -36     36 -36    s  36  16     36  36   z  " >
+        <fill>
+          <SolidColor color="#ffff00"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="358" y="208" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="322" y="244" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="286" y="208" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="322" y="172" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on"  x="290" y="265">
+        <content><p><span>M, c, s, s, s, z</span></p></content>
+      </TextGraphic>
+      <!-- ====================================================================== -->
+      <!-- Inverted horseshoe using m, c & z ==================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="m 360  325     c -40  -60     95 -100     80  0   z  " >
+        <fill>
+          <SolidColor color="#f0f0f0"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke color="#ff0000" caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+      <Rect x="358" y="323" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <Rect x="438" y="323" width="4" height="4">
+        <fill>
+          <SolidColor color="#4a83ff"/>
+        </fill>
+      </Rect>
+      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="380" y="340">
+        <content><p><span>m, c, z</span></p></content>
+      </TextGraphic>
+	</Group>
+
+      <TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" kerning="on" x="50" y="500">
+        <content><p><span>Test Cubic Bezier commands (S, s). When there is no previous command or </span></p>
+        <p><span>if the previous command was not an C, c, S or s, assume the first control point </span></p>
+        <p><span>is coincident with the current point. (x2,y2) is the second control point </span></p>
+        <p><span>(i.e., the control point at the end of the curve).</span></p></content>
+      </TextGraphic>
+      <Group x="50" y="550">
+	      <Path winding="nonZero"  data="M 360 110  s   -16  36    -36  36       s -36 -16    -36 -36       s  16 -36     36 -36    s  36  16     36  36   z  " >
+		<fill>
+		  <SolidColor color="#ffff00"/>
+		</fill>
+		<stroke>
+		  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+	      </Path>
+	      <Rect x="358" y="108" width="4" height="4">
+		<fill>
+		  <SolidColor color="#4a83ff"/>
+		</fill>
+	      </Rect>
+	      <Rect x="322" y="144" width="4" height="4">
+		<fill>
+		  <SolidColor color="#4a83ff"/>
+		</fill>
+	      </Rect>
+	      <Rect x="286" y="108" width="4" height="4">
+		<fill>
+		  <SolidColor color="#4a83ff"/>
+		</fill>
+	      </Rect>
+	      <Rect x="322" y="72" width="4" height="4">
+		<fill>
+		  <SolidColor color="#4a83ff"/>
+		</fill>
+	      </Rect>
+	      <TextGraphic fontFamily="MyVeraSpark" lineHeight="120%" kerning="on" x="380" y="100">
+		<content><p><span>M, s, s, s, s, z</span></p></content>
+	      </TextGraphic>
+	</Group>
+</Graphic>

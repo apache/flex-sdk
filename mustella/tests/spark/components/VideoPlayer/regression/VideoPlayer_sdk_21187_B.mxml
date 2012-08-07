@@ -1,0 +1,66 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SDK_21187_B.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <mx:Script>
+        import org.osmf.display.*;
+	  import org.osmf.events.MediaPlayerStateChangeEvent;
+	  import org.osmf.media.MediaPlayerState;
+
+	  private function testPlayerInit():void
+        {
+            application.testPlayer.addEventListener("mediaPlayerStateChange", mediaPlayerStateChangeHandler);
+        }
+            
+        private function mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+        {
+            if (event.state == MediaPlayerState.READY){
+                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsReady"));
+		trace("mediaPlayerIsReady");
+	     }
+            else if (event.state == MediaPlayerState.PLAYING)
+                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPlaying"));
+        }
+
+    </mx:Script>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21187_B" 
+            keywords="[VideoPlayer]" 
+            description="VideoElement doesnt respect horizontalCenter or verticalCenter property with height,width set on application.">
+            <!--bugs>
+                <Bug bugID="SDK-21187"/>
+            </bugs-->
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="testPlayerInit()"/>
+                <SetProperty target="testPlayer" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" />
+                <SetProperty target="testPlayer" propertyName="verticalCenter" value="0" waitEvent="updateComplete" />
+                <SetProperty target="testPlayer" propertyName="width" value="322" waitEvent="updateComplete" />
+                <SetProperty target="testPlayer" propertyName="height" value="265" waitEvent="updateComplete" />
+		<SetProperty target="testPlayer" propertyName="source" value="video/GreenBox.flv" waitTarget="testPlayer" waitEvent="mediaPlayerIsReady" />
+	    </setup>
+            <body>
+            	<!--<CompareBitmap url="../regression/baseline/$testID.png" />-->
+                <AssertMethodValue method="value=application.testPlayer.x.toString()" value="89" />
+                <AssertMethodValue method="value=application.testPlayer.y.toString()" value="118" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

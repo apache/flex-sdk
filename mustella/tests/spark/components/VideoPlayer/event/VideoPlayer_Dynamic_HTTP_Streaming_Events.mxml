@@ -1,0 +1,103 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_Dynamic_HTTP_Streaming_src.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+	        import spark.components.VideoPlayer;
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.media.MediaPlayerState;
+			import mx.utils.ObjectUtil;
+    	    public static function init(o:DisplayObject):void{}
+			
+			public var count:int = 0;
+        	
+	      	public function testPlayerInit():void
+	        {
+		            application.testPlayer.addEventListener("mediaPlayerStateChange", mediaPlayerStateChangeHandler);
+					trace("******************* testPlayerInit*********************");
+	        }
+	            
+	        public function mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+	        {
+				count++;				
+				trace(count + " - ******************* current state: " + ObjectUtil.toString(event.state) );
+				
+		        if (event.state == MediaPlayerState.READY)
+		                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsReady"));
+			    else if (event.state == MediaPlayerState.BUFFERING)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsBuffering"));
+			    else if (event.state == MediaPlayerState.LOADING)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsLoading"));
+	            else if (event.state == MediaPlayerState.PLAYING)
+		                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPlaying"));
+				else if (event.state == MediaPlayerState.PAUSED)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPaused"));
+				else if (event.state == MediaPlayerState.UNINITIALIZED)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsUninitialized"));        
+					
+			}
+        
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+		
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_MediaPlayerState.PAUSED" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming - PAUSED event state">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid1500Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+			</setup>
+			<body>
+				<RunCode code="application.testPlayer.pause()"/>
+				<AssertEvent target="testPlayer" eventName="mediaPlayerIsPaused" eventClass="flash.events::Event" numExpectedEvents="-1" />
+			</body>
+		</TestCase>
+		
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_MediaPlayerState.PLAYING" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming - PLAYING event state">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid1500Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsBuffering"/>
+			</setup>
+			<body>
+				<AssertEvent target="testPlayer" eventName="mediaPlayerIsPlaying" eventClass="flash.events::Event" numExpectedEvents="-1" />
+			</body>
+		</TestCase>
+
+        
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_MediaPlayerState.UNINITIALIZED" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming - UNINITIALIZED event state">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid1500Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsLoading"/>
+			</setup>
+			<body>
+				<!-- reseting source should reinitialize the component -->
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid1500Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsLoading"/>
+				<AssertEvent target="testPlayer" eventName="mediaPlayerIsUninitialized" eventClass="flash.events::Event" numExpectedEvents="-1" />
+			</body>
+		</TestCase>
+
+
+
+	</testCases>
+</UnitTester>

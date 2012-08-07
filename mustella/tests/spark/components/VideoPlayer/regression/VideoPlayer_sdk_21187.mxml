@@ -1,0 +1,49 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SDK_21187.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        
+        public function xShouldBe():int{
+        	var xShouldBeThis:int = Math.round(application.width/2 - application.elVid.width/2);
+        	return(xShouldBeThis);
+        }
+        
+        public function yShouldBe():int{
+        	var yShouldBeThis:int = Math.round(application.height/2 - application.elVid.height/2);
+        	return(yShouldBeThis);
+        }        
+        
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21187" 
+            keywords="[VideoPlayer]" 
+            description="VideoElement doesnt respect horizontalCenter or verticalCenter property.">
+            <!--bugs>
+                <Bug bugID="SDK-21187"/>
+            </bugs-->
+            <setup>
+                <Pause timeout="2000" reason="Wait for Video to load."/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.elVid.x.toString()" valueExpression="value=xShouldBe()" />
+                <AssertMethodValue method="value=application.elVid.y.toString()" valueExpression="value=yShouldBe()" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

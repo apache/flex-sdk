@@ -1,0 +1,239 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="dropShadowVisible_css_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+  		<TestCase testID="dropShadowVisible_css_sparkPanel" keywords="[dropShadowVisible]" description="Verify css dropShadowVisible setting">
+  			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkPnl"/>
+			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="dropShadowVisible_css_haloPanel" keywords="[dropShadowVisible]" description="Verify css dropShadowVisible setting">
+		  	<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloPnl"/>
+			</body>
+		  </TestCase>
+    
+  	  	<TestCase testID="dropShadowVisible_css_haloTitleWindow" keywords="[dropShadowVisible]" description="Verify css dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloTW"/>
+			</body>
+	  	</TestCase>
+    	
+    	<TestCase testID="dropShadowVisible_css_haloMenu" keywords="[dropShadowVisible]" description="Verify css dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<RunCode code="application.di.showMenu()" waitEvent="menuShow" waitTarget="di.myMenu"/>
+				<Pause timeout="200"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.myMenu"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="dropShadowVisible_css_sparkDropDownList" keywords="[dropShadowVisible]" description="Verify css dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkDDL"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="dropShadowVisible_css_Alert" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="di.alertBtn" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+				<CompareBitmap url="../local/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<!-- uncomment after SDK-23565 is fixed-->
+		<!--
+		<TestCase testID="dropShadowVisible_css_haloComboBox" keywords="[dropShadowVisible]" description="Verify css dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloCB"/>
+			</body>
+		</TestCase>
+		-->
+		<!--*******************-->
+		<!-- change at runtime -->
+		<!--*******************-->
+
+		<TestCase testID="dropShadowVisible_css_change_runtime_sparkPanel" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="dropShadowVisible" value="true" target="di.sparkPnl" waitEvent="dropShadowVisibleChanged" waitTarget="di.sparkPnl.skin"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.sparkPnl"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_css_change_runtime_haloPanel" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="dropShadowVisible" value="true" target="di.haloPnl" waitEvent="dropShadowVisibleChanged" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloPnl"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_css_change_runtime_haloTitleWindow" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="dropShadowVisible" value="true" target="di.haloTW" waitEvent="dropShadowVisibleChanged" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloTW"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_css_change_runtime_haloMenu" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="dropShadowVisible" value="true" target="di.myMenu"  />
+				<RunCode code="application.di.showMenu()" waitEvent="menuShow" waitTarget="di.myMenu"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.myMenu"/>	
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_css_change_runtime_sparkDropDownList" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="dropShadowVisible" value="true" target="di.sparkDDL" waitEvent="dropShadowVisibleChanged" />
+				<RunCode code="application.di.sparkDDL.openDropDown()" waitEvent="open" waitTarget="di.sparkDDL"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.sparkDDL"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		
+		<!-- uncomment after SDK-23565 is fixed-->
+		<!--<TestCase testID="dropShadowVisible_css_change_runtime_haloComboBox" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="dropShadowVisible" value="true" target="di.haloCB" waitEvent="dropShadowVisibleChanged" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloCB"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+		-->
+		
+		<!--***************-->
+		<!-- type selector -->
+		<!--***************-->
+	
+		<TestCase testID="dropShadowVisible_type_selector_sparkPanel" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myStyle" target="di.sparkPnl" waitEvent="updateComplete" waitTarget="di.sparkPnl.skin"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.sparkPnl"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_type_selector_haloPanel" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myStyle" target="di.haloPnl" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloPnl"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_type_selector_haloTitleWindow" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myStyle" target="di.haloTW" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloTW"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_type_selector_haloMenu" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myStyle" target="di.myMenu"  />
+				<RunCode code="application.di.showMenu()" waitEvent="menuShow" waitTarget="di.myMenu"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.myMenu"/>	
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dropShadowVisible_type_selector_sparkDropDownList" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myStyle" target="di.sparkDDL" waitEvent="updateComplete" />
+				<RunCode code="application.di.sparkDDL.openDropDown()" waitEvent="open" waitTarget="di.sparkDDL"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.sparkDDL"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+
+		<!-- uncomment after SDK-23565 is fixed-->
+		<!--<TestCase testID="dropShadowVisible_type_selector_haloComboBox" keywords="[dropShadowVisible]" description="Verify change runtime dropShadowVisible setting">
+			<setup>
+				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="myStyle" target="di.haloCB" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloCB"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+			</body>
+		</TestCase>
+		-->
+    </testCases>
+</UnitTester>

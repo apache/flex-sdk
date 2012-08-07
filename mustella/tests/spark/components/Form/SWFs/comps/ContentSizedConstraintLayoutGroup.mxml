@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" visible="false" >
+		 <!-- Group with Constraint Columns whose total percentage widths are less than 100% -->
+		 
+		 <s:layout>
+		 <s:ConstraintLayout>
+			<s:constraintColumns>
+				<s:ConstraintColumn id="col1" width="35%"/>
+				<s:ConstraintColumn id="col2" width="10%"/>
+				<s:ConstraintColumn id="col3" width="25%"/>
+				<s:ConstraintColumn id="col4" width="30%"/>
+			</s:constraintColumns>
+			<s:constraintRows>
+				<s:ConstraintRow id="row1" height="25%"/>
+				<s:ConstraintRow id="row2" height="10%"/>
+				<s:ConstraintRow id="row3" height="20%"/>
+				<s:ConstraintRow id="row4" height="15%"/>
+				<s:ConstraintRow id="row5" height="25%"/>
+			</s:constraintRows>
+		</s:ConstraintLayout>
+	</s:layout>
+	<s:Rect top="0" bottom="0" left="0" right="0">
+		<s:fill>
+			<s:SolidColor color="red"/>
+		</s:fill>
+	</s:Rect> 
+
+	<s:Button id="btn1" top="row1:0" bottom="row1:0" label="ContentSized" left="col1:0" right="col1:0"/>
+	<s:Button id="btn2" top="row2:10" bottom="row2:5" label="btn2" left="col2:10" right="col2:5"/>
+	<s:TextInput id="ti" top="row3:0" bottom="row3:10" left="col3:0" right="col3:10"/>
+	<s:ComboBox id="cb" top="row5:5" bottom="row5:0" left="col4:5" right="col4:0"> 
+		<s:dataProvider>
+			<mx:ArrayList>
+				<fx:String>Red</fx:String>
+				<fx:String>Orange</fx:String>
+				<fx:String>Yellow</fx:String>
+				<fx:String>Blue</fx:String>
+				<fx:String>Green</fx:String>
+			</mx:ArrayList>
+		</s:dataProvider>
+	</s:ComboBox>
+
+</s:Group>

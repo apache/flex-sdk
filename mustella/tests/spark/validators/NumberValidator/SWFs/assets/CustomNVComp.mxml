@@ -1,0 +1,102 @@
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  updateComplete="updateCompleteHandler(event)"
+		  width="100%" height="100%" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.validators.ValidationResult;
+			
+			import spark.validators.supportClasses.GlobalizationValidatorBase;
+			
+			public var nvScript:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(nvScript);
+			}
+			
+			// Define the validator Array.
+			private var _validatorsArr:Array;
+		
+
+			protected function uiBTvalidateNumber_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				var resultArr:Array ; 
+				
+				if ('nvDefault' == uiProgType.text) { // validate a normal Number Object 
+					resultArr = nvDefault.validateNumber( uiTI.text , null  ) ; 
+					
+				} else if ( 'nvScript' == uiProgType.text){  // validate a UI object , like TextInput
+					resultArr = nvScript.validateNumber(tiScript.text , "text") ; 
+					
+				} else if ( 'nvNull' == uiProgType.text){ //validateNumber(null , null) 
+					try{
+						resultArr = nvDefault.validateNumber(null , null ) ; 
+					}catch ( e:Error){
+						uiLb.text = e.toString() ;
+					}
+					
+				}else if ( 'nonString' == uiProgType.text){ //validateNumber(non-String-object , null) 
+					try{
+						resultArr = nvDefault.validateNumber(uiTI , null ) ; 
+					}catch ( e:Error){
+						uiLb.text = e.toString() ;
+					}
+					
+				}
+				
+				if (resultArr != null) {
+					if ( (resultArr.length == 1) && ( resultArr[0].isError == true  ) ) {
+					 	uiLb.text = new String("Error");
+						
+					}else if ( (resultArr.length == 1) && ( resultArr[0].isError == false  ) ) {
+						uiLb.text = new String("noError");
+					}else if ( resultArr.length == 0 ) {
+						uiLb.text = new String("noValidateError");
+					}
+				} else {
+					uiLb.text = "NoResult";
+				}
+				
+				return ; 
+			}
+
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- This validator is used for most of test cases -->
+		<!--s:NumberValidator id="nvDefault" source="{uiTI}"/ -->
+		
+		<s:NumberValidator id="nvDefault"/>		
+
+	</fx:Declarations>
+	
+	<!-- This is the source for nvDefault in declaration tag -->
+	<mx:TextInput id="uiTI" />
+
+	<!-- This is the source for nvProg --> 
+	<mx:TextInput id="uiProgType" />
+		
+	<!-- This is the source for nvScript validator  -->
+	<mx:TextInput id="tiScript" />
+	
+
+	<mx:Button id="uiBTvalidateNumber" label="validate number" click="uiBTvalidateNumber_clickHandler(event)" />
+	
+	<!-- Label is used to display some validate result--> 
+	<mx:Label id="uiLb" />
+	<mx:Label id="uiBindableLb" text="{(new ArrayCollection(nvDefault.validateNumber(uiTI, null ))).getItemAt(0).isError}" />
+	<mx:Label id="uiScriptBindableLb" text="{(new ArrayCollection(nvDefault.validateNumber(tiScript.text, 'text' )))..getItemAt(0).isError}" />
+	
+
+	
+</s:VGroup>

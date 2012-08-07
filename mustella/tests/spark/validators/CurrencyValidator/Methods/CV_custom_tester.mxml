@@ -1,0 +1,82 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_custom.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_validate_custom_base_valid_1" 
+				  description="testcase for user customed Validator can works as the way our spark:Validator works" 
+				  keywords="[CurrencyValidator, validate, custom validator, extends from GlobalizationValidatorBase, valid]">
+            <setup>
+                <ResetComponent target="uiMyValidatorComp" className="assets.MyValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+                <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+                <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="property" value="text"/>
+                <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="addadd" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+                <DispatchKeyEvent keys="[TAB, TAB]"/>
+                <AssertEvent target="uiMyValidatorComp.myBaseValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiMyValidatorComp.myBaseValidator" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validate_custom_currency_valid_2" 
+				  description="testcase for user customed Validator can works as the way our spark:Validator works" 
+				  keywords="[CurrencyValidator, validate, custom validator, extends from CurrencyValidator, valid]">
+            <setup>
+                <ResetComponent target="uiMyValidatorComp" className="assets.MyValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+                <SetProperty target="uiMyValidatorComp.myCurrencyValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+                <SetProperty target="uiMyValidatorComp.myCurrencyValidator" propertyName="property" value="text"/>
+                <SetProperty target="uiMyValidatorComp.myCurrencyValidator" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="@G@12.98" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+                <DispatchKeyEvent keys="[TAB, TAB]"/>
+                <AssertEvent target="uiMyValidatorComp.myCurrencyValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiMyValidatorComp.myCurrencyValidator" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validate_custom_base_valid_3" 
+				  description="testcase for user customed Validator can works as the way our spark:Validator works" 
+				  keywords="[CurrencyValidator, validate, custom validator, extends from GlobalizationValidatorBase, valid]">
+            <setup>
+                <ResetComponent target="uiMyValidatorComp" className="assets.MyValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+                <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+                <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="property" value="text"/>
+                <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="we have adobe here" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+                <DispatchKeyEvent keys="[TAB, TAB]"/>
+                <AssertEvent target="uiMyValidatorComp.myBaseValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiMyValidatorComp.myBaseValidator" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validate_custom_currency_valid_4" 
+				  description="testcase for user customed Validator can works as the way our spark:Validator works" 
+				  keywords="[CurrencyValidator, validate, custom validator, extends from CurrencyValidator, valid]">
+            <setup>
+                <ResetComponent target="uiMyValidatorComp" className="assets.MyValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+                <SetProperty target="uiMyValidatorComp.myCurrencyValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+                <SetProperty target="uiMyValidatorComp.myCurrencyValidator" propertyName="property" value="text"/>
+                <SetProperty target="uiMyValidatorComp.myCurrencyValidator" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+                <DispatchKeyEvent keys="[TAB, TAB]"/>
+                <AssertEvent target="uiMyValidatorComp.myCurrencyValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiMyValidatorComp.myCurrencyValidator" eventName="valid"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

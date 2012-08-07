@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="NV_Style_DefaultLocale_comp_app.mxml">
+	
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.NumberFormatter;
+		import assets.NVConstants;
+		public var flashNF:flash.globalization.NumberFormatter;
+		
+		public static function init(o:DisplayObject):void      
+		{
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<testCases>
+	<TestCase testID="NV_Style_DefaultLocale_comp_app_ru_test1" description="test object in component without locale setting inherit locale from TopLevelApp" 
+			  keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('ru-RU')" />
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+		</setup>
+		<body>
+			<SetProperty target="" propertyName="appLocale" value="ru-RU" waitEvent="myAppLocaleChangedEve" waitTarget="" />
+			<AssertPropertyValue target="customComp.nvNoLocale" propertyName="actualLocaleIDName" 
+								 valueExpression="value=flashNF.actualLocaleIDName" />
+			<AssertEvent target="customComp.nvNoLocale" eventName="change" eventClass="flash.events::Event"/>
+			<AssertPropertyValue target="customComp.nvNoLocale" propertyName="lastOperationStatus" 
+								 valueExpression="value=flashNF.lastOperationStatus" />
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_comp_app_ar_test2" description="test object in component without locale setting inherit locale from TopLevelApp" 
+			  keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('ar-SA')" />
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+		</setup>
+		<body>
+			<SetProperty target="" propertyName="appLocale" value="ar-SA" waitEvent="myAppLocaleChangedEve" waitTarget="" />
+			<AssertPropertyValue target="customComp.nvNoLocale" propertyName="actualLocaleIDName" 
+								 valueExpression="value=flashNF.actualLocaleIDName" />
+			<AssertEvent target="customComp.nvNoLocale" eventName="change" eventClass="flash.events::Event"/>
+			<AssertPropertyValue target="customComp.nvNoLocale" propertyName="lastOperationStatus" 
+								 valueExpression="value=flashNF.lastOperationStatus" />
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Style_DefaultLocale_comp_app_change_test3" description="test object in component without locale setting inherit locale from TopLevelApp" 
+			  keywords="[NumberValidator, default locale]">
+		<setup>
+			<RunCode code="flashNF=new flash.globalization.NumberFormatter('ar-SA')" />
+			<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete" waitTarget="customComp"/>
+		</setup>
+		<body>
+			<SetProperty target="" propertyName="appLocale" value="ar-SA" waitEvent="myAppLocaleChangedEve" waitTarget="" />
+			<AssertPropertyValue target="customComp.nvNoLocale" propertyName="actualLocaleIDName" 
+								 valueExpression="value=flashNF.actualLocaleIDName" />
+			<SetProperty target="" propertyName="appLocale" value="en-GB"/>
+			<AssertEvent target="customComp.nvNoLocale" eventName="change" eventClass="flash.events::Event"/>
+		</body>
+	</TestCase>
+</testCases>
+	
+</UnitTester>

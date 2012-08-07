@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/integration/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Masks.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+        import mx.graphics.*;
+                import spark.components.Group;
+                import spark.primitives.Rect;
+       
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+      <TestCase testID="FXG_Masks_Rect_Mxml" description="Test that a Rect mask set on a Graphic looks right" keywords="[Rect, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic1" className="comps.RectMaskOverBitmap" waitTarget="graphic1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic1" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Rect_moveXY" description="Test that a Rect mask set on a Graphic looks right when its moved" keywords="[Rect, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic1" className="comps.RectMaskOverBitmap" waitTarget="graphic1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="x" value="45" target="graphic1.getChildAt(0).mask" />
+            <SetProperty propertyName="y" value="45" target="graphic1.getChildAt(0).mask" waitEvent="updateComplete" waitTarget="graphic1.getChildAt(0).mask" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic1" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Rect_changeWidth" description="Test that a Rect mask set on a Graphic looks right when the mask's width is changed" keywords="[Rect, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic1" className="comps.RectMaskOverBitmap" waitTarget="graphic1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="width" value="90" target="graphic1.rect1" waitEvent="updateComplete" waitTarget="graphic1.rect1" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic1" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Rect_changeRotation" description="Test that a Rect mask set on a Graphic looks right when the mask's rotation is changed" keywords="[Rect, Masks, FXG, rotation]">
+        <!--bugs>
+            <Bug bugID="SDK-17589" />
+        </bugs -->
+        <setup>
+            <ResetComponent target="graphic1" className="comps.RectMaskOverBitmap" waitTarget="graphic1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="rotation" value="15" target="graphic1.rect1" waitEvent="updateComplete" waitTarget="graphic1.rect1" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic1" timeout="2000" numColorVariances="3" ignoreMaxColorVariance="true"/>
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Rect_roundedCorners" description="Test that a Rect mask set on a Graphic looks right when the mask gets rounded corners" keywords="[Rect, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic1" className="comps.RectMaskOverBitmap" waitTarget="graphic1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="radiusX" value="15" target="graphic1.rect1" waitEvent="updateComplete" waitTarget="graphic1.getChildAt(0).mask" />
+            <SetProperty propertyName="radiusY" value="15" target="graphic1.rect1" waitEvent="updateComplete" waitTarget="graphic1.getChildAt(0).mask" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic1" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Ellipse_Mxml" description="Test that a Rect mask set on a Graphic looks right" keywords="[Rect, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic2" className="comps.EllipseMaskOverBitmap" waitTarget="graphic2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic2" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Ellipse_moveXY" description="Test that a Ellipse mask set on a Graphic looks right when its moved" keywords="[Ellipse, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic2" className="comps.EllipseMaskOverBitmap" waitTarget="graphic2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="x" value="45" target="graphic2.getChildAt(0).mask" />
+            <SetProperty propertyName="y" value="45" target="graphic2.getChildAt(0).mask" waitEvent="move" waitTarget="graphic2.getChildAt(0).mask" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic2" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Ellipse_changeWidth" description="Test that a Ellipse mask set on a Graphic looks right when the mask's width is changed" keywords="[Ellipse, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic2" className="comps.EllipseMaskOverBitmap" waitTarget="graphic2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="width" value="150" target="graphic2.ellipse1" waitEvent="updateComplete" waitTarget="graphic2.ellipse1" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic2" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Ellipse_changeRotation" description="Test that a Ellipse mask set on a Graphic looks right when the mask's rotation is changed" keywords="[Ellipse, Masks, FXG, rotation]">
+        <!--bugs>
+            <Bug bugID="SDK-17589" />
+        </bugs -->
+        <setup>
+            <ResetComponent target="graphic2" className="comps.EllipseMaskOverBitmap" waitTarget="graphic2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="rotation" value="-15" target="graphic2.ellipse1" waitEvent="updateComplete" waitTarget="graphic2.ellipse1" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic2" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Path_Mxml" description="Test that a Path mask set on a Graphic looks right" keywords="[Path, Masks, Graphic]">
+            <setup>
+                <ResetComponent target="graphic3" className="comps.PathMaskOverBitmap" waitTarget="graphic3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic3" timeout="2000" />
+            </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Path_moveXY" description="Test that a Path mask set on a Graphic looks right when its moved" keywords="[Path, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic3" className="comps.PathMaskOverBitmap" waitTarget="graphic3" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="x" value="45" target="graphic3.getChildAt(0).mask" />
+            <SetProperty propertyName="y" value="45" target="graphic3.getChildAt(0).mask" waitEvent="updateComplete" waitTarget="graphic3.getChildAt(0).mask" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic3" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Path_changeWidth" description="Test that a Path mask set on a Graphic looks right when the mask's width is changed" keywords="[Path, Masks, Graphic]">
+        <setup>
+            <ResetComponent target="graphic3" className="comps.PathMaskOverBitmap" waitTarget="graphic3" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="width" value="150" target="graphic3.path1" waitEvent="updateComplete" waitTarget="graphic3.path1" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic3" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_Path_changeRotation" description="Test that a Path mask set on a Graphic looks right when the mask's rotation is changed" keywords="[Path, Masks, FXG, rotation]">
+        <!--bugs>
+            <Bug bugID="SDK-17589" />
+        </bugs -->
+        <setup>
+            <ResetComponent target="graphic3" className="comps.PathMaskOverBitmap" waitTarget="graphic3" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty propertyName="rotation" value="35" target="graphic3.path1" waitEvent="updateComplete" waitTarget="graphic3.path1" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic3" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_EllipseRect" description="Test that a Ellipse/Rect mask set on a Graphic looks right when its moved" keywords="[Path, Masks, Graphic]">
+        <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic4" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_AddAtRuntime" description="Test that an Ellipse mask set on a Rect at runtime looks correct" keywords="[Ellipse, Rect, Masks, Graphic]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <RunCode code="application.addMask()" waitTarget="basicRect.graphic1" waitEvent="updateComplete"/>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+        </body>
+      </TestCase>
+      <TestCase testID="FXG_Masks_RemoveAtRuntime" description="Test that an Ellipse mask removed on a Rect at runtime looks correct" keywords="[Ellipse, Rect, Masks, Graphic]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <RunCode code="application.basicRect.rect1.mask=null" />
+            <Pause timeout="200" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+              </body>
+      </TestCase>
+      <TestCase testID="FXG_AlphaMasks_AddAtRuntime" description="Test that an Ellipse alpha mask set on a Rect at runtime looks correct. Check that a display object is created" keywords="[Ellipse, Rect, Masks, Graphic]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <AssertPropertyValue propertyName="numChildren" target="basicRect.graphic1" value="0" />
+        <RunCode code="application.addMask()" waitTarget="basicRect.getChildAt(0)" waitEvent="updateComplete"/>
+        <SetProperty propertyName="maskType" value="alpha" target="basicRect.graphic1" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="numChildren" target="basicRect.graphic1" value="1" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_AlphaMasks_MoveRuntime" description="Test that an Ellipse alpha mask set on a Rect at runtime looks correct. Check that a display object is created and that the mask can be moved" keywords="[Ellipse, Rect, Masks, Graphic]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <AssertPropertyValue propertyName="numChildren" target="basicRect.graphic1" value="0" />
+        <RunCode code="application.addMask()" waitTarget="basicRect.getChildAt(0)" waitEvent="updateComplete"/>
+        <SetProperty propertyName="maskType" value="alpha" target="basicRect.graphic1" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="numChildren" target="basicRect.graphic1" value="1" />
+        <SetProperty propertyName="x" value="35" target="basicRect.graphic1.mask" />
+        <SetProperty propertyName="y" value="20" target="basicRect.graphic1.mask" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_default_mxml" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMask" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <AssertPropertyValue propertyName="luminosityClip" target="basicRect.graphic1" value="false" />
+            <AssertPropertyValue propertyName="luminosityInvert" target="basicRect.graphic1" value="false" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_luminosityInvertClip_TrueFalse" description="Set a luminosity mask with luminosityClip=false, luminosityInvert=true" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="true" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMask2" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <AssertPropertyValue propertyName="luminosityClip" target="basicRect.graphic1" value="false" />
+            <AssertPropertyValue propertyName="luminosityInvert" target="basicRect.graphic1" value="true" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_luminosityInvertClip_TrueTrue" description="Set a luminosity mask with luminosityClip=false, luminosityInvert=true" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="true" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityClip" value="true" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMaska" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <AssertPropertyValue propertyName="luminosityClip" target="basicRect.graphic1" value="true" />
+            <AssertPropertyValue propertyName="luminosityInvert" target="basicRect.graphic1" value="true" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_luminosityInvertClip_FalseTrue" description="Set a luminosity mask with luminosityClip=false, luminosityInvert=true" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityClip" value="true" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMaskb" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <AssertPropertyValue propertyName="luminosityClip" target="basicRect.graphic1" value="true" />
+            <AssertPropertyValue propertyName="luminosityInvert" target="basicRect.graphic1" value="false" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_luminosityClip_updateRuntime" description="Set a luminosityClip after the luminosity mask is already applied" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityClip" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMaskc" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <SetProperty target="basicRect.graphic1" propertyName="luminosityClip" value="true" />
+            <Pause timeout="350" />
+            <AssertPropertyValue propertyName="luminosityClip" target="basicRect.graphic1" value="true" />
+            <AssertPropertyValue propertyName="luminosityInvert" target="basicRect.graphic1" value="false" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_luminosityInvert_updateRuntime" description="Set a luminosityInvert after the luminosity mask is already applied" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityClip" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMaskd" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="true" />
+            <Pause timeout="350" />
+            <AssertPropertyValue propertyName="luminosityClip" target="basicRect.graphic1" value="false" />
+            <AssertPropertyValue propertyName="luminosityInvert" target="basicRect.graphic1" value="true" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase> 
+      
+      <TestCase testID="FXG_LuminosityMasks_overBitmap_default_mxml" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage" className="comps.BitmapImageComp" waitTarget="pngImage" waitEvent="updateComplete" />
+          <SetProperty target="pngImage" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="pngImage" propertyName="luminosityClip" value="false" />
+              <SetProperty target="pngImage" propertyName="mask" valueExpression="value=application.ellipseMaske" waitTarget="pngImage" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage" timeout="2000" />
+         </body>
+      </TestCase>   
+      <TestCase testID="FXG_LuminosityMasks_overBitmap_luminosityInvertClip_TrueFalse" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage" className="comps.BitmapImageComp" waitTarget="pngImage" waitEvent="updateComplete" />
+          <SetProperty target="pngImage" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage" propertyName="luminosityInvert" value="true" />
+              <SetProperty target="pngImage" propertyName="luminosityClip" value="false" />
+              <SetProperty target="pngImage" propertyName="mask" valueExpression="value=application.ellipseMaskf" waitTarget="pngImage" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_overBitmap_luminosityInvertClip_TrueTrue" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage" className="comps.BitmapImageComp" waitTarget="pngImage" waitEvent="updateComplete" />
+          <SetProperty target="pngImage" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage" propertyName="luminosityInvert" value="true" />
+              <SetProperty target="pngImage" propertyName="luminosityClip" value="true" />
+              <SetProperty target="pngImage" propertyName="mask" valueExpression="value=application.ellipseMaskg" waitTarget="pngImage" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_overBitmap_luminosityInvertClip_FalseTrue" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage" className="comps.BitmapImageComp" waitTarget="pngImage" waitEvent="updateComplete" />
+          <SetProperty target="pngImage" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="pngImage" propertyName="luminosityClip" value="true" />
+              <SetProperty target="pngImage" propertyName="mask" valueExpression="value=application.ellipseMaskh" waitTarget="pngImage" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage" timeout="2000" />
+         </body>
+      </TestCase>
+      
+      <TestCase testID="FXG_LuminosityMasks_overBitmap_Rotate" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage" className="comps.BitmapImageComp" waitTarget="pngImage" waitEvent="updateComplete" />
+          <SetProperty target="pngImage" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="pngImage" propertyName="luminosityClip" value="false" />
+              <SetProperty target="pngImage" propertyName="mask" valueExpression="value=application.rectMask" waitTarget="pngImage" waitEvent="updateComplete" />
+          </setup>
+          <body>
+            <RunCode code="Rect(Group(application.pngImage.mask).getElementAt(0)).rotation=45" waitTarget="pngImage" waitEvent="updateComplete"/>
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage" timeout="2000" />
+         </body>
+      </TestCase> 
+      <TestCase testID="FXG_LuminosityMasks_onGraphicElement" description="Set a luminosity mask on a BitmapImage" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage2" className="comps.BitmapImageComp" waitTarget="pngImage2" waitEvent="updateComplete" />
+          <SetProperty target="pngImage2.bitmapGraphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="mask" valueExpression="value=application.biggerMask" waitTarget="pngImage2.bitmapGraphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+              <AssertPropertyValue propertyName="luminosityClip" value="false" target="pngImage2.bitmapGraphic1" />
+              <AssertPropertyValue propertyName="luminosityInvert" value="false" target="pngImage2.bitmapGraphic1" />
+              <AssertPropertyValue propertyName="mask" valueExpression="value=application.biggerMask" target="pngImage2.bitmapGraphic1" />
+              <AssertPropertyValue propertyName="maskType" value="luminosity" target="pngImage2.bitmapGraphic1" />
+              <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage2" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_onGraphicElement_TrueFalse" description="Set a luminosity mask on a BitmapImage" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage2" className="comps.BitmapImageComp" waitTarget="pngImage2" waitEvent="updateComplete" />
+          <SetProperty target="pngImage2.bitmapGraphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="luminosityInvert" value="true" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="luminosityClip" value="false" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="mask" valueExpression="value=application.ellipseMask3" waitTarget="pngImage2.bitmapGraphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+              <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage2" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_onGraphicElement_FalseTrue" description="Set a luminosity mask on a BitmapImage" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage2" className="comps.BitmapImageComp" waitTarget="pngImage2" waitEvent="updateComplete" />
+          <SetProperty target="pngImage2.bitmapGraphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="luminosityClip" value="true" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="mask" valueExpression="value=application.path1" waitTarget="pngImage2.bitmapGraphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+              <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage2" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_onGraphicElement_TrueTrue" description="Set a luminosity mask on a BitmapImage" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage2" className="comps.BitmapImageComp" waitTarget="pngImage2" waitEvent="updateComplete" />
+          <SetProperty target="pngImage2.bitmapGraphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="luminosityInvert" value="true" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="luminosityClip" value="true" />
+              <SetProperty target="pngImage2.bitmapGraphic1" propertyName="mask" valueExpression="value=application.path2" waitTarget="pngImage2.bitmapGraphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+              <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage2" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_overBitmap_Move" description="Set a luminosity mask with default properties" keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="pngImage" className="comps.BitmapImageComp" waitTarget="pngImage" waitEvent="updateComplete" />
+          <SetProperty target="pngImage" propertyName="maskType" value="luminosity" />
+              <SetProperty target="pngImage" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="pngImage" propertyName="luminosityClip" value="false" />
+              <SetProperty target="pngImage" propertyName="mask" valueExpression="value=application.ellipseMask12" waitTarget="pngImage" waitEvent="updateComplete"/>
+          </setup>
+          <body>
+            <RunCode code="Group(application.pngImage.mask).getElementAt(0).x=40" />
+            <RunCode code="Group(application.pngImage.mask).getElementAt(0).y=30" waitTarget="pngImage" waitEvent="updateComplete" />
+            <CompareBitmap url="../Integration/baselines/$testID.png" target="pngImage" timeout="2000" />
+         </body>
+      </TestCase>
+      <TestCase testID="FXG_LuminosityMasks_withFilter" description="Set a luminosity mask on a graphical element with a Filter." keywords="[Ellipse, Rect, Masks, luminosity]">
+          <setup>
+              <ResetComponent target="basicRect" className="comps.RectBasic" waitTarget="basicRect" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityInvert" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="luminosityClip" value="false" />
+              <SetProperty target="basicRect.graphic1" propertyName="maskType" value="luminosity" />
+              <SetProperty target="basicRect.graphic1" propertyName="filters" valueExpression="value=[application.bevel1]" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+              <SetProperty target="basicRect.graphic1" propertyName="mask" valueExpression="value=application.ellipseMask11" waitTarget="basicRect.graphic1" waitEvent="updateComplete" />
+          </setup>
+          <body>
+              <CompareBitmap url="../Integration/baselines/$testID.png" target="basicRect" timeout="2000" />
+         </body>
+      </TestCase>
+</testCases>
+
+
+</UnitTester>

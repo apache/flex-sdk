@@ -1,0 +1,187 @@
+<UnitTester testDir="spark/collections/Sort/Styles/" testSWF="SF_locale_inheritance_app.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import flash.globalization.*;
+			import assets.newClasses.SFConstant;
+			
+			import spark.collections.Sort;
+		
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SF_locale_inheritance_default_sort_test_1" 
+				  description="the test case is for Checking default locale style inheritance" 
+				  keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <ResetComponent target="styleComp" 
+								className="assets.newClasses.SF_StyleComp" 
+								waitEvent="updateComplete" waitTarget="styleComp"/>
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.myAddressStrArr"/>
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="fr"/>
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort"/>
+            </setup>
+            <body>
+                <SetProperty target="" propertyName="appLocale" value="fr" />
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+				<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.styleComp.listValueField, application.styleComp.listDataProvider);" 
+					valueExpression="value=application.styleComp.flashSortedArray"/>
+                <AssertEvent target="styleComp.SFNoLocaleScriptSort" eventName="change" eventClass="flash.events::Event"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_locale_inheritance_default_sortfield_test_2" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <ResetComponent target="styleComp" className="assets.newClasses.SF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.myAddressStrArr"/>
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="en"/>
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort"/>
+            </setup>
+            <body>
+                <SetProperty target="" propertyName="appLocale" value="en" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+				<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.styleComp.listValueField, application.styleComp.listDataProvider);" 
+					valueExpression="value=application.styleComp.flashSortedArray"/>
+                <AssertEvent target="styleComp.SFNoLocaleScriptSort" eventName="change" eventClass="flash.events::Event"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="SF_locale_inheritance_default_sortfield_test_3" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+			<setup>
+				<ResetComponent target="styleComp" className="assets.newClasses.SF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+				
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.dataArrCollS"/>
+				<SetProperty target="styleComp" propertyName="listValueField" value="address"/>
+				
+				<SetProperty target="styleComp.SFNoLocaleScriptField" propertyName="name" value="address"/>
+				
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="fr"/>
+				<SetProperty target="styleComp.SFNoLocaleScriptSort" propertyName="fields" 
+							 valueExpression="value=[application.styleComp.SFNoLocaleScriptField]" />
+				
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort"/>
+			</setup>
+			<body>
+				<SetProperty target="" propertyName="appLocale" value="fr" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+				<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.styleComp.listValueField, application.styleComp.listDataProvider);" 
+					valueExpression="value=application.styleComp.flashSortedArray"/>
+				<AssertEvent target="styleComp.SFNoLocaleScriptField" eventName="change" eventClass="flash.events::Event"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SF_locale_inheritance_default_sortfield_test_4" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+			<setup>
+				<ResetComponent target="styleComp" className="assets.newClasses.SF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+				
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.dataArrCollS"/>
+				<SetProperty target="styleComp" propertyName="listValueField" value="address"/>
+				
+				<SetProperty target="styleComp.SFNoLocaleScriptField" propertyName="name" value="address"/>
+				
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="fr"/>
+				<SetProperty target="styleComp.SFNoLocaleScriptSort" propertyName="fields" 
+							 valueExpression="value=[application.styleComp.SFNoLocaleScriptField]" />
+				
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort"/>
+			</setup>
+			<body>
+				<SetProperty target="" propertyName="appLocale" value="fr" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+				<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.styleComp.listValueField, application.styleComp.listDataProvider);" 
+					valueExpression="value=application.styleComp.flashSortedArray"/>
+				<AssertEvent target="styleComp.SFNoLocaleScriptField" eventName="change" eventClass="flash.events::Event"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="SF_locale_inheritance_default_findItem_test_5" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <ResetComponent target="styleComp" className="assets.newClasses.SF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+                <SetProperty target="" propertyName="appLocale" value="fr" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.myAddressStrArr"/>
+				
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="fr"/>
+				<!--<SetProperty target="styleComp.SFNoLocaleScriptSort" propertyName="fields" 
+							 valueExpression="value=[application.styleComp.SFNoLocaleScriptField]" />-->
+				
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort" />
+				
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.styleComp.SFNoLocaleScriptSort.findItem(
+								   application.styleComp.listDataProvider.toArray(),
+								   'chquidae',
+								   Sort.FIRST_INDEX_MODE, false)" 
+								   value="3"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="SF_locale_inheritance_default_sort_test_6" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                
+                <ResetComponent target="styleComp" className="assets.newClasses.SF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+                <SetProperty target="" propertyName="appLocale" value="en-US" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.myAddressStrArr"/>
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="en-US"/>
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort"/>
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+            </setup>
+            <body>
+				<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.styleComp.listValueField, application.styleComp.listDataProvider);" 
+					valueExpression="value=application.styleComp.flashSortedArray"/>
+				
+            </body>
+        </TestCase>
+        <TestCase testID="SF_locale_inheritance_default_sort_test_7" description="the test case is for Checking default locale style inheritance" keywords="[CurrencyFormatter, locale, style inherit]">
+            <setup>
+                <ResetComponent target="styleComp" className="assets.newClasses.SF_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+                <SetProperty target="" propertyName="appLocale" value="en-GB" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				
+				<SetProperty target="styleComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.styleComp.dataComp.myAddressStrArr"/>
+				<SetProperty target="styleComp" propertyName="flashCollatorLocale" value="en-GB"/>
+				<SetProperty target="styleComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.styleComp.SFNoLocaleScriptSort"/>
+				<RunCode code="application.styleComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="styleComp.listDataProvider"/>
+            </setup>
+            <body>
+				<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.styleComp.listValueField, application.styleComp.listDataProvider);" 
+					valueExpression="value=application.styleComp.flashSortedArray"/>
+				
+            </body>
+        </TestCase>
+		
+    </testCases>
+</UnitTester>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/Resize/Events/"  
+    testSWF="../SWFs/Resize_Main.mxml" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Controls.*;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <testCases>
+        <TestCase testID="FxResize_Events_EffectStart" keywords="[Resize, Events, EffectStart]" description="Verify EffectStart is raised.">
+            <setup>
+                <RunCode code="application.testEffect.stop();"/>
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffect_By(application.testPanel, 50, 50, 250);" waitEvent="effectStart" waitTarget="testEffect" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxResize_Events_EffectEnd" keywords="[Resize, Events, EffectEnd]" description="Verify EffectEnd is raised.">
+            <setup>
+                <RunCode code="application.testEffect.stop();"/>
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffect_By(application.testPanel, 50, 50, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

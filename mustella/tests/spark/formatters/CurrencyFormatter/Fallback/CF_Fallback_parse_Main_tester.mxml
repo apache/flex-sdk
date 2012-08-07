@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_Fallback_parse_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.*;
+		
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+
+<testCases>
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test1" description="verify the parse result when input parse string '123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012').currencyString" 
+							   valueExpression="value=''"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012').value" 
+							   valueExpression="value=123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test2" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123,456,789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123,456,789.012').value" 
+							   valueExpression="value=123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test3" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="groupingSeparator" target="cf_inline" value="^^" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123^^456^^789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123^^456^^789.012').value" 
+							   valueExpression="value=123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test4" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="decimalSeparator" target="cf_inline" value="@@" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123,456,789@@012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123,456,789@@012').value" 
+							   valueExpression="value=123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test5" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="1" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('-$123,456,789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('-$123,456,789.012').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test6" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="2" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$-123,456,789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$-123,456,789.012').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test7" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="3" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123,456,789.012-').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$123,456,789.012-').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test8" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="4" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('(123,456,789.012$)').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('(123,456,789.012$)').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test9" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="5" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('-123,456,789.012$').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('-123,456,789.012$').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test10" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="6" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012-$').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012-$').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test11" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="7" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012$-').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012$-').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test12" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="8" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('-123,456,789.012 $').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('-123,456,789.012 $').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test13" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="9" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('-$ 123,456,789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('-$ 123,456,789.012').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test14" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="10" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012 $-').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012 $-').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test15" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="11" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$ 123,456,789.012-').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$ 123,456,789.012-').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test16" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="12" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('$ -123,456,789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('$ -123,456,789.012').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test17" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="13" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012- $').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('123,456,789.012- $').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test18" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="14" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('($ 123,456,789.012)').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('($ 123,456,789.012)').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_declarations_test19" description="verify the parse result when input parse string 'Dollar 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf_inline" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf_inline.initialized(null,'cf_inline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="negativeCurrencyFormat" target="cf_inline" value="15" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf_inline.parse('(123,456,789.012 $)').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf_inline.parse('(123,456,789.012 $)').value" 
+							   valueExpression="value=-123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_script_test20" description="verify the parse result when input parse string '- USD 123,456,789.012'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf.parse('$123,456,789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf.parse('$123,456,789.012').value" 
+							   valueExpression="value=123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_valid_script_test21" description="verify the parse result when input parse string '123;456;789.456CNY'" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			
+			<SetProperty propertyName="groupingSeparator" target="cf" value=";" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf.parse('$123;456;789.012').currencyString" 
+							   valueExpression="value='$'"/>
+			<AssertMethodValue method="value=application.cf.parse('$123;456;789.012').value" 
+							   valueExpression="value=123456789.012"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.noErrorMsg"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CF_Fallback_format_parse_invalid_script_test22" description="verify the parse result when input parse string to a invalid string" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cf" className="assets.FallbackCF"/> 
+			<RunCode code="application.cf.initialized(null,'cf')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf.parse('invalid').currencyString" 
+							   valueExpression="value=''"/>
+			<AssertMethodValue method="value=application.cf.parse('invalid').value" 
+							   valueExpression="value=Number.NaN"/>
+			<AssertMethodValue method="value=application.cf.lastOperationStatus" 
+							   valueExpression="value=CFConstant.parseErrorMsg"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+</UnitTester>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		.styleInComponent {
+			locale:'ru-RU';
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			
+			public function get actualLocaleIDName():String
+			{
+				return componentCLT.actualLocaleIDName;
+			}
+			
+			public function get actualLocaleIDNameStyle():String
+			{
+				return componentCLTStyle.actualLocaleIDName;
+			}
+			
+			
+			public function set locale(newValue:*):void
+			{
+				componentCLT.setStyle('locale',newValue);
+			}
+			
+			public function get ignoreCase():Boolean
+			{
+				return componentCLT.ignoreCase;
+			}
+			
+			public function set ignoreCase(value:Boolean):void
+			{
+				componentCLT.ignoreCase=value;
+			}
+			
+			public function get ignoreCharacterWidth():Boolean
+			{
+				return componentCLT.ignoreCharacterWidth;
+			}
+			
+			public function set ignoreCharacterWidth(value:Boolean):void
+			{
+				componentCLT.ignoreCharacterWidth=value;
+			}
+			
+			public function get ignoreDiacritics():Boolean
+			{
+				return componentCLT.ignoreDiacritics;
+			}
+			
+			public function set ignoreDiacritics(value:Boolean):void
+			{
+				componentCLT.ignoreDiacritics=value;
+			}
+			
+			public function get ignoreKanaType():Boolean
+			{
+				return componentCLT.ignoreKanaType;
+			}
+			
+			public function set ignoreKanaType(value:Boolean):void
+			{
+				componentCLT.ignoreKanaType=value;
+			}
+			
+			public function get ignoreSymbols():Boolean
+			{
+				return componentCLT.ignoreSymbols;
+			}
+			
+			public function set ignoreSymbols(value:Boolean):void
+			{
+				componentCLT.ignoreSymbols=value;
+			}
+			
+			/* commented for redesing reason
+			public function set enforceFallback(value:Boolean):void
+			{
+			componentCLT.enforceFallback=value;
+			}
+			
+			public function get enforceFallback():Boolean
+			{
+			return componentCLT.enforceFallback;
+			}
+			
+			public function get useFallback():Boolean
+			{
+			return componentCLT.useFallback;
+			}
+			*/
+			
+/* 			public function set initialMode(value:String):void
+			{
+				componentCLT.initialMode=value;
+			}
+			
+			public function get initialMode():String
+			{
+				return componentCLT.initialMode;
+			} */
+			
+			public function set numericComparison(value:Boolean):void
+			{
+				componentCLT.numericComparison=value;
+			}
+			
+			public function get numericComparison():Boolean
+			{
+				return componentCLT.numericComparison;
+			}
+			
+			public function get lastOperationStatus():String
+			{
+				return componentCLT.lastOperationStatus;
+			}
+			
+			public function get lastOperationStatusStyle():String
+			{
+				return componentCLTStyle.lastOperationStatus;
+			}
+			
+			public function compare(str1:String,str2:String):int
+			{
+				return componentCLT.compare(str1,str2);
+			}
+			
+			public function equals(str1:String,str2:String):Boolean
+			{
+				return componentCLT.equals(str1,str2);
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:SortingCollator id="componentCLT"/>
+		<s:SortingCollator id="componentCLTStyle" styleName="styleInComponent"/>
+	</fx:Declarations>
+	
+</s:Group>

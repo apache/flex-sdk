@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/CallAction/usability/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/CallAction_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.Application;
+        import spark.effects.CallAction;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+
+    <testCases>
+
+        <!-- CallAction works as a single simple effect -->
+        <TestCase testID="CallAction_Simple" keywords="[CallAction, usability]" description="Verify callFunctionAction works as expected.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp1.play()" waitTarget="tp1" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- CallAction works in a sequence -->
+        <TestCase testID="CallAction_Sequence" keywords="[CallAction, usability]" description="Verify callFunctionAction works in a sequence.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp2.play()" waitTarget="tp2" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- CallAction works in a parallel -->
+        <TestCase testID="CallAction_Parallel" keywords="[CallAction, usability]" description="Verify callFunctionAction works in a parallel.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp3.play()" waitTarget="tp3" waitEvent="effectEnd"/>
+                <AssertPropertyValue propertyName="WasCalled" value="true"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="800" height="600" backgroundColor="#ffffff">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face{
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		fontFamily: myArial;
+		embedAsCFF: true;
+		}
+
+
+		@font-face{
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: myArial;
+		embedAsCFF: true;
+		}
+
+		@font-face{
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: myArial;
+		embedAsCFF: true;
+
+		}
+
+		s|Button{
+		fontAntiAliasType: "normal";
+		fontFamily: myArial;
+		fontSize: 12;
+		fontLookup: "embeddedCFF";
+		}
+	</fx:Style>
+	
+	<s:transitions>
+		<s:Transition fromState="Page1" toState="Page2">
+			<s:Parallel>
+				<s:Parallel id="p1" target="{tranButton}">
+					<s:Move xBy="100"/>
+					<s:Rotate3D angleZFrom="0" angleZTo="360"/>
+				</s:Parallel>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+
+	<s:states>
+		<s:State name="Page1"/>
+		<s:State name="Page2"/>
+	</s:states>
+
+	<s:Button id="tranButton" label="Trans" x="50" y="50" click="(currentState=='Page2')?(currentState='Page1'):(currentState='Page2')" />
+	<s:Button id="playButton" label="Play" x="50" y="100" click="p1.play()" />
+
+</s:Application>
+

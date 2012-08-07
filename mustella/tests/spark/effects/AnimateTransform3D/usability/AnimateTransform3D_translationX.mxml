@@ -1,0 +1,97 @@
+﻿<UnitTester
+    testSWF="../SWFs/AnimateTransform3D_translationX_main.mxml"
+    testDir="spark/effects/AnimateTransform3D/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase 
+            testID="AnimateTransform3D_translationX_act1_alp0_acp0" 
+            description="Set and apply translationX."
+            keywords="[AnimateTransform3D]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_translationX" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at.applyLocalProjection = false"/>
+                <RunCode code="application.at.autoCenterProjection = false"/>
+                <RunCode code="application.at_mp.property = 'translationX'"/>
+                <RunCode code="application.at_mp.valueFrom = 0"/>
+                <RunCode code="application.at_mp.valueTo = 50"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.x" value="50"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="AnimateTransform3D_translationX_act1_alp0_acp1"
+            description="Set and apply translationX."
+            keywords="[AnimateTransform3D]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_translationX" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at.applyLocalProjection = false"/>
+                <RunCode code="application.at.autoCenterProjection = true"/>
+                <RunCode code="application.at_mp.property = 'translationX'"/>
+                <RunCode code="application.at_mp.valueFrom = 0"/>
+                <RunCode code="application.at_mp.valueTo = 50"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.x" value="50"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="AnimateTransform3D_translationX_act1_alp1_acp0"
+            description="Set and apply translationX."
+            keywords="[AnimateTransform3D]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_translationX" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at.applyLocalProjection = true"/>
+                <RunCode code="application.at.autoCenterProjection = false"/>
+                <RunCode code="application.at_mp.property = 'translationX'"/>
+                <RunCode code="application.at_mp.valueFrom = 0"/>
+                <RunCode code="application.at_mp.valueTo = 50"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.x" value="50"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AnimateTransform3D_translationX_act1_alp1_acp1"
+        description="Set and apply translationX."
+        keywords="[AnimateTransform3D]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_translationX" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at.applyLocalProjection = true"/>
+                <RunCode code="application.at.autoCenterProjection = true"/>
+                <RunCode code="application.at_mp.property = 'translationX'"/>
+                <RunCode code="application.at_mp.valueFrom = 0"/>
+                <RunCode code="application.at_mp.valueTo = 50"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.x" value="50"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

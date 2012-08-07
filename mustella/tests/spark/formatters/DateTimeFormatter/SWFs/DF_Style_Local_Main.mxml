@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		global {
+			locale: 'ja_JP'
+		}
+		.myStyle {
+			locale:'ru_RU';
+		}	
+		#dtfIDSelector{
+			locale:'fr-CA';
+		}
+		#dtfDocProperties{
+			locale:PropertyReference("myLocale");
+		}
+	</fx:Style>
+	
+	<!--Verify whether the locale defined by document properties has set correctly-->
+	<!--<s:Label text="{myLocale.toString()}"/>-->
+	<fx:Declarations>
+	<!--Define the locale for testing Document Properties -->
+	<fx:String id="myLocale">fr-CA</fx:String>
+		
+	<!-- this DateTimeFormatter has a style defined by ID Selector -->
+	<s:DateTimeFormatter id="dtfIDSelector"/>
+		
+	<!-- this is for document properties-->
+	<s:DateTimeFormatter id="dtfDocProperties"/>
+		
+	<!-- set up some  global style for DataTimeFormatter -->
+	<s:DateTimeFormatter id="dfGlobalStyleDShort" dateStyle="short" />
+	<s:DateTimeFormatter id="dfGlobalStyleDLong" dateStyle="long" />
+	<s:DateTimeFormatter id="dfGlobalStyleDNone" dateStyle="none" />
+	<s:DateTimeFormatter id="dfGlobalStyleDMedium" dateStyle="medium" />
+	<s:DateTimeFormatter id="dfGlobalStyleTLong" timeStyle="long" />
+	<s:DateTimeFormatter id="dfGlobalStyleTNone" timeStyle="none" />
+	<s:DateTimeFormatter id="dfGlobalStyleTShort" timeStyle="short" />
+	<s:DateTimeFormatter id="dfGlobalStyleTMedium" timeStyle="medium" />
+		
+	<!-- Set up some local style for DataTimeFormatter -->
+	<!-- This local defined style is for class -->
+	<s:DateTimeFormatter id="dfLocalStyleDShort" styleName="myStyle" dateStyle="short" />
+	<s:DateTimeFormatter id="dfLocalStyleDLong" styleName="myStyle" dateStyle="long" />
+	<s:DateTimeFormatter id="dfLocalStyleDNone" styleName="myStyle" dateStyle="none" />
+	<s:DateTimeFormatter id="dfLocalStyleDMedium" styleName="myStyle" dateStyle="medium" />
+	<s:DateTimeFormatter id="dfLocalStyleTLong" styleName="myStyle" timeStyle="long" />
+	<s:DateTimeFormatter id="dfLocalStyleTNone" styleName="myStyle" timeStyle="none" />
+	<s:DateTimeFormatter id="dfLocalStyleTShort" styleName="myStyle" timeStyle="short" />
+	<s:DateTimeFormatter id="dfLocalStyleTMedium" styleName="myStyle" timeStyle="medium" />
+		
+	<!-- Set up some local style for DateTimeFormatter , for example : 
+	  <fx:style>
+	  s|DateTimeFormatter {
+			local="en_US" ; 
+	   }
+	  </fx:style>
+	-->
+	<!-- We move testcase to another file because this may affect all DateTimeFormatter  -->
+		
+	</fx:Declarations>
+	
+</s:Application>

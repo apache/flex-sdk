@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="CF_externalStyle.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import flash.globalization.CurrencyFormatter;
+			import assets.CFConstant;
+			
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void 
+			{
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<!--This test file is to test whether CurrencyFormatter can load style from an external css style file.
+	Here include three ways of css defination: class selector, type selector and id selector  -->	
+	<testCases>
+		
+		<!--Test case for typeSelector -->
+		<TestCase testID="CF_externalStyle_typeSelector_test1" description="Test case for typeSelector" keywords="[CurrencyFormatter, external style]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh_TW')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfTypeSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfTypeSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+		<!-- Test case for IdSelector -->
+		<TestCase testID="CF_externalStyle_IdSelector_test2" description="Test case for IdSelector" keywords="[CurrencyFormatter, external style]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ru-RU')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfIdSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfIdSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+		<!-- Test case for classSelector -->
+		<TestCase testID="CF_externalStyle_classSelector_test3" description="Test case for classSelector" keywords="[CurrencyFormatter, external style]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfClassSelectorExt" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfClassSelectorExt" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+		<!--Test local defined style has higher priority than external when it has cocfliction -->
+		<TestCase testID="CF_externalStyle_priority_test4" description="Test local defined style has higher priority than external when it has cocfliction" keywords="[CurrencyFormatter, external style]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ru_RU')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfClassSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="cfClassSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+	</testCases>
+	
+</UnitTester>

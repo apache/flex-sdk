@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/Linear/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Linear_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.Linear;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+
+        <TestCase testID="Linear_ease_OneTenth" keywords="[Linear, method, ease]" description="Test the return value of the ease function at 1/10.">
+            <body>
+                <AssertMethodValue method="value=application.foo.ease(.1)" value=".1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Linear_ease_OneHalf" keywords="[Linear, method, ease]" description="Test the return value of the ease function at 1/2.">
+            <body>
+                <AssertMethodValue method="value=application.foo.ease(.5)" value=".5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Linear_ease_NineTenths" keywords="[Linear, method, ease]" description="Test the return value of the ease function at 9/10.">
+            <body>
+                <AssertMethodValue method="value=application.foo.ease(.9)" value=".9" />
+            </body>
+        </TestCase>        
+    </testCases>
+
+</UnitTester>

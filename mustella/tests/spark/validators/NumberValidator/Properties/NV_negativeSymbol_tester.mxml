@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_negativeSymbol_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<testCases>
+		<TestCase testID="NV_negativeSymbol_default_test1" description="the test case is for test default negativeSymbol" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeSymbol_default_script_test2" description="the test case is for test default negativeSymbol" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja-JP')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			</body>
+		</TestCase>
+		<!--Due to negativeSymbol is a read only property here, will not test changing value of it. Only test it can be bindable for label-->
+		<TestCase testID="NV_negativeSymbol_binding_test3" description="Binding property by lable text" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-LB')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvBinding" styleName="locale" value="ar-LB" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.negativeSymbol" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeSymbol_binding_script_test4" description="Binding property by lable text" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-YE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScriptBinding" styleName="locale" value="ar-YE" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.negativeSymbol" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeSymbol_function_test5" description="Test function with property negativeSymbol" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-12;345,6" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeSymbol_function_script_test6" description="Test function with property negativeSymbol" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="decimalSeparator" value="*"  waitEvent="change"/>
+				<SetProperty target="nvScriptFunction3" propertyName="groupingSeparator" value="," waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="cy-GB" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-8,61,45,67*89" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeSymbol_getterWithoutLocale_test7" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<SetStyle target="nvGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="negativeSymbol" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeSymbol_getterWithoutLocale_script_test8" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, negativeSymbol]">
+			<setup>
+				<SetStyle target="nvScriptGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="negativeSymbol" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

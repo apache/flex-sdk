@@ -1,0 +1,35 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SDK_21435.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21435" 
+            keywords="[VideoPlayer]" 
+            description="Calling Pause() With Null Source Throws RTE.">
+            <!--bugs>
+                <Bug bugID="SDK-21435"/>
+            </bugs-->
+            <body>
+                <DispatchMouseClickEvent target="bt3" localX="5" localY="5" />
+                <Pause timeout="1000"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,356 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_PWH_DesignLayer.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_Default"
+        description="Test the default value of the pauseWhenHidden property is true."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testComp.testPlayer.pauseWhenHidden" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayTrue1"
+        description="Test the pauseWhenHidden property when autoPlay is true: hide video - video pauses."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+            </setup>
+            <body>
+		<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+		<Pause timeout="1000"/>
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayTrue2"
+        description="Test the pauseWhenHidden property when autoPlay is true: hide video, show video - resumes playing at same spot."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange" timeout="9000"/>
+            </setup>
+            <body>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+                <Pause timeout="5000"/>
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayTrue3"
+        description="Test the pauseWhenHidden property when autoPlay is true: pause video, hide video - video stays paused."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.pause()"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayTrue4"
+        description="Test the pauseWhenHidden property when autoPlay is true: pause video, hide video, show video - video plays"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.pause()"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+		<Pause timeout="4000"/>
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayFalse1"
+        description="Test the pauseWhenHidden property when autoPlay is false: hide video - video doesn't play"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+               	<RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+               	<Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="autoPlay" value="false"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayFalse2"
+        description="Test the pauseWhenHidden property when autoPlay is false: hide video, show video - video doesn't play"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+               	<RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+               	<Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="autoPlay" value="false"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+                <SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayFalse3"
+        description="Test the pauseWhenHidden property when autoPlay is false: play video, hide video - pauses video"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+               	<RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+               	<Pause timeout="5000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.play()"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<Pause timeout="2000"/>
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenT_autoPlayFalse4"
+        description="Test the pauseWhenHidden property when autoPlay is false: play video, hide video, show video -  remains paused at same spot"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+		<RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+               	<RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+               	<Pause timeout="5000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.play()"/>
+            	<Pause timeout="1000"/>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<Pause timeout="1000"/>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+		<Pause timeout="1000"/>
+             	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+	<TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayTrue1"
+        description="Test the pauseWhenHidden (False) property when autoPlay is true: hide video - video keeps playing."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange" timeout="9000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayTrue2"
+        description="Test the pauseWhenHidden (False) property when autoPlay is true: hide video, show video - video keeps playing."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange" timeout="9000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayTrue3"
+        description="Test the pauseWhenHidden (False) property when autoPlay is true: pause video, hide video - video is paused."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange" timeout="9000"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.pause()"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayTrue4"
+        description="Test the pauseWhenHidden (False) property when autoPlay is true: pause video, hide video, show video - video is paused"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.pause()"/>
+		<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+		<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayTrue5"
+        description="Test the pauseWhenHidden (False) property when autoPlay is true: stop video, hide video - video is stopped."
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.stop()"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayTrue6"
+        description="Test the pauseWhenHidden (False) property when autoPlay is true: stop video, hide video, show video - video is stopped"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=application.testComp.testPlayer.stop()"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayFalse1"
+        description="Test the pauseWhenHidden (False) property when autoPlay is false: hide video - video doesn't play"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayFalse2"
+        description="Test the pauseWhenHidden (False) property when autoPlay is false: hide video, show video - video doesn't play"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<Pause timeout="500"/>
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayFalse3"
+        description="Test the pauseWhenHidden (False) property when autoPlay is false: play video, hide video - video plays"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<RunCode code="application.testComp.testPlayer.play()" waitTarget="testComp.testPlayer" waitEvent="currentTimeChange"/>
+            	<Pause timeout="2000"/>
+            	<AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<Pause timeout="1000"/>
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_designLayer_pauseWhenHiddenF_autoPlayFalse4"
+        description="Test the pauseWhenHidden (False) property when autoPlay is false: play video, hide video, show video - video keeps playing"
+        keywords="[VideoPlayer, pauseWhenHidden]">
+            <setup>
+                <ResetComponent target="testComp" className="asset.VP_DesignLayer" waitTarget="testComp" waitEvent="updateComplete"/>
+                <RunCode code="application.testComp.testPlayer.pauseWhenHidden = false"/>
+                <RunCode code="application.testComp.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testComp.testPlayer.source = application.progressiveVideoSRC" waitTarget="testComp.testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+            	<RunCode code="application.testComp.testPlayer.play()" waitTarget="testComp.testPlayer" waitEvent="currentTimeChange"/>
+            	<Pause timeout="3000"/>
+            	<SetProperty target="testComp" propertyName="currentState" value="videoGone" waitTarget="testComp" waitEvent="currentStateChange" />
+            	<SetProperty target="testComp" propertyName="currentState" value="videoPresent" waitTarget="testComp" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="testComp.testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Others/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_ModuleUsage.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import flash.globalization.CurrencyFormatter;
+			import flash.globalization.NationalDigitsType;
+			import assets.CFConstant;
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- tests property and method of Module Usage -->
+	<testCases>
+		<!--test inherited public properties of cf with module usage-->
+		<TestCase testID="CF_ModuleUsage_setProperty_decimalSeparator_space_test1" description="test properties of cf with module usage" keywords="[CurrencyFormatter, Module]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+				<ResetComponent target="CFModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.addModuleLoaderListener()" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.decimalSeparator=' '"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="CFModule" waitEvent="ready"/>
+				<SetProperty target="CFModule.child" propertyName="decimalSeparator" value=" "/>
+				<Pause timeout="{CFConstant.pauseTime}"/>			
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFModule.child" propertyName="decimalSeparator" valueExpression="value=cfGSLib.decimalSeparator"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<DispatchMouseClickEvent target="btUnload" waitTarget="CFModule" waitEvent="unload"/>
+			</body>
+		</TestCase>
+		
+		<!--test inherited public properties of cf with module usage-->
+		<TestCase testID="CF_ModuleUsage_setProperty_digitsType_ARABIC_INDIC_test2" description="test properties of cf with module usage" keywords="[CurrencyFormatter, Module]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+				<ResetComponent target="CFModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.addModuleLoaderListener()" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.digitsType=NationalDigitsType.ARABIC_INDIC"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="CFModule" waitEvent="ready"/>
+				<SetProperty target="CFModule.child" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" />
+				<Pause timeout="{CFConstant.pauseTime}"/>			
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFModule.child" propertyName="digitsType" valueExpression="value=cfGSLib.digitsType"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<DispatchMouseClickEvent target="btUnload" waitTarget="CFModule" waitEvent="unload"/>
+			</body>
+		</TestCase>
+
+		<!--test properties of cf with module usage-->
+		<TestCase testID="CF_ModuleUsage_setLocale_ar_JO_test3" description="test properties of cf with module usage" keywords="[CurrencyFormatter, Module]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+				<ResetComponent target="CFModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.addModuleLoaderListener()" />
+				<DispatchMouseClickEvent target="btLoad" waitTarget="CFModule" waitEvent="ready"/>
+				<SetProperty target="CFModule.child" propertyName="locale" value="ar-JO"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFModule.child" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<DispatchMouseClickEvent target="btUnload" waitTarget="CFModule" waitEvent="unload"/>
+			</body>
+		</TestCase>
+		
+		<!--test properties of cf with module usage-->
+		<TestCase testID="CF_ModuleUsage_setProperties_currencyISOCode_USD_currencySymbol_USDollar_test4" description="test properties of cf with module usage" keywords="[CurrencyFormatter, Module]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.setCurrency('USD','$')"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				
+				<ResetComponent target="CFModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.addModuleLoaderListener()" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				
+				<DispatchMouseClickEvent target="btLoad" waitTarget="CFModule" waitEvent="ready"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetProperty target="CFModule.child" propertyName="currencyISOCode" value="USD"/>
+				<SetProperty target="CFModule.child" propertyName="currencySymbol" valueExpression="value='$'"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFModule.child" propertyName="currencyISOCode" valueExpression="value=cfGSLib.currencyISOCode"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="currencySymbol" valueExpression="value=cfGSLib.currencySymbol"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+				<AssertMethodValue method="value=application.CFModule.child.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<DispatchMouseClickEvent target="btUnload" waitTarget="CFModule" waitEvent="unload"/>
+			</body>
+		</TestCase>
+
+		<!--test properties of cf with module usage-->
+		<TestCase testID="CF_ModuleUsage_setProperties_negativeCurrencyFormat_11_positiveCurrencyFormat_2_test5" description="test properties of cf with module usage" keywords="[CurrencyFormatter, Module]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+				<ResetComponent target="CFModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.addModuleLoaderListener()" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.negativeCurrencyFormat=11" />
+				<RunCode code="cfGSLib.positiveCurrencyFormat=2" />
+				<DispatchMouseClickEvent target="btLoad" waitTarget="CFModule" waitEvent="ready"/>
+				<SetProperty target="CFModule.child" propertyName="negativeCurrencyFormat" valueExpression="value=11"/>
+				<SetProperty target="CFModule.child" propertyName="positiveCurrencyFormat" valueExpression="value=2"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFModule.child" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<DispatchMouseClickEvent target="btUnload" waitTarget="CFModule" waitEvent="unload"/>
+			</body>
+		</TestCase>	
+
+		<!--test properties of cf with module usage-->
+		<TestCase testID="CF_ModuleUsage_setProperty_useCurrencySymbol_false_test6" description="test properties of cf with module usage" keywords="[CurrencyFormatter, Module]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+				<ResetComponent target="CFModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.addModuleLoaderListener()" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="CFModule" waitEvent="ready"/>
+				<SetProperty target="CFModule.child" propertyName="useCurrencySymbol" valueExpression="value=false"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="CFModule.child" propertyName="useCurrencySymbol" valueExpression="value=false"/>
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+				<AssertMethodValue method="value=application.CFModule.child.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<AssertMethodValue method="value=application.CFModule.child.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+				<AssertPropertyValue target="CFModule.child" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+				<DispatchMouseClickEvent target="btUnload" waitTarget="CFModule" waitEvent="unload"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

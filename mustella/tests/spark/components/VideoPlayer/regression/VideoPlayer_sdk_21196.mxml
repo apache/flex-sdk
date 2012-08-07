@@ -1,0 +1,39 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SDK_21196.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21196" 
+            keywords="[VideoPlayer]" 
+            description="VideoElement isnt measuring correctly when setting alpha between 0.1 and 0.9.">
+            <!--bugs>
+                <Bug bugID="SDK-21196"/>
+            </bugs-->
+            <setup>
+                <Pause timeout="1000" reason="Wait for Video to load."/>
+                <RunCode code="application.slider.value = .5"/>
+				<Pause timeout="1000" reason="Wait for size changes to happen."/>
+			</setup>
+            <body>
+                <AssertMethodValue method="value=application.testElement.height.toString()" value="213"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

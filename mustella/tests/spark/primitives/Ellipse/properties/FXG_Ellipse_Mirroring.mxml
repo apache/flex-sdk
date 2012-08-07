@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Ellipse/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Ellipse_Mirroring_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.EllipseBasic;
+       import mx.graphics.*;
+       import spark.primitives.*;
+       import spark.components.Group;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+        public function addLinearGradient(target:Ellipse): void
+        {
+             var myFill:LinearGradient = new LinearGradient();
+
+             var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+             var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+             var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+
+             myFill.entries = [g1,g2,g3];
+             myFill.rotation = 240;
+             target.fill = myFill;
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+
+        <!-- stroke property -->
+        <TestCase testID="FXG_Ellipse_layoutDirectionRTL_addBasicSolidColorStroke" description="Add a stroke to an Ellipse at runtime" keywords="[Ellipse, Mirroring, layoutDirection, stroke, Graphic]">
+             <setup>
+                <ResetComponent target="graphic1" className="comps.EllipseBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.graphic1.ellipse1.stroke = new SolidColorStroke(0xFF0000, 2)" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" timeout="2000" />
+            </body>
+        </TestCase>
+
+        <!-- stroke property -->
+        <TestCase testID="FXG_Ellipse_layoutDirectionRTL_addGradientFill" description="Add a stroke to an Ellipse at runtime" keywords="[Ellipse, Mirroring, layoutDirection, stroke, Graphic]">
+             <setup>
+                <ResetComponent target="graphic1" className="comps.EllipseBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="addLinearGradient(application.graphic1.ellipse1)" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" timeout="2000" />
+            </body>
+        </TestCase>
+
+  
+        <TestCase testID="FXG_Ellipse_layoutDirectionRTL_LinearGradientStroke_xy_20_0" description="Ellipse with a LinearGradientStroke and and (x,y)=(20,0)" keywords="[Line, LinearGradientStroke, caps]">
+             <setup>
+                <ResetComponent target="ellipse_linearGradientStroke" className="comps.EllipseGradientStroke" waitTarget="ellipse_linearGradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ellipse_linearGradientStroke.ellipse1" propertyName="x" value="20" waitTarget="ellipse_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_linearGradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Ellipse_layoutDirectionRTL_LinearGradientStroke_xy_fillRotation" description="Ellipse with a LinearGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
+             <setup>
+                <ResetComponent target="ellipse_linearGradientStroke" className="comps.EllipseGradientStroke" waitTarget="ellipse_linearGradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ellipse_linearGradientStroke.ellipse1" propertyName="x" value="20" />
+                <SetProperty target="ellipse_linearGradientStroke.ellipse1" propertyName="y" value="20" />
+                <SetProperty target="ellipse_linearGradientStroke.ellipse1.fill" propertyName="rotation" value="45" waitTarget="ellipse_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_linearGradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_Ellipse_layoutDirectionRTL_RadialGradientStroke_xy_0_20" description="Ellipse with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
+             <setup>
+                <ResetComponent target="ellipse_radialGradientStroke" className="comps.EllipseRadialGradientStroke" waitTarget="ellipse_radialGradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ellipse_radialGradientStroke.ellipse1" propertyName="y" value="20" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+      
+        <TestCase testID="FXG_Ellipse_layoutDirectionRTL_RadialGradientStroke_strokeY" description="Ellipse with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
+             <setup>
+                <ResetComponent target="ellipse_radialGradientStroke" className="comps.EllipseRadialGradientStroke" waitTarget="ellipse_radialGradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ellipse_radialGradientStroke.ellipse1.stroke" propertyName="y" value="30" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+   
+    </testCases>
+
+</UnitTester>

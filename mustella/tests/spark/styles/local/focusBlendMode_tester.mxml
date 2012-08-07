@@ -1,0 +1,326 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="focusBlendMode_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+   <fx:Style>
+   		.blendModeStyle{
+   			focusBlendMode: "lighten";
+   		}
+   	</fx:Style>
+    <testCases>
+	
+		<!-- ***************-->
+		<!-- focusBlendMode -->
+		<!-- ***************-->
+		
+		<TestCase testID="focusBlendMode_mxml" keywords="[focusBlendMode]" description="Set focusBlendMode in mxml">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.ADD}" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="focusBlendMode_change_runtime_DARKEN" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.DARKEN}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.DARKEN}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_change_runtime_DIFFERENCE" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.DIFFERENCE}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.DIFFERENCE}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="focusBlendMode_change_runtime_HARDLIGHT" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.HARDLIGHT}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.HARDLIGHT}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_INVERT" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.INVERT}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.INVERT}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_change_runtime_LAYER" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.LAYER}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.LAYER}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+<!-- Exclude test due to intermittent differences in timing
+		<TestCase testID="focusBlendMode_change_runtime_LIGHTEN" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.LIGHTEN}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.LIGHTEN}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+-->
+		<TestCase testID="focusBlendMode_change_runtime_MULTIPLY" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.MULTIPLY}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.MULTIPLY}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_change_runtime_OVERLAY" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.OVERLAY}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.OVERLAY}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="focusBlendMode_change_runtime_SCREEN" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.SCREEN}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.SCREEN}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_change_runtime_SUBTRACT" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.SUBTRACT}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.SUBTRACT}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="focusBlendMode_cornerRadius" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.ADD}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_DARKEN" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.DARKEN}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.DARKEN}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_DIFFERENCE" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.DIFFERENCE}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.DIFFERENCE}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_HARDLIGHT" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.HARDLIGHT}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.HARDLIGHT}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_INVERT" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.INVERT}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.INVERT}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_LAYER" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.LAYER}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.LAYER}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_MULTIPLY" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.MULTIPLY}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.MULTIPLY}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_OVERLAY" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.OVERLAY}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.OVERLAY}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_SCREEN" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.SCREEN}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.SCREEN}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_runtime_cornerRadius_SUBTRACT" keywords="[focusBlendMode]" description="Test changing focusBlendMode at runtime">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" value="8" target="fi.btnBlend"/>
+				<SetStyle styleName="focusBlendMode" value="{BlendMode.SUBTRACT}" target="fi.btnBlend"  waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="focusBlendMode" target="fi.btnBlend" value="{BlendMode.SUBTRACT}"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="updateComplete" waitTarget="fi.btnBlend"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusBlendMode_change_state" keywords="[focusAlpha, style]" description="Test setting focusAlpha gets updated in different states">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="fi" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnBlend"/>
+				<Pause timeout="1000"/>
+				<AssertStyleValue styleName="focusBlendMode" value="{BlendMode.SCREEN}" target="fi.btnBlend" />
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusBlendMode_change_state_back_default" keywords="[focusAlpha, style]" description="Test setting focusAlpha gets updated in different states">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusBlend" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="fi" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnBlend"/>
+				<Pause timeout="1000"/>
+				<AssertStyleValue styleName="focusBlendMode" value="{BlendMode.SCREEN}" target="fi.btnBlend" />
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID_1.png" />
+
+				<SetProperty propertyName="currentState" value="defaultState" target="fi" waitEvent="currentStateChange"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" shiftKey="true" waitTarget="fi.btnBlend"/>
+				<Pause timeout="1000"/>
+				<CompareBitmap target="fi.blendGrp" url="../local/baselines/$testID_2.png" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

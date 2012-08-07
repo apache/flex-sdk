@@ -1,0 +1,35 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_22302.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_22302" 
+			keywords="[SDK_22302]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-22302">
+			<!--bugs>
+				<Bug bugID="SDK-22302"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.seqS3.playheadTime = 800" />
+				<Pause timeout="500"/>
+				<AssertMethodValue method="value=application.s3.postLayoutTransformOffsets.rotationZ" value="235.623059"/>
+				<AssertMethodValue method="value=application.s3.filters != null" value="true"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

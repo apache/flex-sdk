@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="SF_sortMethod.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			//import flash.globalization.*;
+			import assets.*;
+			import assets.newClasses.SFConstant;
+			import assets.newClasses.SFCommon ;
+			
+			import newComps.*;
+			
+			import spark.collections.*;
+			
+			public var simpleSortedNum:String = "-10.8*-1*0*1.1*2*3*5*5.3*6.34*9*10.2*999*" ;
+			public var simpleSortedDate:String = "Thu Mar 8 00:00:00 GMT+0800 1928*Sat Mar 8 00:00:00 GMT+0800 2008*Mon Oct 12 00:00:00 GMT+0800 2009*Wed Sep 8 00:00:00 GMT+0800 2010*" ; 
+			public var simpleSortedBool:String = "false*false*false*true*true*" ;
+			public var simpleSortedStr:String = "a*a*a*A*A*a1*a1*aa*aa1*B*C*D*E*F*G*H*I*J*K*L*M*N*null*null*null*null*O*P*Q*R*Ra*S*sa*T*U*V*W*X*Y*Z*" ; 
+			
+			public var myCompareSorttedStr:String = "TJ\nBo\nMoe\nTed\nIzzy\nImari\nDanny\nUmbra\nMolly\nDaisy\nBunny\nbarmen\nChumley\nMatisse\ncadbury\n" ; 
+			
+			public  var sorttedNonIdentArr:String = "a\nAA\nAB\nb\nBC\ndH\ni\nP\n" ;
+			public  var sorttedIdentArr:String = "a\nAA\nAB\nAB\nb\nb\n\BC\ndH\ni\nP\n"  ;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		
+		<!-- When sort.field is null , sort can only work for Number, String, boolean, date, and xml --> 
+		<TestCase testID="Sort_method_sort_with_default_num_array_test1" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleNum" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_simple_array()" valueExpression="value=simpleSortedNum"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Sort_method_sort_with_default_date_array_test2" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleDate" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_simple_array()" valueExpression="value=application.uiCustomSortMComp.dateSortedAry"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_default_string_array_test3" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleStr" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_simple_array()" valueExpression="value=simpleSortedStr"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_default_boolean_array_test4" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleBool" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_simple_array()" valueExpression="value=simpleSortedBool"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_default_xml_object_array_test5" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, default, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleXML" waitEvent="updateComplete"/>
+				<SetProperty target="uiCustomSortMComp.mySortField" propertyName="name" value="name"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortField]"/>
+							
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_xmlListCollection(application.uiCustomSortMComp.mySort)" 
+								   valueExpression="value=application.uiCustomSortMComp.getSorttedSimpleXML( )" />
+			</body>
+		</TestCase>
+		
+		
+		<!-- Define sort field and call sort method to an Arraycollection -->
+		<TestCase testID="Sort_method_sort_with_field_multi_field_AC_test6" 
+				  description="Testing sort method when setting fields and sort an arraycollection" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySortField" propertyName="name" value="address"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortField]"/>
+				<SetStyle target="uiCustomSortMComp.mySortField" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<SetStyle target="uiCustomSortMComp.sparkCollator" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="multiFieldArrayCol" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arrayCollection_array('address', application.uiCustomSortMComp.mySort)" valueExpression="value=application.uiCustomSortMComp.sorttedArraywithSparkCollection('address')"/>
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="Sort_method_sort_with_field_multi_field_AC_test7" 
+				  description="Testing sort method when setting fields and sort an arraycollection" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySortField" propertyName="name" value="name"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortField]"/>
+				<SetStyle target="uiCustomSortMComp.mySort" styleName="locale" value="de-DE" waitEvent="change"/>
+				<SetStyle target="uiCustomSortMComp.sparkCollator" styleName="locale" value="de-DE" waitEvent="change"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="multiFieldArrayCol"  />
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection('name')" valueExpression="value=application.uiCustomSortMComp.sorttedStringWithSparkCollator('name')"/>
+				<!--<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection('name')" value="abc"/>-->
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_field_multi_field_AC_script_test8" 
+				  description="Testing sort method when setting fields and sort an arraycollection" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/> 
+				<SetProperty target="uiCustomSortMComp.mySortFieldScript" propertyName="name" value="address"/>
+				<SetProperty target="uiCustomSortMComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortFieldScript]"/>
+				<SetStyle target="uiCustomSortMComp.mySortFieldScript" styleName="locale" value="fr-FR" />
+				<SetStyle target="uiCustomSortMComp.sparkCollator" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="multiFieldArrayCol" />
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arrayCollection_array('address', application.uiCustomSortMComp.mySortScript)" valueExpression="value=application.uiCustomSortMComp.sorttedArraywithSparkCollection('address')"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="Sort_method_sort_with_field_multi_field_AC_script_test9" 
+				  description="Testing sort method when setting fields and sort an arraycollection" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySortFieldScript" propertyName="name" value="name"/>
+				<SetProperty target="uiCustomSortMComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortFieldScript]"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="multiFieldArrayCol"/>
+				<Pause timeout="1000" /> 
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sortScript_arraycollection('name')" valueExpression="value=application.uiCustomSortMComp.sorttedStringWithSparkCollator('name')"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_field_sort_one_field_arraycollection_test10" 
+				  description="Testing sort method when setting fields and sort an arraycollection" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetStyle target="uiCustomSortMComp.mySort" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<SetStyle target="uiCustomSortMComp.sparkCollator" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleFieldArrayCol" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection(null)" valueExpression="value=application.uiCustomSortMComp.sorttedStringWithSparkCollator(null)"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_field_sort_one_field_arraycollection_script_test11" 
+				  description="Testing sort method when setting fields and sort an arraycollection" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetStyle target="uiCustomSortMComp.mySortScript" styleName="locale" value="fr-FR" />
+				<SetStyle target="uiCustomSortMComp.sparkCollator" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleFieldArrayCol" />
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sortScript_arraycollection(null)" valueExpression="value=application.uiCustomSortMComp.sorttedStringWithSparkCollator(null)"/>
+			</body>
+		</TestCase>
+		
+		
+		<!--Define comparefunction for Sort object , and call sort method to  an Arraycollection -->
+		<TestCase testID="Sort_method_sort_with_comparefunction_in_sort_test12" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySortField" propertyName="name" value="name"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortField]"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="compareFunction" valueExpression="value=application.uiCustomSortMComp.mySortCompareFunction"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="multiFieldArrayCol" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection('name')" valueExpression="value=myCompareSorttedStr"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_comparefunction_in_sort_script_test13" 
+				  description="Testing sort method when setting a valid compareFunction in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySortField" propertyName="name" value="name"/>
+				<SetProperty target="uiCustomSortMComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomSortMComp.mySortField]"/>
+				<SetProperty target="uiCustomSortMComp.mySortScript" propertyName="compareFunction" valueExpression="value=application.uiCustomSortMComp.mySortCompareFunction"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="multiFieldArrayCol"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sortScript_arraycollection('name')" valueExpression="value=myCompareSorttedStr"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_with_invalid_comparefunction_in_sort_test14" 
+				  description="Testing sort method when setting a invalid compareFunction in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySortField" propertyName="name" value="name"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="compareFunction" valueExpression="value=application.uiCustomSortMComp.myInvalidCompareFunction"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="simpleNameArrayCol"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection(null)" value="Error"/>
+			</body>
+		</TestCase>
+		
+		<!--Set unique as true then call sort method to sort an array -->
+		<TestCase testID="Sort_method_sort_unique_true_not_identical_test15" 
+				  description="Testing sort method when setting a unique as true in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="unique" valueExpression="value=true"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="nonIdenticalArray" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection(null)" valueExpression="value=sorttedNonIdentArr"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_unique_true_identical_test16" 
+				  description="Testing sort method when setting unique as true in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.mySort" propertyName="unique" valueExpression="value=true"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="identicalArray" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection(null)" valueExpression="value=sorttedIdentArr"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_null_parameter_error_test17" 
+				  description="Testing sort method when setting unique as true in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="nullParameter" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sort_arraycollection('nullParameter')" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_sort_null_parameter_script_error_test18" 
+				  description="Testing sort method when setting unique as true in sort" 
+				  keywords="[Sort, compareFunction, sort]">
+			<setup>
+				<ResetComponent target="uiCustomSortMComp" className="newComps.CustomSortMethodComp" waitEvent="updateComplete" waitTarget="uiCustomSortMComp"/>
+				<SetProperty target="uiCustomSortMComp.lbArrayName" propertyName="text" value="nullParameter" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomSortMComp.sortScript_arraycollection('nullParameter')" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		
+		
+	</testCases>	
+</UnitTester>

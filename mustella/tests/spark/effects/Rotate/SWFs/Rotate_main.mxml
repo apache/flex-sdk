@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	width="500"
+	height="500"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    backgroundColor="0xFFFFFF"
+    creationComplete="Init()">
+
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+    <fx:Script>
+        <![CDATA[
+        import mx.effects.EffectManager;
+        import mx.events.StateChangeEvent;
+        
+        public function Init():void
+        {
+            this.addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "State1";
+        }
+        
+        public function Reset():void
+        {
+            //Nuke any effects. EffectManager doesn't work with new effects :(
+            this.StopEffects();
+
+
+            //Manually reset components
+    		this.gumboGroup.rotation = 0;
+    		this.gumboGroup.alpha = 1;
+    		this.gumboGroup.x = 50;
+    		this.gumboGroup.y = 50;
+        	//this.gumboGroup.setStyle("left", 50);
+        	//this.gumboGroup.setStyle("top", 50);
+
+    		this.gumboButton.rotation = 0;
+    		this.gumboButton.alpha = 1;
+    		this.gumboButton.x = 120;
+    		this.gumboButton.y = 50;
+        	//this.gumboButton.setStyle("left", 120);
+        	//this.gumboButton.setStyle("top", 50);
+
+    		this.haloButton.rotation = 0;
+    		this.haloButton.alpha = 1;
+    		this.haloButton.x = 230;
+    		this.haloButton.y = 50;
+        	//this.haloButton.setStyle("left", 230);
+        	//this.haloButton.setStyle("top", 50);
+
+    		this.haloLabel.rotation = 0;
+    		this.haloLabel.alpha = 1;
+    		this.haloLabel.x = 340;
+    		this.haloLabel.y = 50;
+        	//this.haloLabel.setStyle("left", 340);
+        	//this.haloLabel.setStyle("top", 50);
+        
+            //Flip state
+            GoToState("State1");   
+        }
+        
+        //Mustella cannot reliably stop effects because Assert failures will kill a 
+        //test case before the proper entry can be ran (in some cases). So for now,
+        //let's make sure to nuke all effects before playing another. Likewise, this 
+        //is needed because of bug 17145, which hoses the entire test suite after
+        //a glitch.
+        private function StopEffects():void
+        {
+            this.defaultEffect.stop();
+            this.simpleEffect.stop();
+            this.effectOddValues.stop();
+            this.effectGumboGroup.stop();
+            this.effectGumboButton.stop();
+            this.effectHaloButton.stop();
+            this.effectHaloLabel.stop();
+            
+            this.effectTarget.stop();
+            this.effectTargets.stop();
+            this.effectAutoCenterTransform.stop();
+            this.effectAngleToFrom.stop();
+            this.effectTo480.stop();
+            this.effectToNeg480.stop();
+            this.effectFrom480.stop();
+            this.effectFromNeg480.stop();
+            
+            this.effectAngleBy.stop();
+            this.effectAngleByPos.stop();
+            this.effectAngleByNeg.stop();
+            this.effectAngleByOver.stop();
+            this.effectAngleByToPos.stop();
+            this.effectAngleByToNeg.stop();
+            this.effectAngleByToOver.stop();
+            
+            this.parallelTarget.stop();
+            this.parallelTargets.stop();
+            this.parallelChildTarget.stop();
+            this.parallelChildTargets.stop();
+            
+            this.sequenceTarget.stop();
+            this.sequenceTargets.stop();
+            this.sequenceChildTarget.stop();
+            this.sequenceChildTargets.stop();
+            
+            this.effectStartEnd.stop();
+            this.effectSyntaxStartEnd.stop();
+            this.effectStartSyntaxEnd.stop();
+            this.effectEndSyntaxStart.stop();
+            
+            this.constructorEffect.stop();
+            this.interruptEffect.stop();
+            this.repeatEffect.stop();
+            this.repeatLoopEffect.stop();
+            this.repeatReverseEffect.stop();
+            this.startDelayEffect.stop();
+
+            this.effectForEvents.stop();
+        }
+
+        private function GoToState(destinationState:String):void
+        {
+            //Flip state
+            if(this.currentState == destinationState)
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                this.currentState = destinationState;   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+    	]]>
+    </fx:Script>
+
+    <fx:Declarations>
+
+        <!-- Default rotate works -->
+        <s:Rotate id="defaultEffect" target="{gumboGroup}" />
+
+        <!-- Rotate works with various constructor initializations -->
+        <s:Rotate id="constructorEffect" />
+
+        <!-- Rotate works with various interrupt methods-->
+        <s:Rotate id="interruptEffect" angleFrom="0" angleTo="35" target="{gumboGroup}" duration="1000" />
+
+        <!-- Rotate works repeatedly -->
+        <s:Rotate id="repeatEffect" angleFrom="0" angleTo="35" target="{gumboGroup}" repeatCount="3"/>
+
+        <!-- Rotate works repeatedly with loop behavior -->
+        <s:Rotate id="repeatLoopEffect" angleFrom="0" angleTo="35" target="{gumboGroup}" repeatCount="2" repeatBehavior="loop"/>
+
+        <!-- Rotate works repeatedly with reverse behavior -->
+        <s:Rotate id="repeatReverseEffect" angleFrom="0" angleTo="35" target="{gumboGroup}" repeatCount="2" repeatBehavior="reverse"/>
+
+        <!-- Rotate works with a start delay -->
+        <s:Rotate id="startDelayEffect" angleFrom="0" angleTo="70" target="{gumboGroup}" startDelay="1000" />
+
+        <!-- Simple rotate works -->
+        <s:Rotate id="simpleEffect" angleFrom="0" angleTo="35" target="{gumboGroup}" />
+
+        <!-- Rotate works from 0 to 0 -->
+        <s:Rotate id="effectOddValues" angleFrom="0" angleTo="0" target="{gumboGroup}" />
+
+        <!-- Rotate works on a gumbo group -->
+        <s:Rotate id="effectGumboGroup" angleFrom="0" angleTo="40" target="{gumboGroup}" />
+
+        <!-- Rotate works on a gumbo button -->
+        <s:Rotate id="effectGumboButton" angleFrom="0" angleTo="45" target="{gumboButton}" />
+
+        <!-- Rotate works on a halo button -->
+        <s:Rotate id="effectHaloButton" angleFrom="0" angleTo="50" target="{haloButton}" />
+
+        <!-- Rotate works on a halo label -->
+        <s:Rotate id="effectHaloLabel" angleFrom="0" angleTo="55" target="{haloLabel}" />
+
+        <!-- Simple effect works with a single target -->
+        <s:Rotate id="effectTarget" angleFrom="0" angleTo="60" target="{gumboGroup}" />
+
+        <!-- Simple effect works with multiple targets -->
+        <s:Rotate id="effectTargets" angleFrom="0" angleTo="65" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}" />
+
+        <!-- Rotate works with autoCenterTransform -->
+        <s:Rotate id="effectAutoCenterTransform" target="{gumboGroup}" autoCenterTransform="true" angleFrom="0" angleTo="90"/>
+
+        <!-- Rotate works with angleFrom -->
+        <s:Rotate id="effectAngleToFrom" target="{gumboGroup}" angleFrom="10" angleTo="40" />
+
+        <!-- Rotate works with angleTo > 360-->
+        <s:Rotate id="effectTo480" target="{gumboGroup}" angleFrom="0" angleTo="480" />
+
+        <!-- Rotate works with angleTo < 0-->
+        <s:Rotate id="effectToNeg480" target="{gumboGroup}" angleFrom="0" angleTo="-480" />
+
+        <!-- Rotate works with angleFrom > 360-->
+        <s:Rotate id="effectFrom480" target="{gumboGroup}" angleFrom="480" angleTo="0" duration="20000" />
+
+        <!-- Rotate works with angleFrom < 0-->
+        <s:Rotate id="effectFromNeg480" target="{gumboGroup}" angleFrom="-480" angleTo="0" duration="20000" />
+
+        <!-- Rotate works with angleBy-->
+        <s:Rotate id="effectAngleBy" target="{gumboGroup}" angleBy="30" />
+
+        <!-- Rotate works with angleFrom + angleBy-->
+        <s:Rotate id="effectAngleByPos" target="{gumboGroup}" angleFrom="0" angleBy="30" />
+
+        <!-- Rotate works with angleBy when rotating from less than 0 degrees -->
+        <s:Rotate id="effectAngleByNeg" target="{gumboGroup}" angleFrom="-20" angleBy="30" />
+
+        <!-- Rotate works with angleBy when rotating more than 360 degrees -->
+        <s:Rotate id="effectAngleByOver" target="{gumboGroup}" angleFrom="350" angleBy="30" />
+
+        <!-- Rotate works with angleTo + angleBy-->
+        <s:Rotate id="effectAngleByToPos" target="{gumboGroup}" angleBy="30" angleTo="50" duration="20000" />
+
+        <!-- Rotate works with angleTo + angleBy where angleTo-angleBy is less than zero-->
+        <s:Rotate id="effectAngleByToNeg" target="{gumboGroup}" angleBy="30" angleTo="10" duration="20000" />
+
+        <!-- Rotate works with angleTo + angleBy where angleTo is greater than 360 -->
+        <s:Rotate id="effectAngleByToOver" target="{gumboGroup}" angleBy="30" angleTo="380" duration="20000" />
+
+
+        <!-- Parallel effect works with target on the composite -->
+        <mx:Parallel id="parallelTarget" target="{gumboGroup}">
+            <s:Rotate angleFrom="0" angleTo="70" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Parallel>
+
+        <!-- Parallel effect works with targets on the composite -->
+        <mx:Parallel id="parallelTargets" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}">
+            <s:Rotate angleFrom="0" angleTo="75"/>
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Parallel>
+
+        <!-- Parallel effect works with target on the child effect -->
+        <mx:Parallel id="parallelChildTarget" >
+            <s:Rotate angleFrom="0" angleTo="80" target="{gumboButton}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" target="{haloButton}"/>
+        </mx:Parallel>
+
+        <!-- Parallel effect works with targets on the child effects -->
+        <mx:Parallel id="parallelChildTargets">
+            <s:Rotate angleFrom="0" angleTo="85" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" targets="{[gumboButton, haloButton]}"/>
+        </mx:Parallel>
+
+
+
+        <!-- Sequence effect works with target on the composite -->
+        <mx:Sequence id="sequenceTarget" target="{gumboGroup}">
+            <s:Rotate angleFrom="0" angleTo="90" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Sequence>
+
+        <!-- Sequence effect works with targets on the composite -->
+        <mx:Sequence id="sequenceTargets" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}">
+            <s:Rotate angleFrom="0" angleTo="95" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Sequence>
+
+        <!-- Sequence effect works with target on the child effect -->
+        <mx:Sequence id="sequenceChildTarget">
+            <s:Rotate angleFrom="0" angleTo="100" target="{gumboButton}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" target="{haloButton}"/>
+        </mx:Sequence>
+
+        <!-- Sequence effect works with targets on the child effects -->
+        <mx:Sequence id="sequenceChildTargets">
+            <s:Rotate angleFrom="0" angleTo="105" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" targets="{[gumboButton, haloButton]}"/>
+        </mx:Sequence>
+
+
+
+        <!-- Transition with start/end values from the effect -->
+        <s:Rotate id="effectStartEnd" angleFrom="0" angleTo="110" target="{gumboGroup}" />
+
+        <!-- Transition with start/end values from the state syntax -->
+        <s:Rotate id="effectSyntaxStartEnd" target="{gumboButton}" />
+
+        <!-- Transition with start value from the effect, end value from the state syntax -->
+        <s:Rotate id="effectStartSyntaxEnd" angleFrom="0" target="{haloButton}" />
+
+        <!-- Transition with start value from the state syntax, end value from the effect -->
+        <s:Rotate id="effectEndSyntaxStart" angleTo="115" target="{haloLabel}" />
+
+
+
+        <!-- Effect for event testing -->
+        <s:Rotate id="effectForEvents" angleFrom="0" angleTo="360" repeatCount="3" target="{gumboGroup}"  />
+
+    </fx:Declarations>
+
+    <s:states>
+        <s:State name="State1"/>
+        <s:State name="State2"/>
+        <s:State name="State3"/>
+        <s:State name="State4"/>
+        <s:State name="State5"/>
+        <s:State name="State6"/>
+        <s:State name="State7"/>
+        <s:State name="State8"/>
+        <s:State name="State9"/>
+        <s:State name="State10"/>
+        <s:State name="State11"/>
+        <s:State name="StateN"/>
+    </s:states>
+
+    <s:transitions>
+        <!-- Transition with simple effect - effect with target -->
+        <mx:Transition fromState="State1" toState="State2" effect="{effectTarget}"/>
+
+        <!-- Transition with simple effect - effect with targets -->
+        <mx:Transition fromState="State1" toState="State3" effect="{effectTargets}"/>
+
+        <!-- Transition with composite effect - composite with target -->
+        <mx:Transition fromState="State1" toState="State4" effect="{parallelTarget}"/>
+
+        <!-- Transition with composite effect - composite with targets -->
+        <mx:Transition fromState="State1" toState="State5" effect="{sequenceTargets}"/>
+
+        <!-- Transition with composite effect - child effects with target -->
+        <mx:Transition fromState="State1" toState="State6" effect="{parallelChildTarget}"/>
+
+        <!-- Transition with composite effect - child effects with targets -->
+        <mx:Transition fromState="State1" toState="State7" effect="{sequenceChildTargets}"/>
+
+
+
+        <!-- Transition with start/end values from the effect -->
+        <mx:Transition fromState="State1" toState="State8" effect="{effectStartEnd}"/>
+
+        <!-- Transition with start/end values from the state syntax -->
+        <mx:Transition fromState="State1" toState="State9" effect="{effectSyntaxStartEnd}"/>
+
+        <!-- Transition with start value from the effect, end value from the state syntax -->
+        <mx:Transition fromState="State1" toState="State10" effect="{effectStartSyntaxEnd}"/>
+
+        <!-- Transition with start value from the state syntax, end value from the effect -->
+        <mx:Transition fromState="State1" toState="State11" effect="{effectEndSyntaxStart}"/>
+
+    </s:transitions>
+
+    <s:Group id="gumboGroup"
+    	x.State1="50"
+    	y.State1="50"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <mx:SolidColor id="testFill" color="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke id="testStroke" color="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <s:Button id="gumboButton"
+    	x.State1="120"
+    	y.State1="50"
+    	width="100"
+    	label="Flex 4 Button"
+        rotation.State1="0"
+        rotation.State9="50"/>
+
+    <mx:Button id="haloButton"
+    	x.State1="230"
+    	y.State1="50"
+    	width="100"
+    	color="0x000000"
+    	label="Flex 3 Button"
+        rotation.State10="150"/>
+    
+    <mx:Label id="haloLabel"
+		x.State1="340"
+		y.State1="50"
+		text="Hello World"
+		fontSize="14"
+		color="0xFF0000"
+        rotation.State1="0"/>
+
+</s:Application>

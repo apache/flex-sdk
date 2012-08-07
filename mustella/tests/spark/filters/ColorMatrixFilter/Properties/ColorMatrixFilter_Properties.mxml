@@ -1,0 +1,64 @@
+<UnitTester
+    testDir="spark/filters/ColorMatrixFilter/Properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/ColorMatrixFilter_Main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+
+        import spark.primitives.Rect;
+        import spark.filters.ColorMatrixFilter;
+
+        public static function init(o:DisplayObject):void{}
+
+        public function applyAlphaFilter(rectTarget:Rect):void {
+		   var customMatrix:spark.filters.ColorMatrixFilter = new spark.filters.ColorMatrixFilter([1, 0, 0, 0, 0,0, 1, 0, 0, 0,0, 0, 1, 0, 0,0, 0, 0, 0.5, 0]);
+		   rectTarget.filters = [customMatrix];
+		}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+    <!-- Note, no event triggers when you update a filter at runtime -->
+
+        <TestCase testID="ColorMatrixFilter_Properties_matrix_commas" keywords="[matrix, ColorMatrixFilter]"
+            description="Test matrix property with a comma delimited syntax.">
+            <!--bugs>
+                <Bug bugID="SDK-18293" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_withFilter" className="local.BlackRect" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_withFilter" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorMatrixFilter_Properties_matrix_AS" keywords="[ColorMatrixFilter, matrix]"
+            description="Test that a ColorMatrixFilter works when matrix is changed at runtime..">
+             <setup>
+                <ResetComponent target="rect_withFilter" className="local.BlackRect" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <RunCode code="applyAlphaFilter(application.rect_withFilter.getElementAt(0))" waitTarget="rect_withFilter"
+                    waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_withFilter" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorMatrixFilter_Properties_matrix_mxml" keywords="[ColorMatrixFilter, matrix]"
+            description="Test that a ColorMatrixFilter works when matrix is set in mxml">
+             <body>
+                <AssertPropertyValue propertyName="matrix" target="group1.filters.0" value="2,-1,0,0,0,-1,2,0,0,0,0,-1,2,0,0,0,0,0,1,0" />
+                <AssertPixelValue value="0x0000EE" x="50" y="50" target="group1.getElementAt(0)" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

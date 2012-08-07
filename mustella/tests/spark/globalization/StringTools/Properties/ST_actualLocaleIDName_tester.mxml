@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/StringTools/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ST_actualLocaleIDName.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.StringTools;
+		import assets.StringToolsTestConstants;
+		public var stGSLib:flash.globalization.StringTools;
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test "actualLocaleIDName" property-->
+<testCases>
+	<!--case1 to case7 test collator instance defined in a <fx:Declaration> block-->
+	<!--set default locale, i-default -->
+	<TestCase testID="StringTools_actualLocaleIDName_i_default_inline_test1" description="set default locale, i-default" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('i-default')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st_inline" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--set default locale, en-US -->
+	<TestCase testID="StringTools_actualLocaleIDName_en_US_inline_test2" description="set default locale, en-US" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en_US')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st_inline" value="en_US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test unsupported locale, 123 -->
+	<TestCase testID="StringTools_actualLocaleIDName_123_inline_test3" description="test unsupported locale, 123" keywords="[StringTools, actualLocaleIDName]">
+        <setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st_inline" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_inline"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st_inline"/>
+		</body>
+    </TestCase>
+	
+	<!--test supported locale, ar_JO -->
+	<TestCase testID="StringTools_actualLocaleIDName_ar_JO_inline_test4" description="test supported locale, ar_JO " keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('ar_JO')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st_inline" value="ar_JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_inline"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st_inline"/>
+		</body>
+	</TestCase>
+
+	<!--test supported locale, ar-JO -->
+	<TestCase testID="StringTools_actualLocaleIDName_ar_JO_diffSymbol_inline_test5" description="test supported locale, ar-JO " keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('ar-JO')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st_inline" value="ar-JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_en_US_inline_test6" description="test Binding mechanism with locale change" keywords="[StringTools, actualLocaleIDName, binding]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en_US')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="st_inline" value="en_US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.actualLocaleIDName" target="stBinding_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_zh_CN_inline_test7" description="test Binding mechanism with locale change" keywords="[StringTools, actualLocaleIDName, binding]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('zh_CN')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="st_inline" value="zh_CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.actualLocaleIDName" target="stBinding_inline"/>
+		</body>
+	</TestCase>
+	
+	<!-- case8 to case14 test collator instance defined in a <fx:script> block -->
+	<!--set default locale, i-default -->
+	<TestCase testID="StringTools_actualLocaleIDName_i_default_script_test8" description="set default locale, i-default" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('i-default')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st"/>
+		</body>
+	</TestCase>
+	
+	<!--set default locale, en-US -->
+	<TestCase testID="StringTools_actualLocaleIDName_en_US_script_test9" description="set default locale, en-US" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st"/>
+		</body>
+	</TestCase>
+	
+	<!--set unsupported locale, aaa -->
+	<TestCase testID="StringTools_actualLocaleIDName_aaa_script_test10" description="set unsupported locale, aaa" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('aaa')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st" value="aaa" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st"/>
+		</body>
+	</TestCase>
+	
+	<!--set supported locale, pa_Arab_PK -->
+	<TestCase testID="StringTools_actualLocaleIDName_pa_Arab_PK_script_test11" description="set supported locale, pa_Arab_PK" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('pa_Arab_PK')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st" value="pa_Arab_PK" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st"/>
+		</body>
+	</TestCase>
+	
+	<!--set supported locale, pa-Arab-PK -->
+	<TestCase testID="StringTools_actualLocaleIDName_pa_Arab_PK_diffSymbol_script_test12" description="set supported locale, pa-Arab-PK" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('pa-Arab-PK')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st" value="pa-Arab-PK" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_en_US_script_test13" description="test Binding mechanism with locale change" keywords="[StringTools, actualLocaleIDName, binding]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en_US')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="st" value="en_US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.actualLocaleIDName" target="stBinding_script"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_zh_CN_script_test14" description="test Binding mechanism with locale change" keywords="[StringTools, actualLocaleIDName, binding]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('zh_CN')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="st" value="zh_CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.actualLocaleIDName" target="stBinding_script"/>
+		</body>
+	</TestCase>
+	
+	<!--Test TypeError: Define a Collator instance in <fx:Script>, set locale with null --> 
+	<TestCase testID="StringTools_actualLocaleIDName_TypeError_null_script_test15" description="Test TypeError: Define a Collator instance in ActionScript code, set locale with null" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<RunCode code="application.testError(application.st)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="st" value="localeUndefinedError"/>
+			<AssertPropertyValue propertyName="text" value="No Error" target="errorInfoLable"/>
+		</body>
+	</TestCase>
+	
+	<!--TypeError: Define a Collator instance in <fx:Declarations>, set locale with null -->
+	<TestCase testID="StringTools_actualLocaleIDName_TypeError_null_inline_test16" description="TypeError: Define a Collator instance in Declarations, set locale with null" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<RunCode code="application.testError(application.st_inline)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="st_inline" value="localeUndefinedError"/>
+			<AssertPropertyValue propertyName="text" value="No Error" target="errorInfoLable"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism of lastOperationStatus, instance defined in <fx:Declarations> block, locale is set to 'ru_RU'-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_lastOperationStatus_inline_test17" description="test Binding mechanism of lastOperationStatus, instance defined in Declarations block, locale is set to 'ru_RU'" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('ru_RU')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="stlastOperationStatus_inline" value="ru_RU" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.lastOperationStatus" target="stLOPS_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism lastOperationStatus, instance defined in <fx:Declarations> block, locale is set to '123'-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_lastOperationStatus_inline_test18" description="test Binding mechanism lastOperationStatus, instance defined in Declarations block, locale is set to '123'" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="stlastOperationStatus_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.stlastOperationStatus_inline.initialized(null,'stlastOperationStatus_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="stlastOperationStatus_inline" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.lastOperationStatus" target="stLOPS_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism of lastOperationStatus, instance defined in <fx:Script> block, locale is set to 'ru_RU'-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_lastOperationStatus_script_test19" description="test Binding mechanism of lastOperationStatus, instance defined in ActionScript block, locale is set to 'ru_RU'" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('ru_RU')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="stlastOperationStatus_script" value="ru_RU" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.lastOperationStatus" target="stLOPS_script"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism lastOperationStatus, instance defined in <fx:Script> block, locale is set to '123'-->
+	<TestCase testID="StringTools_actualLocaleIDName_binding_lastOperationStatus_script_test20" description="test Binding mechanism of lastOperationStatus, instance defined in ActionScript block, locale is set to '123'" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="stlastOperationStatus_script" className="spark.globalization.StringTools"/>
+			<RunCode code="application.stlastOperationStatus_script.initialized(null,'stlastOperationStatus_script')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="stlastOperationStatus_script" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.lastOperationStatus" target="stLOPS_script"/>
+		</body>
+	</TestCase>
+	
+	<!--test instance defined in <fx:Script> block, and without setting locale-->
+	<TestCase testID="StringTools_actualLocaleIDName_localeUndefinedError_script_test21" description="test instance defined in Script block, and without setting locale" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="stScript" propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" />
+			<AssertStyleValue target="stScript" styleName="locale" valueExpression="value=application.appLocale"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stScript"/>
+		</body>
+	</TestCase>
+	
+	<!--test instance defined in <fx:Declarations> block, and without setting locale-->
+	<TestCase testID="StringTools_actualLocaleIDName_noError_inline_test22" description="test instance defined in Declarations block, and without setting locale" keywords="[StringTools,actualLocaleIDName">
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" value="en-US" target="stInline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stInline"/>
+		</body>
+	</TestCase>
+	
+	<!--test instance defined in <fx:Declarations> block, and setting locale to undefined-->
+	<TestCase testID="StringTools_actualLocaleIDName_localeUndefinedError_inline_test23" description="test instance defined in Declarations block, and setting locale to undefined" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="st_inline" valueExpression="value=undefined"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=undefined" target="st_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="st_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test inheritUIcommponent style, locale set to undefined, instance defined in <fx:Script> -->
+	<TestCase testID="StringTools_actualLocaleIDName_inheritUIcommponent_script_test24" description="test inheritUIcommponent style, locale set to undefined, instance defined in ActionScript code" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<RunCode code="application.testStyleInherit_script()"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="stInherit_script"/>
+			<AssertStyleValue styleName="locale" valueExpression="value=application.appLocale" target="stInherit_script" />
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stInherit_script"/>
+		</body>
+	</TestCase>
+	
+	<!--test inheritUIcommponent style, locale set to null, instance defined in <fx:Declarations> -->
+	<TestCase testID="StringTools_actualLocaleIDName_inheritUIcommponent_inline_test25" description="test inheritUIcommponent style, locale set to null, instance defined in Declarations" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<RunCode code="application.testStyleInherit_declaration()"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="stInherit_inline"/>
+			<AssertStyleValue styleName="locale" valueExpression="value=application.appLocale" target="stInherit_inline" />
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stInherit_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test locale setting to empty, instance defined in <fx:Declarations>-->
+	<TestCase testID="StringTools_actualLocaleIDName_locale_empty_inline_test26" description="test locale setting to empty, instance defined in Declarations" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st_inline" value="" />
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_inline"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test locale setting to empty, instance defined in <fx:Script>-->
+	<TestCase testID="StringTools_actualLocaleIDName_locale_empty_script_test27" description="test locale setting to empty, instance defined in ActionScript code" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="st" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st.initialized(null,'st')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="st" value="" />
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="st"/>
+		</body>
+	</TestCase>
+	<!--Define a StringTools instance in <fx:Declaration>, set locale to undefined by calling setStyle()-->
+	<TestCase testID="StringTools_actualLocaleIDName_LOS_test28" description="Define a StringTools instance in fx:script, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.setLocaleUndefined(application.stLastOSSetStyle_inline)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stLastOSSetStyle_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a StringTools instance in <fx:script>, set locale to undefined by calling setStyle()-->
+	<TestCase testID="StringTools_actualLocaleIDName_LOS_test29" description="Define a StringTools instance in fx:Declaration, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.addStyleClient_script(application.stLastOSSetStyle)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="application.setLocaleUndefined(application.stLastOSSetStyle)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stLastOSSetStyle"/>
+		</body>
+	</TestCase>
+	<!--Define a StringTools instance in <fx:Declaration>, set locale to undefined by calling setStyle in mustella-->
+	<TestCase testID="StringTools_actualLocaleIDName_LOS_test30" description="Define a StringTools instance in fx:script, set locale to an empty string by calling setStyle in mustella" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<SetStyle styleName="locale" target="stLastOS_inline" valueExpression="value=undefined"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="stLastOS_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a StringTools instance in <fx:script>, set locale to undefined by calling setStyle in mustella-->
+	<TestCase testID="StringTools_actualLocaleIDName_LOS_test31" description="Define a StringTools instance in fx:Declaration, set locale to an empty string by calling setStyle in mustella" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.addStyleClient_script(application.stLastOS)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="stLastOS" valueExpression="value=undefined"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="stLastOS"/>
+		</body>
+	</TestCase>
+	<!--set locale to en using setStyle method -->
+	<TestCase testID="StringTools_actualLocaleIDName_en_test32" description="set locale to en using setStyle method" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="stInline" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.stInline.initialized(null,'stInline')"/>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle styleName="locale" target="stInline" value="en"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="stInline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="stInline"/>
+		</body>
+	</TestCase>
+	<!--set locale to en inline -->
+	<TestCase testID="StringTools_actualLocaleIDName_en_inline_test33" description="set locale to en inline" keywords="[StringTools, actualLocaleIDName]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="stInline_en"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="stInline_en"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

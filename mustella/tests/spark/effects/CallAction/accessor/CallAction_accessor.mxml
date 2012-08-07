@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/CallAction/accessor/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/CallAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.CallAction;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- customFilter -->
+        <TestCase testID="CallAction_customFilter_Default" keywords="[CallAction, accessor, customFilter]" description="Test the setting of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+        
+        <!-- target -->
+        <TestCase testID="CallAction_target_Default" keywords="[CallAction, accessor, target]" description="Test the setting of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).target" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_target_SetGet" keywords="[CallAction, accessor, target]" description="Test the setting of the target property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="target" value="[A]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="target" value="[A]"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_target_NoTarget" keywords="[CallAction, accessor, target]" description="Verify no error is raised when calling without a target.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp13.play()"/>
+                <AssertPropertyValue propertyName="CallCounter" value="0"/>
+            </body>
+        </TestCase>
+
+
+        <!-- targets -->
+        <TestCase testID="CallAction_targets_Default" keywords="[CallAction, accessor, targets]" description="Test the setting of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).targets" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_targets_SetGet" keywords="[CallAction, accessor, targets]" description="Test the setting of the targets property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="targets" value="[A, B, C]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="targets" value="[A, B, C]"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="CallAction_duration_Default" keywords="[CallAction, accessor, duration]" description="Test the setting of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).duration" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_duration_SetGet" keywords="[CallAction, accessor, duration]" description="Test the setting of the duration property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="duration" value="38"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="duration" value="38"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_duration_Ignored" keywords="[CallAction, accessor, duration]" description="Verify the duration property is ignored.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp14.play()"/>
+                <Pause timeout="250"/>
+                <AssertPropertyValue propertyName="CallCounter" value="1"/>
+            </body>
+        </TestCase>
+
+
+        <!-- hideFocusRing -->
+        <TestCase testID="CallAction_hideFocusRing_Default" keywords="[CallAction, accessor, hideFocusRing]" description="Test the setting of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_hideFocusRing_SetGet" keywords="[CallAction, accessor, hideFocusRing]" description="Test the setting of the hideFocusRing property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="hideFocusRing" value="true"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="hideFocusRing" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="CallAction_relevantProperties_Default" keywords="[CallAction, accessor, relevantProperties]" description="Test the setting of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).relevantProperties" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_relevantProperties_SetGet" keywords="[CallAction, accessor, relevantProperties]" description="Test the setting of the relevantProperties property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="relevantProperties" value="[A, B, C]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="relevantProperties" value="[A, B, C]"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="CallAction_relevantStyles_Default" keywords="[CallAction, accessor, relevantStyles]" description="Test the setting of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_relevantStyles_SetGet" keywords="[CallAction, accessor, relevantStyles]" description="Test the setting of the relevantStyles property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="relevantStyles" value="[A, B, C]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="relevantStyles" value="[A, B, C]"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="CallAction_className_Default" keywords="[CallAction, accessor, className]" description="Test the setting of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).className" value="CallAction"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="CallAction_filter_Default" keywords="[CallAction, accessor, filter]" description="Test the setting of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).filter" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_filter_SetGet" keywords="[CallAction, accessor, filter]" description="Test the setting of the filter property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="filter" value="TestGenString"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="filter" value="TestGenString"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="CallAction_triggerEvent_Default" keywords="[CallAction, accessor, triggerEvent]" description="Test the setting of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+
+        <!-- effectTargetHost -->
+        <TestCase testID="CallAction_effectTargetHost_Default" keywords="[CallAction, accessor, effectTargetHost]" description="Test the setting of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        
+        <!-- perElementOffset -->
+        <TestCase testID="CallAction_perElementOffset_Default" keywords="[CallAction, accessor, perElementOffset]" description="Test the setting of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_perElementOffset_SetGet" keywords="[CallAction, accessor, perElementOffset]" description="Test the setting of the perElementOffset property.">
+            <setup>
+                <RunCode code="application.testCallAction = new CallAction()"/>
+                <SetProperty target="testCallAction" propertyName="perElementOffset" value="38"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testCallAction" propertyName="perElementOffset" value="38"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="CallAction_isPlaying_Default" keywords="[CallAction, accessor, isPlaying]" description="Test the setting of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CallAction_isPlaying" keywords="[CallAction, accessor, isPlaying]" description="Verify isPlaying = true during function calling.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp12.play()"/>
+                <Pause timeout="500"/>
+                <AssertPropertyValue target="tp12" propertyName="isPlaying" value="true"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

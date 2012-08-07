@@ -1,0 +1,160 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_timeFormat.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+
+        import org.osmf.events.MediaPlayerStateChangeEvent;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_negative"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with a negative number">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(-.5)" value="0:00" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_0"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 0">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(0)" value="0:00" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_secondRounding1"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with .3">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(.3)" value="0:00" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_secondRounding2"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with .5">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(.5)" value="0:01" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_secondRounding3"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 1">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(1)" value="0:01" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_secondRounding4"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 1.4999999">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(1.4999999)" value="0:01" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_minuteRounding1"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 59">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(59)" value="0:59" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_minuteRounding2"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 59.3">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(59.3)" value="0:59" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_minuteRounding3"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 59.6">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(59.6)" value="1:00" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_minuteRounding4"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 119.45">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(119.45)" value="1:59" />
+            </body>
+        </TestCase>
+
+
+        <TestCase
+            testID="VideoPlayer_formatTimeValue_minuteRounding5"
+            keywords="[VideoPlayer, formatTimeValue]"
+            description="Test formatTimeValue with 119.6">
+            <setup>
+                <ResetComponent target="testVP" className="VP_Tester" waitTarget="testVP" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testVP.testFormatTimeValue(119.6)" value="2:00" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

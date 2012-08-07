@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/integration/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Binding.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+	  <TestCase testID="GraphicTags_Binding_Graphic_height" description="Test that you can bind to the Graphic height property" keywords="[Binding, height, Graphic]">
+		<body>
+		    <SetProperty propertyName="height" value="120" target="graphic1" />
+		    <AssertPropertyValue value="120" propertyName="height" target="graphic2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Graphic_width" description="Test that you can bind to the Graphic width property" keywords="[Binding, width, Graphic]">
+		<body>
+		    <SetProperty propertyName="width" value="140" target="graphic1" />
+		    <AssertPropertyValue value="140" propertyName="width" target="graphic2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Rect_height" description="Test that you can bind to the Rect height property" keywords="[Binding, height, Rect]">
+		<body>
+		    <SetProperty propertyName="height" value="120" target="rect1" />
+		    <AssertPropertyValue value="120" propertyName="height" target="rect2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Rect_width" description="Test that you can bind to the Rect width property" keywords="[Binding, width, Rect]">
+		<body>
+		    <SetProperty propertyName="width" value="147" target="rect1" />
+		    <AssertPropertyValue value="147" propertyName="width" target="rect2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Rect_x" description="Test that you can bind to the Rect x property" keywords="[Binding, x, Rect]">
+		<body>
+		    <SetProperty propertyName="x" value="22" target="rect1" />
+		    <AssertPropertyValue value="22" propertyName="x" target="rect2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Rect_y" description="Test that you can bind to the Rect y property" keywords="[Binding, y, Rect]">
+		<body>
+		    <SetProperty propertyName="y" value="19" target="rect1" />
+		    <AssertPropertyValue value="19" propertyName="y" target="rect2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Ellipse_width" description="Test that you can bind to the Ellipse width property" keywords="[Binding, width, Ellipse]">
+		<body>
+		    <SetProperty propertyName="width" value="140" target="ellipse1" />
+		    <AssertPropertyValue value="140" propertyName="width" target="ellipse2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Ellipse_height" description="Test that you can bind to the Ellipse height property" keywords="[Binding, height, Ellipse]">
+		<body>
+		    <SetProperty propertyName="height" value="154" target="ellipse1" />
+		    <AssertPropertyValue value="154" propertyName="height" target="ellipse2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Ellipse_x" description="Test that you can bind to the Ellipse x property" keywords="[Binding, x, Ellipse]">
+		<body>
+		    <SetProperty propertyName="x" value="14" target="ellipse1" />
+		    <AssertPropertyValue value="14" propertyName="x" target="ellipse2" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Binding_Ellipse_y" description="Test that you can bind to the Ellipse y property" keywords="[Binding, y, Ellipse]">
+		<body>
+		    <SetProperty propertyName="y" value="34" target="ellipse1" />
+		    <AssertPropertyValue value="34" propertyName="y" target="ellipse2" />
+	    </body>
+	  </TestCase>
+</testCases>
+
+
+</UnitTester>

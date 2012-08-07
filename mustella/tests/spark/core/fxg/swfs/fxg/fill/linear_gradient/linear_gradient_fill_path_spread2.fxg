@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Warning: Illustrator doesn't render spreadMethod, but FXG Viewer does.                                                                                 		-->
+<!-- FXG 1.0 Test Radial Gradient fills a path                     -->
+<!-- The LinearGradient element fills a path or shape with a continuously smooth color transition between a list of colors along a vector. 
+
+The gradient vector is the vector stretching from (0,-0.5) to (0,0.5), in the coordinate space of the shape's parent grouping element's coordinate system, transformed by any matrix transformation defined on the LinearGradient.
+
+The gradient vector can be modified using either discreet transform attributes on the LinearGradient element, or by providing an explicit 2D matrix transform as a child element.
+
+It is illegal to define both discreet transform attributes and child matrix element on the same LinearGradient. -->
+<!-- Author : Min Plunkett  26 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                                           -->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0"  xmlns="http://ns.adobe.com/fxg/2008">
+
+		<Group y="43">
+			<Path data="M40.9541 95.9473L41.9541 95.9473C44.9541 87.9473 54.9541 61.9473 61.9541 57.9473L62.9541 57.9473C74.9541 37.9473 147.954 18.9473 152.954 54.9473 153.954 66.9473 150.954 83.9473 154.954 95.9473 164.954 107.947 185.954 114.947 202.954 114.947
+ 260.954 114.947 246.954 7.94727 294.955 7.94727 382.955 7.94727 305.955 118.947 410.955 108.947 408.955 107.947 413.955 105.947 414.955 105.947 428.955 97.9473 459.955 -24.0527 497.955 4.94727 556.955 49.9473 529.955 207.947 487.955 212.947 478.955
+ 226.947 419.955 213.947 407.955 209.947L407.955 208.947C391.955 208.947 377.955 125.947 326.955 135.947 299.955 139.947 301.955 247.947 245.954 227.947 246.954 225.947 242.954 226.947 244.954 225.947 239.954 223.947 223.954 211.947 222.954 207.947
+ 209.954 201.947 181.954 170.947 171.954 160.947L170.954 160.947C152.954 135.947 123.954 147.947 104.954 161.947L104.954 162.947C79.9541 186.947 52.9541 200.947 17.9541 195.947 4.9541 182.947 0.954102 144.947 0.954102 128.947 -0.0458984 124.947
+ -0.0458984 103.947 7.9541 106.947 5.9541 104.947 9.9541 104.947 10.9541 104.947L10.9541 103.947 18.9541 103.947 18.9541 102.947 33.9541 100.947 33.9541 99.9473C35.9541 98.9473 43.9541 97.9473 42.9541 94.9473L40.9541 95.9473Z">
+				<fill>
+					<LinearGradient x="329.001" y="225.999" scaleX="532" spreadMethod="repeat">
+						<GradientEntry color="#0900b2" ratio="0"/>
+						<GradientEntry color="#ff0000" ratio="0.5"/>
+						<GradientEntry color="#fffc00" ratio="1"/>
+					</LinearGradient>
+				</fill>
+				<stroke>
+					<SolidColorStroke color="#cc3300" weight="1"/>
+				</stroke>
+			</Path>
+         </Group>
+</Graphic>

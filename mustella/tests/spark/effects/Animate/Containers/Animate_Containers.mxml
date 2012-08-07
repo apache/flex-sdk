@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- 
+     Controls.mxml - the following testCases test the given effect against the UI related
+     objects in the mx.controls namespace.
+-->
+<UnitTester 
+    testDir="spark/effects/Animate/Containers/"  
+    testSWF="../SWFs/Animate_main.mxml"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Containers.*;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Animate_Containers_Accordion" keywords="[Animate, container, Accordion]" description="Try to Animate a Accordion.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixAccordion()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.900000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_ApplicationControlBar" keywords="[Animate, container, ApplicationControlBar]" description="Try to Animate a ApplicationControlBar.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixApplicationControlBar()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="250"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_Box" keywords="[Animate, container, Box]" description="Try to Animate a Box.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixBox()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_Canvas" keywords="[Animate, container, Canvas]" description="Try to Animate a Canvas.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixCanvas()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_ControlBar" keywords="[Animate, container, ControlBar]" description="Try to Animate a ControlBar.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixControlBar()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="250"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_DividedBox" keywords="[Animate, container, DividedBox]" description="Try to Animate a DividedBox.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDividedBox()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+                <Pause timeout="1000"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_Form" keywords="[Animate, container, Form]" description="Try to Animate a Form.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixForm()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_FormHeading" keywords="[Animate, container, FormHeading]" description="Try to Animate a FormHeading.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixFormHeading()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_Grid" keywords="[Animate, container, Grid]" description="Try to Animate a Grid.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixGrid()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_HBox" keywords="[Animate, container, HBox]" description="Try to Animate a HBox.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHBox()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_HDividedBox" keywords="[Animate, container, HDividedBox]" description="Try to Animate a HDividedBox.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHDividedBox()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_Tile" keywords="[Animate, container, Tile]" description="Try to Animate a Tile.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTile()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_TitleWindow" keywords="[Animate, container, TitleWindow]" description="Try to Animate a TitleWindow.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTitleWindow()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_VBox" keywords="[Animate, container, VBox]" description="Try to Animate a VBox.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVBox()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Animate_Containers_VDividedBox" keywords="[Animate, container, VDividedBox]" description="Try to Animate a VDividedBox.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVDividedBox()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="74.9"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="89.85"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.398438"/>
+			</body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

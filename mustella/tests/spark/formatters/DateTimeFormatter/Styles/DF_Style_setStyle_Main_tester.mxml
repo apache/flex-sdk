@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" testSWF="DF_Style_setStyle_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.DateTimeFormatter;
+			public var dFlashShort:flash.globalization.DateTimeFormatter;
+			public var dFlashLong:flash.globalization.DateTimeFormatter;
+			public var dFlashNone:flash.globalization.DateTimeFormatter;
+			public var dFlashMedium:flash.globalization.DateTimeFormatter;
+			public var tFlashShort:flash.globalization.DateTimeFormatter;
+			public var tFlashLong:flash.globalization.DateTimeFormatter;
+			public var tFlashNone:flash.globalization.DateTimeFormatter;
+			public var tFlashMedium:flash.globalization.DateTimeFormatter;
+			public var aDate:Date =  new Date(2000, 0, 1); 
+			
+			public static function init(o:DisplayObject):void      
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- This test file is to test setting local by setStyle() method -->
+	<testCases>
+		<TestCase testID="DF_Style_setStyle_test1" description="setStyle" keywords="[DateTimeFormatter, setStyle]">
+			<setup>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('fr_FR','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('fr_FR','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('fr_FR','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('fr_FR','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('fr_FR','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('fr_FR','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('fr_FR','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('fr_FR','long','medium')" />
+				<Pause timeout="200"/>
+				<SetStyle target="dfSetStyleDShort" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleDLong" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleDNone" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleDMedium" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleTShort" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleTLong" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleTNone" styleName="locale" value="fr_FR" waitEvent="change"/>
+				<SetStyle target="dfSetStyleTMedium" styleName="locale" value="fr_FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dfSetStyleDShort.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleDLong.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleDNone.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleDMedium.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleTShort.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleTLong.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleTNone.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dfSetStyleTMedium.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+</testCases>
+</UnitTester>

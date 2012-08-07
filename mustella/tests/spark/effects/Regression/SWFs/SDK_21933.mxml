@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               width="500" height="500"
+               backgroundColor="0x999999">
+
+	<s:states>
+		<s:State name="state1"/>
+		<s:State name="state2"/>
+	</s:states>
+
+	<s:transitions>
+		<s:Transition>
+			<s:Resize id="sizer" target="{button}"/>
+		</s:Transition>
+	</s:transitions>
+
+	<s:Button id="button" height="50%" width="200" width.state2="300"
+        click="currentState=(currentState=='state1')?'state2':'state1'"/>
+</s:Application>

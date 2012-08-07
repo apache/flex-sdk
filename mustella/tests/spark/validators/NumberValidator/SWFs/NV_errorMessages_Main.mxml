@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			public var nvScriptDecimalPointCountError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidDecimalPointCountError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			public var nvScriptGreaterThanMaxError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidGreaterThanMaxError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptFractionalDigitsError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidFractionalDigitsError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptNotAnIntegerError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidNotAnIntegerError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptInvalidCharError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidInvalidCharError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptInvalidFormatCharsError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidInvalidFormatCharsError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptLessThanMinError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidLessThanMinError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptNegativeError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidNegativeError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptNegativeSymbolError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidNegativeSymbolError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptNegativeNumberFormatError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidNegativeNumberFormatError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptParseError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidParseError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptLocaleUndefinedError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalidLocaleUndefinedError:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+		
+			[Bindable]
+			public var decimalPointCountErrorTest:String = 'It is for test decimalPointCountError!测试测试';
+			public var decimalPointCountErrorDef:String = 'The decimal separator can occur only once.';
+			
+			[Bindable]
+			public var greaterThanMaxErrorTest:String = 'It is for test greaterThanMaxError!Greek: ΣςσβΰΐΣ';
+			public var greaterThanMaxErrorDef:String = 'The number entered is too large.';
+
+			[Bindable]
+												public var fractionalDigitsErrorTest:String = 'It is for test fractionalDigitsError! خميس,الجمعة,السبت';
+			public var fractionalDigitsErrorDef:String = 'The amount entered has too many digits beyond the decimal point.';
+
+			[Bindable]
+												public var notAnIntegerErrorTest:String = 'It is for test notAnIntegerError! ja-JP 月曜日,火曜日,أبريل,مايو,يونيو,يوليو,أغسطس,س';
+			public var notAnIntegerErrorDef:String = 'The number must be an integer.';
+
+			[Bindable]
+			public var invalidCharErrorTest:String = 'It is for test invalidCharError! de-DE März';
+			public var invalidCharErrorDef:String = 'The input contains invalid characters.';
+
+			[Bindable]
+			public var invalidFormatCharsErrorTest:String = 'It is for test invalidFormatCharsError! février';
+			public var invalidFormatCharsErrorDef:String = 'One of the formatting parameters is invalid.';
+
+			[Bindable]
+			public var lessThanMinErrorTest:String = 'It is for test lessThanMinError! cs-CZ: středa,čtvrtek,pátek,';
+			public var lessThanMinErrorDef:String = 'The amount entered is too small.';
+
+			[Bindable]
+			public var negativeErrorTest:String = 'It is for test negativeError! LATIN: utorak,sreda,četvrtak';
+			public var negativeErrorDef:String = 'The amount may not be negative.';
+
+			[Bindable]
+			public var negativeSymbolErrorTest:String = 'It is for test negativeSymbolError! sr-Cyrl-ME недеља,понедељак';
+			public var negativeSymbolErrorDef:String = 'The negative symbol is repeated or not in right place.';
+
+			[Bindable]
+			public var negativeNumberFormatErrorTest:String = 'It is for test negativeNumberFormatError! ru-RU:Январь,Февраль,М';
+			public var negativeNumberFormatErrorDef:String = 'The negative format of the input number is incorrect.';
+
+			[Bindable]
+			public var parseErrorTest:String = 'It is for test parseError! hy:Ապրիլ,Մայիս,Հունիս,Հուլիս,';
+			public var parseErrorDef:String = 'The input string could not be parsed.';
+
+			[Bindable]
+												public var localeUndefinedErrorTest:String = 'It is for test localeUndefinedError! fa-IR:نبه,چهارشنبه,پنجشنبه,جمعه,شنب';
+			public var localeUndefinedErrorDef:String = 'Locale is undefined.';
+			
+			
+			public function changeLocale(newLocale:String):void
+			{
+				resourceManager.localeChain=[newLocale];
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:NumberValidator id="nvDecimalPointCountError"/>
+		<s:NumberValidator id="nvDecimalPointCountErrorB"/>
+		<s:NumberValidator id="nvInvalidDecimalPointCountError"/>
+		<s:NumberValidator id="nvInlineDecimalPointCountError" decimalPointCountError="{decimalPointCountErrorTest}"/>
+		
+		<s:NumberValidator id="nvGreaterThanMaxError"/>
+		<s:NumberValidator id="nvGreaterThanMaxErrorB"/>
+		<s:NumberValidator id="nvInvalidGreaterThanMaxError"/>
+		<s:NumberValidator id="nvInlineGreaterThanMaxError" greaterThanMaxError="{greaterThanMaxErrorTest}"/>
+
+		<s:NumberValidator id="nvFractionalDigitsError"/>
+		<s:NumberValidator id="nvFractionalDigitsErrorB"/>
+		<s:NumberValidator id="nvInvalidFractionalDigitsError"/>
+		<s:NumberValidator id="nvInlineFractionalDigitsError" fractionalDigitsError="{fractionalDigitsErrorTest}"/>
+
+		<s:NumberValidator id="nvNotAnIntegerError"/>
+		<s:NumberValidator id="nvNotAnIntegerErrorB"/>
+		<s:NumberValidator id="nvInvalidNotAnIntegerError"/>
+		<s:NumberValidator id="nvInlineNotAnIntegerError" notAnIntegerError="{notAnIntegerErrorTest}"/>
+
+		<s:NumberValidator id="nvInvalidCharError"/>
+		<s:NumberValidator id="nvInvalidCharErrorB"/>
+		<s:NumberValidator id="nvInvalidInvalidCharError"/>
+		<s:NumberValidator id="nvInlineInvalidCharError" invalidCharError="{invalidCharErrorTest}"/>
+
+		<s:NumberValidator id="nvInvalidFormatCharsError"/>
+		<s:NumberValidator id="nvInvalidFormatCharsErrorB"/>
+		<s:NumberValidator id="nvInvalidInvalidFormatCharsError"/>
+		<s:NumberValidator id="nvInlineInvalidFormatCharsError" invalidFormatCharsError="{invalidFormatCharsErrorTest}"/>
+
+		<s:NumberValidator id="nvLessThanMinError"/>
+		<s:NumberValidator id="nvLessThanMinErrorB"/>
+		<s:NumberValidator id="nvInvalidLessThanMinError"/>
+		<s:NumberValidator id="nvInlineLessThanMinError" lessThanMinError="{lessThanMinErrorTest}"/>
+
+		<s:NumberValidator id="nvNegativeError"/>
+		<s:NumberValidator id="nvNegativeErrorB"/>
+		<s:NumberValidator id="nvInvalidNegativeError"/>
+		<s:NumberValidator id="nvInlineNegativeError" negativeError="{negativeErrorTest}"/>
+
+		<s:NumberValidator id="nvNegativeSymbolError"/>
+		<s:NumberValidator id="nvNegativeSymbolErrorB"/>
+		<s:NumberValidator id="nvInvalidNegativeSymbolError"/>
+		<s:NumberValidator id="nvInlineNegativeSymbolError" negativeSymbolError="{negativeSymbolErrorTest}"/>
+
+		<s:NumberValidator id="nvNegativeNumberFormatError"/>
+		<s:NumberValidator id="nvNegativeNumberFormatErrorB"/>
+		<s:NumberValidator id="nvInvalidNegativeNumberFormatError"/>
+		<s:NumberValidator id="nvInlineNegativeNumberFormatError" negativeNumberFormatError="{negativeNumberFormatErrorTest}"/>
+
+		<s:NumberValidator id="nvParseError"/>
+		<s:NumberValidator id="nvParseErrorB"/>
+		<s:NumberValidator id="nvInvalidParseError"/>
+		<s:NumberValidator id="nvInlineParseError" parseError="{parseErrorTest}"/>
+
+		<s:NumberValidator id="nvLocaleUndefinedError"/>
+		<s:NumberValidator id="nvLocaleUndefinedErrorB"/>
+		<s:NumberValidator id="nvInvalidLocaleUndefinedError"/>
+		<s:NumberValidator id="nvInlineLocaleUndefinedError" localeUndefinedError="{localeUndefinedErrorTest}"/>
+		<s:NumberValidator id="nvErrorBinding"/>
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:TextInput id="nvDecimalPointCountErrorL" text="{nvDecimalPointCountErrorB.decimalPointCountError}" />
+	
+	<s:TextInput id="nvGreaterThanMaxErrorL" text="{nvGreaterThanMaxErrorB.greaterThanMaxError}"/>
+
+	<s:TextInput id="nvFractionalDigitsErrorL" text="{nvFractionalDigitsErrorB.fractionalDigitsError}"/>
+	
+	<s:TextInput id="nvNotAnIntegerErrorL" text="{nvNotAnIntegerErrorB.notAnIntegerError}"/>
+	
+	<s:TextInput id="nvInvalidCharErrorL" text="{nvInvalidCharErrorB.invalidCharError}"/>
+	
+	<s:TextInput id="nvInvalidFormatCharsErrorL" text="{nvInvalidFormatCharsErrorB.invalidFormatCharsError}"/>
+	
+	<s:TextInput id="nvLessThanMinErrorL" text="{nvLessThanMinErrorB.lessThanMinError}"/>
+	
+	<s:TextInput id="nvNegativeErrorL" text="{nvNegativeErrorB.negativeError}"/>
+	
+	<s:TextInput id="nvNegativeSymbolErrorL" text="{nvNegativeSymbolErrorB.negativeSymbolError}"/>
+	
+	<s:TextInput id="nvNegativeNumberFormatErrorL" text="{nvNegativeNumberFormatErrorB.negativeNumberFormatError}"/>
+	
+	<s:TextInput id="nvParseErrorL" text="{nvParseErrorB.parseError}"/>
+	
+	<s:TextInput id="nvLocaleUndefinedErrorL" text="{nvLocaleUndefinedErrorB.localeUndefinedError}"/>
+	
+	
+	
+	
+	
+	<s:Label id="decimalPointCountError_Binding" text="{nvErrorBinding.decimalPointCountError}"/>
+	
+	<s:Label id="greaterThanMaxError_Binding" text="{nvErrorBinding.greaterThanMaxError}"/>
+
+	<s:Label id="fractionalDigitsError_Binding" text="{nvErrorBinding.fractionalDigitsError}"/>
+	
+	<s:Label id="notAnIntegerError_Binding" text="{nvErrorBinding.notAnIntegerError}"/>
+	
+	<s:Label id="invalidCharError_Binding" text="{nvErrorBinding.invalidCharError}"/>
+	
+	<s:Label id="invalidFormatCharsError_Binding" text="{nvErrorBinding.invalidFormatCharsError}"/>
+	
+	<s:Label id="lessThanMinError_Binding" text="{nvErrorBinding.lessThanMinError}"/>
+	
+	<s:Label id="negativeError_Binding" text="{nvErrorBinding.negativeError}"/>
+	
+	<s:Label id="negativeSymbolError_Binding" text="{nvErrorBinding.negativeSymbolError}"/>
+	
+	<s:Label id="negativeNumberFormatError_Binding" text="{nvErrorBinding.negativeNumberFormatError}"/>
+	
+	<s:Label id="parseError_Binding" text="{nvErrorBinding.parseError}"/>
+	
+	<s:Label id="localeUndefinedError_Binding" text="{nvErrorBinding.localeUndefinedError}"/>
+</s:Application>

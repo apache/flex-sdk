@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="500">
+	<s:states>
+			<s:State name="defaultState" />
+			<s:State name="state1" />
+	</s:states>
+	<s:layout><s:VerticalLayout/></s:layout>
+	<s:VGroup id="alphaGrp" paddingTop="30" paddingBottom="30" paddingLeft="30" paddingRight="30">
+		<s:Button id="btnAlpha" focusAlpha.defaultState="0.2" focusAlpha.state1="1" />	
+	</s:VGroup>
+	<s:VGroup id="thickGrp" paddingTop="30" paddingBottom="30" paddingLeft="30" paddingRight="30">
+		<s:Button id="btnThick" focusThickness.defaultState="20" focusThickness.state1="8" />
+	</s:VGroup>
+	<s:VGroup id="cornerGrp" paddingTop="30" paddingBottom="30" paddingLeft="30" paddingRight="30">
+		<s:Button id="btnCorner" cornerRadius="10" />
+	</s:VGroup>
+	<s:VGroup id="grp" paddingTop="30" paddingBottom="30" paddingLeft="30" paddingRight="30">
+		<s:Button id="btn"/>
+		<s:Button id="btn2"/>
+	</s:VGroup>
+	
+</s:Group>

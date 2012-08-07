@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:assets="assets.*"
+			   minWidth="955" minHeight="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			
+			import mx.events.ModuleEvent;
+			
+			private var myStyleManager:IStyleManager2;
+			private var myDynStyle:CSSStyleDeclaration;
+			
+			public function set appLocale(locale:String):void
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("spark.components.Application");
+				
+				myDynStyle.setStyle('locale',locale);
+				
+				this.dispatchEvent(new Event('myAppLocaleChangedEve'));
+			}
+			
+			public function set globalLocale(locale:String):void
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("global");
+				
+				myDynStyle.setStyle('locale',locale);
+				
+				this.dispatchEvent(new Event('myGlobalLocaleChangedEve'));
+			}
+			
+			protected function bt_clickHandler(event:MouseEvent):void
+			{
+				styleComp.addEventListener(ModuleEvent.READY, readyHandler);
+				styleComp.loadModule("assets/CLT_StyleModule.swf");
+			}
+			
+			private function readyHandler(event:ModuleEvent):void {
+				styleComp.removeEventListener(ModuleEvent.READY, readyHandler);
+				
+				this.dispatchEvent(new Event("uiCustomModuleLoadDone"));
+			}
+			
+			protected function btUnLoad_clickHandler(event:MouseEvent):void
+			{
+				styleComp.unloadModule();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+	</fx:Style>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<s:Button id="bt" click="bt_clickHandler(event)" label="Load" />
+	<s:Button id="btUnLoad" click="btUnLoad_clickHandler(event)" label="UnLoad" />
+	
+	<mx:ModuleLoader id="styleComp" url="assets/CLT_StyleModule.swf" />
+	
+</s:Application>

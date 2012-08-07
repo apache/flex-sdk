@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  
+				xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import mx.collections.IViewCursor;
+			import mx.collections.ListCollectionView;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			
+			
+			[Bindable]
+			public var ac:ArrayCollection;
+			public var cursor:IViewCursor;
+			[Bindable]
+			public var view:ListCollectionView;
+			
+			public var players:Array=[
+				{team:"ATeam",jerseyNumber:80,lastName:"BrPlayer",firstName:"TrName"},
+				{team:"BTeam",jerseyNumber:7, lastName:"LePlayer",firstName:"ByName"},
+				{team:"ATeam",jerseyNumber:12, lastName:"BryPlayer",firstName:"ToName"},
+				{team:"ATeam",jerseyNumber:21,lastName:"GaPlayer",firstName:"RaPlayer"},
+				{team:"CTeam",jerseyNumber:34, lastName:"OrPlayer",firstName:"DaName"},
+				{team:"ATeam",jerseyNumber:12, lastName:"ViPlayer",firstName:"AdName"},
+				{team:"BTeam",jerseyNumber:7, lastName:"BoPlayer",firstName:"ByName"},
+			];
+			
+			public function ready():void
+			{
+				ac = new ArrayCollection(players);
+				var s:Sort = new Sort();
+				var f:SortField = new SortField("jerseyNumber");
+				ac.filterFunction = function (item:Object):Boolean
+				{
+					return item.jerseyNumber >= 12 && item.jerseyNumber <= 34;
+				}
+				s.fields = [f];
+				ac.sort = s;
+				ac.refresh();
+			}
+			
+			public function createView():void {
+				var s:Sort = new Sort();
+				var sf:SortField = new SortField("firstName");
+				this.addStyleClient(s);
+				this.addStyleClient(sf);
+				s.fields = [sf];
+				matchingArray.sort = s;
+				matchingArray.refresh();
+				view = new ListCollectionView(matchingArray);
+				cursor = view.createCursor();
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:ArrayCollection id="airportCollection">
+		<mx:source>
+			<mx:Array>
+				<mx:Object abbreviation="IAH" name="Houston" international="true"/>
+				<mx:Object abbreviation="BOS" name="Boston" international="true"/>
+				<mx:Object abbreviation="MHT" name="Manchester" international="false"/>
+				<mx:Object abbreviation="JAX" name="Jacksonville" international="false"/>
+				<mx:Object abbreviation="CVG" name="Cincinatti" international="false"/>
+				<mx:Object abbreviation="ATL" name="Atlanta" international="true"/>
+				<mx:Object abbreviation="CDG" name="Paris" international="true"/>
+				<mx:Object abbreviation="JFK" name="New York" international="true"/>
+				<mx:Object abbreviation="LAX" name="Los Angeles" international="true"/>
+				<mx:Object abbreviation="HND" name="Tokyo" international="true"/>
+				<mx:Object abbreviation="SFO" name="San Francisco" international="true"/>
+				<mx:Object abbreviation="SJO" name="San Jose" international="false"/>
+			</mx:Array>
+		</mx:source>
+	</mx:ArrayCollection>
+	
+	<mx:Array id="airportCodes">
+		<mx:Object abbreviation="IAH" name="Houston"/>
+		<mx:Object abbreviation="BOS" name="Boston"/>
+		<mx:Object abbreviation="MHT" name="Manchester"/>
+		<mx:Object abbreviation="JAX" name="Jacksonville"/>
+	</mx:Array>
+	
+	<mx:ArrayCollection id="airportCollectionBound">
+		<mx:source>{airportCodes}</mx:source>
+	</mx:ArrayCollection>
+	
+	
+	<mx:DataGrid id="dg" />
+	
+	<mx:DataGrid id="dg_nested" >
+		<mx:dataProvider>
+			<mx:ArrayCollection>
+				<mx:source>
+					<mx:Array>
+						<mx:Object abbreviation="IAH" name="Houston"/>
+						<mx:Object abbreviation="BOS" name="Boston"/>
+						<mx:Object abbreviation="MHT" name="Manchester"/>
+						<mx:Object abbreviation="JAX" name="Jacksonville"/>
+						<mx:Object abbreviation="CVG" name="Cincinatti"/>
+						<mx:Object abbreviation="ATL" name="Atlanta"/>
+						<mx:Object abbreviation="CDG" name="Paris"/>
+						<mx:Object abbreviation="JFK" name="New York"/>
+						<mx:Object abbreviation="LAX" name="Los Angeles"/>
+						<mx:Object abbreviation="HND" name="Tokyo"/>
+					</mx:Array>
+				</mx:source>
+			</mx:ArrayCollection>
+		</mx:dataProvider>
+	</mx:DataGrid>
+	
+	<mx:Repeater id="myRepeater" >
+		<mx:dataProvider>  
+			<mx:ArrayCollection>  
+				<mx:source>  
+					<mx:Array>  
+						<mx:Object firstName="ToName" lastName="ManFN" ssn="555-55-5555" />  
+						<mx:Object firstName="MarFN" lastName="AndFN" ssn="555-55-5555" /> 
+						<mx:Object firstName="BilFN" lastName="AndFN" ssn="555-55-5555" /> 
+						<mx:Object firstName="BobFN" lastName="AndFN" ssn="555-55-5555" />  
+						<mx:Object firstName="SamFN" lastName="FeeFN" ssn="555-55-5555" />  
+						<mx:Object firstName="AlfFN" lastName="DenFN" ssn="555-55-5555" />  
+					</mx:Array>  
+				</mx:source>  
+			</mx:ArrayCollection>
+		</mx:dataProvider>
+		<mx:Label id="playerId" text="{myRepeater.currentItem.lastName}, {myRepeater.currentItem.firstName}" />
+	</mx:Repeater>
+	
+	<mx:ArrayCollection id="matchingArray">  
+		<mx:Object firstName="ToName" lastName="ManFN" ssn="555-55-5555" />  
+		<mx:Object firstName="MarFN" lastName="AndFN" ssn="555-55-5555" /> 
+		<mx:Object firstName="BilFN" lastName="AndFN" ssn="555-55-5555" /> 
+		<mx:Object firstName="BobFN" lastName="AndFN" ssn="555-55-5555" />  
+		<mx:Object firstName="SamFN" lastName="FeeFN" ssn="555-55-5555" />  
+		<mx:Object firstName="AlfFN" lastName="DenFN" ssn="555-55-5555" />  
+	</mx:ArrayCollection>
+	
+	<mx:Repeater id="myRepeaterId" dataProvider="{matchingArray}">
+		<mx:Label id="myRepeaterLabel" text="{myRepeaterId.currentItem.lastName}, {myRepeaterId.currentItem.firstName}" />
+	</mx:Repeater>
+	
+</mx:Application>

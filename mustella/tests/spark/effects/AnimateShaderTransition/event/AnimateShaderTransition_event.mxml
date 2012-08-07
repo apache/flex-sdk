@@ -1,0 +1,69 @@
+﻿<UnitTester
+    testSWF="../SWFs/AnimateShaderTransition_main.mxml"
+    testDir="spark/effects/AnimateShaderTransition/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateTransitionShader;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="AnimateTransitionShader_effectStart" keywords="[AnimateTransitionShader, events, effectStart]" description="Test the effectStart event.">
+            <setup>
+                <RunCode code="application.e_AnimateTransitionShader.stop()" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.targets = [application.controls1.control_Button];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.play();" waitTarget="e_AnimateTransitionShader" waitEvent="effectEnd" />
+                <AssertEvent target="e_AnimateTransitionShader" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="AnimateTransitionShader_effectEnd" keywords="[AnimateTransitionShader, events, effectEnd]" description="Test the effectEnd event.">
+            <setup>
+                <RunCode code="application.e_AnimateTransitionShader.stop()" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.targets = [application.controls1.control_Button];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.play();" waitTarget="e_AnimateTransitionShader" waitEvent="effectEnd" />
+                <AssertEvent target="e_AnimateTransitionShader" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <!-- effectStop -->
+        <TestCase testID="AnimateTransitionShader_effectStop" keywords="[AnimateTransitionShader, events, effectStop]" description="Test the effectStop event.">
+            <setup>
+                <RunCode code="application.e_AnimateTransitionShader.stop()" />
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.targets = [application.controls1.control_Button];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.play();" />
+                <Pause timeout="200"/>
+                <RunCode code="application.e_AnimateTransitionShader.stop();" waitTarget="e_AnimateTransitionShader" waitEvent="effectStop" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

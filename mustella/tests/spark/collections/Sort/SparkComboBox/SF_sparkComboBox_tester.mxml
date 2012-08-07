@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/SparkComboBox/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SF_sparkComboBox.mxml">
+	<mx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import flash.globalization.*;
+			import flash.globalization.LastOperationStatus;
+			
+			import spark.globalization.SortingCollator;
+			
+			public var clt:spark.globalization.SortingCollator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="SortField_sparkComboBox_default_test1" description="sort items with default property setting"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField,application.uiComboBoxComp.mySortField2]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ja-JP'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   value="TJ,Izzy,barmen,Bo,Danny,Bunny,Molly,Daisy,Moe,cadbury,Umbra,Imari,Matisse,Chumley,Ted"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_default_script_test2" description="sort items with default property setting"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript,application.uiComboBoxComp.mySortFieldScript2]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   value="TJ,Izzy,barmen,Bo,Danny,Bunny,Molly,Daisy,Moe,cadbury,Umbra,Imari,Matisse,Chumley,Ted"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_descending_true_test3" description="sort items with descending true"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="true" />
+				<SetProperty target="uiComboBoxComp.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortField2" propertyName="descending" value="true" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField,application.uiComboBoxComp.mySortField2]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.revertArray(application.uiComboBoxComp.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   value="Ted,Chumley,Matisse,Imari,Umbra,cadbury,Moe,Daisy,Molly,Bunny,Danny,Bo,barmen,Izzy,TJ"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_descending_true_script_test4" description="sort items with descending true"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="true" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript2" propertyName="descending" value="true" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript,application.uiComboBoxComp.mySortFieldScript2]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.revertArray(application.uiComboBoxComp.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   value="Ted,Chumley,Matisse,Imari,Umbra,cadbury,Moe,Daisy,Molly,Bunny,Danny,Bo,barmen,Izzy,TJ"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="SortField_sparkComboBox_unique_true_test5" description="sort items with unique true"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+				
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="active" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortField2" propertyName="name" value="active" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField,application.uiComboBoxComp.mySortField2]" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="true" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertMethodValue method="value=application.uiComboBoxComp.VerifyUniqueError()" 
+								   value="Error: Non-unique values in items."/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_unique_true_script_test6" description="sort items with unique true"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript2" propertyName="name" value="active" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript,application.uiComboBoxComp.mySortFieldScript2]" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="true" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiComboBoxComp.VerifyUniqueError()" 
+								   value="Error: Non-unique values in items."/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_numeric_true_test7" description="sort items with numeric true"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="true" />
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="numeric" value="true" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				
+				<SetProperty target="uiComboBoxComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiComboBoxComp.myMxSortField" propertyName="name" valueExpression="value='age'"/>
+				<SetProperty target="uiComboBoxComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiComboBoxComp.myMxSortField]"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.mxSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_numeric_true_script_test8" description="sort items with numeric true"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='en-GB'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="true" />
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="numeric" value="true" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				
+				<SetProperty target="uiComboBoxComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiComboBoxComp.myMxSortField" propertyName="name" valueExpression="value='age'"/>
+				<SetProperty target="uiComboBoxComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiComboBoxComp.myMxSortField]"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.mxSortedArray"/>
+			</body>
+		</TestCase>
+		
+		
+		
+		<TestCase testID="SortField_sparkComboBox_diff_locale_test9" description="sort items based on different locale on Sort and SortField"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_diff_locale_script_test10" description="sort items based on different locale on Sort and SortField"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		
+		
+		<TestCase testID="SortField_sparkComboBox_localeChange_SortField_test11" description="sort items based locale change of SortField"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="SortField_sparkComboBox_localeChange_SortField_test12" description="sort items based on locale change of SortField"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		
+		
+		<TestCase testID="SortField_sparkComboBox_localeChange_Sort_test13" description="sort items based locale change of Sort"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="SortField_sparkComboBox_localeChange_Sort_test14" description="sort items based on locale change of Sort"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="uiComboBoxComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		
+		
+		<TestCase testID="SortField_sparkComboBox_reverse_test15" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="address" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortField2" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField2,application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<RunCode code="application.uiComboBoxComp.mySort.reverse()" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.revertArray(application.uiComboBoxComp.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   value="cadbury,barmen,Bo,Izzy,TJ,Moe,Molly,Matisse,Bunny,Daisy,Imari,Umbra,Danny,Ted,Chumley"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_reverse_script_test16" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript2" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="age" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript2" propertyName="descending" value="true" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript,application.uiComboBoxComp.mySortFieldScript2]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<RunCode code="application.uiComboBoxComp.mySortScript.reverse()" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.revertArray(application.uiComboBoxComp.sparkSortedArray)"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   value="Chumley,Ted,Umbra,Imari,Matisse,cadbury,Daisy,Moe,Molly,Bunny,Danny,Bo,Izzy,barmen,TJ"/>
+			</body>
+		</TestCase>  
+		
+		
+		<TestCase testID="SortField_sparkComboBox_changeSource_test17" description="sort items after change source"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="name" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataXmlListArrSAdd" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_changeSource_script_test18" description="sort items after change source"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="name" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataXmlListArrSAdd" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		
+		
+		<TestCase testID="SortField_sparkComboBox_function_test19" description="verify sort items of ComboBox will not affect the original function"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="name" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySort" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortField]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySort" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetProperty target="uiComboBoxComp.uiComboBox" propertyName="selectedIndex" value="0" />
+				<AssertPropertyValue target="uiComboBoxComp" propertyName="listSelectFieldValue" value="barmen" />
+				<SetProperty target="uiComboBoxComp.uiComboBox" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target="uiComboBoxComp" propertyName="listSelectFieldValue" value="cadbury" />
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_sparkComboBox_function_script_test20" description="verify sort items of ComboBox will not affect the original function"  keywords="[Sort, sparkComboBox]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete"/>
+				<SetStyle target="uiComboBoxComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiComboBoxComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiComboBoxComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxValueField" value="name" />
+				<SetProperty target="uiComboBoxComp" propertyName="comboBoxDataProvider" valueExpression="value=application.uiComboBoxComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiComboBoxComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiComboBoxComp.mySortFieldScript]" />
+				<SetProperty target="uiComboBoxComp.comboBoxDataProvider" propertyName="sort" valueExpression="value=application.uiComboBoxComp.mySortScript" />
+				<RunCode code="application.uiComboBoxComp.comboBoxDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiComboBoxComp.comboBoxDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
+								   valueExpression="value=application.uiComboBoxComp.sparkSortedArray"/>
+				<SetProperty target="uiComboBoxComp.uiComboBox" propertyName="selectedIndex" value="0" />
+				<AssertPropertyValue target="uiComboBoxComp" propertyName="listSelectFieldValue" value="barmen" />
+				<SetProperty target="uiComboBoxComp.uiComboBox" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target="uiComboBoxComp" propertyName="listSelectFieldValue" value="cadbury" />
+			</body>
+		</TestCase>  
+		<!--Cases for locale dependent sort test-->
+		<TestCase testID="SortField_mxHorizontalList_locale_dependent_aryColl_test_21" description="verify locale dependent sort" keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete" waitTarget="uiComboBoxComp"/>
+				<RunCode code="application.uiComboBoxComp.updateSort_aryColl()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiComboBoxComp.collection)" valueExpression="value=application.uiComboBoxComp.sparkSortedArrayCollection2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SortField_mxHorizontalList_locale_dependent_xmlList_test_22" description="verify locale dependent sort" keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiComboBoxComp" className="newComps.CustomComboBoxComp" waitEvent="updateComplete" waitTarget="uiComboBoxComp"/>
+				<RunCode code="application.uiComboBoxComp.updateSort_xmlList()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiComboBoxComp.dataXmlListArrS_locale)" valueExpression="value=application.uiComboBoxComp.sparkSortedXMLList2"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

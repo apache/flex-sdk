@@ -1,0 +1,34 @@
+<UnitTester 
+    testDir="spark/effects/SimpleMotionPath/variable/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/SimpleMotionPath_main.mxml">
+    
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.Application;
+        import spark.effects.animation.SimpleMotionPath;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!-- property -->
+        <TestCase testID="SimpleMotionPath_property_Default" keywords="[SimpleMotionPath, variable, property]" description="Test the default value of the property variable.">
+            <body>
+                <AssertMethodValue method="value=(new SimpleMotionPath()).property" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SimpleMotionPath_property" keywords="[SimpleMotionPath, variable, property]" description="Test the value of a mxml compiler set property.">
+            <body>
+                <AssertMethodValue method="value=application.ap_FromTo.property" value="x"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

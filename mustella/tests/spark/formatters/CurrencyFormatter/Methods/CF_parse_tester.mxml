@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_parse.mxml">
+    
+	<mx:Script>
+    <![CDATA[
+		import assets.CFConstant;
+		import flash.globalization.CurrencyFormatter;
+		import flash.globalization.CurrencyParseResult;
+		
+		public var CFGSLib:flash.globalization.CurrencyFormatter;
+		public var CFResult:CurrencyParseResult;
+		public var GSLibResult:CurrencyParseResult;
+		public var result:Number;
+		
+		public static function init(o:DisplayObject):void
+        {
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!-- This test file is to test parse() method -->
+<testCases>
+	<!-- Parse a valid string without currency symbol-->
+	<TestCase testID="CF_parse_validString_withoutCurrencySymbol_test1" description="Parse a valid string without currency symbol" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfNoLocale.parse('123,456,789.012')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('123,456,789.012')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse a valid string without currency symbol in actionScript -->
+	<TestCase testID="CF_parse_validString_withoutCurrencySymbol_test2" description="Parse a valid string without currency symbol in actionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('en')" />
+			<RunCode code="CFResult=application.cfNoLocaleScript.parse('123,456,789.012')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('123,456,789.012')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse a valid string with currency Symbol -->
+	<TestCase testID="CF_parse_validString_withCurrencySymbol_test3" description="Parse a valid string with currency Symbol" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfNoLocale.parse('Dollar 123,456,789.012')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('Dollar 123,456,789.012')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--Parse a valid string with currency Symbol and negative symbol -->
+	<TestCase testID="CF_parse_validString_withCurrencySymbol_negativeSymbol_test4" description="Parse a valid string with currency Symbol and negative symbol" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfNoLocale.parse('- USD 123,456,789.012')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('- USD 123,456,789.012')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with currency Symbol and negative symbol -->
+	<TestCase testID="CF_parse_invalidString_withCurrencySymbol_negativeSymbol_test5" description="Parse an invalid string with currency Symbol and negative symbol" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfNoLocale.parse('- Dollar 123,456,789.012')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('- Dollar 123,456,789.012')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse a valid string with locale and properties,for Declaration tag definition -->
+	<TestCase testID="CF_parse_validString_withLocale_properties_test6" description="Parse a valid string with locale and properties,for Declaration tag definition" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFGSLib.decimalSeparator=';'" />
+			<RunCode code="CFGSLib.negativeCurrencyFormat=1" />
+			<RunCode code="CFGSLib.positiveCurrencyFormat=1" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cf.parse('-CNY 123,456,789;03')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('-CNY 123,456,789;03')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse a valid string with locale and properties,for Declaration tag definition -->
+	<TestCase testID="CF_parse_validString_withLocale_properties_test7" description="Parse a valid string with locale and properties,for Declaration tag definition" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFGSLib.decimalSeparator=';'" />
+			<RunCode code="CFGSLib.negativeCurrencyFormat=1" />
+			<RunCode code="CFGSLib.positiveCurrencyFormat=1" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cf.parse('123,456,789;456CNY')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('123,456,789;456CNY')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse a valid string with locale and properties,for ActionScript -->
+	<TestCase testID="CF_parse_validString_withLocale_properties_test8" description="Parse a valid string with locale and properties,for ActionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibProperty(';',1,1)" />
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setCFProperty(application.cfScript,';',1,1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfScript.parse('123,456,789;456CNY')" />
+			<RunCode code="GSLibResult=application.GSLibWithProperty.parse('123,456,789;456CNY')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.GSLibWithProperty.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse a valid string with locale and properties,for ActionScript -->
+	<TestCase testID="CF_parse_validString_withLocale_properties_test9" description="Parse a valid string with locale and properties,for ActionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibProperty(';',1,1)" />
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setCFProperty(application.cfScript,';',1,1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfScript.parse('-CNY 123,456,789;03')" />
+			<RunCode code="GSLibResult=application.GSLibWithProperty.parse('-CNY 123,456,789;03')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.GSLibWithProperty.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties,for Declaration tag definition -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test10" description="Parse an invalid string with locale and properties,for Declaration tag definition" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFGSLib.decimalSeparator=';'" />
+			<RunCode code="CFGSLib.negativeCurrencyFormat=1" />
+			<RunCode code="CFGSLib.positiveCurrencyFormat=1" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cf.parse('-CNY 123,456,789;03')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('-CNY 123,456,789;03')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties,for Declaration tag definition -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test11" description="Parse an invalid string with locale and properties,for Declaration tag definition" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFGSLib.decimalSeparator=';'" />
+			<RunCode code="CFGSLib.negativeCurrencyFormat=1" />
+			<RunCode code="CFGSLib.positiveCurrencyFormat=1" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cf.parse('(CNY123,456,780;03)')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('(CNY123,456,780;03)')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties,for Declaration tag definition -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test12" description="Parse an invalid string with locale and properties,for Declaration tag definition" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFGSLib.decimalSeparator=';'" />
+			<RunCode code="CFGSLib.negativeCurrencyFormat=1" />
+			<RunCode code="CFGSLib.positiveCurrencyFormat=1" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cf.parse('123,456,789.456CNY')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('123,456,789.456CNY')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties,for Declaration tag definition -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test13" description="Parse an invalid string with locale and properties,for Declaration tag definition" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFGSLib.decimalSeparator=';'" />
+			<RunCode code="CFGSLib.negativeCurrencyFormat=1" />
+			<RunCode code="CFGSLib.positiveCurrencyFormat=1" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cf.parse('CNY123,456,789;456')" />
+			<RunCode code="GSLibResult=CFGSLib.parse('CNY123,456,789;456')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cf" propertyName="lastOperationStatus" valueExpression="value=CFGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties ,for ActionScript -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test14" description="Parse an invalid string with locale and properties ,for ActionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibProperty(';',1,1)" />
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setCFProperty(application.cfScript,';',1,1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfScript.parse('-CNY 123,456,789.03')" />
+			<RunCode code="GSLibResult=application.GSLibWithProperty.parse('-CNY 123,456,789.03')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.GSLibWithProperty.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties ,for ActionScript -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test15" description="Parse an invalid string with locale and properties ,for ActionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibProperty(';',1,1)" />
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setCFProperty(application.cfScript,';',1,1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfScript.parse('(CNY123,456,780;03)')" />
+			<RunCode code="GSLibResult=application.GSLibWithProperty.parse('(CNY123,456,780;03)')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.GSLibWithProperty.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties ,for ActionScript -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test16" description="Parse an invalid string with locale and properties ,for ActionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibProperty(';',1,1)" />
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setCFProperty(application.cfScript,';',1,1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfScript.parse('123,456,789.456CNY')" />
+			<RunCode code="GSLibResult=application.GSLibWithProperty.parse('123,456,789.456CNY')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.GSLibWithProperty.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--Parse an invalid string with locale and properties ,for ActionScript -->
+	<TestCase testID="CF_parse_invalidString_withLocale_properties_test17" description="Parse an invalid string with locale and properties ,for ActionScript" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibProperty(';',1,1)" />
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setCFProperty(application.cfScript,';',1,1)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="CFResult=application.cfScript.parse('CNY123,456,789;456')" />
+			<RunCode code="GSLibResult=application.GSLibWithProperty.parse('CNY123,456,789;456')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=CFResult.value" valueExpression="value=GSLibResult.value" />
+			<AssertMethodValue method="value=CFResult.currencyString" valueExpression="value=GSLibResult.currencyString" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.GSLibWithProperty.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- TypeError for inputting null string-->
+	<TestCase testID="CF_parse_TypeError_test18" description="TypeError for inputting null string" keywords="[CurrencyFormatter, parse]">
+		<body>
+			<AssertMethodValue method="value=application.checkError()" valueExpression="value=application.checkGSLibError()"/>
+		</body>
+	</TestCase>
+	
+	<!--Bind parse results -->
+	<TestCase testID="CF_parse_binding_test19" description="Bind parse results" keywords="[CurrencyFormatter, parse]">
+		<setup>
+			<RunCode code="CFGSLib=new flash.globalization.CurrencyFormatter('en_US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfBinding" styleName="locale" value="en_US" waitEvent="change"/>
+			<RunCode code="GSLibResult=CFGSLib.parse(application.parseObj)" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLabel" propertyName="text" valueExpression="value=GSLibResult"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_groupingSeparator_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="NV_groupingSeparator_default_test1" description="the test case is for test default groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_default_test" description="the test case is for test default groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.decimalSeparator=','" />
+				<RunCode code="nfGSLib.groupingSeparator=';'" />
+				<SetStyle target="nv1" styleName="locale" value="en" />
+				<SetProperty target="nv1" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+				<AssertPropertyValue target="nv1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_default_script_test2" description="the test case is for test default groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja-JP')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_star_test3" description="the test case is for test set valid value to groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator='*'" />
+				<SetStyle target="nv1" styleName="locale" value="ar-SA" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_semicolon_test4" description="the test case is for test set valid value to groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ur-PK')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator=';'" />
+				<SetStyle target="nv1" styleName="locale" value="ur-PK" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_period_script_test5" description="the test case is for test set valid value to groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('uk-UA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator='.'" />
+				<SetStyle target="nvScript1" styleName="locale" value="uk-UA" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="groupingSeparator" value="." waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_starcolon_script_test6" description="the test case is for test set valid value to groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<ResetComponent target="nvScript1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript1.initialized(null,'nvScript1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('et-EE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator='*:'" />
+				<SetStyle target="nvScript1" styleName="locale" value="et-EE" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="groupingSeparator" value="*:" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_inline_colon_test7" description="the test case is for test set valid value to groupingSeparator inline" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('lv-LV')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator=':'" />
+				<SetStyle target="nvInline" styleName="locale" value="lv-LV" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_inline_periodstar_test8" description="the test case is for test set valid value to groupingSeparator inline" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('sk-SK')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator='.*'" />
+				<SetStyle target="nvInline2" styleName="locale" value="sk-SK" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline2" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_binding_semicolon_test9" description="Binding property by lable text" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator=';'" />
+				<SetStyle target="nvBinding" styleName="locale" value="en-US" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_binding_star_test10" description="Binding property by lable text" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-ZA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator='*'" />
+				<SetStyle target="nvBinding" styleName="locale" value="en-ZA" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_binding_arrow_script_test11" description="Binding property by lable text" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-MC')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator='^'" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="fr-MC" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="groupingSeparator" value="^" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_binding_colon_script_test12" description="Binding property by lable text" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-TN')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingSeparator=':'" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="ar-TN" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="groupingSeparator" value=":" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_invalid_null_test13" description="the test case is for test set invalid value to groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-OM')" />
+				<SetStyle target="nvInvalid" styleName="locale" value="ar-OM" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid,'groupingSeparator',null)" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'groupingSeparator',null)"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_invalid_empty_script_test14" description="the test case is for test set invalid value to groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvScriptInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid,'groupingSeparator','')" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'groupingSeparator','')"/>
+				<AssertPropertyValue target="nvScriptInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_bindingWithLocaleChange_test15" description="Binding property when locale change" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+				<SetStyle target="nvBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvBindingLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<AssertEvent target="nvBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_bindingWithLocaleChange_script_test16" description="Binding property when locale change" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')"/>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+				<AssertEvent target="nvScriptBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvScriptBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.groupingSeparator" />
+				<AssertPropertyValue target="nvScriptBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_function_star_test17" description="Test function with property groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="decimalSeparator" value="," waitEvent="change"/>
+
+				<SetProperty target="nvFunction1" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="12*345,6" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_function_semicolonstar_test18" description="Test function with property groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvFunction2" propertyName="groupingSeparator" value=";*" waitEvent="change"/>
+				<SetProperty target="nvFunction2" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1234;*567,89" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT2"/>
+				<AssertEvent target="nvFunction2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_function_colon_script_test19" description="Test function with property groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="groupingSeparator" value=":"  waitEvent="change"/>
+				<SetProperty target="nvScriptFunction3" propertyName="decimalSeparator" value="*"  waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="ar-TN" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="8:61:45:67*89" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_groupingSeparator_function_priod_script_test20" description="Test function with property groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvScriptFunction5" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction5" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction5" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptFunction5" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction5" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+				<SetProperty target="nvScriptFunction5" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction5" styleName="locale" value="es-BO" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-6*23*456*789" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptFunction5" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction5" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_function_minus_script_test21" description="Test function with property groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvScriptFunction6" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction6" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction6" propertyName="trigger" valueExpression="value=application.triggerBT6"/>
+				<SetProperty target="nvScriptFunction6" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction6" propertyName="groupingSeparator" value="-" waitEvent="change"/>
+				<SetProperty target="nvScriptFunction6" propertyName="decimalSeparator" value="-" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction6" styleName="locale" value="es-PY" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-6-23-456-789" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT6"/>
+				<AssertEvent target="nvScriptFunction6" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction6" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NV_groupingSeparator_function_illegalNumber_test22" description="Test function with property groupingSeparator" keywords="[NumberValidator, groupingSeparator]">
+			
+			<setup>
+			</setup>
+			
+			<body>
+				
+				<SetProperty target="nvSourceTI" propertyName="text" value=",30.12" waitEvent="updateComplete"/>
+				
+				<DispatchMouseClickEvent target="triggerBT9"/>
+				
+				<AssertEvent target="nvFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				<AssertNoEvent target="nvFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				
+				
+				<SetProperty target="nvSourceTI" propertyName="text" value="30,.12" waitEvent="updateComplete"/>
+				
+				<DispatchMouseClickEvent target="triggerBT10"/>
+				
+				<AssertEvent target="nvFunction4" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				<AssertNoEvent target="nvFunction4" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				
+				
+				<SetProperty target="nvSourceTI" propertyName="text" value="30," waitEvent="updateComplete"/>
+				
+				<DispatchMouseClickEvent target="triggerBT11"/>
+				
+				<AssertEvent target="nvFunction5" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				<AssertNoEvent target="nvFunction5" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				
+				
+				<SetProperty target="nvSourceTI" propertyName="text" value="30.1,2" waitEvent="updateComplete"/>
+				
+				<DispatchMouseClickEvent target="triggerBT12"/>
+				
+				<AssertEvent target="nvFunction6" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				
+				<AssertNoEvent target="nvFunction6" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_getterWithoutLocale_test23" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetStyle target="nvGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="groupingSeparator" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_getterWithoutLocale_script_test23" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetStyle target="nvScriptGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="groupingSeparator" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_setToNumber_test24" description="the test case is for test set groupingSeparator as number" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvNumber" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+				<SetProperty target="nvNumber" propertyName="decimalSeparator" valueExpression="value=3" waitEvent="change"/>
+				<SetStyle target="nvNumber" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" valueExpression="value=12312456" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT7"/>
+				<AssertEvent target="nvNumber" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvNumber" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_groupingSeparator_setToNumber_script_test25" description="the test case is for test set groupingSeparator as number" keywords="[NumberValidator, groupingSeparator]">
+			<setup>
+				<SetProperty target="nvScriptNumber" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptNumber" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptNumber" propertyName="trigger" valueExpression="value=application.triggerBT8"/>
+				<SetProperty target="nvScriptNumber" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptNumber" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+				<SetProperty target="nvScriptNumber" propertyName="decimalSeparator" valueExpression="value=3" waitEvent="change"/>
+				<SetStyle target="nvScriptNumber" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="124356" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT8"/>
+				<AssertEvent target="nvScriptNumber" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptNumber" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,127 @@
+<UnitTester
+    testDir="spark/components/VideoDisplay/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoDisplay_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+ <testCases>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_setSource_S" keywords="[VideoDisplay, event, bytesLoadedChange]" description="Verify bytesLoadedChange is not raised when streaming video source is set.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertNoEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_changeSource_S" keywords="[VideoDisplay, event, bytesLoadedChange]" description="Verify bytesLoadedChange is not raised when streaming video source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.streamingVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertNoEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+                <AssertNoEvent target="testDisplay" eventName="complete" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_removeSource_S" keywords="[videoDisplay, event, progress]" description="Verify bytesLoadedChange is not raised when video source is removed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.source = null" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertNoEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+                <AssertNoEvent target="testDisplay" eventName="complete" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_autoDisplayFF_S" keywords="[VideoDisplay, event, bytesLoadedChange]" description="Verify bytesLoadedChange is not raised when autoDisplayFirstFrame is true and autoPlay is false.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.autoPlay = false" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertNoEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_setSource_P" keywords="[VideoDisplay, event, bytesLoadedChange]" description="Verify bytesLoadedChange is raised when video source is set.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_changeSource_P" keywords="[VideoDisplay, event, bytesLoadedChange]" description="Verify bytesLoadedChange is raised when video source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.progressiveVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+                <AssertNoEvent target="testDisplay" eventName="complete" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_removeSource_P" keywords="[videoDisplay, event, progress]" description="Verify bytesLoadedChange is raised when video source is removed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.source = null" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+                <AssertNoEvent target="testDisplay" eventName="complete" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_bytesLoadedChange_autoDisplayFF_P" keywords="[VideoDisplay, event, bytesLoadedChange]" description="Verify bytesLoadedChange is not raised when autoDisplayFirstFrame is true and autoPlay is false.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.autoPlay = false" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertNoEvent target="testDisplay" eventName="bytesLoadedChange" eventClass="org.osmf.events::LoadEvent"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

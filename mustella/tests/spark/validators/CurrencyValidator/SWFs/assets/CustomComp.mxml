@@ -1,0 +1,97 @@
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  width="100%" height="100%" 
+		  updateComplete="updateCompleteHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			
+			public var cvScript:spark.validators.CurrencyValidator = new spark.validators.CurrencyValidator();
+			
+			protected function uiBTMethod_clickHandler(event:MouseEvent):void
+			{
+				cvProg.listener = uiTI;
+				
+				if ('disabled' == uiProgType.text) {
+					cvProg.enabled = false;
+				} else {
+					cvProg.enabled = true;
+				}
+				
+				var result:ValidationResultEvent = cvProg.validate(uiTI.text);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+			
+			protected function uiBTMethodScript_clickHandler(event:MouseEvent):void
+			{
+				cvScript.listener = uiTI;
+				
+				if ('disabled' == uiProgType.text) {
+					cvScript.enabled = false;
+				} else {
+					cvScript.enabled = true;
+				}
+				
+				var result:ValidationResultEvent = cvScript.validate(uiTI.text);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(cvScript);
+			}
+			
+			public function set validateProg(obj:Object):void {
+				var result:ValidationResultEvent = cvProg.validate(obj);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+			
+			public function set validateScript(obj:Object):void {
+				var result:ValidationResultEvent = cvScript.validate(obj);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:CurrencyValidator id="cvDefault" />
+		
+		<fx:Model id="userInfo">
+			<bankInfo>
+				<moneyNum>{uiTI.text}</moneyNum>
+			</bankInfo>
+		</fx:Model>
+		
+		<s:CurrencyValidator id="cvProg" />
+		
+		<s:CurrencyFormatter id="cf" />
+	</fx:Declarations>
+	
+	<mx:TextInput id="uiTI" />
+	<mx:TextInput id="uiProgType" />
+	<mx:Label id="uiLb" />
+	<mx:Button id="uiBT" label="uiBT"/>
+	<mx:Button id="uiBTMethod" label="uiBTMethod" click="uiBTMethod_clickHandler(event)"/>
+	<mx:Button id="uiBTMethodScript" label="uiBTMethodScript" click="uiBTMethodScript_clickHandler(event)"/>
+	
+</s:VGroup>

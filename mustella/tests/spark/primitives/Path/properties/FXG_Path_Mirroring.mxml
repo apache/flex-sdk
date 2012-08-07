@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Path/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Path_Mirroring_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.PathBasic;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+  
+        <TestCase testID="Path_layoutDirection_RTLsetOnParent" description="Set layoutDirection=rtl on the parent application with a Path in it" keywords="[Path, Mirroring, layoutDirection, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 120 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="Path_layoutDirection_LTRsetOnRTLParent" description="Set layoutDirection=rtl on the parent application with a Path with layoutDirection=ltr in it" keywords="[Path, Mirroring, layoutDirection, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 120 115" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1" propertyName="layoutDirection" value="ltr" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Path_layoutDirection_RTL_withWinding" description="This Path tests setting winding to evenOdd and layoutDirection=rtl."
+            keywords="[Path, winding, Mirroring, layoutDirection]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.PathBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.path1" propertyName="fill" valueExpression="value=application.yellowFill" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.path1" propertyName="winding" value="evenOdd" />
+                <SetProperty target="graphic1.path1" propertyName="data" value="M 40 40 L 140 40 L 140 140 L 40 140 Z M 80 80 L 180 80 L 180 180 L 80 180 Z" waitTarget="graphic1.path1" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+    
+    </testCases>
+</UnitTester>

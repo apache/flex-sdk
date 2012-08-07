@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application
+		xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+		backgroundColor="0xFFFFFF" 
+		width="800" height="700">
+<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+
+		s|RichText {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            fontLookup: "embeddedCFF";
+		}
+
+
+</fx:Style>
+<mx:HBox id="canvas1" backgroundColor="0x93A9B4">
+	<s:Graphic id="graphic1">
+		<s:Rect width="150" height="80" radiusX="10" radiusY="5">
+			<s:fill>
+				<mx:SolidColor color="0x00FF00" />
+			</s:fill>
+		</s:Rect>
+	</s:Graphic>
+	<s:Graphic id="textGraphic">
+		<s:Rect width="150" height="80" radiusX="10" radiusY="5">
+			<s:fill>
+				<mx:SolidColor color="0xFFFFFF" />
+			</s:fill>
+		</s:Rect>
+		<s:RichText x="40" y="40" color="0xFF0000" width="100" content="I am a RichText with color set to red, size=14 and weight set to bold."
+				fontWeight="bold" fontSize="14" />
+		<s:RichText x="5" y="5" color="0xFF0000" width="100" height="35" content="I am a RichText with height set to 30." />
+	</s:Graphic>
+</mx:HBox>
+
+<mx:HBox>
+	<s:Graphic id="graphic2">
+		<s:Rect width="200" height="200">
+			<s:fill>
+				<mx:SolidColor color="0xFFFFFF" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect width="100" height="100" x="20" y="50" >
+			<s:fill>
+				<mx:SolidColor color="0x0000FF" />
+			</s:fill>
+		</s:Rect>
+	</s:Graphic>
+
+	<s:Graphic id="graphic3">
+		<s:Rect width="200" height="200">
+			<s:fill>
+				<mx:SolidColor color="0xFFFFFF" />
+			</s:fill>
+		</s:Rect>
+		<s:Line xFrom="10" xTo="50" yFrom="5" yTo="70">
+			<s:stroke>
+				<mx:SolidColorStroke color="0x555555" weight="1" />
+			</s:stroke>
+		</s:Line>
+		<s:Line yFrom="15" yTo="80" xFrom="85" xTo="85" visible="false" >
+				<s:stroke>
+					<mx:SolidColorStroke color="0x232323" weight="1" />
+				</s:stroke>
+		</s:Line>
+		<s:RichText x="10" y="120" content="I am italic and have an underline with Arial" textDecoration="underline"
+			fontStyle="italic" />
+	</s:Graphic>
+</mx:HBox>
+
+<mx:HBox>
+	<s:Graphic id="graphic4">
+		 <s:Rect width="200" height="200">
+			<s:fill>
+				<mx:SolidColor color="0xFFFFFF" />
+			</s:fill>
+		</s:Rect>
+		<s:Ellipse width="150" height="100" x="10" y="10">
+			<s:fill>
+				<mx:SolidColor color="0xFF99CC" />
+			</s:fill>
+		</s:Ellipse>
+		<s:Ellipse width="150" height="80" x="10" y="115" visible="false" >
+			<s:fill>
+				<mx:SolidColor color="0xFF99CC" />
+			</s:fill>
+		</s:Ellipse>
+	</s:Graphic>
+
+	<s:Graphic id="graphic5">
+		<s:Rect id="rect1" width="200" height="200" >
+		   <s:fill>
+			   <mx:SolidColor color="0xFFFFFF" />
+		   </s:fill>
+		</s:Rect>
+		<s:Path id="path1" data="M 10 120 C 137 151 60 47 152 10">
+			<s:stroke>
+				 <mx:SolidColorStroke color="0xFF0000" weight="2" />
+			</s:stroke>
+			<!--
+			<segments>
+				<s:MoveSegment x="10" y="120" />
+				<s:CubicBezierSegment x="137" y="151" control2X="152" control2Y="10"
+					control1X="60" control1Y="47"/>
+				<s:LineSegment x="190" y="29" />
+			</segments>
+			-->
+		</s:Path>
+		<s:Path id="path2" data="M 20 180 Q 140 175 80 10">
+			<s:stroke>
+				<mx:SolidColorStroke color="0x009966" weight="3"/>
+			</s:stroke>
+			<!--
+			<segments>
+				<s:MoveSegment x="20" y="180" />
+				<s:QuadraticBezierSegment x="140" y="175" controlX="80" controlY="10" />
+			</segments>
+			-->
+		</s:Path>
+		<s:Path id="path3" data="M 20 0 C 50 0 50 35 20 35 L 15 35 L 15 45
+					   L 0 32 L 15 19 L 15 29 L 20 29 C 44 29 44 6 20 6">
+			<s:stroke>
+				<mx:SolidColorStroke color="660099" weight="2"/>
+			</s:stroke>
+		</s:Path>
+	</s:Graphic>
+
+	<s:Graphic id="graphic6">
+		<s:BitmapImage width="100" height="150" source="@Embed('../../../../../Assets/Images/purplerect.jpg')" />
+	</s:Graphic>
+</mx:HBox>
+
+</mx:Application>

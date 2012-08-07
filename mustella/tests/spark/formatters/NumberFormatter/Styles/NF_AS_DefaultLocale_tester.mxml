@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="NF_AS_DefaultLocale.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NFConstants;
+		
+		import flash.globalization.NumberFormatter;
+		import flash.globalization.NumberParseResult;
+		
+		public var nfGSLib:flash.globalization.NumberFormatter;
+		public var GSLibResult:flash.globalization.NumberParseResult ; 
+		public var nfScriptValue:flash.globalization.NumberParseResult;
+		
+		
+		public static function init(o:DisplayObject):void      
+		{
+			
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test inline style-->
+<testCases>
+	
+	<!-- this testcase is for testing default locale style for instance creating in action Scripts-->
+	<TestCase testID="NF_actionScript_instance_default_locale_test1" description=" this testcase is for testing default locale style of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NF_actionScript_instance_default_decimalSeparator_test2" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_digitsType_test3" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="digitsType" valueExpression="value=nfGSLib.digitsType" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_fractionalDigits_test4" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_groupingPattern_test5" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_groupingSeparator_test6" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_leadingZero_test7" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="leadingZero" valueExpression="value=nfGSLib.leadingZero" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_trailingZero_test8" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="trailingZeros" valueExpression="value=nfGSLib.trailingZeros" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_negativeSymbol_test9" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_negativeNumberFormat_test10" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_useGrouping_test11" description=" this testcase is for testing default properties of instance creating in AS" keywords="[NumberFormatter, format(), inline defined style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="useGrouping" valueExpression="value=nfGSLib.useGrouping" />
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_actionScript_instance_default_format_test12" 
+			  description="test format with object which doesn't set locale in action scripts" keywords="[NumberFormatter, format]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfScript.format(-1234567.89)" valueExpression="value=nfGSLib.formatNumber(-1234567.89)"/>
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NF_as_instance_default_locale_parse_test13" 
+			  description="test Parse number string with character without locale setting" keywords="[NumberFormatter, parse]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="GSLibResult=nfGSLib.parse('ab 123456.34567 cde')" />
+			<RunCode code="nfScriptValue=application.nfScript.parse('ab 123456.34567 cde')"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>				
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" value="noError"/>
+			<AssertMethodValue method="value=nfScriptValue.endIndex" valueExpression="value=GSLibResult.endIndex"/>
+			<AssertMethodValue method="value=nfScriptValue.value" valueExpression="value=GSLibResult.value"/>
+			<AssertMethodValue method="value=nfScriptValue.startIndex" valueExpression="value=GSLibResult.startIndex"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NF_parseNumber_defaultLocale_test14" description="test default object without any locale setting" keywords="[NumberFormatter, parseNumber]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfScript.parseNumber('12345634567')" valueExpression="value=nfGSLib.parseNumber('12345634567')"/>
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+</UnitTester>

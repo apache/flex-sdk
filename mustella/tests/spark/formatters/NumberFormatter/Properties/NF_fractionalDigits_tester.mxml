@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_fractionalDigits.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.NFConstants;
+			
+			import flash.globalization.*;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+		
+			public static function init(o:DisplayObject):void
+			{ 
+			} 
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+<!--This test file tests fractionalDigits property-->
+<testCases>
+	<!--Set/Get default fractionalDigits properties -->
+	<TestCase testID="NF_fractionalDigits_default_test1" description="Set/Get default fractionalDigits properties" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfDefault" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+			<AssertPropertyValue target="nfDefault" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get fractionalDigits with positive value -->
+	<TestCase testID="NF_fractionalDigits_setValue_positive_1_test2" description="Set/Get fractionalDigits with positive value" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfPositive1" propertyName="fractionalDigits" valueExpression="value=1" waitEvent="change"/>
+			<AssertPropertyValue target="nfPositive1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+			<AssertPropertyValue target="nfPositive1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get fractionalDigits with positive value -->
+	<TestCase testID="NF_fractionalDigits_setValue_positive_4_test3" description="Set/Get fractionalDigits with positive value" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=4" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfPositive2" propertyName="fractionalDigits" valueExpression="value=4" waitEvent="change"/>
+			<AssertPropertyValue target="nfPositive2" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get inline fractionalDigits with positive value -->
+	<TestCase testID="NF_fractionalDigits_setValueInline_positive_1_test4" description="Set/Get inline fractionalDigits with positive value" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInline1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+			<AssertPropertyValue target="nfInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get inline fractionalDigits with positive value -->
+	<TestCase testID="NF_fractionalDigits_setValueInline_positive_4_test5" description="Set/Get inline fractionalDigits with positive value" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=4" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfInline2" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+		</body>
+	</TestCase>	
+
+	<!-- Test function of fractionalDigits property -->
+	<TestCase testID="NF_fractionalDigits_function_format_test6" description="Test function of fractionalDigits property" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<RunCode code="nfGSLib.fractionalDigits=1" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfFormat1" propertyName="fractionalDigits" valueExpression="value=1" waitEvent="change"/>
+			<AssertMethodValue method="value=application.nfFormat1.format(1234.352)" valueExpression="value=nfGSLib.formatNumber(1234.352)" />
+			<AssertPropertyValue target="nfFormat1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!-- Test function of fractionalDigits property -->
+	<TestCase testID="NF_fractionalDigits_function_format_test7" description="Test function of fractionalDigits property" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<RunCode code="nfGSLib.fractionalDigits=2" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfFormat2" propertyName="fractionalDigits" valueExpression="value=2" waitEvent="change"/>
+			<AssertMethodValue method="value=application.nfFormat2.format(1234.352)" valueExpression="value=nfGSLib.formatNumber(1234.352)" />
+		</body>
+	</TestCase>	
+	
+	<!-- Test function of fractionalDigits property -->
+	<TestCase testID="NF_fractionalDigits_function_format_test8" description=" Test function of fractionalDigits property " keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<RunCode code="nfGSLib.fractionalDigits=5" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="nfFormat3" propertyName="fractionalDigits" valueExpression="value=5" waitEvent="change"/>
+			<AssertMethodValue method="value=application.nfFormat3.format(123.45)" valueExpression="value=nfGSLib.formatNumber(123.45)" />
+		</body>
+	</TestCase>	
+	
+	<!-- Test function of fractionalDigits property -->
+	<TestCase testID="NF_fractionalDigits_function_format_test9" description="Test function of fractionalDigits property" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.nfFormat4.format(1234.352)" valueExpression="value=nfGSLib.formatNumber(1234.352)" />
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get fractionalDigits within <fx:Sript> -->
+	<TestCase testID="NF_fractionalDigits_setInScript_positiveValue_3_test10" description="Set/Get fractionalDigits within fx:Sript" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.fractionalDigits=3" />
+			<RunCode code="application.setNFfractionalDigits()"/>
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfScript" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+			<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="NF_fractionalDigits_binding_test11" description="Binding property by lable text" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<RunCode code="nfGSLib.trailingZeros=true" />
+			<RunCode code="nfGSLib.fractionalDigits=5" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+			<SetProperty target="nfBinding" propertyName="fractionalDigits" valueExpression="value=5" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLabel" propertyName="text" valueExpression="value=nfGSLib.fractionalDigits" />
+			<AssertPropertyValue target="nfBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+
+	<!--Set/Get fractionalDigits with negative value -->
+	<TestCase testID="NF_fractionalDigits_setValue_negative_null_test12" description="Set/Get fractionalDigits with negative value" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative1,'fractionalDigits',null)" 
+							   valueExpression="value=NFConstants.testArgError(nfGSLib,'fractionalDigits',null)"/>
+			<AssertPropertyValue target="nfNegative1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			<AssertPropertyValue target="nfNegative1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Set/Get fractionalDigits with negative value -->
+	<TestCase testID="NF_fractionalDigits_setValue_negative_minus9_test13" description="Set/Get fractionalDigits with negative value" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative2,'fractionalDigits',-9)" 
+							   valueExpression="value=NFConstants.testArgError(nfGSLib,'fractionalDigits',-9)"/>
+			<AssertPropertyValue target="nfNegative2" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			<AssertPropertyValue target="nfNegative2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--	test property without setting any locale -->
+	<TestCase testID="NF_fractionalDigits_without_locale_test14" description="test property without setting any locale" keywords="[NumberFormatter, fractionalDigits]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfNoLocaleInline" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			<AssertPropertyValue target="nfNoLocaleInline" propertyName="lastOperationStatus" value="noError"/>
+			
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+
+</testCases>
+</UnitTester>

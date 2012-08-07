@@ -1,0 +1,707 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_containers.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import asset.VP_CompEnabled;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_enabled_Default"
+        description="Test the default value of the enabled property."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.TC.testPlayer1.enabled" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disabled_default"
+        description="Test the default value of the enabled property."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <SetProperty target="TC.testPlayer1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="TC.testPlayer1"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+	        <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+                <CompareBitmap target="TC.testPlayer1" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_default"
+        description="Disable parent - verify video is appears disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <SetProperty target="TC.HBox1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="TC.HBox1"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+	        <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <CompareBitmap target="TC.HBox1" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_default"
+        description="Disable Grandparent - verify video appears disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <SetProperty target="TC.VGroup1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="TC.VGroup1"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+	        <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <CompareBitmap target="TC.VGroup1" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_enabled_true_streaming"
+        description="Verify the video player visuals when enabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" timeout="5000" />
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_false_streaming"
+        description="Verify the video player visuals when disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.enabled = false" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableAfterLoad_streaming"
+        description="Verify visual, volume, playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.testPlayer1.enabled = false" />
+                <RunCode code="application.TC.testPlayer1.videoDisplay.visible = false;" />
+                <Pause timeout="5000"/>
+                <AssertMethodValue method="value=application.TC.testPlayer1.volume" value="1"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableWhilePlaying_streaming"
+        description="Verify visual, volume, playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.testPlayer1.enabled = false" />
+                <RunCode code="application.TC.testPlayer1.videoDisplay.visible = false;" />
+                <Pause timeout="5000"/>
+                <AssertMethodValue method="value=application.TC.testPlayer1.volume" value="1"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_streaming1"
+        description="Disable parent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_streaming1a"
+        description="Disable parent, enable parent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_streaming1b"
+        description="Disable parent, enable parent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_streaming2"
+        description="Disable parent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.streamingVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_streaming2a"
+        description="Disable parent, enable parent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.streamingVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_streaming2b"
+        description="Disable parent, enable parent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer2.source = application.streamingVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_streaming1"
+        description="Disable grandparent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_streaming1a"
+        description="Disable grandparent, enable grandparent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_streaming1b"
+        description="Disable grandparent, enable grandparent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer1.source = application.streamingVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_streaming2"
+        description="Disable grandparent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.streamingVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_streaming2a"
+        description="Disable grandparent, enable grandparent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.streamingVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_streaming2b"
+        description="Disable grandparent, enable grandparent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer2.source = application.streamingVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_enabled_true_progressive"
+        description="Verify the video player visuals when enabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="8000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_false_progressive"
+        description="Verify the video player visuals when disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.enabled = false" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableAfterLoad_progressive"
+        description="Verify visual, volume, playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.testPlayer1.enabled = false" />
+                <RunCode code="application.TC.testPlayer1.videoDisplay.visible = false;" />
+                <Pause timeout="5000"/>
+                <AssertMethodValue method="value=application.TC.testPlayer1.volume" value="1"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableWhilePlaying_progressive"
+        description="Verify visual, volume, playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.testPlayer1.enabled = false" />
+                <RunCode code="application.TC.testPlayer1.videoDisplay.visible = false;" />
+                <Pause timeout="5000"/>
+                <AssertMethodValue method="value=application.TC.testPlayer1.volume" value="1"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_progressive1"
+        description="Disable parent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_progressive1a"
+        description="Disable parent, enable parent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_progressive1b"
+        description="Disable parent, enable parent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_progressive2"
+        description="Disable parent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.progressiveVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_progressive2a"
+        description="Disable parent, enable parent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.progressiveVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableParent_progressive2b"
+        description="Disable parent, enable parent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer2.source = application.progressiveVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_progressive1"
+        description="Disable grandparent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_progressive1a"
+        description="Disable grandparent, enable grandparent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_progressive1b"
+        description="Disable grandparent, enable grandparent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer1.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer1.source = application.progressiveVid" waitTarget="TC.testPlayer1" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.VGroup1.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.VGroup1.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.VGroup1" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer1" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_progressive2"
+        description="Disable grandparent - verify video is disabled."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.progressiveVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_progressive2a"
+        description="Disable grandparent, enable grandparent - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.source = application.progressiveVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_enabled_disableGrandparent_progressive2b"
+        description="Disable grandparent, enable grandparent PWH false - verify video is enabled and not playing"
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_CompEnabled" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.TC.testPlayer2.pauseWhenHidden = false" />
+                <RunCode code="application.TC.testPlayer2.source = application.progressiveVid" waitTarget="TC.testPlayer2" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.TC.HBox2.enabled = false" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+                <RunCode code="application.TC.HBox2.enabled = true" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="TC.HBox2" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="TC.testPlayer2" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

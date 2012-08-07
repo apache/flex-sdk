@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_validateAll.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		import assets.NVConstants ; 	
+		import mx.events.ValidationResultEvent;
+		import mx.validators.ZipCodeValidatorDomainType;
+		import mx.validators.CreditCardValidatorCardType ; 
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<testCases>
+	
+	<TestCase testID="NV_validateAll_method_valid_program_test1" 
+			  description="This case test validateAll , all three numberValidator are valid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="12.34" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="0.34" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="12.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="invalid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="invalid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="invalid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=0"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validateAll_method_negativeNumberFormatter_invalid_program_test2" 
+			  description="This case test validateAll , one of  three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="12.789.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="12.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="invalid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="invalid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=1"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validateAll_method_all_invalid_number_test3" 
+			  description="This case test validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="123,4.5.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=3"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validateAll_method_disabled_program_test4" 
+			  description="This case test validateAll , all three numberValidator are disabled , enabled=false"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="enabled" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="enabled" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="abc0.35" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="12.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=0"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateAll_method_one_fr-FR_numberValidator_test5" 
+			  description="This case test validateAll , one numberValidator has sepcified fr-FR locale"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetStyle target="myCustomNVAllComp.nvProg" styleName="locale" value="fr-FR"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+			<SetStyle target="myCustomNVAllComp.nvScript" styleName="locale" value="fr-FR"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-1 23 45,89.4" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="123 456,98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="invalid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=2"/>
+		</body>
+	</TestCase>
+	
+	<!--The chinese error message cannot work well under mustella, so use english error message first --> 
+	<TestCase testID="NV_validateAll_method_numberValidator_one_zh-CN_error_message_test6" 
+			  description="This case test validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetStyle target="myCustomNVAllComp.nvDefault" styleName="locale" value="zh-CN"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="negativeError" valueExpression="value=NVConstants.NEGATIVE_ERROR_ZH"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="-12,3546" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="123,4,5.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="invalid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=2"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.NEGATIVE_ERROR_ZH"/>
+			
+			<!--
+			<DispatchMouseEvent target="myCustomNVAllComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVAllComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/validateAll_zh_CN_error_msg.png" timeout="2000" />
+			-->
+			
+		</body>
+	</TestCase>
+	
+
+	
+	
+	<TestCase testID="NV_spark_validateAll_mixed_numberValidator_CurrencyValidator_mxValidator_all_invalid_test8" 
+			  description="This case test validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.richTi"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="$-1234,5.67.8" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.richTi" propertyName="text" value="abc@abc.com" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTi"/>
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLmixed" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.cvDefault" eventName="valid"/>
+
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=4"/>
+			
+		</body>
+	</TestCase>
+	
+
+	<TestCase testID="NV_spark_validateAll_mixed_numberValidator_CurrencyValidator_mxValidator_invalid_test9" 
+			  description="This case test validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="negativeCurrencyFormat" value="2"/>
+			<SetStyle target="myCustomNVAllComp.cvDefault" styleName="locale" value="en-US" /> 
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.richTi"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="$-1234,5.56" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.richTi" propertyName="text" value="abc@abc@com" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTi"/>
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLmixed" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+					
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.cvDefault" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=2"/>
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_spark_validateAll_all_mx_validator_in_array_test10" 
+			  description="This case test validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+
+
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="maxValue" value="100"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="alignSymbol" value="left"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="currencySymbol" value="$"/>
+
+			
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeSource" valueExpression="value=application.myCustomNVAllComp.cardType"/>
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeProperty" value="text"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxDateValidator" propertyName="inputFormat" value="MM/DD/YYYY"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxZipCodeValidator" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="minLength" value="6"/>
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="maxLength" value="12"/>
+			
+			<!--<SetProperty target="myCustomNVAllComp.mxScolValidator" propertyName="property" value="text"/>-->
+			
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="flags" value="g"/>
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="expression" value="ABC\d"/>
+			
+			
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="120" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="10.04$" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="1234567890" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="abc@abc.com.cn" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.richEt" propertyName="text" value="4012 8888 8888 1881" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richEt"/>
+			<SetProperty target="myCustomNVAllComp.richTeditor" propertyName="text" value="11/25/2010" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTeditor"/>
+			<SetProperty target="myCustomNVAllComp.mxti1" propertyName="text" value="123456" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxti1"/>
+			<SetProperty target="myCustomNVAllComp.mxta1" propertyName="text" value="abcd efgh" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxta1"/>
+			<SetProperty target="myCustomNVAllComp.sTi1" propertyName="text" value="123-45-1234" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTi1"/>
+			<SetProperty target="myCustomNVAllComp.sTa1" propertyName="text" value="gdergABC1233ddABC4ae" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTa1"/>
+
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLmx" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="valid"/>
+
+			<AssertEvent target="myCustomNVAllComp.mxCValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCreditValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCreditValidator" eventName="invalid"/>
+
+			<AssertEvent target="myCustomNVAllComp.mxDateValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxDateValidator" eventName="invalid"/>
+
+			<AssertEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="valid"/>
+			
+
+			<AssertEvent target="myCustomNVAllComp.mxStrValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxStrValidator" eventName="invalid"/>
+
+			<AssertEvent target="myCustomNVAllComp.mxScolValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxScolValidator" eventName="invalid"/>
+
+			<AssertEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="invalid"/>
+
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=3"/>
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_spark_validateAll_all_mx_validator_in_array_invalid_test11" 
+			  description="This case test validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			
+			
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="maxValue" value="100"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="alignSymbol" value="left"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="currencySymbol" value="$"/>
+			
+			
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeSource" valueExpression="value=application.myCustomNVAllComp.cardType"/>
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeProperty" value="text"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxDateValidator" propertyName="inputFormat" value="MM/DD/YYYY"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxZipCodeValidator" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="minLength" value="6"/>
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="maxLength" value="12"/>
+			
+			<!--<SetProperty target="myCustomNVAllComp.mxScolValidator" propertyName="property" value="text"/>-->
+			
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="flags" value="g"/>
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="expression" value="ABC\d"/>
+			
+			
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="$10.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="1234567890abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="abc@abc@com.cn" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.richEt" propertyName="text" value="1234 5647 9012 1234" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richEt"/>
+			<SetProperty target="myCustomNVAllComp.richTeditor" propertyName="text" value="11/33/2010" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTeditor"/>
+			<SetProperty target="myCustomNVAllComp.mxti1" propertyName="text" value="12345" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxti1"/>
+			<SetProperty target="myCustomNVAllComp.mxta1" propertyName="text" value="abcd" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxta1"/>
+			<SetProperty target="myCustomNVAllComp.sTi1" propertyName="text" value="123-45-1234abb" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTi1"/>
+			<SetProperty target="myCustomNVAllComp.sTa1" propertyName="text" value="gdergA1233ddAC4ae" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTa1"/>
+			
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btSVALLmx" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCreditValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCreditValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxDateValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxDateValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="invalid"/>
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxStrValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxStrValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxScolValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxScolValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="valid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=7"/>
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_MX_validateAll_all_mx_validator_in_array_test12" 
+			  description="This case test MX validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			
+			
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="maxValue" value="100"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="alignSymbol" value="left"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="currencySymbol" value="$"/>
+			
+			
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeSource" valueExpression="value=application.myCustomNVAllComp.cardType"/>
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeProperty" value="text"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxDateValidator" propertyName="inputFormat" value="MM/DD/YYYY"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxZipCodeValidator" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="minLength" value="6"/>
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="maxLength" value="12"/>
+			
+			<!--<SetProperty target="myCustomNVAllComp.mxScolValidator" propertyName="property" value="text"/>-->
+			
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="flags" value="g"/>
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="expression" value="ABC\d"/>
+			
+			
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="120" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="10.04$" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="1234567890" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="abc@abc.com.cn" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.richEt" propertyName="text" value="4012 8888 8888 1881" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richEt"/>
+			<SetProperty target="myCustomNVAllComp.richTeditor" propertyName="text" value="11/25/2010" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTeditor"/>
+			<SetProperty target="myCustomNVAllComp.mxti1" propertyName="text" value="123456" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxti1"/>
+			<SetProperty target="myCustomNVAllComp.mxta1" propertyName="text" value="abcd efgh" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxta1"/>
+			<SetProperty target="myCustomNVAllComp.sTi1" propertyName="text" value="123-45-1234" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTi1"/>
+			<SetProperty target="myCustomNVAllComp.sTa1" propertyName="text" value="gdergABC1233ddABC4ae" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTa1"/>
+			
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btMVALLmx" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCreditValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCreditValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxDateValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxDateValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="valid"/>
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxStrValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxStrValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxScolValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxScolValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="invalid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=3"/>
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_MX_validateAll_all_mx_validator_in_array_invalid_test13" 
+			  description="This case test MX validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			
+			
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="maxValue" value="100"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="alignSymbol" value="left"/>
+			<SetProperty target="myCustomNVAllComp.mxCValidator" propertyName="currencySymbol" value="$"/>
+			
+			
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxPhoneValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeSource" valueExpression="value=application.myCustomNVAllComp.cardType"/>
+			<SetProperty target="myCustomNVAllComp.mxCreditValidator" propertyName="cardTypeProperty" value="text"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxDateValidator" propertyName="inputFormat" value="MM/DD/YYYY"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxZipCodeValidator" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+			
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="minLength" value="6"/>
+			<SetProperty target="myCustomNVAllComp.mxStrValidator" propertyName="maxLength" value="12"/>
+			
+			<!--<SetProperty target="myCustomNVAllComp.mxScolValidator" propertyName="property" value="text"/>-->
+			
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="flags" value="g"/>
+			<SetProperty target="myCustomNVAllComp.mxRegExpValidator" propertyName="expression" value="ABC\d"/>
+			
+			
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="$10.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="1234567890abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="abc@abc@com.cn" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.richEt" propertyName="text" value="1234 5647 9012 1234" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richEt"/>
+			<SetProperty target="myCustomNVAllComp.richTeditor" propertyName="text" value="11/33/2010" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTeditor"/>
+			<SetProperty target="myCustomNVAllComp.mxti1" propertyName="text" value="12345" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxti1"/>
+			<SetProperty target="myCustomNVAllComp.mxta1" propertyName="text" value="abcd" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.mxta1"/>
+			<SetProperty target="myCustomNVAllComp.sTi1" propertyName="text" value="123-45-1234abb" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTi1"/>
+			<SetProperty target="myCustomNVAllComp.sTa1" propertyName="text" value="gdergA1233ddAC4ae" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.sTa1"/>
+			
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btMVALLmx" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxPhoneValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxCreditValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxCreditValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxDateValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxDateValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxZipCodeValidator" eventName="invalid"/>
+			
+			
+			<AssertEvent target="myCustomNVAllComp.mxStrValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxStrValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxScolValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxScolValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxRegExpValidator" eventName="valid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=7"/>
+			
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_MX_validateAll_mixed_numberValidator_CurrencyValidator_mxValidator_all_invalid_test14" 
+			  description="This case test MX validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.richTi"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="$-1234,5.67.8" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.richTi" propertyName="text" value="abc@abc.com" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTi"/>
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btMVALLmixed" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.cvDefault" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="valid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=4"/>
+			
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_MX_validateAll_mixed_numberValidator_CurrencyValidator_mxValidator_invalid_test15" 
+			  description="This case test MX validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.cvDefault" propertyName="negativeCurrencyFormat" value="2"/>
+			<SetStyle target="myCustomNVAllComp.cvDefault" styleName="locale" value="en-US" /> 
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxNValidator" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="source" valueExpression="value=application.myCustomNVAllComp.richTi"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.mxEmailValidator" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="$-1234,5.56" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.uiProgTi" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgTi"/>
+			<SetProperty target="myCustomNVAllComp.richTi" propertyName="text" value="abc@abc@com" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.richTi"/>
+			
+			<DispatchMouseEvent target="myCustomNVAllComp.btMVALLmixed" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>		
+			
+			<AssertEvent target="myCustomNVAllComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.cvDefault" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxNValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxNValidator" eventName="invalid"/>
+			
+			<AssertEvent target="myCustomNVAllComp.mxEmailValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.mxEmailValidator" eventName="valid"/>
+			
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=2"/>
+			
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_MX_validateAll_method_spark_validator_test16" 
+			  description="This case test MX validateAll , one of  three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="12.789.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="12.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btMVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="invalid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="invalid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=1"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_MX_validateAll_method_spark_validator_invalid_test17" 
+			  description="This case test MX validateAll , all three numberValidator are invalid"
+			  keywords="[NumberValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVAllComp" className="assets.CustomNVAll" waitEvent="updateComplete" waitTarget="myCustomNVAllComp"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="source" valueExpression="value=application.myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvProg" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVAllComp.tiScript"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVAllComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVAllComp.uiTI" propertyName="text" value="0.35abc" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiTI"/>
+			<SetProperty target="myCustomNVAllComp.uiProgType" propertyName="text" value="-10o.04" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiProgType"/>
+			<SetProperty target="myCustomNVAllComp.tiScript" propertyName="text" value="123,4.5.98" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.tiScript"/>
+			<DispatchMouseEvent target="myCustomNVAllComp.btMVALLspark" type="click" waitEvent="updateComplete" waitTarget="myCustomNVAllComp.uiLb"/>
+			<AssertEvent target="myCustomNVAllComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvDefault" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvProg" eventName="valid"/>
+			<AssertEvent target="myCustomNVAllComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVAllComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVAllComp.uiLb" propertyName="text" valueExpression="value=3"/>
+		</body>
+	</TestCase>
+</testCases>
+
+</UnitTester>

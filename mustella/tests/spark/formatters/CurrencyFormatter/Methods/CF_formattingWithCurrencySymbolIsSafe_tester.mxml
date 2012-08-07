@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_formattingWithCurrencySymbolIsSafe.mxml">
+   
+	<mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		import assets.CFConstant;
+		import spark.formatters.CurrencyFormatter;
+		
+		public var cfGSLib:flash.globalization.CurrencyFormatter ; 
+		
+       public static function init(o:DisplayObject):void
+        { 
+		   
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test "formattingWithCurrencySymbolIsSafe() method"-->
+<testCases>
+	<!--Declare a currency object by fx:declareation , then test correct requestISOCode, which equals default CurrencyISOCode  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_default_test1" description="Declare a currency object by fx:declareation , then test correct requestISOCode, which equals default CurrencyISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfTest.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfTest.currencyISOCode)"/>
+			<AssertPropertyValue target="cfTest" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfTest.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567)"/> 
+		</body>
+	</TestCase>
+	
+	<!--Create a currency object by action scripts , then test correct requestISOCode, which equals default CurrencyISOCode  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_default_test2" description="Create a currency object by action scripts , then test correct requestISOCode, which equals default CurrencyISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfScript.currencyISOCode)"/>
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Declare a currency object by fx:declareation, set useCurrencySymbol as true ,  then test correct requestISOCode, which equals default CurrencyISOCode  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_setUseCurrencySymbol_test3" description="Declare a currency object by fx:declareation, set useCurrencySymbol as true ,  then test correct requestISOCode, which equals default CurrencyISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<ResetComponent target="cfTest" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfTest.initialized(null,'cfTest')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfTest" propertyName="useCurrencySymbol" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfTest.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfTest.currencyISOCode)"/>
+			<AssertPropertyValue target="cfTest" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfTest.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567,true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Create a currency object by action scripts , set useCurrencySymbol as true,  then test correct requestISOCode, which equals default CurrencyISOCode  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_setUseCurrencySymbol_test4" description="Create a currency object by action scripts , set useCurrencySymbol as true,  then test correct requestISOCode, which equals default CurrencyISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />	
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="en-US" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="useCurrencySymbol" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfScript.currencyISOCode)"/>
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567,true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--This test case is to test incorrect requestISOCode, which equals default CurrencyISOCode when declare an currency object by fx:declaration -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_incorrect_test5" description="This test case is to test ,incorrect requestISOCode, which equals default CurrencyISOCode when declare an currency object by fx:declaration" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfNegTest" propertyName="useCurrencySymbol" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfNegTest.formattingWithCurrencySymbolIsSafe('FRC')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == 'FRC')"/>
+			<AssertPropertyValue target="cfNegTest" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNegTest.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567, true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--This test case is to test ,incorrect requestISOCode, which equals default CurrencyISOCode when creating an currency object in action scripts -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_incorrect_test6" description="This test case is to test ,incorrect requestISOCode, which equals default CurrencyISOCode when creating an currency object in action scripts" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />	
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfNegScript" styleName="locale" value="fr-FR" waitEvent="change"/>
+			<SetProperty target="cfNegScript" propertyName="useCurrencySymbol" value="true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfNegScript.formattingWithCurrencySymbolIsSafe('FRC')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == 'FRC')"/>
+			<AssertPropertyValue target="cfNegScript" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNegScript.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567, true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Set inline locale and currencyISOCode for declaration currency object , then test correct requestISOCode -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_inline_test7" description="Set inline locale and currencyISOCode for declaration currency object , then test correct requestISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfinline" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+			<SetProperty target="cfinline" propertyName="useCurrencySymbol" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfinline.formattingWithCurrencySymbolIsSafe('CNY')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfinline.currencyISOCode)"/>
+			<AssertPropertyValue target="cfinline" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfinline.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567, true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Creating object from action scripts and Set inline locale and currencyISOCode , then test correct requestISOCode -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_inline_test8" description="Creating object from action scripts and Set inline locale and currencyISOCode , then test correct requestISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="useCurrencySymbol" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.formattingWithCurrencySymbolIsSafe('CNY')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfScript.currencyISOCode)"/>
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567, true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Set inline locale and currencyISOCode for declaration currency object , then test incorrect requestISOCode -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_inline_test9" description="Set inline locale and currencyISOCode for declaration currency object , then test incorrect requestISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<ResetComponent target="cfinline" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfinline.initialized(null,'cfinline')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfinline" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cfinline" propertyName="currencyISOCode" value="CNN" waitEvent="change"/>
+			<SetProperty target="cfinline" propertyName="useCurrencySymbol" value="true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfinline.formattingWithCurrencySymbolIsSafe('CNN')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfinline.currencyISOCode)"/>
+			<AssertPropertyValue target="cfinline" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfinline.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567, true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Creating object from action scripts and Set inline locale and currencyISOCode , then test incorrect requestISOCode -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_inline_test10" description="Creating object from action scripts and Set inline locale and currencyISOCode , then test incorrect requestISOCode" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNN" />
+			<SetProperty target="cfScript" propertyName="useCurrencySymbol" value="true" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.formattingWithCurrencySymbolIsSafe('CNN')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfScript.currencyISOCode)"/>
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567, true)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Declare a currency object without any locale setting by fx:declareation , it will fallback to use en-US  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_withoutLocale_declareation_test11" description="Declare a currency object without any locale setting by fx:declareation , it will fallback to use en-US" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfNoLocale.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=(cfGSLib.currencyISOCode == application.cfNoLocale.currencyISOCode)"/>
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" 
+								 valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNoLocale.format(1234567)" 
+							   valueExpression="value=cfGSLib.format(1234567)"/> 
+		</body>
+	</TestCase>	
+	
+	<!--Creating an cf object  without any locale setting from action scripts , it will get undefined and localeUndefinedError  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_withoutLocale_script_test12" description="Creating an cf object  without any locale setting from action scripts , it will get undefined and localeUndefinedError" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<body>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en')" />
+			<AssertMethodValue method="value=application.cfNoLocaleS.formattingWithCurrencySymbolIsSafe('USD')" 
+							   valueExpression="value=true"/>
+			<AssertPropertyValue target="cfNoLocaleS" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNoLocaleS.format(1234567)" valueExpression="value=cfGSLib.format(1234567)"/> 
+			<AssertPropertyValue target="cfNoLocaleS" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Check TypeError when input null for formattingWithCurrencySymbolIsSafe()  -->
+	<TestCase testID="CF_formatWCurrencySymbolIsSafe_TypeError_test13" description="Check TypeError when input null for formattingWithCurrencySymbolIsSafe()" keywords="[CurrencyFormatter, formattingWithCurrencySymbolIsSafe]">
+		<body>
+			<!--<AssertMethodValue method="value=application.checkError()" valueExpression="value=application.checkGSLibError()"/>-->
+			<AssertMethodValue method="value=application.checkError()" valueExpression="value=CFConstant.paramNullErrorMsg"/>
+		</body>
+	</TestCase>	
+</testCases>
+</UnitTester>

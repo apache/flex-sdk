@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF" xmlns:mx="library://ns.adobe.com/flex/mx" width="900" height="750"
+     xmlns:comps="comps.*" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+
+		s|RichText {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            fontLookup: "embeddedCFF";
+		}
+
+	</fx:Style>
+
+	<mx:HBox>
+		<comps:DropShadowFilterComp id="graphic1" />
+		<comps:BevelFilterComp id="graphic2" />
+		<comps:BlurFilterComp id="graphic3" />
+	</mx:HBox>
+
+	<mx:HBox>
+		<comps:ColorMatrixFilterComp id="graphic4" />
+		<comps:ConvolutionFilterComp id="graphic5" />
+		<comps:GlowFilterComp id="graphic6" />
+	</mx:HBox>
+
+	<mx:HBox>
+		<comps:GradientBevelFilterComp id="graphic7" />
+		<comps:GradientGlowFilterComp id="graphic8" />
+	</mx:HBox>
+
+	<comps:EverythingGraphicComp id="graphic9" />
+
+</s:Application>

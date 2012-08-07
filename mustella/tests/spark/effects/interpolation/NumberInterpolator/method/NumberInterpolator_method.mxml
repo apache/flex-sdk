@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/interpolation/NumberInterpolator/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/NumberInterpolator_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.interpolation.*;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        private function BadInterpolatorInput():Boolean
+        {
+            try
+            {
+                //This should throw an error
+                application.testInterpolator.interpolate(.5, NaN, 1);
+                
+                //Return false since we were expecting the error
+                return(false);
+            }
+            catch(error:Error)
+            {
+                //Return true since we got the expected error
+                return(true);
+            }
+            
+            return(false);
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- Constructor -->
+        <TestCase testID="NumberInterpolator_Constructor_Empty"  keywords="[NumberInterpolator, method, constructor]" description="Try to initialize the constructor with an empty arg.">
+            <body>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();"/>
+            </body>
+        </TestCase>
+
+        <!-- Interpolate -->
+        <TestCase testID="NumberInterpolator_interpolate"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator returns values as expected.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, 0, 100);" value="50" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="NumberInterpolator_interpolate_RaiseError"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator errs when passed NaN.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=BadInterpolatorInput()" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="NumberInterpolator_interpolate_Null_startValue"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator behavior when passed a null start value.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, null, 0)" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="NumberInterpolator_interpolate_Null_endValue"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator behavior when passed a null end value.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, 1, null)" value="0.5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="NumberInterpolator_interpolate_DoubleNull"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator behavior when passed null start and end values.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, null, null)" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="NumberInterpolator_interpolate_ValueToNull"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator behavior when passed a positive start and null end value.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, 1, null)" value="0.5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="NumberInterpolator_interpolate_NegativeStart"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator behavior when passed a negative start value.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, -100, 0)" value="-50" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="NumberInterpolator_interpolate_NegativeEnd"  keywords="[NumberInterpolator, method, interpolate]" description="Verify the interpolator behavior when passed a negative end value.">
+            <setup>
+                <RunCode code="application.testInterpolator = new NumberInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, 0, -100)" value="-50" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

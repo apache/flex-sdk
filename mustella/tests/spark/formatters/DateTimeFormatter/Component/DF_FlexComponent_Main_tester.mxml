@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Component/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_FlexComponent_Main.mxml">
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		public var flashDF:flash.globalization.DateTimeFormatter;		
+		private var aDate:Date =  new Date(2000, 0, 1);		
+        public static function init(o:DisplayObject):void
+        {
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!--This test file is to test define DateTimeFormatter in Flex Module, also test style defined in module and application-->
+<testCases>
+	<!--test case 1-6 are to test define DateTimeFormatter in Flex Component, then set property-->
+	<TestCase testID="DF_FlexComponent_format_zh_CN_long_long_test1" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN','long','long')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="long"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="long"/>
+			<SetProperty  target="dtfComponent" propertyName="locale" value="zh_CN"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case 1-6 are to test define DateTimeFormatter in Flex Component, then set property-->
+	<TestCase testID="DF_FlexComponent_format_fr_CA_medium_short_test2" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','medium','short')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="medium"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="short"/>
+			<SetProperty  target="dtfComponent" propertyName="locale" value="fr-CA"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test case 1-6 are to test define DateTimeFormatter in Flex Component, then set property-->
+	<TestCase testID="DF_FlexComponent_format_ar_JO_none_medium_test3" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar-JO','none','medium')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="none"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="medium"/>
+			<SetProperty  target="dtfComponent" propertyName="locale" value="ar-JO"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test case 1-6 are to test define DateTimeFormatter in Flex Component, then set property-->
+	<TestCase testID="DF_FlexComponent_format_sr_Cyrl_RS_long_none_test4" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr-Cyrl-RS','long','none')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="long"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="none"/>
+			<SetProperty  target="dtfComponent" propertyName="locale" value="sr-Cyrl-RS"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test case 1-6 are to test define DateTimeFormatter in Flex Component, then set property-->
+	<TestCase testID="DF_FlexComponent_format_default_short_medium_test5" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default','short','medium')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="short"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="medium"/>
+			<SetProperty  target="dtfComponent" propertyName="locale" value="i-default"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test case 1-6 are to test define DateTimeFormatter in Flex Component, then set property-->
+	<TestCase testID="DF_FlexComponent_format_123_medium_long_test6" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123','medium','long')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="medium"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="long"/>
+			<SetProperty  target="dtfComponent" propertyName="locale" value="123"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test the style defined in component-->
+	<TestCase testID="DF_FlexComponent_format_inheritStyleFromComponent_test7" description="test the style defined in component" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','medium','long')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="medium"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="long"/>
+			<!--The style of dtfComponent will inherited from the class selector defined in component, so does not set here -->
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDateInComponent(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatusStyle" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test the style defined in application-->
+	<TestCase testID="DF_FlexComponent_format_inheritStyleFromApplication_test8" description="test the style defined in application" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="dtfComponent" className="assets.FlexComponent" waitEvent="updateComplete"/> 
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-FR','medium','long')" />
+			<SetProperty  target="dtfComponent" propertyName="dateStyle" value="medium"/>
+			<SetProperty  target="dtfComponent" propertyName="timeStyle" value="long"/>
+			<!--The style of dtfComponent will inherited from the class selector defined in application, so does not set here -->
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfComponent.formatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="dtfComponent" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

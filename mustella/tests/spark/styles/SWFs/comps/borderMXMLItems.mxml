@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="600" height="600">
+	<s:layout><s:VerticalLayout/></s:layout>
+ <s:Group id="sparkGrp">
+		<s:Rect top="0" bottom="0" left="0" right="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000"/>
+			</s:stroke>
+		</s:Rect>
+		<s:VGroup paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+			<mx:Label text="Spark components and containers"/>
+			<s:HGroup>
+				<s:TextInput height="21" id="sparkTI" borderAlpha="0.75" borderColor="purple" />
+				<s:NumericStepper id="sparkNS" borderAlpha="0.75" borderColor="purple"/>
+			</s:HGroup>
+			<s:HGroup>
+				<s:TextArea height="151" id="sparkTA" borderAlpha="0.75" borderColor="purple"/>
+				<s:List id="sparkList" borderAlpha="0.75" borderColor="purple" >
+					<mx:ArrayCollection>
+						<fx:String>1. Alabama</fx:String>
+						<fx:String>2. Alaska</fx:String>
+						<fx:String>3. Arizona</fx:String>
+						<fx:String>4. Arkansas</fx:String>
+						<fx:String>5. California</fx:String>
+					</mx:ArrayCollection>
+				</s:List>
+				<s:Panel id="sparkPnl" height="100" width="100" borderAlpha="0.75" borderColor="purple" />
+				<s:List id="sparkNoBorderList" borderAlpha="0.75" borderColor="purple" borderVisible="false" >
+					<mx:ArrayCollection>
+						<fx:String>1. Alabama</fx:String>
+						<fx:String>2. Alaska</fx:String>
+						<fx:String>3. Arizona</fx:String>
+						<fx:String>4. Arkansas</fx:String>
+						<fx:String>5. California</fx:String>
+					</mx:ArrayCollection>
+				</s:List>
+			</s:HGroup>	
+		</s:VGroup>
+	</s:Group>
+	<s:Group id="haloGrp">
+		<s:Rect top="0" bottom="0" left="0" right="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000"/>
+			</s:stroke>
+		</s:Rect>
+		<s:VGroup paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+			<mx:Label text="Halo components and containers"/>
+			<s:HGroup>
+				<mx:Panel headerHeight="10" height="100" width="200" id="haloPnl" borderAlpha="0.75" borderColor="purple" />
+				<mx:List dataProvider="[red, green, blue]" id="haloList" borderAlpha="0.75" borderColor="purple" />
+				<mx:NumericStepper id="haloNS" borderAlpha="0.75" borderColor="purple"/>
+			</s:HGroup>
+			<mx:TextInput id="haloTI" borderAlpha="0.75" borderColor="purple" />	
+			<mx:TextArea id="haloTA" borderAlpha="0.75" borderColor="purple" />
+			<mx:DateChooser id="haloDC" borderAlpha="0.75" borderColor="purple" selectedDate="{new Date(65, 2, 6, 9, 30, 15, 0)}"/>
+		</s:VGroup>
+	</s:Group>
+</s:Group>	

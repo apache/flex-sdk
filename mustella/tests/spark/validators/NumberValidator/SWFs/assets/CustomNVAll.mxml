@@ -1,0 +1,205 @@
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  updateComplete="updateCompleteHandler(event)"
+		  width="100%" height="100%" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.validators.ValidationResult;
+			import mx.validators.Validator ; 
+			
+			import spark.validators.supportClasses.GlobalizationValidatorBase;
+			
+			public var nvScript:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			// Define the validator Array.
+			private var _validatorsArr:Array;
+
+			
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(nvScript);
+			}
+			
+			
+			private function initValidatorArraySpark():void {
+				_validatorsArr = [nvDefault, nvProg, nvScript];
+			}
+			
+			private function initValidatorArraySparkMixed():void {
+				_validatorsArr = [nvDefault, nvProg, cvDefault, mxNValidator, mxEmailValidator];
+			}
+
+			private function initValidatorArrayMx():void {
+				_validatorsArr = [mxNValidator, mxCValidator, mxPhoneValidator, mxEmailValidator, mxCreditValidator, mxDateValidator, mxZipCodeValidator, mxStrValidator, mxScolValidator, mxRegExpValidator];
+			}
+
+			
+			//Call spark ValidateAll , and all S:NumberValidator in array
+			protected function btSVALLspark_clickHandler(event:MouseEvent):void
+			{
+				var resultArr:Array ; 
+				
+				initValidatorArraySpark();
+					
+					resultArr = GlobalizationValidatorBase.validateAll(_validatorsArr);
+					if (resultArr != null) {
+						uiLb.text = new String(resultArr.length);
+					} else {
+						uiLb.text = "";
+					}
+				
+			}
+			
+
+			//Call spark ValidateAll and  mixed with NumberValidator , currencyValidator and mxValidator
+			protected function btSVALLmixed_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+					
+				initValidatorArraySparkMixed() ; 
+					
+					var resultArr:Array = GlobalizationValidatorBase.validateAll(_validatorsArr);
+					if (resultArr != null) {
+						uiLb.text = new String(resultArr.length);
+					} else {
+						uiLb.text = "";
+					}
+			}
+			
+
+			
+			// call saprk ValidateALL , and all mx validator in array
+			protected function btSVALLmx_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				initValidatorArrayMx() ; 
+				
+				var resultArr:Array = GlobalizationValidatorBase.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					uiLb.text = new String(resultArr.length);
+				} else {
+					uiLb.text = "";
+				}
+			}
+			
+
+			// call mx ValidateALL , and all mxValidator in array
+			protected function btMVALLmx_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				initValidatorArrayMx() ; 
+				
+				var resultArr:Array = Validator.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					uiLb.text = new String(resultArr.length);
+				} else {
+					uiLb.text = "";
+				}
+			}
+
+			//call mx ValidateAll and mixed spark and mx validator in array
+			protected function btMVALLmixed_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				initValidatorArraySparkMixed() ; 
+				
+				var resultArr:Array = Validator.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					uiLb.text = new String(resultArr.length);
+				} else {
+					uiLb.text = "";
+				}
+			}
+
+			//call mx ValidateAll , and all spark validator in array
+			protected function btMVALLspark_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				initValidatorArraySpark() ; 
+				
+				var resultArr:Array = Validator.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					uiLb.text = new String(resultArr.length);
+				} else {
+					uiLb.text = "";
+				}
+			}
+
+
+
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- This validator is used for most of test cases -->
+		<!--s:NumberValidator id="nvDefault" source="{uiTI}"/ -->
+		
+		<s:NumberValidator id="nvDefault"/>
+			
+		<!-- This validator is used for testing validator with setting listern and trigger validat from action scripts -->
+		<s:NumberValidator id="nvProg"/>
+		
+		
+		<!--For mixed validateAll testing -->	
+		
+		<s:CurrencyValidator id="cvDefault" locale="zh-CN" />
+		
+		<mx:NumberValidator id="mxNValidator" />
+		<mx:CurrencyValidator id="mxCValidator"   />
+		<mx:PhoneNumberValidator id="mxPhoneValidator" />
+		<mx:EmailValidator id="mxEmailValidator" />
+		
+		<mx:CreditCardValidator id="mxCreditValidator"  cardNumberSource="{richEt}" cardNumberProperty="text" required="false"  />
+		<mx:DateValidator id="mxDateValidator"  source="{richTeditor}"  property="text" required="false" />
+		<mx:ZipCodeValidator id="mxZipCodeValidator" source="{mxti1}"  property="text" required="false" />
+		<mx:StringValidator id="mxStrValidator" source="{mxta1}"  property="text" required="false" />
+		<mx:SocialSecurityValidator id="mxScolValidator" source="{sTi1}"  property="text" required="false" />
+		<mx:RegExpValidator id="mxRegExpValidator" source="{sTa1}"  property="text" required="false"/>
+
+		
+	</fx:Declarations>
+	
+	<mx:TextInput id="uiTI" />	
+	<s:TextInput id="uiProgType" />	
+	<mx:TextArea id="uiProgTi" /> 	
+	<s:TextArea id="tiScript" />
+	<s:RichText id="richTi" />	
+	
+	<s:RichEditableText id="richEt" />
+	<mx:RichTextEditor id="richTeditor" />	
+	<mx:TextInput id="mxti1" />
+	<mx:TextArea id="mxta1" />	
+	<s:TextInput id="sTi1" />
+	<s:TextArea id="sTa1" /> 
+	
+	
+	
+	<!--This button is used to vall validateAll() method -->
+	<mx:Button id="btSVALLspark" label="Spark ValidateAll - spark" click="btSVALLspark_clickHandler(event)"/>
+	
+	<mx:Button id="btSVALLmixed" label="Spark ValidateAll - mixed" click="btSVALLmixed_clickHandler(event)" />
+	
+	<mx:Button id="btSVALLmx" label="Spark ValidateAll - mx "  click="btSVALLmx_clickHandler(event)" />
+	
+	<mx:Button id="btMVALLmx" label="Mx ValidateAll - mx " click="btMVALLmx_clickHandler(event)" />
+	
+	<mx:Button id="btMVALLmixed" label="Mx ValidateAll - mixed" click="btMVALLmixed_clickHandler(event)" />
+	
+	<mx:Button id="btMVALLspark" label="Mx ValidateAll -spark" click="btMVALLspark_clickHandler(event)" />
+	
+	<s:Label id="cardType" text="Visa" /> 
+	<!-- Label is used to display some validate result--> 
+	<mx:Label id="uiLb" />
+	
+
+	
+</s:VGroup>

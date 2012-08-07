@@ -1,0 +1,68 @@
+<UnitTester 
+    testDir="spark/effects/Animate/Methods/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Animate_Main.mxml">
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Controls.TrixButton;
+        import spark.effects.animation.SimpleMotionPath;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!--play()-->
+        <TestCase testID="Animate_Play" keywords="[Animate, Methods, Play]" description="Test the Animate.Play method.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixButton()" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.setStyle('headerHeight',27)" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect();" waitTarget="testEffect" waitEvent="effectEnd" />
+                <CompareBitmap target="testPanel" url="../Methods/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!--constructor-->
+        <TestCase testID="AnimateInstance_constructorNull" keywords="[AnimateInstance, Methods, constructor]" description="Test the AnimateInstance constructor with null parameters.">
+            <body>
+                <AssertMethodValue method="value=application.NullConstructor();" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateInstance_constructorValid" keywords="[AnimateInstance, Methods, constructor]" description="Test the AnimateInstance constructor with a valid object.">
+            <body>
+                <AssertMethodValue method="value=application.ValidConstructor();" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateInstance_constructorTarget" keywords="[AnimateInstance, Methods, constructor]" description="Test the AnimateInstance constructor with a valid object and verify the target after instantiation.">
+            <body>
+                <AssertMethodValue method="value=application.TargetConstructor();" value="true"/>
+            </body>
+        </TestCase>
+        
+        <!-- getAffectedProperties -->
+        <!--play()-->
+        <TestCase testID="Animate_GetAffectedProperties" keywords="[Animate, Methods, GetAffectedProperties]" description="Test the Animate.GetAffectedProperties method.">
+            <setup>
+                <ResetComponent target="testEffect" className="spark.effects.Animate" />
+                <RunCode code="application.AddMPVectors()"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEffect.getAffectedProperties()" value="x,y,alpha" />
+            </body>
+        </TestCase>
+
+        
+    </testCases>
+</UnitTester>

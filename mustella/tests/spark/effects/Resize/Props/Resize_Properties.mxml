@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/Resize/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Resize_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+        <![CDATA[
+import Containers.*;
+import spark.effects.Resize;
+[Bindable]public var timeout:int = 250;
+        ]]>
+    </mx:Script>
+
+    <!-- 
+    Although these simple get/set cases may seem overkill now, they stand to serve a purpose 
+    in the future. If the framework ever becomes more robust, these properties will likely 
+    use getters/setters. At that time, these cases may fail due to altered behavior (which is 
+    what we want), and at that time, we can expand these cases to expose the weaknesses there.
+    -->
+    <testCases>
+
+        <!-- Resize.heightBy -->
+        <TestCase testID="Resize_Properties_HeightBy_Zero"  keywords="[Resize, Properties, heightBy]" description="Try to set the heightBy property to zero.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightBy" value="0"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightBy" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_HeightBy_Negative"  keywords="[Resize, Properties, heightBy]" description="Try to set the heightBy property to a negative value.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightBy" value="-77"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightBy" value="-77"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_HeightBy_Big"  keywords="[Resize, Properties, heightBy]" description="Try to set the heightBy property to Int16.MAX.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightBy" value="65535"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightBy" value="65535"/>
+            </body>
+        </TestCase>
+
+        <!-- Resize.heightFrom -->
+        <TestCase testID="Resize_Properties_HeightFrom_Zero"  keywords="[Resize, Properties, heightFrom]" description="Try to set the heightFrom property to zero.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="0"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightFrom" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_HeightFrom_Negative"  keywords="[Resize, Properties, heightFrom]" description="Try to set the heightFrom property to a negative value.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="-77"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightFrom" value="-77"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_HeightFrom_Big"  keywords="[Resize, Properties, heightFrom]" description="Try to set the heightFrom property to Int16.MAX.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightFrom" value="65535"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightFrom" value="65535"/>
+            </body>
+        </TestCase>
+        
+        <!-- Resize.heightTo -->
+        <TestCase testID="Resize_Properties_HeightTo_Zero"  keywords="[Resize, Properties, heightTo]" description="Try to set the heightTo property to zero.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightTo" value="0"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightTo" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_HeightTo_Negative"  keywords="[Resize, Properties, heightTo]" description="Try to set the heightTo property to a negative value.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightTo" value="-77"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightTo" value="-77"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_HeightTo_Big"  keywords="[Resize, Properties, heightTo]" description="Try to set the heightTo property to Int16.MAX.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="heightTo" value="65535"/>
+                <AssertPropertyValue target="testEffect" propertyName="heightTo" value="65535"/>
+            </body>
+        </TestCase>
+
+        <!-- Resize.widthBy -->
+        <TestCase testID="Resize_Properties_WidthBy_Zero"  keywords="[Resize, Properties, widthBy]" description="Try to set the widthBy property to zero.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthBy" value="0"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthBy" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_WidthBy_Negative"  keywords="[Resize, Properties, widthBy]" description="Try to set the widthBy property to a negative value.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthBy" value="-77"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthBy" value="-77"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_WidthBy_Big"  keywords="[Resize, Properties, widthBy]" description="Try to set the widthBy property to Int16.MAX.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthBy" value="65535"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthBy" value="65535"/>
+            </body>
+        </TestCase>
+
+        <!-- Resize.widthFrom -->
+        <TestCase testID="Resize_Properties_WidthFrom_Zero"  keywords="[Resize, Properties, widthFrom]" description="Try to set the widthFrom property to zero.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="0"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthFrom" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_WidthFrom_Negative"  keywords="[Resize, Properties, widthFrom]" description="Try to set the widthFrom property to a negative value.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="-77"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthFrom" value="-77"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_WidthFrom_Big"  keywords="[Resize, Properties, widthFrom]" description="Try to set the widthFrom property to Int16.MAX.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthFrom" value="65535"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthFrom" value="65535"/>
+            </body>
+        </TestCase>
+
+        <!-- Resize.widthTo -->
+        <TestCase testID="Resize_Properties_WidthTo_Zero"  keywords="[Resize, Properties, widthTo]" description="Try to set the widthTo property to zero.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthTo" value="0"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthTo" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_WidthTo_Negative"  keywords="[Resize, Properties, widthTo]" description="Try to set the widthTo property to a negative value.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthTo" value="-77"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthTo" value="-77"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Resize_Properties_WidthTo_Big"  keywords="[Resize, Properties, widthTo]" description="Try to set the widthTo property to Int16.MAX.">
+            <setup>
+                <RunCode code="application.testEffect = new Resize();" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="widthTo" value="65535"/>
+                <AssertPropertyValue target="testEffect" propertyName="widthTo" value="65535"/>
+            </body>
+        </TestCase>
+
+        <!-- Resize.relevantStyles -->
+        <TestCase testID="Resize_RelevantStyles"  keywords="[Resize, properties, RelevantStyles]" description="Test the return values from RelevantStyles.">
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="relevantStyles" value="left,right,top,bottom,percentWidth,percentHeight" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Resize_Explicit"  keywords="[Resize]" description="Test resize against a target with explicit height.">
+			<setup>
+				<RunCode code="application.uiComponent = new ResizeButton();" />
+				<ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+				<RunCode code="application.testPanel.addElement(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel.skin.contentGroup" />
+			</setup>
+			<body>
+				<RunCode code="application.uiComponent.currentState = 's2';" waitTarget="uiComponent.res" waitEvent="effectEnd" />
+				<Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent.button" propertyName="width" value="63"/>
+				<AssertPropertyValue target="uiComponent.button" propertyName="height" value="21"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

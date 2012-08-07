@@ -1,0 +1,120 @@
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  updateComplete="updateCompleteHandler(event)"
+		  width="100%" height="100%" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.validators.ValidationResult;
+			
+			import spark.validators.supportClasses.GlobalizationValidatorBase;
+			
+			public var nvScript:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			// Define the validator Array.
+			private var _validatorsArr:Array;
+
+			
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(nvScript);
+			}
+			
+
+			protected function uiBTGenerate_clickHandler(event:MouseEvent):void
+			{
+				
+				// Set the listener property to the component 
+				// used to display validation errors. 
+				nvProg.negativeNumberFormat = 1;
+				nvProg.listener = uiTI;
+				
+				if ('disabled' == uiProgType.text) {
+					nvProg.enabled = false;
+				} else {
+					nvProg.enabled = true;
+				}
+				
+				//nvProg.validate(uiTI.text);
+				var result:ValidationResultEvent = nvProg.validate(uiTI.text);
+				if (result != null) {
+					uiLb.text = result.type;
+				} else {
+					uiLb.text = "";
+				}
+			}
+			
+			
+			
+			protected function uiBTAll_clickHandler(event:MouseEvent):void
+			{
+				//validate non-number or non-string object
+				var result:ValidationResultEvent = nvProg.validate(uiBT) ; 
+				if ( result != null ) {
+					uiLb.text = result.type ; 
+				}else {
+					uiLb.text = "NoResult";
+				}
+
+				
+			}
+			
+
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- This validator is used for most of test cases -->
+		<!--s:NumberValidator id="nvDefault" source="{uiTI}"/ -->
+		
+		<s:NumberValidator id="nvDefault"/>
+		
+		<!-- This validator is used for testing validator with fx:Model --> 
+		<s:NumberValidator id="nvModel"/>
+		<fx:Model id="RegInfo">
+			<product>
+				<weight>{uiTI.text}</weight>
+			</product>
+		</fx:Model>
+		
+		
+		<!-- This validator is used for testing validator with setting listern and trigger validat from action scripts -->
+		<s:NumberValidator id="nvProg" />
+		
+		<!-- Test validator with inline specified locale --> 
+		<s:NumberValidator id="nvLocale" locale="fr-FR"  />
+		
+		<!--For mixed validateAll testing -->	
+		<mx:NumberValidator id="mxNValidator" />
+		<s:CurrencyValidator id="cvDefault" locale="zh-CN" />
+
+	</fx:Declarations>
+	
+	<!-- This is the source for nvDefault in declaration tag -->
+	<mx:TextInput id="uiTI" />
+	<mx:Button id="uiBT" />
+	<mx:Button id="uiBTGenTrigger" click="uiBTGenerate_clickHandler(event)"/>
+	
+	<!-- This is the source for nvProg --> 
+	<mx:TextInput id="uiProgType" />
+	
+	<mx:TextInput id="uiProgTi" /> 
+	
+	<!-- This is the source for nvScript validator  -->
+	<mx:TextInput id="tiScript" />
+	
+	<!--This button is used to vall validateAll() method -->
+	<mx:Button id="uiBTAll" label="uiBTAll" click="uiBTAll_clickHandler(event)"/>
+	
+	<mx:Button id="uiBTvalidateNumber" label="validate number"  />
+	
+	<!-- Label is used to display some validate result--> 
+	<mx:Label id="uiLb" />
+	
+
+	
+</s:VGroup>

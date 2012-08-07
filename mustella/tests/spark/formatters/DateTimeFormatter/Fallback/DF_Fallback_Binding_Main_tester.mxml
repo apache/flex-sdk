@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			xmlns:assets="assets.*"
+			testSWF="DF_Fallback_Binding_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.DFConstants;
+		private var aDate:Date =  new Date(2000, 0, 1);
+
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<testCases>
+	<TestCase testID="DTF_Fallback_Binding_format_dateShort_test1" description="text of textinput'dateShort' is dFormatterShort.format(aDate), and dateStyle is 'short'" keywords="[FallbackDateTimeFormatter, format, dateStyle, Binding]">
+		<body>
+			<AssertPropertyValue propertyName="text" value="1/1/2000 12:00:00 AM" target="dateShort" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_dateShort_script_test2" description="text of textinput'dateShort' is dFormatterShort.format(aDate), and dateStyle is 'short'" keywords="[FallbackDateTimeFormatter, format, dateStyle, Binding]">
+		<body>
+			<SetProperty target="dtFormatterScript" propertyName="dateStyle" value="short" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="1/1/2000 12:00:00 AM" target="dateShortScript" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_dateMedium_test3" description="change dateStyle of dFormatterShort to 'medium', verify the text of text input change automatically" keywords="[FallbackDateTimeFormatter, format, dateStyle, Binding]">
+		<setup>
+			<ResetComponent target="dFormatterShort" className="assets.FallbackDTF"/>
+			<RunCode code="application.dFormatterShort.initialized(null , 'dFormatterShort')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dFormatterShort" value="medium" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="dateShort" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_dateMedium_script_test4" description="change dateStyle of dFormatterShort to 'medium', verify the text of text input change automatically" keywords="[FallbackDateTimeFormatter, format, dateStyle, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="dtFormatterScript" propertyName="dateStyle"  value="medium" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="dateShortScript" />	
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DTF_Fallback_Binding_format_timeShort_test5" description="text of textinput 'timeShort' is tFormatterShort.format(aDate) and timeStyle is 'short'" keywords="[FallbackDateTimeFormatter, format, timeStyle, Binding]">
+		<body>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00 AM" target="timeShort" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_timeShort_script_test6" description="text of textinput 'timeShort' is tFormatterShort.format(aDate) and timeStyle is 'short'" keywords="[FallbackDateTimeFormatter, format, timeStyle, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty target="dtFormatterScript" propertyName="timeStyle"  value="short" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00 AM" target="timeShortScript" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_timeMedium_test7" description="change timeStyle to 'medium'" keywords="[FallbackDateTimeFormatter, format, timeStyle, Binding]">
+		<setup>
+			<ResetComponent target="tFormatterShort" className="assets.FallbackDTF"/>
+			<RunCode code="application.tFormatterShort.initialized(null , 'tFormatterShort')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="timeStyle" target="tFormatterShort" value="medium" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="timeShort" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_timeMedium_script_test8" description="change timeStyle to 'medium'" keywords="[FallbackDateTimeFormatter, format, timeStyle, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="timeStyle" target="dtFormatterScript" value="medium" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="timeShortScript" />	
+		</body>
+	</TestCase>
+	
+	<!--text of textinput 'dateFormatOutputDefaultMaskMedium' is {dtFormatterMaskMedium.format(aDate)}, change dateTimePattern will not change format result-->
+	<TestCase testID="DTF_Fallback_Binding_format_dateTimePattern_declar_inlineMaksMedium_test9" description="change dateTimePattern will not change format result" keywords="[FallbackDateTimeFormatter, format, dateTimePattern, Binding]">
+		<body>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="dateFormatOutputDefaultMaskMedium" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_dateTimePattern_declar_maskMedium_test10" description="change dateTimePattern will not change format result" keywords="[FallbackDateTimeFormatter, format, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterMaskMedium" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterMaskMedium.initialized(null , 'dtFormatterMaskMedium')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterMaskMedium" value="EEEE, MMMM. d, yyyy \'at\' h:mm a" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="dateFormatOutputDefaultMaskMedium" />	
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_format_dateTimePattern_Script_test11" description="change dateTimePattern will not change format result" keywords="[FallbackDateTimeFormatter, format, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterScript" value="MMM. d, yyyy" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="dateFormatOutputDefaultMaskMediumScript" />	
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DTF_Fallback_Binding_format_dateTimePattern_maskMedium_Script_test12" description="change dateTimePattern will not change format result" keywords="[FallbackDateTimeFormatter, format, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterScript" value="EEEE, MMMM. d, yyyy \'at\' h:mm a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<AssertPropertyValue propertyName="text" value="Saturday, January 1, 2000 12:00:00 AM" target="dateFormatOutputDefaultMaskMediumScript" />	
+		</body>
+	</TestCase>
+	
+	<!--Verify binding mechanism of property dateTimePattern, change value of dateTimePattern,the text will not update automatically?
+	because according to source code, get dateTimePattern only related with dateTimeStyle-->
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_inline_test13" description="getter of dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<body>
+			<AssertPropertyValue propertyName="text" target="dtPattern" value="dddd, mmmm d, yyyy hh:mm:ss a" />			
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_test14" description="getter of dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterDTP" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterDTP.initialized(null , 'dtFormatterDTP')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterDTP" value="EEEE, MMMM. d, yyyy 'at' h:mm a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<AssertPropertyValue propertyName="text" target="dtPattern" value="dddd, mmmm d, yyyy hh:mm:ss a" />			
+		</body>		
+	</TestCase>
+	<!--Verify binding mechanism of property dateTimePattern, change dateTimeStyle,the text should update automatically
+	because according to source code, get dateTimePattern only related with dateTimeStyle-->
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_test15" description="get dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<body>
+			<AssertPropertyValue propertyName="text" target="dtPattern2" value="dddd, mmmm d, yyyy hh:mm:ss a" />			
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_test16" description="get dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterDTP2" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterDTP2.initialized(null , 'dtFormatterDTP2')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<SetProperty propertyName="dateStyle" target="dtFormatterDTP2" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="dtFormatterDTP2" value="short" waitEvent="change"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="dtPattern2" value="m/d/yyyy hh:mm a" />			
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_Script_test17" description="getter of dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterScript" value="MMM. d, yyyy" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="dtPatternScriptText" value="dddd, mmmm d, yyyy hh:mm:ss a" />			
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_Script_test18" description="getter of dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterScript" value="MMM. d, yyyy"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterScript" value="EEEE, MMMM. d, yyyy 'at' h:mm a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<AssertPropertyValue propertyName="text" target="dtPatternScriptText" value="dddd, mmmm d, yyyy hh:mm:ss a" />			
+		</body>		
+	</TestCase>
+	
+	<!--Verify binding mechanism of property dateTimePattern, change dateTimeStyle,the text should update automatically
+	because according to source code, get dateTimePattern only related with dateTimeStyle-->
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_Script_test19" description="get dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dtFormatterScript" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="dtFormatterScript" value="medium" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" target="dtPatternScriptText" value="dddd, mmmm d, yyyy hh:mm:ss a" />			
+		</body>		
+	</TestCase>
+	<!--actual result is m/d/yyyyhh:mm a, no space -->
+	<TestCase testID="DTF_Fallback_Binding_dateTimePattern_Script_test20" description="get dateTimePattern only related with dateTimeStyle" keywords="[FallbackDateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateStyle" target="dtFormatterScript" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="dtFormatterScript" value="short" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" target="dtPatternScriptText" value="m/d/yyyy hh:mm a" />			
+		</body>		
+	</TestCase>
+	
+	<!--Verify the binding mechanism of actualLocalIDName, the value of actualLocalIDName is always 'en-US', 
+	so only test text input shows the value of actualLocalIDName here, no test of text update automatically when actualLocalIDName changed.
+	and move the test case of testing whether locale change reflected actualLocalIDName to another test file 'DF_actualLocaleIDName_Main_tester'-->
+	<TestCase testID="DTF_Fallback_Binding_actualLocale_test21" description="the value of actualLocalIDName is always 'en-US'" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="actualLocaleIDName" value="en-US" />
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_actualLocale_Script_test22" description="the value of actualLocalIDName is always 'en-US'" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="actualLocaleIDNameScript" value="en-US" />
+		</body>		
+	</TestCase>
+	
+	<!--Verify the binding mechanism of getFirstWeekday
+	same with actualLocalIDName, the value of getFirstWeekday is always 0, so only test the text input can shows getFirstWeekday return value
+	no test of text update automatically-->
+	<TestCase testID="DTF_Fallback_Binding_getFirstWeekday_test23" description="test the binding mechanism of getFirstWeekday" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="getFirstWeekday" value="0" />
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getFirstWeekday_Script_test24" description="test the binding mechanism of getFirstWeekday" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="getFirstWeekdayScript" value="0" />
+		</body>		
+	</TestCase>
+	
+	<!--Verify the binding mechanism of getMonthNames() -->
+	<TestCase testID="DTF_Fallback_Binding_getMonthNames_long_stand_test25" description="test the binding mechanism of getMonthNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="application.setParam('longAbbreviation','standalone')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="monthName" value="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" />	
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getMonthNames_full_format_test26" description="test the binding mechanism of getMonthNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="application.setParam('full','format')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="monthName" value="January,February,March,April,May,June,July,August,September,October,November,December" />
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getMonthNames_Script_long_stand_test27" description="test the binding mechanism of getMonthNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<RunCode code="application.setParam('longAbbreviation','standalone')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="monthNameScript" value="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" />	
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getMonthNames_Script_full_format_test28" description="test the binding mechanism of getMonthNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<RunCode code="application.setParam('full','format')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="monthNameScript" value="January,February,March,April,May,June,July,August,September,October,November,December" />
+		</body>		
+	</TestCase>
+
+	<!--Verify the binding mechanism of getWeekdayNames() -->
+	<TestCase testID="DTF_Fallback_Binding_getWeekdayNames_long_stand_test29" description="test the binding mechanism of getWeekdayNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<RunCode code="application.setParam('longAbbreviation','standalone')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="weekdayName" value="Sun,Mon,Tue,Wed,Thu,Fri,Sat" />	
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getWeekdayNames_full_format_test30" description="test the binding mechanism of getWeekdayNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<RunCode code="application.setParam('full','format')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="weekdayName" value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday" />
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getWeekdayNames_script_long_stand_test31" description="test the binding mechanism of getWeekdayNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<RunCode code="application.setParam('longAbbreviation','standalone')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="weekdayNameScript" value="Sun,Mon,Tue,Wed,Thu,Fri,Sat" />	
+		</body>		
+	</TestCase>
+	<TestCase testID="DTF_Fallback_Binding_getWeekdayNames_script_full_format_test32" description="test the binding mechanism of getWeekdayNames" keywords="[FallbackDateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatterScript" className="assets.FallbackDTF"/>
+			<RunCode code="application.dtFormatterScript.initialized(null , 'dtFormatterScript')" />
+			<RunCode code="application.setParam('full','format')"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" target="weekdayNameScript" value="Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday" />
+		</body>		
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

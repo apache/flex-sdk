@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Module/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_FlexModule_application_set_Main.mxml">
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		import assets.DFConstants;
+		
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		
+		public static function init(o:DisplayObject):void
+        {
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test define DateTimeFormatter in Flex Component, also test style defined in component and application-->
+<testCases>
+	<TestCase testID="DF_FlexComponent_format_ja_JP_none_medium_test_1" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ja-JP','none','medium')"/>
+			<SetProperty target="appDF" propertyName="dateStyle" value="none"/>
+			<SetProperty target="appDF" propertyName="timeStyle" value="medium"/>
+			<SetProperty target="" propertyName="appLocale" value="ja-JP"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.appDF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="appDF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_zh_CN_long_none_test_2" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-CN@collation=stroke','long','none')"/>
+			<SetProperty target="appDF" propertyName="dateStyle" value="long"/>
+			<SetProperty target="appDF" propertyName="timeStyle" value="none"/>
+			<SetProperty target="" propertyName="appLocale" value="zh-CN@collation=stroke"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.appDF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="appDF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_default_short_medium_test_3" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default','short','medium')"/>
+			<SetProperty target="appDF" propertyName="dateStyle" value="short"/>
+			<SetProperty target="appDF" propertyName="timeStyle" value="medium"/>
+			<SetProperty target="" propertyName="appLocale" value="i-default"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.appDF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="appDF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_123_medium_long_test_4" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123','medium','long')"/>
+			<SetProperty target="appDF" propertyName="dateStyle" value="medium"/>
+			<SetProperty target="appDF" propertyName="timeStyle" value="long"/>
+			<SetProperty target="" propertyName="appLocale" value="123"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.appDF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="appDF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_ja_JP_none_medium_test_5" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ja-JP','none','medium')"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="dateStyle" value="none"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="timeStyle" value="medium"/>
+			<SetProperty target="" propertyName="appLocale" value="ja-JP"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myModuleLoader.child.moduleDTF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="myModuleLoader.child.styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="myModuleLoader.child.moduleDTF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_zh_CN_long_none_test_6" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-CN@collation=stroke','long','none')"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="dateStyle" value="long"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="timeStyle" value="none"/>
+			<SetProperty target="" propertyName="appLocale" value="zh-CN@collation=stroke"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myModuleLoader.child.moduleDTF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="myModuleLoader.child.styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="myModuleLoader.child.moduleDTF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_default_short_medium_test_7" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default','short','medium')"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="dateStyle" value="short"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="timeStyle" value="medium"/>
+			<SetProperty target="" propertyName="appLocale" value="i-default"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myModuleLoader.child.moduleDTF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="myModuleLoader.child.styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="myModuleLoader.child.moduleDTF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DF_FlexComponent_format_123_medium_long_test_8" description="test define DateTimeFormatter in Flex Component, format method sould return the expected value" keywords="[DateTimeFormatter, Flex Component]">
+		<setup>
+			<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123','medium','long')"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="dateStyle" value="medium"/>
+			<SetProperty target="myModuleLoader.child.moduleDTF" propertyName="timeStyle" value="long"/>
+			<SetProperty target="" propertyName="appLocale" value="123"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myModuleLoader.child.moduleDTF.format(DFConstants.testDate)" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue target="myModuleLoader.child.styleLabel" propertyName="text" valueExpression="value=flashDF.format(DFConstants.testDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="myModuleLoader.child.moduleDTF" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+	
+</UnitTester>

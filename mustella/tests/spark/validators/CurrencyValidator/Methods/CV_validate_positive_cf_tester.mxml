@@ -1,0 +1,1154 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_validate_currency_format.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_1" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_2" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_3" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="12;98$" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_4" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="12;98$" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_5" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$ 12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_6" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$ 12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_7" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="12;98 $" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_8" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="12;98 $" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_9" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_10" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_11" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_12" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_13" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_14" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_15" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_16" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_17" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_18" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_19" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_20" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_21" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_22" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_23" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_24" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_25" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_26" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_27" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_28" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_29" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_30" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_31" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_32" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_33" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_34" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'$12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_35" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_36" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_37" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_38" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'$ 12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_39" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_40" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98 $'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_41" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$'+CVConstant.SPACE_CHAR1+'12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_42" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$'+CVConstant.SPACE_CHAR1+'12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_43" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98'+CVConstant.SPACE_CHAR1+'$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_44" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98'+CVConstant.SPACE_CHAR1+'$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_45" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$'+CVConstant.SPACE_CHAR2+'12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_46" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$'+CVConstant.SPACE_CHAR2+'12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_47" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98'+CVConstant.SPACE_CHAR2+'$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_48" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98'+CVConstant.SPACE_CHAR2+'$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_49" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR1+'$'+CVConstant.SPACE_CHAR3+'12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_50" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR2+'$'+CVConstant.SPACE_CHAR3+'12.98'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_buttonTrig_51" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="sr-BA"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR3+'12.98'+CVConstant.SPACE_CHAR3+'$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_positiveCurrencyFormat_valid_script_buttonTrig_52" description="testcase for valide all enum value of positiveCurrencyFormat." keywords="[CurrencyValidator, positiveCurrencyFormat, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompCurrencyFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="sr-CYRL-ME"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=CVConstant.PLUS_CHAR4+'12.98'+CVConstant.SPACE_CHAR3+'$'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

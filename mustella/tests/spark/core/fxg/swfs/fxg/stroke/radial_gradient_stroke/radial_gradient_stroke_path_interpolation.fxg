@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Warning: Illustrator CS4 doesn't render RadialGradientStroke. FXG Viewer does.                                                                                		-->
+<!-- FXG 1.0 Test Radial Gradient strokes a path with interpolationMethod.                   -->
+<!-- The RadialGradientStroke element paints a stroke along a path or shape with a continuously smooth color transition between a list of colors along the radius of a circle.
+
+The RadialGradientStroke operates almost identically to the RadialGradient fill type. As with the fill, by default a RadialGradientStroke is transformed to fill the bounding box of the path being stroked. The bounding box is computed by computing the bounding box of the anchor points of the path, and expanding its borders outward in each direction by half the weight of the stroke.
+
+Otherwise its rendering behavior is identical to that of the RadialGradientFill.
+-->
+<!-- Author : Min Plunkett  27 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:     				-->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0"  xmlns="http://ns.adobe.com/fxg/2008">
+	<Group x="17.7251" y="14.0522">
+			<Path data="M40.9541 95.9478L41.9541 95.9478C44.9541 87.9478 54.9541 61.9478 61.9541 57.9478L62.9541 57.9478C74.9541 37.9478 147.954 18.9478 152.954 54.9478 153.954 66.9478 150.954 83.9478 154.954 95.9478 164.954 107.948 185.954 114.948 202.954 114.948
+ 260.954 114.948 246.954 7.94775 294.955 7.94775 382.955 7.94775 305.955 118.948 410.955 108.948 408.955 107.948 413.955 105.948 414.955 105.948 428.955 97.9478 459.955 -24.0522 497.955 4.94775 556.955 49.9478 529.955 207.948 487.955 212.948 478.955
+ 226.948 419.955 213.948 407.955 209.948L407.955 208.948C391.955 208.948 377.955 125.948 326.955 135.948 299.955 139.948 301.955 247.948 245.954 227.948 246.954 225.948 242.954 226.948 244.954 225.948 239.954 223.948 223.954 211.948 222.954 207.948
+ 209.954 201.948 181.954 170.948 171.954 160.948L170.954 160.948C152.954 135.948 123.954 147.948 104.954 161.948L104.954 162.948C79.9541 186.948 52.9541 200.948 17.9541 195.948 4.9541 182.948 0.954102 144.948 0.954102 128.948 -0.0458984 124.948
+ -0.0458984 103.948 7.9541 106.948 5.9541 104.948 9.9541 104.948 10.9541 104.948L10.9541 103.948 18.9541 103.948 18.9541 102.948 33.9541 100.948 33.9541 99.9478C35.9541 98.9478 43.9541 97.9478 42.9541 94.9478L40.9541 95.9478Z">
+				<fill>
+					<SolidColor color="#0000FF" alpha="0.5"/>
+				</fill>
+				<stroke>
+					<RadialGradientStroke x="10" y="0" scaleX="532" scaleY="532" interpolationMethod="rgb" weight="30">
+						<GradientEntry color="#0900b2" ratio="0"/>
+						<GradientEntry color="#ff0000" ratio="0.5"/>
+						<GradientEntry color="#fffc00" ratio="1"/>
+					</RadialGradientStroke>
+				</stroke>
+			</Path>
+		<Group y="260">
+			<Path data="M40.9541 95.9478L41.9541 95.9478C44.9541 87.9478 54.9541 61.9478 61.9541 57.9478L62.9541 57.9478C74.9541 37.9478 147.954 18.9478 152.954 54.9478 153.954 66.9478 150.954 83.9478 154.954 95.9478 164.954 107.948 185.954 114.948 202.954 114.948
+ 260.954 114.948 246.954 7.94775 294.955 7.94775 382.955 7.94775 305.955 118.948 410.955 108.948 408.955 107.948 413.955 105.948 414.955 105.948 428.955 97.9478 459.955 -24.0522 497.955 4.94775 556.955 49.9478 529.955 207.948 487.955 212.948 478.955
+ 226.948 419.955 213.948 407.955 209.948L407.955 208.948C391.955 208.948 377.955 125.948 326.955 135.948 299.955 139.948 301.955 247.948 245.954 227.948 246.954 225.948 242.954 226.948 244.954 225.948 239.954 223.948 223.954 211.948 222.954 207.948
+ 209.954 201.948 181.954 170.948 171.954 160.948L170.954 160.948C152.954 135.948 123.954 147.948 104.954 161.948L104.954 162.948C79.9541 186.948 52.9541 200.948 17.9541 195.948 4.9541 182.948 0.954102 144.948 0.954102 128.948 -0.0458984 124.948
+ -0.0458984 103.948 7.9541 106.948 5.9541 104.948 9.9541 104.948 10.9541 104.948L10.9541 103.948 18.9541 103.948 18.9541 102.948 33.9541 100.948 33.9541 99.9478C35.9541 98.9478 43.9541 97.9478 42.9541 94.9478L40.9541 95.9478Z">
+				<fill>
+					<SolidColor color="#0000FF" alpha="0.5"/>
+				</fill>
+				<stroke>
+					<RadialGradientStroke x="10" y="0" scaleX="532" scaleY="532" interpolationMethod="linearRGB" weight="30">
+						<GradientEntry color="#0900b2" ratio="0"/>
+						<GradientEntry color="#ff0000" ratio="0.5"/>
+						<GradientEntry color="#fffc00" ratio="1"/>
+					</RadialGradientStroke>
+				</stroke>
+			</Path>
+		</Group>
+	</Group>
+</Graphic>

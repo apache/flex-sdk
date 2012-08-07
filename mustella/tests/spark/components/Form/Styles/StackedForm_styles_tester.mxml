@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Styles/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="StackedForm_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+  		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+
+		import spark.layouts.*;
+		import comps.*;
+		import spark.components.Group;
+		import flash.utils.getQualifiedClassName;
+		
+
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace  "*";
+		
+		.newStyle{
+			color: #FF0000;
+			fontWeight: bold;
+			fontStyle: italic;
+		}
+		
+		.fhStyle{
+			color: #00FF00;
+		}
+		
+		.fiStyle{
+			backgroundColor: #0000FF;
+			fontStyle: normal;
+		}
+	</fx:Style>
+	<testCases>
+		<TestCase testID="StackedForm_styleName_inherits" keywords="[Form, style]" description="Set Form style verify that the child components inherit the style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="newStyle" target="basicFrm" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedFormItem_styleName_inherits" keywords="[FormItem, style]" description="Set FormItem style verify that the child components inherit the style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="newStyle" target="basicFrm.fi2" waitEvent="updateComplete" waitTarget="basicFrm.fi2"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedFormHeading_styleName_inherits" keywords="[FormHeading, style]" description="Set FormHeading style verify that appropriate styles are rendered">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="newStyle" target="basicFrm.fh" waitEvent="updateComplete" waitTarget="basicFrm.fh"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_styleName_inherits_add_components_runtime" keywords="[Form, style]" description="Set Form style add child components at runtime verify they inherit the style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" value="newStyle" target="basicFrm" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<RunCode code="application.basicFrm.addElement(application.haloLbl)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<RunCode code="application.basicFrm.addElement(application.sparkLbl)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_style_backgroundColor_backgroundAlpha_inherits" keywords="[Form, style]" description="Set Form backgroundColor and backgroundAlpha style verify that the child components inherit the style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetStyle styleName="backgroundColor" value="red" target="basicFrm"/>
+				<SetStyle styleName="backgroundAlpha" value="0.3" target="basicFrm" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedFormHeading_style_backgroundColor_backgroundAlpha" keywords="[FormHeading, style]" description="Set FormHeading backgroundColor and backgroundAlpha style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetStyle styleName="backgroundColor" value="red" target="basicFrm.fh"/>
+				<SetStyle styleName="backgroundAlpha" value="0.3" target="basicFrm.fh" waitEvent="updateComplete" waitTarget="basicFrm.fh"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_FormHeading_FormItem_style_backgroundColor_backgroundAlpha" keywords="[FormHeading, style]" description="Set FormHeading backgroundColor and backgroundAlpha style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetStyle styleName="backgroundColor" value="blue" target="basicFrm"/>
+				<SetStyle styleName="backgroundAlpha" value="0.8" target="basicFrm" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<SetStyle styleName="backgroundColor" value="red" target="basicFrm.fh"/>
+				<SetStyle styleName="backgroundAlpha" value="0.3" target="basicFrm.fh" waitEvent="updateComplete" waitTarget="basicFrm.fh"/>
+				<SetStyle styleName="backgroundColor" value="yellow" target="basicFrm.fi1"/>
+				<SetStyle styleName="backgroundAlpha" value="0.5" target="basicFrm.fi1" waitEvent="updateComplete" waitTarget="basicFrm.fi1"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_FormHeading_FormItem_styleName" keywords="[FormHeading, styleName]" description="Set styleName for FormHeading, FormItem, and Form verify each component has the appropriate style">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" target="basicFrm" value="newStyle" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<SetProperty propertyName="styleName" target="basicFrm.fi1" value="fiStyle" waitEvent="updateComplete" waitTarget="basicFrm.fi1"/>
+				<SetProperty propertyName="styleName" target="basicFrm.fi2" value="fiStyle" waitEvent="updateComplete" waitTarget="basicFrm.fi2"/>
+				<SetProperty propertyName="styleName" target="basicFrm.fh" value="fhStyle" waitEvent="updateComplete" waitTarget="basicFrm.fh"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_label_style" keywords="[FormItem, label]" description="FormItem label with new style at runtime renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetStyle styleName="fontSize" value="20" target="basicFrm.fi1.labelDisplay" waitEvent="updateComplete" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_sequenceLabel_style" keywords="[FormItem, label]" description="FormItem sequence label new style renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="sequenceLabel" value="Sequence" target="basicFrm.fi1" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontSize" value="20" target="basicFrm.fi1.sequenceLabelDisplay" waitEvent="updateComplete" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/> 
+			</body>
+		</TestCase>
+		
+		<!--TestCase testID="StackedFormItem_helpContentGroup_style" keywords="[FormItem, helpContent]" description="Verifies that the helpContentGroup renders in the correct style">
+			<setup>
+				<ResetComponent target="newFI" className="comps.StackNewFI"/>
+				<Pause timeout="200"/>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetStyle styleName="fontSize" value="20" target="newFI.helpContentGroup" />
+				<Pause timeout="200"/>
+				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="basicFrm"/>		
+			</body>
+		</TestCase>-->
+	</testCases>
+</UnitTester>

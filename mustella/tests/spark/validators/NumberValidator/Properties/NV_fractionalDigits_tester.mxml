@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_fractionalDigits_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="NV_fractionalDigits_default_test1" description="the test case is for test default fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_default_script_test2" description="the test case is for test default fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="fr-CA" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_1_test3" description="the test case is for test set valid value to fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=1" />
+				<SetStyle target="nv1" styleName="locale" value="de-DE" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_4_test4" description="the test case is for test set valid value to fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-LU')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=4" />
+				<SetStyle target="nv1" styleName="locale" value="de-LU" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_2_script_test5" description="the test case is for test set valid value to fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-EG')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=2" />
+				<SetStyle target="nvScript1" styleName="locale" value="ar-EG" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_0_script_test6" description="the test case is for test set valid value to fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<ResetComponent target="nvScript1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript1.initialized(null,'nvScript1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-LY')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=0" />
+				<SetStyle target="nvScript1" styleName="locale" value="ar-LY" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_inline_3_test7" description="the test case is for test set valid value to fractionalDigits inline" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('nb-NO')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=3" />
+				<SetStyle target="nvInline" styleName="locale" value="nb-NO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+				<AssertPropertyValue target="nvInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_inline_semicolon_test8" description="the test case is for test set valid value to fractionalDigits inline" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('es-PA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=6" />
+				<SetStyle target="nvInline2" styleName="locale" value="es-PA" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline2" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits" />
+				<AssertPropertyValue target="nvInline2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_binding_0_test9" description="Binding property by lable text" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('es-SV')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=0" />
+				<SetStyle target="nvBinding" styleName="locale" value="es-SV" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.fractionalDigits" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_binding_5_test10" description="Binding property by lable text" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=5" />
+				<SetProperty target="nvBinding" propertyName="fractionalDigits" value="5" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.fractionalDigits" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_binding_4_script_test11" description="Binding property by lable text" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-AE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=4" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="ar-AE" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="fractionalDigits" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.fractionalDigits" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_binding_1_script_test12" description="Binding property by lable text" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('sr-Latn-RS')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.fractionalDigits=1" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="sr-Latn-RS" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.fractionalDigits" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<!--When set it with null/undefined, no exception will thrown out. Instead, it will not override the previous property value-->
+		<TestCase testID="NV_fractionalDigits_invalid_null_test13" description="the test case is for test set invalid value to fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('uz-Arab-AF')" />
+				<SetStyle target="nvInvalid" styleName="locale" value="uz-Arab-AF" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid,'fractionalDigits',null)" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'fractionalDigits',null)"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_invalid_neg_script_test14" description="the test case is for test set invalid value to fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<SetStyle target="nvScriptInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid,'fractionalDigits','-9')" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'fractionalDigits','-9')"/>
+				<AssertPropertyValue target="nvScriptInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_function_2_test15" description="Test function with property fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="4;56" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_function_0_test16" description="Test function with property fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvFunction2" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+				<SetProperty target="nvFunction2" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+				<SetProperty target="nvFunction2" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="4,5" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT2"/>
+				<AssertEvent target="nvFunction2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_function_5_script_test17" description="Test function with property fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="fractionalDigits" value="5"  waitEvent="change"/>
+				<SetProperty target="nvScriptFunction3" propertyName="decimalSeparator" value=";"  waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="ne-NP" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="4;56789" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_function_2_script_test18" description="Test function with property fractionalDigits" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvScriptFunction5" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction5" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction5" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptFunction5" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction5" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+				<SetProperty target="nvScriptFunction5" propertyName="decimalSeparator" value=":" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction5" styleName="locale" value="ja-JP" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="4:5678" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptFunction5" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction5" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_getterWithoutLocale_test19" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetStyle target="nvGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="fractionalDigits" value="0" />
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_getterWithoutLocale_script_test20" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetStyle target="nvScriptGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="fractionalDigits" value="0" />
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_fractionalDigits_sepcial_2_test21" description="Test function with special case" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvSepcial1" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+				<SetProperty target="nvSepcial1" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="0*30000" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT7"/>
+				<AssertEvent target="nvSepcial1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvSepcial1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_sepcial_2_script_test22" description="Test function with special case" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvSepcial1Script" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvSepcial1Script" propertyName="property" value="text"/>
+				<SetProperty target="nvSepcial1Script" propertyName="trigger" valueExpression="value=application.triggerBT10"/>
+				<SetProperty target="nvSepcial1Script" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvSepcial1Script" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+				<SetProperty target="nvSepcial1Script" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="0*30000" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT10"/>
+				<AssertEvent target="nvSepcial1Script" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvSepcial1Script" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_sepcial_0_test23" description="Test function with special case" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvSepcial2" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+				<SetProperty target="nvSepcial2" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1;00" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT8"/>
+				<AssertEvent target="nvSepcial2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvSepcial2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_sepcial_0_script_test24" description="Test function with special case" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvSepcial2Script" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvSepcial2Script" propertyName="property" value="text"/>
+				<SetProperty target="nvSepcial2Script" propertyName="trigger" valueExpression="value=application.triggerBT11"/>
+				<SetProperty target="nvSepcial2Script" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvSepcial2Script" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+				<SetProperty target="nvSepcial2Script" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1;00" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT11"/>
+				<AssertEvent target="nvSepcial2Script" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvSepcial2Script" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_sepcial_0_test25" description="Test function with special case" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvSepcial3" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+				<SetProperty target="nvSepcial3" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="0;0" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT9"/>
+				<AssertEvent target="nvSepcial3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvSepcial3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_fractionalDigits_sepcial_0_script_test26" description="Test function with special case" keywords="[NumberValidator, fractionalDigits]">
+			<setup>
+				<SetProperty target="nvSepcial3Script" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvSepcial3Script" propertyName="property" value="text"/>
+				<SetProperty target="nvSepcial3Script" propertyName="trigger" valueExpression="value=application.triggerBT12"/>
+				<SetProperty target="nvSepcial3Script" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvSepcial3Script" propertyName="fractionalDigits" value="0" waitEvent="change"/>
+				<SetProperty target="nvSepcial3Script" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="0;0" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT12"/>
+				<AssertEvent target="nvSepcial3Script" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvSepcial3Script" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

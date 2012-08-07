@@ -1,0 +1,160 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/Mirroring/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_Mirroring.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        
+        public var tmp:Point;	
+        
+        	private function convertXY(obj:Object):Point
+		{
+			tmp = new Point(obj.x, obj.y);
+			var globalPT:Point = obj.localToGlobal(tmp);
+			return(globalPT);
+		}
+		
+		
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+
+        <TestCase
+            testID="VideoPlayer_Mirroring"
+            description="Check layout of VideoPlayer with mirroring."
+            keywords="[VideoPlayer, Mirroring]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_Comp_Mirroring" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.setVP_Props()" waitTarget="TC.testPlayer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer).x" value="400"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer).y" value="0"/>  
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.videoDisplay).x" value="2"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.videoDisplay).y" value="2"/>        	
+                <CompareBitmap target="TC.testPlayer" numColorVariances="7" maxColorVariance="10" url="../Mirroring/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase
+            testID="VideoPlayer_MirroringOnParent"
+            description="Check layout of VideoPlayer with mirroring on parent - no mirroring on videoPlayer."
+            keywords="[VideoPlayer, Mirroring]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_Comp_Mirroring" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.setContainer_Props()" waitTarget="TC.vpContainer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer).x" value="0"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer).y" value="0"/>  
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.videoDisplay).x" value="2"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.videoDisplay).y" value="2"/>        	
+                <CompareBitmap target="TC.testPlayer" numColorVariances="7" maxColorVariance="10" url="../Mirroring/baselines/$testID.png" />
+            </body>
+        </TestCase>        
+              
+        <TestCase
+            testID="VideoPlayer_Mirroring_controls"
+            description="Check layout of VideoPlayer with mirroring."
+            keywords="[VideoPlayer, Mirroring]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_Comp_Mirroring" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.setVP_Props()" waitTarget="TC.testPlayer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.scrubBar).x" value="345"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.scrubBar).y" value="287"/>  
+
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.playPauseButton).x" value="361"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.playPauseButton).y" value="275"/>  
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.durationDisplay).x" value="337"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.durationDisplay).y" value="289"/>       
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.currentTimeDisplay).x" value="337"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.currentTimeDisplay).y" value="289"/>   
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.volumeBar.muteButton).x" value="37"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.volumeBar.muteButton).y" value="275"/>       
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.fullScreenButton).x" value="-322"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.fullScreenButton).y" value="275"/>              	
+            </body>
+        </TestCase>    
+        
+        <TestCase
+            testID="VideoPlayer_MirroringOnParent_controls"
+            description="Check layout of VideoPlayer with mirroring on parent container - no mirroring on VideoPlayer"
+            keywords="[VideoPlayer, Mirroring]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_Comp_Mirroring" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.setContainer_Props()" waitTarget="TC.vpContainer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.scrubBar).x" value="55"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.scrubBar).y" value="287"/>  
+
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.playPauseButton).x" value="0"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.playPauseButton).y" value="275"/>  
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.durationDisplay).x" value="545"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.durationDisplay).y" value="289"/>       
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.currentTimeDisplay).x" value="485"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.currentTimeDisplay).y" value="289"/>   
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.volumeBar.muteButton).x" value="324"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.volumeBar.muteButton).y" value="275"/>       
+            	
+		<AssertMethodValue method="value=convertXY(application.TC.testPlayer.fullScreenButton).x" value="722"/>
+            	<AssertMethodValue method="value=convertXY(application.TC.testPlayer.fullScreenButton).y" value="275"/>              	
+            </body>
+        </TestCase>          
+        
+        <TestCase
+            testID="VideoPlayer_Mirroring_controlsFS"
+            description="Check layout of VideoPlayer with mirroring in full screen."
+            keywords="[VideoPlayer, Mirroring]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_Comp_Mirroring" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.setVP_Props()" waitTarget="TC.testPlayer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+		<DispatchMouseClickEvent target="TC.testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="TC.testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="2000"/>  
+                
+		<CompareBitmap target="TC.testPlayer.playerControls" numColorVariances="7" maxColorVariance="10" url="../Mirroring/baselines/$testID.png" />        	
+            </body>
+        </TestCase> 
+        
+        <TestCase
+            testID="VideoPlayer_MirroringOnParent_controlsFS"
+            description="Check layout of VideoPlayer with mirroring on parent container - no mirroring of VideoPlayer in full screen."
+            keywords="[VideoPlayer, Mirroring]">
+            <setup>
+                <ResetComponent target="TC" className="asset.VP_Comp_Mirroring" waitTarget="TC" waitEvent="updateComplete" />
+                <RunCode code="application.setContainer_Props()" waitTarget="TC.vpContainer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+		<DispatchMouseClickEvent target="TC.testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="TC.testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="2000"/>  
+                
+		<CompareBitmap target="TC.testPlayer.playerControls" numColorVariances="7" maxColorVariance="10" url="../Mirroring/baselines/$testID.png" />        	
+            </body>
+        </TestCase>         
+        
+        
+    </testCases>
+</UnitTester>

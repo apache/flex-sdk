@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Integration/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Form_Integration_main.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			
+			import spark.layouts.*;
+			import comps.*;
+			import spark.components.Group;
+			import flash.utils.getQualifiedClassName;
+			
+			
+		]]>
+	</fx:Script>
+	<testCases>
+		<TestCase testID="Form_skin_different_states" keywords="[Form, States, skin]" description="Form with different skin in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state3" target="" />
+				<Pause timeout="500" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="frm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_width_different_states" keywords="[FormItem, States, width]" description="FormItem width changes in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frm.skin"/>
+				<AssertPropertyValue propertyName="height" target="fi1" value="200"/>
+				<AssertPropertyValue propertyName="height" target="fi2" value="144"/>
+				<AssertPropertyValue propertyName="width" target="fi3" value="250"/>
+				<AssertPropertyValue propertyName="width" target="fi4" value="232"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_width_different_states_runtime" keywords="[FormItem, States, width]" description="FormItem width changes in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frm.skin"/>
+				<AssertPropertyValue propertyName="height" target="fi1" value="200"/>
+				<AssertPropertyValue propertyName="height" target="fi2" value="144"/>
+				<AssertPropertyValue propertyName="width" target="fi3" value="250"/>
+				<AssertPropertyValue propertyName="width" target="fi4" value="232"/>
+				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frm.skin"/>
+				<AssertPropertyValue propertyName="height" target="fi1" value="100"/>
+				<AssertPropertyValue propertyName="height" target="fi2" value="240"/>
+				<AssertPropertyValue propertyName="width" target="fi3" value="150"/>
+				<AssertPropertyValue propertyName="width" target="fi4" value="290"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_skin_different_states" keywords="[FormItem, States, skin]" description="FormItem skins change in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
+				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				</body>
+		</TestCase>
+		<TestCase testID="FormItem_constraints_different_states" keywords="[FormItem, States, skin]" description="FormItem skins change in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				
+				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="12"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				
+				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
+				<SetProperty propertyName="enabled" value="true" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FormItem_constraints_different_states_toggle" keywords="[FormItem, States, skin]" description="FormItem skins change in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<SetProperty propertyName="enabled" value="true" target="fiSkin1"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				
+				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				
+				<SetProperty propertyName="enabled" value="true" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FormItem_constraints_different_states_skin_states" keywords="[FormItem, States, skin]" description="FormItem skins change in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				
+				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="12"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="300"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				
+				<SetProperty propertyName="enabled" value="true" target="fiSkin1"/>
+				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="96"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
+				
+				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="95"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
+				<SetProperty propertyName="enabled" value="true" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FormItem_skin_noskinparts" keywords="[FormItem, skin]" description="FormItem skin with no skin parts at runtime no RTE">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetStyle styleName="skin" target="fiNoParts" value="comps.NoSkinParts" waitEvent="updateComplete" waitTarget="fiNoParts"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FormItem_helpContent_label_states" keywords="[FormItem, states]" description="FormItem with different label and helpContent values in different states">
+			<setup>
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="includeInLayout" value="false" target="frm"/>
+				<SetProperty propertyName="visible" value="false"  target="frm"/>
+				<RunCode code="application.frmSkin.addElement(application.fiSkin4)"/>
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" target="frmSkin"/>
+				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
+				<AssertPropertyValue target="fiSkin2" propertyName="label" value="FI2 State2"/>
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="frmSkin"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

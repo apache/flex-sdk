@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/AnimateColor/usability/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/AnimateColor_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+
+    <testCases>
+
+        <!-- 1A Does effect.play() work with [effect target="GraphicFill"/] -->
+        <TestCase testID="AnimateColor_EffectMxml_Target_GraphicFill" keywords="[AnimateColor, complexity, GraphicFill]" description="Test the tint effect on an fxg graphic fill.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1A.play()" waitTarget="tp1A" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xBBBBBB" />
+            </body>
+        </TestCase>
+
+        <!-- 1B Does effect.play() work with [effect target="GraphicStroke"/] -->
+        <TestCase testID="AnimateColor_EffectMxml_Target_GraphicStroke" keywords="[AnimateColor, complexity, GraphicStroke]" description="Test the tint effect on an fxg graphic stroke.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1B.play()" waitTarget="tp1B" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testStroke" propertyName="color" value="0xBBBBBB" />
+            </body>
+        </TestCase>
+
+        <!-- 1C Does effect.play() work with [effect target="HaloButton"/] -->
+        <TestCase testID="AnimateColor_EffectMxml_Target_HaloButton" keywords="[AnimateColor, complexity, HaloButton]" description="Test the tint effect on a halo button.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1C.play()" waitTarget="tp1C" waitEvent="effectEnd" />
+                <AssertStyleValue target="flex3Button" styleName="color" value="0xBBBBBB" />
+            </body>
+        </TestCase>
+
+        <!-- 1D Does effect.play() work with [effect target="GumboButton"/] -->
+        <TestCase testID="AnimateColor_EffectMxml_Target_GumboButton" keywords="[AnimateColor, complexity, GumboButton]" description="Test the tint effect on a gumbo button.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1D.play()" waitTarget="tp1D" waitEvent="effectEnd" />
+                <!-- nothing should happen :) -->
+            </body>
+        </TestCase>
+
+        <!-- 1E Does effect.play() work with [effect target="HaloLabel"/] -->
+        <TestCase testID="AnimateColor_EffectMxml_Target_HaloLabel" keywords="[AnimateColor, complexity, HaloLabel]" description="Test the tint effect on a halo label.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1E.play()" waitTarget="tp1E" waitEvent="effectEnd" />
+                <AssertStyleValue target="testLabel" styleName="color" value="0xBBBBBB" />
+            </body>
+        </TestCase>
+
+        <!-- 1F Does effect.play() work with [effect target="MULTIPLE_TARGETS"/] -->
+        <TestCase testID="AnimateColor_EffectMxml_MultiTarget" keywords="[AnimateColor, complexity, HaloLabel]" description="Test the tint effect on a halo label.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp1F.play()" waitTarget="tp1F" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xBBBBBB" />
+                <AssertPropertyValue target="testStroke" propertyName="color" value="0xBBBBBB" />
+                <AssertStyleValue target="flex3Button" styleName="color" value="0xBBBBBB" />
+                <AssertStyleValue target="testLabel" styleName="color" value="0xBBBBBB" />
+            </body>
+        </TestCase>
+
+        <!-- 2A parallel.play() work with [parallel target=""/] -->
+        <TestCase testID="AnimateColor_ParallelMxml_SingleTarget" keywords="[AnimateColor, complexity, Parallel]" description="Test the tint effect on a parallel with a single target.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp2A.play()" waitTarget="tp2A" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testFill" propertyName="alpha" value=".7" />
+            </body>
+        </TestCase>
+
+        <!-- 2B parallel.play() work with [parallel targets=""/] -->
+        <TestCase testID="AnimateColor_ParallelMxml_MultiTarget" keywords="[AnimateColor, complexity, Parallel]" description="Test the tint effect on a parallel with multiple targets.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp2B.play()" waitTarget="tp2B" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testFill" propertyName="alpha" value=".7" />
+                <AssertPropertyValue target="testStroke" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testStroke" propertyName="alpha" value=".7" />
+            </body>
+        </TestCase>
+
+        <!-- 2C parallel.play() work with [effect target=""/] -->
+        <TestCase testID="AnimateColor_ParallelMxml_EffectTarget" keywords="[AnimateColor, complexity, Parallel]" description="Test the tint effect on a parallel with an inner effect that has the target.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp2C.play()" waitTarget="tp2C" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+            </body>
+        </TestCase>
+
+        <!-- 2D parallel.play() work with [parallel][effect targets=""/] -->
+        <TestCase testID="AnimateColor_ParallelMxml_EffectTargets" keywords="[AnimateColor, complexity, Parallel]" description="Test the tint effect on a parallel with an inner effect that has multiple targets.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp2D.play()" waitTarget="tp2D" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testStroke2" propertyName="color" value="0x0000FF" />
+            </body>
+        </TestCase>
+       
+        <!-- 2E parallel.play() with [effectA target="target1"/] + [effectB target=target2/] -->
+        <TestCase testID="AnimateColor_ParallelMxml_EffectsDiffTargets" keywords="[AnimateColor, complexity, Parallel]" description="Test the tint effect on a parallel with an inner effect that has multiple targets.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp2E.play()" waitTarget="tp2E" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testStroke2" propertyName="color" value="0x0000FF" />
+                <AssertStyleValue target="flex3Button" styleName="color" value="0x000000" />
+                <AssertPropertyValue target="flex3Button" propertyName="alpha" value="0.699219" />
+            </body>
+        </TestCase>
+
+        <!-- 3A sequence.play() work with [sequence target=""/] -->
+        <TestCase testID="AnimateColor_SequenceMxml_SingleTarget" keywords="[AnimateColor, complexity, Sequence]" description="Test the tint effect on a sequence with a single target.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp3A.play()" waitTarget="tp3A" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testFill" propertyName="alpha" value=".7" />
+            </body>
+        </TestCase>
+
+        <!-- 3B sequence.play() work with [sequence targets=""/] -->
+        <TestCase testID="AnimateColor_SequenceMxml_MultiTarget" keywords="[AnimateColor, complexity, Sequence]" description="Test the tint effect on a sequence with multiple targets.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp3B.play()" waitTarget="tp3B" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testFill" propertyName="alpha" value=".7" />
+                <AssertPropertyValue target="testFill2" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testFill2" propertyName="alpha" value=".7" />
+            </body>
+        </TestCase>
+
+        <!-- 3C sequence.play() work with [effect target=""/] -->
+        <TestCase testID="AnimateColor_SequenceMxml_EffectTarget" keywords="[AnimateColor, complexity, Sequence]" description="Test the tint effect on a sequence with an inner effect that has the target.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp3C.play()" waitTarget="tp3C" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+            </body>
+        </TestCase>
+
+        <!-- 3D sequence.play() work with [sequence][effect targets=""/] -->
+        <TestCase testID="AnimateColor_SequenceMxml_EffectTargets" keywords="[AnimateColor, complexity, Sequence]" description="Test the tint effect on a sequence with an inner effect that has multiple targets.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp3D.play()" waitTarget="tp3D" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testStroke2" propertyName="color" value="0x0000FF" />
+            </body>
+        </TestCase>
+
+        <!-- 3E sequence.play() with [effectA target="target1"/] + [effectB target=target2/] -->
+        <TestCase testID="AnimateColor_SequenceMxml_EffectsDiffTargets" keywords="[AnimateColor, complexity, Sequence]" description="Test the tint effect on a sequence with an inner effect that has multiple targets.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.tp3E.play()" waitTarget="tp3E" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x0000FF" />
+                <AssertPropertyValue target="testStroke" propertyName="color" value="0x00FFFF" />
+                <AssertPropertyValue target="testFill2" propertyName="color" value="0x00FFFF" />
+                <AssertPropertyValue target="testStroke2" propertyName="color" value="0x0000FF" />
+            </body>
+        </TestCase>
+
+        <!-- 4A transition with [compositeEffect target=/] -->
+        <TestCase testID="AnimateColor_Transition_CompositeTarget"  keywords="[AnimateColor, Transition, CompositeEffect]" description="Verify the effect works in a transition with the target on the composite effect.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="tp4A" waitTarget="tp2A" waitEvent="effectEnd" />
+                <AssertPropertyValue propertyName="fillColor" value="0x0000FF" />
+                <AssertPropertyValue propertyName="fillAlpha" value=".7" />
+            </body>
+        </TestCase>
+
+        <!-- 4B transition with [compositeEffect targets=/] -->
+        <TestCase testID="AnimateColor_Transition_CompositeTargets"  keywords="[AnimateColor, Transition, CompositeEffect]" description="Verify the effect works in a transition with the targets on the composite effect.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="tp4B" waitTarget="tp3B" waitEvent="effectEnd" />
+                <AssertPropertyValue propertyName="fillColor" value="0x0000FF" />
+                <AssertPropertyValue propertyName="fillAlpha" value=".7" />
+                <AssertPropertyValue propertyName="fill2Color" value="0x0000FF" />
+                <AssertPropertyValue propertyName="fill2Alpha" value=".7" />
+            </body>
+        </TestCase>
+
+        <!-- 4C transition with [compositeEffect][effect target=/] -->
+        <TestCase testID="AnimateColor_Transition_CompositeEffectTarget"  keywords="[AnimateColor, Transition, CompositeEffect]" description="Verify the effect works in a transition with the target on the effect IN a composite effect.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="tp4C" waitTarget="tp2C" waitEvent="effectEnd" />
+                <AssertPropertyValue propertyName="fillColor" value="0x0000FF" />
+            </body>
+        </TestCase>
+
+        <!-- 4D transition with [compositeEffect][effect targetS=/] -->
+        <TestCase testID="AnimateColor_Transition_CompositeEffectTargets"  keywords="[AnimateColor, Transition, CompositeEffect]" description="Verify the effect works in a transition with the targetS on the effect IN a composite effect.">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="tp4D" waitTarget="tp3D" waitEvent="effectEnd" />
+                <AssertPropertyValue propertyName="fillColor" value="0x0000FF" />
+                <AssertPropertyValue propertyName="stroke2Color" value="0x0000FF" />
+            </body>
+        </TestCase>
+
+        <!-- 5B transition with start-end values on states syntax -->
+        <TestCase testID="AnimateColor_Transition_StateSyntaxStartEnd"  keywords="[AnimateColor, Transition, EffectValues]" description="Verify a transition effect works with the start-end values from states syntax">
+            <setup>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="currentState" value="tp5B" waitTarget="tp5BEff" waitEvent="effectEnd" />
+                <AssertStyleValue target="testLabel" styleName="color" value="0x00FF00" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

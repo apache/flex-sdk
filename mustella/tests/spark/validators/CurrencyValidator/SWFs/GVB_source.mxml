@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:sv="spark.validators.*"
+			   minWidth="955" minHeight="600">
+	
+	<fx:Declarations>
+
+		<sv:CurrencyValidator id="gvb" property="text"/>
+		<sv:CurrencyValidator id="gvbInline" source="{myTI2}" property="text"/>
+		<sv:CurrencyValidator id="gvbNull" source="{null}" property="text"/>
+		
+		<sv:CurrencyValidator id="gvbBindable" source="{myTI4}" property="text" triggerEvent="updateComplete" required="false"/>
+		
+		<sv:CurrencyValidator id="gvbInline1" property="text" listener="{myTA1}" triggerEvent="" required="true"/>
+		<sv:CurrencyValidator id="gvbInline2" source="{myTA3}" triggerEvent="" required="true"/>
+		<sv:CurrencyValidator id="gvbInline3" property="text" listener="{myTA5}" triggerEvent="" required="false"/>
+		<sv:CurrencyValidator id="gvbInline4" source="{myTA7}" triggerEvent="" required="false"/>
+		
+		<sv:CurrencyValidator id="cv_sTI" source="{sTI}" property="text"/>
+		<sv:CurrencyValidator id="cv_sRET" source="{sRET}" property="text"/>
+		<sv:CurrencyValidator id="cv_sTA" source="{sTA}" property="text"/>
+		<sv:CurrencyValidator id="cv_sRT" source="{sRT}" property="text" triggerEvent="updateComplete" required="false"/>
+		<sv:CurrencyValidator id="cv_mxRTE" source="{mxRTE}" property="text" triggerEvent="updateComplete"/>
+		<sv:CurrencyValidator id="cv_mxTA" source="{mxTA}" property="text" triggerEvent="updateComplete" required="false"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.validators.Validator;
+			
+			import spark.validators.CurrencyValidator;
+			
+			public var gvbScript:spark.validators.CurrencyValidator=new spark.validators.CurrencyValidator();
+			public var gvbScript1:spark.validators.CurrencyValidator=new spark.validators.CurrencyValidator();
+			public var gvbScript2:spark.validators.CurrencyValidator=new spark.validators.CurrencyValidator();
+			public var gvbScript3:spark.validators.CurrencyValidator=new spark.validators.CurrencyValidator();
+			public var gvbScript4:spark.validators.CurrencyValidator=new spark.validators.CurrencyValidator();
+			
+			public var gvbScriptBindable:spark.validators.CurrencyValidator = new spark.validators.CurrencyValidator();
+			
+			public function setVsource(obj:*, value:*):String
+			{
+				var vError:String='No_Error';
+				try{
+					obj.source=value;
+				}catch(e:Error){
+					vError = e.toString();
+				}
+				return vError;
+			}
+			
+			public function creCV(obj:*, source:*, property:*, listener:*, trigger:*, triggerEvent:*, required:*):void
+			{
+				if(source)
+					obj.source = source;
+				if(property)
+					obj.property = property;
+				if(listener)
+					obj.listener = listener;
+				if(trigger)
+					obj.trigger = trigger;
+				if(triggerEvent)
+					obj.triggerEvent = triggerEvent ;
+				if(required)
+					obj.required = required ;
+				
+				this.addStyleClient(obj);
+			}
+			
+			public function myValidate(obj:*):String
+			{
+				var err:String='No Error';
+				try{
+					obj.validate();
+				}
+				catch(e:Error){
+					err=e.toString();
+				}
+				
+				return err;
+				
+			}
+		]]>
+	</fx:Script>
+	<s:VGroup>
+		<mx:TextInput id="myTI1"/>
+		<mx:TextInput id="myTI2"/>
+		
+		<mx:TextInput id="myTI3"/>
+		<mx:TextInput id="myTI4" text="{myTI3.text}"/>
+		
+		<mx:TextInput id="myTI5"/>
+		<mx:TextInput id="myTI6" text="{myTI5.text}"/>
+		
+		<mx:TextArea id="myTA1" />
+		<mx:TextArea id="myTA2" />
+		<mx:TextArea id="myTA3" />
+		<mx:TextArea id="myTA4" />
+		<mx:TextArea id="myTA5" />
+		<mx:TextArea id="myTA6" />
+		<mx:TextArea id="myTA7" />
+		<mx:TextArea id="myTA8" />
+		
+		<s:TextInput id="sTI"/>
+		<s:RichEditableText id="sRET"/>
+		<s:TextArea id="sTA"/>
+		<s:RichText id="sRT"/>
+		<mx:RichTextEditor id="mxRTE"/>
+		<mx:TextArea id="mxTA"/>
+		
+	</s:VGroup>
+
+</s:Application>

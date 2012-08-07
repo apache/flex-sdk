@@ -1,0 +1,302 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="focus_mxml_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+   <fx:Style>
+   		.thicknessStyle{
+   			focusThickness: 10;
+   		}
+   		
+   		.alphaStyle{
+		   	focusAlpha: 1;
+   		}
+	</fx:Style>
+    <testCases>
+    	<TestCase testID="focusAlpha_mxml" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+					<setup>
+						<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+						<AssertStyleValue styleName="focusAlpha" value="0.2" target="fi.btnAlpha" />
+						<CompareBitmap target="fi.alphaGrp" url="../local/baselines/$testID.png" />
+					</body>
+		</TestCase>
+		
+		<TestCase testID="focusThickness_mxml" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<AssertStyleValue styleName="focusThickness" value="20" target="fi.btnThick" />
+			</body>
+  		</TestCase>
+  		<TestCase testID="focusThickness_change_runtime" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusThickness" value="8" target="fi.btn"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusThickness" value="8" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+  		<TestCase testID="focusThickness_typeSelector" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="thicknessStyle" target="fi.btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusThickness" value="10" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+			
+		<TestCase testID="focusThickness_mxml_cornerRadius" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" target="fi.btnThick" value="10" waitEvent="updateComplete" waitTarget="fi.btnThick.skin"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<AssertStyleValue styleName="focusThickness" value="20" target="fi.btnThick" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_change_runtime_cornerRadius" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" target="fi.btn" value="10" waitEvent="updateComplete" waitTarget="fi.btn.skin"/>
+				<SetStyle styleName="focusThickness" value="8" target="fi.btn"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusThickness" value="8" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_focusRing_visible_change_runtime_focusThickness" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusThickness" value="8" target="fi.btn"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusThickness" value="8" target="fi.btn" />
+				
+				<SetStyle styleName="focusThickness" value="20" target="fi.btn"/>
+				<DispatchKeyEvent keys="[TAB]" shiftKey="true" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_typeSelector_cornerRadius" keywords="[focusThickness, style]" description="Test setting focusThickness changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" target="fi.btn" value="10" waitEvent="updateComplete" waitTarget="fi.btn.skin"/>
+				<SetProperty propertyName="styleName" value="thicknessStyle" target="fi.btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusThickness" value="10" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+  		<TestCase testID="focusThickness_large_VerticalLayout" keywords="[focusThickness, style]" description="Test setting focusThickness does not cause components to relayout">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusThickness" target="fi.btn" value="40" waitEvent="updateComplete" waitTarget="fi.btn.skin"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusThickness" value="40" target="fi.btn" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusThickness_change_state" keywords="[focusThickness, style]" description="Test setting focusThickness gets updated in different states">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="fi" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<AssertStyleValue styleName="focusThickness" value="8" target="fi.btnThick" />
+				<CompareBitmap target="fi.thickGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusThickness_change_state_back_default" keywords="[focusThickness, style]" description="Test setting focusThickness gets updated in different states">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="fi" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<AssertStyleValue styleName="focusThickness" value="8" target="fi.btnThick" />
+				
+				<SetProperty propertyName="currentState" value="defaultState" target="fi" waitEvent="currentStateChange"/>
+				<DispatchKeyEvent keys="[TAB]" shiftKey="true" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="focusAlpha_change_runtime" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusAlpha" value="0.3" target="fi.btn"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusAlpha" value="0.3" target="fi.btn" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusAlpha_typeSelector" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="styleName" value="alphaStyle" target="fi.btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusAlpha" value="1" target="fi.btn" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusAlpha_mxml_cornerRadius" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" target="fi.btnAlpha" value="10" waitEvent="updateComplete" waitTarget="fi.btnAlpha.skin"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<AssertStyleValue styleName="focusAlpha" value="0.2" target="fi.btnAlpha" />
+				<CompareBitmap target="fi.alphaGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusAlpha_change_runtime_cornerRadius" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" target="fi.btn" value="10" waitEvent="updateComplete" waitTarget="fi.btn.skin"/>
+				<SetStyle styleName="focusAlpha" value="0.2" target="fi.btn"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusAlpha" value="0.2" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusAlpha_focusRing_visible_change_runtime_focusAlpha" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="focusAlpha" value="0.8" target="fi.btn"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusAlpha" value="0.8" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID_1.png" />
+
+				<SetStyle styleName="focusAlpha" value="0.2" target="fi.btn"/>
+				<DispatchKeyEvent keys="[TAB]" shiftKey="true" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID_2.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusAlpha_typeSelector_cornerRadius" keywords="[focusAlpha, style]" description="Test setting focusAlpha changes the focus ring around Button">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="cornerRadius" target="fi.btn" value="10" waitEvent="updateComplete" waitTarget="fi.btn.skin"/>
+				<SetProperty propertyName="styleName" value="alphaStyle" target="fi.btn" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnCorner"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btn"/>
+				<AssertStyleValue styleName="focusAlpha" value="1" target="fi.btn" />
+				<CompareBitmap target="fi.grp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusAlpha_change_state" keywords="[focusAlpha, style]" description="Test setting focusAlpha gets updated in different states">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="fi" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<AssertStyleValue styleName="focusAlpha" value="1" target="fi.btnAlpha" />
+				<CompareBitmap target="fi.alphaGrp" url="../local/baselines/$testID.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="focusAlpha_change_state_back_default" keywords="[focusAlpha, style]" description="Test setting focusAlpha gets updated in different states">
+			<setup>
+				<ResetComponent target="fi" className="comps.focusMXMLItems" waitEvent="updateComplete"/>
+				<SetProperty propertyName="currentState" value="state1" target="fi" waitEvent="currentStateChange"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnAlpha"/>
+				<AssertStyleValue styleName="focusAlpha" value="1" target="fi.btnAlpha" />
+				<CompareBitmap target="fi.alphaGrp" url="../local/baselines/$testID_1.png" />
+
+				<SetProperty propertyName="currentState" value="defaultState" target="fi" waitEvent="currentStateChange"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="fi.btnThick"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" shiftKey="true" waitTarget="fi.btnAlpha"/>
+				<CompareBitmap target="fi.alphaGrp" url="../local/baselines/$testID_2.png" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>
+  

@@ -1,0 +1,97 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="borderStyles_mxml_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <fx:Style>
+    	.myStyle{
+			borderColor: #00FF00;
+			borderAlpha: 0.7;
+		}
+		
+		.noBorder{
+			borderVisible: false;
+		}
+		
+		.showBorder{
+			borderVisible: true;
+		}
+    </fx:Style>
+    <testCases>    
+
+  		<TestCase testID="borderVisible_classSelector" keywords="[borderVisible]" description="Test borderVisible set with class selector applies to all components">
+  			<setup>
+				<ResetComponent target="bi" className="comps.borderMXMLItems" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderVisible" value="false" target="bi.haloTA"/>
+				<CompareBitmap target="bi" url="../local/baselines/$testID.png" />
+  			</body>
+  		</TestCase>
+ 		
+ 		<TestCase testID="borderStyles_mxml" keywords="[borderColor, borderAlpha]" description="Test borderColor and borderAlpha are set for all components via mxml">
+			<setup>
+				<ResetComponent target="bi" className="comps.borderMXMLItems" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.sparkTI" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.sparkNS" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.sparkTA" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.sparkList" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.sparkPnl" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.haloList" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.haloPnl" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.haloNS" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.haloTI" waitEvent="updateComplete"/>
+				<SetStyle styleName="borderVisible" value="true" target="bi.haloTA" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderColor" value="8388736" target="bi.haloTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkTA"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.sparkPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloList"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloPnl"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloNS"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloTI"/>
+				<AssertStyleValue styleName="borderAlpha" value="0.75" target="bi.haloTA"/>
+				<CompareBitmap target="bi" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+ 
+ 		
+    </testCases>
+</UnitTester>

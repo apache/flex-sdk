@@ -1,0 +1,344 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="CV_currencyISOCode.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import mx.validators.CurrencyValidator;
+			
+			import flash.globalization.LocaleID;
+			import spark.validators.CurrencyValidator;
+			import spark.globalization.LastOperationStatus;
+			
+			public var cvGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <!--This test file is to test "currencyISOCode" property-->
+    <testCases>
+        <!--the test case is for Checking default currencyISOCode-->
+        <TestCase testID="CV_currencyISOCode_default_test_1" description="the test case is for Checking default currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencyISOCode_default_test_2" description="the test case is for Checking default currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!--the test case is for Checking currencyISOCode for specified locale  'zh_CN'-->
+        <TestCase testID="CV_currencyISOCode_zh_CN_test_3" description="the test case is for Checking currencyISOCode for specified locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencyISOCode_zh_CN_test_4" description="the test case is for Checking currencyISOCode for specified locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!--the test case is for Checking currencyISOCode for specified locale ar-xx -->
+        <TestCase testID="CV_currencyISOCode_zh_CN_test_5" description="the test case is for Checking currencyISOCode for specified locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-xx')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-xx" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--the test case is for Checking currencyISOCode for specified locale fr-xx -->
+        <TestCase testID="CV_currencyISOCode_zh_CN_test_6" description="the test case is for Checking currencyISOCode for specified locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-xx')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="fr-xx" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--the test case is for Checking currencyISOCode for specified locale de-DE@collation=phonebook -->
+        <TestCase testID="CV_currencyISOCode_zh_CN_test_7" description="the test case is for Checking currencyISOCode for specified locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('de-DE@collation=phonebook')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="de-DE@collation=phonebook" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--the test case is for setting currencyISOCode for default locale -->
+        <TestCase testID="CV_currencyISOCode_setCurrencyISOCode_test_8" description="the test case is for setting currencyISOCode for default locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty propertyName="currencyISOCode" target="cv" value="UDD" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_currencyISOCode_setCurrencyISOCode_test_9" description="the test case is for setting currencyISOCode for default locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','')"/>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <SetProperty propertyName="currencyISOCode" target="cvScript" value="UDD" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--set currencyISOCode for specified locale  -->
+        <TestCase testID="CV_currencyISOCode_setCurrencyISOCode_test_10" description="set currencyISOCode for specified locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="zh_CN" waitEvent="change"/>
+                <SetProperty propertyName="currencyISOCode" target="cv" value="UDD" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!-- set currencyISOCode from <fx:script>  -->
+        <TestCase testID="CV_currencyISOCode_setCurrencyISOCode_test_11" description="set currencyISOCode in script" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh_CN')"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','')"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+                <RunCode code="application.setCVCurrencyISOCode(application.cvScript, 'CYY')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!-- Set currencyISOCode from inline-->
+        <TestCase testID="CV_currencyISOCode_inline_test_12" description="Set currencyISOCode from inline" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+                <RunCode code="cvGSLib.setCurrency('UDD','')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline1" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!-- Set currencyISOCode from inline-->
+        <TestCase testID="CV_currencyISOCode_inline_test_13" description="Set currencyISOCode from inline" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('bn-BD')"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline2" propertyName="currencyISOCode" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!--set currencyISOCode to null-->
+        <TestCase testID="CV_currencyISOCode_no_test_14" description="set currencyISOCode to null" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVCurrencyISOCode(application.cvScript, null)" valueExpression="value=application.setGSCurrencyISOCode(application.CVgslibError, null)"/>
+                <AssertPropertyValue target="cvScript" valueExpression="value=application.CVgslibError.currencyISOCode" propertyName="currencyISOCode"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--set empty string currencyISOCode -->
+        <TestCase testID="CV_currencyISOCode_invalid_test_15" description="set empty string currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVCurrencyISOCode(application.cv, '')" valueExpression="value=application.setGSCurrencyISOCode(application.CVgslibError, '')"/>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=application.CVgslibError.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--set invalid currencyISOCode -->
+        <TestCase testID="CV_currencyISOCode_invalid_test_16" description="set invalid currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVCurrencyISOCode(application.cvScript, 'invalid')" valueExpression="value=application.setGSCurrencyISOCode(application.CVgslibError, 'invalid')"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--set too long currencyISOCode -->
+        <TestCase testID="CV_currencyISOCode_invalid_test_17" description="set too long currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVCurrencyISOCode(application.cv, 'XYZZ')" valueExpression="value=application.setGSCurrencyISOCode(application.CVgslibError, 'XYZZ')"/>
+                <AssertPropertyValue target="cvScript" propertyName="currencyISOCode" valueExpression="value=application.CVgslibError.currencyISOCode"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--set too short currencyISOCode -->
+        <TestCase testID="CV_currencyISOCode_invalid_test_18" description="set too short currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVCurrencyISOCode(application.cv, 'XY')" valueExpression="value=application.setGSCurrencyISOCode(application.CVgslibError, 'XY')"/>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=application.CVgslibError.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--set lower case currencyISOCode -->
+        <TestCase testID="CV_currencyISOCode_invalid_test_19" description="set too short currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.setCVCurrencyISOCode(application.cv, 'usd')" valueExpression="value=application.setGSCurrencyISOCode(application.CVgslibError, 'usd')"/>
+                <AssertPropertyValue target="cv" propertyName="currencyISOCode" valueExpression="value=application.CVgslibError.currencyISOCode"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=application.CVgslibError.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <!--test binding currencyISOCode properties by seting currencyISOCode-->
+        <TestCase testID="CV_currencyISOCode_binding_test_20" description="test binding currencyISOCode properties by seting currencyISOCode" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en-US')"/>
+                <RunCode code="cvGSLib.setCurrency('CYY','')"/>
+                <SetProperty propertyName="currencyISOCode" target="cvBinding" value="CYY" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvLabel" propertyName="text" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!--Binding property when locale change-->
+        <TestCase testID="CV_currencyISOCode_binding_test_21" description="Binding property when locale change" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBLocale1" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetStyle target="cvBLocale1" styleName="locale" value="ar-JO"/>
+                <AssertPropertyValue target="cvLa" propertyName="text" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!--Binding property when locale change-->
+        <TestCase testID="CV_currencyISOCode_binding_test_22" description="Binding property when locale change" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="cvBLocale2" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetStyle target="cvBLocale2" styleName="locale" value="zh-CN"/>
+                <!--<AssertEvent target="cvLb" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>-->
+                <AssertPropertyValue target="cvLb" propertyName="text" valueExpression="value=cvGSLib.currencyISOCode"/>
+            </body>
+        </TestCase>
+        <!-- if property currencyISOCode has been set inline, it doesnot change with locale -->
+        <TestCase testID="CV_currencyISOCode_inline_changeLocale_test_23" description="if property currencyISOCode has been set inline, it doesnot change with locale" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <SetStyle target="cvInline_ChangeLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline_ChangeLocale" propertyName="currencyISOCode" value="JOD"/>
+            </body>
+        </TestCase>
+        <!--the test case is for Checking currencyISOCode when locale undefined-->
+        <TestCase testID="CV_currencyISOCode_locale_undefiend_test_24" description="the test case is for Checking currencyISOCode when locale undefined" keywords="[CurrencyValidator, currencyISOCode]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="currencyISOCode" valueExpression="value='USD'"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

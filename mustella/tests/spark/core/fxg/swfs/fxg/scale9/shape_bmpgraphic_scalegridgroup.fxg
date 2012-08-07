@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		       -->
+<!-- FXG 1.0 Test ability to handle bitmap graphic in combination with a shape with a scaling grid that is
+not symmetrically centered around the bitmap graphic.
+
+The top group comprises of a bitmap graphic and an overlapping ellipse with a 9-scale grid applied
+The second group shows a simple scaling
+The third group is the non-transformed graphic.                                                        -->
+<!-- Author : Vivek Agrawal  3 March-2009                       			                         -->
+<!--                                                                       				       -->
+<!-- History:                                                              				       -->
+<!--  14 March-2009 , created.                                                                         -->
+<!--  19 March-2009 , Sujata Das adjusted scaling grid                                                 -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+    <Group x="10" y="10" scaleX="2.5" scaleY="2.5"
+        scaleGridLeft="76" scaleGridTop="5" scaleGridRight="86" scaleGridBottom="15">
+        <BitmapGraphic x="50" y="10" source="@Embed('../../../../../../../Assets/Images/Scale9Skin.png')" width="100" height="25" />
+        <Ellipse x="80" y="10" width="40" height="40">
+            <stroke>
+                <SolidColorStroke color="#000000" alpha="0.5" weight="1"/>
+            </stroke>
+            <fill>
+                <SolidColor color="#FF9900" alpha="0.5"  />
+            </fill>
+        </Ellipse>
+    </Group>
+ 
+   <Group x="10" y="150" scaleX="2.5" scaleY="2.5">
+        <BitmapGraphic x="50" y="10" source="@Embed('../../../../../../../Assets/Images/Scale9Skin.png')" width="100" height="25" />
+        <Ellipse x="80" y="10" width="40" height="40">
+            <stroke>
+                <SolidColorStroke color="#000000" alpha="0.5" weight="1"/>
+            </stroke>
+            <fill>
+                <SolidColor color="#FF9900" alpha="0.5"  />
+            </fill>
+        </Ellipse>
+    </Group>
+    <Group x="10" y="250" >
+        <BitmapGraphic x="50" y="10" source="@Embed('../../../../../../../Assets/Images/Scale9Skin.png')" width="100" height="25" />
+        <Ellipse x="80" y="10" width="40" height="40">
+            <stroke>
+                <SolidColorStroke color="#000000" alpha="0.5" weight="1"/>
+            </stroke>
+            <fill>
+                <SolidColor color="#FF9900" alpha="0.5"  />
+            </fill>
+        </Ellipse>
+    </Group>
+ 
+</Graphic>

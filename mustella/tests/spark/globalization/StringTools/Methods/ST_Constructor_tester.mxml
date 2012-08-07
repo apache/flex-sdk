@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/StringTools/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ST_Constructor.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.StringToolsTestConstants;
+		
+		import flash.globalization.StringTools;
+		
+		import spark.globalization.StringTools;
+		
+		public var stGSLib:flash.globalization.StringTools;
+		
+        public static function init(o:DisplayObject):void
+        { 
+        }
+		
+    ]]>
+    </mx:Script>
+
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test Constructor of StringTools-->
+<testCases>
+	<!--test instances defined in ActionScript code with no parameter-->
+	<TestCase testID="StringTools_Constructor_default_script_test1" description="test instances defined in ActionScript code with no parameter" keywords="[StringTools, Constructor]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="stScript"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stScript"/>
+			<AssertStyleValue target="stScript" styleName="locale" value="en"/>
+		</body>
+	</TestCase>
+	
+	<!--test instances defined in Declarations with no parameter-->
+	<TestCase testID="StringTools_Constructor_default_inlint_test2" description="test instances defined in Declarations with no parameter" keywords="[StringTools, Constructor]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="stDeclarations" styleName="locale" value="en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName" target="stDeclarations"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="stDeclarations"/>
+		</body>
+	</TestCase>
+	
+	<!--test instances defined in ActionScript with no parameter, then set valid locale-->
+	<TestCase testID="StringTools_Constructor_valid_locale_script_test3" description="test instances defined in ActionScript with no parameter, then set valid locale" keywords="[StringTools, Constructor]">
+		<setup>
+			<ResetComponent target="stScript" className="spark.globalization.StringTools"/>
+			<RunCode code="application.stScript.initialized(null,'stScript')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('fr-CA')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stScript" styleName="locale" value="fr-CA" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.stScript.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertMethodValue method="value=application.stScript.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+		</body>
+	</TestCase>
+	
+	<!--test instances defined in Declarations with no parameter, then set valid locale-->
+	<TestCase testID="StringTools_Constructor_valid_locale_inline_test4" description="test instances defined in Declarations with no parameter, then set valid locale" keywords="[StringTools, Constructor]">
+		<setup>
+			<ResetComponent target="stDeclarations" className="spark.globalization.StringTools"/>
+			<RunCode code="application.stDeclarations.initialized(null,'stDeclarations')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('fr-CA')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stDeclarations" styleName="locale" value="fr-CA" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.stDeclarations.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertMethodValue method="value=application.stDeclarations.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+		</body>
+	</TestCase>
+	
+	<!--test instances defined in ActionScript with no parameter, then set invalid locale-->
+	<TestCase testID="StringTools_Constructor_invalid_locale_script_test5" description="test instances defined in ActionScript with no parameter, then set invalid locale" keywords="[StringTools, Constructor]">
+		<setup>
+			<ResetComponent target="stScript" className="spark.globalization.StringTools"/>
+			<RunCode code="application.stScript.initialized(null,'stScript')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stScript" styleName="locale" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.stScript.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertMethodValue method="value=application.stScript.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="stScript"/>
+		</body>
+	</TestCase>
+	
+	<!--test instances defined in Declarations with no parameter, then set invalid locale-->
+	<TestCase testID="StringTools_Constructor_invalid_locale_inline_test6" description="test instances defined in Declarations with no parameter, then set invalid locale" keywords="[StringTools, Constructor]">
+		<setup>
+			<ResetComponent target="stDeclarations" className="spark.globalization.StringTools"/>
+			<RunCode code="application.stDeclarations.initialized(null,'stDeclarations')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stDeclarations" styleName="locale" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.stDeclarations.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toLowerCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertMethodValue method="value=application.stDeclarations.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')" valueExpression="value=stGSLib.toUpperCase('TurkishI: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="stDeclarations"/>
+		</body>
+	</TestCase>
+	
+</testCases>	
+</UnitTester>

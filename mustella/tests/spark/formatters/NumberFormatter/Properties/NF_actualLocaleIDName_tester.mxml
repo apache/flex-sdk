@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_actualLocaleIDName.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.NumberFormatter;
+			import assets.NFConstants;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			
+			public var nfInlineGSLib1:flash.globalization.NumberFormatter;
+			public var nfInlineGSLib2:flash.globalization.NumberFormatter;
+			public var nfInlineGSLib3:flash.globalization.NumberFormatter;
+			public var nfInlineGSLib4:flash.globalization.NumberFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test "actualLocaleIDName" property-->
+	<testCases>
+		<!--the test case is for test default locale, the actual locale name is "en-US" -->
+		<TestCase testID="NF_actualLocaleIDName_i_default_test1" description="the test case is for test default locale, the actual locale name is 'en-US'" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('i-default')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle target="nf" styleName="locale" value="i-default" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- the test case is for test 'en-US' locale -->
+		<TestCase testID="NF_actualLocaleIDName_en_US_test2" description="the test case is for test 'en_US' locale" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle target="nf" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- the test case is for test 'en_US' locale -->
+		<TestCase testID="NF_actualLocaleIDName_en_US_test3" description="the test case is for test 'en_US' locale" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en_US')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="en_US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "-" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_ar_JO_test4" description="set a random locale with '-' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="ar-JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "-" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_bn_BD_test5" description="set a random locale with '-' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('bn-BD')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="bn-BD" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "-" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_es_AR_test6" description="set a random locale with '-' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('es-AR')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="es-AR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "-" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_sr_Cyrl_ME_test7" description="set a random locale with '-' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('sr-Cyrl-ME')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="sr-Cyrl-ME" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "_" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_ar_JO_test8" description="set a random locale with '_' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar_JO')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="ar_JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "_" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_bn_BD_test9" description="set a random locale with '_' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('bn_BD')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="bn_BD" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "_" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_es_AR_test10" description="set a random locale with '_' by setproperty" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('es_AR')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="es_AR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with "_" by setproperty -->
+		<TestCase testID="NF_actualLocaleIDName_sr_Cyrl_ME_test11" description="set a random locale with '_' by setproperty " keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('sr_Cyrl_ME')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="sr_Cyrl_ME" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale by inline definition -->
+		<TestCase testID="NF_actualLocaleIDName_randomLocale_inline_test12" description="set a random locale by inline definition" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfInlineGSLib1=new flash.globalization.NumberFormatter('ar_JO')" />
+				<RunCode code="nfInlineGSLib2=new flash.globalization.NumberFormatter('bn-BD')" />
+				<RunCode code="nfInlineGSLib3=new flash.globalization.NumberFormatter('so-DJ')" />
+				<RunCode code="nfInlineGSLib4=new flash.globalization.NumberFormatter('ps_AF')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue  target="nfInline1" propertyName="actualLocaleIDName" valueExpression="value=nfInlineGSLib1.actualLocaleIDName"/>
+				<AssertPropertyValue  target="nfInline2" propertyName="actualLocaleIDName" valueExpression="value=nfInlineGSLib2.actualLocaleIDName"/>
+				<AssertPropertyValue  target="nfInline3" propertyName="actualLocaleIDName" valueExpression="value=nfInlineGSLib3.actualLocaleIDName"/>
+				<AssertPropertyValue  target="nfInline4" propertyName="actualLocaleIDName" valueExpression="value=nfInlineGSLib4.actualLocaleIDName"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- set a random locale with <fx:script> -->
+		<TestCase testID="NF_actualLocaleIDName_fr_FR_script_test13" description=" set a random locale with fx:script" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-FR')" />
+				<RunCode code="application.setNFLocale(application.nfScript,'fr-FR')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--Binding property by lable text-->
+		<TestCase testID="NF_actualLocaleIDName_binding_test14" description="Binding property by lable text" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('Kok_IN')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle styleName="locale" target="nfBinding" value="Kok_IN"/>
+				<AssertEvent target="nfLabel" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nfLabel" propertyName="text" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--set invalid locale and it should fallback to default value -->
+		<TestCase testID="NF_actualLocaleIDName_invalidLocale_abcd_test15" description="set invalid locale and it should fallback to default value" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('abcd')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="abcd" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" target="nf"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--set invalid locale and it should fallback to default value -->
+		<TestCase testID="NF_actualLocaleIDName_invalidLocale_123_test16" description="set invalid locale and it should fallback to default value" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('123')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle styleName="locale" target="nf" value="123" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" target="nf"/>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--set inline object locale to undefined -->
+		<TestCase testID="NF_actualLocaleIDName_inline_undefined_test17" description="set inline object locale to undefined " keywords="[NumberFormatter, actualLocaleIDName]">
+			<body>
+				<AssertPropertyValue target="nfUndefineInline" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nfUndefineInline" propertyName="lastOperationStatus" valueExpression="value=NFConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		
+		<!--set script object locale to undefined -->
+		<TestCase testID="NF_actualLocaleIDName_inScript_undefined_test18" description="set script object locale to undefined" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<!--			<RunCode code="application.setNFLocale(application.nfScript,'undefined')" />-->
+				<SetStyle styleName="locale" target="nfScript" valueExpression="value=undefined"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=NFConstants.localeUndefinedErrMsg"/>
+				<!--<AssertPropertyValue target="nfScript" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=NFConstants.localeUndefinedErrMsg"/>-->
+			</body>
+		</TestCase>
+		
+		<!--set locale to undefined by setStyle , the lastOperationStatus should be localeUndefinedError -->
+		<TestCase testID="NF_actualLocaleIDName_setStyle_undefined_test19" description="test lastOperationStatus after setting style to undefined" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<SetStyle styleName="locale" target="nfSetUndefined" valueExpression="value=undefined"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfSetUndefined" propertyName="lastOperationStatus" valueExpression="value=NFConstants.localeUndefinedErrMsg"/>
+				<!--<AssertPropertyValue target="nfSetUndefined" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nfSetUndefined" propertyName="lastOperationStatus" valueExpression="value=NFConstants.localeUndefinedErrMsg"/>-->
+			</body>
+		</TestCase>
+		
+		<!--set locale to undefined by setStyle in scripts , the lastOperationStatus should be noError -->
+		<TestCase testID="NF_actualLocaleIDName_setStyleInScript_undefined_test20" description="test lastOperationStatus after setting style to undefined in scripts" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nfSetUndefined" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nfSetUndefined.initialized(null,'nfSetUndefined')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="application.setLocaleUndefined()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfSetUndefined" propertyName="lastOperationStatus" valueExpression="value=NFConstants.noErrorMsg"/>
+				<!--<AssertPropertyValue target="nfSetUndefined" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nfSetUndefined" propertyName="lastOperationStatus" valueExpression="value=NFConstants.localeUndefinedErrMsg"/>-->
+			</body>
+		</TestCase>
+		
+		<!--set inline object locale to empty string -->
+		<TestCase testID="NF_actualLocaleIDName_inline_emptystring_test21" description="set inline object locale to empty string" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('')" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfEmptyInline" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfEmptyInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--set script object locale to empty string -->
+		<TestCase testID="NF_actualLocaleIDName_script_emptystring_test22" description="set script object locale to empty string" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('')" />
+				<ResetComponent target="nfScript" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nfScript.initialized(null,'nfScript')"/>
+				<SetStyle styleName="locale" target="nfScript" value=""/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfScript" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--inline object inherit undefined locale from parent label -->
+		<TestCase testID="NF_actualLocaleIDName_inline_inherit_undefined_test23" description="inline object inherit undefined locale from parent label" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="application.addStyleChildren(application.parentNF,application.childNF)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="childNF" propertyName="actualLocaleIDName" valueExpression="value='en-US'" />
+				<AssertPropertyValue target="childNF" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+			</body>
+		</TestCase>
+		
+		<!--script object inherit undefined locale from parent label -->
+		<TestCase testID="NF_actualLocaleIDName_script_inherit_undefined_test24" description="script object inherit undefined locale from parent label" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="application.addStyleChildren(application.parentNF,application.nfChildScript)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfChildScript" propertyName="actualLocaleIDName" valueExpression="value='en-US'" />
+				<AssertPropertyValue target="nfChildScript" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+			</body>
+		</TestCase>
+		
+		<!-- the test case is for test 'en' locale -->
+		<TestCase testID="NF_actualLocaleIDName_en_test25" description="the test case is for test 'en_US' locale" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
+				<RunCode code="application.nf.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle target="nf" styleName="locale" value="en"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!-- the test case is for test 'en' locale inline-->
+		<TestCase testID="NF_actualLocaleIDName_inline_en_test26" description="the test case is for test 'en' locale inline" keywords="[NumberFormatter, actualLocaleIDName]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfInline_en" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfInline_en" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,1240 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_validateAll.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		import mx.validators.ZipCodeValidatorDomainType;
+		import mx.validators.CreditCardValidatorCardType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_validateAll_method_valid_program_1" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cf" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cf" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cf" propertyName="groupingSeparator" value=" "/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98 €" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="-￥12 345,40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.cf.format(12345.98)" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllCur" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_program_2" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar-AE"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="EUR12 789,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="$12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="$12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllCur" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=3"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_invalid_program_3" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar-AE"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="EUR12 789,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="$12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="$12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllCur" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_program_4" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="zh-CN"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="-￥12,345;40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllCur" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_program_5" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="de-DE@collation=phonebook"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="-￥12,345;40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllCur" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_disabled_program_6" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="enabled" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="currencySymbol" value="￥"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="zh"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="enabled" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="$$0.35" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllCur" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_program_7" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="groupingSeparator" value=" "/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nf" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nf" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.nf" propertyName="groupingSeparator" value=" "/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="-12 345,40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.nf.format(12345.98)" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_program_8" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12.789,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="12.345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="12.345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=6"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_program_9" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="zh-CN"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="zh-CN"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="negativeNumberFormat" value="1"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="en-CN"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="en-CN"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="-12,345;40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_disabled_program_10" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="-12,345.40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=6"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_disabled_program_11" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="enabled" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="enabled" value="false"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="enabled" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="$$0.35" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_program_12" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nf" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nf" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.nf" propertyName="groupingSeparator" value=" "/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="-12 345,40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.nf.format(12345.98)" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_program_13" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12,789;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="12.345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="12345;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=6"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_program_14" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="zh-CN"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="zh-CN"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="negativeNumberFormat" value="1"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="en-CN"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="en-CN"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="-12,345;40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_disabled_program_15" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="-12,345.40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.sparkNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.mxNumV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=6"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_disabled_program_16" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, invalid, enabled is false]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.sparkNumV" propertyName="enabled" value="false"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxCurV" propertyName="enabled" value="false"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.mxNumV" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ja"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="enabled" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ja"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.nvScript" propertyName="enabled" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="$$0.35" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+		
+		
+		<TestCase testID="CV_validateAll_method_valid_program_17" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+				<SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="groupingSeparator" value=" "/>
+				<SetStyle waitEvent="change" target="uiCustomComp.nf" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.nf" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nf" propertyName="groupingSeparator" value=" "/>
+				
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardTypeSource" valueExpression="value=application.uiCustomComp.ti_cardType_mxCCV"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardTypeProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardNumberSource" valueExpression="value=application.uiCustomComp.ti_cardNumber_mxCCV"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardNumberProperty" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="daySource" valueExpression="value=application.uiCustomComp.ti_day_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="dayProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="monthSource" valueExpression="value=application.uiCustomComp.ti_month_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="monthProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="yearSource" valueExpression="value=application.uiCustomComp.ti_year_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="yearProperty" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxEV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxEV"/>
+				<SetProperty target="uiCustomComp.mxEV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxPNV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxPNV"/>
+				<SetProperty target="uiCustomComp.mxPNV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxRGV"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="flags" value="g"/>
+				
+				<SetProperty target="uiCustomComp.mxSSV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxSSV"/>
+				<SetProperty target="uiCustomComp.mxSSV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxSV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxSV"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="minLength" value="6"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="maxLength" value="12"/>
+				
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxZCV"/>
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="-12 345,40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.nf.format(12345.98)" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+				
+				<SetProperty target="uiCustomComp.ti_cardNumber_mxCCV" propertyName="text" 
+							 value="4012 8888 8888 1881" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_cardNumber_mxCCV"/>
+				<SetProperty target="uiCustomComp.ti_cardType_mxCCV" propertyName="text" 
+							 valueExpression="value=CreditCardValidatorCardType.VISA" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_cardType_mxCCV"/>
+				
+				<SetProperty target="uiCustomComp.ti_day_mxDTV" propertyName="text" 
+							 value="31" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_day_mxDTV"/>
+				<SetProperty target="uiCustomComp.ti_month_mxDTV" propertyName="text" 
+							 value="12" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_month_mxDTV"/>
+				<SetProperty target="uiCustomComp.ti_year_mxDTV" propertyName="text" 
+							 value="9999" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_year_mxDTV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxEV" propertyName="text" 
+							 value="adqer23@cqrr.net" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxEV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxPNV" propertyName="text" 
+							 value="1234567890" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxPNV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxRGV" propertyName="text" 
+							 value="gdergABC1233ddABC4ae" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxRGV"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="expression" value="ABC\d"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxSSV" propertyName="text" 
+							 value="123-45-1234" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxSSV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxSV" propertyName="text" 
+							 value="qer3435" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxSV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxZCV" propertyName="text" 
+							 value="12345" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxZCV"/>
+				
+				<DispatchMouseEvent target="uiCustomComp.uiBTAllAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+				
+				<AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+				
+				<AssertEvent target="uiCustomComp.mxCCV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxCCV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxDTV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxDTV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxEV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxEV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxPNV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxPNV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxRGV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxRGV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxSSV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxSSV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxSV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxSV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxZCV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxZCV" eventName="invalid"/>
+				
+				<AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_validateAll_method_valid_program_18" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+				<SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="groupingSeparator" value=" "/>
+				<SetStyle waitEvent="change" target="uiCustomComp.nf" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.nf" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nf" propertyName="groupingSeparator" value=" "/>
+				
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardTypeSource" valueExpression="value=application.uiCustomComp.ti_cardType_mxCCV"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardTypeProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardNumberSource" valueExpression="value=application.uiCustomComp.ti_cardNumber_mxCCV"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardNumberProperty" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="daySource" valueExpression="value=application.uiCustomComp.ti_day_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="dayProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="monthSource" valueExpression="value=application.uiCustomComp.ti_month_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="monthProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="yearSource" valueExpression="value=application.uiCustomComp.ti_year_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="yearProperty" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxEV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxEV"/>
+				<SetProperty target="uiCustomComp.mxEV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxPNV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxPNV"/>
+				<SetProperty target="uiCustomComp.mxPNV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxRGV"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="flags" value="g"/>
+				
+				<SetProperty target="uiCustomComp.mxSSV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxSSV"/>
+				<SetProperty target="uiCustomComp.mxSSV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxSV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxSV"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="minLength" value="6"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="maxLength" value="12"/>
+				
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxZCV"/>
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="-12 345,40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.nf.format(12345.98)" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+				
+				<SetProperty target="uiCustomComp.ti_cardNumber_mxCCV" propertyName="text" 
+							 value="4012 8888 8888 1881" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_cardNumber_mxCCV"/>
+				<SetProperty target="uiCustomComp.ti_cardType_mxCCV" propertyName="text" 
+							 valueExpression="value=CreditCardValidatorCardType.VISA" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_cardType_mxCCV"/>
+				
+				<SetProperty target="uiCustomComp.ti_day_mxDTV" propertyName="text" 
+							 value="31" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_day_mxDTV"/>
+				<SetProperty target="uiCustomComp.ti_month_mxDTV" propertyName="text" 
+							 value="12" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_month_mxDTV"/>
+				<SetProperty target="uiCustomComp.ti_year_mxDTV" propertyName="text" 
+							 value="9999" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_year_mxDTV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxEV" propertyName="text" 
+							 value="adqer23@cqrr.net" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxEV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxPNV" propertyName="text" 
+							 value="1234567890" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxPNV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxRGV" propertyName="text" 
+							 value="gdergABC1233ddABC4ae" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxRGV"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="expression" value="ABC\d"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxSSV" propertyName="text" 
+							 value="123-45-1234" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxSSV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxSV" propertyName="text" 
+							 value="qer3435" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxSV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxZCV" propertyName="text" 
+							 value="12345" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxZCV"/>
+				
+				<DispatchMouseEvent target="uiCustomComp.uiBTAllAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+				
+				<AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+				
+				<AssertEvent target="uiCustomComp.mxCCV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxCCV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxDTV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxDTV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxEV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxEV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxPNV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxPNV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxRGV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxRGV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxSSV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxSSV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxSV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxSV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxZCV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxZCV" eventName="invalid"/>
+				
+				<AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_validateAll_method_invalid_program_19" description="testcase for validateAll method with mainly different way user used" keywords="[CurrencyValidator, validateAll, default, trigger programmatically, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomComp" className="assets.CustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.sparkNumV" styleName="locale" value="fr_FR"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.sparkNumV" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="alignSymbol" value="left"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="thousandsSeparator" value=" "/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxCurV" propertyName="required" value="true"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="thousandsSeparator" value=" "/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxNumV" propertyName="required" value="true"/>
+				<SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+				<SetStyle waitEvent="change" target="uiCustomComp.nvScript" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nvScript" propertyName="groupingSeparator" value=" "/>
+				<SetStyle waitEvent="change" target="uiCustomComp.nf" styleName="locale" value="ar"/>
+				<SetProperty target="uiCustomComp.nf" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.nf" propertyName="groupingSeparator" value=" "/>
+				
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardTypeSource" valueExpression="value=application.uiCustomComp.ti_cardType_mxCCV"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardTypeProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardNumberSource" valueExpression="value=application.uiCustomComp.ti_cardNumber_mxCCV"/>
+				<SetProperty target="uiCustomComp.mxCCV" propertyName="cardNumberProperty" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="daySource" valueExpression="value=application.uiCustomComp.ti_day_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="dayProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="monthSource" valueExpression="value=application.uiCustomComp.ti_month_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="monthProperty" value="text"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="yearSource" valueExpression="value=application.uiCustomComp.ti_year_mxDTV"/>
+				<SetProperty target="uiCustomComp.mxDTV" propertyName="yearProperty" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxEV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxEV"/>
+				<SetProperty target="uiCustomComp.mxEV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxPNV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxPNV"/>
+				<SetProperty target="uiCustomComp.mxPNV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxRGV"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="flags" value="g"/>
+				
+				<SetProperty target="uiCustomComp.mxSSV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxSSV"/>
+				<SetProperty target="uiCustomComp.mxSSV" propertyName="property" value="text"/>
+				
+				<SetProperty target="uiCustomComp.mxSV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxSV"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="minLength" value="6"/>
+				<SetProperty target="uiCustomComp.mxSV" propertyName="maxLength" value="12"/>
+				
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="source" valueExpression="value=application.uiCustomComp.ti_mxZCV"/>
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomComp.mxZCV" propertyName="domain" valueExpression="value=ZipCodeValidatorDomainType.US_OR_CANADA"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+				<SetProperty target="uiCustomComp.uiTIMxCV" propertyName="text" value="-12 345,40" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTIMxCV"/>
+				<SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.nf.format(12345.98)" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+				
+				<SetProperty target="uiCustomComp.ti_cardNumber_mxCCV" propertyName="text" 
+							 value="1234 5678 8888 1881" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_cardNumber_mxCCV"/>
+				<SetProperty target="uiCustomComp.ti_cardType_mxCCV" propertyName="text" 
+							 valueExpression="value=CreditCardValidatorCardType.VISA" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_cardType_mxCCV"/>
+				
+				<SetProperty target="uiCustomComp.ti_day_mxDTV" propertyName="text" 
+							 value="32" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_day_mxDTV"/>
+				<SetProperty target="uiCustomComp.ti_month_mxDTV" propertyName="text" 
+							 value="12" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_month_mxDTV"/>
+				<SetProperty target="uiCustomComp.ti_year_mxDTV" propertyName="text" 
+							 value="9999" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_year_mxDTV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxEV" propertyName="text" 
+							 value="adqer23@cqrr.net" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxEV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxPNV" propertyName="text" 
+							 value="1234567890" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxPNV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxRGV" propertyName="text" 
+							 value="gdergA4ae" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxRGV"/>
+				<SetProperty target="uiCustomComp.mxRGV" propertyName="expression" value="ABC\d"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxSSV" propertyName="text" 
+							 value="123-45-1234" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxSSV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxSV" propertyName="text" 
+							 value="qe" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxSV"/>
+				
+				<SetProperty target="uiCustomComp.ti_mxZCV" propertyName="text" 
+							 value="12345" waitEvent="updateComplete" waitTarget="uiCustomComp.ti_mxZCV"/>
+				
+				<DispatchMouseEvent target="uiCustomComp.uiBTAllAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+				
+				<AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.sparkNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.sparkNumV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxCurV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxNumV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxNumV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.nvScript" eventName="invalid"/>
+				
+				<AssertEvent target="uiCustomComp.mxCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxCCV" eventName="valid"/>
+				<AssertEvent target="uiCustomComp.mxDTV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxDTV" eventName="valid"/>
+				<AssertEvent target="uiCustomComp.mxEV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxEV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxPNV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxPNV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxRGV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxRGV" eventName="valid"/>
+				<AssertEvent target="uiCustomComp.mxSSV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxSSV" eventName="invalid"/>
+				<AssertEvent target="uiCustomComp.mxSV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxSV" eventName="valid"/>
+				<AssertEvent target="uiCustomComp.mxZCV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomComp.mxZCV" eventName="invalid"/>
+				
+				<AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=4"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

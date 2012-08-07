@@ -1,0 +1,32 @@
+<s:Ellipse
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="60" height="70" visible="false"
+    scaleX="1.5" scaleY="2">
+
+
+    <s:fill>
+        <mx:SolidColor color="0x0000B8"/>
+    </s:fill>
+
+    <s:stroke>
+        <mx:SolidColorStroke color="0x666666" weight="1"/>
+    </s:stroke>
+
+    <!-- This matrix should cause the scaleX and scaleY of the Ellipse to be 2-->
+
+    <s:transform>
+        <s:Transform>
+            <s:matrix>
+                <s:Matrix a="2"
+                          d="1.5"
+                          ty="350"
+                          tx="225"
+                />
+            </s:matrix>
+        </s:Transform>
+    </s:transform>
+
+</s:Ellipse>
+

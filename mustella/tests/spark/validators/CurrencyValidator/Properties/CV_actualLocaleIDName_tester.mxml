@@ -1,0 +1,489 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="CV_actualLocaleIDName.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.CurrencyFormatter;
+			import flash.globalization.LocaleID;
+			import spark.validators.CurrencyValidator;
+			import spark.globalization.LastOperationStatus;
+			
+			public var cvGSLib:flash.globalization.CurrencyFormatter;
+			public var cvInlineGSLib1:flash.globalization.CurrencyFormatter;
+			public var cvInlineGSLib2:flash.globalization.CurrencyFormatter;
+			public var cvInlineGSLib3:flash.globalization.CurrencyFormatter;
+			public var cvInlineGSLib4:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_actualLocaleIDName_default_test_1" description="testing default locale,Declare a CV object without any setting locale" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_default_test_2" description="testing default locale,Create a CV object in action script and without any setting locale" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.addCV()"/>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_default_test_3" description="testing default locale,Create a CV object in action script and without any setting locale" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="application.createCV()"/>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(application.appLocale)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_i_default_test_4" description="testing Setting default locale, i-default, by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(LocaleID.DEFAULT)"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="i-default" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_i_default_test_5" description="testing Setting default locale, i-default, by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(LocaleID.DEFAULT)"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="i-default" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_en_US_test_6" description="Set default locale to en_US by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('en_US')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="en"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_ar_AR_test_7" description="Set default locale to ar_AR by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-AR')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-AR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_fr_FR_test_8" description="Set default locale to fr_FR by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-FR')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_ar_AR_test_9" description="Set default locale to ar_AR by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-AR')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="ar-AR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_fr_FR_test_10" description="Set default locale to fr_FR by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-FR')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="fr-FR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_invalidLocale_test_11" description="set invalid locale and it should fallback to default value, the actual locale is en-US" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(LocaleID.DEFAULT)"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="123" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.USING_DEFAULT_WARNING"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_invalidLocale_test_12" description="set invalid locale and it should fallback to default value, the actual locale is en-US" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter(LocaleID.DEFAULT)"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="abcd" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.USING_DEFAULT_WARNING"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_invalidLocale_test_13" description="set invalid locale and it should fallback to default value, the actual locale is en-US" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-xx')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-xx" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_invalidLocale_test_14" description="set invalid locale and it should fallback to default value, the actual locale is en-US" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-xx')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="fr-xx" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_ar_JO_test_15" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar-JO" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_bn_BD_test_16" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('bn-BD')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="bn-BD" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_es_AR_test_17" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('es-AR')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="es-AR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_sr_Cyrl_ME_test_18" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('sr-Cyrl-ME')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="sr-Cyrl-ME" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_ar_JO_test_19" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="ar-JO" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_bn_BD_test_20" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('bn-BD')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="bn-BD" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_es_AR_test_21" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('es-AR')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="es-AR" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_sr_Cyrl_ME_test_22" description="set a random locale with - by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('sr-Cyrl-ME')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="sr-Cyrl-ME" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_ar_JO_test_23" description="set a random locale with _ by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar_JO')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="ar_JO" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_Kok_IN_test_24" description="set a random locale with '_' by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('Kok_IN')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="Kok_IN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_pa_Arab_PK_test_25" description="set a random locale with '_' by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('pa_Arab_PK')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="pa_Arab_PK" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_sr_Cyrl_ME_test_26" description="set a random locale with '_' by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('sr_Cyrl_ME')"/>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="sr_Cyrl_ME" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_ar_JO_test_27" description="set a random locale with _ by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar_JO')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="ar_JO" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_Kok_IN_test_28" description="set a random locale with '_' by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('Kok_IN')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="Kok_IN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_pa_Arab_PK_test_29" description="set a random locale with '_' by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('pa_Arab_PK')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="pa_Arab_PK" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_sr_Cyrl_ME_test_30" description="set a random locale with '_' by setStyle" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('sr_Cyrl_ME')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="sr_Cyrl_ME" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_inline_test_31" description="et a random locale by inline definition" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvInlineGSLib1=new flash.globalization.CurrencyFormatter('ar_JO')"/>
+                <RunCode code="cvInlineGSLib2=new flash.globalization.CurrencyFormatter('bn-BD')"/>
+                <RunCode code="cvInlineGSLib3=new flash.globalization.CurrencyFormatter('so-DJ')"/>
+                <RunCode code="cvInlineGSLib4=new flash.globalization.CurrencyFormatter('ps_AF')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvInline1" propertyName="actualLocaleIDName" valueExpression="value=cvInlineGSLib1.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvInline2" propertyName="actualLocaleIDName" valueExpression="value=cvInlineGSLib2.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvInline3" propertyName="actualLocaleIDName" valueExpression="value=cvInlineGSLib3.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvInline4" propertyName="actualLocaleIDName" valueExpression="value=cvInlineGSLib4.actualLocaleIDName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_binding_test_32" description="Binding property to lable text" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('Kok_IN')"/>
+                <ResetComponent target="cvBinding" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvBinding.initialized(null,'cvBinding')"/>
+                <SetStyle styleName="locale" target="cvBinding" value="Kok_IN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvBindingLabel" propertyName="text" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvBindingLabel2" propertyName="text" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_binding_test_33" description="Binding property to lable text" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('Kok_IN')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.addCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="Kok_IN" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScriptBindingLabel" propertyName="text" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvScriptBindingLabel2" propertyName="text" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_emptyString_test_34" description="set inline object locale to empty string" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvEmptyInline" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvEmptyInline" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_emptyString_test_35" description="set script object locale to empty string" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('')"/>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setCVLocale('')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=cvGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=cvGSLib.lastOperationStatus"/>
+            </body>
+            <cleanup>
+                <RunCode code="application.removeCVLocale()"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_undefined_test_36" description="set inline object locale to undefined" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <body>
+                <AssertPropertyValue target="cvUndefineInline" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+                <AssertPropertyValue target="cvUndefineInline" propertyName="lastOperationStatus" valueExpression="value=CVConstant.localeUndefinedErrMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_undefined_test_37" description="set script object locale to undefined" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="application.createCV()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" valueExpression="value=undefined"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.localeUndefinedErrMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_inherit_test_38" description="inline object inherit undefined locale from parent label" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="application.addStyleChildren(application.parentCV,application.childCV)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="childCV" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+                <AssertPropertyValue target="childCV" propertyName="lastOperationStatus" valueExpression="value=CVConstant.localeUndefinedErrMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_actualLocaleIDName_inherit_test_39" description="script object inherit undefined locale from parent label" keywords="[CurrencyValidator, actualLocaleIDName]">
+            <setup>
+                <RunCode code="application.addStyleChildren(application.parentCV,application.cvChildScript)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvChildScript" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+                <AssertPropertyValue target="cvChildScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.localeUndefinedErrMsg"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

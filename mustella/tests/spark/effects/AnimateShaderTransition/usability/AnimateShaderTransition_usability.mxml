@@ -1,0 +1,162 @@
+﻿<UnitTester 
+    testSWF="../SWFs/AnimateShaderTransition_main.mxml" 
+    testDir="spark/effects/AnimateShaderTransition/usability/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateTransitionShader;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- states shader -->
+        <TestCase testID="AnimateTransitionShader_stateChange" keywords="[AnimateTransitionShader, usability, state]" description="Test AnimateTransitionShader when used in a state transition.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+            </setup>
+            <body>
+                <RunCode code="application.card.currentState = 'flipped';" waitTarget="card.e_toFlipped" waitEvent="effectEnd"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- custom easer -->
+        <TestCase testID="AnimateTransitionShader_different_easer" keywords="[AnimateTransitionShader, usability, state]" description="Test AnimateTransitionShader when used with a custom easer.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+            </setup>
+            <body>
+                <RunCode code="application.card.currentState = 'easer_flipped';" waitTarget="card.e_toEaserFlipped" waitEvent="effectEnd"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- shader scaled -->
+        <TestCase testID="AnimateTransitionShader_scaled" keywords="[AnimateTransitionShader, usability, scaleX]" description="Test AnimateTransitionShader on a scaled object.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.card;" />
+                <RunCode code="application.card.scaleX = .5;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <!-- shader rotated -->
+        <TestCase testID="AnimateTransitionShader_rotated" keywords="[AnimateTransitionShader, usability, rotationZ]" description="Test AnimateTransitionShader on a rotated object.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.card;" />
+                <RunCode code="application.card.rotation = 45;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- shader mis-sized -->
+        <TestCase testID="AnimateTransitionShader_missized" keywords="[AnimateTransitionShader, usability, rotationZ]" description="Test AnimateTransitionShader on an object larger than the bitmap.">
+            <setup>
+                <ResetComponent target="card" className="assets.Card" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.card);" />
+                <ResetComponent target="e_AnimateTransitionShader" className="spark.effects.AnimateTransitionShader"/>
+                <RunCode code="application.e_AnimateTransitionShader.bitmapFrom = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_AnimateTransitionShader.shaderByteCode = application.twistShader;" />
+                <RunCode code="application.e_AnimateTransitionShader.target = application.card;" />
+            </setup>
+            <body>
+                <RunCode code="application.e_AnimateTransitionShader.playheadTime = 200" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="card" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- AnimateTransitionShader + fxAnimate -->
+        <TestCase testID="AnimateTransitionShader_FxAnimate" keywords="[AnimateTransitionShader, usability, FxAnimate]" description="Test AnimateTransitionShader in a parallel with FxAnimate.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <RunCode code="application.p_AnimateTransitionShader_fxAnimate.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_AnimateTransitionShader_fxAnimate.play()" waitTarget="p_AnimateTransitionShader_fxAnimate" waitEvent="effectEnd" />
+                <CompareBitmap target="controls4" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <!-- AnimateTransitionShader + fxFade -->
+        <TestCase testID="AnimateTransitionShader_FxFade" keywords="[AnimateTransitionShader, usability, FxFade]" description="Test AnimateTransitionShader in a parallel with FxFade.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <RunCode code="application.p_AnimateTransitionShader_fxFade.target = application.controls1.control_Button2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_AnimateTransitionShader_fxFade.play()" waitTarget="p_AnimateTransitionShader_fxFade" waitEvent="effectEnd" />
+                <CompareBitmap target="controls1" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- AnimateTransitionShader + fxResize -->
+        <TestCase testID="AnimateTransitionShader_FxResize" keywords="[AnimateTransitionShader, usability, FxResize]" description="Test AnimateTransitionShader in a parallel with FxResize.">
+            <setup>
+                <ResetComponent target="controls3" className="assets.Controls3" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls3);" />
+                <RunCode code="application.p_AnimateTransitionShader_fxResize.target = application.controls3.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_AnimateTransitionShader_fxResize.play()" waitTarget="p_AnimateTransitionShader_fxResize" waitEvent="effectEnd" />
+                <CompareBitmap target="controls3" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- AnimateTransitionShader + fxRotate -->
+        <TestCase testID="AnimateTransitionShader_FxRotate" keywords="[AnimateTransitionShader, usability, FxRotate]" description="Test AnimateTransitionShader in a parallel with FxRotate.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <RunCode code="application.p_AnimateTransitionShader_fxRotate.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_AnimateTransitionShader_fxRotate.play()" waitTarget="p_AnimateTransitionShader_fxRotate" waitEvent="effectEnd" />
+                <CompareBitmap target="controls4" url="../usability/baseline/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <!-- AnimateTransitionShader + fxRotate3D -->
+        <TestCase testID="AnimateTransitionShader_FxRotate3D" keywords="[AnimateTransitionShader, usability, FxRotate3D]" description="Test AnimateTransitionShader in a parallel with FxRotate3D.">
+            <setup>
+                <ResetComponent target="controls4" className="assets.Controls4" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls4);" />
+                <RunCode code="application.p_AnimateTransitionShader_fxRotate3D.target = application.controls4.control2;" />
+            </setup>
+            <body>
+                <RunCode code="application.p_AnimateTransitionShader_fxRotate3D.play()" waitTarget="p_AnimateTransitionShader_fxRotate3D" waitEvent="effectEnd" />
+                <CompareBitmap target="controls4" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

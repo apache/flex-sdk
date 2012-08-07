@@ -1,0 +1,141 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Others/" testSWF="CV_ModuleUsage.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			import flash.globalization.CurrencyFormatter;
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_ModuleUsage_actualLocaleIDName_test_1" description="test properties of module" keywords="[CurrencyValidator, Module]">
+            <setup>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <ResetComponent target="CVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+                <RunCode code="application.addModuleLoaderListener()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <DispatchMouseClickEvent target="btLoad" waitTarget="CVModule" waitEvent="ready"/>
+                <SetStyle target="CVModule.child.cvDefault" styleName="locale" value="ar-JO"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnload" waitTarget="CVModule" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CV_ModuleUsage_currencySymbol_test_2" description="test properties of module" keywords="[CurrencyValidator, Module]">
+            <setup>
+                <ResetComponent target="CVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+                <RunCode code="application.addModuleLoaderListener()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <DispatchMouseClickEvent target="btLoad" waitTarget="CVModule" waitEvent="ready"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="currencySymbol" valueExpression="value='#'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="currencySymbol" valueExpression="value='#'"/>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="trigger" valueExpression="value=application.uiBT"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="nvSourceTI" propertyName="text" value="#12.34" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="uiBT" type="click"/>
+                <AssertEvent target="CVModule.child.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="CVModule.child.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnload" waitTarget="CVModule" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CV_ModuleUsage_currencySymbol_test_3" description="test properties of module" keywords="[CurrencyValidator, Module]">
+            <setup>
+                <ResetComponent target="CVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+                <RunCode code="application.addModuleLoaderListener()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <DispatchMouseClickEvent target="btLoad" waitTarget="CVModule" waitEvent="ready"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="currencySymbol" valueExpression="value='#'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="currencySymbol" valueExpression="value='#'"/>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="trigger" valueExpression="value=application.uiBT"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="nvSourceTI" propertyName="text" value="$12.34" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="uiBT" type="click"/>
+                <AssertEvent target="CVModule.child.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="CVModule.child.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnload" waitTarget="CVModule" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CV_ModuleUsage_currencySymbol_test_4" description="test properties of module" keywords="[CurrencyValidator, Module]">
+            <setup>
+                <ResetComponent target="CVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+                <RunCode code="application.addModuleLoaderListener()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <DispatchMouseClickEvent target="btLoad" waitTarget="CVModule" waitEvent="ready"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="currencyISOCode" valueExpression="value='CNN'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="currencyISOCode" valueExpression="value='CNN'"/>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="trigger" valueExpression="value=application.uiBT"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="nvSourceTI" propertyName="text" value="CNN12.34" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="uiBT" type="click"/>
+                <AssertEvent target="CVModule.child.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="CVModule.child.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnload" waitTarget="CVModule" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CV_ModuleUsage_currencySymbol_test_5" description="test properties of module" keywords="[CurrencyValidator, Module]">
+            <setup>
+                <ResetComponent target="CVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+                <RunCode code="application.addModuleLoaderListener()"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <DispatchMouseClickEvent target="btLoad" waitTarget="CVModule" waitEvent="ready"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="currencyISOCode" valueExpression="value='CNN'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="currencyISOCode" valueExpression="value='CNN'"/>
+                <AssertPropertyValue target="CVModule.child.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="trigger" valueExpression="value=application.uiBT"/>
+                <SetProperty target="CVModule.child.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="nvSourceTI" propertyName="text" value="CNY12.34" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="uiBT" type="click"/>
+                <AssertEvent target="CVModule.child.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="CVModule.child.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnload" waitTarget="CVModule" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,144 @@
+<languageVersion : 1.0;>
+kernel FxTwist
+<   namespace : "flex";
+    vendor : "Adobe";
+    version : 1;
+    description : "Twisty Effect";
+>
+{ 
+
+    /* ALGORITHM:
+        For each scanline row
+            yfrac = y / from.height
+            if (yfrac < start)
+              copy scanline from "to" image unmolested.
+              continue to next scanline
+            if (yfrac > end )
+              copy scaneline from "from" image unmolested.
+              continue to next scanline
+              
+            angle = (yfrac - start) / (end - start);
+            width = cos(angle * PI);
+            
+            if (width > 0 )  // copy scanline from "from"
+                xstep = int(65536.0 / width);
+                xval = 0;
+                startx = (from.width - from.width * width) / 2
+                xcount = startx;
+                
+                while < startx
+                    clear destination pixel x, y
+                while xval < from.width
+                    destination(xcount++, y) = to (xval, y);     
+                    xval += xstep;
+                while xcount < to.width
+                    clear destination pixel xcount++, y
+                continue to next scanline
+            
+            if (width < 0)  // copy scanline from "to"
+                xstep = (65536.0 / -width);
+                xval = 0;
+                startx = (to.width + to.width * width) / 2;
+                xcount = startx;
+                
+                while < startx
+                    clear destination pixel x, y
+                while (x < from.width)
+                    destination(xcount++, y) = from(xval,y);
+                    xval += xstep;
+                while xcount < from.width
+                    clear destination pixel xcount++, y
+                continue to next scanline
+                
+            
+            
+    */
+    input image4 src0;
+    input image4 from;
+    input image4 to;
+    output pixel4 dst;
+    
+    parameter float progress<
+        minValue: 0.00;
+        maxValue: 1.00;
+        defaultValue: 0.0;
+    >;
+    
+    parameter float width<
+        minValue: 0.0;
+        maxValue: 1024.0;
+        defaultValue: 180.0;
+    >;
+    
+    parameter float height<
+        minValue: 0.00;
+        maxValue: 1024.0;
+        defaultValue: 275.0;
+    >;
+    
+    void
+    evaluatePixel()
+    {
+        
+        // Common initialization
+        float2 outCoord = outCoord();
+        pixel4 color1 = sampleNearest(src0, outCoord);
+
+        const float _height = 2.0;
+        const float scale = 1.0 + _height;
+	    float start = progress * scale - _height;
+	    float end   = start + _height;
+        
+        
+        float yfrac = outCoord.y / height;
+        float angle = (yfrac - start) / (end - start);
+		float _width = cos(angle * 3.141592653589); 
+        
+        if (yfrac < start) {
+            dst = sampleLinear(to, outCoord());
+        }
+        
+        else if (yfrac > end) {
+            dst = sampleLinear(from, outCoord());
+        }
+        else {
+        if (_width > 0.0) {
+        
+            float xstep  = (65536.0 / _width);
+			float xval   = 0.0;
+			float startx = (width - width * _width) / 2.0;
+			float xcount = startx;
+            
+            float sampleWidth = (width * 65536.0) / (xstep);
+            
+            if (outCoord.x < startx) 
+                dst = float4(0.0,0.0,0.0,0.0);
+            else if (outCoord.x < (startx + sampleWidth)) {
+                float perc = (outCoord.x - startx) / sampleWidth;
+                dst = sampleLinear(to, float2(width * perc, outCoord.y)); 
+            }
+            else
+                dst = float4(0.0,0.0,0.0,0.0);  
+        }
+        
+        else if (_width < 0.0) {
+            float xstep  = (65536.0 / -_width);
+			float xval   = 0.0;
+			float startx = (width + width * _width) / 2.0;
+			float xcount = startx;
+            float sampleWidth = (width * 65536.0) / (xstep);
+            
+            if (outCoord.x < startx) 
+                dst = float4(0.0,0.0,0.0,0.0);
+            else if (outCoord.x < (startx + sampleWidth)) {
+                float perc = (outCoord.x - startx) / sampleWidth;   
+                dst = sampleLinear(from, float2( width * perc, outCoord.y)); 
+            }
+            else
+                dst = float4(0.0,0.0,0.0,0.0); 
+        }
+        
+        }
+
+    }
+}   

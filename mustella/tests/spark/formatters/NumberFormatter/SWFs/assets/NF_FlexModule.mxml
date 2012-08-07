@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" layout="absolute" width="400" height="300"
+		    implements="NF_ModuleInterface">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		/* 		.cStyle {
+		locale:'ru-RU';
+		} */
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			
+			import flash.globalization.NumberParseResult;
+			
+			public var nfScript:spark.formatters.NumberFormatter = new spark.formatters.NumberFormatter() ; 
+			
+			/* define function for component */		
+			public function format(value:Number):String
+			{
+				return nfC.format(value);
+			}
+			
+			public function parse(parseString:String):NumberParseResult
+			{
+				return nfC.parse(parseString);
+			}
+			
+			public function parseNumber(parseString:String):Number
+			{
+				return nfC.parseNumber(parseString);
+			}
+			
+			/* define properties for component */
+			public function get lastOperationStatus():String
+			{
+				return nfC.lastOperationStatus;
+			}
+			
+			public function get actualLocaleIDName():String
+			{                   
+				return nfC.actualLocaleIDName;
+			}
+			public function set locale(value:String):void
+			{
+				nfC.setStyle("locale",value);
+			}
+			
+			public function get fractionalDigits():int
+			{
+				return nfC.fractionalDigits;
+			}
+			public function set fractionalDigits(value:int):void
+			{
+				nfC.fractionalDigits = value;
+			}
+			
+			public function get useGrouping():Boolean
+			{
+				return nfC.useGrouping;
+			}
+			public function set useGrouping(value:Boolean):void
+			{
+				nfC.useGrouping = value;
+			}
+			
+			public function get groupingPattern():String
+			{
+				return nfC.groupingPattern;
+			}
+			public function set groupingPattern(value:String):void
+			{
+				nfC.groupingPattern = value;
+			}
+			
+			public function get digitsType():uint
+			{
+				return nfC.digitsType;
+			}
+			public function set digitsType(value:uint):void
+			{
+				nfC.digitsType = value;
+			}
+			
+			public function get decimalSeparator():String
+			{
+				return nfC.decimalSeparator;
+			}
+			public function set decimalSeparator(value:String):void
+			{
+				nfC.decimalSeparator = value;
+			}
+			
+			public function get groupingSeparator():String
+			{
+				return nfC.groupingSeparator;
+			}
+			public function set groupingSeparator(value:String):void
+			{
+				nfC.groupingSeparator = value;
+			}
+			
+			public function get negativeSymbol():String
+			{
+				return nfC.negativeSymbol;
+			}
+			public function set negativeSymbol(value:String):void
+			{
+				nfC.negativeSymbol = value;
+			}
+			
+			public function get negativeNumberFormat():uint
+			{
+				return nfC.negativeNumberFormat;
+			}
+			public function set negativeNumberFormat(value:uint):void
+			{
+				nfC.negativeNumberFormat = value;
+			}
+			
+			public function get leadingZero():Boolean
+			{
+				return nfC.leadingZero;
+			}
+			public function set leadingZero(value:Boolean):void
+			{
+				nfC.leadingZero = value;
+			}
+			
+			public function get trailingZeros():Boolean
+			{
+				return nfC.trailingZeros;
+			}
+			public function set trailingZeros(value:Boolean):void
+			{
+				nfC.trailingZeros = value;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:NumberFormatter id="nfC" locale="zh-CN"/>
+		
+		<!--<s:NumberFormatter id="nfStyleC" styleName="cStyle"/>-->
+	</fx:Declarations>
+</mx:Module>

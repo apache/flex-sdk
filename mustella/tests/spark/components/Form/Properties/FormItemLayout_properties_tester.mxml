@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FormItemLayout_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+  		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+
+		import spark.layouts.*;
+		import comps.*;
+		import spark.components.Group;
+		import flash.utils.getQualifiedClassName;
+		
+
+		]]>
+	</fx:Script>
+	<testCases>
+		<!--  This assert does not get caught fast enough.  The test will timeout
+		<TestCase testID="FormItemLayout_RTE_percentWidth_percentHeight" keywords="[FormItemLayout]" description="FormItemLayout RTEs when layout has percent width or height">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<RunCode code="application.addChild(new comps.PercentFormItemLayoutGroup)" />
+				<AssertError value="Error: ConstraintLayout doesn't support percent width columns." />
+			</body>
+		</TestCase>
+		-->
+		<TestCase testID="FormItemLayout_ConstraintColumn_fixed_width_mxml" keywords="[FormItemLayout, ConstraintColumn, fixed, width]" description="FormItemLayout ConstraintColumn reports the correct width">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col1" value="60"/>
+				<SetProperty propertyName="left" value="col1:0" target="basicGrp.btn1"/>
+				<SetProperty propertyName="right" value="col1:0" target="basicGrp.btn1" waitEvent="updateComplete" waitTarget="basicGrp.btn1"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn1" value="60"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintColumn_fixed_width_runtime" keywords="[FormItemLayout, ConstraintColumn, fixed, width]" description="FormItemLayout ConstraintColumn reports the correct width">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp.col2" value="80"/>
+				<SetProperty propertyName="left" value="col2:0" target="basicGrp.btn2"/>
+				<SetProperty propertyName="right" value="col2:0" target="basicGrp.btn2" waitEvent="updateComplete" waitTarget="basicGrp.btn2"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn2" value="80"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col2" value="80"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintColumn_contentsized_width_mxml" keywords="[FormItemLayout, ConstraintColumn, content, width]" description="FormItemLayout ConstraintColumn reports the correct width">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="basicGrp.cb" value="120"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col4" value="120"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="FormItemLayout_ConstraintColumn_contentsized_width_runtime" keywords="[FormItemLayout, ConstraintColumn, content, width]" description="FormItemLayout ConstraintColumn reports the correct width">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" value="col2:0" target="basicGrp.btn2" waitEvent="updateComplete" waitTarget="basicGrp.btn2"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn2" value="70"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col2" value="70"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintRow_fixed_height_mxml" keywords="[FormItemLayout, ConstraintRow, fixed, height]" description="FormItemLayout ConstraintRow reports the correct height">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row1" value="100"/>
+				<SetProperty propertyName="top" value="row1:0" target="basicGrp.btn1"/>
+				<SetProperty propertyName="bottom" value="row1:0" target="basicGrp.btn1" waitEvent="updateComplete" waitTarget="basicGrp.btn1"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn1" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintRow_fixed_height_runtime" keywords="[FormItemLayout, ConstraintRow, fixed, width]" description="FormItemLayout ConstraintRow reports the correct height">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" target="basicGrp.row2" value="65"/>
+				<SetProperty propertyName="top" value="row2:0" target="basicGrp.btn2"/>
+				<SetProperty propertyName="bottom" value="row2:0" target="basicGrp.btn2" waitEvent="updateComplete" waitTarget="basicGrp.btn2"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn2" value="65"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row2" value="65"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintRow_contentsized_height_mxml" keywords="[FormItemLayout, ConstraintRow, content, height]" description="FormItemLayout ConstraintRow reports the correct height">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="basicGrp.ta" value="120"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row4" value="120"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintColumn_fixed_contentsized" keywords="[FormItemLayout, ConstraintColumn, width]" description="correct width reported with mix of fixed vs content sized ConstraintColumns">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col1" value="60"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col2" value="0"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col3" value="100"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col4" value="120"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col5" value="0"/>
+				<AssertPropertyValue propertyName="contentWidth" target="basicGrp" value="280"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp" value="280"/>
+				<SetProperty propertyName="width" target="basicGrp" value="500" waitEvent="updateComplete"/>
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="col2:0" waitEvent="updateComplete" />
+				<SetProperty propertyName="left" target="basicGrp.ta" value="col5:0" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col1" value="60"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col2" value="70"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col3" value="100"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col4" value="120"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp.col5" value="188"/>
+				<AssertPropertyValue propertyName="contentWidth" target="basicGrp" value="538"/>
+				<AssertPropertyValue propertyName="width" target="basicGrp" value="500"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintRow_fixed_contentsized" keywords="[FormItemLayout, ConstraintColumn, width]" description="correct width reported with mix of fixed vs content sized ConstraintColumns">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row1" value="100"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row2" value="21"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row3" value="50"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row4" value="120"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.row5" value="23"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintRow_height_larger_than_Group_height" keywords="[FormItemLayout, ConstraintRow, fixed, width]" description="FormItemLayout ConstraintRow takes up entire Group">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" target="basicGrp.row1" value="300"/>
+				<SetProperty propertyName="clipAndEnableScrolling" target="basicGrp" value="true"/>
+				<SetProperty propertyName="height" target="basicGrp" value="200" waitEvent="updateComplete" waitTarget="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_ConstraintColumn_wider_than_Group_height" keywords="[FormItemLayout, ConstraintColumn, fixed, width]" description="ConstraintColumn takes up entire Group">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp.col1" value="300"/>
+				<SetProperty propertyName="clipAndEnableScrolling" target="basicGrp" value="true"/>
+				<SetProperty propertyName="width" target="basicGrp" value="200" waitEvent="updateComplete" waitTarget="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_default_layout" keywords="[FormItem, layout]" description="default FormItem layout is VerticalLayout">
+			<body>
+				<AssertMethodValue method="value=getQualifiedClassName(application.fi.contentGroup.layout)" value="spark.layouts::VerticalLayout"/>
+				<AssertMethodValue method="value=getQualifiedClassName(application.fi.layout)" value="spark.layouts::VerticalLayout"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItem_layout_HorizontalLayout" keywords="[FormItem, layout]" description="setting FormItem layout to HorizontalLayout sets the contentGroup to HorizontalLayout">
+			<setup>
+				<ResetComponent target="fi" className="spark.components.FormItem" waitEvent="updateComplete"/>
+				<RunCode code="application.fi.layout=new HorizontalLayout()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=getQualifiedClassName(application.fi.contentGroup.layout)" value="spark.layouts::HorizontalLayout"/>
+				<AssertMethodValue method="value=getQualifiedClassName(application.fi.layout)" value="spark.layouts::HorizontalLayout"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_percentHeight_percentWidth_element_constrained" keywords="[FormItemLayout, percentHeight, percentWidth]" description="Element with percentHeight and percentWidth sizes correctly">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn1" value="col1:0" />
+				<SetProperty propertyName="right" target="basicGrp.btn1" value="col1:0" />
+				<SetProperty propertyName="bottom" target="basicGrp.btn1" value="row1:0" />
+				<SetProperty propertyName="percentHeight" target="basicGrp.btn1" value="50"/>
+				<SetProperty propertyName="percentWidth" target="basicGrp.btn1" value="50" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn1" value="30"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn1" value="50"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_percentHeight_percentWidth_element" keywords="[FormItemLayout, percentHeight, percentWidth]" description="Element with percentHeight and percentWidth sizes correctly">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" target="basicGrp" value="110" />
+				<SetProperty propertyName="width" target="basicGrp" value="110" />
+				<SetProperty propertyName="percentHeight" target="basicGrp.btn1" value="50"/>
+				<SetProperty propertyName="percentWidth" target="basicGrp.btn1" value="50" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn1" value="55"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn1" value="55"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_x_y_element" keywords="[FormItemLayout, x, y]" description="Element with x and y is correct">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="x" target="basicGrp.btn1" value="30" />
+				<SetProperty propertyName="y" target="basicGrp.btn1" value="40" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_x_baseline_element" keywords="[FormItemLayout, x, y]" description="Element with x and baseline set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="x" target="basicGrp.btn1" value="30" />
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="60" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="45.4" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_parent" keywords="[FormItemLayout, x, y]" description="Element with left set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn1" value="20" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="20" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="0" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_top_parent" keywords="[FormItemLayout, x, y]" description="Element with top set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="25" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_right_parent" keywords="[FormItemLayout, x, y]" description="Element with right set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="right" target="basicGrp.btn1" value="25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="505" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="0" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_bottom_parent" keywords="[FormItemLayout, x, y]" description="Element with bottom set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN"/>
+				<SetProperty propertyName="bottom" target="basicGrp.btn1" value="150" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" /> 
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="429" />	 <!-- 600 grp.height - 150 bottom - 21 btn1.height -->
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baseline_parent" keywords="[FormItemLayout, x, y]" description="Element with baseline set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="30" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" /> 
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="15.4" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baselinePositionElement_default" keywords="[FormItemLayout, x, y]" description="default baselinePositionElement is the first element in the group">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="baselinePositionElement" target="basicGrp" value="null" /> 
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baselinePositionElement_element" keywords="[FormItemLayout, x, y]" description="Element with baselinePositionElement set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="lbl" value="true" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" target="basicGrp" value="200" />
+				<SetProperty propertyName="height" target="basicGrp" value="200" />
+				<AssertPropertyValue propertyName="baseline" target="lbl" value="null"/>
+				
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN" />
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="30" />
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="col2:0" />
+				<SetProperty propertyName="baselinePositionElement" target="basicGrp" valueExpression="value=application.basicGrp.btn2" />
+				<SetProperty propertyName="baseline" target="lbl" valueExpression="value=application.basicGrp.baselinePosition" waitEvent="updateComplete" waitTarget="" />
+				
+				<AssertPropertyValue propertyName="baseline" target="lbl" value="30"/>
+				<AssertPropertyValue propertyName="baselinePosition" target="basicGrp" valueExpression="value=application.basicGrp.btn2.baselinePosition + application.basicGrp.btn2.y"/>
+				<SetProperty propertyName="visible" target="lbl" value="false" waitEvent="updateComplete"/>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_top_parent" keywords="[FormItemLayout, x, y]" description="Element with top and left set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="15" />
+				<SetProperty propertyName="left" target="basicGrp.btn1" value="20" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="20" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="15" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_bottom_right_element" keywords="[FormItemLayout, x, y]" description="Element with bottom and right set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN" />
+				<SetProperty propertyName="bottom" target="basicGrp.btn1" value="150" />
+				<SetProperty propertyName="right" target="basicGrp.btn1" value="200" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="330" /> <!-- 600 grp.width - 200 right - 70 btn1.width-->
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="429" />	 <!-- 600 grp.height - 150 bottom - 21 btn1.height -->
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_element_fixedRow_fixedCol" keywords="[FormItemLayout, x, y]" description="Element with left set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="20" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="20" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="100" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_top_element_fixedRow_fixedCol" keywords="[FormItemLayout, x, y]" description="Element with top set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="25" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_right_element_fixedRow_fixedCol" keywords="[FormItemLayout, x, y]" description="Element with right set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="right" target="basicGrp.btn2" value="25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="505" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="100" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_bottom_element_fixedRow_fixedCol" keywords="[FormItemLayout, x, y]" description="Element with bottom set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="col2:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="NaN" />
+				<SetProperty propertyName="bottom" target="basicGrp.btn2" value="15" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="60" /> 
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="564" />	 <!-- 600 grp.height - 15 bottom - 21 btn1.height -->
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baseline_element_fixedRow_fixedCol" keywords="[FormItemLayout, x, y]" description="Element with baseline set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="600" />
+				<SetProperty propertyName="height" target="basicGrp" value="600" />
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="col2:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="30" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="60" /> 
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="15.4" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_top_baseline_to_parent_element" keywords="[FormItemLayout, x, y]" description="Element with top and baseline constrained to parent has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="30" />
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="15.4" />	
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baseline_bottom_to_parent" keywords="[FormItemLayout, x, y]" description="top and bottom size element baseline aligns element">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="300" />
+				<SetProperty propertyName="height" target="basicGrp" value="300" />
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="NaN" />
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="30" />
+				<SetProperty propertyName="bottom" target="basicGrp.btn2" value="20" />
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn2" value="21" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="100" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_top_baseline_bottom_to_parent" keywords="[FormItemLayout, x, y]" description="top and bottom size element baseline aligns element">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" target="basicGrp" value="300" />
+				<SetProperty propertyName="height" target="basicGrp" value="300" />
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="30" />
+				<SetProperty propertyName="bottom" target="basicGrp.btn2" value="20" />
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn2" value="255" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="-101.6" />	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FormItemLayout_top_baseline_bottom_to_ConstraintRow" keywords="[FormItemLayout, x, y]" description="top and bottom size element baseline aligns element">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="row1:15" />
+				<SetProperty propertyName="bottom" target="basicGrp.btn1" value="row1:20" />
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="row1:25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn1" value="55" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="-2" />	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FormItemLayout_top_baseline_to_ConstraintRow_element" keywords="[FormItemLayout, x, y]" description="Element with top and baseline constrained to ConstraintRow has correct x and y baseline takes precedence">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="row2:15" waitEvent="updateComplete" />
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="row2:100" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="115" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_top_baseline_bottom_to_ConstraintRow_element" keywords="[FormItemLayout, x, y]" description="Element with top bottom and baseline constrained to ConstraintRow has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="row2:65" />
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="row2:100" waitEvent="updateComplete"/>
+				<SetProperty propertyName="bottom" target="basicGrp.btn2" value="row2:0" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="165" />	
+				<AssertPropertyValue propertyName="height" target="basicGrp.btn2" value="21" />
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_right_parent" keywords="[FormItemLayout, x, y]" description="left and right determine width">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="basicGrp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="50" />
+				<SetProperty propertyName="right" target="basicGrp.btn2" value="75" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="50" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="100" />	
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn2" value="175" />
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_right_ConstraintColumn" keywords="[FormItemLayout, x, y]" description="left and right determine width">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn2" value="col3:15" />
+				<SetProperty propertyName="right" target="basicGrp.btn2" value="col3:10" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="75" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="100" />	
+				<AssertPropertyValue propertyName="width" target="basicGrp.btn2" value="75" />
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_constraint" keywords="[FormItemLayout, x, y]" description="Element with left set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn1" value="col1:20" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="20" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="0" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_top_constraint" keywords="[FormItemLayout, x, y]" description="Element with top set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="row1:25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="25" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_right_constraint" keywords="[FormItemLayout, x, y]" description="Element with right set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="right" target="basicGrp.btn1" value="col1:25" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="-35" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="0" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_bottom_constraint" keywords="[FormItemLayout, x, y]" description="Element with bottom set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN"/>
+				<SetProperty propertyName="bottom" target="basicGrp.btn1" value="row1:50" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" /> 
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="29" />
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baseline_constraint" keywords="[FormItemLayout, x, y]" description="Element with baseline set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="row1:30" waitEvent="updateComplete" />
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="0" /> 
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="30" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_left_top_constraint" keywords="[FormItemLayout, x, y]" description="Element with left set has correct x and y">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn1" value="col1:20" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="row1:40" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="20" />
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="40" />	
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_invalid_ConstraintColumn" keywords="[FormItemLayout, x, y]" description="Impossible constraining to columns">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="left" target="basicGrp.btn1" value="col2:20" waitEvent="updateComplete"/>
+				<SetProperty propertyName="right" target="basicGrp.btn1" value="col1:40" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="width" value="21" target="basicGrp.btn1"/>
+				<AssertPropertyValue propertyName="x" value="80" target="basicGrp.btn1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_invalid_ConstraintRow" keywords="[FormItemLayout, x, y]" description="Impossible constraining to rows">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+			</setup>
+			<body>
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="row2:20" waitEvent="updateComplete"/>
+				<SetProperty propertyName="bottom" target="basicGrp.btn1" value="row1:40" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="height" value="21" target="basicGrp.btn1"/>
+				<AssertPropertyValue propertyName="y" value="120" target="basicGrp.btn1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baselineConstraintRow_offset" keywords="[FormItemLayout, rowBaseline]" description="Set rowBaseline make sure all elements line up">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.ti" value="NaN" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.row1" value="65"/>
+				
+				<SetProperty propertyName="x" target="basicGrp.btn1" value="0" />
+				<SetProperty propertyName="x" target="basicGrp.btn2" value="100" />
+				<SetProperty propertyName="x" target="basicGrp.ti" value="200" />
+				
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="row1:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="row1:20" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.ti" value="row1:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="text" target="basicGrp.ti" value="btn text" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="50.4"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="70.4"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.85"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baselineConstraintRow_top_offset" keywords="[FormItemLayout, rowBaseline]" description="Set rowBaseline make sure all elements line up">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.ti" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="height" target="basicGrp.row1" value="200"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.row1" value="120"/>
+				
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="row1:40" />
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="row1:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.ti" value="row1:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="row1:20" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="125.4"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FormItemLayout_baselineConstraintRow_negative_offset" keywords="[FormItemLayout, rowBaseline]" description="Set rowBaseline make sure all elements line up">
+			<setup>
+				<ResetComponent target="basicGrp" className="comps.BasicFormItemLayoutGroup" waitEvent="updateComplete" waitTarget="basicGrp" />
+				<SetProperty propertyName="top" target="basicGrp.btn1" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.btn2" value="NaN" waitEvent="updateComplete"/>
+				<SetProperty propertyName="top" target="basicGrp.ti" value="NaN" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="baseline" target="basicGrp.row1" value="65"/>
+				
+				<SetProperty propertyName="x" target="basicGrp.btn1" value="0" />
+				<SetProperty propertyName="x" target="basicGrp.btn2" value="100" />
+				<SetProperty propertyName="x" target="basicGrp.ti" value="200" />
+				
+				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="row1:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.btn2" value="row1:-20" waitEvent="updateComplete"/>
+				<SetProperty propertyName="baseline" target="basicGrp.ti" value="row1:0" waitEvent="updateComplete"/>
+				<SetProperty propertyName="text" target="basicGrp.ti" value="btn text" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="50.4"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="30.4"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.85"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+			</body>
+		</TestCase>
+	</testCases>	
+</UnitTester>

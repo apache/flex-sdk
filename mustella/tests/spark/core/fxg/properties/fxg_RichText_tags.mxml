@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/core/fxg/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="fxg_text_tests.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import fxg.text.*;
+
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="fxg_RichText_tab" keywords="[fxg, tab, RichText]"
+            description="Test using a tab tag in the content of RichText in static FXG.">
+            <setup>
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+        
+            </setup>
+            
+            <body>
+                <RunCode code="application.grp.addElement(new tab1)" waitEvent="updateComplete" waitTarget="grp"/>
+                            
+                <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+            
+            </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_br" keywords="[fxg, br, RichText]"
+            description="Test using a br tag in the content of RichText in static FXG.">
+            <setup>
+                
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+            </setup>
+            
+            <body>
+                
+                <RunCode code="application.grp.addElement(new br1)" waitEvent="updateComplete" waitTarget="grp"/>
+                            
+                <CompareBitmap numColorVariances="30" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+                
+            </body>
+        
+            </TestCase>
+            <TestCase testID="fxg_RichText_span" keywords="[fxg, span, RichText]"
+                description="Test using a span tag in the content of RichText in static FXG.">
+            <setup>
+                
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+            </setup>
+            
+            <body>
+                
+                <RunCode code="application.grp.addElement(new span1)" waitEvent="updateComplete" waitTarget="grp"/>
+                            
+                <CompareBitmap numColorVariances="8" maxColorVariance="24" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+            </body>
+
+        </TestCase>
+        <TestCase testID="fxg_RichText_div" keywords="[fxg, div, RichText]"
+            description="Test using a div tag in the content of RichText in static FXG.">      
+            <setup>
+                
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+            </setup>
+            
+            <body>
+                
+                <RunCode code="application.grp.addElement(new div1)" waitEvent="updateComplete" waitTarget="grp"/>
+                           
+                <CompareBitmap numColorVariances="12" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_link" keywords="[fxg, linkFormat, href, RichText]"
+            description="Test using a link and linkFormat tags in the content of RichText in static FXG.">
+            <setup>
+                
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+            </setup>
+            
+            <body>
+                
+                <RunCode code="application.grp.addElement(new link1)" waitEvent="updateComplete" waitTarget="grp"/>
+                            
+                <CompareBitmap numColorVariances="14" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+                   
+            </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_img" keywords="[fxg, img, RichText]"
+            description="Test using a img tag in the content of RichText in static FXG.">
+            <setup>
+               
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+            </setup>
+            
+            <body>
+                
+                <RunCode code="application.grp.addElement(new img1)" waitEvent="updateComplete" waitTarget="grp"/>
+                           
+                <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+            </body>
+        
+        </TestCase>
+        <TestCase testID="fxg_RichText_paragraphIndent" keywords="[fxg, paragraphIndent, RichText]"
+            description="Test using a paragraphIndent tag in the content of RichText in static FXG.">
+            <setup>
+                
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+            </setup>
+        
+            <body>
+                
+                <RunCode code="application.grp.addElement(new paragraphIndentsComp)" waitEvent="updateComplete" waitTarget="grp"/>
+                            
+                <CompareBitmap numColorVariances="24" maxColorVariance="24" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+                
+            </body>
+        
+        </TestCase>
+        <TestCase testID="fxg_RichText_tcy" keywords="[fxg, tcy, RichText]"
+            description="Test using a tcy tag in the content of RichText in static FXG.">
+            <setup>
+                
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+        
+            </setup>
+            
+            <body>
+                
+                <RunCode code="application.grp.addElement(new blockProgression2)" waitEvent="updateComplete" waitTarget="grp"/>
+                            
+                <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+               
+            </body>
+        
+        </TestCase>
+
+        <TestCase testID="fxg_RichText_fontAttributes" keywords="[fxg, color, fontStyle, backgroundColor, backgroundAlpha, fontWeight, fontSize, RichText]"
+            description="Test using a span to set color, fontStyle, backgroundColor, backgroundAlpha, fontWeight and fontSize.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new span_fontChanges)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_kerning" keywords="[fxg, kerning, RichText]"
+            description="Test using a span to set kerning.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new span_kerning)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_lineHeight_lineThrough" keywords="[fxg, lineHeight, lineThrough, RichText]"
+            description="Test using a span to set lineHeight and lineThrough.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new span_lineHeight_lineThrough)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_tab_br" keywords="[fxg, br, span, tab, RichText]"
+            description="Test using a span with a br and tab inside.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new span_tab_br)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_textDecoration_textRotation" keywords="[fxg, textDecoration, span, textRotation, RichText]"
+            description="Test using a span and setting textDecoration and textRotation">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new span_textDecorationRotation)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_whiteSpaceCollapse" keywords="[fxg, span, whiteSpaceCollapse, RichText]"
+            description="Test using a span and setting whiteSpaceCollapse">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new span_whitespaceCollapse)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="18" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_baselineShift_subscript" keywords="[fxg, span, baselineShift, subscript, RichText]"
+            description="Test using a span and setting subscript for baselineShift.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new baselineShift_subscript)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_baselineShift_0" keywords="[fxg, span, baselineShift, subscript, RichText]"
+            description="Test using a span and setting 0 for baselineShift.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new baselineShift_subscript2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_span_baselineShift_superscript" keywords="[fxg, span, baselineShift, superscript, RichText]"
+            description="Test using a span and setting superscript for baselineShift.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new baselineShift_superscript)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_baselineShift_superscript" keywords="[fxg, p, baselineShift, superscript, RichText]"
+            description="Test using a p and setting superscript for baselineShift.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_baselineShift_superscript)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_baselineShift_subscript" keywords="[fxg, p, baselineShift, subscript, RichText]"
+            description="Test using a p and setting subscript for baselineShift.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_baselineShift_subscript)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="6" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_fontAttributes" keywords="[fxg, color, fontStyle, backgroundColor, backgroundAlpha, fontWeight, fontSize, RichText]"
+            description="Test using a p to set color, fontStyle, backgroundColor, backgroundAlpha, fontWeight and fontSize.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_fontChanges)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_kerning" keywords="[fxg, kerning, RichText]"
+            description="Test using a p to set kerning.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_kerning)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_lineHeight_lineThrough" keywords="[fxg, lineHeight, lineThrough, RichText]"
+            description="Test using a p to set lineHeight and lineThrough.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_lineHeight_lineThrough)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_tab_br" keywords="[fxg, br, span, tab, RichText]"
+            description="Test using a p with a br and tab inside.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_tab_br)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_textDecoration_textRotation" keywords="[fxg, textDecoration, span, textRotation, RichText]"
+            description="Test using a p and setting textDecoration and textRotation">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_textDecorationRotation)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_div_ahref" keywords="[fxg, link, div,  RichText]"
+            description="Test using a div tag and creating a link inside.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new div_a)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="18" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_divmultiple_p_span" keywords="[fxg, span, div,  RichText]"
+            description="Test using a div tag and creating multiple p and span tags.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new div_multiple_p_span)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="24" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <!--TestCase testID="fxg_RichText_img_blank" keywords="[fxg, img,  RichText]"
+            description="Test using an img tag with a blank source.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new img_blank)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="18" ignoreMaxColorVariance="true"   url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase-->
+        <TestCase testID="fxg_RichText_img_embedded" keywords="[fxg, img,  RichText]"
+            description="Test using an img tag with an embedded source.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new img_embeddedsource)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="18" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_textAlign" keywords="[fxg, textAlign,  RichText]"
+            description="Test using an textAlign property with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_textAlign)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="38" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_textAlignLast" keywords="[fxg, textAlignLast,  RichText]"
+            description="Test using an textAlignLast property with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_textAlignLast)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="38" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_textIndent" keywords="[fxg, textIndent,  RichText]"
+            description="Test using an textIndent property with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_textIndent)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_leadingModel" keywords="[fxg, leadingModel,  RichText]"
+            description="Test using an leadingModel property with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_leadingModel)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_paragraphSpacingBeforeAfter" keywords="[fxg, paragraphSpacingBefore, paragraphSpacingAfter,  RichText]"
+            description="Test using a paragraphSpacingBefore and paragraphSpacingAfter properties with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_paragraphSpacingBeforeAfter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="24" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_paragraphSpacingBeforeAfter2" keywords="[fxg, paragraphSpacingBefore, paragraphSpacingAfter,  RichText]"
+            description="Test using a paragraphSpacingBefore and paragraphSpacingAfter properties together with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_paragraphSpacingBeforeAfter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="14" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_p_textJustify" keywords="[fxg, textJustify,  RichText]"
+            description="Test using a textJustify property together with the paragraph tag.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new p_textJustify)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        <TestCase testID="fxg_RichText_img_noSource" keywords="[fxg, img,  RichText]"
+            description="Test using an img tag with no source.">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new img_noSource)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        </body>
+        </TestCase>
+        
+        <TestCase testID="fxg_RichText_img_widthHeightAuto" keywords="[fxg, img,  RichText]"
+            
+            description="Test using a img property together with the height and width set to auto.">
+        
+            <setup>
+            
+                <ResetComponent target="grp" className="comps.MyComp2" waitEvent="updateComplete" waitTarget="grp"/>
+            
+                <RunCode code="application.grp.addElement(new img_widthHeight)" waitEvent="updateComplete" waitTarget="grp"/>
+        
+            </setup>
+        
+            <body>
+            
+                <CompareBitmap numColorVariances="18" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="grp"  timeout="2500"/>
+        
+            </body>
+        
+        </TestCase>
+    
+</testCases>
+</UnitTester>

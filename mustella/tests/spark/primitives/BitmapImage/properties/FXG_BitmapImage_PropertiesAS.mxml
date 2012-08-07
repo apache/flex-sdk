@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/BitmapImage/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_BitmapImage_Main.mxml">
+
+    <mx:Script>
+        <![CDATA[
+            import comps.BitmapGraphicBasic;
+            import flash.display.BitmapData;
+            import flash.display.Bitmap;
+
+            private var bd:BitmapData = new BitmapData(60,60,false,0xFF0000);
+            private var bd2:BitmapData = new BitmapData(120,120,false,0x00FF00);
+
+            private var bit:Bitmap = new Bitmap(bd2);
+
+            public static function init(o:DisplayObject):void
+            {
+            }
+
+            [Embed(source="../../../../../Assets/Images/greenrect.jpg")]
+            public var succulent:Class;
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <!-- property: height -->
+        <TestCase testID="GraphicTags_BitmapGraphic_height_positive" description="BitmapGraphic height set to a positive int" keywords="[BitmapGraphic, height, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <AssertPixelValue value="0xCC3399" x="5" y="126" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="126" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="GraphicTags_BitmapGraphic_height_zero" description="BitmapGraphic height set to zero" keywords="[BitmapGraphic, height, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="0" />
+                <Pause timeout="100" />
+                <AssertPixelValue value="0xCC3399" x="5" y="6" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="50" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_height_default" description="BitmapGraphic height is not set" keywords="[BitmapGraphic, height, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kenny" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <AssertPixelValue value="0xCC3399" x="5" y="202" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="202" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+
+
+        <!-- property: width -->
+        <TestCase testID="GraphicTags_BitmapGraphic_width_positive" description="BitmapGraphic width set to a positive int" keywords="[BitmapGraphic, width, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <AssertPixelValue value="0xCC3399" x="126" y="5" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="126" y="55" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_width_zero" description="BitmapGraphic width set to zero" keywords="[BitmapGraphic, width, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <Pause timeout="100" />
+                <AssertPixelValue value="0xCC3399" x="6" y="5" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="50" y="55" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_width_default" description="BitmapGraphic width is not set" keywords="[BitmapGraphic, width, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kenny" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <AssertPixelValue value="0xCC3399" x="188" y="5" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="188" y="65" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+
+        <!-- property : x, y-->
+        <TestCase testID="GraphicTags_BitmapGraphic_x_positive" description="BitmapGraphic x set to a positive int" keywords="[BitmapGraphic, x, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="x" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).x = 10;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="9" y="6" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="131" y="5" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_x_zero" description="BitmapGraphic x set to zero" keywords="[BitmapGraphic, x, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="x" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).x = 0;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="121" y="5" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="121" y="55" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_x_negative" description="BitmapGraphic x is not set" keywords="[BitmapGraphic, x, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kenny" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="x" value="-30" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kenny;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).x = -30;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="91" y="5" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="91" y="65" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_y_positive" description="BitmapGraphic y set to a positive int" keywords="[BitmapGraphic, y, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="20" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).y = 20;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="5" y="141" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="141" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_y_zero" description="BitmapGraphic y set to zero" keywords="[BitmapGraphic, y, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).y = 0;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="5" y="121" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="121" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_y_negative" description="BitmapGraphic y is not set" keywords="[BitmapGraphic, y, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kenny" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="-30" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kenny;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).y = -30;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="5" y="93" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="93" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+
+
+        <!-- property bounds -->
+        <TestCase testID="GraphicTags_BitmapGraphic_bounds_HeightSet" description="BitmapGraphic bounds property when height is set" keywords="[BitmapGraphic, y, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <!--<AssertPropertyValue value="120" propertyName="height" target="graphic1.getChildAt(0).getItemAt(1).bounds" />
+                <AssertPropertyValue value="213" propertyName="width" target="graphic1.getChildAt(0).getItemAt(1).bounds" />-->
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_bounds_WidthSet" description="BitmapGraphic bounds property when width is set" keywords="[BitmapGraphic, y, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).y = 0;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <!-- <AssertPropertyValue value="120" propertyName="width" target="graphic1.getChildAt(0).getItemAt(1).bounds" />
+                <AssertPropertyValue value="160" propertyName="height" target="graphic1.getChildAt(0).getItemAt(1).bounds" /> -->
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_bounds_HeightYSet" description="BitmapGraphic bounds when height and y is set" keywords="[BitmapGraphic, y, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kenny" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="120" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="x" value="-30" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kenny;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 120;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).x = -30;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <!--<AssertPropertyValue value="182" propertyName="width" target="graphic1.getChildAt(0).getItemAt(1).bounds" />
+                <AssertPropertyValue value="120" propertyName="height" target="graphic1.getChildAt(0).getItemAt(1).bounds" />-->
+            </body>
+        </TestCase>
+
+
+
+        <!-- visible property -->
+        <TestCase testID="GraphicTags_BitmapGraphic_visible_false" description="BitmapGraphic visible property set to false" keywords="[BitmapGraphic, visible, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="visible" value="false" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).visible = false;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xCC3399" x="10" y="10" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="50" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_visible_true" description="BitmapGraphic visible property set to true after false" keywords="[BitmapGraphic, visible, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="visible" value="false" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="visible" value="true" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.kitler;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).visible = false;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).visible = true;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xE91E1F" x="10" y="10" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="55" y="50" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <!-- source property -->
+        <TestCase testID="GraphicTags_BitmapGraphic_source_swf" description="BitmapGraphic source is a swf file" keywords="[BitmapGraphic, source, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value='bulldog.swf'" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="100"  />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="100" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = 'bulldog.swf';" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 100;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 100;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_source_gif" description="BitmapGraphic source is a gif file" keywords="[BitmapGraphic, source, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="fillMode" value="repeat" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.monkeys" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="100" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="100" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.monkeys;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 100;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 100;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0xFDF500" x="26" y="30" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="106" y="50" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="50" y="106" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="50" y="106" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0x50001" x="80" y="100" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_BitmapGraphic_source_png" description="BitmapGraphic source is a png file" keywords="[BitmapGraphic, source, Graphic]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="fillMode" value="repeat" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.dog2" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="140" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="140" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <!--
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).source = application.dog2;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).width = 140;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <RunCode code="application.graphic1.getChildAt(0).getItemAt(1).height = 140;" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                -->
+                <AssertPixelValue value="0x3C48C9" x="41" y="26" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="146" y="50" target="graphic1.getChildAt(0)" />
+                <AssertPixelValue value="0xCC3399" x="50" y="146" target="graphic1.getChildAt(0)" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_BitmapData_source" description="Source of the BitmapImage as a BitmapData" keywords="[BitmapImage, source, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" value="{bd}" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_Bitmap_source" description="Source of the BitmapImage as a Bitmap" keywords="[BitmapImage, source, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" value="{bit}" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_scale9Grid" description="scale9Grid code for BitmapImage" keywords="[BitmapImage, source, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty propertyName="fillMode" value="scale" target="graphic1.bitmapGraphic1"/>
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitlerScale9" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="200" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="200" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <!--property fillMode-->
+
+        <TestCase testID="FXG_BitmapImage_fillMode_property_default" description="Default fillMode is repeat" keywords="[BitmapImage, fillMode, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+
+                <AssertPropertyValue propertyName="fillMode" value="scale" target="graphic1.bitmapGraphic1"/>
+                <CompareBitmap numColorVariances="4" maxColorVariance="8" url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_fillMode_property_clip" description="Whether or not the bitmap is repeated to fill the area" keywords="[BitmapImage, fillMode, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty propertyName="fillMode" value="clip" target="graphic1.bitmapGraphic1"/>
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+
+                <AssertPropertyValue propertyName="fillMode" value="clip" target="graphic1.bitmapGraphic1"/>
+                <CompareBitmap numColorVariances="4" maxColorVariance="8" url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_fillMode_property_repeat" description="Whether or not the bitmap is scaled to fill the area" keywords="[BitmapImage, fillMode, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty propertyName="fillMode" value="repeat" target="graphic1.bitmapGraphic1"/>
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+
+                <AssertPropertyValue propertyName="fillMode" value="repeat" target="graphic1.bitmapGraphic1"/>
+                <CompareBitmap numColorVariances="4" maxColorVariance="8" url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <!--property smooth-->
+        <TestCase testID="FXG_BitmapImage_smooth_default" description="Rendered by using a nearest-neighbor algorithm and look pixelated" keywords="[BitmapImage, fillMode, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="fillMode" value="scale" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+
+                <AssertPropertyValue propertyName="smooth" value="false" target="graphic1.bitmapGraphic1"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_smooth_true" description="Whether or not the bitmap is scaled to fill the area" keywords="[BitmapImage, fillMode, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="smooth" value="true" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="fillMode" value="scale" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="300" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+
+                <AssertPropertyValue propertyName="smooth" value="true" target="graphic1.bitmapGraphic1"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_SDK_17501" description="BitmapGraphic should not render content based on 0,0" keywords="[BitmapImage, bugs, FXG]">
+            <setup>
+                <ResetComponent target="graphic1" className="comps.BitmapGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="smooth" value="true" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="fillMode" value="repeat" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="source" valueExpression="value=application.kitler" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="width" value="100" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="height" value="100" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="left" value="30" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+                <SetProperty target="graphic1.bitmapGraphic1" propertyName="top" value="20" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
+
+                <AssertPropertyValue propertyName="smooth" value="true" target="graphic1.bitmapGraphic1"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FXG_BitmapImage_onPixelBoundary_nonInteger" description="Set a BitmapImage on a non-integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-21808" />
+            </bugs -->
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_onPixelBoundary_integer" description="Set a BitmapImage on an integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-21808" />
+            </bugs -->
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_onPixelBoundary_nonInteger_runtime" description="Set a BitmapImage on a non-integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-21808" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <RunCode code="application.setSource();"/>
+                <Pause timeout="50"/>
+                <SetProperty target="image1" propertyName="x" value="2.8" />
+                <SetProperty target="image1" propertyName="y" value="12.8" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_onPixelBoundary_Integer_runtime" description="Set a BitmapImage on an integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-21808" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <RunCode code="application.setSource();"/>
+                <Pause timeout="50"/>
+                <SetProperty target="image1" propertyName="x" value="8" />
+                <SetProperty target="image1" propertyName="y" value="12" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_ColorTransform_alphaMultiplier05" description="Set a BitmapImage on an integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-22146" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="image1" propertyName="source" valueExpression="value=succulent" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="image1.transform" propertyName="colorTransform" valueExpression="value=application.colorTransform1" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_ColorTransform_alphaMultiplier03" description="Set a BitmapImage on an integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-22146" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="image1" propertyName="source" valueExpression="value=succulent" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="image1.transform" propertyName="colorTransform" valueExpression="value=application.colorTransform2" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_ColorTransform_alphaMultiplier09" description="Set a BitmapImage on an integer pixel boundary" keywords="[BitmapImage, pixelBoundary, source]">
+            <!--bugs>
+                 <Bug bugID="SDK-22146" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="image1" propertyName="source" valueExpression="value=succulent" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="image1.transform" propertyName="colorTransform" valueExpression="value=application.colorTransform3" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_layoutDirection_RTL_onParent" description="Test that BitmapImage doesn't mirror in a RTL layout" keywords="[BitmapImage, Mirroring]">
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="group1" propertyName="layoutDirection" value="rtl" />
+                <SetProperty target="image1" propertyName="source" valueExpression="value=application.squareLogo" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_BitmapImage_layoutDirection_RTL" description="Test that BitmapImage mirrors when layoutDirection=rtl on the BitmapImage" keywords="[BitmapImage, Mirroring]">
+            <setup>
+                <ResetComponent target="image1" className="spark.primitives.BitmapImage" waitEvent="updateComplete"
+                    waitTarget="image1" />
+                <SetProperty target="group1" propertyName="layoutDirection" value="ltr" />
+                <SetProperty target="image1" propertyName="layoutDirection" value="rtl" />
+                <SetProperty target="image1" propertyName="source" valueExpression="value=application.squareLogo" waitEvent="updateComplete"
+                    waitTarget="image1" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="group1"/>
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

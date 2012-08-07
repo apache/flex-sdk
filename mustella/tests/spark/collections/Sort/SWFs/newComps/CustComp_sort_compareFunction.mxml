@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  updateComplete="init()"
+		  xmlns:newComps="newComps.*"
+		  width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Sort id="st"/>
+		<s:Sort id="stCN"/>
+		<s:Sort id="stEN"/>
+		<s:Sort id="stInlineLocale" locale="zh_CN"/>
+		<s:Sort id="stInlineLocaleEN" locale="en_US"/>
+		<s:Sort id="stInline" compareFunction="noParameterCompare"/>
+		<s:SortField id="sfCF" name="name"/>
+		<s:Sort id="stCF" fields="{[sfCF]}" compareFunction="{mySortCompareFunction}"/>
+		<newComps:BaseDataComp id="dataComp"/>
+		<mx:Sort id="mxST"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import mx.controls.Alert;
+			import mx.messaging.channels.StreamingAMFChannel;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			import spark.validators.CurrencyValidator;
+			
+			
+			public var stScript:spark.collections.Sort;
+			public var stScriptCN:spark.collections.Sort;
+			public var stScriptEN:spark.collections.Sort;
+			public var stCFScript:spark.collections.Sort;
+			public var sfCFScript:SortField;
+			
+			public var sf1:SortField;
+			public var sf2:SortField;
+			
+			public var myObj1:CurrencyValidator = new CurrencyValidator();
+			public var myObj2:CurrencyValidator = new CurrencyValidator();
+			public var myObj3:CurrencyValidator = new CurrencyValidator();
+			public var myObj4:CurrencyValidator = new CurrencyValidator();
+			
+			public var obj1:Object = new Object();
+			public var obj2:Object = new Object();
+	
+			public var fields1:Array = new Array();
+			public var fields2:Array = new Array();
+			
+			[Bindable]
+			public var err:String="No Error";
+			[Bindable]
+			public var errMX:String="No Error";
+			
+			[Bindable]
+			public var LOS:String;
+			
+			public function creST():void
+			{
+				stScript = new spark.collections.Sort();
+				this.addStyleClient(stScript);
+				
+				stScriptCN = new spark.collections.Sort();
+				this.addStyleClient(stScriptCN);
+				
+				stScriptEN = new spark.collections.Sort();
+				this.addStyleClient(stScriptEN);
+				
+				
+				stScriptCN.setStyle("locale","zh-CN");
+				stScriptCN.setStyle("locale","en_US");
+				stCN.setStyle("locale","zh-CN");
+				
+				sfCFScript= new SortField("name");
+				this.addStyleClient(sfCFScript);
+				
+				stCFScript=new spark.collections.Sort();
+				this.addStyleClient(stCFScript);
+				
+				stCFScript.fields=[sfCFScript];
+				
+				stCFScript.compareFunction=mySortCompareFunction;
+			}
+			
+			public function init():void
+			{
+				creST();
+				myObj3.negativeCurrencyFormatError="aa";
+				myObj3.positiveCurrencyFormatError="BB";
+				myObj4.negativeCurrencyFormatError="AA";
+				myObj4.positiveCurrencyFormatError="bb";
+				
+				sf1=new SortField("negativeCurrencyFormatError");
+				sf2=new SortField("positiveCurrencyFormatError");
+				
+				this.addStyleClient(sf1);
+				this.addStyleClient(sf2);
+				
+				fields1.push(sf1,sf2);
+				fields2.push(sf2,sf1);
+			}
+/* 			public function setSTLocale(st:*, locale:String):void
+			{
+				st.setStyle("locale",locale);	
+			}
+			
+			
+			public function getLocale(myST:Sort):String
+			{
+				return myST.getStyle("locale");
+			} */
+			
+			public function SortCompare(val1:*, val2:*, owner:*, mode:String):int
+			{
+				var result:int;
+				try{
+					result=owner.compareFunction(val1,val2,null);
+				}
+				catch(e:Error)
+				{
+					if(mode=='spark')
+						err=e.toString();
+					else
+						errMX=e.toString();
+				}
+				
+				return result;
+			}
+			
+			public function SortCompareWithFields(val1:*, val2:*, fields:Array, owner:*, mode:String):int
+			{
+				var result:int;
+				owner.fields=fields;
+				try{
+					result=owner.compareFunction(val1,val2,fields);
+				}
+				catch(e:Error)
+				{
+					if(mode=='spark')
+						err=e.toString();
+					else
+						errMX=e.toString();
+				}
+				
+				return result;
+			}
+			
+			public function myCompare(val1:int,val2:int,fields:Array=null):int
+			{
+				if(val1>val2)
+					return 6;
+				else if(val1==val2)
+					return 4;
+				else 
+					return 2;
+			}
+			
+			public function mySortCompareFunction(item1:Object, item2:Object, fields:Array=null):int {
+				
+				var fdName:String=fields[0].name; 
+				
+				
+				var aStr:String = item1[fdName] ;
+				var bStr:String = item2[fdName] ; 
+				if ( aStr == null && bStr == null ) 
+					return 0 ; 
+				if (aStr.length > bStr.length)
+					return 1 ; 
+				else if ( aStr.length == bStr.length)
+					return 0 ; 
+				else 
+					return -1 ; 
+			}
+			
+			public function noParameterCompare():int
+			{
+				return 2;
+			}
+			
+			public function wrongReturnTypeCompare(val1:*,val2:*,fields:Array):String
+			{
+				return "result";
+			}
+			
+			public function trySet(obj:*,pptName:String,val:*, mode:String):void
+			{
+				try{
+					obj[pptName]=val;
+				}catch(e:Error){
+					if(mode=='spark')
+						err=e.toString();
+					else
+						errMX=e.toString();
+				}
+			}
+			
+			public function doit(mySort:spark.collections.Sort):void
+			{
+				dataComp.myMXNameAgeStrArr.sort=mySort;
+				dataComp.myMXNameAgeStrArr.refresh();
+				Alert.show(SFConstant.getArrayOfField('name',dataComp.myMXNameAgeStrArr).toString());
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Label id="errLabel" text="{err}"/>
+	<s:Label id="errLabelMX" text="{errMX}"/>
+	<s:Label id="LOSLabel" text="{LOS}"/>
+</s:VGroup>
+

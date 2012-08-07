@@ -1,0 +1,111 @@
+﻿<UnitTester
+    testSWF="../SWFs/Rotate3D_main.mxml"
+    testDir="spark/effects/Rotate3D/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.Rotate3D;
+        import Components.*;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- angleXFrom -->
+        <TestCase testID="Rotate3D_angleXFrom_Default" keywords="[Rotate3D, variable, angleXFrom]" description="Test the default value of the angleXFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).angleXFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- angleXTo -->
+        <TestCase testID="Rotate3D_angleXTo_Default" keywords="[Rotate3D, variable, angleXTo]" description="Test the default value of the angleXTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).angleXTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate3D_angleXFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with angleXFrom and angleXTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleXFromTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleXFromTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleXFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="rotationX" value="65.450850"/>
+			</body>
+        </TestCase>
+
+
+        <!-- angleZFrom -->
+        <TestCase testID="Rotate3D_angleZFrom_Default" keywords="[Rotate3D, variable, angleZFrom]" description="Test the default value of the angleZFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).angleZFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- angleZTo -->
+        <TestCase testID="Rotate3D_angleZTo_Default" keywords="[Rotate3D, variable, angleZTo]" description="Test the default value of the angleZTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).angleZTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate3D_angleZFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with angleZFrom and angleZTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleZFromTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleZFromTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleZFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="rotationZ" value="65.450850"/>
+			</body>
+        </TestCase>
+
+
+
+        <!-- angleYFrom -->
+        <TestCase testID="Rotate3D_angleYFrom_Default" keywords="[Rotate3D, variable, angleYFrom]" description="Test the default value of the angleYFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).angleYFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- angleYTo -->
+        <TestCase testID="Rotate3D_angleYTo_Default" keywords="[Rotate3D, variable, angleYTo]" description="Test the default value of the angleYTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).angleYTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Rotate3D_angleYFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with angleYFrom and angleYTo.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleYFromTo.stop()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleYFromTo.target = FlexGlobals.topLevelApplication.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_angleYFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="rotationY" value="65.450850"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

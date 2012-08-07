@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_format.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		import assets.CFConstant;
+		
+		public var cfGSLib:flash.globalization.CurrencyFormatter;
+		public var cfGSLib1:flash.globalization.CurrencyFormatter;
+		public var cfGSLib2:flash.globalization.CurrencyFormatter;
+		public var cfGSLib3:flash.globalization.CurrencyFormatter;
+		public var cfGSLib4:flash.globalization.CurrencyFormatter;
+		public var cfGSLib5:flash.globalization.CurrencyFormatter;
+			
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!-- This test file is to test format() int, unit and number value when setting with different properties -->
+
+<testCases>
+	<!--test format method for inline and script cf object with no locale set -->
+	<TestCase testID="CF_format_setNoLocaleInline_test1" description="test format method for inline and script cf object with no locale set" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfNoLocale.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNoLocale.format(0.345678)" valueExpression="value=cfGSLib.format(0.345678)" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNoLocale.format(-100.04550000)" valueExpression="value=cfGSLib.format(-100.04550000)" />
+			<AssertPropertyValue target="cfNoLocale" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			
+			<AssertMethodValue method="value=application.cfNoLocaleScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfNoLocaleScript.format(-100.04550000)" valueExpression="value=cfGSLib.format(-100.04550000)" />
+			<AssertPropertyValue target="cfNoLocaleScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for inline cf object with some supported locale set -->
+	<TestCase testID="CF_format_setLocaleInline_zh_CN_test2" description="test format method for inline cf object with some supported locale set " keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf1.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cf1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cf1.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cf1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for inline cf object with some supported locale set -->
+	<TestCase testID="CF_format_setLocaleInline_fr_FR_test3" description="test format method for inline cf object with some supported locale set " keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf2.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cf2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cf2.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cf2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for inline cf object with some supported locale set -->
+	<TestCase testID="CF_format_setLocaleInline_ja_JP_test4" description="test format method for inline cf object with some supported locale set " keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cf3.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cf3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cf3.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cf3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some supported locale set in script -->
+	<TestCase testID="CF_format_setLocaleInScript_zh_CN_test5" description="test format method for cf object with some supported locale set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some supported locale set in script -->
+	<TestCase testID="CF_format_setLocaleInScript_fr_FR_test6" description="test format method for cf object with some supported locale set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="fr-FR" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some supported locale set in script -->
+	<TestCase testID="CF_format_setLocaleInScript_ja_JP_test7" description="test format method for cf object with some supported locale set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set inline -->
+	<TestCase testID="CF_format_setPropertiesInline_zh_CN_currencyISOCode_CNY_negativeCurrencyFormat_2_positiveCurrencyFormat_2_test8" description="test format method for cf object with some property set inline " keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY', '@zh@')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=2"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=2"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfInline1.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfInline1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfInline1.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfInline1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set inline -->
+	<TestCase testID="CF_format_setPropertiesInline_zh_CN_currencyISOCode_CNY_negativeCurrencyFormat_10_positiveCurrencyFormat_0_test9" description="test format method for cf object with some property set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','@zh@')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=10"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=0"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfInline2.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfInline2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfInline2.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfInline2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set inline -->
+	<TestCase testID="CF_format_setPropertiesInline_ja_JP_currencyISOCode_CNY_negativeCurrencyFormat_2_positiveCurrencyFormat_2_test10" description="test format method for cf object with some property set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','@zh@')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=2"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=2"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfInline3.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfInline3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfInline3.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfInline3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set inline -->
+	<TestCase testID="CF_format_setPropertiesInline_ja_JP_currencyISOCode_CNY_negativeCurrencyFormat_10_positiveCurrencyFormat_0_test11" description="test format method for cf object with some property set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','@zh@')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=10"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=0"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfInline4.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfInline4" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfInline4.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfInline4" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set in script -->
+	<TestCase testID="CF_format_setPropertiesInScript_zh_CN_currencyISOCode_CNY_currencySymbol_negativeCurrencyFormat_2_positiveCurrencyFormat_2_test12" description="stest format method for cf object with some property set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','￥')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=2"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=2"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY"/>
+			<SetProperty target="cfScript" propertyName="currencySymbol" value="￥"/>
+			<SetProperty target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=2"/>
+			<SetProperty target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=2" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set in script -->
+	<TestCase testID="CF_format_setPropertiesInScript_zh_CN_currencyISOCode_CNY_currencySymbol_negativeCurrencyFormat_10_positiveCurrencyFormat_0_test13" description="test format method for cf object with some property set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','￥')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=10"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=0"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY"/>
+			<SetProperty target="cfScript" propertyName="currencySymbol" value="￥"/>
+			<SetProperty target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=10"/>
+			<SetProperty target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set in script -->
+	<TestCase testID="CF_format_setPropertiesInScript_ja_JP_currencyISOCode_CNY_currencySymbol_negativeCurrencyFormat_2_positiveCurrencyFormat_2_test14" description="test format method for cf object with some property set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','￥')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=2"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=2"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY"/>
+			<SetProperty target="cfScript" propertyName="currencySymbol" value="￥"/>
+			<SetProperty target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=2"/>
+			<SetProperty target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=2" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set in script -->
+	<TestCase testID="CF_format_setPropertiesInScript_ja_JP_currencyISOCode_CNY_currencySymbol_negativeCurrencyFormat_10_positiveCurrencyFormat_0_test15" description="test format method for cf object with some property set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','￥')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=10"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=0"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY"/>
+			<SetProperty target="cfScript" propertyName="currencySymbol" value="￥"/>
+			<SetProperty target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=10"/>
+			<SetProperty target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set inline but set useCurrencySymbol to true -->
+	<TestCase testID="CF_format_setPropertiesInline_zh_CN_currencyISOCode_CNY_negativeCurrencyFormat_1_positiveCurrencyFormat_3_useCurrencySymbol_test16" description="test format method for cf object with some property set inline but set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','@zh@')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=1"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=3"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfInline5.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfInline5" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfInline5.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfInline5" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set inline but set useCurrencySymbol to true -->
+	<TestCase testID="CF_format_setPropertiesInline_ja_JP_currencyISOCode_CNY_negativeCurrencyFormat_1_positiveCurrencyFormat_3_useCurrencySymbol_test17" description="test format method for cf object with some property set inline but set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','@zh@')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=1"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=3"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfInline6.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfInline6" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfInline6.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfInline6" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set in script but set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_setPropertiesInScript_zh_CN_currencyISOCode_CNY_negativeCurrencyFormat_1_positiveCurrencyFormat_3_useCurrencySymbol_test18" description="test format method for cf object with some property set inline but set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','￥')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=1"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=3"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY"/>
+			<SetProperty target="cfScript" propertyName="currencySymbol" value="￥"/>
+			<SetProperty target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=1"/>
+			<SetProperty target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=3" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with some property set in script but set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_setPropertiesInScript_ja_JP_currencyISOCode_CNY_negativeCurrencyFormat_1_positiveCurrencyFormat_3_useCurrencySymbol_test19" description="test format method for cf object with some property set inline but set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('CNY','￥')"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=1"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=3"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<SetProperty target="cfScript" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			<SetProperty target="cfScript" propertyName="currencyISOCode" value="CNY"/>
+			<SetProperty target="cfScript" propertyName="currencySymbol" value="￥"/>
+			<SetProperty target="cfScript" propertyName="negativeCurrencyFormat" valueExpression="value=1"/>
+			<SetProperty target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=3" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test20" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline1.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline1.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test21" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline2.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline2.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test22" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline3.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline3.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline3" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test23" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline4.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline4" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline4.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline4" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test24" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline5.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline5" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline5.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline5" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test25" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline6.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline6" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline6.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline6" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test26" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline7.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline7" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline7.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline7" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test27" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline8.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline8" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline8.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline8" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test28" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline9.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline9" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline9.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline9" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test29" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline10.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline10" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline10.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline10" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test30" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline11.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline11" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline11.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline11" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test31" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline12.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline12" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline12.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline12" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test32" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline13.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline13" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline13.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline13" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test33" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline14.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline14" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline14.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline14" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test34" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline15.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline15" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline15.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline15" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test35" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline16.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline16" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline16.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline16" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test36" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',2,2,',','-',true,'3','*')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test37" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test38" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',2,2,':','--',true,'3;*','-')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test39" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',10,0,';','--',false,'3',',')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test40" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',2,2,',','-',true,'3','*')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test41" description="stest format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test42" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',2,2,':','--',true,'3;*','-')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test43" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',10,0,';','--',false,'3',',')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test44" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',2,2,',','-',true,'3','*')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CNY',2,2,',','-',true,'3','*')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test45" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test46" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',2,2,':','--',true,'3;*','-')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CAD',2,2,':','--',true,'3;*','-')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test47" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'@zh@','CAD',10,0,';','--',false,'3',',')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'@zh@','CAD',10,0,';','--',false,'3',',')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script and set useCurrencySymbol to true -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test48" description="stest format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',2,2,',','-',true,'3','*')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CNY',2,2,',','-',true,'3','*',true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script and set useCurrencySymbol to true -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test49" description="stest format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CNY',10,0,'.','-',false,'3;2;*',' ')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CNY',10,0,'.','-',false,'3;2;*',' ',true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script and set useCurrencySymbol to true -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test50" description="test format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',2,2,':','--',true,'3;*','-')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CAD',2,2,':','--',true,'3;*','-',true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script and set useCurrencySymbol to true -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test51" description="test format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyGrouping(cfGSLib,'$','CAD',10,0,';','--',false,'3',',')"/>
+			<RunCode code="application.setCFPropertyGrouping(application.cfScript,'$','CAD',10,0,';','--',false,'3',',',true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfScript" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test52" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',2,2,',','-',true,true,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline21.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline21" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline21.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline21" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test53" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',10,0,'.','-',false,true,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline22.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline22" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline22.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline22" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test54" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',2,2,':','--',true,false,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline23.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline23" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline23.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline23" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test55" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',10,0,';','--',false,false,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline24.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline24" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline24.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline24" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test56" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',2,2,',','-',true,true,2)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline25.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline25" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline25.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline25" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test57" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',10,0,'.','-',false,true,10)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline26.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline26" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline26.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline26" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test58" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',2,2,':','--',true,false,2)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline27.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline27" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline27.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline27" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test59" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',10,0,';','--',false,false,10)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline28.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline28" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline28.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline28" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test60" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',2,2,',','-',true,true,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline29.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline29" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline29.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline29" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test61" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',10,0,'.','-',false,true,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline30.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline30" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline30.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline30" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test62" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',2,2,':','--',true,false,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline31.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline31" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline31.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline31" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline -->
+	<TestCase testID="CF_format_multiProperties_inline_test63" description="test format method for cf object with multi properties set inline" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',10,0,';','--',false,false,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline32.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfMulInline32" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline32.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfMulInline32" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test64" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',2,2,',','-',true,true,2)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline33.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline33" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline33.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline33" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test65" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',10,0,'.','-',false,true,10)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline34.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline34" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline34.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline34" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test66" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',2,2,':','--',true,false,2)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline35.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline35" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline35.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline35" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set inline and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inline_useCurrencySymbol_test67" description="test format method for cf object with multi properties set inline and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',10,0,';','--',false,false,10)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfMulInline36.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfMulInline36" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfMulInline36.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfMulInline36" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test68" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',2,2,',','-',true,true,0)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CNY',2,2,',','-',true,true,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test69" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',10,0,'.','-',false,true,5)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CNY',10,0,'.','-',false,true,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test70" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',2,2,':','--',true,false,0)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CAD',2,2,':','--',true,false,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test71" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',10,0,';','--',false,false,5)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CAD',10,0,';','--',false,false,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test72" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',2,2,',','-',true,true,2)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CNY',2,2,',','-',true,true,2)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test73" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',10,0,'.','-',false,true,10)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CNY',10,0,'.','-',false,true,10)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test74" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',2,2,':','--',true,false,2)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CAD',2,2,':','--',true,false,2)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test75" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',10,0,';','--',false,false,10)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CAD',10,0,';','--',false,false,10)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test76" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',2,2,',','-',true,true,0)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CNY',2,2,',','-',true,true,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test77" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CNY',10,0,'.','-',false,true,5)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CNY',10,0,'.','-',false,true,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test78" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',2,2,':','--',true,false,0)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CAD',2,2,':','--',true,false,0)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_test79" description="test format method for cf object with multi properties set in script" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'@zh@','CAD',10,0,';','--',false,false,5)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'@zh@','CAD',10,0,';','--',false,false,5)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script and set useCurrencySymbol to true-->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test80" description="test format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',2,2,',','-',true,true,2)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CNY',2,2,',','-',true,true,2,true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test81" description="test format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CNY',10,0,'.','-',false,true,10)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CNY',10,0,'.','-',false,true,10,true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test82" description="test format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',2,2,':','--',true,false,2)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CAD',2,2,':','--',true,false,2,true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test format method for cf object with multi properties set in script -->
+	<TestCase testID="CF_format_multiProperties_inScript_useCurrencySymbol_test83" description="test format method for cf object with multi properties set in script and set useCurrencySymbol to true" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja-JP')" />
+			<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+			<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetStyle target="cfScript" styleName="locale" value="ja-JP" waitEvent="change"/>
+			<RunCode code="application.setGSLibPropertyDigits(cfGSLib,'$','CAD',10,0,';','--',false,false,10)"/>
+			<RunCode code="application.setCFPropertyDigits(application.cfScript,'$','CAD',10,0,';','--',false,false,10,true)"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfScript" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			<AssertMethodValue method="value=application.cfScript.format(123456789.9876)" valueExpression="value=cfGSLib.format(123456789.9876,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfScript.format('-1234567.345')" valueExpression="value=cfGSLib.format(-1234567.345,true)" />
+			<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Number object  -->
+	<TestCase testID="CF_format_numberObject_test84" description="test case for format an object : null or any Number object" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.cfTestObj.format(null)" valueExpression="value=null"/>
+			<AssertPropertyValue target="cfTestObj" propertyName="lastOperationStatus" value="noError"/>
+			<AssertMethodValue method="value=application.cfTestObj.format('notaNumber')" valueExpression="value=CFConstant.ERROT_TEXT"/>
+			<AssertPropertyValue target="cfTestObj" propertyName="lastOperationStatus" valueExpression="value=CFConstant.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.cfTestObj.format( new Object() )" valueExpression="value=CFConstant.ERROT_TEXT"/>
+			<AssertPropertyValue target="cfTestObj" propertyName="lastOperationStatus" valueExpression="value=CFConstant.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.cfTestObj.format(application.value)" valueExpression="value=cfGSLib.format(-12345678.90)"/>
+			<AssertPropertyValue target="cfTestObj" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="CF_format_binding_test85" description="Binding property by lable text" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=10" />
+			<RunCode code="cfGSLib.setCurrency('UDD','$')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfBinding1" propertyName="negativeCurrencyFormat" valueExpression="value=10"/>
+			<SetProperty target="cfBinding1" propertyName="useCurrencySymbol" valueExpression="value=true" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLabel1" propertyName="text" valueExpression="value=cfGSLib.format(-1.123,true)" />
+			<AssertPropertyValue target="cfBinding1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--Binding property by lable text-->
+	<TestCase testID="CF_format_binding_test86" description="Binding property by lable text" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.positiveCurrencyFormat=2" />
+			<RunCode code="cfGSLib.decimalSeparator=';'"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfBinding2" propertyName="positiveCurrencyFormat" valueExpression="value=2" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLabel2" propertyName="text" valueExpression="value=cfGSLib.format(2.123)" />
+			<AssertPropertyValue target="cfBinding2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--test case for format an object : null or any Number object  -->
+	<TestCase testID="CF_format_numberObject_test87" description="test case for format an object : null or any not a Number object" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<SetProperty target="cfTestInvalidObj" propertyName="errorText" valueExpression="value=CFConstant.ERROR_1"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfInvalidLabel1" propertyName="text" valueExpression="value=CFConstant.ERROR_1" />
+			<AssertMethodValue method="value=application.cfTestInvalidObj.format(Number.NaN)" valueExpression="value=CFConstant.ERROR_1"/>
+			<AssertPropertyValue target="cfTestInvalidObj" propertyName="lastOperationStatus" valueExpression="value=CFConstant.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.cfTestInvalidObj.format('notaNumber')" valueExpression="value=CFConstant.ERROR_1"/>
+			<AssertPropertyValue target="cfTestInvalidObj" propertyName="lastOperationStatus" valueExpression="value=CFConstant.illegalParamMsg"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Number object  -->
+	<TestCase testID="CF_format_numberObject_test88" description="test case for format an object : null or any not a Number object" keywords="[CurrencyFormatter, format]">
+		<setup>
+			<SetProperty target="cfTestInvalidObj2" propertyName="errorText" valueExpression="value=CFConstant.ERROR_2"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfInvalidLabel2" propertyName="text" valueExpression="value=CFConstant.ERROR_2" />
+			<AssertMethodValue method="value=application.cfTestInvalidObj2.format(Number.NaN)" valueExpression="value=CFConstant.ERROR_2"/>
+			<AssertPropertyValue target="cfTestInvalidObj2" propertyName="lastOperationStatus" valueExpression="value=CFConstant.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.cfTestInvalidObj2.format('notaNumber')" valueExpression="value=CFConstant.ERROR_2"/>
+			<AssertPropertyValue target="cfTestInvalidObj2" propertyName="lastOperationStatus" valueExpression="value=CFConstant.illegalParamMsg"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

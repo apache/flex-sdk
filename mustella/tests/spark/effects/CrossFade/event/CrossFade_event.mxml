@@ -1,0 +1,63 @@
+﻿<UnitTester 
+    testSWF="../SWFs/CrossFade_main.mxml" 
+    testDir="spark/effects/CrossFade/event/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.CrossFade;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="CrossFade_effectStart" keywords="[CrossFade, events, effectStart]" description="Test the effectStart event.">
+            <setup>
+                <RunCode code="application.e_CrossFade.stop()"/>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.targets = [application.controls1.control_Button];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.play();" waitTarget="e_CrossFade" waitEvent="effectStart" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="CrossFade_effectEnd" keywords="[CrossFade, events, effectEnd]" description="Test the effectEnd event.">
+            <setup>
+                <RunCode code="application.e_CrossFade.stop()"/>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.targets = [application.controls1.control_Button];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.play();" waitTarget="e_CrossFade" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+
+        <!-- effectStop -->
+        <TestCase testID="CrossFade_effectStop" keywords="[CrossFade, events, effectStop]" description="Test the effectStop event.">
+            <setup>
+                <RunCode code="application.e_CrossFade.stop()"/>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_CrossFade" className="spark.effects.CrossFade"/>
+                <RunCode code="application.e_CrossFade.bitmapTo = application.clearBitmap.bitmapData;" />
+                <RunCode code="application.e_CrossFade.targets = [application.controls1.control_Button];" />
+            </setup>
+            <body>
+                <RunCode code="application.e_CrossFade.play();" />
+                <Pause timeout="200"/>
+                <RunCode code="application.e_CrossFade.stop();" waitTarget="e_CrossFade" waitEvent="effectStop" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

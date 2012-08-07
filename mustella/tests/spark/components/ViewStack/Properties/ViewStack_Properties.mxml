@@ -1,0 +1,895 @@
+<UnitTester testDir="spark/components/ViewStack/Properties/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ViewStack_basic.mxml">
+	
+	<!-- Default code for all tests -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void{} 
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<fx:Script>
+        <![CDATA[
+			import mx.core.FlexGlobals;                
+        ]]>
+    </fx:Script>
+	
+	<testCases>
+		<!-- uncomment when ViewStack is available
+		<TestCase testID="viewStack_resizeToContent_true" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as true">
+			<setup>
+				<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+				<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true" waitEvent="updateComplete"/>
+				<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true"/>						        
+				<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../Properties/Baselines/$testID_Before.png"/>
+				<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+				<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../Properties/Baselines/$testID_After.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="viewStack_resizeToContent_false" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as false">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../Properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../Properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_true_with_layout" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as true with layout set on each views">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_false_with_layout" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as false with layout set on each views">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_true_with_layout_to_no_layout" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as true and changing from a view with layout set to one without.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_false_with_layout_to_no_layout" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as false and changing from a view with layout set to one without.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_true_with_no_layout_to_layout" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as true and changing from a view with no layout set to one with layout explicitly set.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_false_with_no_layout_to_layout" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as false and changing from a view with no layout set to one with layout explicitly set.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="false"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_resizeToContent_true_visible_change_layout_runtime" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as true and change layout of the visible view at runtime">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true"/>						        
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<RunCode code="application.vsUsingNavCon.changeLayout()" waitTarget="vsUsingNavCon.view2" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="viewStack_resizeToContent_true_invisible_change_layout_runtime" keywords="[ViewStack, resizeToContent]" description="Test ViewStack with resizeToContent as true and change layout of the visible view at runtime">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="resizeToContent" value="true"/>						        
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+						<AssertMethodValue method="value=application.vsUsingNavCon.changeLayout()" value="true"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>  
+				
+		
+				<TestCase testID="viewStack_selectedIndex_default" keywords="[ViewStack, selectedIndex]" description="Test ViewStack with selectedIndex left as default">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedIndex_1" keywords="[ViewStack, selectedIndex]" description="Test ViewStack with selectedIndex as 1">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedIndex_last" keywords="[ViewStack, selectedIndex]" description="Test ViewStack with selectedIndex value as the last view">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedIndex_negative1" keywords="[ViewStack, selectedIndex]" description="Test ViewStack with selectedIndex set to -1; check if selectedIndex ignores an invalid value and sets it to the default value.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="-1" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedIndex_negative1_from_second_view" keywords="[ViewStack, selectedIndex]" description="Test ViewStack with selectedIndex set to -1; check if selectedIndex ignores an invalid value and sets it to the default value.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="-1" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="0"/>
+					</body>
+				</TestCase> 
+				<TestCase testID="viewStack_selectedIndex_no_views" keywords="[ViewStack, selectedIndex]" description="Test ViewStack with no views and check that selectedIndex is -1">
+					<setup>
+						<ResetComponent target="vsNoViews" className="components.vsNoViews" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsNoViews.blankVS" propertyName="selectedIndex" value="-1"/>
+					</body>
+				</TestCase> 
+				<TestCase testID="viewStack_selectedIndex_binding_numStepper" keywords="[ViewStack, selectedIndex, NumericStepper]" description="Test ViewStack by binding selectedIndex to NumericStepper">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedIndex" value="0"/>
+						<SetProperty target="vsUsingNavConAndUIComp.num_stepper" propertyName="value" value="2" waitTarget="vsUsingNavConAndUIComp.directButton" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.num_stepper" propertyName="value" value="2"/>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedIndex" value="2"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedIndex_two_way_binding" keywords="[ViewStack, selectedIndex, NumericStepper]" description="Test ViewStack by using two way binding of selectedIndex and NumericStepper">
+					<setup>
+						<ResetComponent target="tabBarVSComp" className="components.tabBarVSComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="tabBarVSComp.mainViewStack" propertyName="selectedIndex" value="0"/>
+						<SetProperty target="tabBarVSComp.num_stepper" propertyName="value" value="2" waitTarget="tabBarVSComp.directButton" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="tabBarVSComp.num_stepper" propertyName="value" value="2"/>
+						<AssertPropertyValue target="tabBarVSComp.mainViewStack" propertyName="selectedIndex" value="2"/>
+						<CompareBitmap target="tabBarVSComp" url="../properties/Baselines/$testID_After_NumStepper_Change.png"/>
+						<SetProperty target="tabBarVSComp.mainViewStack" propertyName="selectedIndex" value="1" waitTarget="tabBarVSComp.view2" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="tabBarVSComp.mainViewStack" propertyName="selectedIndex" value="1"/>
+						<AssertPropertyValue target="tabBarVSComp.num_stepper" propertyName="value" value="1"/>
+						<CompareBitmap target="tabBarVSComp" url="../properties/Baselines/$testID_After_SelectIndex_Change.png"/>
+					</body>
+				</TestCase> 
+				<TestCase testID="viewStack_selectedIndex_add_view" keywords="[ViewStack, selectedIndex]" description="Test adding a view at runtime and selecting it.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertMethodValue method="value=application.vsUsingNavCon.addView()" value="true"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>		
+				<TestCase testID="viewStack_selectedIndex_add_view_before_selected_view" keywords="[ViewStack, selectedIndex, selectedElement]" description="Test adding a view before the selected view at runtime and check value of selectedIndex. Also open the newly created view.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view1"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="0"/>
+						<AssertMethodValue method="value=application.vsUsingNavCon.addViewAtBeginning()" value="true"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view1" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>	
+				<TestCase testID="viewStack_selectedIndex_remove_view_beginning" keywords="[ViewStack, selectedIndex, selectedElement]" description="Test removing a view at the beginning of the view stack during runtime.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="5"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view2" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1"/>
+						<AssertMethodValue method="value=application.vsUsingNavCon.removeViewAtBeginning()" value="true"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="4"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedIndex_remove_view_end" keywords="[ViewStack, selectedIndex]" description="Test removing a view at the end of the view stack during runtime.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="5"/>
+						<AssertMethodValue method="value=application.vsUsingNavCon.removeViewAtEnd()" value="true"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="4"/>
+					</body>
+				</TestCase>			
+				<TestCase testID="viewStack_selectedIndex_remove_view_middle" keywords="[ViewStack, selectedIndex, selectedElement]" description="Test removing a view at the middle of the view stack during runtime.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view2" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view4" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="5"/>
+						<AssertMethodValue method="value=application.vsUsingNavCon.removeViewAtMiddle()" value="true"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view2" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view4" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="4"/>
+					</body>
+				</TestCase> 
+				
+				 
+				<TestCase testID="viewStack_get_selectedElement_default" keywords="[ViewStack, selectedElement]" description="Get value of selectedElement when default view is selected.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view1"/>
+					</body>
+				</TestCase>
+						<TestCase testID="viewStack_get_selectedElement_middle_View" keywords="[ViewStack, selectedElement]" description="Get value of selectedElement when the middle view is selected.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view3"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_get_selectedElement_last_view" keywords="[ViewStack, selectedElement]" description="Get value of selectedElement when the last view is selected.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view5"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedElement_no_views" keywords="[ViewStack, selectedElement]" description="Test ViewStack with no views and check that selectedElement is null">
+					<setup>
+						<ResetComponent target="vsNoViews" className="components.vsNoViews" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsNoViews.blankVS" propertyName="selectedElement" valueExpression="value=null"/>
+					</body>
+				</TestCase> 
+				<TestCase testID="viewStack_selectedElement_compiletime" keywords="[ViewStack, selectedElement]" description="Change selectedElement of ViewStack at compile time.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view3" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view3"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedElement_runtime" keywords="[ViewStack, selectedElement]" description="Change selectedElement of ViewStack at run time.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view3" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view3"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2"/>
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedElement_compiletime_button" keywords="[ViewStack, selectedElement, Button]" description="Change selectedElement of ViewStack at compile time on Button click">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<DispatchMouseEvent target="vsUsingNavCon.btnSelectedElements" localX="15" localY="20" type="click" waitEvent="click"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view5"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4" />
+						<Pause timeout="10" />
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedElement_runtime_button" keywords="[ViewStack, selectedElement, Button]" description="Change selectedElement of ViewStack at run time on Button click">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<DispatchMouseEvent target="vsUsingNavCon.btnSelectedElements" localX="15" localY="20" type="click" waitEvent="click"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavCon.view5"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4"/>
+						<Pause timeout="10" />
+						<CompareBitmap target="vsUsingNavCon.mainViewStack" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedElement_two_way_binding_dropDownList_change_viewStack" keywords="[ViewStack, selectedElement, DropDownList]" description="Test two way binding of DropDownList and ViewStack using selectedElement">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="top" value="100" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavConAndUIComp.directPanel1" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavConAndUIComp.directPanel1"/>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.myDropDownList" propertyName="selectedIndex" value="4"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_selectedElement_two_way_binding_dropDownList_change_dropDownList" keywords="[ViewStack, selectedElement, DropDownList]" description="Test two way binding of DropDownList and ViewStack using selectedElement">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="top" value="100" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavConAndUIComp.myDropDownList" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.myDropDownList" propertyName="selectedIndex" value="4"/>
+						<AssertPropertyValue target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedElement" valueExpression="value=application.vsUsingNavConAndUIComp.directPanel1"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				
+		
+				<TestCase testID="viewStack_top" keywords="[ViewStack, top]" description="Set top to 100 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="top" value="100" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_top_negative" keywords="[ViewStack, top]" description="Set top to -10 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="top" value="-10" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_bottom" keywords="[ViewStack, bottom]" description="Set bottom to 100 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="bottom" value="100" waitEvent="updateComplete" />
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_bottom_negative" keywords="[ViewStack, bottom]" description="Set bottom to -10 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="bottom" value="-10" waitEvent="updateComplete" />
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_left" keywords="[ViewStack, left]" description="Set left to 100 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="left" value="100" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+					<TestCase testID="viewStack_left_nagative" keywords="[ViewStack, left]" description="Set left to -10 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="left" value="-10" waitEvent="updateComplete"/>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_right" keywords="[ViewStack, right]" description="Set right to 100 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="right" value="100" waitEvent="updateComplete" />
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_right_negative" keywords="[ViewStack, right]" description="Set right to -10 for the ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="right" value="-10" waitEvent="updateComplete" />
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_top_bottom" keywords="[ViewStack, top, bottom]" description="Set top and bototm little less than the height of the containers">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="top" value="125" waitEvent="updateComplete" />
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="bottom" value="125" waitEvent="updateComplete" />
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_left_right" keywords="[ViewStack, left, right]" description="Set left and right little less than the width of the containers">
+					<setup>
+						<ResetComponent target="vsUsingNavConAndUIComp" className="components.vsUsingNavConAndUIComp" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="left" value="175" waitEvent="updateComplete" />
+						<SetProperty target="vsUsingNavConAndUIComp.mainViewStack" propertyName="right" value="175" waitEvent="updateComplete" />
+						<CompareBitmap target="vsUsingNavConAndUIComp" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				
+				
+				<TestCase testID="viewStack_buttonBar_labelField" keywords="[ViewStack, ButtonBar, labelField]" description="Test using labelField on ButtonBar and pointing it to a property other than label.">
+					<setup>
+						<ResetComponent target="buttonBarVSComp" className="components.buttonBarVSComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="buttonBarVSComp.myButtonBar" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="buttonBarVSComp.myButtonBar" propertyName="labelField" value="id" waitEvent="updateComplete"/>
+						<CompareBitmap target="buttonBarVSComp.myButtonBar" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_tabBar_labelField" keywords="[ViewStack, TabBar, labelField]" description="Test using labelField on TabBar and pointing it to a property other than label.">
+					<setup>
+						<ResetComponent target="tabBarVSComp" className="components.tabBarVSComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="tabBarVSComp.myTabBar" url="../properties/Baselines/$testID_Before.png"/>
+						<SetProperty target="tabBarVSComp.myTabBar" propertyName="labelField" value="id" waitEvent="updateComplete"/>
+						<CompareBitmap target="tabBarVSComp.myTabBar" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="viewStack_tabBar_labelFunction" keywords="[ViewStack, TabBar, labelFunction]" description="Test using labelFunction on TabBar stlying it.">
+					<setup>
+						<ResetComponent target="tabBarVSComp" className="components.tabBarVSComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="tabBarVSComp.myTabBar" url="../properties/Baselines/$testID_Before.png"/>
+						<RunCode code="application.tabBarVSComp.setLabelFunction()" waitTarget="tabBarVSComp" waitEvent="updateComplete"/>
+						<CompareBitmap target="tabBarVSComp.myTabBar" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_buttonBar_labelFunction" keywords="[ViewStack, ButtonBar, labelFunction]" description="Test using labelFunction on ButtonBar stlying it.">
+					<setup>
+						<ResetComponent target="buttonBarVSComp" className="components.buttonBarVSComp" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<CompareBitmap target="buttonBarVSComp.myButtonBar" url="../properties/Baselines/$testID_Before.png"/>
+						<RunCode code="application.buttonBarVSComp.setLabelFunction()" waitTarget="buttonBarVSComp" waitEvent="updateComplete"/>
+						<CompareBitmap target="buttonBarVSComp.myButtonBar" url="../properties/Baselines/$testID_After.png"/>
+					</body>
+				</TestCase>
+				
+				
+				<TestCase testID="viewStack_buttonBar_icon" keywords="[ViewStack, ButtonBar, icon]" description="Test using icon on ButtonBar and pointing it to a property other than label.">
+					<setup>
+						<ResetComponent target="buttonBarVSComp" className="components.buttonBarVSComp" waitEvent="updateComplete"/>
+						<SetProperty target="buttonBarVSComp.myButtonBar" propertyName="labelField" value="id" waitEvent="valueCommit"/>
+					</setup>
+					<body>
+						<SetProperty target="buttonBarVSComp.view1" propertyName="icon" value="{application.tabBarVSComp.flashImage}"/>
+						<Pause timeout="3000" />
+						<CompareBitmap target="buttonBarVSComp.myButtonBar" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="viewStack_tabBar_icon" keywords="[ViewStack, TabBar, icon]" description="Test using icon on TabBar and pointing it to a property other than label.">
+					<setup>
+						<ResetComponent target="tabBarVSComp" className="components.tabBarVSComp" waitEvent="updateComplete"/>
+						<SetProperty target="tabBarVSComp.myTabBar" propertyName="labelField" value="id" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="tabBarVSComp.view1" propertyName="icon" value="{application.tabBarVSComp.flashImage}"/>
+						<Pause timeout="3000" />
+						<CompareBitmap target="tabBarVSComp.myTabBar" url="../properties/Baselines/$testID.png"/>
+					</body>
+				</TestCase>
+				uncomment when ViewStack is available -->
+				<!-- Deferred instantiation -->
+				<!-- uncomment when ViewStack is available
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_default" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check default elementCreationPolicy of a NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_auto" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to auto on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_all" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to all on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="1"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_none" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to none on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_mix" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to a mix of none, auto and all on different NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_mix_view2" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to a mix of none, auto and all on different NavigatorContent used in ViewStack. Set selectedIndex to the view that had elementCreationPolicy set to auto.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementCreationPolicy_mix_view3" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to a mix of none, auto and all on different NavigatorContent used in ViewStack. Set selectedIndex to the view that had elementCreationPolicy set to none.">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				
+				uncomment when ViewStack is available -->
+				
+				 <!-- elementCreationPolicy on ViewStack -->
+				<!-- uncomment when ViewStack is available
+				 <TestCase testID="viewStack_elementCreationPolicy_none" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to none on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="none"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_elementCreationPolicy_auto" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to auto on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="auto"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="5"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="1"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_elementCreationPolicy_all" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to all on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="all"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="5"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="viewStack_elementCreationPolicy_all_mix" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to all on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="all"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="5"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="1"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_elementCreationPolicy_none_mix" keywords="[ViewStack, NavigatorContent, elementCreationPolicy]" description="Check behavior when elementCreationPolicy is set to none on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+						<SetProperty target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="none"/>
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementCreationPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementCreationPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				uncomment when ViewStack is available -->
+				
+				
+				<!-- elementDestructionPolicy -->
+				<!-- uncomment when ViewStack is available
+				
+				<TestCase testID="viewStack_NavigatorContent_elementDestructionPolicy_default" keywords="[ViewStack, NavigatorContent, elementDestructionPolicy]" description="Check default value of elementDestructionPolicy of NavigatorContent">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<AssertPropertyValue target="vsUsingNavCon.mainViewStack" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="elementDestructionPolicy" value="auto"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementDestructionPolicy_auto" keywords="[ViewStack, NavigatorContent, elementDestructionPolicy]" description="Check behavior when elementDestructionPolicy is set to auto on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/> 
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementCreationPolicy" value="all"/>  Garbage in garbage out? 
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementDestructionPolicy" value="auto"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementDestructionPolicy_all" keywords="[ViewStack, NavigatorContent, elementDestructionPolicy]" description="Check behavior when elementDestructionPolicy is set to all on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementDestructionPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementDestructionPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="4"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementDestructionPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementDestructionPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="1"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementDestructionPolicy" value="all"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="1"/>
+					</body>
+				</TestCase>
+				<TestCase testID="viewStack_NavigatorContent_elementDestructionPolicy_none" keywords="[ViewStack, NavigatorContent, elementDestructionPolicy]" description="Check behavior when elementDestructionPolicy is set to none on NavigatorContent used in ViewStack">
+					<setup>
+						<ResetComponent target="vsUsingNavCon" className="components.vsUsingNavCon" waitEvent="updateComplete"/> 
+					</setup>
+					<body>
+						<SetProperty target="vsUsingNavCon.view1" propertyName="elementDestructionPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view1" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view2" propertyName="elementDestructionPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view2" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view3" propertyName="elementDestructionPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view3" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view4" propertyName="elementDestructionPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view4" propertyName="numElements" value="0"/>
+						<SetProperty target="vsUsingNavCon.view5" propertyName="elementDestructionPolicy" value="none"/>
+						<AssertPropertyValue target="vsUsingNavCon.view5" propertyName="numElements" value="0"/>
+					</body>
+		</TestCase>
+		uncomment when ViewStack is available -->
+	</testCases>
+</UnitTester>

@@ -1,0 +1,35 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/style/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_style.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_horizontalCenter"
+        description="Apply the horizontalCenter style."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <SetStyle styleName="horizontalCenter" value="20" target="testPlayer" waitEvent="updateComplete" waitTarget="testPlayer"/>
+            </setup>
+            <body>
+               	<AssertPropertyValue propertyName="x" value="69" target="testPlayer"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

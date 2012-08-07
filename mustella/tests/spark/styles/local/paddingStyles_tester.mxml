@@ -1,0 +1,477 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="paddingStyles_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases> 
+     	
+		<TestCase testID="paddingAll_TextInput" keywords="[paddingTop, paddingBottom, paddingLeft, paddingRight]" description="Verify setting all padding styles are applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="5" target="allTI"/>
+				<AssertStyleValue styleName="paddingRight" value="10" target="allTI"/>
+				<AssertStyleValue styleName="paddingTop" value="15" target="allTI"/>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="allTI"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="allTI" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingAll_TextArea" keywords="[paddingTop, paddingBottom, paddingLeft, paddingRight]" description="Verify setting all padding styles are applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="5" target="allTA"/>
+				<AssertStyleValue styleName="paddingRight" value="10" target="allTA"/>
+				<AssertStyleValue styleName="paddingTop" value="15" target="allTA"/>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="allTA"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="allTA" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingRight_mxml_SparkTextInput" keywords="[paddingRight]" description="Verify setting paddingRight in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="tiRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_mxml_SparkTextArea" keywords="[paddingRight]" description="Verify setting paddingRight in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="taRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingLeft_mxml_SparkTextInput" keywords="[paddingLeft]" description="Verify setting paddingLeft in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="tiLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_mxml_SparkTextArea" keywords="[paddingLeft]" description="Verify setting paddingLeft in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="taLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingTop_mxml_SparkTextInput" keywords="[paddingTop]" description="Verify setting paddingTop in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="tiTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_mxml_SparkTextArea" keywords="[paddingTop]" description="Verify setting paddingTop in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="taTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingBottom_mxml_SparkTextInput" keywords="[paddingBottom]" description="Verify setting paddingBottom in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="tiBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_mxml_SparkTextArea" keywords="[paddingBottom]" description="Verify setting paddingBottom in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="taBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_mxml_HaloTextInput" keywords="[paddingRight]" description="Verify setting paddingRight in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="halotiRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_mxml_HaloTextArea" keywords="[paddingRight]" description="Verify setting paddingRight in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="halotaRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_mxml_HaloTextInput" keywords="[paddingLeft]" description="Verify setting paddingLeft in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="halotiLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_mxml_HaloTextArea" keywords="[paddingLeft]" description="Verify setting paddingLeft in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="halotaLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+				
+		<TestCase testID="paddingTop_mxml_HaloTextInput" keywords="[paddingTop]" description="Verify setting paddingTop in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="halotiTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_mxml_HaloTextArea" keywords="[paddingTop]" description="Verify setting paddingTop in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="halotaTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_mxml_HaloTextInput" keywords="[paddingBottom]" description="Verify setting paddingBottom in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="halotiBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_mxml_HaloTextArea" keywords="[paddingBottom]" description="Verify setting paddingBottom in mxml is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="halotaBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<!--*********************-->
+		<!-- Type selector tests -->
+		<!--*********************-->
+		
+		<TestCase testID="paddingRight_type_SparkTextInput" keywords="[paddingRight]" description="Verify setting paddingRight in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="tiTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_type_SparkTextArea" keywords="[paddingRight]" description="Verify setting paddingRight in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="taTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_type_SparkTextInput" keywords="[paddingLeft]" description="Verify setting paddingLeft in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="tiTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_type_SparkTextArea" keywords="[paddingLeft]" description="Verify setting paddingLeft in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="taTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_type_SparkTextInput" keywords="[paddingTop]" description="Verify setting paddingTop in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="tiTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_type_SparkTextArea" keywords="[paddingTop]" description="Verify setting paddingTop in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="taTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_type_SparkTextInput" keywords="[paddingBottom]" description="Verify setting paddingBottom in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="tiTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_type_SparkTextArea" keywords="[paddingBottom]" description="Verify setting paddingBottom in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="taTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingRight_type_HaloTextInput" keywords="[paddingRight]" description="Verify setting paddingRight in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="halotiTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_type_HaloTextArea" keywords="[paddingRight]" description="Verify setting paddingRight in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="10" target="halotaTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_type_HaloTextInput" keywords="[paddingLeft]" description="Verify setting paddingLeft in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="halotiTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_type_HaloTextArea" keywords="[paddingLeft]" description="Verify setting paddingLeft in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="10" target="halotaTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_type_HaloTextInput" keywords="[paddingTop]" description="Verify setting paddingTop in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="halotiTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_type_HaloTextArea" keywords="[paddingTop]" description="Verify setting paddingTop in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="10" target="halotaTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_type_HaloTextInput" keywords="[paddingBottom]" description="Verify setting paddingBottom in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="halotiTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_type_HaloTextArea" keywords="[paddingBottom]" description="Verify setting paddingBottom in type is applied correctly">
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="10" target="halotaTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<!--****************************-->
+		<!-- Set via actionscript tests -->
+		<!--****************************-->
+				
+		<TestCase testID="paddingRight_change_runtime_AS_SparkTextInput" keywords="[paddingRight]" description="Verify setting paddingRight at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingRight" value="20" target="tiTypeRight" waitEvent="updateComplete" waitTarget="tiTypeRight"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="20" target="tiTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingRight_change_runtime_AS_SparkTextArea" keywords="[paddingRight]" description="Verify setting paddingRight at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingRight" value="20" target="taTypeRight" waitEvent="updateComplete" waitTarget="taTypeRight"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="20" target="taTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_change_runtime_AS_SparkTextInput" keywords="[paddingLeft]" description="Verify setting paddingLeft at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingLeft" value="20" target="tiTypeLeft" waitEvent="updateComplete" waitTarget="tiTypeLeft"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="20" target="tiTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_change_runtime_AS_SparkTextArea" keywords="[paddingLeft]" description="Verify setting paddingLeft at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingLeft" value="20" target="taTypeLeft" waitEvent="updateComplete" waitTarget="taTypeLeft"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="20" target="taTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_change_runtime_AS_SparkTextInput" keywords="[paddingTop]" description="Verify setting paddingTop at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingTop" value="20" target="tiTypeTop" waitEvent="updateComplete" waitTarget="tiTypeTop"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="20" target="tiTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_change_runtime_AS_SparkTextArea" keywords="[paddingTop]" description="Verify setting paddingTop at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingTop" value="20" target="taTypeTop" waitEvent="updateComplete" waitTarget="taTypeTop"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="20" target="taTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_change_runtime_AS_SparkTextInput" keywords="[paddingBottom]" description="Verify setting paddingBottom at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingBottom" value="20" target="tiTypeBottom" waitEvent="updateComplete" waitTarget="tiTypeBottom"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="tiTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="tiTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_change_runtime_AS_SparkTextArea" keywords="[paddingBottom]" description="Verify setting paddingBottom at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingBottom" value="20" target="taTypeBottom" waitEvent="updateComplete" waitTarget="taTypeBottom"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="taTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="taTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_change_runtime_AS_HaloTextInput" keywords="[paddingRight]" description="Verify setting paddingRight at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingRight" value="20" target="halotiTypeRight" waitEvent="updateComplete" waitTarget="halotiTypeRight"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="20" target="halotiTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_change_runtime_AS_HaloTextArea" keywords="[paddingRight]" description="Verify setting paddingRight at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingRight" value="20" target="halotaTypeRight" waitEvent="updateComplete" waitTarget="halotaTypeRight"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingRight" value="20" target="halotaTypeRight"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeRight" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_change_runtime_AS_HaloTextInput" keywords="[paddingLeft]" description="Verify setting paddingLeft at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingLeft" value="-10" target="halotiTypeLeft" waitEvent="updateComplete" waitTarget="halotiTypeLeft"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="-10" target="halotiTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_change_runtime_AS_HaloTextArea" keywords="[paddingLeft]" description="Verify setting paddingLeft at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingLeft" value="20" target="halotaTypeLeft" waitEvent="updateComplete" waitTarget="halotaTypeLeft"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="20" target="halotaTypeLeft"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeLeft" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_change_runtime_AS_HaloTextInput" keywords="[paddingTop]" description="Verify setting paddingTop at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingTop" value="-10" target="halotiTypeTop" waitEvent="updateComplete" waitTarget="halotiTypeTop"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="-10" target="halotiTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingTop_change_runtime_AS_HaloTextArea" keywords="[paddingTop]" description="Verify setting paddingTop at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingTop" value="20" target="halotaTypeTop" waitEvent="updateComplete" waitTarget="halotaTypeTop"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingTop" value="20" target="halotaTypeTop"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeTop" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_change_runtime_AS_HaloTextInput" keywords="[paddingBottom]" description="Verify setting paddingBottom at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingBottom" value="20" target="halotiTypeBottom" waitEvent="updateComplete" waitTarget="halotiTypeBottom"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="halotiTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotiTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_change_runtime_AS_HaloTextArea" keywords="[paddingBottom]" description="Verify setting paddingBottom at runtime is applied correctly">
+			<setup>
+				<SetStyle styleName="paddingBottom" value="20" target="halotaTypeBottom" waitEvent="updateComplete" waitTarget="halotaTypeBottom"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="halotaTypeBottom"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="halotaTypeBottom" numColorVariances="10" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<!-- ************* -->
+		<!-- state changes -->
+		<!-- ************* -->
+		<TestCase testID="paddingAll_change_state" keywords="[paddingTop, paddingBottom, paddingLeft, paddingRight]" description="Verify changing state sets all padding styles correctly">
+			<body>
+				<AssertStyleValue styleName="paddingLeft" value="5" target="allTI"/>
+				<AssertStyleValue styleName="paddingRight" value="10" target="allTI"/>
+				<AssertStyleValue styleName="paddingTop" value="15" target="allTI"/>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="allTI"/>
+				<AssertStyleValue styleName="paddingLeft" value="5" target="allTA"/>
+				<AssertStyleValue styleName="paddingRight" value="10" target="allTA"/>
+				<AssertStyleValue styleName="paddingTop" value="15" target="allTA"/>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="allTA"/>
+
+				<CompareBitmap url="../local/baselines/$testID.png" target="paddingAllMXML" numColorVariances="10" ignoreMaxColorVariance="true" />
+
+				<SetProperty propertyName="currentState" value="state1" target="" waitEvent="updateComplete" waitTarget="paddingAllMXML"/>
+				
+				<AssertStyleValue styleName="paddingLeft" value="15" target="allTI"/>
+				<AssertStyleValue styleName="paddingRight" value="20" target="allTI"/>
+				<AssertStyleValue styleName="paddingTop" value="25" target="allTI"/>
+				<AssertStyleValue styleName="paddingBottom" value="25" target="allTI"/>
+				<AssertStyleValue styleName="paddingLeft" value="15" target="allTA"/>
+				<AssertStyleValue styleName="paddingRight" value="20" target="allTA"/>
+				<AssertStyleValue styleName="paddingTop" value="25" target="allTA"/>
+				<AssertStyleValue styleName="paddingBottom" value="25" target="allTA"/>
+
+				<CompareBitmap url="../local/baselines/$testID_2.png" target="paddingAllMXML" numColorVariances="10" ignoreMaxColorVariance="true" />				
+				
+				<SetProperty propertyName="currentState" value="defaultState" target="" waitEvent="updateComplete" waitTarget="paddingAllMXML"/>
+				
+				<AssertStyleValue styleName="paddingLeft" value="5" target="allTI"/>
+				<AssertStyleValue styleName="paddingRight" value="10" target="allTI"/>
+				<AssertStyleValue styleName="paddingTop" value="15" target="allTI"/>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="allTI"/>
+				<AssertStyleValue styleName="paddingLeft" value="5" target="allTA"/>
+				<AssertStyleValue styleName="paddingRight" value="10" target="allTA"/>
+				<AssertStyleValue styleName="paddingTop" value="15" target="allTA"/>
+				<AssertStyleValue styleName="paddingBottom" value="20" target="allTA"/>
+			</body>
+		</TestCase>
+  	</testCases>
+ </UnitTester>

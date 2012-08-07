@@ -1,0 +1,2589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/core/fxg/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="fxgtemplate.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import fxg.basicdatatypes.*;
+        import fxg.bitmapgraphics.*;
+        import fxg.blend_mode.linear_gradient_blends.*;
+        import fxg.blend_mode.linear_gradient_matrix_blends.*;
+        import fxg.blend_mode.opacity.*;
+        import fxg.blend_mode.radial_gradient_blends.*;
+        import fxg.doc_structure.*;
+        import fxg.fill.bitmap_fill.*;
+        import fxg.fill.linear_gradient.*;
+        import fxg.fill.radial_gradient.*;
+        import fxg.fill.solid_color.*;
+        import fxg.filters.*;
+        import fxg.mask.*;
+        import fxg.paths.*;
+        import fxg.scale9.*;
+        import fxg.shapes.*;
+        import fxg.stroke.linear_gradient_stroke.*;
+        import fxg.stroke.radial_gradient_stroke.*;
+        import fxg.stroke.solid_color_stroke.*;
+        import fxg.transforms.color_transform.Group.*;
+        import fxg.transforms.color_transform.ellipse.*;
+        import fxg.transforms.color_transform.line.*;
+        import fxg.transforms.color_transform.path.*;
+        import fxg.transforms.color_transform.rect.*;
+        import fxg.transforms.matrix.Group.*;
+        import fxg.transforms.matrix.ellipse.*;
+        import fxg.transforms.matrix.line.*;
+        import fxg.transforms.matrix.path.*;
+        import fxg.transforms.matrix.rect.*;
+        import fxg.visibility.*;
+
+
+    ]]>
+    </mx:Script>
+    
+    <testCases>
+            <TestCase testID="basicdatatypes_basicdatatypes_color_angle_percentage" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new basicdatatypes_color_angle_percentage)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <!--<TestCase testID="basicdatatypes_basicdatatypes_integer" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new basicdatatypes_integer)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>-->
+        
+        
+        
+            <TestCase testID="basicdatatypes_basicdatatypes_number" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new basicdatatypes_number)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="bitmapgraphics_bitmapgraphic_overlap_visibility" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmapgraphic_overlap_visibility)" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="1000"/>
+                    <!--<SetProperty propertyName="height" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>
+                    <SetProperty propertyName="width" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>-->
+                    <SetProperty propertyName="x" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+                    <SetProperty propertyName="y" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="1000"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+            <TestCase testID="bitmapgraphics_bitmapgraphic_overlap_visibility2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmapgraphic_overlap_visibility2)" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="1000"/>
+                    <!--<SetProperty propertyName="height" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>
+                    <SetProperty propertyName="width" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>-->
+                    <SetProperty propertyName="x" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+                    <SetProperty propertyName="y" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="1000"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <!--<TestCase testID="bitmapgraphics_bitmapgraphic_url" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmapgraphic_url)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>-->
+        
+        
+        
+            <TestCase testID="bitmapgraphics_bitmapgraphic_xform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="1000"/>
+                    <RunCode code="application.grp.addElement(new bitmapgraphic_xform)" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="3000"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>        
+        
+            <TestCase testID="bitmapgraphics_bitmapgraphic_xform2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="1000"/>
+                    <RunCode code="application.grp.addElement(new bitmapgraphic_xform2)" waitEvent="updateComplete" waitTarget="grp"/>
+                    <Pause timeout="3000"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_add_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_add_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_alpha_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_alpha_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_darken_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_darken_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_difference_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_difference_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_hardlight_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_hardlight_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_invert_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_invert_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_layer_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_layer_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_lighten_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_lighten_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_multiply_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_multiply_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_normal_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_normal_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_overlay_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_overlay_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_screen_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_screen_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_blends_blend_subtract_lineargradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_subtract_lineargradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_add_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_add_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_alpha_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_alpha_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_darken_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_darken_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_difference_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_difference_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_hardlight_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_hardlight_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_invert_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_invert_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_layer_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_layer_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_lighten_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_lighten_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_multiply_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_multiply_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_normal_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_normal_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_overlay_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_overlay_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_screen_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_screen_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_linear_gradient_matrix_blends_blend_subtract_lineargradient_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_subtract_lineargradient_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_opacity_opacity_blend_normal" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new opacity_blend_normal)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_add_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_add_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_alpha_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_alpha_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_darken_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_darken_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_difference_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_difference_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_hardlight_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_hardlight_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_invert_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_invert_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_layer_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_layer_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_lighten_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_lighten_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_multiply_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_multiply_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_normal_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_normal_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_overlay_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_overlay_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_screen_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_screen_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="blend_mode_radial_gradient_blends_blend_subtract_radialgradient_fill" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blend_subtract_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_def_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new def_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_empty_def" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new empty_def)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_graphic_def" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new graphic_def)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_group_def" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new group_def)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_library_def" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new library_def)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_placeobject_def" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new placeobject_def)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="doc_structure_single_def" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new single_def)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_fill_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_fill_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_fill_path_no_tiling" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_fill_path_no_tiling)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_fill_shape" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_fill_shape)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_fill_shape_no_tiling" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_fill_shape_no_tiling)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_matrix_fill_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_matrix_fill_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_matrix_fill_path_no_tiling" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_matrix_fill_path_no_tiling)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_matrix_fill_shape" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_matrix_fill_shape)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_bitmap_fill_bitmap_matrix_fill_shape_no_tiling" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmap_matrix_fill_shape_no_tiling)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_path_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_path_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_path_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_path_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_path_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_path_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_path_spread2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_path_spread2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_shape" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_shape)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_shape_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_shape_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_shape_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_shape_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_linear_gradient_linear_gradient_fill_shape_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_fill_shape_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_path_focal_point" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_path_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+             <TestCase testID="fill_radial_gradient_radial_gradient_fill_path_focal_point2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_path_focal_point2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>       
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_path_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_path_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_path_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_path_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_path_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_path_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_path_spread2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_path_spread2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>    
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_shape_focal_point" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_shape_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_shape_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_radial_gradient_radial_gradient_fill_shape_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="fill_solid_color_solid_color_fill_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_fill_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="fill_solid_color_solid_color_fill_path2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_fill_path2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="fill_solid_color_solid_color_fill_shape" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_fill_shape)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+    <TestCase testID="filters_bevelfilter" keywords="[fxg]" description="BitmapGraphic: angle,distance,highlightColor,shadowColor,type">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new bevelfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>     
+    <TestCase testID="filters_bevelfilter2" keywords="[fxg]" description="LinearGradient fill: blurX,blurY,distance,quality,type">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new bevelfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_bevelfilter3" keywords="[fxg]" description="RadialGradient fill: distance,highlightAlpha,highlightColor,shadowAlpha,shadowColor,type">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new bevelfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase> 
+    <TestCase testID="filters_bevelfilter4" keywords="[fxg]" description="BitmapFill: distance,highlightAlpha,highlightColor,shadowAlpha,shadowColor,strength">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new bevelfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_bevelfilter5" keywords="[fxg]" description="SolidColor fill: distance,highlightAlpha,highlightColor,shadowAlpha,shadowColor,knockout">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new bevelfilter5)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_bevelfilter6" keywords="[fxg]" description="Close path LinearGradient fill: distance,strength">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new bevelfilter6)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="filters_blurfilter" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new blurfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>     
+        
+    <TestCase testID="filters_dropshadowfilter" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new dropshadowfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+        
+        
+    <TestCase testID="filters_filters_blend" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new filters_blend)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+        
+        
+    <TestCase testID="filters_filters_group" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new filters_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+        
+        
+    <TestCase testID="filters_filters_transform" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new filters_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="16" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+    <TestCase testID="filters_glowfilter" keywords="[fxg]" description="BitmapGraphic. alpha='0.5' color='#8A2BE2'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new glowfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_glowfilter2" keywords="[fxg]" description="LinearGradient fill. alpha='0.5' color='#8A2BE2'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new glowfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_glowfilter3" keywords="[fxg]" description="Radial Gradient Fill.blurX='2' blurY='4' quality='2' strength='0.5' color='#8A2BE2' inner='true'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new glowfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_glowfilter4" keywords="[fxg]" description="Bitmap Fill. blurX='2' blurY='4' quality='2' strength='0.5' color='#8A2BE2' inner='true'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new glowfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_glowfilter5" keywords="[fxg]" description="SolidColor fill. inner='true', knockout='true' color='8A2BE2'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new glowfilter5)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_glowfilter6" keywords="[fxg]" description="Close path LinearGradient Fill. inner='true', knockout='true' color='8A2BE2'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new glowfilter6)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+    <TestCase testID="filters_gradientbevelfilter" keywords="[fxg]" description="BitmapGraphic:angle='135' distance='15' type='inner'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new gradientbevelfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientbevelfilter2" keywords="[fxg]" description="LinearGradient fill. angle='135' distance='15' type='inner'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new gradientbevelfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>    
+    <TestCase testID="filters_gradientbevelfilter3" keywords="[fxg]" description="RadialGradient fill.blurX='2' blurY='4' quality='2' type='full'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new gradientbevelfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientbevelfilter4" keywords="[fxg]" description="BitmapFill. blurX='2' blurY='4' quality='2' type='full'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new gradientbevelfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientbevelfilter5" keywords="[fxg]" description="SolidColor fill. knockout='true' strength='0.5' type='outer'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new gradientbevelfilter5)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientbevelfilter6" keywords="[fxg]" description="Close path LinearGradient fill. knockout='true' strength='0.5' type='outer'">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new gradientbevelfilter6)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+    <TestCase testID="filters_gradientglowfilter" keywords="[fxg]" description="BitmapGraphic. strength=255.0">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new gradientglowfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientglowfilter2" keywords="[fxg]" description="LinearGradient fill. strength=255.0">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new gradientglowfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientglowfilter3" keywords="[fxg]" description="RadialGradient fill: blurX=2 blurY=4 quality=2 strength=0.5">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new gradientglowfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientglowfilter4" keywords="[fxg]" description="BitmapFill: blurX=2 blurY=4 quality=2 strength=0.5">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new gradientglowfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientglowfilter5" keywords="[fxg]" description="SolidColor: knockout=true">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new gradientglowfilter5)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_gradientglowfilter6" keywords="[fxg]" description="Close path LinearGradient fill. knockout=true">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new gradientglowfilter6)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    
+        <TestCase testID="filters_hue_colormatrixfilter" keywords="[fxg]" description="BitmapGraphic">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new hue_colormatrixfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        <TestCase testID="filters_hue_colormatrixfilter2" keywords="[fxg]" description="LinearGradientFill">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new hue_colormatrixfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase> 
+        <TestCase testID="filters_hue_colormatrixfilter3" keywords="[fxg]" description="RadialGradientFill">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new hue_colormatrixfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        <TestCase testID="filters_hue_colormatrixfilter4" keywords="[fxg]" description="BitmapFill">
+        <setup>
+        <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+        <RunCode code="application.grp.addElement(new hue_colormatrixfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+        <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+
+    
+        <TestCase testID="filters_luminance_colormatrixfilter" keywords="[fxg]" description="BitmapGraphic">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new luminance_colormatrixfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+        </TestCase>
+        <TestCase testID="filters_luminance_colormatrixfilter2" keywords="[fxg]" description="LinearGradient fill">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new luminance_colormatrixfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+        </TestCase> 
+        <TestCase testID="filters_luminance_colormatrixfilter3" keywords="[fxg]" description="RadialGradient">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new luminance_colormatrixfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+        </TestCase>
+        <TestCase testID="filters_luminance_colormatrixfilter4" keywords="[fxg]" description="BitmapFill">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new luminance_colormatrixfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="filters_saturation_colormatrixfilter" keywords="[fxg]" description="BitmapGraphic">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new saturation_colormatrixfilter)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="filters_saturation_colormatrixfilter2" keywords="[fxg]" description="LinearGradient">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new saturation_colormatrixfilter2)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase> 
+    <TestCase testID="filters_saturation_colormatrixfilter3" keywords="[fxg]" description="RadialGradient">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new saturation_colormatrixfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase> 
+    <TestCase testID="filters_saturation_colormatrixfilter4" keywords="[fxg]" description="BitmapFill">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new saturation_colormatrixfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+        </body>
+    </TestCase>
+        
+    <TestCase testID="mask_alpha_mask" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new alpha_mask)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="mask_clip_mask" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new clip_mask)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="mask_mask_group" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new mask_group)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="mask_mask_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new mask_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+            
+        
+        
+            <TestCase testID="mask_mask_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new mask_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase> 
+        
+            <TestCase testID="paths_closepath_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new closepath_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="paths_closepath_path2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new closepath_path2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="paths_cubicbezier_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new cubicbezier_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="paths_line" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new line)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="paths_lineto_path" keywords="[fxg]" description="Test lineto commands (L, l) and multiple cooridinates. M 50 100 L 100 150 L 150 100 L 200 150 250 100">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new lineto_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="paths_lineto_path2" keywords="[fxg]" description="Test lineto commands (H, h, V, v) horizontal line and multiple cooridinates.M 50 50 H 100 V 100 H 125 150 V 125 150 h 50 v 50 h -100 -50 v -100 -50">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new lineto_path2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="paths_moveto_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new moveto_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="38" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+            <TestCase testID="paths_moveto_path_mac" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new moveto_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="24" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>     
+        
+        
+            <TestCase testID="paths_quadbezier_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quadbezier_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="36" ignoreMaxColorVariance="true" target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="paths_quadbezier_path2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quadbezier_path2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="36" ignoreMaxColorVariance="true" target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="paths_winding_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new winding_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="18" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_alpha_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new alpha_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_bitmapgraphic_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new bitmapgraphic_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <!--<TestCase testID="scale9_blendmode_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new blendmode_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+            -->
+        
+        
+            <TestCase testID="scale9_narrowgrid_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new narrowgrid_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="scale9_narrowgrid_scale92" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new narrowgrid_scale92)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="scale9_nineellipses_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new nineellipses_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_paths_abs_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_abs_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_paths_rel_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_rel_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_paths_staircase_abs_scalegroup" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_staircase_abs_scalegroup)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_paths_staircase_rel_scalegroup" keywords="[fxg]">
+                <setup>
+                    <!--<ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>-->
+                    <RunCode code="application.grp.addElement(new paths_staircase_rel_scalegroup)" waitEvent="updateComplete" waitTarget="grp"/>
+<Pause timeout="5000" />
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_rect_scalegridgroup" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect_scalegridgroup)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_rect_scalegridrotationgroup" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect_scalegridrotationgroup)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_shape_bmpgraphic_scalegridgroup" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new shape_bmpgraphic_scalegridgroup)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="scale9_superimposedgrid_scale9" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new superimposedgrid_scale9)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="shapes_ellipse" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new ellipse)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="shapes_rect" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="shapes_rect2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_path" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_path)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_path_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_path_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_path_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_path_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_path_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_path_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_shape" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_shape)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_shape_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_shape_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_shape_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_shape_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_linear_gradient_stroke_linear_gradient_stroke_shape_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new linear_gradient_stroke_shape_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_path_focal_point" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_path_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_path_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_path_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_shape_focal_point" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_shape_interpolation" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_shape_matrix" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_radial_gradient_stroke_radial_gradient_stroke_shape_spread" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_spread)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_path_alpha" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_path_alpha)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_path_caps" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_path_caps)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_path_joints" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_path_joints)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_path_pixel_hinting" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_path_pixel_hinting)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_path_scale_mode" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_path_scale_mode)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_shape_alpha" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_shape_alpha)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_shape_caps" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_shape_caps)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_shape_joints" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_shape_joints)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_shape_pixel_hinting" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_shape_pixel_hinting)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_shape_scale_mode" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_shape_scale_mode)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="stroke_solid_color_stroke_solid_color_stroke_shape_scale_mode2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new solid_color_stroke_shape_scale_mode2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="transforms_color_transform_ellipse_ellipse_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new ellipse_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_cubic_bezier_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new cubic_bezier_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_ellipse_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new ellipse_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_lines_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new lines_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_paths_straight_absolute_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_absolute_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_paths_straight_relative_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_relative_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_path_absolute_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new path_absolute_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_quad_bezier_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quad_bezier_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_Group_rect_fills_strokes_group_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect_fills_strokes_group_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_line_lines_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new lines_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_path_cubic_bezier_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new cubic_bezier_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_path_paths_straight_absolute_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_absolute_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_path_paths_straight_relative_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_relative_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_path_path_absolute_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new path_absolute_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_path_quad_bezier_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quad_bezier_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="10" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_color_transform_rect_rect_fills_strokes_color_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect_fills_strokes_color_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_ellipse_ellipse_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new ellipse_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="transforms_matrix_ellipse_ellipse_fills_strokes_matrix_transform2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new ellipse_fills_strokes_matrix_transform2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="transforms_matrix_Group_cubic_bezier_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new cubic_bezier_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_Group_ellipse_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new ellipse_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_Group_lines_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new lines_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_Group_paths_straight_absolute_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_absolute_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_Group_paths_straight_relative_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_relative_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_Group_path_absolute_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new path_absolute_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_Group_quad_bezier_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quad_bezier_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+            <TestCase testID="transforms_matrix_Group_quad_bezier_fills_strokes_group_matrix_transform2" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quad_bezier_fills_strokes_group_matrix_transform2)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>     
+        
+        
+            <TestCase testID="transforms_matrix_Group_rect_fills_strokes_group_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect_fills_strokes_group_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_line_lines_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new lines_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_path_cubic_bezier_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new cubic_bezier_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_path_paths_straight_absolute_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_absolute_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_path_paths_straight_relative_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new paths_straight_relative_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_path_path_absolute_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new path_absolute_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_path_quad_bezier_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new quad_bezier_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="transforms_matrix_rect_rect_fills_strokes_matrix_transform" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new rect_fills_strokes_matrix_transform)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        
+            <TestCase testID="visibility_visibility" keywords="[fxg]">
+                <setup>
+                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+                    <RunCode code="application.grp.addElement(new visibility)" waitEvent="updateComplete" waitTarget="grp"/>
+                </setup>
+                <body>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
+                </body>
+            </TestCase>
+        
+        
+        </testCases>
+</UnitTester>

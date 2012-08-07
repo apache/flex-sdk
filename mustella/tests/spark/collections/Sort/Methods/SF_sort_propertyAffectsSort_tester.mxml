@@ -1,0 +1,212 @@
+<UnitTester testDir="spark/collections/Sort/Methods/" testSWF="SF_sort_propertyAffectsSort.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+	<mx:Script><![CDATA[
+		import flash.globalization.LastOperationStatus;
+		import assets.newClasses.SFConstant;
+		
+		public static function init(o:DisplayObject):void
+		{
+			
+		}
+	]]></mx:Script>
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>
+	<testCases>
+		<TestCase testID="Sort_method_propertyAffectsSort_noFields_inline_1" keywords="[Sort, propertyAffectsSort, noFields]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'sex' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Sort_method_propertyAffectsSort_noFields_script_2" keywords="[Sort, propertyAffectsSort, noFields]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'sex' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_oneField_inline_3" keywords="[Sort, propertyAffectsSort, oneField]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'name' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_oneField_script_4" keywords="[Sort, propertyAffectsSort, oneField]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'name' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_oneField_inline_5" keywords="[Sort, propertyAffectsSort, oneField]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'sex' )" valueExpression="value=false"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_oneField_script_6" keywords="[Sort, propertyAffectsSort, oneField]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addField(application.stComp.sf1)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'sex' )" valueExpression="value=false"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_twoFields_inline_7" keywords="[Sort, propertyAffectsSort, twoFields]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'address' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_twoFields_script_8" keywords="[Sort, propertyAffectsSort, twoFields]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'address' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_twoFields_inline_9" keywords="[Sort, propertyAffectsSort, twoFields]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'sex' )" valueExpression="value=false"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_twoFields_script_10" keywords="[Sort, propertyAffectsSort, twoFields]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'sex' )" valueExpression="value=false"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_customSortCF_inline_11" keywords="[Sort, propertyAffectsSort, customSortCF]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+				<RunCode code="application.stComp.setSortCF()"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'sex' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_customSortCF_script_12" keywords="[Sort, propertyAffectsSort, customSortCF]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+				<RunCode code="application.stComp.setSortCF()"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'sex' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_customSortFieldCF_inline_13" keywords="[Sort, propertyAffectsSort, customSortCF]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+				<RunCode code="application.stComp.setSortFieldCF()"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,'sex' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_customSortFieldCF_script_14" keywords="[Sort, propertyAffectsSort, customSortCF]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+				<RunCode code="application.stComp.setSortFieldCF()"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,'sex' )" valueExpression="value=true"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_noParam_inline_15" keywords="[Sort, propertyAffectsSort, noParam]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.st,null )" valueExpression="value=false"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Sort_method_propertyAffectsSort_noParam_script_16" keywords="[Sort, propertyAffectsSort, noParam]">
+			<setup>
+				<ResetComponent target="stComp" className="newComps.CustComp_sort_propertyAffectsSort" waitEvent="updateComplete"/>
+				<RunCode code="application.stComp.addAllFields(application.stComp.sf1,application.stComp.sf2)"/>
+				<Pause timeout="{SFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.stComp.tryCallFunc(application.stComp.stScript,null )" valueExpression="value=false"/>
+				<AssertPropertyValue target="stComp.errLabel" propertyName="text" value="No Error"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

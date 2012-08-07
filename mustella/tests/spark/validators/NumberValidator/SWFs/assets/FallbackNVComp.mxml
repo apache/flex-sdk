@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+		 updateComplete="updateCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.LastOperationStatus;
+			import flash.globalization.LocaleID;
+			
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			
+			import spark.globalization.supportClasses.GlobalizationBase;
+			import spark.validators.NumberValidator;
+			import spark.validators.supportClasses.GlobalizationValidatorBase;
+			
+			use namespace mx_internal;
+			[Bindable]
+			public var nvScript:NumberValidator = new NumberValidator();
+
+			public var nvScriptUndefinedLocale:NumberValidator = new NumberValidator();
+			//instance for validateAll
+			public var nvAll3Script:NumberValidator = new NumberValidator();
+			//instance for validate
+			public var nvVScript:NumberValidator = new NumberValidator();
+			//instance for validateNumber
+			public var nvVNScript:NumberValidator = new NumberValidator();
+			private var _validatorsArr:Array;
+			
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				var localeID:LocaleID = new LocaleID('en-US');
+				
+				if(localeID.lastOperationStatus != LastOperationStatus.UNSUPPORTED_ERROR)
+				{
+					nf.enforceFallback= true;
+					nv.enforceFallback= true;
+					nvUndefinedLocale.enforceFallback = true;
+					nvScript.enforceFallback = true;
+					nvScriptUndefinedLocale.enforceFallback = true;
+					
+					nvAll1.enforceFallback= true;
+					nvAll2.enforceFallback= true;
+					nvAll3Script.enforceFallback = true;
+					
+					nvV.enforceFallback = true;
+					nvVScript.enforceFallback = true;
+					
+					nvVN.enforceFallback = true;
+					nvVNScript.enforceFallback = true;
+				}
+				
+				this.addStyleClient(nvScript);
+				this.addStyleClient(nvScriptUndefinedLocale);
+				this.addStyleClient(nvAll3Script);
+				this.addStyleClient(nvVScript);
+				this.addStyleClient(nvVNScript);
+			}
+
+			private function initValidatorArray():void {
+				_validatorsArr = [nvAll1,nvAll2,nvAll3Script];
+			}
+			
+			protected function triBT_clickHandler(event:MouseEvent):void
+			{
+				initValidatorArray();
+				
+				var resultArr:Array = GlobalizationValidatorBase.validateAll(_validatorsArr);
+				if (resultArr != null) {
+					nvAllResultL.text = new String(resultArr.length);
+				} else {
+					nvAllResultL.text = "";
+				}
+			}
+
+
+			protected function triBTVN_clickHandler(event:MouseEvent):void
+			{
+				var resultArr:Array ; 
+				
+				if (nvVNtypeTI.text == 'nvVN') 
+				{ 
+					resultArr = nvVN.validateNumber( nvVNTI.text , null  ) ; 
+				} 
+				else if ( nvVNtypeTI.text == 'nvVNScript')
+				{  
+					resultArr = nvVNScript.validateNumber(nvVNTI.text , "text") ; 
+				} 
+				
+				if (resultArr != null) 
+				{
+					if ( (resultArr.length == 1) && ( resultArr[0].isError == true  ) ) 
+					{
+						nvVNResultTI.text = "invalid";
+					}
+					else if ( (resultArr.length == 1) && ( resultArr[0].isError == false  ) ) 
+					{
+						nvVNResultTI.text = "valid";
+					}
+					else if ( resultArr.length == 0 ) 
+					{
+						nvVNResultTI.text = "noValidateError";
+					}
+				} 
+				else 
+				{
+					nvVNResultTI.text = "NoResult";
+				}
+			}
+			
+			public function validateNumberNullInput():void
+			{
+				var resultArr:Array ;
+				
+				if (nvVNtypeTI.text == 'nvVN') 
+				{ 
+					resultArr = nvVN.validateNumber('', null) ; 
+				} 
+				else if ( nvVNtypeTI.text == 'nvVNScript')
+				{  
+					resultArr = nvVNScript.validateNumber('', "text") ; 
+				} 
+				
+				if (resultArr.length != 0) 
+				{
+					nvVNResultTI.text = "hasResult";
+				} 
+				else 
+				{
+					nvVNResultTI.text = "NoResult";
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:NumberFormatter id="nf"/>
+		<s:NumberValidator id="nv"/>
+		<s:NumberValidator id="nvUndefinedLocale"/>
+		
+		<!--Instances for validateAll-->
+		<s:NumberValidator id="nvAll1"/>
+		<s:NumberValidator id="nvAll2"/>
+		
+		<!--Instance for validate-->
+		<s:NumberValidator id="nvV"/>
+		
+		<!--Instance for validateNumber-->
+		<s:NumberValidator id="nvVN"/>
+
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<!--controls for actualLocaleIDName property-->
+	<s:Label id="nvL" text="{nv.actualLocaleIDName}"/>
+	<s:Label id="nvScriptL" text="{nvScript.actualLocaleIDName}"/>
+	
+	<!--controls for validateAll method-->
+	<s:TextInput id="nvAll1TI"/>
+	<s:TextInput id="nvAll2TI"/>
+	<s:TextInput id="nvAll3ScriptTI"/>
+	<s:Button id="triBT" label="triBT" click="triBT_clickHandler(event)"/>
+	<s:Label id="nvAllResultL"/>
+	
+	<!--controls for validate method-->
+	<s:TextInput id="nvVTI"/>
+	<s:Button id="triBTV"/>
+	
+	<!--controls for validateNumber-->
+	<s:TextInput id="nvVNtypeTI"/>
+	<s:TextInput id="nvVNTI"/>
+	<s:TextInput id="nvVNResultTI"/>
+	<s:Button id="triBTVN" click="triBTVN_clickHandler(event)"/>
+
+</s:Group>

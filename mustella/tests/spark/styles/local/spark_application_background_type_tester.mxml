@@ -1,0 +1,64 @@
+<UnitTester testDir="spark/styles/local/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="spark_application_background_type.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <fx:Style>
+    	.myStyle{
+			backgroundColor: #00FF00;
+			backgroundAlpha: 0.5;
+		}
+    </fx:Style>
+    <testCases>    
+
+  		<TestCase testID="backgroundColor_backgroundAlpha_typeSelector" keywords="[borderVisible]" description="Test setting backgroundAlpha and backgroundColor">
+  			<body>
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target=""/>
+		
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target="spnl"/>
+		
+				<AssertStyleValue styleName="backgroundColor" value="16711680" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="1" target="mxpnl"/>
+				
+				<CompareBitmap target="" url="../local/baselines/$testID.png" />
+  			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="backgroundColor_backgroundAlpha_typeSelector_change" keywords="[borderVisible]" description="Test setting backgroundAlpha and backgroundColor">
+			<setup>
+				<SetProperty propertyName="styleName" target="" value="myStyle"/>
+				<SetProperty propertyName="styleName" target="spnl" value="myStyle"/>
+				<SetProperty propertyName="styleName" target="mxpnl" value="myStyle" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="backgroundColor" value="65280" target=""/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target=""/>
+
+				<AssertStyleValue styleName="backgroundColor" value="65280" target="spnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target="spnl"/>
+
+				<AssertStyleValue styleName="backgroundColor" value="65280" target="mxpnl"/>
+				<AssertStyleValue styleName="backgroundAlpha" value="0.5" target="mxpnl"/>
+
+				<CompareBitmap target="" url="../local/baselines/$testID.png" />
+			</body>
+  		</TestCase>
+   </testCases>
+</UnitTester>

@@ -1,0 +1,176 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+    <!--need to add long video minutes, long video hours - something that will truncate-->
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_Default"
+            keywords="[VideoPlayer]"
+            description="Test the default value of the durationDisplay.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.durationDisplay" url="../property/baseline/$testID.png" />
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:00"/>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="isTruncated" value="false"/>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="showTruncationTip" value="false"/><AssertPropertyValue target="testPlayer.durationDisplay" propertyName="maxDisplayedLines" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_withSource_S"
+            keywords="[VideoPlayer]"
+            description="Test the default value of the durationDisplay.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid"/>
+		<Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="1:52"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_playToEnd_autoRewindTrue_S"
+            keywords="[VideoPlayer]"
+            description="Test the durationDisplay after video is rewound.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+		<Pause timeout="6000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_changeSource_S"
+            keywords="[VideoPlayer]"
+            description="Test the durationDisplay after video source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid"/>
+		<Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="1:52"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream"/>
+		<Pause timeout="4000"/>
+		<AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_removeSource_S"
+            keywords="[VideoPlayer]"
+            description="Test the durationDisplay after source is removed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVidStream"/>
+		<Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+		<RunCode code="application.testPlayer.source = null"/>
+		<Pause timeout="4000"/>
+		<AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_withSource_P"
+            keywords="[VideoPlayer]"
+            description="Test the default value of the durationDisplay.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_playToEnd_autoRewindTrue_P"
+            keywords="[VideoPlayer]"
+            description="Test the durationDisplay after video is rewound.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.seek(9)"/>
+		<Pause timeout="6000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_playToEnd_changeSource_P"
+            keywords="[VideoPlayer]"
+            description="Test the durationDisplay after video source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:16"/>
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="5000"/>
+		<AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_durationDisplay_playToEnd_removeSource_P"
+            keywords="[VideoPlayer]"
+            description="Test the durationDisplay after source is removed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.GreenBoxVid"/>
+		<Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:10"/>
+		<RunCode code="application.testPlayer.source = null" waitTarget="testPlayer"/>
+		<Pause timeout="5000"/>
+		<AssertPropertyValue target="testPlayer.durationDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

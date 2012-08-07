@@ -1,0 +1,754 @@
+<UnitTester testDir="spark/validators/NumberValidator/Properties/" testSWF="NV_errorMessages_Main.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+  <mx:Script><![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+  <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+  <testCases>
+    <TestCase testID="NV_decimalPointCountError_default_test1" description="the test case is for test default decimalPointCountError" keywords="[NumberValidator, decimalPointCountError]">
+      <body>
+        <AssertPropertyValue target="nvDecimalPointCountError" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_decimalPointCountError_valid_script_test2" description="the test case is for test set valid value to decimalPointCountError" keywords="[NumberValidator, decimalPointCountError]">
+      <setup>
+        <SetStyle target="nvScriptDecimalPointCountError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptDecimalPointCountError" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+		  <!--there is no event dispatched when value changed, so use Pause here-->
+		<Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptDecimalPointCountError" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+        <AssertPropertyValue target="nvScriptDecimalPointCountError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_decimalPointCountError_inline_test3" description="the test case is for test set valid value to decimalPointCountError inline" keywords="[NumberValidator, decimalPointCountError]">
+      <setup>
+        <SetStyle target="nvInlineDecimalPointCountError" styleName="locale" value="ja-JP" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineDecimalPointCountError" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorTest"/>
+        <AssertPropertyValue target="nvInlineDecimalPointCountError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_decimalPointCountError_invalid_null_script_test4" description="the test case is for test set invalid value to decimalPointCountError" keywords="[NumberValidator, decimalPointCountError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidDecimalPointCountError" styleName="locale" value="de-DE" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidDecimalPointCountError,'decimalPointCountError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidDecimalPointCountError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvScriptInvalidDecimalPointCountError" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_decimalPointCountError_invalid_empty_test5" description="the test case is for test set invalid value to decimalPointCountError" keywords="[NumberValidator, decimalPointCountError]">
+      <setup>
+        <SetStyle target="nvInvalidDecimalPointCountError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidDecimalPointCountError,'decimalPointCountError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidDecimalPointCountError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidDecimalPointCountError" propertyName="decimalPointCountError" valueExpression="value=application.decimalPointCountErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_greaterThanMaxError_default_test6" description="the test case is for test default greaterThanMaxError" keywords="[NumberValidator, greaterThanMaxError]">
+      <body>
+        <AssertPropertyValue target="nvGreaterThanMaxError" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_greaterThanMaxError_valid_script_test7" description="the test case is for test set valid value to greaterThanMaxError" keywords="[NumberValidator, greaterThanMaxError]">
+      <setup>
+        <SetStyle target="nvScriptGreaterThanMaxError" styleName="locale" value="zh-CN" waitEvent="change"/>
+        <SetProperty target="nvScriptGreaterThanMaxError" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+		<Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptGreaterThanMaxError" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+        <AssertPropertyValue target="nvScriptGreaterThanMaxError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_greaterThanMaxError_inline_test8" description="the test case is for test set valid value to greaterThanMaxError inline" keywords="[NumberValidator, greaterThanMaxError]">
+      <setup>
+        <SetStyle target="nvInlineGreaterThanMaxError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineGreaterThanMaxError" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorTest"/>
+        <AssertPropertyValue target="nvInlineGreaterThanMaxError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_greaterThanMaxError_invalid_null_script_test9" description="the test case is for test set invalid value to greaterThanMaxError" keywords="[NumberValidator, greaterThanMaxError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidGreaterThanMaxError" styleName="locale" value="fr-CA" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidGreaterThanMaxError,'greaterThanMaxError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidGreaterThanMaxError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidGreaterThanMaxError" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_greaterThanMaxError_invalid_empty_test10" description="the test case is for test set invalid value to greaterThanMaxError" keywords="[NumberValidator, greaterThanMaxError]">
+      <setup>
+        <SetStyle target="nvInvalidGreaterThanMaxError" styleName="locale" value="fr-CH" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidGreaterThanMaxError,'greaterThanMaxError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidGreaterThanMaxError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		  <AssertPropertyValue target="nvInvalidGreaterThanMaxError" propertyName="greaterThanMaxError" valueExpression="value=application.greaterThanMaxErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_fractionalDigitsError_default_test11" description="the test case is for test default fractionalDigitsError" keywords="[NumberValidator, fractionalDigitsError]">
+      <body>
+        <AssertPropertyValue target="nvFractionalDigitsError" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_fractionalDigitsError_valid_script_test12" description="the test case is for test set valid value to fractionalDigitsError" keywords="[NumberValidator, fractionalDigitsError]">
+      <setup>
+        <SetStyle target="nvScriptFractionalDigitsError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptFractionalDigitsError" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+	  </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptFractionalDigitsError" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+        <AssertPropertyValue target="nvScriptFractionalDigitsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_fractionalDigitsError_inline_test13" description="the test case is for test set valid value to fractionalDigitsError inline" keywords="[NumberValidator, fractionalDigitsError]">
+      <setup>
+        <SetStyle target="nvInlineFractionalDigitsError" styleName="locale" value="ar-SA" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineFractionalDigitsError" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorTest"/>
+        <AssertPropertyValue target="nvInlineFractionalDigitsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_fractionalDigitsError_invalid_null_script_test14" description="the test case is for test set invalid value to fractionalDigitsError" keywords="[NumberValidator, fractionalDigitsError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidFractionalDigitsError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidFractionalDigitsError,'fractionalDigitsError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidFractionalDigitsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidFractionalDigitsError" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_fractionalDigitsError_invalid_empty_test15" description="the test case is for test set invalid value to fractionalDigitsError" keywords="[NumberValidator, fractionalDigitsError]">
+      <setup>
+        <SetStyle target="nvInvalidFractionalDigitsError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidFractionalDigitsError,'fractionalDigitsError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidFractionalDigitsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidFractionalDigitsError" propertyName="fractionalDigitsError" valueExpression="value=application.fractionalDigitsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_notAnIntegerError_default_test21" description="the test case is for test default notAnIntegerError" keywords="[NumberValidator, notAnIntegerError]">
+      <body>
+        <AssertPropertyValue target="nvNotAnIntegerError" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_notAnIntegerError_valid_script_test22" description="the test case is for test set valid value to notAnIntegerError" keywords="[NumberValidator, notAnIntegerError]">
+      <setup>
+        <SetStyle target="nvScriptNotAnIntegerError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptNotAnIntegerError" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptNotAnIntegerError" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+        <AssertPropertyValue target="nvScriptNotAnIntegerError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_notAnIntegerError_inline_test23" description="the test case is for test set valid value to notAnIntegerError inline" keywords="[NumberValidator, notAnIntegerError]">
+      <setup>
+        <SetStyle target="nvInlineNotAnIntegerError" styleName="locale" value="de-DE" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineNotAnIntegerError" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorTest"/>
+        <AssertPropertyValue target="nvInlineNotAnIntegerError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_notAnIntegerError_invalid_null_script_test24" description="the test case is for test set invalid value to notAnIntegerError" keywords="[NumberValidator, notAnIntegerError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidNotAnIntegerError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidNotAnIntegerError,'notAnIntegerError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidNotAnIntegerError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidNotAnIntegerError" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_notAnIntegerError_invalid_empty_test25" description="the test case is for test set invalid value to notAnIntegerError" keywords="[NumberValidator, notAnIntegerError]">
+      <setup>
+        <SetStyle target="nvInvalidNotAnIntegerError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidNotAnIntegerError,'notAnIntegerError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidNotAnIntegerError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidNotAnIntegerError" propertyName="notAnIntegerError" valueExpression="value=application.notAnIntegerErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidCharError_default_test26" description="the test case is for test default invalidCharError" keywords="[NumberValidator, invalidCharError]">
+      <body>
+        <AssertPropertyValue target="nvInvalidCharError" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidCharError_valid_script_test27" description="the test case is for test set valid value to invalidCharError" keywords="[NumberValidator, invalidCharError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidCharError" styleName="locale" value="en-GB" waitEvent="change"/>
+        <SetProperty target="nvScriptInvalidCharError" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptInvalidCharError" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+        <AssertPropertyValue target="nvScriptInvalidCharError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidCharError_inline_test28" description="the test case is for test set valid value to invalidCharError inline" keywords="[NumberValidator, invalidCharError]">
+      <setup>
+        <SetStyle target="nvInlineInvalidCharError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineInvalidCharError" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorTest"/>
+        <AssertPropertyValue target="nvInlineInvalidCharError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidCharError_invalid_null_script_test29" description="the test case is for test set invalid value to invalidCharError" keywords="[NumberValidator, invalidCharError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidInvalidCharError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidInvalidCharError,'invalidCharError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidInvalidCharError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidInvalidCharError" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidCharError_invalid_empty_test30" description="the test case is for test set invalid value to invalidCharError" keywords="[NumberValidator, invalidCharError]">
+      <setup>
+        <SetStyle target="nvInvalidInvalidCharError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidInvalidCharError,'invalidCharError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidInvalidCharError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidInvalidCharError" propertyName="invalidCharError" valueExpression="value=application.invalidCharErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidFormatCharsError_default_test31" description="the test case is for test default invalidFormatCharsError" keywords="[NumberValidator, invalidFormatCharsError]">
+      <body>
+        <AssertPropertyValue target="nvInvalidFormatCharsError" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidFormatCharsError_valid_script_test32" description="the test case is for test set valid value to invalidFormatCharsError" keywords="[NumberValidator, invalidFormatCharsError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidFormatCharsError" styleName="locale" value="zh-CN" waitEvent="change"/>
+        <SetProperty target="nvScriptInvalidFormatCharsError" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptInvalidFormatCharsError" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+        <AssertPropertyValue target="nvScriptInvalidFormatCharsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidFormatCharsError_inline_test33" description="the test case is for test set valid value to invalidFormatCharsError inline" keywords="[NumberValidator, invalidFormatCharsError]">
+      <setup>
+        <SetStyle target="nvInlineInvalidFormatCharsError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineInvalidFormatCharsError" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorTest"/>
+        <AssertPropertyValue target="nvInlineInvalidFormatCharsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidFormatCharsError_invalid_null_script_test34" description="the test case is for test set invalid value to invalidFormatCharsError" keywords="[NumberValidator, invalidFormatCharsError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidInvalidFormatCharsError" styleName="locale" value="zh-CN" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidInvalidFormatCharsError,'invalidFormatCharsError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidInvalidFormatCharsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidInvalidFormatCharsError" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_invalidFormatCharsError_invalid_empty_test35" description="the test case is for test set invalid value to invalidFormatCharsError" keywords="[NumberValidator, invalidFormatCharsError]">
+      <setup>
+        <SetStyle target="nvInvalidInvalidFormatCharsError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidInvalidFormatCharsError,'invalidFormatCharsError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidInvalidFormatCharsError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidInvalidFormatCharsError" propertyName="invalidFormatCharsError" valueExpression="value=application.invalidFormatCharsErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_lessThanMinError_default_test36" description="the test case is for test default lessThanMinError" keywords="[NumberValidator, lessThanMinError]">
+      <body>
+        <AssertPropertyValue target="nvLessThanMinError" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_lessThanMinError_valid_script_test37" description="the test case is for test set valid value to lessThanMinError" keywords="[NumberValidator, lessThanMinError]">
+      <setup>
+        <SetStyle target="nvScriptLessThanMinError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptLessThanMinError" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptLessThanMinError" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+        <AssertPropertyValue target="nvScriptLessThanMinError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_lessThanMinError_inline_test38" description="the test case is for test set valid value to lessThanMinError inline" keywords="[NumberValidator, lessThanMinError]">
+      <setup>
+        <SetStyle target="nvInlineLessThanMinError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineLessThanMinError" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorTest"/>
+        <AssertPropertyValue target="nvInlineLessThanMinError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_lessThanMinError_invalid_null_script_test39" description="the test case is for test set invalid value to lessThanMinError" keywords="[NumberValidator, lessThanMinError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidLessThanMinError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidLessThanMinError,'lessThanMinError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidLessThanMinError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidLessThanMinError" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_lessThanMinError_invalid_empty_test40" description="the test case is for test set invalid value to lessThanMinError" keywords="[NumberValidator, lessThanMinError]">
+      <setup>
+        <SetStyle target="nvInvalidLessThanMinError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidLessThanMinError,'lessThanMinError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidLessThanMinError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvInvalidLessThanMinError" propertyName="lessThanMinError" valueExpression="value=application.lessThanMinErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeError_default_test41" description="the test case is for test default negativeError" keywords="[NumberValidator, negativeError]">
+      <body>
+        <AssertPropertyValue target="nvNegativeError" propertyName="negativeError" valueExpression="value=application.negativeErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeError_valid_script_test42" description="the test case is for test set valid value to negativeError" keywords="[NumberValidator, negativeError]">
+      <setup>
+        <SetStyle target="nvScriptNegativeError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptNegativeError" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptNegativeError" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+        <AssertPropertyValue target="nvScriptNegativeError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeError_inline_test43" description="the test case is for test set valid value to negativeError inline" keywords="[NumberValidator, negativeError]">
+      <setup>
+        <SetStyle target="nvInlineNegativeError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineNegativeError" propertyName="negativeError" valueExpression="value=application.negativeErrorTest"/>
+        <AssertPropertyValue target="nvInlineNegativeError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeError_invalid_null_script_test44" description="the test case is for test set invalid value to negativeError" keywords="[NumberValidator, negativeError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidNegativeError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidNegativeError,'negativeError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidNegativeError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidNegativeError" propertyName="negativeError" valueExpression="value=application.negativeErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeError_invalid_empty_test45" description="the test case is for test set invalid value to negativeError" keywords="[NumberValidator, negativeError]">
+      <setup>
+        <SetStyle target="nvInvalidNegativeError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidNegativeError,'negativeError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidNegativeError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		  <AssertPropertyValue target="nvInvalidNegativeError" propertyName="negativeError" valueExpression="value=application.negativeErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeSymbolError_default_test46" description="the test case is for test default negativeSymbolError" keywords="[NumberValidator, negativeSymbolError]">
+      <body>
+        <AssertPropertyValue target="nvNegativeSymbolError" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeSymbolError_valid_script_test47" description="the test case is for test set valid value to negativeSymbolError" keywords="[NumberValidator, negativeSymbolError]">
+      <setup>
+        <SetStyle target="nvScriptNegativeSymbolError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptNegativeSymbolError" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptNegativeSymbolError" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+        <AssertPropertyValue target="nvScriptNegativeSymbolError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeSymbolError_inline_test48" description="the test case is for test set valid value to negativeSymbolError inline" keywords="[NumberValidator, negativeSymbolError]">
+      <setup>
+        <SetStyle target="nvInlineNegativeSymbolError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineNegativeSymbolError" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorTest"/>
+        <AssertPropertyValue target="nvInlineNegativeSymbolError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeSymbolError_invalid_null_script_test49" description="the test case is for test set invalid value to negativeSymbolError" keywords="[NumberValidator, negativeSymbolError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidNegativeSymbolError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidNegativeSymbolError,'negativeSymbolError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidNegativeSymbolError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidNegativeSymbolError" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeSymbolError_invalid_empty_test50" description="the test case is for test set invalid value to negativeSymbolError" keywords="[NumberValidator, negativeSymbolError]">
+      <setup>
+        <SetStyle target="nvInvalidNegativeSymbolError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidNegativeSymbolError,'negativeSymbolError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidNegativeSymbolError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		  <AssertPropertyValue target="nvInvalidNegativeSymbolError" propertyName="negativeSymbolError" valueExpression="value=application.negativeSymbolErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeNumberFormatError_default_test51" description="the test case is for test default negativeNumberFormatError" keywords="[NumberValidator, negativeNumberFormatError]">
+      <body>
+        <AssertPropertyValue target="nvNegativeNumberFormatError" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeNumberFormatError_valid_script_test52" description="the test case is for test set valid value to negativeNumberFormatError" keywords="[NumberValidator, negativeNumberFormatError]">
+      <setup>
+        <SetStyle target="nvScriptNegativeNumberFormatError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptNegativeNumberFormatError" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptNegativeNumberFormatError" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+        <AssertPropertyValue target="nvScriptNegativeNumberFormatError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeNumberFormatError_inline_test53" description="the test case is for test set valid value to negativeNumberFormatError inline" keywords="[NumberValidator, negativeNumberFormatError]">
+      <setup>
+        <SetStyle target="nvInlineNegativeNumberFormatError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineNegativeNumberFormatError" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorTest"/>
+        <AssertPropertyValue target="nvInlineNegativeNumberFormatError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeNumberFormatError_invalid_null_script_test54" description="the test case is for test set invalid value to negativeNumberFormatError" keywords="[NumberValidator, negativeNumberFormatError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidNegativeNumberFormatError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidNegativeNumberFormatError,'negativeNumberFormatError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidNegativeNumberFormatError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidNegativeNumberFormatError" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_negativeNumberFormatError_invalid_empty_test55" description="the test case is for test set invalid value to negativeNumberFormatError" keywords="[NumberValidator, negativeNumberFormatError]">
+      <setup>
+        <SetStyle target="nvInvalidNegativeNumberFormatError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidNegativeNumberFormatError,'negativeNumberFormatError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidNegativeNumberFormatError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidNegativeNumberFormatError" propertyName="negativeNumberFormatError" valueExpression="value=application.negativeNumberFormatErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_parseError_default_test56" description="the test case is for test default parseError" keywords="[NumberValidator, parseError]">
+      <body>
+        <AssertPropertyValue target="nvParseError" propertyName="parseError" valueExpression="value=application.parseErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_parseError_valid_script_test57" description="the test case is for test set valid value to parseError" keywords="[NumberValidator, parseError]">
+      <setup>
+        <SetStyle target="nvScriptParseError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptParseError" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptParseError" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+        <AssertPropertyValue target="nvScriptParseError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_parseError_inline_test58" description="the test case is for test set valid value to parseError inline" keywords="[NumberValidator, parseError]">
+      <setup>
+        <SetStyle target="nvInlineParseError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineParseError" propertyName="parseError" valueExpression="value=application.parseErrorTest"/>
+        <AssertPropertyValue target="nvInlineParseError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_parseError_invalid_null_script_test59" description="the test case is for test set invalid value to parseError" keywords="[NumberValidator, parseError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidParseError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidParseError,'parseError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidParseError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidParseError" propertyName="parseError" valueExpression="value=application.parseErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_parseError_invalid_empty_test60" description="the test case is for test set invalid value to parseError" keywords="[NumberValidator, parseError]">
+      <setup>
+        <SetStyle target="nvInvalidParseError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidParseError,'parseError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidParseError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		<AssertPropertyValue target="nvInvalidParseError" propertyName="parseError" valueExpression="value=application.parseErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_localeUndefinedError_default_test61" description="the test case is for test default localeUndefinedError" keywords="[NumberValidator, localeUndefinedError]">
+      <body>
+        <AssertPropertyValue target="nvLocaleUndefinedError" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_localeUndefinedError_valid_script_test62" description="the test case is for test set valid value to localeUndefinedError" keywords="[NumberValidator, localeUndefinedError]">
+      <setup>
+        <SetStyle target="nvScriptLocaleUndefinedError" styleName="locale" value="en-US" waitEvent="change"/>
+        <SetProperty target="nvScriptLocaleUndefinedError" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+		  <Pause timeout="{NVConstants.pauseTime}"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvScriptLocaleUndefinedError" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+        <AssertPropertyValue target="nvScriptLocaleUndefinedError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_localeUndefinedError_inline_test63" description="the test case is for test set valid value to localeUndefinedError inline" keywords="[NumberValidator, localeUndefinedError]">
+      <setup>
+        <SetStyle target="nvInlineLocaleUndefinedError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertPropertyValue target="nvInlineLocaleUndefinedError" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorTest"/>
+        <AssertPropertyValue target="nvInlineLocaleUndefinedError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_localeUndefinedError_invalid_null_script_test64" description="the test case is for test set invalid value to localeUndefinedError" keywords="[NumberValidator, localeUndefinedError]">
+      <setup>
+        <SetStyle target="nvScriptInvalidLocaleUndefinedError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalidLocaleUndefinedError,'localeUndefinedError',null)" value="noError"/>
+        <AssertPropertyValue target="nvScriptInvalidLocaleUndefinedError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+        <AssertPropertyValue target="nvScriptInvalidLocaleUndefinedError" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorDef"/>
+      </body>
+    </TestCase>
+    <TestCase testID="NV_localeUndefinedError_invalid_empty_test65" description="the test case is for test set invalid value to localeUndefinedError" keywords="[NumberValidator, localeUndefinedError]">
+      <setup>
+        <SetStyle target="nvInvalidLocaleUndefinedError" styleName="locale" value="en-US" waitEvent="change"/>
+      </setup>
+      <body>
+        <AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalidLocaleUndefinedError,'localeUndefinedError','')" value="noError"/>
+        <AssertPropertyValue target="nvInvalidLocaleUndefinedError" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+		  <AssertPropertyValue target="nvInvalidLocaleUndefinedError" propertyName="localeUndefinedError" valueExpression="value=application.localeUndefinedErrorDef"/>
+      </body>
+    </TestCase>
+	  <!--Bindable test for errorMessage-->
+	  <TestCase testID="NV_decimalPointCountError_binding_test66" description="the test case is for test binding of decimalPointCountError" keywords="[NumberValidator, decimalPointCountError]">
+		  <setup>
+			  <SetStyle target="nvDecimalPointCountErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvDecimalPointCountErrorB" propertyName="decimalPointCountError" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+			  <AssertPropertyValue target="nvDecimalPointCountErrorL" propertyName="text" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+			  <SetProperty target="nvDecimalPointCountErrorB" propertyName="decimalPointCountError" value="test"/>
+			  <AssertPropertyValue target="nvDecimalPointCountErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_greaterThanMaxError_binding_test67" description="the test case is for test binding of greaterThanMaxError" keywords="[NumberValidator, greaterThanMaxError]">
+		  <setup>
+			  <SetStyle target="nvGreaterThanMaxErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvGreaterThanMaxErrorB" propertyName="greaterThanMaxError" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+			  <AssertPropertyValue target="nvGreaterThanMaxErrorL" propertyName="text" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+			  <SetProperty target="nvGreaterThanMaxErrorB" propertyName="greaterThanMaxError" value="test"/>
+			  <AssertPropertyValue target="nvGreaterThanMaxErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_fractionalDigitsError_binding_test68" description="the test case is for test binding of fractionalDigitsError" keywords="[NumberValidator, fractionalDigitsError]">
+		  <setup>
+			  <SetStyle target="nvFractionalDigitsErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvFractionalDigitsErrorB" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+			  <AssertPropertyValue target="nvFractionalDigitsErrorL" propertyName="text" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+			  <SetProperty target="nvFractionalDigitsErrorB" propertyName="fractionalDigitsError" value="test"/>
+			  <AssertPropertyValue target="nvFractionalDigitsErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_notAnIntegerError_binding_test69" description="the test case is for test binding of notAnIntegerError" keywords="[NumberValidator, notAnIntegerError]">
+		  <setup>
+			  <SetStyle target="nvNotAnIntegerErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvNotAnIntegerErrorB" propertyName="notAnIntegerError" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+			  <AssertPropertyValue target="nvNotAnIntegerErrorL" propertyName="text" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+			  <SetProperty target="nvNotAnIntegerErrorB" propertyName="notAnIntegerError" value="test"/>
+			  <AssertPropertyValue target="nvNotAnIntegerErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_invalidCharError_binding_test70" description="the test case is for test binding of invalidCharError" keywords="[NumberValidator, invalidCharError]">
+		  <setup>
+			  <SetStyle target="nvInvalidCharErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvInvalidCharErrorB" propertyName="invalidCharError" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+			  <AssertPropertyValue target="nvInvalidCharErrorL" propertyName="text" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+			  <SetProperty target="nvInvalidCharErrorB" propertyName="invalidCharError" value="test"/>
+			  <AssertPropertyValue target="nvInvalidCharErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_invalidFormatCharsError_binding_test71" description="the test case is for test binding of invalidFormatCharsError" keywords="[NumberValidator, invalidFormatCharsError]">
+		  <setup>
+			  <SetStyle target="nvInvalidFormatCharsErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvInvalidFormatCharsErrorB" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+			  <AssertPropertyValue target="nvInvalidFormatCharsErrorL" propertyName="text" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+			  <SetProperty target="nvInvalidFormatCharsErrorB" propertyName="invalidFormatCharsError" value="test"/>
+			  <AssertPropertyValue target="nvInvalidFormatCharsErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_lessThanMinError_binding_test72" description="the test case is for test binding of lessThanMinError" keywords="[NumberValidator, lessThanMinError]">
+		  <setup>
+			  <SetStyle target="nvLessThanMinErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvLessThanMinErrorB" propertyName="lessThanMinError" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+			  <AssertPropertyValue target="nvLessThanMinErrorL" propertyName="text" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+			  <SetProperty target="nvLessThanMinErrorB" propertyName="lessThanMinError" value="test"/>
+			  <AssertPropertyValue target="nvLessThanMinErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_negativeError_binding_test73" description="the test case is for test binding of negativeError" keywords="[NumberValidator, negativeError]">
+		  <setup>
+			  <SetStyle target="nvNegativeErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvNegativeErrorB" propertyName="negativeError" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+			  <AssertPropertyValue target="nvNegativeErrorL" propertyName="text" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+			  <SetProperty target="nvNegativeErrorB" propertyName="negativeError" value="test"/>
+			  <AssertPropertyValue target="nvNegativeErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_negativeSymbolError_binding_test74" description="the test case is for test binding of negativeSymbolError" keywords="[NumberValidator, negativeSymbolError]">
+		  <setup>
+			  <SetStyle target="nvNegativeSymbolErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvNegativeSymbolErrorB" propertyName="negativeSymbolError" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+			  <AssertPropertyValue target="nvNegativeSymbolErrorL" propertyName="text" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+			  <SetProperty target="nvNegativeSymbolErrorB" propertyName="negativeSymbolError" value="test"/>
+			  <AssertPropertyValue target="nvNegativeSymbolErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_negativeNumberFormatError_binding_test75" description="the test case is for test binding of negativeNumberFormatError" keywords="[NumberValidator, negativeNumberFormatError]">
+		  <setup>
+			  <SetStyle target="nvNegativeNumberFormatErrorB" styleName="locale" value="en-US" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvNegativeNumberFormatErrorB" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+			  <AssertPropertyValue target="nvNegativeNumberFormatErrorL" propertyName="text" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+			  <SetProperty target="nvNegativeNumberFormatErrorB" propertyName="negativeNumberFormatError" value="test"/>
+			  <AssertPropertyValue target="nvNegativeNumberFormatErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  <TestCase testID="NV_parseError_binding_test76" description="the test case is for test binding of parseError" keywords="[NumberValidator, parseError]">
+		  <setup>
+			  <SetStyle target="nvParseErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvParseErrorB" propertyName="parseError" valueExpression="value=NVConstants.PARSE_ERROR"/>
+			  <AssertPropertyValue target="nvParseErrorL" propertyName="text" valueExpression="value=NVConstants.PARSE_ERROR"/>
+			  <SetProperty target="nvParseErrorB" propertyName="parseError" value="test"/>
+			  <AssertPropertyValue target="nvParseErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="NV_localeUndefinedError_binding_test77" description="the test case is for test binding of localeUndefinedError" keywords="[NumberValidator, localeUndefinedError]">
+		  <setup>
+			  <SetStyle target="nvLocaleUndefinedErrorB" styleName="locale" value="ja-JP" waitEvent="change"/>
+		  </setup>
+		  <body>
+			  <SetProperty target="nvLocaleUndefinedErrorB" propertyName="localeUndefinedError" valueExpression="value=NVConstants.LOCALEUNDEFINED_ERROR"/>
+			  <AssertPropertyValue target="nvLocaleUndefinedErrorL" propertyName="text" valueExpression="value=NVConstants.LOCALEUNDEFINED_ERROR"/>
+			  <SetProperty target="nvLocaleUndefinedErrorB" propertyName="localeUndefinedError" value="test"/>
+			  <AssertPropertyValue target="nvLocaleUndefinedErrorL" propertyName="text" value="test"/>
+		  </body>
+	  </TestCase>
+	  
+	  
+	  <TestCase testID="NV_errorMessage_binding_resMng_test78" description="decimalPointCountError binding with resource manager changing locale" keywords="[NumberValidator, decimalPointCountError]">
+		  <setup>
+			  <ResetComponent target="nvErrorBinding" className="spark.validators.NumberValidator"/>
+			  <RunCode code="application.nvErrorBinding.initialized(null,'nvErrorBinding')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+			  <SetStyle target="nvErrorBinding" styleName="locale" value="de-DE" waitEvent="change"/>
+			  <RunCode code="application.changeLocale('de_DE')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+		  </setup>
+		  <body>
+			  <AssertPropertyValue target="decimalPointCountError_Binding" propertyName="text" value="null"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="NV_errorMessage_binding_resMng_test79" description="decimalPointCountError binding with resource manager changing locale" keywords="[NumberValidator, decimalPointCountError]">
+		  <setup>
+			  <ResetComponent target="nvErrorBinding" className="spark.validators.NumberValidator"/>
+			  <RunCode code="application.nvErrorBinding.initialized(null,'nvErrorBinding')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+			  <SetStyle target="nvErrorBinding" styleName="locale" value="de-DE" waitEvent="change"/>
+			  <RunCode code="application.changeLocale('de_DE')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+		  </setup>
+		  <body>
+			  <AssertPropertyValue target="invalidCharError_Binding" propertyName="text" value="null"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="NV_errorMessage_binding_resMng_test80" description="decimalPointCountError binding with resource manager changing locale" keywords="[NumberValidator, decimalPointCountError]">
+		  <setup>
+			  <ResetComponent target="nvErrorBinding" className="spark.validators.NumberValidator"/>
+			  <RunCode code="application.nvErrorBinding.initialized(null,'nvErrorBinding')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+			  <SetStyle target="nvErrorBinding" styleName="locale" value="de-DE" waitEvent="change"/>
+			  <RunCode code="application.changeLocale('de_DE')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+		  </setup>
+		  <body>
+			  <AssertPropertyValue target="invalidFormatCharsError_Binding" propertyName="text" value="null"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="NV_errorMessage_binding_resMng_test81" description="decimalPointCountError binding with resource manager changing locale" keywords="[NumberValidator, decimalPointCountError]">
+		  <setup>
+			  <ResetComponent target="nvErrorBinding" className="spark.validators.NumberValidator"/>
+			  <RunCode code="application.nvErrorBinding.initialized(null,'nvErrorBinding')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+			  <SetStyle target="nvErrorBinding" styleName="locale" value="de-DE" waitEvent="change"/>
+			  <RunCode code="application.changeLocale('de_DE')"/>
+			  <Pause timeout="{NVConstants.pauseTime}"/>
+		  </setup>
+		  <body>
+			  <AssertPropertyValue target="negativeError_Binding" propertyName="text" value="null"/>
+		  </body>
+	  </TestCase>
+	  
+	  
+  </testCases>
+</UnitTester>

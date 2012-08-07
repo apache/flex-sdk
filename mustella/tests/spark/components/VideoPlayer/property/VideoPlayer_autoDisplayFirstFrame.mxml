@@ -1,0 +1,300 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrame_Default"
+        description="Test the default value of the autoDisplayFirstFrame property."
+        keywords="[VideoPlayer]">
+	    <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.autoDisplayFirstFrame" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameT_autoPlayF_streaming"
+        description="Test when autoDisplayFirstFrame is true, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertNoEvent target="testPlayer" eventName="durationChange" eventClass="org.osmf.events::TimeEvent"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="0"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="642"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="377"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameT_autoPlayF_streaming2"
+        description="Test when autoDisplayFirstFrame is true, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.width = 400" />
+                <RunCode code="application.testPlayer.height = 300" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertNoEvent target="testPlayer" eventName="durationChange" eventClass="org.osmf.events::TimeEvent"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="0"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="400"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="300"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameT_autoPlayT_streaming"
+        description="Test when autoDisplayFirstFrame is true, autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="7000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="642"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="377"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameF_autoPlayF_streaming"
+        description="Test when autoDisplayFirstFrame is false, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoDisplayFirstFrame = false" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3500"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <!--how to verify no connection to server?-->
+		<AssertMethodValue method="value=application.testPlayer.width" value="263"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="184"/>
+
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+                <Pause timeout="3500"/>
+
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="642"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="377"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameF_autoPlayF_streaming2"
+        description="Test when autoDisplayFirstFrame is false, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoDisplayFirstFrame = false" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.width = 400" />
+                <RunCode code="application.testPlayer.height = 300" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3500"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <!--how to verify no connection to server?-->
+		<AssertMethodValue method="value=application.testPlayer.width" value="400"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="300"/>
+
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+                <Pause timeout="3500"/>
+
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="400"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="300"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameF_autoPlayT_streaming"
+        description="Test when autoDisplayFirstFrame is false, autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoDisplayFirstFrame = false" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="9000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="642"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="377"/>
+            </body>
+        </TestCase>
+
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameT_autoPlayF_progressive"
+        description="Test when autoDisplayFirstFrame is true, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="7000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="83817"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="322"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="265"/>
+                <CompareBitmap target="testPlayer.videoDisplay" numColorVariances="7" maxColorVariance="10" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameT_autoPlayF_progressive2"
+        description="Test when autoDisplayFirstFrame is true, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.width = 400" />
+                <RunCode code="application.testPlayer.height = 300" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="7000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="83817"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="400"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="300"/>
+                <CompareBitmap target="testPlayer.videoDisplay" numColorVariances="7" maxColorVariance="10" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameT_autoPlayT_progressive"
+        description="Test when autoDisplayFirstFrame is true, autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="7000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="322"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="238"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameF_autoPlayF_progressive"
+        description="Test when autoDisplayFirstFrame is false, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoDisplayFirstFrame = false" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="0"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="263"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="184"/>
+
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+                <Pause timeout="3000"/>
+
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="322"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="238"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameF_autoPlayF_progressive2"
+        description="Test when autoDisplayFirstFrame is false, autoPlay is false."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoDisplayFirstFrame = false" />
+                <RunCode code="application.testPlayer.autoPlay = false" />
+                <RunCode code="application.testPlayer.width = 400" />
+                <RunCode code="application.testPlayer.height = 300" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3500"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesTotal" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="bytesLoaded" value="0"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="400"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="300"/>
+
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+                <Pause timeout="3500"/>
+
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="400"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="300"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_autoDisplayFirstFrameF_autoPlayT_progressive"
+        description="Test when autoDisplayFirstFrame is false, autoPlay is true."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoDisplayFirstFrame = false" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="7000"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="true"/>
+		<AssertMethodValue method="value=application.testPlayer.width" value="322"/>
+                <AssertMethodValue method="value=application.testPlayer.height" value="238"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

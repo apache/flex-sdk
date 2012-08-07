@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	width="100%"
+	height="100%"
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	backgroundColor="0xFFFFFF">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+		src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera0;
+		embedAsCFF: false;
+		}
+
+		@font-face{
+		src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera1;
+		embedAsCFF: true;
+		}
+
+		mx|Panel {
+		fontFamily: vera0;
+		fontLookup: device;
+		color: blue;
+		}
+
+		s|SkinnableComponent {
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: black;
+		}
+	</fx:Style>
+	
+    <fx:Script>
+        <![CDATA[
+        import spark.effects.easing.EaseInOutBase;
+        
+        public var testEaser:EaseInOutBase = new EaseInOutBase();
+        public var testEaser2:EaseInOutBase = new EaseInOutBase(.3);
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <s:Move id="testEffect" yBy="150" targets="{[gumboGroup, haloButton, gumboButton]}" duration="2000" />
+        <s:Move id="testEffect2" yBy="150" targets="{[gumboGroup2, haloButton2, gumboButton2]}" duration="2000"/>
+    </fx:Declarations>
+
+
+    <s:Group id="gumboGroup"
+    	left="10"
+    	top="10"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <mx:SolidColor color="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <mx:Button id="haloButton"
+    	left="10"
+    	top="120"
+    	width="100"
+    	color="0xFF"
+    	label="Flex 3 Button"/>
+
+    <s:Button id="gumboButton"
+    	left="10"
+    	top="150"
+    	width="100"
+    	label="Flex 4 Button"/>
+
+    <s:Group id="gumboGroup2"
+    	left="200"
+    	top="10"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <mx:SolidColor color="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke color="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <mx:Button id="haloButton2"
+    	left="200"
+    	top="120"
+    	width="100"
+    	color="0xFF"
+    	label="Flex 3 Button"/>
+
+    <s:Button id="gumboButton2"
+    	left="200"
+    	top="150"
+    	width="100"
+    	label="Flex 4 Button"/>
+
+</s:Application>

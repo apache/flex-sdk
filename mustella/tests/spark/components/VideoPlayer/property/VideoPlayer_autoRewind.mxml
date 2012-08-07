@@ -1,0 +1,173 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+
+        private function PlayHeadTimeInRange(low:Number, high:Number):Boolean
+        {
+            return((application.testPlayer.currentTime > low) && (application.testPlayer.currentTime < high));
+        }
+
+        private function PlayHeadTimeAboveZero():Boolean
+        {
+            return(application.testPlayer.currentTime > 0)
+        }
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_autoRewind_Default"
+        description="Test the default value of the autoRewind property."
+        keywords="[VideoPlayer]">
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="autoRewind" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase testID="VideoPlayer_autoRewind_true_stop_streaming" keywords="[VideoPlayer, accessor, autoRewind]" description="Test autoRewind sets playheadTime to 0 after playing.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="3000"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VideoPlayer_autoRewind_true_endOfPlay_streaming" keywords="[VideoPlayer, accessor, autoRewind]" description="Test autoRewind sets playheadTime to 0 after playing.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VideoPlayer_autoRewind_false_stop_streaming" keywords="[VideoPlayer, accessor, autoRewind]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="2000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VideoPlayer_autoRewind_false_endOfPlay_streaming" keywords="[VideoPlayer, accessor, autoRewind]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" timeout="3000" />
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="currentTime" value="10.08"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="10.08"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase testID="VideoPlayer_autoRewind_true_stop_progressive" keywords="[VideoPlayer, accessor, autoRewind]" description="Test autoRewind sets playheadTime to 0 after playing.">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()" />
+                <Pause timeout="4000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_autoRewind_true_endOfPlay_progressive" keywords="[VideoPlayer, accessor, autoRewind]" description="Test autoRewind sets playheadTime to 0 after playing.">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+		<Pause timeout="4000"/>
+		<RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0.48"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:00"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VideoPlayer_autoRewind_false_pause_progressive" keywords="[VideoPlayer, accessor, autoRewind]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"  timeout="5000"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.seek(4)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <RunCode code="application.testPlayer.pause()" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <Pause timeout="2000"/>
+
+                <AssertMethodValue method="value=this.PlayHeadTimeInRange(3, 5)" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VideoPlayer_autoRewind_false_endOfPlay_progressive" keywords="[VideoPlayer, accessor, autoRewind]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoRewind = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="2000"/>
+                <RunCode code="application.testPlayer.seek(9)" waitTarget="testPlayer" waitEvent="currentTimeChange" />
+                <Pause timeout="7000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="currentTime" value="10"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="10"/>
+                <AssertPropertyValue target="testPlayer.currentTimeDisplay" propertyName="text" value="0:10"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

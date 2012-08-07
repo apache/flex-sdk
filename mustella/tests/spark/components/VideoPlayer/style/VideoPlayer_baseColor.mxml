@@ -1,0 +1,53 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/style/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_style.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_baseColor"
+        description="Apply the baseline style."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.setStyle('chromeColor', '0x00FF00')" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer" numColorVariances="7" maxColorVariance="10" url="../style/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_baseColor_dropDown"
+            keywords="[VideoPlayer]"
+            description="Make sure the dropDown is colored.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.setStyle('chromeColor', '0x00FF00')" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.volumeBar.openDropDown()"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="testPlayer" numColorVariances="7" maxColorVariance="10" url="../style/baseline/$testID.png"/>
+                <RunCode code="application.testPlayer.volumeBar.closeDropDown(true)"/>
+                <WaitForEffectsToEnd />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

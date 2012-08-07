@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/MXHorizontalList/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SF_MXHorizontalList.mxml">
+	<mx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import flash.globalization.*;
+			import flash.globalization.LastOperationStatus;
+			
+			import spark.globalization.SortingCollator;
+			
+			public var clt:spark.globalization.SortingCollator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="SortField_mxHorizontalList_default_test1" description="sort items with default property setting"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField,application.uiMXHorizontalListComp.mySortField2]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ja-JP'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="SortField_mxHorizontalList_default_script_test2" description="sort items with default property setting"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript2" propertyName="name" value="age" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript,application.uiMXHorizontalListComp.mySortFieldScript2]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<!--<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArrayField('age')"/>-->
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_descending_true_test3" description="sort items with descending true"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField2" propertyName="name" value="age" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField2" propertyName="descending" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField,application.uiMXHorizontalListComp.mySortField2]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.revertArray(application.uiMXHorizontalListComp.sparkSortedArray)"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_descending_true_script_test4" description="sort items with descending true"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript2" propertyName="descending" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript,application.uiMXHorizontalListComp.mySortFieldScript2]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.revertArray(application.uiMXHorizontalListComp.sparkSortedArray)"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_unique_true_test5" description="sort items with unique true"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="active" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField2" propertyName="name" value="active" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField,application.uiMXHorizontalListComp.mySortField2]" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertMethodValue method="value=application.uiMXHorizontalListComp.VerifyUniqueError()" 
+								   value="Error: Non-unique values in items."/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_unique_true_script_test6" description="sort items with unique true"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="age" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript2" propertyName="name" value="active" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript,application.uiMXHorizontalListComp.mySortFieldScript2]" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiMXHorizontalListComp.VerifyUniqueError()" 
+								   value="Error: Non-unique values in items."/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_numeric_true_test7" description="sort items with numeric true"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="true" />
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="age" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="numeric" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiMXHorizontalListComp.myMxSortField" propertyName="name" valueExpression="value='age'"/>
+				<SetProperty target="uiMXHorizontalListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiMXHorizontalListComp.myMxSortField]"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.mxSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_numeric_true_script_test8" description="sort items with numeric true"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='en-GB'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="true" />
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="age" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="numeric" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+				
+				<SetProperty target="uiMXHorizontalListComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiMXHorizontalListComp.myMxSortField" propertyName="name" valueExpression="value='age'"/>
+				<SetProperty target="uiMXHorizontalListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiMXHorizontalListComp.myMxSortField]"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.mxSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_diff_locale_test9" description="sort items based on different locale on Sort and SortField"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="address" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_diff_locale_script_test10" description="sort items based on different locale on Sort and SortField"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<!--<ResetComponent target="uiMXHorizontalListComp" className="newComps:CustomButtonBarComp" waitEvent="updateComplete"/>-->
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="address" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_localeChange_SortField_test11" description="sort items based locale change of SortField"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="address" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_localeChange_SortField_test12" description="sort items based on locale change of SortField"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="address" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_localeChange_Sort_test13" description="sort items based locale change of Sort"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="address" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='de-DE'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_localeChange_Sort_test14" description="sort items based on locale change of Sort"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+				<SetProperty target="uiMXHorizontalListComp.sparkCollator" propertyName="numericComparison" value="false" />
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="address" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'" />
+				<AssertStyleValue target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_reverse_test15" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField2" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField2" propertyName="descending" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField,application.uiMXHorizontalListComp.mySortField2]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<RunCode code="application.uiMXHorizontalListComp.mySort.reverse()" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.revertArray(application.uiMXHorizontalListComp.sparkSortedArray)"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_reverse_script_test16" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript2" propertyName="name" value="address" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript2" propertyName="descending" value="true" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript,application.uiMXHorizontalListComp.mySortFieldScript2]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<RunCode code="application.uiMXHorizontalListComp.mySortScript.reverse()" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.revertArray(application.uiMXHorizontalListComp.sparkSortedArray)"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_changeSource_test17" description="sort items after change source"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_changeSource_script_test18" description="sort items after change source"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()"  waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_function_test19" description="verify sort items of MXTileList will not affect the original function"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortField" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySort" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortField]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySort" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetProperty target="uiMXHorizontalListComp.uiMXHorList" propertyName="selectedIndex" value="0" />
+				<AssertPropertyValue target="uiMXHorizontalListComp" propertyName="listSelectFieldValue" value="barmen" />
+				<SetProperty target="uiMXHorizontalListComp.uiMXHorList" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target="uiMXHorizontalListComp" propertyName="listSelectFieldValue" value="cadbury" />
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_mxHorizontalList_function_script_test20" description="verify sort items of MXTileList will not affect the original function"  keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<SetStyle target="uiMXHorizontalListComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiMXHorizontalListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+				
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="unique" value="false" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListValueField" value="name" />
+				<SetProperty target="uiMXHorizontalListComp" propertyName="hListDataProvider" valueExpression="value=application.uiMXHorizontalListComp.dataComp.dataXmlListArrS" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="descending" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortFieldScript" propertyName="numeric" value="false" />
+				<SetProperty target="uiMXHorizontalListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiMXHorizontalListComp.mySortFieldScript]" />
+				<SetProperty target="uiMXHorizontalListComp.hListDataProvider" propertyName="sort" valueExpression="value=application.uiMXHorizontalListComp.mySortScript" />
+				<RunCode code="application.uiMXHorizontalListComp.hListDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiMXHorizontalListComp.hListDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiMXHorizontalListComp.hListDataProvider)" 
+								   valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArray"/>
+				<SetProperty target="uiMXHorizontalListComp.uiMXHorList" propertyName="selectedIndex" value="0" />
+				<AssertPropertyValue target="uiMXHorizontalListComp" propertyName="listSelectFieldValue" value="barmen" />
+				<SetProperty target="uiMXHorizontalListComp.uiMXHorList" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target="uiMXHorizontalListComp" propertyName="listSelectFieldValue" value="cadbury" />
+			</body>
+		</TestCase>  
+		<!--Cases for locale dependent sort test-->
+		<TestCase testID="SortField_mxHorizontalList_locale_dependent_aryColl_test_21" description="verify locale dependent sort" keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<RunCode code="application.uiMXHorizontalListComp.updateSort_aryColl()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiMXHorizontalListComp.collection)" valueExpression="value=application.uiMXHorizontalListComp.sparkSortedArrayCollection"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SortField_mxHorizontalList_locale_dependent_xmlList_test_22" description="verify locale dependent sort" keywords="[Sort, mxHorizontalList]">
+			<setup>
+				<ResetComponent target="uiMXHorizontalListComp" className="newComps.CustomMXHorizontalListComp" waitEvent="updateComplete" waitTarget="uiMXHorizontalListComp"/>
+				<RunCode code="application.uiMXHorizontalListComp.updateSort_xmlList()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiMXHorizontalListComp.dataXmlListArrS_locale)" valueExpression="value=application.uiMXHorizontalListComp.sparkSortedXMLList"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

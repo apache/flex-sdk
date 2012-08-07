@@ -1,0 +1,188 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <!--try x=26, y=11 for click-->
+    <!-- try different mouse steps than click
+    				<DispatchMouseEvent target="myButton" type="rollOver" localX="30" localY="20"/>
+    				<DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20" waitTarget="myButton" waitEvent="buttonDown"/>
+    				<DispatchMouseEvent target="myButton" type="mouseUp" localX="30" localY="20" />
+				<DispatchMouseEvent target="myButton" type="click" localX="30" localY="20" />
+				-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_muteButton_Default"
+            keywords="[VideoPlayer]"
+            description="Test the default value of the muteButton variable.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.volumeBar" url="../property/baseline/$testID.png" />
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="false"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_muteButton_muteNothing"
+            description="Mute!."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <!--<DispatchMouseClickEvent target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>-->
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="rollOver" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseDown" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseUp" localX="26" localY="11" />
+				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="click" localX="26" localY="11" />
+				<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+				<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>				
+		<Pause timeout="3000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value="1"/>
+                <CompareBitmap target="testPlayer.volumeBar" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_muteButton_mutePrePlay_streaming"
+            description="Mute!."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <RunCode code="application.testPlayer.volume = .4" />
+                <Pause timeout="2000"/>
+
+                <!--<DispatchMouseClickEvent target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>-->
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="rollOver" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseDown" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseUp" localX="26" localY="11" />
+				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="click" localX="26" localY="11" />
+				<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+				<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>				
+		<Pause timeout="3000"/>
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_muteButton_mutePlaying_streaming"
+            description="Mute!."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <RunCode code="application.testPlayer.volume = .4" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <!--<DispatchMouseClickEvent target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>-->
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="rollOver" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseDown" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseUp" localX="26" localY="11" />
+				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="click" localX="26" localY="11" />	
+				<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+				<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>				
+                <Pause timeout="3000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+
+        <TestCase
+            testID="VideoPlayer_muteButton_mutePrePlay_progressive"
+            keywords="[VideoPlayer]"
+            description="Test the muteButton before setting source - progressive video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="9000"/>  
+		<RunCode code="application.testPlayer.volume = .4" />
+                <Pause timeout="2000"/>
+                <!--<DispatchMouseClickEvent target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>-->
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="rollOver" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseDown" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseUp" localX="26" localY="11" />
+				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="click" localX="26" localY="11" />
+				<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+				<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>				
+		<Pause timeout="3000"/>
+                <AssertMethodValue method="value=application.testPlayer.play()"/>
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.volumeBar" url="../property/baseline/$testID.png" />
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_muteButton_mutePlaying_progressive"
+            keywords="[VideoPlayer]"
+            description="Test the muteButton after setting source - progressive video.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <RunCode code="application.testPlayer.volume = .4" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <!--<DispatchMouseClickEvent target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+		<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>-->
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="rollOver" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseDown" localX="26" localY="11"/>
+    				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="mouseUp" localX="26" localY="11" />
+				<DispatchMouseEvent target="testPlayer.volumeBar.muteButton" type="click" localX="26" localY="11" />	
+				<DispatchMouseEvent type="rollOut" target="testPlayer.volumeBar.muteButton" localX="26" localY="11"/>
+				<DispatchMouseEvent type="mouseMove" target="testPlayer" localX="26" localY="11"/>				
+		<Pause timeout="3000"/>
+                <CompareBitmap target="testPlayer.volumeBar" url="../property/baseline/$testID.png" />
+                <AssertPropertyValue target="testPlayer" propertyName="muted" value="true"/>
+                <AssertPropertyValue target="testPlayer" propertyName="volume" value=".4"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

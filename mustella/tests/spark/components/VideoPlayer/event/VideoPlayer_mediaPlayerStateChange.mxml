@@ -1,0 +1,105 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+  <testCases>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+
+        <TestCase testID="VideoPlayer_mediaPlayerStateChange_setSource_S" keywords="[VideoPlayer, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is set.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_mediaPlayerStateChange_changeSource_S" keywords="[VideoPlayer, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.source = application.streamingVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_mediaPlayerStateChange_removeSource_S" keywords="[VideoPlayer, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.source = null" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+
+        <TestCase testID="VideoPlayer_mediaPlayerStateChange_setSource_P" keywords="[VideoPlayer, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is set.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_mediaPlayerStateChange_changeSource_P" keywords="[VideoPlayer, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            	<Pause timeout="1000"/>
+		<RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoPlayer_mediaPlayerStateChange_removeSource_P" keywords="[VideoPlayer, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.source = null" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+		<AssertEvent target="testPlayer" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

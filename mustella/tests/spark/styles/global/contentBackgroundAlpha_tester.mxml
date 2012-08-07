@@ -1,0 +1,55 @@
+<UnitTester testDir="spark/styles/global/" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="contentBackgroundAlpha_main.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+  		<TestCase testID="contentBackgroundAlpha_inheritance_Application" keywords="[Application, contentBackgroundAlpha]" description="Test contentBackgroundAlpha applies to all components">
+  			<body>
+  				<Pause timeout="500"/>
+  				<CompareBitmap target="myContent" url="../global/baselines/$testID.png" />
+  			</body>
+  		</TestCase>
+  		
+  		<TestCase testID="contentBackgroundAlpha_change_runtime_Application" keywords="[Application, contentBackgroundAlpha]" description="Test contentBackgroundAlpha change at runtime applies to all components">
+  			<body>
+  				<Pause timeout="500"/>
+  				<SetStyle styleName="contentBackgroundAlpha" value="0.8" target="" waitEvent="updateComplete" waitTarget=""/>
+  				<Pause timeout="1000"/>
+  				<CompareBitmap target="myContent" url="../global/baselines/$testID.png"/>
+  			</body>
+  		</TestCase>
+		<TestCase testID="contentBackgroundAlpha_change_runtime_globalCSS_Application" keywords="[Application, contentBackgroundAlpha]" description="Test contentBackgroundAlpha change at runtime applies to all components">
+			<body>
+				<Pause timeout="500"/>
+  				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
+				<Pause timeout="1000"/>
+				<CompareBitmap target="myContent" url="../global/baselines/$testID.png"/>
+			</body>
+  		</TestCase>
+		<TestCase testID="contentBackgroundAlpha_state_change_Application" keywords="[Application, contentBackgroundAlpha]" description="Test contentBackgroundAlpha changes in a different state">
+			<body>
+				<Pause timeout="500"/>
+  				<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+				<CompareBitmap target="myContent" url="../global/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+  		
+    </testCases>
+</UnitTester>

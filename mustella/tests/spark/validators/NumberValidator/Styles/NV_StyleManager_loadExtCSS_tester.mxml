@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="NV_StyleManager_loadExtCSS.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.NumberFormatter;
+			import assets.NVConstants;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			public var nfGSLib1:flash.globalization.NumberFormatter;
+			public var nfGSLib2:flash.globalization.NumberFormatter;
+			public var nfGSLib3:flash.globalization.NumberFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test set style by StyleManager -->
+	<testCases>
+		<!--Test cases 1 tests loading external Class Selector, Type Selector and ID selector style CSS declaration using styleManager API-->
+		<TestCase testID="NV_StyleManager_loadingExternal_test1" 
+				  description="loading external Class Selector, Type Selector and ID selector style CSS declaration using styleManager API" keywords="[NumberValidator,StyleManager]">
+			<setup>
+				<RunCode code="application.loadExtCss()" waitEvent="nvLoadStyleCompleteEve"/>
+				<RunCode code="nfGSLib1=new flash.globalization.NumberFormatter('zh_TW')" />
+				<RunCode code="nfGSLib2=new flash.globalization.NumberFormatter('fr-CH')" />
+				<RunCode code="nfGSLib3=new flash.globalization.NumberFormatter('ru-RU')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvExtTypeSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib1.actualLocaleIDName" />
+				<AssertPropertyValue target="nvExtTypeSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib1.lastOperationStatus"/>
+				<AssertPropertyValue target="nvExtClassSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib2.actualLocaleIDName" />
+				<AssertPropertyValue target="nvExtClassSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib2.lastOperationStatus"/>
+				<AssertPropertyValue target="nvIdSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib3.actualLocaleIDName" />
+				<AssertPropertyValue target="nvIdSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib3.lastOperationStatus"/>
+			</body>
+			<cleanup>
+				<RunCode code="application.unloadStyle()" />
+				<Pause timeout="{NVConstants.pauseTime}" />
+			</cleanup>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

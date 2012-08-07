@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns="*"
+			   updateComplete="traceHeights()" width="300" height="300">
+	
+	<fx:Declarations>
+		<mx:StringValidator id="strVal" source="{ti1}" property="text" minLength="4" maxLength="8" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			protected function traceHeights():void
+			{
+				trace(this.currentState + ' row1: ' + row1.height + ', row2: ' + row2.height + ', row3: ' + row3.height + ', row4: ' + row4.height + ', row5: ' + row5.height + ', row6: ' + row6.height);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Label;
+			public var newLbl:Label = new Label();
+		]]>
+	</fx:Script>
+	
+	<fx:Script source="../../../../../../Assets/Scripts/testingStates.as" />
+	
+	<s:states>
+		<s:State name="defaultState"/>
+		<s:State name="fixedState"/>
+		<s:State name="percentState"/>
+		<s:State name="fixedPerState"/>
+	</s:states>
+	
+	<s:layout>
+		<s:ConstraintLayout id="clayout">
+			<s:constraintColumns>
+				<s:ConstraintColumn id="col1" width.defaultState="200" width.fixedState="10"  width.percentState="50%" width.fixedPerState="300" />
+				<s:ConstraintColumn id="col2" width.defaultState="120" width.fixedState="50"  width.percentState="25%" width.fixedPerState="100" />
+				<s:ConstraintColumn id="col3" width.defaultState="80"  width.fixedState="200" width.percentState="30%" width.fixedPerState="25%" />
+				<s:ConstraintColumn id="col4" width.defaultState="100" width.fixedState="200" width.percentState="10%" width.fixedPerState="75%"/>
+			</s:constraintColumns>         
+			<s:constraintRows>
+				<s:ConstraintRow id="row1" height.defaultState="20" height.fixedState="40"  height.percentState="20%" height.fixedPerState="20" />
+				<s:ConstraintRow id="row2" height.defaultState="35" height.fixedState="35"  height.percentState="25%" height.fixedPerState="25%"  />
+				<s:ConstraintRow id="row3" height.defaultState="50" height.fixedState="70"  height.percentState="60%" height.fixedPerState="40" />
+				<s:ConstraintRow id="row4" height.defaultState="40" height.fixedState="20"  height.percentState="30%" height.fixedPerState="50%" />
+				<s:ConstraintRow id="row5" height.defaultState="30" height.fixedState="50"  height.percentState="5%"  height.fixedPerState="30" />
+				<s:ConstraintRow id="row6" height.defaultState="25" height.fixedState="100" height.percentState="50%" height.fixedPerState="100%" />
+			</s:constraintRows>  
+		</s:ConstraintLayout>
+	</s:layout>
+
+	<s:FormHeading id="fh" label="Spark Form Heading" top="row1:0" bottom="row1:0" left="col1:0"/>
+
+	<s:TextInput id="ti1" height.defaultState="100" top.percentState="row2:5" bottom.percentState="row2:0" width="300" left.percentState="col2:0" right.percentState="col2:0" text="row2" />
+
+	<s:Group>
+		<s:Rect top="0" bottom="0" left="0" right="0">
+			<s:fill>
+				<s:SolidColor color="red"/>
+			</s:fill>
+		</s:Rect> 
+		<s:VGroup left="col3:0" right="col3:0" top="row3:5" bottom="row3:0" minWidth.percentState="300" minHeight.percentState="150">
+			<s:CheckBox id="cb1" label="Save?" />
+		</s:VGroup>
+	</s:Group>
+	<s:ComboBox id="cmbBox" top="row3:5" bottom="row4:0" bottom.fixedPerState="row6:0" left="col1:0" right="col4:0" maxHeight.percentState="70">
+		<s:dataProvider>
+			<s:ArrayCollection>
+				<fx:String>Red</fx:String>
+				<fx:String>Yellow</fx:String>
+				<fx:String>Green</fx:String>
+				<fx:String>Blue</fx:String>
+				<fx:String>Purple</fx:String>
+			</s:ArrayCollection>
+		</s:dataProvider>
+	</s:ComboBox>
+	
+	<s:HGroup id="fi4" left="col1:0" right="col2:0" top="row5:5" bottom="row6:0">
+		<s:TextInput id="ti2" displayAsPassword="true" />
+		<s:Button id="btn" label="Submit" click="strVal.validate();newLbl.text='submitted';fi4.addElement(newLbl)"/>
+	</s:HGroup>
+</s:Group>

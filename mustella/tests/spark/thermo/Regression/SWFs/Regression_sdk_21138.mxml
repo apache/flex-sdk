@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:mx="library://ns.adobe.com/flex/mx"
+xmlns:s="library://ns.adobe.com/flex/spark"
+width="800" height="600"
+backgroundColor="0xffffff"
+creationComplete="Update()">
+
+    <fx:Script>
+        private function Update():void
+        {
+        this.lbl_top.text = "L: " + rect1.left.toString();
+        this.lbl_right.text = "T: " + rect1.top.toString();
+        }
+    </fx:Script>
+
+    <s:transitions>
+        <mx:Transition fromState="Page1" toState="Page2" >
+            <mx:Parallel id="p_1_2">
+                <mx:Sequence target="{rect1}" duration="1000">
+                    <s:Move disableLayout="true"/>
+                    <s:Rotate disableLayout="true" />
+                </mx:Sequence>
+            </mx:Parallel>
+        </mx:Transition>
+        <mx:Transition fromState="Page2" toState="Page1">
+            <mx:Parallel id="p_2_1">
+                <mx:Sequence target="{rect1}" duration="1000">
+                    <s:Rotate disableLayout="true" />
+                </mx:Sequence>
+            </mx:Parallel>
+        </mx:Transition>
+    </s:transitions>
+
+    <s:states>
+        <mx:State name="Page1" />
+        <mx:State name="Page2" />
+    </s:states>
+
+    <s:Rect id="rect1"
+    height="54" width="226"
+    left.Page1="200" top.Page1="160"
+    left.Page2="300" top.Page2="115"
+    rotation.Page1="0"
+    rotation.Page2="50">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF"/>
+        </s:fill>
+        <s:stroke>
+            <s:SolidColorStroke color="0x4769C4" weight="1"/>
+        </s:stroke>
+    </s:Rect>
+
+    <mx:Button left="200" top="160" height="20" width="20"/>
+    <mx:Button left="300" top="115" height="20" width="20"/>
+    <mx:Button id="btn1" x="20" y="20" click="currentState='Page2'" label="Page2"/>
+    <mx:Button id="btn2" x="20" y="50" click="currentState='Page1'" label="Page1"/>
+    <mx:Button id="btn3" x="20" y="80" click="Update()" label="Update"/>
+
+    <mx:Label x="20" y="120" text="X: {rect1.x}"/>
+    <mx:Label x="20" y="140" text="Y: {rect1.y}"/>
+    <mx:Label x="20" y="160" text="L:" id="lbl_top"/>
+    <mx:Label x="20" y="180" text="T:" id="lbl_right"/>
+
+</s:Application>

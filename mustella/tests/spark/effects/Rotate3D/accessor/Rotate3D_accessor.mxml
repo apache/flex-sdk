@@ -1,0 +1,106 @@
+﻿<UnitTester
+    testSWF="../SWFs/Rotate3D_main.mxml"
+    testDir="spark/effects/Rotate3D/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.Rotate3D;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- filter -->
+        <TestCase testID="Rotate3D_filter_Default" keywords="[Rotate3D, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).filter" value="null"/>
+            </body>
+        </TestCase>
+        <!-- customFilter -->
+        <TestCase testID="Rotate3D_customFilter_Default" keywords="[Rotate3D, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+        <!-- effectTargetHost -->
+        <TestCase testID="Rotate3D_effectTargetHost_Default" keywords="[Rotate3D, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+        <!-- target -->
+        <TestCase testID="Rotate3D_target_Default" keywords="[Rotate3D, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).target" value="null"/>
+            </body>
+        </TestCase>
+        <!-- perElementOffset -->
+        <TestCase testID="Rotate3D_perElementOffset_Default" keywords="[Rotate3D, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+        <!-- isPlaying -->
+        <TestCase testID="Rotate3D_isPlaying_Default" keywords="[Rotate3D, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <!-- playheadTime -->
+        <TestCase testID="Rotate3D_playheadTime_Default" keywords="[Rotate3D, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+        <!-- relevantProperties -->
+        <TestCase testID="Rotate3D_relevantProperties_Default" keywords="[Rotate3D, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue 
+					method="value=(new Rotate3D()).relevantProperties" 
+					value="rotationX,rotationY,rotationZ,postLayoutRotationX,postLayoutRotationY,postLayoutRotationZ,width,height"/>
+            </body>
+        </TestCase>
+        <!-- targets -->
+        <TestCase testID="Rotate3D_targets_Default" keywords="[Rotate3D, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).targets" value=""/>
+            </body>
+        </TestCase>
+        <!-- duration -->
+        <TestCase testID="Rotate3D_duration_Default" keywords="[Rotate3D, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <!-- hideFocusRing -->
+        <TestCase testID="Rotate3D_hideFocusRing_Default" keywords="[Rotate3D, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+        <!-- className -->
+        <TestCase testID="Rotate3D_className_Default" keywords="[Rotate3D, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).className" value="Rotate3D"/>
+            </body>
+        </TestCase>
+        <!-- triggerEvent -->
+        <TestCase testID="Rotate3D_triggerEvent_Default" keywords="[Rotate3D, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+        <!-- relevantStyles -->
+        <TestCase testID="Rotate3D_relevantStyles_Default" keywords="[Rotate3D, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new Rotate3D()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>
+

@@ -1,0 +1,976 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_validate_style_panel_app.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+		{
+			
+		}
+	]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>
+    <testCases>
+		<TestCase testID="CV_validate_default_valid_1" 
+				  description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_2" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="true"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="JPY12,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_3" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="decimalSeparator" value="."/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				
+				<SetStyle target="uiCustomCompStyle.cf" styleName="locale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="decimalSeparator" value="."/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 valueExpression="value=application.uiCustomCompStyle.cf.format(-12345.98)"
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_4" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$12345.98" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_5" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_6" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, ActionScript, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_7" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="true"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="1,2789,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_8" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="¥12,3.45,12" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_9" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 valueExpression="value='12.345.98'"
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_10" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_11" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, ActionScript, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,40EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_12" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, ActionScript, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_trigger_13" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_trigger_14" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="JPY12,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_trigger_15" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="decimalSeparator" value="."/>
+				
+				<SetStyle target="uiCustomCompStyle.cf" styleName="locale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="decimalSeparator" value="."/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 valueExpression="value=application.uiCustomCompStyle.cf.format(-12345.98)"
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_trigger_16" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_trigger_17" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_trigger_18" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, ActionScript, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_trigger_19" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,789,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_trigger_20" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="¥¥12,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_trigger_21" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 value="1,23,45,67.9.0" 
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_trigger_22" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_trigger_23" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, ActionScript, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$- 100,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_trigger_24" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger, ActionScript, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="text"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiBT"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBT" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_model_25" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_model_26" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="JPY12,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_model_27" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="decimalSeparator" value="."/>
+				
+				<SetStyle target="uiCustomCompStyle.cf" styleName="locale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="decimalSeparator" value="."/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 valueExpression="value=application.uiCustomCompStyle.cf.format(-12345.98)"
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_model_28" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_model_29" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_model_30" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, ActionScript, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_model_31" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,789,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_model_32" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="¥12,,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_model_33" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-123,456.78-" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_model_34" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvDefault" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_model_35" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, ActionScript, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-1,00,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_model_36" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, model, ActionScript, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="source" valueExpression="value=application.uiCustomCompStyle.userInfo"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="property" value="moneyNum"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="listener" valueExpression="value=application.uiCustomCompStyle.uiTI"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="required" value="false"/>
+				<SetProperty target="uiCustomCompStyle.cvScript" propertyName="enabled" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_program_37" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_program_38" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="JPY12,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_program_39" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvProg" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cvProg" propertyName="decimalSeparator" value="."/>
+				
+				<SetStyle target="uiCustomCompStyle.cf" styleName="locale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="decimalSeparator" value="."/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 valueExpression="value=application.uiCustomCompStyle.cf.format(-12345.98)"
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_valid_program_40" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_program_41" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_valid_program_42" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, ActionScript, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_program_43" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,789,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_program_44" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="¥1,2,3.4.5" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_program_45" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="(USD123,456.78)" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_invalid_program_46" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_program_47" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, ActionScript, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,4.0 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_script_invalid_program_48" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, ActionScript, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_valid_program_49" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr_FR"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,98 €" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+				<AssertPropertyValue target="uiCustomCompStyle.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_valid_program_50" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+				<SetProperty target="uiCustomCompStyle.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="JPY12,345" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+				<AssertPropertyValue target="uiCustomCompStyle.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_valid_program_51" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cvProg" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cvProg" propertyName="decimalSeparator" value="."/>
+				
+				<SetStyle target="uiCustomCompStyle.cf" styleName="locale" value="ar_AE"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="negativeCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomCompStyle.cf" propertyName="decimalSeparator" value="."/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" 
+							 valueExpression="value=application.uiCustomCompStyle.cf.format(-12345.98)"
+							 waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+				<AssertPropertyValue target="uiCustomCompStyle.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_valid_program_52" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-$100.40" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid"/>
+				<AssertPropertyValue target="uiCustomCompStyle.uiLb" propertyName="text" valueExpression="value=''"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_validateResult_script_valid_53" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, ActionScript, valid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="-100,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+				<AssertPropertyValue target="uiCustomCompStyle.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_validateResult_script_valid_54" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, ActionScript, valid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid"/>
+				<AssertPropertyValue target="uiCustomCompStyle.uiLb" propertyName="text" valueExpression="value=''"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_invalid_program_55" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fr-FR"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="12,345,40 EUR" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_invalid_program_56" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ja_JP"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="¥¥123.45" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_invalid_program_57" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="ar_AE"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_method_validateResult_invalid_program_58" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="fil-PH"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethod" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvProg" eventName="valid"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_validateResult_script_invalid_59" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, ActionScript, invalid]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="de-DE@collation=phonebook"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiLb"/>
+				<AssertEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="uiCustomCompStyle.uiTI"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CV_validate_default_validateResult_script_invalid_60" description="testcase for style inheritance into spark:Panel component using application selector." keywords="[CurrencyValidator, validate, style, spark:Panel component, application selector, style inheritance, trigger programmatically, validate result, ActionScript, invalid, enabled is false]">
+			<setup>
+				<ResetComponent target="uiCustomCompStyle" className="assets.CustomCompStyle" waitEvent="updateComplete" waitTarget="uiCustomCompStyle"/>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN"/>
+				<SetProperty target="uiCustomCompStyle.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiProgType"/>
+			</setup>
+			<body>
+				<SetProperty target="uiCustomCompStyle.uiTI" propertyName="text" value="$-10o.04" waitEvent="updateComplete" waitTarget="uiCustomCompStyle.uiTI"/>
+				<DispatchMouseEvent target="uiCustomCompStyle.uiBTMethodScript" type="click"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiCustomCompStyle.cvScript" eventName="valid"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

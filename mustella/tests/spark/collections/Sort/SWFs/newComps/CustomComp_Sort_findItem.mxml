@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 updateComplete="group1_updateCompleteHandler(event)"
+		 width="400" height="300" xmlns:newComps="newComps.*">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			public var mySortScript:spark.collections.Sort = new spark.collections.Sort();
+			public var mySortFieldScript: spark.collections.SortField = new spark.collections.SortField();
+			public var mySortFieldScript2:spark.collections.SortField = new spark.collections.SortField();
+			public var mySortFieldScript3:spark.collections.SortField = new spark.collections.SortField();
+			
+			protected function group1_updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(mySortScript);
+				this.addStyleClient(mySortFieldScript);
+				this.addStyleClient(mySortFieldScript2);
+				this.addStyleClient(mySortFieldScript3);
+			}
+			
+			[Bindable]
+			public var buttonBarValueField:String;
+			[Bindable]
+			public var buttonBarDataProvider:ArrayCollection;
+			
+			public function get listSelectFieldValue():* {
+				if (uiButtonBar != null && uiButtonBar.selectedItem != null) {
+					var selectedValue:* = uiButtonBar.selectedItem;
+					
+					return selectedValue[buttonBarValueField];
+				}
+				
+				return null;
+			}
+			
+			public function get sparkSortedArray():Array {
+				if (uiButtonBar != null && 
+					uiButtonBar.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(buttonBarValueField, buttonBarDataProvider);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function get mxSortedArray():Array {
+				if (buttonBarDataProvider != null) {
+					
+					var newArrList:ArrayCollection = SFConstant.deepCloneAC(buttonBarDataProvider);
+					newArrList.sort = myMxSort;
+					newArrList.refresh();
+					
+					return SFConstant.getArrayOfField(buttonBarValueField, newArrList);
+				}
+				
+				return null;
+			}
+			
+			public function sparkSortedArrayField(field:String):Array {
+				if (uiButtonBar != null && 
+					uiButtonBar.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(field, buttonBarDataProvider);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function revertArray(arr:Array):Array{
+				if(arr!=null){
+					return arr.reverse();
+				}
+				else
+					return null;
+			}
+			
+			public function VerifyUniqueError():String{
+				var error:String = 'noError';
+				try
+				{
+					buttonBarDataProvider.refresh();
+				}
+				catch(e:Error)
+				{
+					error = e.toString();
+				}
+				return error;
+			}
+			
+			public var findObj:Object = new Object();
+			public function set initNameObject(value:String):void{
+				findObj['name'] = value;
+			}
+			public function set initAgeObject(value:Number):void{
+				findObj['age'] = value;
+			}
+			public function set initIDObject(value:String):void{
+				findObj['id'] = value;
+			}
+			
+			public function tryWrongFieldsOrder():String{
+				var err:String = 'noError';
+				try
+				{
+					findObj['id'] = '12';
+					findObj['age'] = 16;
+					mySort.findItem(
+								   buttonBarDataProvider.source,
+								   findObj,
+								   spark.collections.Sort.LAST_INDEX_MODE, false);
+				}
+				catch(e:Error)
+				{
+					err = e.toString();
+				}
+				return err;
+			}
+			
+			public function tryWrongFieldsOrderScript():String{
+				var err:String = 'noError';
+				try
+				{
+					findObj['id'] = '12';
+					findObj['age'] = 16;
+					mySortScript.findItem(
+								   buttonBarDataProvider.source,
+								   findObj,
+								   spark.collections.Sort.LAST_INDEX_MODE, false);
+				}
+				catch(e:Error)
+				{
+					err = e.toString();
+				}
+				return err;
+			}
+			
+			public function tryArgumentError(sort:spark.collections.Sort):String{
+				var err:String = 'noError';
+				try
+				{
+					sort.findItem( buttonBarDataProvider.source,findObj,'invalid');
+				}
+				catch(e:Error)
+				{
+					err = e.toString();
+				}
+				return err;
+			}
+			public function tryTypeError(sort:spark.collections.Sort):String{
+				var err:String = 'noError';
+				try
+				{
+					sort.findItem( null,findObj,'first');
+				}
+				catch(e:Error)
+				{
+					err = e.toString();
+				}
+				return err;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:SortingCollator id="sparkCollator" />
+		
+		<s:Sort id="mySort"/>
+		
+		<s:SortField id="mySortField"/>
+		<s:SortField id="mySortField2"/>
+		<s:SortField id="mySortField3"/>
+		
+		<mx:Sort id="myMxSort" />
+		<mx:SortField id="myMxSortField" />
+		
+	</fx:Declarations>
+	<newComps:BaseDataComp id="dataComp"/>
+	<s:ButtonBar id="uiButtonBar" labelField="{buttonBarValueField}" dataProvider="{buttonBarDataProvider}"/>
+	
+</s:Group>

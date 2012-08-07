@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Event/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_Change.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.NumberFormatter;
+			import flash.globalization.NationalDigitsType;
+			import assets.NVConstants;
+			
+			import mx.core.Application;
+			
+			public static function init(o:DisplayObject):void
+			{
+				// public var localListInTest = Application.
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<testCases>
+		<TestCase testID="NV_ChangeEvent_changeLocale_sr_Cyrl_RS_test1" 
+				  description="change event will dispatch if locale change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetStyle target="nvLocaleU" styleName="locale" value="sr-Cyrl-RS"/>
+				<AssertEvent target="nvLocaleU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ChangeEvent_unchangeLocale_zh_CN_test2" 
+				  description="change event will dispatch if locale change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetStyle target="nvLocaleC" styleName="locale" value="zh-CN"/>
+				<AssertNoEvent target="nvLocaleC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_unchangeProperty_decimalSeparator_comma_test3" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvDecSptU" propertyName="decimalSeparator" value=","/>
+				<AssertNoEvent target="nvDecSptU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_changeProperty_decimalSeparator_colon_test4" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvDecSptC" propertyName="decimalSeparator" value=":"/>
+				<AssertEvent target="nvDecSptC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ChangeEvent_unchangeProperty_fractionalDigits_1_test5" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvFracDigU" propertyName="fractionalDigits" valueExpression="value=1"/>
+				<AssertNoEvent target="nvFracDigU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_changeProperty_fractionalDigits_3_test6" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvFracDigC" propertyName="fractionalDigits" valueExpression="value=3"/>
+				<AssertEvent target="nvFracDigC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ChangeEvent_unchangeProperty_groupingSeparator_colon_test7" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvGSptU" propertyName="groupingSeparator" value=":"/>
+				<AssertNoEvent target="nvGSptU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_changeProperty_groupingSeparator_semicolon_test8" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvGSptC" propertyName="groupingSeparator" value=";"/>
+				<AssertEvent target="nvGSptC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ChangeEvent_unchangeProperty_negativeSymbol_doubleHyphen_test9" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvNegSybU" propertyName="negativeSymbol" value="--"/>
+				<AssertNoEvent target="nvNegSybU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_changeProperty_negativeSymbol_star_test10" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvNegSybC" propertyName="negativeSymbol" value="*"/>
+				<AssertEvent target="nvNegSybC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ChangeEvent_unchangeProperty_negativeNumberFormat_2_test11" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvNegNFU" propertyName="negativeNumberFormat" valueExpression="value=2"/>
+				<AssertNoEvent target="nvNegNFU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_changeProperty_negativeNumberFormat_4_test12" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvNegNFC" propertyName="negativeNumberFormat" valueExpression="value=4"/>
+				<AssertEvent target="nvNegNFC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ChangeEvent_unchangeProperty_digitsType_test11" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvDTtnU" propertyName="digitsType" valueExpression="value=NationalDigitsType.EUROPEAN"/>
+				<AssertNoEvent target="nvDTtnU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ChangeEvent_changeProperty_digitsType_test12" 
+				  description="change event will dispatch if property change" keywords="[NumberValidator,changeEvent]">
+			<body>
+				<SetProperty target="nvDTtnC" propertyName="digitsType" valueExpression="value=NationalDigitsType.BALINESE"/>
+				<AssertEvent target="nvDTtnC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+	</testCases>
+	
+</UnitTester>

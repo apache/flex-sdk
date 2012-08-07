@@ -1,0 +1,74 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_videoObject_default"
+            keywords="[VideoPlayer]"
+            description="Test the default videoObject property">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="videoObject" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_videoObject_streaming"
+            keywords="[VideoPlayer]"
+            description="Test videoObject videoHeight_videoWidth streaming">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+                <Pause timeout="9000"/>
+            </setup>
+            <body>
+                 <AssertMethodValue method="value=application.testPlayer.videoObject.videoWidth" value="640"/>
+                 <AssertMethodValue method="value=application.testPlayer.videoObject.videoHeight" value="480"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+            testID="VideoPlayer_videoObject_progressive"
+            keywords="[VideoPlayer]"
+            description="Test videoObject videoHeight_videoWidth progressive">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="4000"/>
+                <Pause timeout="9000"/>
+            </setup>
+            <body>
+                 <AssertMethodValue method="value=application.testPlayer.videoObject.videoWidth" value="320"/>
+                 <AssertMethodValue method="value=application.testPlayer.videoObject.videoHeight" value="240"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

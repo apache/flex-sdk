@@ -1,0 +1,59 @@
+<UnitTester testDir="spark/globalization/StringTools/Styles/" 
+			testSWF="ST_locale_inheritance.mxml" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*">
+	<mx:Script><![CDATA[
+		import assets.StringToolsTestConstants;
+		
+		import flash.globalization.*;
+		
+		import spark.globalization.StringTools;
+		
+		public var stGSLib:flash.globalization.StringTools;
+		
+		public static function init(o:DisplayObject):void
+		{
+		}
+	]]></mx:Script>
+	<mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+	]]></mx:Metadata>
+	<testCases>
+		<TestCase testID="ST_locale_inheritance_default_test_1" description="the test case is for Checking default locale style inheritance" keywords="[StringTools, locale, style inherit]">
+			<setup>
+				<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+				<ResetComponent target="styleComp" className="assets.ST_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="styleComp.st" propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ST_locale_inheritance_default_test_2" description="the test case is for Checking default locale style inheritance" keywords="[StringTools, locale, style inherit]">
+			<setup>
+				<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+				<ResetComponent target="styleComp" className="assets.ST_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="styleComp.st" propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus"/>
+				<AssertPropertyValue target="styleComp.st" propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName"/>
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ST_locale_inheritance_default_test_3" description="the test case is for Checking default locale style inheritance" keywords="[StringTools, locale, style inherit]">
+			<setup>
+				<RunCode code="stGSLib=new flash.globalization.StringTools('zh-CN')"/>
+				<ResetComponent target="styleComp" className="assets.ST_StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+			</setup>
+			<body>
+				<SetProperty target="" propertyName="appLocale" value="zh-CN" waitEvent="myAppLocaleChangedEve" waitTarget=""/>
+				<AssertPropertyValue target="styleComp.st" propertyName="actualLocaleIDName" valueExpression="value=stGSLib.actualLocaleIDName"/>
+				<AssertEvent target="styleComp.st" eventName="change" eventClass="flash.events::Event"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

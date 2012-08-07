@@ -1,0 +1,42 @@
+<UnitTester 
+    testDir="spark/effects/Animate/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Animate_Main.mxml">
+    
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.animation.SimpleMotionPath;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!--motionPaths-->
+        <TestCase testID="Animate_motionPaths" keywords="[Animate, Properties, motionPaths]" description="Test the setting of Animate.motionPaths.">
+            <setup>
+                <ResetComponent target="testEffect" className="spark.effects.Animate" />
+                <RunCode code="application.AddMPVectors()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect.motionPaths" propertyName="length" value="3"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Animate_null" keywords="[Animate, Properties, motionPaths]" description="Test the setting of Animate.motionPaths to null.">
+            <setup>
+                <ResetComponent target="testEffect" className="spark.effects.Animate" />
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="motionPaths" valueExpression="value=null;"/>
+                <AssertPropertyValue target="testEffect" propertyName="motionPaths" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,40 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_25270.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_25270" 
+			keywords="[SDK_25270]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-25270">
+			<!--bugs>
+				<Bug bugID="SDK-25270"/>
+			</bugs -->
+			<body>
+                <ChangeState toState="notOver" waitEvent="currentStateChange" />
+                <ChangeState toState="over" waitEvent="currentStateChange" />
+                <ChangeState toState="notOver" waitEvent="currentStateChange" />
+                <ChangeState toState="over" waitEvent="currentStateChange" />
+                <ChangeState toState="notOver" waitEvent="currentStateChange" />
+                <ChangeState toState="over" waitEvent="currentStateChange" />
+                <AssertPixelValue target="group1" x="5" y="5" value="0x008800"/>
+                <AssertPixelValue target="group1" x="30" y="30" value="0xFF0000"/>
+                <AssertPixelValue target="group1" x="90" y="90" value="0x1A941A"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

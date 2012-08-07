@@ -1,0 +1,1897 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Methods/" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_formatUTC_Main.mxml">
+  
+	<mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		import assets.*;
+
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		[Bindable]
+		public var aDate:Date = new Date(2000, 0, 1);
+  
+		public static function init(o:DisplayObject):void
+        {
+			
+        }
+    ]]>
+    </mx:Script>
+  
+	<mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+  	</mx:Metadata>
+	
+<!--This test file is to test formatUTC() when a DateTimeFormatter is set with different dateStyle,timeStyle and Locale -->
+<testCases>
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+		<TestCase testID="DF_formatUTC_en_US_long_long_test1" description="'en_US', 'long', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>	
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'long', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLL" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLL" value="long" />
+			<SetProperty propertyName="timeStyle" target="FormatterLL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterLL" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterLL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>		
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLL" valueExpression="value=flashDF.lastOperationStatus"/>			
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_long_medium_test2" description="'en_US', 'long', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLM.initialized(null , 'FormatterLM')" />
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'long', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLM" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLM" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLM" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterLM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>			
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_long_none_test3" description="'en_US', 'long', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLN.initialized(null , 'FormatterLN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'long', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLN" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLN" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLN" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterLN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_long_short_test4" description="'en_US', 'long', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterLS.initialized(null , 'FormatterLS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'long', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLS" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLS" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLS" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterLS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_medium_long_test5" description="'en_US', 'medium', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterML" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterML.initialized(null , 'FormatterML')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'medium', 'long')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterML" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterML" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterML" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterML" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterML.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterML" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_medium_medium_test6" description="'en_US', 'medium', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterMM.initialized(null , 'FormatterMM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'medium', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMM" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMM" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterMM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_medium_none_test7" description="'en_US', 'medium', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterMN.initialized(null , 'FormatterMN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'medium', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMN" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMN" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMN" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterMN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_medium_short_test8" description="'en_US', 'medium', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMS.initialized(null , 'FormatterMS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'medium', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMS" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMS" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMS" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterMS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_none_long_test9" description="'en_US', 'none', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNL.initialized(null , 'FormatterNL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'none', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNL" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNL" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterNL" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterNL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_none_medium_test10" description="'en_US', 'none', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNM.initialized(null , 'FormatterNM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'none', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNM" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNM" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNM" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterNM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_none_none_test11" description="'en_US', 'none', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNN.initialized(null , 'FormatterNN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'none', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNN" value="en_US" waitEvent="change"/>	
+			<SetProperty propertyName="dateStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNN" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterNN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_none_short_test12" description="'en_US', 'none', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNS.initialized(null , 'FormatterNS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'none', 'short')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNS" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNS" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNS" valueExpression="value=true" waitEvent="change"/>	
+			<AssertMethodValue method="value=application.FormatterNS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_short_long_test13" description="'en_US', 'short', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSL.initialized(null , 'FormatterSL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'short', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSL" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSL" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterSL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_short_medium_test14" description="'en_US', 'short', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSM.initialized(null , 'FormatterSM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'short', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSM" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSM" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_short_none_test15" description="'en_US', 'short', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSN.initialized(null , 'FormatterSN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'short', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSN" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSN" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>	
+	
+	<!--testcase1-16 are used to test formatUTC  with "en_US" locale-->
+	<TestCase testID="DF_formatUTC_en_US_short_short_test16" description="'en_US', 'short', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSS.initialized(null , 'FormatterSS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en_US', 'short', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSS" value="en_US" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_long_long_test17" description="'zh_CN', 'long', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLL.initialized(null , 'FormatterLL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'long', 'long')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLL" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLL" value="long" />
+			<SetProperty propertyName="timeStyle" target="FormatterLL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterLL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>			
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_long_medium_test18" description="'zh_CN', 'long', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterLM.initialized(null , 'FormatterLM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'long', 'medium')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLM" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLM" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_long_none_test19" description="'zh_CN', 'long', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterLN.initialized(null , 'FormatterLN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'long', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLN" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLN" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLN" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterLN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_long_short_test20" description="'zh_CN', 'long', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLS.initialized(null , 'FormatterLS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'long', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLS" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLS" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_medium_long_test21" description="'zh_CN', 'medium', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterML" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterML.initialized(null , 'FormatterML')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'medium', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterML" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterML" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterML" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterML" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterML.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>			
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterML" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_medium_medium_test22" description="'zh_CN', 'medium', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMM.initialized(null , 'FormatterMM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'medium', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMM" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_medium_none_test23" description="'zh_CN', 'medium', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterMN.initialized(null , 'FormatterMN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'medium', 'none')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMN" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMN" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_medium_short_test24" description="'zh_CN', 'medium', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMS.initialized(null , 'FormatterMS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'medium', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMS" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMS" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_none_long_test25" description="'zh_CN', 'none', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNL.initialized(null , 'FormatterNL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'none', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNL" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNL" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNL" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterNL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>			
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_none_medium_test26" description="'zh_CN', 'none', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNM.initialized(null , 'FormatterNM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'none', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNM" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNM" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_none_none_test27" description="'zh_CN', 'none', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNN.initialized(null , 'FormatterNN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'none', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNN" value="zh_CN" waitEvent="change"/>	
+			<SetProperty propertyName="dateStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_none_short_test28" description="'zh_CN', 'none', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNS.initialized(null , 'FormatterNS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'none', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNS" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNS" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>			
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_short_long_test29" description="'zh_CN', 'short', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSL.initialized(null , 'FormatterSL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'short', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSL" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSL" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSL" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterSL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_short_medium_test30" description="'zh_CN', 'short', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSM.initialized(null , 'FormatterSM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'short', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSM" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSM" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSM" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterSM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_short_none_test31" description="'zh_CN', 'short', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSN.initialized(null , 'FormatterSN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'short', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSN" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSN" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSN" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterSN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase17-32 are used to test formatUTC with "zh_CN" locale-->
+	<TestCase testID="DF_formatUTC_zh_CN_short_short_test32" description="'zh_CN', 'short', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSS.initialized(null , 'FormatterSS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'short', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSS" value="zh_CN" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSS" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterSS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_long_long_test33" description="'ar_JO', 'long', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLL.initialized(null , 'FormatterLL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'long', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLL" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLL" value="long"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLL" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterLL" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterLL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_long_medium_test34" description="'ar_JO', 'long', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLM.initialized(null , 'FormatterLM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'long', 'medium')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLM" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLM" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLM" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterLM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_long_none_test35" description="'ar_JO', 'long', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLN.initialized(null , 'FormatterLN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'long', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLN" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLN" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLN" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterLN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_long_short_test36" description="'ar_JO', 'long', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLS.initialized(null , 'FormatterLS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'long', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLS" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLS" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_medium_long_test37" description="'ar_JO', 'medium', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterML" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterML.initialized(null , 'FormatterML')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'medium', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterML" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterML" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterML" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterML" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterML.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterML" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_medium_medium_test38" description="'ar_JO', 'medium', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMM.initialized(null , 'FormatterMM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'medium', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMM" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_medium_none_test39" description="'ar_JO', 'medium', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterMN.initialized(null , 'FormatterMN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'medium', 'none')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMN" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMN" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_medium_short_test40" description="'ar_JO', 'medium', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMS.initialized(null , 'FormatterMS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'medium', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMS" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMS" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_none_long_test41" description="'ar_JO', 'none', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNL.initialized(null , 'FormatterNL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'none', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNL" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNL" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNL" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterNL" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterNL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_none_medium_test42" description="'ar_JO', 'none', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNM.initialized(null , 'FormatterNM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'none', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNM" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNM" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_none_none_test43" description="'ar_JO', 'none', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNN.initialized(null , 'FormatterNN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'none', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNN" value="ar_JO" waitEvent="change"/>	
+			<SetProperty propertyName="dateStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_none_short_test44" description="'ar_JO', 'none', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNS.initialized(null , 'FormatterNS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'none', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNS" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNS" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_short_long_test45" description="'ar_JO', 'short', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSL.initialized(null , 'FormatterSL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'short', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSL" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSL" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSL" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterSL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_short_medium_test46" description="'ar_JO', 'short', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSM.initialized(null , 'FormatterSM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'short', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSM" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSM" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_short_none_test47" description="'ar_JO', 'short', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSN.initialized(null , 'FormatterSN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'short', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSN" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSN" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>	
+	
+	<!--testcase33-48 are used to test formatUTC with "ar_JO" locale-->
+	<TestCase testID="DF_formatUTC_ar_JO_short_short_test48" description="'ar_JO', 'short', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSS.initialized(null , 'FormatterSS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar_JO', 'short', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSS" value="ar_JO" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSS" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterSS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_long_long_test49" description="'i_default', 'long', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLL.initialized(null , 'FormatterLL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'long', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLL" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLL" value="long" />
+			<SetProperty propertyName="timeStyle" target="FormatterLL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterLL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_long_medium_test50" description="'i_default', 'long', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLM.initialized(null , 'FormatterLM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'long', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLM" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLM" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_long_none_test51" description="'i_default', 'long', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLN.initialized(null , 'FormatterLN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'long', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLN" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLN" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLN" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.FormatterLN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_long_short_test52" description="'i_default', 'long', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLS.initialized(null , 'FormatterLS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'long', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLS" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLS" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_medium_long_test53" description="'i_default', 'medium', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterML" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterML.initialized(null , 'FormatterML')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'medium', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterML" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterML" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterML" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterML" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterML.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterML" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_medium_medium_test54" description="'i_default', 'medium', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMM.initialized(null , 'FormatterMM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'medium', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMM" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_medium_none_test55" description="'i_default', 'medium', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMN.initialized(null , 'FormatterMN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'medium', 'none')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMN" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMN" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_medium_short_test56" description="'i_default', 'medium', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMS.initialized(null , 'FormatterMS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'medium', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMS" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMS" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_none_long_test57" description="'i_default', 'none', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNL.initialized(null , 'FormatterNL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'none', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNL" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNL" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterNL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_none_medium_test58" description="'i_default', 'none', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNM.initialized(null , 'FormatterNM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'none', 'medium')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNM" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNM" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_none_none_test59" description="'i_default', 'none', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNN.initialized(null , 'FormatterNN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'none', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNN" value="i_default" waitEvent="change"/>	
+			<SetProperty propertyName="dateStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_none_short_test60" description="'i_default', 'none', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNS.initialized(null , 'FormatterNS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'none', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNS" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNS" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_short_long_test61" description="'i_default', 'short', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSL.initialized(null , 'FormatterSL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'short', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSL" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSL" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterSL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_short_medium_test62" description="'i_default', 'short', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSM.initialized(null , 'FormatterSM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'short', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSM" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSM" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_short_none_test63" description="'i_default', 'short', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSN.initialized(null , 'FormatterSN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'short', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSN" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSN" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>	
+	
+	<!--testcase49-64 are used to test formatUTC with "i_default" locale-->
+	<TestCase testID="DF_formatUTC_i_default_short_short_test64" description="'i_default', 'short', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSS.initialized(null , 'FormatterSS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i_default', 'short', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSS" value="i_default" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_long_long_test65" description="'sr_Cyrl_RS', 'long', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLL" className="spark.formatters.DateTimeFormatter" />	
+			<RunCode code="application.FormatterLL.initialized(null , 'FormatterLL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'long', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLL" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLL" value="long" />
+			<SetProperty propertyName="timeStyle" target="FormatterLL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterLL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_long_medium_test66" description="'sr_Cyrl_RS', 'long', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLM.initialized(null , 'FormatterLM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'long', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLM" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLM" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_long_none_test67" description="'sr_Cyrl_RS', 'long', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterLN.initialized(null , 'FormatterLN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'long', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLN" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLN" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_long_short_test68" description="'sr_Cyrl_RS', 'long', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLS.initialized(null , 'FormatterLS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'long', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLS" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLS" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_medium_long_test69" description="'sr_Cyrl_RS', 'medium', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterML" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterML.initialized(null , 'FormatterML')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'medium', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterML" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterML" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterML" value="long"/>
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterML" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterML.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterML" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_medium_medium_test70" description="'sr_Cyrl_RS', 'medium', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMM.initialized(null , 'FormatterMM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'medium', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMM" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMM" value="medium"  waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMM" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterMM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_medium_none_test71" description="'sr_Cyrl_RS', 'medium', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMN.initialized(null , 'FormatterMN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'medium', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMN" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMN" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMN" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterMN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_medium_short_test72" description="'sr_Cyrl_RS', 'medium', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMS.initialized(null , 'FormatterMS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'medium', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMS" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMS" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMS" valueExpression="value=true" waitEvent="change"/>		
+			<AssertMethodValue method="value=application.FormatterMS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_none_long_test73" description="'sr_Cyrl_RS', 'none', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNL.initialized(null , 'FormatterNL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'none', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNL" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNL" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterNL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_none_medium_test74" description="'sr_Cyrl_RS', 'none', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNM.initialized(null , 'FormatterNM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'none', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNM" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNM" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_none_none_test75" description="'sr_Cyrl_RS', 'none', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNN.initialized(null , 'FormatterNN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'none', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNN" value="sr_Cyrl_RS" waitEvent="change"/>	
+			<SetProperty propertyName="dateStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_none_short_test76" description="'sr_Cyrl_RS', 'none', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNS" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNS.initialized(null , 'FormatterNS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'none', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNS" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNS" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_short_long_test77" description="'sr_Cyrl_RS', 'short', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSL.initialized(null , 'FormatterSL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'short', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSL" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSL" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterSL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_short_medium_test78" description="'sr_Cyrl_RS', 'short', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSM.initialized(null , 'FormatterSM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'short', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSM" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSM" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_short_none_test79" description="'sr_Cyrl_RS', 'short', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSN.initialized(null , 'FormatterSN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'short', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSN" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSN" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>	
+	
+	<!--testcase65-80 are used to test formatUTC with "sr_Cyrl_RS" locale-->
+	<TestCase testID="DF_formatUTC_sr_Cyrl_RS_short_short_test80" description="'sr_Cyrl_RS', 'short', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSS.initialized(null , 'FormatterSS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr_Cyrl_RS', 'short', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSS" value="sr_Cyrl_RS" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>	
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_long_long_test81" description="'123', 'long', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLL.initialized(null , 'FormatterLL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'long', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLL" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLL" value="long" />
+			<SetProperty propertyName="timeStyle" target="FormatterLL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterLL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_long_medium_test82" description="'123', 'long', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterLM.initialized(null , 'FormatterLM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'long', 'medium')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLM" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLM" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_long_none_test83" description="'123', 'long', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLN.initialized(null , 'FormatterLN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'long', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLN" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLN" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_long_short_test84" description="'123', 'long', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterLS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterLS.initialized(null , 'FormatterLS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'long', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterLS" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterLS" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="timeStyle" target="FormatterLS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterLS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterLS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterLS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_medium_long_test85" description="'123', 'medium', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterML" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterML.initialized(null , 'FormatterML')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'medium', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterML" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterML" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterML" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterML" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterML.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterML" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_medium_medium_test86" description="'123', 'medium', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMM" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMM.initialized(null , 'FormatterMM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'medium', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMM" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_medium_none_test87" description="'123', 'medium', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMN" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterMN.initialized(null , 'FormatterMN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'medium', 'none')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMN" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMN" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_medium_short_test88" description="'123', 'medium', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterMS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterMS.initialized(null , 'FormatterMS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'medium', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterMS" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterMS" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterMS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterMS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterMS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterMS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_none_long_test89" description="'123', 'none', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNL" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNL.initialized(null , 'FormatterNL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'none', 'long')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNL" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNL" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterNL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_none_medium_test90" description="'123', 'none', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterNM.initialized(null , 'FormatterNM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'none', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNM" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNM" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_none_none_test91" description="'123', 'none', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNN.initialized(null , 'FormatterNN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'none', 'none')" />		
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNN" value="123" waitEvent="change"/>	
+			<SetProperty propertyName="dateStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_none_short_test92" description="'123', 'none', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterNS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterNS.initialized(null , 'FormatterNS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'none', 'short')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterNS" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterNS" value="none" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterNS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterNS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterNS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterNS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_short_long_test93" description="'123', 'short', 'long'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSL" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSL.initialized(null , 'FormatterSL')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'short', 'long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSL" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSL" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSL" value="long" />
+			<Pause timeout="200"/>
+			<SetProperty propertyName="useUTC" target="FormatterSL" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSL.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSL" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_short_medium_test94" description="'123', 'short', 'medium'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSM" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.FormatterSM.initialized(null , 'FormatterSM')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'short', 'medium')" />	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSM" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSM" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSM" value="medium" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSM" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSM.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSM" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_short_none_test95" description="'123', 'short', 'none'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSN" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSN.initialized(null , 'FormatterSN')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'short', 'none')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSN" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSN" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSN" value="none" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSN" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSN.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSN" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>	
+	
+	<!--testcase81-96 are used to test  formatUTC with locale "123"-->
+	<TestCase testID="DF_formatUTC_123_short_short_test96" description="'123', 'short', 'short'" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<ResetComponent target="FormatterSS" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.FormatterSS.initialized(null , 'FormatterSS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123', 'short', 'short')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="FormatterSS" value="123" waitEvent="change"/>
+			<SetProperty propertyName="dateStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="timeStyle" target="FormatterSS" value="short" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" target="FormatterSS" valueExpression="value=true" waitEvent="change"/>			
+			<AssertMethodValue method="value=application.FormatterSS.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="FormatterSS" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>		
+	</TestCase>
+	
+	<!--this test case is to test calling format() method of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_formatUTC_script_withoutSettingLocale_test97" description="test calling format() method of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<SetProperty propertyName="useUTC" target="dtfLocale" valueExpression="value=true"/>			
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocale.format(aDate)" valueExpression="value=flashDF.formatUTC(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=DFConstants.noErrorMsg" target="dtfLocale"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling format() method of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_formatUTC_declaration_withoutSettingLocale_test98" description="test calling format() method of dtf defined in fx:Declaration without setting locale" keywords="[DateTimeFormatter, formatUTC]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInline" valueExpression="value=undefined"/>
+			<SetProperty propertyName="useUTC" target="dtfLocaleInline" valueExpression="value=true"/>			
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocaleInline.format(aDate)" valueExpression="value=DFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=DFConstants.localeUndefinedErrMsg" target="dtfLocaleInline"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Date object  -->
+	<TestCase testID="DF_format_formatObject_test99" description="test case for format an object : null or any Date object " keywords="[DateTimeFormatter, format]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US','long','long')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dfTestObj.format(null)" valueExpression="value=DFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue target="dfTestObj" propertyName="lastOperationStatus" valueExpression="value=DFConstants.noErrorMsg"/>
+			<AssertMethodValue method="value=application.dfTestObj.format(new Date('notaDate'))" valueExpression="value=flashDF.format(new Date('notaDate'))"/>
+			<AssertPropertyValue target="dfTestObj" propertyName="lastOperationStatus" valueExpression="value=DFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.dfTestObj.format( new Object() )" valueExpression="value=flashDF.format( new Date( new Object() ))"/>
+			<AssertPropertyValue target="dfTestObj" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.dfTestObj.format(application.dateValue)" valueExpression="value=flashDF.format(new Date(2000, 0, 1))"/>
+			<AssertPropertyValue target="dfTestObj" propertyName="lastOperationStatus" value="noError"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Date object  -->
+	<TestCase testID="DF_format_formatObject_test100" 
+			  description="test case for format an object : null or any Date object " keywords="[DateTimeFormatter, format]">
+		<setup>
+			<SetProperty target="dfTestInvalidObj" propertyName="errorText" valueExpression="value=DFConstants.ERROR_1"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dfInvalidLabel" propertyName="text" valueExpression="value=DFConstants.ERROR_1" />
+			<AssertMethodValue method="value=application.dfTestInvalidObj.format(new Date('notaDate'))" valueExpression="value=DFConstants.ERROR_1"/>
+			<AssertPropertyValue target="dfTestInvalidObj" propertyName="lastOperationStatus" valueExpression="value=DFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.dfTestInvalidObj.format(null)" valueExpression="value=DFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue target="dfTestInvalidObj" propertyName="lastOperationStatus" valueExpression="value=DFConstants.illegalParamMsg"/>
+		</body>
+	</TestCase>
+	
+	<!--test case for format an object : null or any Date object  -->
+	<TestCase testID="DF_format_formatObject_test101" 
+			  description="test case for format an object : null or any Date object " keywords="[DateTimeFormatter, format]">
+		<setup>
+			<SetProperty target="dfTestInvalidObj2" propertyName="errorText" valueExpression="value=DFConstants.ERROR_2"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dfInvalidLabel2" propertyName="text" valueExpression="value=DFConstants.ERROR_2" />
+			<AssertMethodValue method="value=application.dfTestInvalidObj2.format(new Date('notaDate'))" valueExpression="value=DFConstants.ERROR_2"/>
+			<AssertPropertyValue target="dfTestInvalidObj2" propertyName="lastOperationStatus" valueExpression="value=DFConstants.illegalParamMsg"/>
+			<AssertMethodValue method="value=application.dfTestInvalidObj2.format(null)" valueExpression="value=DFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue target="dfTestInvalidObj2" propertyName="lastOperationStatus" valueExpression="value=DFConstants.illegalParamMsg"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+	
+</UnitTester>

@@ -1,0 +1,163 @@
+<UnitTester 
+    testSWF="../SWFs/Wipe_main.mxml" 
+    testDir="spark/effects/Wipe/accessor/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.Wipe;
+        import spark.effects.WipeDirection;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- customFilter -->
+        <TestCase testID="Wipe_customFilter_Default" keywords="[Wipe, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="Wipe_className_Default" keywords="[Wipe, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).className" value="Wipe"/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="Wipe_effectTargetHost_Default" keywords="[Wipe, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="Wipe_hideFocusRing_Default" keywords="[Wipe, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="Wipe_isPlaying_Default" keywords="[Wipe, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Wipe_isPlaying" keywords="[Wipe, accessor, isPlaying]" description="Test isPlaying during play.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.startDelay = 500;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.controls1.control_Button;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play()" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="e_Wipe" propertyName="isPlaying" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="Wipe_target_Default" keywords="[Wipe, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- playheadTime -->
+        <TestCase testID="Wipe_playheadTime_Default" keywords="[Wipe, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Wipe_duration_Default" keywords="[Wipe, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Wipe_duration" keywords="[Wipe, accessor, duration]" description="Test a non-default duration.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.duration = 1000;" />
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.target = application.controls1.control_Button;" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.playheadTime = 800" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../accessor/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="Wipe_targets_Default" keywords="[Wipe, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).targets" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="Wipe_targets" keywords="[Wipe, accessor, targets]" description="Test with multiple targets.">
+            <setup>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button, application.controls1.control_Button2];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.playheadTime = 300" />
+                <Pause timeout="{application.pauseQuanta}"/>
+                <CompareBitmap target="controls1" url="../accessor/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="Wipe_relevantProperties_Default" keywords="[Wipe, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).relevantProperties" value="bitmapInfo,visible,parent"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="Wipe_triggerEvent_Default" keywords="[Wipe, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="Wipe_relevantStyles_Default" keywords="[Wipe, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="Wipe_perElementOffset_Default" keywords="[Wipe, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="Wipe_filter_Default" keywords="[Wipe, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Wipe()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

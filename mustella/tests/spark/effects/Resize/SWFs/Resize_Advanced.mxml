@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="500" width="500"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:trixContainers="Containers.*"
+    xmlns:trixControls="Controls.*"
+    backgroundColor="0xFFFFFF">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+		@font-face
+		{
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera1;
+		embedAsCFF: true;
+		}
+
+		global
+		{
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: blue;
+		}
+
+		s|SkinnableComponent
+		{
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: black;
+		}
+	</fx:Style>
+	
+    <s:states>
+        <mx:State id="stateOne" name="stateOne"/>
+        <mx:State id="stateTwo" name="stateTwo"/>
+    </s:states>
+
+    <s:transitions>
+        <mx:Transition id="transOneToTwo" effect="{toStateTwo}" fromState="stateOne" toState="stateTwo" />
+        <mx:Transition id="transTwoToOne" effect="{toStateOne}" fromState="stateTwo" toState="stateOne" />
+    </s:transitions>
+
+    <fx:Declarations>
+        <!-- Simple Effects -->
+        <s:Resize id="testEffect"/>
+        <s:Resize id="resizeBy" widthBy="100" heightBy="50"/>
+        <s:Resize id="resizeFromTo" widthFrom="50" widthTo="150" heightFrom="40" heightTo="70"/>
+
+        <!-- Effects for transitions -->
+        <mx:Parallel id="toStateTwo">
+            <s:Resize targets="{[testBox.btn02]}" widthBy="50" heightBy="50" duration="500" effectStart="testBox.setStyle('backgroundColor', '#FF0000');" effectEnd="testBox.setStyle('backgroundColor', '#000000');"/>
+        </mx:Parallel>
+        <mx:Parallel id="toStateOne">
+            <s:Resize targets="{[testBox.btn02]}" widthBy="-50" heightBy="-50" duration="500" effectStart="testBox.setStyle('backgroundColor', '#0000FF');" effectEnd="testBox.setStyle('backgroundColor', '#FF0000');"/>
+        </mx:Parallel>
+    </fx:Declarations>
+
+    <fx:Script>
+        <![CDATA[
+        import mx.events.StateChangeEvent;
+            
+        public function doManualReset():void
+        {
+            if(currentState == "stateOne")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "stateOne";   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        ]]>
+    </fx:Script>
+
+    <trixContainers:TrixVBoxButtons id="testBox"/>
+
+    <trixControls:TrixButton id="testButton"/>
+
+</s:Application>

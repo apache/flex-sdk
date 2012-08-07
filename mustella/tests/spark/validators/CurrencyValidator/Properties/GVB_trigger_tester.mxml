@@ -1,0 +1,236 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="GVB_trigger.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.LocaleID;
+			
+			import spark.globalization.LastOperationStatus;
+			
+			public var s1:String="TypeError: Error #1034: Type Coercion failed: cannot convert \"invalid\" to flash.events.IEventDispatcher.";
+			public var s2:String="TypeError: Error #1034: Type Coercion failed: cannot convert \"\" to flash.events.IEventDispatcher.";
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="GVB_trigger_default_inline_test_1" description="the test case is for Checking default trigger in declaration" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="trigger" valueExpression="value=undefined"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_default_script_test_2" description="the test case is for Checking trigger in script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="trigger" valueExpression="value=undefined"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_default_inline_test_3" description="the test case is for Checking default trigger in declaration" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvb" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="trigger" valueExpression="value=undefined"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_default_script_test_4" description="the test case is for Checking trigger in script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvbScript" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="trigger" valueExpression="value=undefined"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_set_script_test_5" description="the test case is for setting trigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setVtrigger(application.gvbScript,application.myTI1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="trigger" valueExpression="value=application.myTI1"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_set_script_test_6" description="the test case is for setting trigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setVtrigger(application.gvb,application.myTI1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="trigger" valueExpression="value=application.myTI1"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_set_inline_test_7" description="set trigger inline" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbInline" propertyName="trigger" valueExpression="value=application.myTI2"/>
+                <AssertPropertyValue target="gvbInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_notrigger_script_test_8" description="set script trigger to notrigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'trigger',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_notrigger_script_test_9" description="set inline trigger to notrigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'trigger',null)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_notrigger_inline_test_10" description="set trigger to notrigger inline" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbNull,'trigger',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbNull" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbNull" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_default_source_test_11" description="without setting trigger defaults to source" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="myTI1"/>
+                <SetProperty target="myTI1" propertyName="text" value=""/>
+                <DispatchKeyEvent keys="[TAB]"/>
+				<AssertEvent target="gvbInline1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertPropertyValue target="myTI1" propertyName="errorString" value="This field is required."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_set_otherthan_source_test_12" description="with setting trigger uses its setting other than source" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup/>
+            <body>
+                <SetProperty target="myTI2" propertyName="text" value=""/>
+                <DispatchMouseClickEvent target="myTA"/>
+                <DispatchKeyEvent keys="[TAB]"/>
+				<AssertEvent target="gvbInline2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertPropertyValue target="myTI2" propertyName="errorString" value="This field is required."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_invalid_script_test_13" description="set script trigger to notrigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.hasArgError(application.gvbScript,'trigger','invalid')" value="true"/>
+                <AssertPropertyValue target="gvbScript" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_invalid_script_test_14" description="set inline trigger to notrigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.hasArgError(application.gvb,'trigger','invalid')"  value="true"/>
+                <AssertPropertyValue target="gvb" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_emptystring_script_test_15" description="set script trigger to notrigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.hasArgError(application.gvbScript,'trigger','')"  value="true"/>
+                <AssertPropertyValue target="gvbScript" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_emptystring_script_test_16" description="set inline trigger to notrigger from script" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.hasArgError(application.gvb,'trigger','')" value="true"/>
+                <AssertPropertyValue target="gvb" propertyName="trigger" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_trigger_no_source_inline_test_17" description="only trigger, no source" keywords="[GlobalizationValidatorBase, trigger]">
+            <setup>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="myTI3"/>
+				<DispatchKeyEvent key="TAB"/>
+				<AssertEvent target="gvbInline3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertPropertyValue target="myTI3" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+		<TestCase testID="GVB_trigger_no_source_script_test_18" description="only trigger, no source" keywords="[GlobalizationValidatorBase, trigger]">
+			<setup>
+				<RunCode code="application.setVtrigger(application.gvbScript1, application.myTI4)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="myTI4"/>
+				<DispatchKeyEvent key="TAB"/>
+				<AssertEvent target="gvbScript1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertPropertyValue target="myTI4" propertyName="errorString" value=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="GVB_trigger_no_trigger_inline_test_19" description="no trigger, only source and triggerEvent" keywords="[GlobalizationValidatorBase, trigger]">
+			<setup>
+			</setup>
+			<body>
+				<SetProperty target="myTI5" propertyName="text" value="abc" waitEvent="updateComplete"/> 
+				<AssertNoEvent target="gvbInline4" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertEvent target="gvbInline4" eventName="invalid" eventClass="mx.events::ValidationResultEvent" numExpectedEvents="-1"/>
+				<AssertPropertyValue target="myTI5" propertyName="errorString" value="The input string could not be parsed."/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="GVB_trigger_no_trigger_script_test_20" description="no trigger, only source and triggerEvent" keywords="[GlobalizationValidatorBase, trigger]">
+			<setup>
+				<RunCode code="application.creCV(application.gvbScript2, application.myTI6,'text',null,null,'updateComplete')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="myTI6" propertyName="text" value="abc" waitEvent="updateComplete"/> 
+				<AssertNoEvent target="gvbScript2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertPropertyValue target="myTI6" propertyName="errorString" value="The input string could not be parsed."/>
+			</body>
+		</TestCase>
+		
+    </testCases>
+</UnitTester>

@@ -1,0 +1,34 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_21875.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_21875" 
+			keywords="[SDK_21875]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-21875">
+			<!--bugs>
+				<Bug bugID="SDK-21875"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.currentState = 's2'" />
+				<Pause timeout="250"/>
+				<AssertMethodValue method="value=application.cube.rotationX" value="70"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

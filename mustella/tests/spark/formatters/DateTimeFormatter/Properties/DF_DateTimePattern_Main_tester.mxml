@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Properties/"  			
+			xmlns:mx="http://www.adobe.com/2006/mxml" 			
+			xmlns:s="library://ns.adobe.com/flex/spark" 			
+			xmlns="*" 			
+			testSWF="DF_DateTimePattern_Main.mxml">	
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.DateTimeFormatter;		
+			import spark.formatters.DateTimeFormatter;
+			import assets.*
+			
+			public var flashDF:flash.globalization.DateTimeFormatter;			
+			public var dtFormatterError:spark.formatters.DateTimeFormatter;
+			
+			public static function init(o:DisplayObject):void				
+			{				
+				
+			}	
+			
+		]]>
+		
+	</mx:Script>
+		
+	<mx:Metadata>		
+		<![CDATA[		
+		[Mixin]		
+		]]>		
+	</mx:Metadata>
+	
+	<!-- This test file is to test format() different dates when setting with different dateTimePatterns property -->
+	<testCases>
+		
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_MaskDefault_test1" description="MaskDefault" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(2000, 0, 1))" valueExpression="value=flashDF.format(new Date(2000, 0, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(65, 2, 6, 9, 42, 16, 0))" valueExpression="value=flashDF.format(new Date(65, 2, 6, 9, 42, 16, 0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(30000000, 11, 31, 23, 59, 59, 935))" valueExpression="value=flashDF.format(new Date(30000000, 11, 31, 23, 59, 59, 935))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(0))" valueExpression="value=flashDF.format(new Date(0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))" valueExpression="value=flashDF.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_MaskFull_test2" description="MaskFull" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM. d, yyyy 'at' h:mm a" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('EEEE, MMMM. d, yyyy \'at\' h:mm a')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(2000, 0, 1))" valueExpression="value=flashDF.format(new Date(2000, 0, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(65, 2, 6, 9, 42, 16, 0))" valueExpression="value=flashDF.format(new Date(65, 2, 6, 9, 42, 16, 0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(30000000, 11, 31, 23, 59, 59, 935))" valueExpression="value=flashDF.format(new Date(30000000, 11, 31, 23, 59, 59, 935))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(0))" valueExpression="value=flashDF.format(new Date(0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))" valueExpression="value=flashDF.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_MaskLong_test3" description="MaskLong" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy 'at' h:mm a" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('MMM. d, yyyy \'at\' h:mm a')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>			
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(2000, 0, 1))" valueExpression="value=flashDF.format(new Date(2000, 0, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(65, 2, 6, 9, 42, 16, 0))" valueExpression="value=flashDF.format(new Date(65, 2, 6, 9, 42, 16, 0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(30000000, 11, 31, 23, 59, 59, 935))" valueExpression="value=flashDF.format(new Date(30000000, 11, 31, 23, 59, 59, 935))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(0))" valueExpression="value=flashDF.format(new Date(0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>			
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))" valueExpression="value=flashDF.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_MaskMedium_test4" description="MaskMedium" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('MMM. d, yyyy')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(2000, 0, 1))" valueExpression="value=flashDF.format(new Date(2000, 0, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(65, 2, 6, 9, 42, 16, 0))" valueExpression="value=flashDF.format(new Date(65, 2, 6, 9, 42, 16, 0))"/>			
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(30000000, 11, 31, 23, 59, 59, 935))" valueExpression="value=flashDF.format(new Date(30000000, 11, 31, 23, 59, 59, 935))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(0))" valueExpression="value=flashDF.format(new Date(0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))" valueExpression="value=flashDF.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>	
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_MaskTime_test5" description="MaskTime" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="h:mm a" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('h:mm a')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(2000, 0, 1))" valueExpression="value=flashDF.format(new Date(2000, 0, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(65, 2, 6, 9, 42, 16, 0))" valueExpression="value=flashDF.format(new Date(65, 2, 6, 9, 42, 16, 0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(30000000, 11, 31, 23, 59, 59, 935))" valueExpression="value=flashDF.format(new Date(30000000, 11, 31, 23, 59, 59, 935))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(0))" valueExpression="value=flashDF.format(new Date(0))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))" valueExpression="value=flashDF.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>	
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_yy_test6" description="yy" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="yy" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('yy')"/>			
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>	
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>			
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))" valueExpression="value=flashDF.format(new Date('Fri Nov 28 17:34:21 UTC-0500 2008'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>		
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_yyyy_test7" description="yyyy" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="yyyy" waitEvent="change"/>			
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('yyyy')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>	
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_M_test8" description="M" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="M" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('M')"/>				
+				<Pause timeout="200"/>			
+			</setup>			
+			<body>		
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>			
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->			
+		<TestCase testID="DF_DateTimePattern_MM_test9" description="MM" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MM" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('MM')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_MMM_test10" description="MMM" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('MMM')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->			
+		<TestCase testID="DF_DateTimePattern_MMMM_test11" description="MMMM" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMMM" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('MMMM')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_d_test12" description="d" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="d" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('d')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->			
+		<TestCase testID="DF_DateTimePattern_dd_test13" description="dd" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="dd" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('dd')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_E_test14" description="E" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 	
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="E" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('E')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_EEE_test15" description="EEE" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEE" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('EEE')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_EEEE_test16" description="EEEE" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('EEEE')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_a_test17" description="a" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>		
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="a" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('a')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_h_test18" description="h" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>			
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="h" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('h')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_H_test19" description="H" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="H" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('H')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_k_test20" description="k" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="k" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('k')"/>				
+				<Pause timeout="200"/>			
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_K_test21" description="K" keywords="[DateTimeFormatter, DateTimePattern]">		
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="K" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('K')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_m_test22" description="m" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="m" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('m')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->	
+		<TestCase testID="DF_DateTimePattern_mm_test23" description="mm" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="mm" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('mm')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>			
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--This test case is to test format() different dates with default dateTimePattern -->		
+		<TestCase testID="DF_DateTimePattern_s_test24" description="s" keywords="[DateTimeFormatter, DateTimePattern]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<Pause timeout="200"/>				
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="s" waitEvent="change"/>				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<RunCode code="flashDF.setDateTimePattern('s')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('Mon Jul 21 1969 3:16 PM'))" valueExpression="value=flashDF.format(new Date('Mon Jul 21 1969 3:16 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date(1, 1, 1, 1, 1, 1, 1))" valueExpression="value=flashDF.format(new Date(1, 1, 1, 1, 1, 1, 1))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date('2:57 PM'))" valueExpression="value=flashDF.format(new Date('2:57 PM'))"/>				
+				<AssertMethodValue method="value=application.dtFormatter.format(new Date())" valueExpression="value=flashDF.format(new Date())"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>				
+			</body>			
+		</TestCase>
+		<!--Throws TypeError if the dateTimePattern property is null.-->		
+		<TestCase testID="DF_DateTimePattern_TypeError_test25" description="Throws TypeError if the dateTimePattern property is null" keywords="[DateTimeFormatter, dateStyle, TypeError]">			
+			<setup>				
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 				
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />				
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>				
+				<Pause timeout="200"/>				
+			</setup>			
+			<body>
+				<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'dateTimePattern',null)" 
+								   valueExpression="value=application.testFlashArgError(flashDF,null)"/>
+			</body>			
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>
+

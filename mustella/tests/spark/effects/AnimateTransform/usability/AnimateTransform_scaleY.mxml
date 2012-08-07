@@ -1,0 +1,110 @@
+<UnitTester
+    testSWF="../SWFs/AnimateTransform_scaleY_main.mxml"
+    testDir="spark/effects/AnimateTransform/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase 
+            testID="AnimateTransform_scaleY_act1" 
+            description="Set and apply scaleY."
+            keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_scaleY" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at_mp.property = 'scaleY'"/>
+                <RunCode code="application.at_mp.valueFrom = 1"/>
+                <RunCode code="application.at_mp.valueTo = 2"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.scaleY" value="2"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="AnimateTransform_scaleY_act0"
+            description="Set and apply scaleY."
+            keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_scaleY" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = false"/>
+                <RunCode code="application.at_mp.property = 'scaleY'"/>
+                <RunCode code="application.at_mp.valueFrom = 1"/>
+                <RunCode code="application.at_mp.valueTo = 2"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.scaleY" value="2"/>
+                <Pause timeout="400" />
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+
+        <!-- Transition Stuff -->
+        <TestCase
+        testID="AnimateTransform_scaleY_s2"
+        description="Transition AnimateTransform from/to when there is a state value"
+        keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_scaleY" waitTarget="cubePanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <ChangeState changeTarget="cubePanel" toState="s2" waitTarget="cubePanel.p_s1s2" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.scaleY" value="2"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AnimateTransform_scaleY_s3"
+        description="Transition AnimateTransform from/to when there's no dest state value"
+        keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_scaleY" waitTarget="cubePanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <ChangeState changeTarget="cubePanel" toState="s3" waitTarget="cubePanel.p_s1s3" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.scaleY" value="2"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AnimateTransform_scaleY_s4"
+        description="Transition AnimateTransform from/to state values"
+        keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_scaleY" waitTarget="cubePanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <ChangeState changeTarget="cubePanel" toState="s4" waitTarget="cubePanel.p_s1s4" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.scaleY" value="3"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="AnimateTransform_scaleY_s5"
+        description="Transition AnimateTransform with no values and without a dest state value - nothing should happen"
+        keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_scaleY" waitTarget="cubePanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <ChangeState changeTarget="cubePanel" toState="s5" waitTarget="cubePanel.p_s1s5" waitEvent="effectEnd"/>
+                <AssertMethodValue method="value=application.cubePanel.cube.scaleY" value="1"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

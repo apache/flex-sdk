@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Tests of Blend mode = normal                              -->
+<!--The element content appears in front of the background. Pixel values of the element override those of the background. Where the element is transparent, the background is visible.                                                                                  -->
+<!-- Author : Vivek Agrawal  26 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" >
+
+				<Rect x="125" y="131" width="393" height="167" blendMode="normal">
+					<fill>
+						<LinearGradient x = "152" y = "95" scaleX = "274" rotation = "-17">
+							<GradientEntry color="#203c00" ratio="0" alpha="1"/>
+							<GradientEntry color="#1b971b" ratio="0.28" alpha="1"/>
+							<GradientEntry color="#1e4f45" ratio="0.45" alpha="1"/>
+							<GradientEntry color="#6aec01" ratio="0.6" alpha="1"/>
+							<GradientEntry color="#1b971b" ratio="0.75" alpha="1"/>
+							<GradientEntry color="#203c00" ratio="1" alpha="1"/>
+						</LinearGradient>
+					</fill>
+					<stroke>
+						<SolidColorStroke color="#cc3300" weight="1"/>
+					</stroke>
+				</Rect>
+</Graphic>

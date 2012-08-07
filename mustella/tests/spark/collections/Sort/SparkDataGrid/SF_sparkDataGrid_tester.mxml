@@ -1,0 +1,688 @@
+<UnitTester testDir="spark/collections/Sort/SparkDataGrid/" testSWF="SF_sparkDataGrid.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import flash.globalization.*;
+			import flash.globalization.LastOperationStatus;
+			
+			import spark.globalization.SortingCollator;
+			
+			public var clt:spark.globalization.SortingCollator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_sparkDataGrid_default_test_1" description="sort items with default property setting" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField,application.uiSparkDataGridComp.mySortField2]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ja-JP'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+								   valueExpression="value=application.uiSparkDataGridComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_default_script_test_2" description="sort items with default property setting" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript2" propertyName="name" value="age"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript,application.uiSparkDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+								   valueExpression="value=application.uiSparkDataGridComp.sparkSortedArrayField('age')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_descending_true_test_3" description="sort items with descending true" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField2" propertyName="name" value="age"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField2" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField,application.uiSparkDataGridComp.mySortField2]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('age',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+								   valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArrayField('age'))"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_descending_true_script_test_4" description="sort items with descending true" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript2" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript,application.uiSparkDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+								   valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArrayField('active'))"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_unique_true_test_5" description="sort items with unique true" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="active"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="age"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField2" propertyName="name" value="active"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField,application.uiSparkDataGridComp.mySortField2]"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField2" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertMethodValue method="value=application.uiSparkDataGridComp.VerifyUniqueError()" value="Error: Non-unique values in items."/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_unique_true_script_test_6" description="sort items with unique true" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="age"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="age"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript2" propertyName="name" value="active"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript,application.uiSparkDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-CA'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue method="value=application.uiSparkDataGridComp.VerifyUniqueError()" value="Error: Non-unique values in items."/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_numeric_true_test_7" description="sort items with numeric true" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="age"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="age"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+				
+				<SetProperty target="uiSparkDataGridComp.myMxSortField" propertyName="name" value="age"/>
+				<SetProperty target="uiSparkDataGridComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiSparkDataGridComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField('age',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+					valueExpression="value=application.uiSparkDataGridComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_numeric_true_script_test_8" description="sort items with numeric true" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='en-GB'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="true"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="age"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="age"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+				
+				<SetProperty target="uiSparkDataGridComp.myMxSortField" propertyName="name" value="age"/>
+				<SetProperty target="uiSparkDataGridComp.myMxSortField" propertyName="numeric" value="true"/>
+				<SetProperty target="uiSparkDataGridComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-GB'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField('age',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+					valueExpression="value=application.uiSparkDataGridComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_diff_locale_test_9" description="sort items based on different locale on Sort and SortField" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="address"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_diff_locale_script_test_10" description="sort items based on different locale on Sort and SortField" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="address"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='zh-CN'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_localeChange_SortField_test_11" description="sort items based locale change of SortField" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="address"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_localeChange_SortField_test_12" description="sort items based on locale change of SortField" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="address"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_localeChange_Sort_test_13" description="sort items based locale change of Sort" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="address"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_localeChange_Sort_test_14" description="sort items based on locale change of Sort" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkCollator" propertyName="numericComparison" value="false"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="address"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <AssertStyleValue target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_reverse_test_15" description="reverse items sort order based on different descending setting of SortField" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField2" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField,application.uiSparkDataGridComp.mySortField2]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <RunCode code="application.uiSparkDataGridComp.mySort.reverse()"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+								   valueExpression="value=application.uiSparkDataGridComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_reverse_script_test_16" description="reverse items sort order based on different descending setting of SortField" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript2" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript,application.uiSparkDataGridComp.mySortFieldScript2]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <RunCode code="application.uiSparkDataGridComp.mySortScript.reverse()"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+                <!--<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiSparkDataGridComp.sparkDataGridDataProvider)" 
+								   valueExpression="value=application.uiSparkDataGridComp.sparkSortedArrayField('address')"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_changeSource_test_17" description="sort items after change source" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataXmlListArrSAdd"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_changeSource_script_test_18" description="sort items after change source" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataXmlListArrSAdd"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_test_19" description="verify sort items of sparkDataGrid will not affect the original function" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySort"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_script_test_20" description="verify sort items of sparkDataGrid will not affect the original function" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetProperty target="uiSparkDataGridComp.sparkDataGridDataProvider" propertyName="sort" valueExpression="value=application.uiSparkDataGridComp.mySortScript"/>
+                <RunCode code="application.uiSparkDataGridComp.sparkDataGridDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiSparkDataGridComp.sparkDataGridDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_test_21" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiSparkDataGridComp.mySortCompFunc"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_script_test_22" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, sparkDataGrid]">
+            <setup>
+               <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+               	<SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" valueExpression="value=application.uiSparkDataGridComp.sparkDataGridValueField"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+               	<SetProperty target="uiSparkDataGridComp.uiSparkDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiSparkDataGridComp.mySortScriptCompFunc"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+              	<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.uiSparkDataGrid.dataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.uiSparkDataGrid.dataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_test_23" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySort" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortField]"/>
+				<SetProperty target="uiSparkDataGridComp.uiSparkDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiSparkDataGridComp.mySortCompFunc"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+				<SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="Umbra"/>
+				<SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="Molly"/>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_script_test_24" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiSparkDataGridComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="unique" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" valueExpression="value=application.uiSparkDataGridComp.sparkDataGridValueField"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="descending" value="true"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="numeric" value="false"/>
+                <SetProperty target="uiSparkDataGridComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiSparkDataGridComp.mySortFieldScript]"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+				<SetProperty target="uiSparkDataGridComp.uiSparkDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiSparkDataGridComp.mySortScriptCompFunc"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.uiSparkDataGrid.dataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+				<SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="Umbra"/>
+				<SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="Molly"/>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.uiSparkDataGrid.dataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_test_25" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetStyle target="uiSparkDataGridComp.mySortField" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiSparkDataGridComp.mySortCompFunc"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.sparkDataGridDataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_sparkDataGrid_function_script_test_26" description="verify click header of GridColumn will make the items sorted based on sortCompareFunction" keywords="[Sort, sparkDataGrid]">
+            <setup>
+                <ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridValueField" value="name"/>
+                <SetProperty target="uiSparkDataGridComp" propertyName="sparkDataGridDataProvider" valueExpression="value=application.uiSparkDataGridComp.dataComp.dataXmlListArrS"/>
+                <SetStyle target="uiSparkDataGridComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.mySortFieldScript" propertyName="name" valueExpression="value=application.uiSparkDataGridComp.sparkDataGridValueField"/>
+                <SetStyle target="uiSparkDataGridComp.sparkCollator" styleName="locale" valueExpression="value='fr-FR'"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGridColumn" propertyName="sortCompareFunction" valueExpression="value=application.uiSparkDataGridComp.mySortScriptCompFunc"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.uiSparkDataGrid.dataProvider)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArray"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="barmen"/>
+                <SetProperty target="uiSparkDataGridComp.uiSparkDataGrid" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="uiSparkDataGridComp" propertyName="listSelectFieldValue" value="cadbury"/>
+				<DispatchMouseClickEvent target="uiSparkDataGridComp.clickHeaderBT" waitTarget="uiSparkDataGridComp.clickHeaderBT" waitEvent="click"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiSparkDataGridComp.uiSparkDataGrid.dataProvider)" valueExpression="value=application.uiSparkDataGridComp.revertArray(application.uiSparkDataGridComp.sparkSortedArray)"/>
+            </body>
+        </TestCase>
+		<!--Below cases are failled due to bug SDK-29544-->
+		<TestCase testID="SortField_sparkDataGrid_locale_dependent_aryColl_test_27" description="verify locale dependent sort" keywords="[Sort, sparkDataGrid]">
+			<setup>
+				<ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+				<RunCode code="application.uiSparkDataGridComp.updateSort_aryColl()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiSparkDataGridComp.collection)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedArrayCollection"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SortField_sparkDataGrid_locale_dependent_xmlList_test_28" description="verify locale dependent sort" keywords="[Sort, sparkDataGrid]">
+			<setup>
+				<ResetComponent target="uiSparkDataGridComp" className="newComps.CustomSparkDataGridComp" waitEvent="updateComplete" waitTarget="uiSparkDataGridComp"/>
+				<RunCode code="application.uiSparkDataGridComp.updateSort_xmlList()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=SFConstant.getArrayOfField('last',application.uiSparkDataGridComp.dataXmlListArrS_locale)" valueExpression="value=application.uiSparkDataGridComp.sparkSortedXMLList"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

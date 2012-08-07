@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Properties/"
+			xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testSWF="DF_Locale_Main.mxml">
+    
+	<mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		import assets.*;
+		
+		
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		private var aDate:Date =  new Date(2000, 0, 1);
+        public static function init(o:DisplayObject):void
+	    {
+        }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!--This test file is to test format() method with typical supported locales set on the DateTimeFormatter -->
+<testCases>
+	<!--This test case is to test format() method with 'am_ET' Locale -->
+	<TestCase testID="DF_Locale_am_ET_test1" description="am_ET" keywords="[DateTimeFormatter, Locale]">
+		<setup>
+			<SetStyle styleName="locale" target="dtFormatter" value="am_ET" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('am_ET')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	
+	<!--This test case is to test format() method with 'az-Cyrl-AZ' Locale -->
+	<TestCase testID="DF_Locale_az_Cyrl_AZ_test2" description="az-Cyrl-AZ" keywords="[DateTimeFormatter, Locale]">
+		<setup>	
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="az-Cyrl-AZ" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('az-Cyrl-AZ')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	
+	<!--This test case is to test format() method with 'eo' Locale -->
+	<TestCase testID="DF_Locale_eo_test3" description="eo" keywords="[DateTimeFormatter, Locale]">
+		<setup>	
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="eo" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('eo')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test format() method with 'gv' Locale -->
+	<TestCase testID="DF_Locale_gv_test4" description="gv" keywords="[DateTimeFormatter, Locale]">
+		<setup>	
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="gv" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('gv')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	
+	<!--This test case is to test format() method with 'ha-Latn-NG' Locale -->
+	<TestCase testID="DF_Locale_ha_Latn_NG_test5" description="ha-Latn-NG" keywords="[DateTimeFormatter, Locale]">
+		<setup>	
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="ha-Latn-NG" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ha-Latn-NG')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test format() method with 'haw-US' Locale -->
+	<TestCase testID="DF_Locale_haw_US_test6" description="haw-US" keywords="[DateTimeFormatter, Locale]">
+		<setup>	
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="haw-US" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('haw-US')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>	
+	
+	<!--This test case is to test format() method with 'hy-AM-REVISED' Locale -->
+	<TestCase testID="DF_Locale_hy_AM_REVISED_test7" description="hy-AM-REVISED" keywords="[DateTimeFormatter, Locale]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="hy-AM-REVISED" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('hy-AM-REVISED')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test format() method with 'kok-IN' Locale -->
+	<TestCase testID="DF_Locale_kok_IN_test8" description="kok-IN" keywords="[DateTimeFormatter, Locale]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="kok-IN" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('kok-IN')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test format() method with 'pa-Arab-PK' Locale -->
+	<TestCase testID="DF_Locale_pa_Arab_PK_test9" description="pa-Arab-PK" keywords="[DateTimeFormatter, Locale]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="pa-Arab-PK" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('pa-Arab-PK')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test format() method with 'sr-Cyrl-RS' Locale -->
+	<TestCase testID="DF_Locale_sr_Cyrl_RS_test10" description="sr-Cyrl-RS" keywords="[DateTimeFormatter, Locale]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="sr-Cyrl-RS" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr-Cyrl-RS')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>
+	</TestCase>	
+	<!--this case is to test lastOperationStatus property -->
+	<TestCase testID="DF_Locale_lastOperationStatus_test11" description="test lastOperationStatus property" keywords="[DateTimeFormatter, Locale, GlobalizationStatusEvent.LAST_OPERATION_STATUS]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('1234')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dtFormatterLastOS" value="1234"  waitEvent="change"/>
+			<AssertPropertyValue target="dtFormatterLastOS" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" />
+		</body>
+	</TestCase>
+	<!--this test case is to test calling format() method of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_Locale_script_withoutSettingLocale_test12" description="test calling format() method of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, format]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocale.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfLocale"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling format() method of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_Locale_declaration_withoutSettingLocale_test13" description="test calling format() method of dtf defined in fx:Declaration without setting locale" keywords="[DateTimeFormatter, format]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInline" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtfLocaleInline.format(aDate)" valueExpression="value=DFConstants.ERROT_TEXT"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInline"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+</UnitTester>

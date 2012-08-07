@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Event/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_Change.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.NumberFormatter;
+			import flash.globalization.NationalDigitsType;
+			import assets.NFConstants;
+			
+			import mx.core.Application;
+			
+			public static function init(o:DisplayObject):void
+			{
+				// public var localListInTest = Application.
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test whether change event of a NumberFormatter can be dispatched by changing locale,(........) -->
+	<testCases>
+		<!--test: change event will dispatch if locale change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeLocale_sr_Cyrl_RS_test1" 
+				  description="change event will dispatch if locale change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetStyle target="nfLocaleU" styleName="locale" value="sr-Cyrl-RS"/>
+				<AssertEvent target="nfLocaleU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if locale change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeLocale_zh_CN_test2" 
+				  description="change event will dispatch if locale change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetStyle target="nfLocaleC" styleName="locale" value="zh-CN"/>
+				<AssertNoEvent target="nfLocaleC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_decimalSeparator_comma_test3" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfDecSptU" propertyName="decimalSeparator" value=","/>
+				<AssertNoEvent target="nfDecSptU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_decimalSeparator_colon_test4" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfDecSptC" propertyName="decimalSeparator" value=":"/>
+				<AssertEvent target="nfDecSptC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_fractionalDigits_1_test5" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfFracDigU" propertyName="fractionalDigits" valueExpression="value=1"/>
+				<AssertNoEvent target="nfFracDigU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_fractionalDigits_3_test6" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfFracDigC" propertyName="fractionalDigits" valueExpression="value=3"/>
+				<AssertEvent target="nfFracDigC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_digitsType_ARABIC_INDIC_test7" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfDigTypeU" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC"/>
+				<AssertNoEvent target="nfDigTypeU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_digitsType_BALINESE_test8" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfDigTypeC" propertyName="digitsType" valueExpression="value=NationalDigitsType.BALINESE"/>
+				<AssertEvent target="nfDigTypeC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_groupingPattern_3semicolonStar_test9" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfGPtnU" propertyName="groupingPattern" value="3;*"/>
+				<AssertNoEvent target="nfGPtnU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_groupingPattern_3_test10" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfGPtnC" propertyName="groupingPattern" value="3"/>
+				<AssertEvent target="nfGPtnC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_groupingSeparator_colon_test11" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfGSptU" propertyName="groupingSeparator" value=":"/>
+				<AssertNoEvent target="nfGSptU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_groupingSeparator_semicolon_test12" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfGSptC" propertyName="groupingSeparator" value=";"/>
+				<AssertEvent target="nfGSptC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_negativeSymbol_doubleHyphen_test13" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfNegSybU" propertyName="negativeSymbol" value="--"/>
+				<AssertNoEvent target="nfNegSybU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_negativeSymbol_star_test14" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfNegSybC" propertyName="negativeSymbol" value="*"/>
+				<AssertEvent target="nfNegSybC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_negativeNumberFormat_2_test15" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfNegNFU" propertyName="negativeNumberFormat" valueExpression="value=2"/>
+				<AssertNoEvent target="nfNegNFU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_negativeNumberFormat_4_test16" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfNegNFC" propertyName="negativeNumberFormat" valueExpression="value=4"/>
+				<AssertEvent target="nfNegNFC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_leadingZero_true_test17" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfLZeroU" propertyName="leadingZero" valueExpression="value=true"/>
+				<AssertNoEvent target="nfLZeroU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_leadingZero_false_test18" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfLZeroC" propertyName="leadingZero" valueExpression="value=false"/>
+				<AssertEvent target="nfLZeroC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_trailingZeros_true_test19" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfTZeroU" propertyName="trailingZeros" valueExpression="value=true"/>
+				<AssertNoEvent target="nfTZeroU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_trailingZeros_false_test20" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfTZeroC" propertyName="trailingZeros" valueExpression="value=false"/>
+				<AssertEvent target="nfTZeroC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_unchangeProperty_useGrouping_false_test21" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfUGroupU" propertyName="useGrouping" valueExpression="value=false"/>
+				<AssertNoEvent target="nfUGroupU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="NF_ChangeEvent_changeProperty_useGrouping_true_test22" 
+				  description="change event will dispatch if property change, and vice versa" keywords="[NumberFormatter, changeEvent]">
+			<body>
+				<SetProperty target="nfUGroupC" propertyName="useGrouping" valueExpression="value=true"/>
+				<AssertEvent target="nfUGroupC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+	
+	</testCases>
+	
+</UnitTester>

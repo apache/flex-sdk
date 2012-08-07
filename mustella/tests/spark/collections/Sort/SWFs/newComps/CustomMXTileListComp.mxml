@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 updateComplete="group1_updateCompleteHandler(event)"
+		 width="400" height="300" xmlns:newComps="newComps.*">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.collections.ListCollectionView;
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			public var mySortScript:spark.collections.Sort = new spark.collections.Sort();
+			public var mySortFieldScript: spark.collections.SortField = new spark.collections.SortField();
+			public var mySortFieldScript2:spark.collections.SortField = new spark.collections.SortField();
+			
+			protected function group1_updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(mySortScript);
+				this.addStyleClient(mySortFieldScript);
+				this.addStyleClient(mySortFieldScript2);
+			}
+			
+			[Bindable]
+			public var tileListValueField:String;
+			[Bindable]
+			public var tileListDataProvider:XMLListCollection;
+			
+			public function get listSelectFieldValue():* {
+				if (uiMXTileList != null && uiMXTileList.selectedItem != null) {
+					var selectedValue:* = uiMXTileList.selectedItem;
+					
+					return selectedValue[tileListValueField];
+				}
+				
+				return null;
+			}
+			
+			public function get sparkSortedArray():Array {
+				if (uiMXTileList != null && 
+					uiMXTileList.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(tileListValueField, tileListDataProvider);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function get mxSortedArray():Array {
+				if (tileListDataProvider != null) {
+					
+					var newArrList:XMLListCollection = SFConstant.deepCloneXmlC(tileListDataProvider);
+					newArrList.sort = myMxSort;
+					newArrList.refresh();
+					
+					return SFConstant.getArrayOfField(tileListValueField, newArrList);
+				}
+				
+				return null;
+			}
+			
+			public function sparkSortedArrayField(field:String):Array {
+				if (uiMXTileList != null && 
+					uiMXTileList.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField(field, tileListDataProvider);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function revertArray(arr:Array):Array{
+				if(arr!=null){
+					return arr.reverse();
+				}
+				else
+					return null;
+			}
+			
+			public function VerifyUniqueError():String{
+				var error:String = 'noError';
+				try
+				{
+					tileListDataProvider.refresh();
+				}
+				catch(e:Error)
+				{
+					error = e.toString();
+				}
+				return error;
+			}
+			
+			public function updateSort_aryColl():void {
+				setStyle('locale', 'ru-RU'); 
+				collection.refresh();
+			}
+			public function updateSort_xmlList():void {
+				setStyle('locale', 'ru-RU'); 
+				dataXmlListArrS_locale.refresh();
+			}
+			
+			public function get sparkSortedArrayCollection():Array {
+				if (uiMXTileList1 != null && 
+					uiMXTileList1.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField('last', collection);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			public function get sparkSortedXMLList():Array {
+				if (uiMXTileList2 != null && 
+					uiMXTileList2.dataProvider != null &&
+					sparkCollator != null) {
+					var fieldArr:Array = SFConstant.getArrayOfField('last', dataXmlListArrS_locale);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:SortingCollator id="sparkCollator" />
+		
+		<s:Sort id="mySort"/>
+		
+		<s:SortField id="mySortField"/>
+		<s:SortField id="mySortField2"/>
+		
+		<mx:Sort id="myMxSort" />
+		<mx:SortField id="myMxSortField" />
+		
+		<fx:XMLList
+			id="dataXmlListAdd">
+			<employee>
+				<name>FFF</name>
+				<address>ffff</address>
+				<age>10</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Ted</name>
+				<address>Canidae</address>
+				<age>9</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Imari</name>
+				<address>fr cote</address>
+				<age>8</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Umbra</name>
+				<address>Felidae</address>
+				<age>8</age>
+				<active>false</active>
+			</employee>
+			<employee>
+				<name>Izzy</name>
+				<address>fr côte</address>
+				<age>12</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>TJ</name>
+				<address>fr coté</address>
+				<age>1</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Bo</name>
+				<address>fr côté</address>
+				<age>16</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Danny</name>
+				<address>Equidae</address>
+				<age>20</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Molly</name>
+				<address>fr Cote</address>
+				<age>4</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Matisse</name>
+				<address>fr cOte</address>
+				<age>8</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>barmen</name>
+				<address>fr cöte</address>
+				<age>12</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Chumley</name>
+				<address>bovidae</address>
+				<age>9</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Moe</name>
+				<address>fr COTE</address>
+				<age>6</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>cadbury</name>
+				<address>leporidae</address>
+				<age>7</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Bunny</name>
+				<address>fr coTe</address>
+				<age>3</age>
+				<active>true</active>
+			</employee>
+			<employee>
+				<name>Daisy</name>
+				<address>fr cotE</address>
+				<age>6</age>
+				<active>true</active>
+			</employee>
+		</fx:XMLList>
+		
+		<s:XMLListCollection id="dataXmlListArrSAdd" source="{dataXmlListAdd}">
+		</s:XMLListCollection>
+		
+		<!--For locale dependent sort test-->
+		<s:Sort id="sortbyLastName_FirstName">
+			<s:fields>
+				<s:SortField name="last"/>
+				<s:SortField name="first"/>
+			</s:fields>
+		</s:Sort>
+		<mx:ArrayCollection id="collection" sort="{sortbyLastName_FirstName}">
+			<mx:source>
+				<fx:Object first="Anders" last="Öhlund"/>
+				<fx:Object first="Eileen" last="Oehland"/>
+				<fx:Object first="Aiden" last="Zorn"/>
+				<fx:Object first="Steve" last="Ohlin"/>
+			</mx:source>
+		</mx:ArrayCollection>
+		
+		<fx:XMLList
+			id="dataXmlList_locale">
+			<element>
+				<first>Anders</first>
+				<last>Öhlund</last>
+			</element>
+			<element>
+				<first>Eileen</first>
+				<last>Oehland</last>
+			</element>
+			<element>
+				<first>Aiden</first>
+				<last>Zorn</last>
+			</element>
+			<element>
+				<first>Steve</first>
+				<last>Ohlin</last>
+			</element>
+		</fx:XMLList>
+		
+		<s:XMLListCollection id="dataXmlListArrS_locale" source="{dataXmlList_locale}" sort="{sortbyLastName_FirstName}">
+		</s:XMLListCollection>
+	</fx:Declarations>
+	<newComps:BaseDataComp id="dataComp"/>
+	<mx:TileList id="uiMXTileList" labelField="{tileListValueField}" dataProvider="{tileListDataProvider}"/>
+	<mx:TileList id="uiMXTileList1" labelField="last" dataProvider="{collection}"/>
+	<mx:TileList id="uiMXTileList2" labelField="last" dataProvider="{dataXmlListArrS_locale}"/>
+	
+</s:Group>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_basicProperties.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.CollatorTestConstants;
+			
+			import flash.globalization.Collator;
+			import flash.globalization.CollatorMode;
+			
+			import spark.globalization.*;
+			public var flashCLT:flash.globalization.Collator;
+			public var collatorError:spark.globalization.MatchingCollator;
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<testCases>
+		<!-- Set ignoreCharacterWidth to true by calling setter -->
+		<TestCase testID="CLT_ignoreCharacterWidth_trueSetter_test1" description="Set ignoreCharacterWidth to true by calling setter" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=true"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_ignoreCharacterWidth" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="clt_inline_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="clt_inline_ignoreCharacterWidth"/>
+				<AssertPropertyValue target="clt_inline_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		<!-- Set ignoreCharacterWidth to false by calling setter  -->
+		<TestCase testID="CLT_ignoreCharacterWidth_falseSetter_test2" description="Set ignoreCharacterWidth to false by calling setter" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_inline_ignoreCharacterWidth" className="spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_inline_ignoreCharacterWidth.initialized(null,'clt_inline_ignoreCharacterWidth')"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('en-GB')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=false"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_ignoreCharacterWidth" styleName="locale" value="en-GB" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="clt_inline_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="clt_inline_ignoreCharacterWidth"/>
+				<AssertPropertyValue target="clt_inline_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Set ignoreCharacterWidth inline, value is true -->
+		<TestCase testID="CLT_ignoreCharacterWidth_inlineTrue_test3" description="Set ignoreCharacterWidth inline, value is true" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<RunCode code="flashCLT=new flash.globalization.Collator('zh-CN')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=true"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_true_ignoreCharacterWidth" styleName="locale" value="zh-CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="clt_inline_true_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Set ignoreCharacterWidth inline, value is false -->
+		<TestCase testID="CLT_ignoreCharacterWidth_inlineFalse_test4" description="Set ignoreCharacterWidth inline, value is false" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<RunCode code="flashCLT=new flash.globalization.Collator('zh-TW')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=false"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_false_ignoreCharacterWidth" styleName="locale" value="zh-TW" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="clt_inline_false_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- inline defined collaotr 's ignoreCharacterWidth property binding test case : 1. set original property -->
+		<TestCase testID="CLT_ignoreCharacterWidth_inlineBinding_test5" description="inline defined collaotr 's ignoreCharacterWidth property binding test case : 1. set original property" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_inline_ignoreCharacterWidth" className="spark.globalization.SortingCollator" />
+				<RunCode code="application.clt_inline_ignoreCharacterWidth.initialized(null,'clt_inline_ignoreCharacterWidth')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_ignoreCharacterWidth" styleName="locale" value="en-US" waitEvent="change"/>
+				<SetProperty target="clt_inline_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=true"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="inlineBinding_ignoreCharacterWidth" propertyName="text" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- inline defined collaotr 's ignoreCharacterWidth property binding test case : 2. change property and check binding-->
+		<TestCase testID="CLT_ignoreCharacterWidth_inlineBinding_test6" description="inline defined collaotr 's ignoreCharacterWidth property binding test case : 2. change property and check binding" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<SetProperty target="clt_inline_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=false" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="inlineBinding_ignoreCharacterWidth" propertyName="text" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Define a SortingCollator instance (Define a Collator instance in <fx:Script> with initialMode = "sorting") -->
+		<TestCase testID="CLT_ignoreCharacterWidth_sortingIMode_test7" description="Define a SortingCollator instance (Define a Collator instance in fx:Script with initialMode = 'sorting')" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<RunCode code="flashCLT=new flash.globalization.Collator('zh-HK','sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="cltSort_ignoreCharacterWidth" styleName="locale" value="zh-HK" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cltSort_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Define a MatchingCollator instance (Define a Collator instance in <fx:Script> with initialMode = "matching") -->
+		<TestCase testID="CLT_ignoreCharacterWidth_matchingIMode_test8" description="Define a MatchingCollator instance (Define a Collator instance in fx:Script with initialMode = 'matching')" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<RunCode code="flashCLT=new flash.globalization.Collator('zh-MO','matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="cltMatch_ignoreCharacterWidth" styleName="locale" value="zh-MO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cltMatch_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Define a SortingCollator instance (Collator instance in <fx:Script> with initialMode = "sorting"), 
+		set ignoreCharacterWidth to a value conflict with the default value according to the mode setting. --> 
+		<TestCase testID="CLT_ignoreCharacterWidth_conflictIMode_test9" description="Define a SortingCollator instance (Collator instance in fx:Script with initialMode = 'sorting'), 
+				  set ignoreCharacterWidth to a value conflict with the default value according to the mode setting." keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="cltSort_ignoreCharacterWidth" className="spark.globalization.Collator" />
+				<RunCode code="application.cltSort_ignoreCharacterWidth.initialized(null,'cltSort')"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('fr','sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=true"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="cltSort_ignoreCharacterWidth" styleName="locale" value="fr" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="cltSort_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue target="cltSort_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Define a MatchingCollator instance (Collator instance in <fx:Script> with initialMode = "matching"),
+		set ignoreCharacterWidth to a value conflict with the default value according to the mode setting. --> 
+		<TestCase testID="CLT_ignoreCharacterWidth_conflictIMode_test10" description="Define a MatchingCollator instance (Collator instance in fx:Script with initialMode = 'matching'),
+				  set ignoreCharacterWidth to a value conflict with the default value according to the mode setting." keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="cltMatch_ignoreCharacterWidth" className="spark.globalization.MatchingCollator" />
+				<RunCode code="application.cltMatch_ignoreCharacterWidth.initialized(null,'cltMatch_ignoreCharacterWidth')"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('fr-FR')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=false"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="cltMatch_ignoreCharacterWidth" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="cltMatch_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+				<AssertPropertyValue target="cltMatch_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Define a Collator instance in <fx:Script>, set ignoreCharacterWidth to false by calling setter -->
+		<TestCase testID="CLT_ignoreCharacterWidth_falseSetter_test11" description="Define a Collator instance in fx:Script, set ignoreCharacterWidth to false by calling setter" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_ignoreCharacterWidth" className="spark.globalization.SortingCollator" />
+				<RunCode code="application.clt_ignoreCharacterWidth.initialized(null,'clt_ignoreCharacterWidth')"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('fr-CA')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=false"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_ignoreCharacterWidth" styleName="locale" value="fr-CA" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="clt_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="clt_ignoreCharacterWidth"/>
+				<AssertPropertyValue target="clt_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- Define a Collator instance in <fx:Script>, set ignoreCharacterWidth to true by calling setter -->
+		<TestCase testID="CLT_ignoreCharacterWidth_trueSetter_test12" description="Define a Collator instance in fx:Script, set ignoreCharacterWidth to true by calling setter" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_ignoreCharacterWidth" className="spark.globalization.SortingCollator" />
+				<RunCode code="application.clt_ignoreCharacterWidth.initialized(null,'clt_ignoreCharacterWidth')"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('fr-BE')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=true"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_ignoreCharacterWidth" styleName="locale" value="fr-BE" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="clt_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashCLT.lastOperationStatus" target="clt_ignoreCharacterWidth"/>
+				<AssertPropertyValue target="clt_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- fx:script defined collaotr 's ignoreCharacterWidth property binding test case : 1. set original property -->
+		<TestCase testID="CLT_ignoreCharacterWidth_scriptBinding_test13" description="fx:script defined collaotr 's ignoreCharacterWidth property binding test case : 1. set original property" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_ignoreCharacterWidth" className="spark.globalization.SortingCollator" />
+				<RunCode code="application.clt_ignoreCharacterWidth.initialized(null,'clt_ignoreCharacterWidth')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_ignoreCharacterWidth" styleName="locale" value="en-US" waitEvent="change"/>
+				<SetProperty target="clt_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=false" waitEvent="change"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('en-US')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=false"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="scriptBinding_ignoreCharacterWidth" propertyName="text" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		<!-- fx:script defined collaotr 's ignoreCharacterWidth property binding test case : 2. change property and check binding-->
+		<TestCase testID="CLT_ignoreCharacterWidth_scriptBinding_test14" description="fx:script defined collaotr 's ignoreCharacterWidth property binding test case : 2. change property and check binding" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<SetProperty target="clt_ignoreCharacterWidth" propertyName="ignoreCharacterWidth" valueExpression="value=true" waitEvent="change"/>
+				<RunCode code="flashCLT.ignoreCharacterWidth=true" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="scriptBinding_ignoreCharacterWidth" propertyName="text" valueExpression="value=flashCLT.ignoreCharacterWidth" />
+			</body>
+		</TestCase>
+		
+		
+		<!-- Define a Collator instance in <fx:Script> without setting locale, then get the ignoreCharacterWidth value by calling getter.
+		There will not throw exception, instead, flase will return for boolean properties -->
+		<TestCase testID="CLT_ignoreCharacterWidth_noLocaleScript_test15" description="Define a Collator instance in fx:Script without setting locale, then get the ignoreCharacterWidth value by calling getter.
+				  There will not throw exception, instead, flase will return for boolean properties" keywords="[Collator, IgnoreCharacterWidth]">
+			<body>
+				<AssertPropertyValue propertyName="ignoreCharacterWidth" valueExpression="value=true" target="cltNew_ignoreCharacterWidth"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltNew_ignoreCharacterWidth"/>
+			</body>
+		</TestCase>
+		
+		<!-- Define a Collator instance in <fx:Declaration>without setting locale, then get the ignoreCharacterWidth value by calling getter
+		There will not throw exception, instead, flase will return for boolean properties-->
+		<TestCase testID="CLT_ignoreCharacterWidth_noLocaleInline_test16" description="Define a Collator instance in fx:Declaration without setting locale, then get the ignoreCharacterWidth value by calling getter
+				  There will not throw exception, instead, flase will return for boolean properties" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_inline_ignoreCharacterWidth" className="spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_inline_ignoreCharacterWidth.initialized(null,'clt_inline_ignoreCharacterWidth')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_ignoreCharacterWidth" styleName="locale" valueExpression="value=undefined"/>
+				<!--When set locale to null, no change event is dispatched, so use <Pause> here instead of waitEvent-->
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="ignoreCharacterWidth" valueExpression="value=false" target="clt_inline_ignoreCharacterWidth"/>
+				<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="clt_inline_ignoreCharacterWidth"/>
+			</body>
+		</TestCase>
+		
+		<!-- Define a Collator instance in <fx:Script>, set ignoreCharacterWidth to an invalid value or null. 
+		The expected result should same as flash.globalization.Collator -->
+		<TestCase testID="CLT_ignoreCharacterWidth_nullLocaleScript_test17" description="Define a Collator instance in fx:Script, set ignoreCharacterWidth to an invalid value or null. 
+				  The expected result should same as flash.globalization.Collator" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="cltMatch_ignoreCharacterWidth" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.cltMatch_ignoreCharacterWidth.initialized(null,'cltMatch_ignoreCharacterWidth')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="cltMatch_ignoreCharacterWidth" styleName="locale" value="fr-CH" waitEvent="change"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('fr-CH')" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=CollatorTestConstants.testError(application.cltMatch_ignoreCharacterWidth,'ignoreCharacterWidth',null)" 
+								   valueExpression="value=CollatorTestConstants.testError(flashCLT,'ignoreCharacterWidth',null)"/>
+			</body>
+		</TestCase>
+		
+		<!-- Define a Collator instance in <fx:Declaration>, set ignoreCharacterWidth to an invalid value or null.
+		The expected result should same as flash.globalization.Collator -->
+		<TestCase testID="CLT_ignoreCharacterWidth_nullLocaleInline_test18" description="Define a Collator instance in fx:Declaration, set ignoreCharacterWidth to an invalid value or null.
+				  The expected result should same as flash.globalization.Collator" keywords="[Collator, IgnoreCharacterWidth]">
+			<setup>
+				<ResetComponent target="clt_inline_ignoreCharacterWidth" className="spark.globalization.SortingCollator" />
+				<RunCode code="application.clt_inline_ignoreCharacterWidth.initialized(null,'clt_inline_ignoreCharacterWidth')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<SetStyle target="clt_inline_ignoreCharacterWidth" styleName="locale" value="zh-SG" waitEvent="change"/>
+				<RunCode code="flashCLT=new flash.globalization.Collator('zh-SG')" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=CollatorTestConstants.testError(application.clt_inline_ignoreCharacterWidth,'ignoreCharacterWidth','invalid')" 
+								   valueExpression="value=CollatorTestConstants.testError(flashCLT,'ignoreCharacterWidth','invalid')"/>
+			</body>
+		</TestCase>
+	</testCases>
+	
+</UnitTester>

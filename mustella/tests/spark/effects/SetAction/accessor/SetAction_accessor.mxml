@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/SetAction/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/SetAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.SetAction;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+
+        <!-- relevantStyles -->
+        <TestCase testID="SetAction_relevantStyles_Default" keywords="[SetAction, accessor, relevantStyles]" description="Test the setting of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="SetAction_perElementOffset_Default" keywords="[SetAction, accessor, perElementOffset]" description="Test the setting of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="SetAction_relevantProperties_Default" keywords="[SetAction, accessor, relevantProperties]" description="Test the setting of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).relevantProperties" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_relevantProperties" keywords="[SetAction, accessor, relevantProperties]" description="Verify relevantProperties returns the set property.">
+            <body>
+                <AssertPropertyValue target="simpleEffect" propertyName="relevantProperties" value="y"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="SetAction_target_Default" keywords="[SetAction, accessor, target]" description="Test the setting of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="SetAction_hideFocusRing_Default" keywords="[SetAction, accessor, hideFocusRing]" description="Test the setting of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="SetAction_isPlaying_Default" keywords="[SetAction, accessor, isPlaying]" description="Test the setting of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="SetAction_className_Default" keywords="[SetAction, accessor, className]" description="Test the setting of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).className" value="SetAction"/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="SetAction_effectTargetHost_Default" keywords="[SetAction, accessor, effectTargetHost]" description="Test the setting of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="SetAction_customFilter_Default" keywords="[SetAction, accessor, customFilter]" description="Test the setting of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="SetAction_targets_Default" keywords="[SetAction, accessor, targets]" description="Test the setting of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).targets" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="SetAction_duration_Default" keywords="[SetAction, accessor, duration]" description="Test the setting of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).duration" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="SetAction_filter_Default" keywords="[SetAction, accessor, filter]" description="Test the setting of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="SetAction_triggerEvent_Default" keywords="[SetAction, accessor, triggerEvent]" description="Test the setting of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

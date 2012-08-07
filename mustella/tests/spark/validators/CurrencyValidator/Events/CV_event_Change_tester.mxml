@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/CurrencyValidator/Events/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CV_event_Change.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import spark.validators.CurrencyValidator;
+			
+			import assets.CVConstant;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test whether change event of a CurrencyValidator can be dispatched by changing locale,(........) -->
+	<testCases>
+		<!--test: change event will dispatch if locale change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeLocale_sr_Cyrl_RS_test1" description="change event will dispatch if locale change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetStyle target="cvLocaleU" styleName="locale" value="sr-Cyrl-RS"/>
+				<AssertEvent target="cvLocaleU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if locale change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeLocale_zh_CN_test2" description="change event will not dispatch if locale doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetStyle target="cvLocaleC" styleName="locale" value="zh-CN"/>
+				<AssertNoEvent target="cvLocaleC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_negativeCurrencyFormat_1_test3" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvNCurFormatU" propertyName="negativeCurrencyFormat" valueExpression="value=1"/>
+				<AssertNoEvent target="cvNCurFormatU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_negativeCurrencyFormat_10_test4" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvNCurFormatC" propertyName="negativeCurrencyFormat" valueExpression="value=10"/>
+				<AssertEvent target="cvNCurFormatC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_currencyISOCode_AFN_test5" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<setup>
+				<SetProperty target="cvISOU" propertyName="currencyISOCode" valueExpression="value='AFN'"/>
+			</setup>
+			<body>
+				<SetProperty target="cvISOU" propertyName="currencyISOCode" valueExpression="value='AFN'"/>
+				<AssertNoEvent target="cvISOU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_currencyISOCode_EUR_test6" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvISOC" propertyName="currencyISOCode" valueExpression="value='EUR'"/>
+				<AssertEvent target="cvISOC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_currencySymbol_euro_test7" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<setup>
+				<SetProperty target="cvCurSymbolU" propertyName="currencySymbol" valueExpression="value='€'"/>
+			</setup>
+			<body>
+				<SetProperty target="cvCurSymbolU" propertyName="currencySymbol" valueExpression="value='€'"/>
+				<AssertNoEvent target="cvCurSymbolU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_currencySymbol_RMB_test8" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvCurSymbolC" propertyName="currencySymbol" valueExpression="value='￥'"/>
+				<AssertEvent target="cvCurSymbolC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_positiveCurrencyFormat_2_test9" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvPCurFormatU" propertyName="positiveCurrencyFormat" valueExpression="value=2"/>
+				<AssertNoEvent target="cvPCurFormatU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_positiveCurrencyFormat_0_test10" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvPCurFormatC" propertyName="positiveCurrencyFormat" valueExpression="value=0"/>
+				<AssertEvent target="cvPCurFormatC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_currencyStringError_test11" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<setup>
+				<SetProperty target="cvCurStrErrU" propertyName="currencyStringError" value="Currency name is repeated or not correct."/>
+			</setup>
+			<body>
+				<SetProperty target="cvCurStrErrU" propertyName="currencyStringError" value="Currency name is repeated or not correct."/>
+				<AssertNoEvent target="cvCurStrErrU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_currencyStringError_test12" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvCurStrErrC" propertyName="currencyStringError" value="This is new."/>
+				<AssertEvent target="cvCurStrErrC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_negativeCurrencyFormatError_test13" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<setup>
+				<SetProperty target="cvNCurFormatErrU" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+			</setup>
+			<body>
+				<SetProperty target="cvNCurFormatErrU" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+				<AssertNoEvent target="cvNCurFormatErrU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_negativeCurrencyFormatError_test14" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvNCurFormatErrC" propertyName="negativeCurrencyFormatError" value="This is new."/>
+				<AssertEvent target="cvNCurFormatErrC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_unchangeProperty_positiveCurrencyFormatError_test15" description="change event will not dispatch if property doesnot change" keywords="[CurrencyValidator, changeEvent]">
+			<setup>
+				<SetProperty target="cvPCurFormatErrU" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+			</setup>
+			<body>
+				<SetProperty target="cvPCurFormatErrU" propertyName="positiveCurrencyFormatError" value="The positive format of the input currency is incorrect."/>
+				<AssertNoEvent target="cvPCurFormatErrU" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>	
+		
+		<!--test: change event will dispatch if property change, and vice versa -->
+		<TestCase testID="CV_ChangeEvent_changeProperty_positiveCurrencyFormatError_test16" description="change event will dispatch if property change" keywords="[CurrencyValidator, changeEvent]">
+			<body>
+				<SetProperty target="cvPCurFormatErrC" propertyName="positiveCurrencyFormatError" value="This is new."/>
+				<AssertEvent target="cvPCurFormatErrC" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>

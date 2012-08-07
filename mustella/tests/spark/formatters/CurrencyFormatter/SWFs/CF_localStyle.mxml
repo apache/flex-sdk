@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		global { 
+			locale: 'ja_JP'
+		}
+		
+		.myStyle {
+			locale:'ru_RU';
+		}
+		
+		#CFIDSelector { 
+			locale:'fr-CA';
+		}
+		
+		#CFIDSelectorInline { 
+			locale:'fr-CA';
+		}
+		
+		#CFIDSelectorClass { 
+			locale:'fr-CA';
+		}
+
+	</fx:Style>
+	
+	<fx:Declarations>
+		
+		<!-- This local defined style is for global -->
+		<s:CurrencyFormatter id="cfGlobal" />
+		
+		<!-- This local defined style is for class -->	
+		<s:CurrencyFormatter id="cfLocalClass" styleName="myStyle"/>
+		
+		<!-- this CurrencyFormatter has a style defined by ID Selector -->
+		<s:CurrencyFormatter id="CFIDSelector"/>
+		
+		<!-- this CurrencyFormatter has compound style defined by ID Selector and inline-->
+		<s:CurrencyFormatter id="CFIDSelectorInline" locale='zh-CN'/>
+		
+		<!-- this CurrencyFormatter has compound style defined by ID Selector and Class Selector-->
+		<s:CurrencyFormatter id="CFIDSelectorClass" styleName="myStyle"/>
+
+	</fx:Declarations>
+	
+</s:Application>

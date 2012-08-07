@@ -1,0 +1,321 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="GVB_source.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.LocaleID;
+			import spark.globalization.LastOperationStatus;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="GVB_source_default_inline_test_1" description="the test case is for Checking default source in declaration" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="source" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_default_script_test_2" description="the test case is for Checking source in script" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="source" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_default_inline_test_3" description="the test case is for Checking default source in declaration" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvb" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="source" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_default_script_test_4" description="the test case is for Checking source in script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvbScript" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="source" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_set_script_test_5" description="the test case is for setting source from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setVsource(application.gvbScript,application.myTI1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="source" valueExpression="value=application.myTI1"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_set_script_test_6" description="the test case is for setting source from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setVsource(application.gvb,application.myTI1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="source" valueExpression="value=application.myTI1"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_set_inline_test_7" description="set source inline" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbInline" propertyName="source" valueExpression="value=application.myTI2"/>
+                <AssertPropertyValue target="gvbInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_script_test_8" description="set script source to nosource from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'source',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_script_test_9" description="set inline source to nosource from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'source',null)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_inline_test_10" description="set source to nosource inline" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbNull,'source',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbNull" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbNull" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_invalid_script_test_11" description="set script source to nosource from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'source','invalid')" value="Error: The source attribute, 'invalid', can not be of type String."/>
+                <AssertPropertyValue target="gvbScript" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_invalid_script_test_12" description="set inline source to nosource from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'source','invalid')" value="Error: The source attribute, 'invalid', can not be of type String."/>
+                <AssertPropertyValue target="gvb" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_emptystring_script_test_13" description="set script source to nosource from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'source','')" value="Error: The source attribute, '', can not be of type String."/>
+                <AssertPropertyValue target="gvbScript" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_emptystring_script_test_14" description="set inline source to nosource from script" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'source','')" value="Error: The source attribute, '', can not be of type String."/>
+                <AssertPropertyValue target="gvb" propertyName="source" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_bindable_inline_test_15" description="set bindable source to inline CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTI3" propertyName="text" value="abc"/>
+                <AssertEvent target="gvbBindable" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTI4" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_bindable_script_test_16" description="set bindable source to script CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup>
+                <RunCode code="application.creCV(application.gvbScriptBindable,application.myTI6,'text',null,null,'',false)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <SetProperty target="myTI5" propertyName="text" value="abc"/>
+                <AssertEvent target="gvbScriptBindable" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTI6" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_required_test_17" description="source is null, property isn't null, listener isn't null, required is true, inline CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA1" propertyName="text" value="abc"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbInline1)" value="Error: The source attribute must be specified when the property attribute is specified."/>
+                <AssertNoEvent target="gvbInline1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA1" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_required_test_18" description="source is null, property isn't null, listener isn't null, required is true, script CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA2" propertyName="text" value="abc"/>
+                <RunCode code="application.creCV(application.gvbScript1,null,'text',application.myTA2,null,'',true)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbScript1)" value="Error: The source attribute must be specified when the property attribute is specified."/>
+                <AssertNoEvent target="gvbScript1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA2" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_noproperty_required_test_19" description="source isn't null, property is null, listener is null, required is true, inline CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA3" propertyName="text" value="abc"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbInline2)" value="Error: The property attribute must be specified when the source attribute is specified."/>
+                <AssertNoEvent target="gvbInline2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA3" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_noproperty_required_test_20" description="source isn't null, property is null, listener is null, required is true, script CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA4" propertyName="text" value="abc"/>
+                <RunCode code="application.creCV(application.gvbScript2,application.myTA4,'',null,null,'',true)"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbScript2)" value="Error: The property attribute must be specified when the source attribute is specified."/>
+                <AssertNoEvent target="gvbScript2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA4" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_norequired_test_21" description="source is null, property isn't null, listener isn't null, required is false, inline CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA5" propertyName="text" value="abc"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbInline3)" value="Error: The source attribute must be specified when the property attribute is specified."/>
+                <AssertNoEvent target="gvbInline3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA5" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_nosource_norequired_test_22" description="source is null, property isn't null, listener isn't null, required is false, script CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA6" propertyName="text" value="abc"/>
+                <RunCode code="application.creCV(application.gvbScript3,null,'text',application.myTA6,null,'',false)"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbScript3)" value="Error: The source attribute must be specified when the property attribute is specified."/>
+                <AssertNoEvent target="gvbScript3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA6" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_noproperty_norequired_test_23" description="source isn't null, property is null, listener is null, required is false, inline CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA7" propertyName="text" value="abc"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbInline4)" value="Error: The property attribute must be specified when the source attribute is specified."/>
+                <AssertNoEvent target="gvbInline4" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA7" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_noproperty_norequired_test_24" description="source isn't null, property is null, listener is null, required is false, inline CV" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="myTA8" propertyName="text" value="abc"/>
+                <RunCode code="application.creCV(application.gvbScript4,application.myTA8,'',null,null,'',false)"/>
+                <AssertMethodValue method="value=application.myValidate(application.gvbScript4)" value="Error: The property attribute must be specified when the source attribute is specified."/>
+                <AssertNoEvent target="gvbScript4" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="myTA8" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_multi_source_test_25" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="sTI"/>
+                <SetProperty target="sTI" propertyName="text" value="abc"/>
+                <DispatchKeyEvent key="TAB"/>
+                <AssertEvent target="cv_sTI" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="sTI" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_multi_source_test_26" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="sRET"/>
+                <SetProperty target="sRET" propertyName="text" value="abc"/>
+                <DispatchKeyEvent key="TAB"/>
+                <AssertEvent target="cv_sRET" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="sRET" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_multi_source_test_27" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="sTA"/>
+                <SetProperty target="sTA" propertyName="text" value="abc"/>
+                <DispatchKeyEvent key="TAB"/>
+                <AssertEvent target="cv_sTA" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="sTA" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_multi_source_test_28" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="sRT"/>
+                <SetProperty target="sRT" propertyName="text" value="abc" waitEvent="updateComplete"/>
+                
+                <AssertEvent target="cv_sRT" eventName="invalid" eventClass="mx.events::ValidationResultEvent" numExpectedEvents="-1"/>
+                <AssertPropertyValue target="sRT" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_multi_source_test_29" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="mxRTE"/>
+                <SetProperty target="mxRTE" propertyName="text" value="abc" waitEvent="updateComplete"/>
+                <DispatchKeyEvent key="TAB"/>
+                <AssertEvent target="cv_mxRTE" eventName="invalid" eventClass="mx.events::ValidationResultEvent" numExpectedEvents="1"/>
+                <AssertPropertyValue target="mxRTE" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_source_multi_source_test_30" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
+            <setup/>
+            <body>
+                <SetProperty target="mxTA" propertyName="text" value="abc" waitEvent="updateComplete"/>
+                <AssertEvent target="cv_mxTA" eventName="invalid" eventClass="mx.events::ValidationResultEvent" numExpectedEvents="-1"/>
+                <AssertPropertyValue target="mxTA" propertyName="errorString" value="The input string could not be parsed."/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

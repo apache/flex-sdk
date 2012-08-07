@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		global{
+			locale:'lv-LV';
+		}
+		
+		.myStyle {
+			locale: ClassReference(null);
+		}
+	</fx:Style>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:SortingCollator id="clt_inline" />
+		<s:SortingCollator id="clt_inline_true" ignoreCase="true"/>
+		<s:MatchingCollator id="clt_inline_false" ignoreCase="false" />
+		<s:SortingCollator id="cltSortLOS_inline"/>
+		<s:SortingCollator id="clt_inline_locale" />
+		
+		<s:SortingCollator id="clt_sorting" />
+		<s:SortingCollator id="clt_sorting_inline_en" locale="en"/>
+		<s:MatchingCollator id="clt_matching"/>
+		<s:MatchingCollator id="clt_matching_inline_en" locale="en"/>
+		
+		<!--Collator instance used to test inherit undefined locale from UIComponent -->
+		<s:SortingCollator id="cltInheritStyle_inline"/>
+		
+		<!--Collator instance used to test lastOperationStatus when set locale to null -->
+		<s:SortingCollator id="cltLastOSSetStyle_inline"/>
+		<s:SortingCollator id="cltLastOS_inline"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			import flash.globalization.CollatorMode;
+			
+			import mx.rpc.soap.SOAPFault;
+			
+			import spark.globalization.MatchingCollator;
+			import spark.globalization.SortingCollator;
+			[Bindable]
+			public var clt:SortingCollator = new SortingCollator();
+			public var cltMatch:MatchingCollator = new MatchingCollator();
+			public var cltSort:SortingCollator = new SortingCollator();
+			public var cltNew:MatchingCollator = new MatchingCollator();
+			
+			//Collator instance used to test lastOperationStatus 'localeUndefinedError'
+			public var clt_locale:SortingCollator = new SortingCollator();
+			//Collator instance used to test inherit undefined locale from UIComponent
+			public var cltInheritStyle:SortingCollator = new SortingCollator();
+			
+			//Collator instance used to test lastOperationStatus when set locale to null
+			public var cltLastOSSetStyle:SortingCollator = new SortingCollator();
+			public var cltLastOS:SortingCollator = new SortingCollator();
+			
+			[Bindable]
+			public var cltMatchLOS:MatchingCollator = new MatchingCollator();
+			
+			[Bindable]
+			private var errorInfo:String;
+			
+			import flash.globalization.*;
+			
+			private var myStyleManager:IStyleManager2;
+			private var myDynStyle:CSSStyleDeclaration;
+			
+			public function set appLocale(locale:String):void
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("spark.components.Application");
+				
+				myDynStyle.setStyle('locale',locale);
+				
+				this.dispatchEvent(new Event('myAppLocaleChangedEve'));
+			}
+			
+			public function set globalLocale(locale:String):void
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("global");
+				
+				myDynStyle.setStyle('locale',locale);
+				
+				this.dispatchEvent(new Event('myGlobalLocaleChangedEve'));
+			}
+			
+			public function get appLocale():String
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("spark.components.Application");
+				
+				return myDynStyle.getStyle("locale");
+			}
+			
+			public function get globalLocale():String
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("global");
+				
+				return myDynStyle.getStyle("locale");
+			}
+			
+			public function testError(testObj:spark.globalization.SortingCollator):void
+			{
+				errorInfo = 'No Error';
+				try
+				{
+					testObj.setStyle('locale',null);
+				}
+				catch(error:Error)
+				{
+					errorInfo = error.toString();
+				}
+				
+			}	
+			
+			public function test(testObj:spark.globalization.SortingCollator):void
+			{
+				errorInfo = 'No Error';
+				try
+				{
+					testObj.setStyle('locale','');
+				}
+				catch(error:Error)
+				{
+					errorInfo = error.toString();
+					trace(errorInfo);
+				}
+				
+			}	
+			
+			public function inheritStyle_script():void
+			{
+				undefinedLocaleL.addStyleClient(cltInheritStyle);
+			}
+			
+			public function inheritStyle_declarations():void
+			{
+				undefinedLocaleL.addStyleClient(cltInheritStyle_inline);
+			}
+			
+			public function addStyleClient_script(obj:spark.globalization.SortingCollator):void
+			{
+				this.addStyleClient(obj);
+			}
+			
+			public function setLocaleUndefined(obj:spark.globalization.SortingCollator):void
+			{
+				obj.setStyle('locale',undefined);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:Label id="errorInfoL" text="{errorInfo}"/>
+	<s:Label id="undefinedLocaleL" styleName="myStyle"/>
+	
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt.actualLocaleIDName}" id="scriptBinding" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline.actualLocaleIDName}" id="inlineBinding"/>
+		</mx:FormItem>
+		<mx:FormItem label="MatchingCollator script lastOperationStatus: ">
+			<s:TextInput text="{cltMatchLOS.lastOperationStatus}" id="cltMatchLOSBinding"/>
+		</mx:FormItem>
+		<mx:FormItem label="SortingCollator inline lastOperationStatus: ">
+			<s:TextInput text="{cltSortLOS_inline.lastOperationStatus}" id="cltSortLOSBinding_inline"/>
+		</mx:FormItem>
+	</mx:Form>
+</s:Application>

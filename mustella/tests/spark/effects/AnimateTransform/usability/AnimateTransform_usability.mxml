@@ -1,0 +1,134 @@
+<UnitTester
+    testSWF="../SWFs/AnimateTransform_usability_main.mxml"
+    testDir="spark/effects/AnimateTransform/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.AnimateTransform;
+        import Components.*;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="AnimateTransform_translationXYZ" keywords="[AnimateTransform, usability]" description="Use animateTransform to animate translation X,Y,Z.">
+            <setup>
+                <RunCode code="application.fxaTranslationXYZ.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaTranslationXYZ.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaTranslationXYZ.playheadTime = 300"/>
+                <Pause timeout="200"/>
+                <CompareBitmap target="testPanel" url="../usability/baseline/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateTransform_rotationXYZ" keywords="[AnimateTransform, usability]" description="Use animateTransform to animate rotation X,Y,Z.">
+            <setup>
+                <RunCode code="application.fxaRotationXYZ.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.uiComponent.x = 100;" />
+                <RunCode code="application.uiComponent.y = 100;" />
+                <RunCode code="application.fxaRotationXYZ.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaRotationXYZ.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="rotationX" value="117.811529"/>
+				<AssertPropertyValue target="uiComponent" propertyName="rotationY" value="117.811529"/>
+				<AssertPropertyValue target="uiComponent" propertyName="rotationZ" value="117.811529"/>
+			</body>
+        </TestCase>
+
+        <TestCase testID="AnimateTransform_scaleXYZ" keywords="[AnimateTransform, usability]" description="Use animateTransform to animate scale X,Y,Z.">
+            <setup>
+                <RunCode code="application.fxaScaleXYZ.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaScaleXYZ.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaScaleXYZ.playheadTime = 300"/>
+                <Pause timeout="200"/>
+                <CompareBitmap target="testPanel" url="../usability/baseline/$testID.png"  numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateTransform_MoveRotate" keywords="[AnimateTransform, usability]" description="Use animateTransform to simultaneous animate a move and rotate.">
+            <setup>
+                <RunCode code="application.fxaMoveRotate.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMoveRotate.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaMoveRotate.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent" propertyName="rotationZ" value="117.811529"/>
+			</body>
+        </TestCase>
+
+        <TestCase testID="AnimateTransform_MoveScale" keywords="[AnimateTransform, usability]" description="Use animateTransform to simultaneous animate a move and scale.">
+            <setup>
+                <RunCode code="application.fxaMoveScale.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMoveScale.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaMoveScale.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="65.450850"/>
+				<AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.672746"/>
+			</body>
+        </TestCase>
+
+        <TestCase testID="AnimateTransform_RotateScale" keywords="[AnimateTransform, usability]" description="Use animateTransform to simultaneous animate a rotate and scale.">
+            <setup>
+                <RunCode code="application.fxaRotateScale.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaRotateScale.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxaRotateScale.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="rotationZ" value="117.811529"/>
+				<AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.672746"/>
+			</body>
+        </TestCase>
+
+        <TestCase testID="AnimateTransform_ParallelFade" keywords="[AnimateTransform, usability]" description="Use animateTransform in a parallel with a fade.">
+            <setup>
+                <RunCode code="application.p_fxaFade.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.p_fxaFade.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.p_fxaFade.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="rotationX" value="117.811529"/>
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.472656"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_negativeNumberFormat_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			private var nfGSLib:flash.globalization.NumberFormatter;
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="NV_negativeNumberFormat_default_test1" description="the test case is for test default negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_default_script_test2" description="the test case is for test default negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript" styleName="locale" value="zh-CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_0_test3" description="the test case is for test set valid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-BE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=0" />
+				<SetStyle target="nv1" styleName="locale" value="fr-BE" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="negativeNumberFormat" value="0" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_1_test4" description="the test case is for test set valid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=1" />
+				<SetStyle target="nv1" styleName="locale" value="ar-SA" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="negativeNumberFormat" value="1" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_2_setStyle_test5" description="the test case is for test set valid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE@collaction=phonebook')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=2" />
+				<SetStyle target="nv1" styleName="locale" value="de-DE@collaction=phonebook" waitEvent="change"/>
+				<RunCode code="application.nv1.negativeNumberFormat = 2"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_3_setStyle_script_test6" description="the test case is for test set valid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('bn-BD')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=3" />
+				<SetStyle target="nvScript1" styleName="locale" value="bn-BD" waitEvent="change"/>
+				<RunCode code="application.nvScript1.negativeNumberFormat = 3"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_4_script_test7" description="the test case is for test set valid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<ResetComponent target="nvScript1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript1.initialized(null,'nvScript1')"/>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru-RU')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=4" />
+				<SetStyle target="nvScript1" styleName="locale" value="ru-RU" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_invalid_test8" description="the test case is for test set invalid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-BE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvInvalid" styleName="locale" value="fr-BE" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid,'negativeNumberFormat',8)" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'negativeNumberFormat',8)"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_invalid_script_test9" description="the test case is for test set invalid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScriptInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid,'negativeNumberFormat',9)" 
+								   valueExpression="value=NVConstants.testArgError(nfGSLib,'negativeNumberFormat',9)"/>
+				<AssertPropertyValue target="nvScriptInvalid" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_inline_test10" description="the test case is for test set valid value to negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=3" />
+				<SetStyle target="nvInline" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_binding4_test11" description="Binding property by lable text" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=4" />
+				<SetStyle target="nvBinding" styleName="locale" value="de-DE" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_binding0_test12" description="Binding property by lable text" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=0" />
+				<SetProperty target="nvBinding" propertyName="negativeNumberFormat" value="0" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_binding4_script_test13" description="Binding property by lable text" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CA')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=4" />
+				<SetStyle target="nvScriptBinding" styleName="locale" value="fr-CA" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_binding0_script_test14" description="Binding property by lable text" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=0" />
+				<SetProperty target="nvScriptBinding" propertyName="negativeNumberFormat" value="0" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_bindingWithLocaleChange_test15" description="Binding property when locale change" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvBindingLocale" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvBindingLocale" styleName="locale" value="ar-JO" waitEvent="change"/>
+				<AssertEvent target="nvBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_bindingWithLocaleChange_test16" description="Binding property when locale change" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="ar-JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nvScriptBindingLocale" styleName="locale" value="zh-CN" waitEvent="change"/>
+				<AssertEvent target="nvScriptBindingLocaleL" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="nvScriptBindingLocaleL" propertyName="text" valueExpression="value=nfGSLib.negativeNumberFormat" />
+				<AssertPropertyValue target="nvScriptBindingLocale" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_function_0_test17" description="Test function with property negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="negativeNumberFormat" value="0" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="(1234)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_function_1_test18" description="Test function with property negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetProperty target="nvFunction2" propertyName="negativeNumberFormat" value="1" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-1234" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT2"/>
+				<AssertEvent target="nvFunction2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_function_2_script_test19" description="Test function with property negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="negativeNumberFormat" value="2"  waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="fr-CA" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="- 1234" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_negativeNumberFormat_function_3_script_test20" description="Test function with property negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetProperty target="nvScriptFunction4" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction4" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction4" propertyName="trigger" valueExpression="value=application.triggerBT4"/>
+				<SetProperty target="nvScriptFunction4" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction4" propertyName="negativeNumberFormat" value="3" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction4" styleName="locale" value="zh-CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1234-" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT4"/>
+				<AssertEvent target="nvScriptFunction4" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction4" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_function_4_script_test21" description="Test function with property negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetProperty target="nvScriptFunction5" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction5" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction5" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptFunction5" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction5" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction5" styleName="locale" value="de-DE" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="1234 -" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptFunction5" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction5" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_function_invalid_script_test22" description="Test function with property negativeNumberFormat" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetProperty target="nvScriptFunction6" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction6" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction6" propertyName="trigger" valueExpression="value=application.triggerBT6"/>
+				<SetProperty target="nvScriptFunction6" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction6" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+				<SetStyle target="nvScriptFunction6" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="(1234)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT6"/>
+				<AssertEvent target="nvScriptFunction6" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction6" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_getterWithoutLocale_test23" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetStyle target="nvGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+				<SetProperty target="nvGetWithoutLocale" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="negativeNumberFormat" value="0" />
+				<AssertPropertyValue target="nvGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_negativeNumberFormat_getterWithoutLocale_script_test24" description="the test case is for test get property with undefined locale" keywords="[NumberValidator, negativeNumberFormat]">
+			<setup>
+				<SetStyle target="nvScriptGetWithoutLocale" styleName="locale" valueExpression="value=null" waitEvent="change"/>
+				<SetProperty target="nvScriptGetWithoutLocale" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="negativeNumberFormat" value="0" />
+				<AssertPropertyValue target="nvScriptGetWithoutLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

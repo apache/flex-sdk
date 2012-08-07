@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/AnimateColor/variable/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*" 
+    testSWF="../SWFs/AnimateColor_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.AnimateColor;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="AnimateColor_colorTo_Default" keywords="[AnimateColor, variable, colorTo]" description="Test the default value of the colorTo property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).colorTo" value="4294967295"/><!-- styleManager.NOT_A_COLOR -->
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_colorFrom_Default" keywords="[AnimateColor, variable, colorFrom]" description="Test the default value of the colorFrom property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).colorFrom" value="4294967295"/><!-- styleManager.NOT_A_COLOR -->
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_colorPropertyName_Default" keywords="[AnimateColor, variable, colorPropertyName]" description="Test the default value of the colorPropertyName property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).colorPropertyName" value="color"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_repeatBehavior_Default" keywords="[AnimateColor, variable, repeatBehavior]" description="Test the default value of the repeatBehavior property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).repeatBehavior" value="loop"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_motionPaths_Default" keywords="[AnimateColor, variable, motionPaths]" description="Test the default value of the motionPaths property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).motionPaths" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_repeatCount_Default" keywords="[AnimateColor, variable, repeatCount]" description="Test the default value of the repeatCount property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_repeatDelay_Default" keywords="[AnimateColor, variable, repeatDelay]" description="Test the default value of the repeatDelay property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_suspendBackgroundProcessing_Default" keywords="[AnimateColor, variable, suspendBackgroundProcessing]" description="Test the default value of the suspendBackgroundProcessing property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_startDelay_Default" keywords="[AnimateColor, variable, startDelay]" description="Test the default value of the startDelay property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateColor_instanceClass_Default" keywords="[AnimateColor, variable, instanceClass]" description="Test the default value of the instanceClass property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateColor()).instanceClass.toString().substr(7,20)" value="AnimateColorInstance"/>
+            </body>
+        </TestCase>
+
+
+
+    </testCases>
+</UnitTester>

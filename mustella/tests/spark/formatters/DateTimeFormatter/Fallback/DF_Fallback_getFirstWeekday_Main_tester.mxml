@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_Fallback_getFirstWeekday_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.DFConstants;
+		
+		public static function init(o:DisplayObject):void 
+        { 
+
+        }
+    ]]> 
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test "getFirstWeekday()" method-->
+<testCases>
+	<TestCase testID="DTF_Fallback_getFirstWeekday_noLocaleSet_test1" description="define a dtf instance without setting locale" keywords="[FallbackDateTimeFormatter, getFirstWeekDay]">
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" value="0"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_getFirstWeekday_locale_zh_CN_test2" description="Verify whether locale change will affect getFirstWeekday(), set locale to 'zh-CN'" keywords="[FallbackDateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets:FallbackDTF" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetStyle target="dtFormatter" styleName="locale" value="zh_CN" waitEvent="change"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" value="0"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_getFirstWeekday_locale_i_default_test3" description="Verify whether locale change will affect getFirstWeekday(), set locale to 'i-default'" keywords="[FallbackDateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets:FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<SetStyle target="dtFormatter" styleName="locale" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" value="0"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_getFirstWeekday_locale_123_test4" description="Verify whether locale change will affect getFirstWeekday(), set locale to '123'" keywords="[FallbackDateTimeFormatter, getFirstWeekDay]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="assets:FallbackDTF" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="{DFConstants.pauseTime}"/>	
+			<SetStyle target="dtFormatter" styleName="locale" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatter.getFirstWeekday()" value="0"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+
+
+</UnitTester>

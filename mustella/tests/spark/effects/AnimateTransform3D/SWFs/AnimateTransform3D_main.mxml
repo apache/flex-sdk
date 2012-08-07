@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:trixContainer="Containers.*"
+    xmlns:trixComponent="Components.*"
+    xmlns:trixInterpolator="Interpolators.*"
+    xmlns:assets="*"
+    height="500" width="500"
+    backgroundColor="0xFFFFFF">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face
+		{
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera1;
+		embedAsCFF: true;
+		}
+
+		s|SkinnableComponent
+		{
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: black;
+		}
+	</fx:Style>
+
+	<fx:Script>
+        <![CDATA[
+        import mx.core.UIComponent;
+        
+        //The global current test object
+        public var uiComponent:UIComponent = new UIComponent();
+        public var uiComponent2:UIComponent = new UIComponent();
+        
+        private function Init():void{}
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <s:Power id="pow"/>
+        <s:Linear id="lin"/>
+        <trixInterpolator:Halfterpolator id="ht"/>
+
+        <s:AnimateTransform3D id="fxat"/>
+
+        <s:SimpleMotionPath id="smpGeneric">
+            <s:keyframes>
+                <s:Keyframe time="0" value="0"/>
+                <s:Keyframe time="500" value="50"/>
+            </s:keyframes>
+        </s:SimpleMotionPath>
+
+        <s:AnimateTransform3D id="fxa1">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationY">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="180"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaTransform">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="rotationZ">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="90"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaEaser" >
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationY">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="200"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaInterpolator">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationY">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="200"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaTranslateRotate">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationX">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="200"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+                <s:SimpleMotionPath property="translationY">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="200"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+                <s:SimpleMotionPath property="rotationZ">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" valueBy="360"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaRepeat">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationX">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="200"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+                <s:SimpleMotionPath property="translationY">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="500" value="200"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaDuration" duration="500">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationY">
+                    <s:keyframes>
+                        <s:Keyframe time="0" value="0"/>
+                        <s:Keyframe time="1000" value="180"/>
+                    </s:keyframes>
+                </s:SimpleMotionPath>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaMethod" duration="1000">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationY" valueFrom="0" valueTo="300"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaTranslationXYZ">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationX" valueFrom="0" valueTo="100"/>
+                <s:SimpleMotionPath property="translationY" valueFrom="0" valueTo="100"/>
+                <s:SimpleMotionPath property="translationZ" valueFrom="0" valueTo="100"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaRotationXYZ">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="rotationX" valueFrom="0" valueTo="180"/>
+                <s:SimpleMotionPath property="rotationY" valueFrom="0" valueTo="180"/>
+                <s:SimpleMotionPath property="rotationZ" valueFrom="0" valueTo="180"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaScaleXYZ">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="scaleX" valueFrom="1" valueTo=".5"/>
+                <s:SimpleMotionPath property="scaleY" valueFrom="1" valueTo="2"/>
+                <s:SimpleMotionPath property="scaleZ" valueFrom="1" valueTo=".4"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaMoveRotate">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationX" valueFrom="0" valueTo="100"/>
+                <s:SimpleMotionPath property="rotationZ" valueFrom="0" valueTo="180"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaMoveScale">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="translationX" valueFrom="0" valueTo="100"/>
+                <s:SimpleMotionPath property="scaleY" valueFrom="1" valueTo=".5"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <s:AnimateTransform3D id="fxaRotateScale" autoCenterTransform="true">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="rotationZ" valueFrom="0" valueTo="180"/>
+                <s:SimpleMotionPath property="scaleY" valueFrom="1" valueTo=".5"/>
+            </s:motionPaths>
+        </s:AnimateTransform3D>
+
+        <mx:Parallel id="p_fxaFade">
+            <s:AnimateTransform3D>
+                <s:motionPaths>
+                    <s:SimpleMotionPath property="translationX" valueFrom="0" valueTo="100"/>
+                    <s:SimpleMotionPath property="translationY" valueFrom="0" valueTo="100"/>
+                    <s:SimpleMotionPath property="translationZ" valueFrom="0" valueTo="100"/>
+                    <s:SimpleMotionPath property="rotationX" valueFrom="0" valueTo="180"/>
+                    <s:SimpleMotionPath property="rotationY" valueFrom="0" valueTo="180"/>
+                    <s:SimpleMotionPath property="rotationZ" valueFrom="0" valueTo="180"/>
+                    <s:SimpleMotionPath property="scaleX" valueFrom="1" valueTo=".5"/>
+                    <s:SimpleMotionPath property="scaleY" valueFrom="1" valueTo="2"/>
+                    <s:SimpleMotionPath property="scaleZ" valueFrom="1" valueTo=".4"/>
+                </s:motionPaths>
+            </s:AnimateTransform3D>
+            <s:Fade alphaFrom="1" alphaTo=".2"/>
+        </mx:Parallel>
+    </fx:Declarations>
+    
+    <trixContainer:TrixSparkPanel2 id="testPanel"/>
+
+
+</s:Application>

@@ -1,0 +1,63 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_playerControls_skin"
+            keywords="[VideoPlayer, playerControls]"
+            description="Test the skin of the playerControls.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.playerControls" numColorVariances="7" maxColorVariance="10" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_playerControlsFullScreen_skin"
+            keywords="[VideoPlayer, playerControls, fullscreen]"
+            description="Test the skin of the playerControls in fullscreen mode">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.playerControls" numColorVariances="7" maxColorVariance="10" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_playerControlsFullScreenDisappear_skin"
+            keywords="[VideoPlayer, playerControls, fullscreen]"
+            description="Test the skin of the playerControls in fullscreen mode when the controls have disappeared">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+		<DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="4000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.playerControls" numColorVariances="7" maxColorVariance="10" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

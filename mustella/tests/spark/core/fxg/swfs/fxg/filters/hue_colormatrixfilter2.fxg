@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test hue rotation by ColorMatrixFilter applied to various types of graphic content                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 18 March-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  18-March-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group x="5" y="5">
+				<Group>
+					<Group>
+						<Rect radiusX="20" radiusY="40" width="120" height="80">
+							<fill>
+								<LinearGradient x = "30" y = "20" scaleX = "50" rotation = "-17">
+									<GradientEntry color="#991177" ratio="0"/>
+									<GradientEntry color="#cd5c5c" ratio="0.5"/>
+									<GradientEntry color="#7cfc00" ratio="1"/>
+								</LinearGradient>
+							</fill>
+							<stroke>
+							  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Rect>
+					</Group>	
+					<Group x="150">
+						<Rect radiusX="20" radiusY="40" width="120" height="80">
+							<filters>
+								<ColorMatrixFilter matrix="1, 0, 0, 0, 0,		0, 1, 0, 0, 0,		0.4444, 1, 1, 0, 0,		0, 0, 0, 1, 0"/>
+							</filters>
+							<fill>
+								<LinearGradient x = "30" y = "20" scaleX = "50" rotation = "-17">
+									<GradientEntry color="#991177" ratio="0"/>
+									<GradientEntry color="#cd5c5c" ratio="0.5"/>
+									<GradientEntry color="#7cfc00" ratio="1"/>
+								</LinearGradient>
+							</fill>
+							<stroke>
+							  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Rect>
+					</Group>
+					<Group x="300">
+						<Rect radiusX="20" radiusY="40" width="120" height="80">
+							<fill>
+								<LinearGradient x = "30" y = "20" scaleX = "50" rotation = "-17">
+									<GradientEntry color="#9911cc" ratio="0"/>
+									<GradientEntry color="#cd5cff" ratio="0.5"/>
+									<GradientEntry color="#7cfcff" ratio="1"/>
+								</LinearGradient>
+							</fill>
+							<stroke>
+							  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+							</stroke>
+						</Rect>
+					</Group>
+				</Group>
+   </Group>
+</Graphic>

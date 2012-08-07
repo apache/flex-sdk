@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/Sine/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Sine_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.Sine;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Sine_easeInFraction_Default" keywords="[Sine, accessor, easeInFraction]" description="Test the default value of the easeInFraction accessor.">
+            <body>
+                <AssertMethodValue method="value=(new Sine()).easeInFraction" value=".5"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

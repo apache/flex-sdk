@@ -1,0 +1,51 @@
+<UnitTester
+    testSWF="../SWFs/SDK_21874.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_21874" 
+			keywords="[SDK_21874]" 
+			description="this should snap back on a Rotate3D now per another bug fix">
+			<!--bugs>
+				<Bug bugID="SDK-21874"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.currentState = 'state2'" waitTarget="pt" waitEvent="effectEnd" />
+				<Pause timeout="250"/>
+				<AssertMethodValue method="value=application.button.rotationX" value="0"/>
+				<AssertMethodValue method="value=application.button.postLayoutTransformOffsets.rotationX" value="0"/>
+				<AssertMethodValue method="value=application.button.width" value="250"/>
+			</body>
+        </TestCase>
+        
+        <TestCase 
+			testID="SDK_21874_2D" 
+			keywords="[SDK_21874]" 
+			description="but a Rotate2D shouldn't snap back">
+			<!--bugs>
+				<Bug bugID="SDK-21874"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.currentState = 'state1'" waitTarget="pt" waitEvent="effectEnd" />
+				<RunCode code="application.currentState = 'state2'" waitTarget="pt" waitEvent="effectEnd" />
+				<Pause timeout="250"/>
+				<AssertMethodValue method="value=application.button2.rotation" value="30"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Rect/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Rect_Main.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import comps.RectBasic;
+       import spark.primitives.Rect;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	   public function setMatrix(target:Rect): void
+	   {
+	       target.transform = application.transform_move_rotate;
+	   }
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+        <TestCase testID="FXG_Rect_radiusX_default" description="Check default of radiusX" keywords="[Rect, radiusX, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="0" propertyName="radiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_radiusY_default" description="Check default of radiusY" keywords="[Rect, radiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="0" propertyName="radiusY" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topRightRadiusX_default" description="Check default of topRightRadiusX" keywords="[Rect, topRightRadiusX, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="topRightRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topRightRadiusY_default" description="Check default of topRightRadiusY" keywords="[Rect, topRightRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="topRightRadiusY" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topLeftRadiusX_default" description="Check default of topLeftRadiusX" keywords="[Rect, topLeftRadiusX, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="topLeftRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topLeftRadiusY_default" description="Check default of topLeftRadiusY" keywords="[Rect, topLeftRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="topLeftRadiusY" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomRightRadiusY_default" description="Check default of bottomRightRadiusY" keywords="[Rect, bottomRightRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="bottomRightRadiusY" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomRightRadiusX_default" description="Check default of bottomRightRadiusX" keywords="[Rect, bottomRightRadiusX, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="bottomRightRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomLeftRadiusY_default" description="Check default of bottomLeftRadiusY" keywords="[Rect, bottomLeftRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="bottomLeftRadiusY" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomLeftRadiusX_default" description="Check default of bottomLeftRadiusX" keywords="[Rect, bottomLeftRadiusX, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue value="NaN" propertyName="bottomLeftRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_8corners_radiusXYSet" description="Check the values of the 8 corner properties when radiusX and radiusY are set."
+            keywords="[Rect, radiusY, radiusX, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY, bottomLeftRadiusX, bottomLeftRadiusY, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_8corners_radiusXYSet_update" description="Check the values of the 8 corner properties when radiusX and radiusY are set."
+            keywords="[Rect, radiusY, radiusX, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY, bottomLeftRadiusX, bottomLeftRadiusY, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="radiusX" value="15" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_topRightRadiusX" description="Check the values of the 8 corner properties when topRightRadiusX is set."
+            keywords="[Rect, radiusY, radiusX, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY, bottomLeftRadiusX, bottomLeftRadiusY, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topRightRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_topLeftRadiusX" description="Check the values of the 8 corner properties when topLeftRadiusX is set."
+            keywords="[Rect, radiusY, radiusX, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_bottomRightRadiusX" description="Check the values of the 8 corner properties when bottomRightRadiusX is set."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_bottomLeftRadiusX" description="Check the values of the 8 corner properties when bottomLeftRadiusX is set."
+            keywords="[Rect, radiusY, radiusX, bottomLeftRadiusX, bottomLeftRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_bottomRadiusX" description="Check the values of the 8 corner properties when bottomLeftRadiusX is set."
+            keywords="[Rect, radiusY, radiusX, bottomLeftRadiusX, bottomLeftRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_topLeftRadiusY" description="Check the values of the 8 corner properties when topLeftRadiusY is set."
+            keywords="[Rect, radiusY, radiusX, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusY" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_bottomRightRadiusY" description="Check the values of the 8 corner properties when bottomRightRadiusY is set."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusY" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_Properties_bottomLeftRadiusY" description="Check the values of the 8 corner properties when bottomLeftRadiusY is set."
+            keywords="[Rect, radiusY, radiusX, bottomLeftRadiusX, bottomLeftRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusY" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topLeftRadiusXY_set" description="set topLeftRadiusX and topLeftRadiusY to 10 and no other properties." keywords="[Rect, topLeftRadiusX, topLeftRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="topLeftRadiusX" value="10" />
+			    <SetProperty target="graphic1.rect1" propertyName="topLeftRadiusY" value="10" waitTarget="graphic1.rect1" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			    <AssertPropertyValue value="NaN" propertyName="bottomLeftRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="topRightRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="bottomRightRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topRightRadiusXY_set" description="set topRightRadiusX and topRightRadiusY to 10 and no other properties." keywords="[Rect, topRightRadiusX, topRightRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="topRightRadiusX" value="10" />
+			    <SetProperty target="graphic1.rect1" propertyName="topRightRadiusY" value="10" waitTarget="graphic1.rect1" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			    <AssertPropertyValue value="NaN" propertyName="bottomLeftRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="topLeftRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="bottomRightRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomLeftRadiusXY_set" description="set bottomLeftRadiusX and bottomLeftRadiusY to 10 and no other properties." keywords="[Rect, bottomLeftRadiusX, bottomLeftRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="bottomLeftRadiusX" value="10" />
+			    <SetProperty target="graphic1.rect1" propertyName="bottomLeftRadiusY" value="10" waitTarget="graphic1.rect1" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			    <AssertPropertyValue value="NaN" propertyName="topLeftRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="bottomRightRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="topRightRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomRightRadiusXY_set" description="set bottomRightRadiusX and bottomRightRadiusY to 10 and no other properties." keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="bottomRightRadiusX" value="10" />
+			    <SetProperty target="graphic1.rect1" propertyName="bottomRightRadiusY" value="10" waitTarget="graphic1.rect1" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			    <AssertPropertyValue value="NaN" propertyName="topLeftRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="bottomLeftRadiusX" target="graphic1.rect1" />
+			    <AssertPropertyValue value="NaN" propertyName="topRightRadiusX" target="graphic1.rect1" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_allTopRadiusProperties_set" description="Set all of the top properties and verify that the top two corners are rounded, the bottom is not." keywords="[Rect, topLeftRadiusX, topLeftRadiusY, Graphic]">
+			<setup>
+			    <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="graphic1.rect1" propertyName="topLeftRadiusX" value="15" />
+			    <SetProperty target="graphic1.rect1" propertyName="topLeftRadiusY" value="15" waitTarget="graphic1.rect1" waitEvent="updateComplete"/>
+			    <SetProperty target="graphic1.rect1" propertyName="topRightRadiusX" value="15" />
+			    <SetProperty target="graphic1.rect1" propertyName="topRightRadiusY" value="15" waitTarget="graphic1.rect1" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_topCornerRadius_biggerThanWidth" description="For a Rect that is 40x40, set the topRightRadiusX=30. Ensure that the topRightRadiusX value is treated as 20."
+            keywords="[Rect, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY, bottomLeftRadiusX, bottomLeftRadiusY, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="width" value="40" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="height" value="40" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topRightRadiusX" value="30" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusX" value="30" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="0" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_bottomLeftCornerRadius_biggerThanWidth" description="For a Rect that is 40x40, set the topRightRadiusX=30. Ensure that the topRightRadiusX value is treated as 20."
+            keywords="[Rect, topRightRadiusX, topRightRadiusY, topLeftRadiusX,topLeftRadiusY, bottomLeftRadiusX, bottomLeftRadiusY, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="width" value="40" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="height" value="40" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="30" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="30" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topRightRadiusX" value="0" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+       
+       <TestCase testID="FXG_Rect_TopCornerRadii_setWithBitmapFill" description="Set topRightRadiusX andn topLeftRadiusX on a Rect with a BitmapFill."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="fill" valueExpression="value=application.rectFill" waitEvent="updateComplete"
+			        waitTarget="rect_radiusSet.rect1" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topRightRadiusX" value="5" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusX" value="5" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="0" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_AllCorners_setWithBitmapFill_repeat" description="Set all the xxRadiusX properties on a Rect with a BitmapFill with fillMode=repeat."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="fill" valueExpression="value=application.rectFill" waitEvent="updateComplete"
+			        waitTarget="rect_radiusSet.rect1" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="width" value="200" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="height" value="200" />
+			    <SetProperty target="rect_radiusSet.rect1.fill" propertyName="fillMode" value="repeat" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topRightRadiusX" value="25" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusX" value="25" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="20" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="20" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_RadiusXY_setWithBitmapFill" description="Set radiusX andn radiusY on a Rect with a BitmapFill with fillMode=repeat."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="fill" valueExpression="value=application.rectFill" waitEvent="updateComplete"
+			        waitTarget="rect_radiusSet.rect1" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="width" value="200" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="height" value="200" />
+			    <SetProperty target="rect_radiusSet.rect1.fill" propertyName="fillMode" value="repeat" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="radiusY" value="5" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="radiusX" value="5" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_RadiusXY_setWithStroke" description="Set topRightRadiusX andn topLeftRadiusX on a Rect with a BitmapFill."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="stroke" valueExpression="value=application.redStroke" waitEvent="updateComplete"
+			        waitTarget="rect_radiusSet.rect1" />
+			</setup>
+			<body>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+        <TestCase testID="FXG_Rect_xxRadiusX_setWithStroke" description="Set topRightRadiusX andn topLeftRadiusX on a Rect with a BitmapFill."
+            keywords="[Rect, bottomRightRadiusX, bottomRightRadiusY]">
+			<setup>
+			    <ResetComponent target="rect_radiusSet" className="comps.RectWithRadius" waitTarget="rect_radiusSet" waitEvent="updateComplete" />
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="stroke" valueExpression="value=application.redStroke" waitEvent="updateComplete"
+			        waitTarget="rect_radiusSet.rect1" />
+			</setup>
+			<body>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topRightRadiusX" value="15" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="topLeftRadiusX" value="15" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomRightRadiusX" value="15" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <SetProperty target="rect_radiusSet.rect1" propertyName="bottomLeftRadiusX" value="15" waitTarget="rect_radiusSet" waitEvent="updateComplete"/>
+			    <CompareBitmap url="../properties/baselines/$testID.png" target="rect_radiusSet" timeout="2000" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

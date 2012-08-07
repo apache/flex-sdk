@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SF_sort_findItem.mxml">
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.newClasses.SFConstant;
+			
+			import flash.globalization.*;
+			import flash.globalization.LastOperationStatus;
+			
+			import spark.collections.Sort;
+			import spark.globalization.SortingCollator;
+			public var clt:spark.globalization.SortingCollator;
+			
+			private var obj:Object = new Object();
+			public static function init(o:DisplayObject):void
+			{
+			}
+			
+			private var emptyAry:Array = [];
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="SortField_findItem_anyIndexMode_test1" description="find single item with anyIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'Ted',
+								   Sort.FIRST_INDEX_MODE, false)" 
+								   value="13"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_anyIndexMode_script_test2" description="find single item with anyIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'Chumley',
+								   Sort.ANY_INDEX_MODE, false)" 
+								   value="5"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_firstIndexMode_test3" description="find single item with firstIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'Matisse',
+								   Sort.FIRST_INDEX_MODE, false)" 
+								   value="10"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_firstIndexMode_script_test4" description="find single item with firstIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								  'cadbury',
+								   Sort.FIRST_INDEX_MODE, false)" 
+								   value="3"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_lastIndexMode_test5" description="find single item with lastIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								  'Daisy',
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="6"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_lastIndexMode_script_test6" description="find single item with lastIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'cadbury',
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="4"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_notContains_insert_true_test7" description="find un-existed item and set returnInsertionIndex to true"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'ZUnExisted',
+								   Sort.LAST_INDEX_MODE, true)" 
+								   value="16"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_notContains_insert_true_script_test8" description="find un-existed item and set returnInsertionIndex to true"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'ZUnExisted',
+								   Sort.LAST_INDEX_MODE, true)" 
+								   value="16"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_notContains_insert_false_test9" description="find un-existed item and set returnInsertionIndex to false"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'ZUnExisted',
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="-1"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_notContains_insert_false_script_test10" description="find un-existed item and set returnInsertionIndex to false"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'ZUnExisted',
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="-1"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_complex_anyIndexMode_test11" description="find complex item with anyIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortField2" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField,application.uiButtonBarComp.mySortField2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="129" />
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Ted" />
+				<Pause timeout="{SFConstant.pauseTime}"/>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.ANY_INDEX_MODE, false)" 
+								   value="6"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_complex_anyIndexMode_script_test12" description="find complex item with anyIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript,application.uiButtonBarComp.mySortFieldScript2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Danny" />
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="123" />
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.ANY_INDEX_MODE, false)" 
+								   value="7"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_complex_firstIndexMode_test13" description="find complex item with firstIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortField2" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField,application.uiButtonBarComp.mySortField2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="10" />
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Ted" />
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.FIRST_INDEX_MODE, false)" 
+								   value="0"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_complex_firstIndexMode_script_test14" description="find complex item with firstIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="TJ" />
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.FIRST_INDEX_MODE, false)" 
+								   value="14"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_complex_lastIndexMode_test15" description="find complex item with lastIndexMode, without sort items"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortField2" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField2,application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="124" />
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Imari" />
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="1"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_complex_lastIndexMode_script_test16" description="find complex item with lastIndexMode"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript3" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript2,
+							 application.uiButtonBarComp.mySortFieldScript,application.uiButtonBarComp.mySortFieldScript3]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="131" />
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Matisse" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="30" />
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="8"/>
+			</body>
+		</TestCase>  
+		<TestCase testID="SortField_findItem_complex_notContains_insert_true_test17" description="find un-existed complex item and set returnInsertionIndex to true"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortField2" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortField3" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField,
+							 application.uiButtonBarComp.mySortField2,application.uiButtonBarComp.mySortField3]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="barmen" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="31" />
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="100" />
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, true)" 
+								   value="0"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_complex_notContains_insert_true_script_test18" description="find un-existed complex item and set returnInsertionIndex to true"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript3" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript,
+							 application.uiButtonBarComp.mySortFieldScript2,application.uiButtonBarComp.mySortFieldScript3]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="ZaUnExisted" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="100" />
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="100" />
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, true)" 
+								   value="16"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_complex_notContains_insert_false_test19" description="find un-existed complex item and set returnInsertionIndex to false"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortField]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="ZUnExisted" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="100" />
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySort.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="-1"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_complex_notContains_insert_false_script_test20" description="find un-existed complex item and set returnInsertionIndex to false"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="ZaUnExisted" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="100" />
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="-1"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_field_error_test21" description="wrong field order, skip field"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortField2" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortField3" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiButtonBarComp.mySortField,
+							 application.uiButtonBarComp.mySortField2,application.uiButtonBarComp.mySortField3]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.tryWrongFieldsOrder()" 
+								   value="Error: Find criteria must contain all sort fields leading up to 'age'."/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_field_error_script_test22" description="wrong field order, skip field"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript3" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" 
+							 valueExpression="value=[application.uiButtonBarComp.mySortFieldScript,
+							 application.uiButtonBarComp.mySortFieldScript2,application.uiButtonBarComp.mySortFieldScript3]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.tryWrongFieldsOrderScript()" 
+								   value="Error: Find criteria must contain all sort fields leading up to 'age'."/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_TypeError_test23" description="test Type error"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortField2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortField" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortField2" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiButtonBarComp.mySortField, application.uiButtonBarComp.mySortField2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySort" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Danny" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="20" />
+				<AssertStyleValue target="uiButtonBarComp.mySort" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.tryTypeError(application.uiButtonBarComp.mySort)" 
+								   value="Error: No items to search."/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_ArgumentError_test24" description="test Argument error"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" 
+							 valueExpression="value=[application.uiButtonBarComp.mySortFieldScript, application.uiButtonBarComp.mySortFieldScript2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Danny" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="20" />
+				<AssertStyleValue target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.tryArgumentError(application.uiButtonBarComp.mySortScript)" 
+								   value="Error: Unknown find mode."/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_findNull_test25" description="find null item"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" 
+							 valueExpression="value=[application.uiButtonBarComp.mySortFieldScript, application.uiButtonBarComp.mySortFieldScript2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" valueExpression="value=null" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" valueExpression="value=null" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="-1"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_emptyArray_test26" description="call this method with empty array"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" 
+							 valueExpression="value=[application.uiButtonBarComp.mySortFieldScript, application.uiButtonBarComp.mySortFieldScript2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Danny" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="20" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   emptyAry,
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="-1"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_withoutSortField_test27" description="find item without define SortField"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.mySimpleStrArrColl" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   'Chumley',
+								   Sort.LAST_INDEX_MODE, false)" 
+								   value="5"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="SortField_findItem_customCompareFunction_test28" description="find item based on custom compare function"  keywords="[Sort, findItem]">
+			<setup>
+				<ResetComponent target="uiButtonBarComp" className="newComps.CustomComp_Sort_findItem" waitEvent="updateComplete" waitTarget="uiButtonBarComp"/>
+				<SetStyle target="uiButtonBarComp.mySortScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript2" styleName="locale" valueExpression="value='ru-RU'"/>
+				<SetStyle target="uiButtonBarComp.mySortFieldScript3" styleName="locale" valueExpression="value='ru-RU'"/>
+				
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarValueField" value="name" />
+				<SetProperty target="uiButtonBarComp" propertyName="buttonBarDataProvider" valueExpression="value=application.uiButtonBarComp.dataComp.myMXNameAgeStrArr" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript" propertyName="name" value="name" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript2" propertyName="name" value="id" />
+				<SetProperty target="uiButtonBarComp.mySortFieldScript3" propertyName="name" value="age" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="compareFunction" valueExpression="value=application.mySortCompareFunction" />
+				<SetProperty target="uiButtonBarComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiButtonBarComp.mySortFieldScript,
+							 application.uiButtonBarComp.mySortFieldScript3,application.uiButtonBarComp.mySortFieldScript2]" />
+				<SetProperty target="uiButtonBarComp.buttonBarDataProvider" propertyName="sort" valueExpression="value=application.uiButtonBarComp.mySortScript" />
+				<RunCode code="application.uiButtonBarComp.buttonBarDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiButtonBarComp.buttonBarDataProvider"/>
+			</setup>
+			<body>
+				<SetProperty target="uiButtonBarComp" propertyName="initIDObject" value="131" />
+				<SetProperty target="uiButtonBarComp" propertyName="initNameObject" value="Matisse" />
+				<SetProperty target="uiButtonBarComp" propertyName="initAgeObject" value="30" />
+				<AssertMethodValue method="value=application.uiButtonBarComp.mySortScript.findItem(
+								   application.uiButtonBarComp.buttonBarDataProvider.toArray(),
+								   application.uiButtonBarComp.findObj,
+								   Sort.LAST_INDEX_MODE, false, application.mySortCompareFunction)" 
+								   value="15"/>
+			</body>
+		</TestCase> 
+	</testCases>
+</UnitTester>

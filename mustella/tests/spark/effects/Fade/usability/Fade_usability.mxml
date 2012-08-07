@@ -1,0 +1,485 @@
+﻿<UnitTester
+    testSWF="../SWFs/Fade_main_extension.mxml"
+    testDir="spark/effects/Fade/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.AnimateTransform;
+        import Controls.*;
+        import Components.*;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="Fade_Button" keywords="[Fade, usability]" description="Fade a Button.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_CheckBox" keywords="[Fade, usability]" description="Fade a CheckBox.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_ColorPicker" keywords="[Fade, usability]" description="Fade a ColorPicker.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixColorPicker();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_ComboBox" keywords="[Fade, usability]" description="Fade a ComboBox.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixComboBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_DataGrid" keywords="[Fade, usability]" description="Fade a DataGrid.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixDataGrid();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_DateChooser" keywords="[Fade, usability]" description="Fade a DateChooser.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixDateChooser();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_DateField" keywords="[Fade, usability]" description="Fade a DateField.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixDateField();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_HorizontalList" keywords="[Fade, usability]" description="Fade a HorizontalList.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixHorizontalList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_HRule" keywords="[Fade, usability]" description="Fade a HRule.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixHRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_HSlider" keywords="[Fade, usability]" description="Fade a HSlider.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixHSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_Image" keywords="[Fade, usability]" description="Fade a Image.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixImage();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_Label" keywords="[Fade, usability]" description="Fade a Label.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixLabel();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_List" keywords="[Fade, usability]" description="Fade a List.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_NumericStepper" keywords="[Fade, usability]" description="Fade a NumericStepper.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_PopUpButton" keywords="[Fade, usability]" description="Fade a PopUpButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixPopUpButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_PopUpMenuButton" keywords="[Fade, usability]" description="Fade a PopUpMenuButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixPopUpMenuButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_ProgressBar" keywords="[Fade, usability]" description="Fade a ProgressBar.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixProgressBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_RadioButton" keywords="[Fade, usability]" description="Fade a RadioButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_RichTextEditor" keywords="[Fade, usability]" description="Fade a RichTextEditor.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixRichTextEditor();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="1000" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_Text" keywords="[Fade, usability]" description="Fade a Text.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixText();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_TextArea" keywords="[Fade, usability]" description="Fade a TextArea.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixTextArea();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_TextInput" keywords="[Fade, usability]" description="Fade a TextInput.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_Tree" keywords="[Fade, usability]" description="Fade a Tree.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixTree();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="1000" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_VRule" keywords="[Fade, usability]" description="Fade a VRule.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixVRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_VScrollBar" keywords="[Fade, usability]" description="Fade a VScrollBar.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixVScrollBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_VSlider" keywords="[Fade, usability]" description="Fade a VSlider.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixVSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkRect" keywords="[Fade, usability]" description="Fade a SparkRect.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkRect();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkButton" keywords="[Fade, usability]" description="Fade a SparkButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkCheckBox" keywords="[Fade, usability]" description="Fade a SparkCheckBox.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkList" keywords="[Fade, usability]" description="Fade a SparkList.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkNumericStepper" keywords="[Fade, usability]" description="Fade a SparkNumericStepper.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkRadioButton" keywords="[Fade, usability]" description="Fade a SparkRadioButton.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Fade_SparkTextInput" keywords="[Fade, usability]" description="Fade a SparkTextInput.">
+            <setup>
+                <RunCode code="application.atm_object.stop()" />
+                <RunCode code="application.uiComponent = new TrixSparkTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_object.target = application.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atm_object.playheadTime = 300" />
+                <Pause timeout="200" />
+				<AssertPropertyValue target="uiComponent" propertyName="alpha" value="0.343750"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

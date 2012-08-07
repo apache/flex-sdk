@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" xmlns:fx="http://ns.adobe.com/mxml/2009"
+     xmlns:mx="library://ns.adobe.com/flex/mx"  xmlns:s="library://ns.adobe.com/flex/spark"
+     width="800" height="700"  xmlns:comps="comps.*" >
+<fx:Script>
+    <![CDATA[
+
+	    [Embed(source="../../../../../Assets/Images/smallredrect.jpg")]
+		public var kitler:Class;
+
+		[Embed(source="../../../../../Assets/Images/smallredrect.jpg",scaleGridTop=10,scaleGridBottom=18,scaleGridLeft=10,scaleGridRight=20)]
+		public var kitlerScale9:Class;
+
+		[Embed(source="../../../../../Assets/Images/smallorangerect.jpg")]
+		public var kenny:Class;
+
+		[Embed(source="../../../../../Assets/Images/smallyellowrect.jpg")]
+		public var monkeys:Class;
+
+	    [Embed(source="../../../../../Assets/Images/smallgreenrect.jpg")]
+		public var bulldog:Class;
+
+		[Embed(source="../../../../../Assets/Images/smallbluerect.jpg")]
+		public var dog2:Class;
+
+		[Embed(source="../../../../../Assets/Images/smallpurplerect.jpg")]
+		[Bindable] public var squareLogo:Class;
+		
+		public function setSource():void
+		{
+			image1.source = squareLogo;
+		}
+  ]]>
+</fx:Script>
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+
+    @font-face {
+		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		fontFamily: "MySymbol";
+		embedAsCFF: true;
+	}
+
+    @font-face {
+		src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+		fontFamily: "Hancock";
+	}
+
+    @font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: "MyVerdana";
+		embedAsCFF: true;
+	}
+
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		fontFamily: "MyVerdana";
+		fontWeight: bold;
+		embedAsCFF: true;
+	}
+
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		fontFamily: "MyVerdana";
+		fontStyle: italic;
+		embedAsCFF: true;
+	}
+
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+		fontFamily: "MyVerdana";
+		fontWeight: bold;
+		fontStyle: italic;
+		embedAsCFF: true;
+	}
+
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+		fontFamily: "MyMona";
+		embedAsCFF: true;
+	}
+
+	s|RichText {
+	    fontFamily: "MyVerdana";
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+	}
+
+	@font-face {
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		fontFamily: "ArialEmbedded";
+		fontWeight: "normal";
+		embedAsCFF: true;
+	}
+
+	s|Label {
+		fontFamily: "ArialEmbedded";
+		fontLookup: "embeddedCFF";
+		fontAntiAliasType: "normal";
+	}
+</fx:Style>
+
+<fx:Declarations>
+    <s:ColorTransform id="colorTransform1" alphaMultiplier="0.5" alphaOffset="30" blueMultiplier="0.5" blueOffset="10" greenMultiplier="0.5" greenOffset="20" redMultiplier="0.5" redOffset="30"/>
+    <s:ColorTransform id="colorTransform2" alphaMultiplier="0.3" alphaOffset="10" blueMultiplier="0.9" blueOffset="10" greenMultiplier="0.2" greenOffset="20" redMultiplier="0.1" redOffset="30"/>
+	<s:ColorTransform id="colorTransform3" alphaMultiplier="0.9" alphaOffset="20" blueMultiplier="0.1" blueOffset="10" greenMultiplier="0.1" greenOffset="20" redMultiplier="0.7" redOffset="0"/>
+
+</fx:Declarations>
+
+<comps:BitmapGraphicBasic id="graphic1" />
+
+<comps:TextGraphicBasic id="graphic2" />
+
+<s:Group id="group1">
+	<s:BitmapImage id="image1" x="12.5" y="10.5" source="{squareLogo}" />
+</s:Group>
+
+<s:Group id="group2">
+	<s:BitmapImage id="image2" x="35" y="40" source="{squareLogo}" />
+</s:Group>
+</mx:Application>

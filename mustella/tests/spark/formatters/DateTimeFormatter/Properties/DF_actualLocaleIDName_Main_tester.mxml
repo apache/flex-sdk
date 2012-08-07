@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_actualLocaleIDName.mxml">
+	
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		import assets.*;
+		
+		import spark.formatters.DateTimeFormatter;
+		
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		
+		
+        public static function init(o:DisplayObject):void
+        {
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test "actualLocaleIDName" property-->
+<testCases>
+	<!--the test case is for test fall back locale, the actual locale is "de0"-->
+	<TestCase testID="DF_actualLocaleIDName_de0_test1" description="test fall back locale, the actual locale is 'de0'" keywords="[DateTimeFormatter, actualLocaleIDName]">
+        <setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('de0')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="de0" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+    </TestCase>
+	<!--the test case is for test fall back locale, the actual locale is "123"-->
+	<TestCase testID="DF_actualLocaleIDName_123_test2" description="test fall back locale, the actual locale is '123'" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test fall back locale, the actual locale is "en-US"-->
+	<TestCase testID="DF_actualLocaleIDName_en_US_test3" description="test fall back locale, the actual locale is 'en-US'" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test default locale, the actual locale name is "i-default" -->
+	<TestCase testID="DF_actualLocaleIDName_i_default_test4" description="test default locale, the actual locale name is 'i-default'" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="i-default" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test OS supported locale, the actual locale is as same as the request locale-->
+	<TestCase testID="DF_actualLocaleIDName_valid_value_fr_CA_test5" description="test OS supported locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="fr-CA" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test OS supported locale, the actual locale is as same as the request locale-->
+	<TestCase testID="DF_actualLocaleIDName_valid_value_sr_Cyrl_RS_test6" description="test OS supported locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr-Cyrl-RS')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="sr-Cyrl-RS" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test OS supported locale, the actual locale is as same as the request locale-->
+	<TestCase testID="DF_actualLocaleIDName_valid_value_es_ES_test7" description="test OS supported locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('es-ES')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="es-ES" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test OS supported locale, the actual locale is as same as the request locale-->
+	<TestCase testID="DF_actualLocaleIDName_valid_value_ar_JO_test8" description="test OS supported locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar-JO')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="ar-JO" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test OS supported locale, the actual locale is as same as the request locale-->
+	<TestCase testID="DF_actualLocaleIDName_valid_value_ms_MY_test9" description="test OS supported locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ms-MY')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="ms-MY" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling actualLocaleIDName getter of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_actualLocaleIDName_script_withoutSettingLocale_test10" description="test calling actualLocaleIDName getter of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('lv-LV')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtfLocale"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfLocale"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling actualLocaleIDName getter of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_actualLocaleIDName_declaration_withoutSettingLocale_test11" description="test calling actualLocaleIDName getter of dtf defined in fx:Declaration without setting locale" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInline" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=undefined" target="dtfLocaleInline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInline"/>
+		</body>
+	</TestCase>
+	<!-- Define a DateTimeFormatter instance in <fx:script> and inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+	lastOperationStatus should be localeUndefinedError-->
+	<TestCase testID="DF_actualLocaleIDName_script_inheritUndefinedLocale_test12" description="inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+			  lastOperationStatus should be localeUndefinedError" keywords="[DateTimeFormatter,actualLocaleIDName">
+		<setup>
+			<RunCode code="application.inheritStyle_script()"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('lv-LV')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="dtfInheritStyle" styleName="locale" valueExpression="value=undefined" />
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtfInheritStyle"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfInheritStyle"/>
+		</body>
+	</TestCase>
+	<!-- Define a DateTimeFormatter instance in <fx:Declaration> and inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+	lastOperationStatus should be localeUndefinedError-->
+	<TestCase testID="DF_actualLocaleIDName_declaration_inheritUndefinedLocale_test13" description="inherit style from a UI component which is undefined, then get the actualLocaleIDName value by calling getter
+			  lastOperationStatus should be localeUndefinedError" keywords="[DateTimeFormatter,actualLocaleIDName">
+		<setup>
+			<RunCode code="application.inheritStyle_declarations()"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('lv-LV')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="dtfInheritStyle_inline" styleName="locale" valueExpression="value=undefined" />
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtfInheritStyle_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfInheritStyle_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--Define a DateTimeFormatter instance in <fx:Script>, set locale to an empty string-->
+	<TestCase testID="DF_actualLocaleIDName_script_emptyString_test14" description="Define a DateTimeFormatter instance in fx:Script, set locale to an empty string" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtf" className="spark.globalization.DateTimeFormatter"/>
+			<RunCode code="application.dtf.initialized(null,'dtf')"/>
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('')" />
+			<RunCode code="application.test(application.dtf)"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<!--<SetStyle styleName="locale" target="dtf"  value=""/>
+			<Pause timeout="200"/>-->
+			<AssertStyleValue target="dtf" styleName="locale" value="" />
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtf"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtf"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:Declaration>, set locale to an empty string-->
+	<TestCase testID="DF_actualLocaleIDName_declaration_emptyString_test15" description="Define a DateTimeFormatter instance in fx:Declaration, set locale to an empty string" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtf_inline" className="spark.globalization.DateTimeFormatter"/> 
+			<RunCode code="application.dtf_inline.initialized(null,'dtf_inline')"/>
+			<Pause timeout="200"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('')" />
+			<RunCode code="application.test(application.dtf_inline)"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<!--<SetStyle styleName="locale" target="dtf_inline" value=""/>
+			<Pause timeout="200"/>-->
+			<AssertStyleValue target="dtf_inline" styleName="locale" value="" />
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtf_inline"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtf_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:Declaration>, set locale to undefined by calling setStyle()-->
+	<TestCase testID="DF_declaration_actualLocaleIDName_undefinedLocale_LOS_test16" description="Define a DateTimeFormatter instance in fx:script, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.setLocaleUndefined(application.dtFormatterLastOSSetStyle_inline)"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtFormatterLastOSSetStyle_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:script>, set locale to undefined by calling setStyle()-->
+	<TestCase testID="DF_script_actualLocaleIDName_undefinedLocale_LOS_test17" description="Define a DateTimeFormatter instance in fx:Declaration, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.addStyleClient_script(application.dtFormatterLastOSSetStyle)"/>
+			<Pause timeout="200"/>
+			<RunCode code="application.setLocaleUndefined(application.dtFormatterLastOSSetStyle)"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtFormatterLastOSSetStyle"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:script>, calling addStyleClient() method to add the instance to a child of UIComponet, set locale to undefined by calling setStyle()-->
+	<TestCase testID="DF_script_actualLocaleIDName_noLocale_LOS_test18" description="Define a DateTimeFormatter instance in fx:Declaration, set locale to an empty string by calling setStyle()" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.setLocaleUndefined(application.dtFormatterLastOSNonStyleClient)"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=DFConstants.noErrorMsg" target="dtFormatterLastOSNonStyleClient"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:Declaration>, set locale to undefined by calling setStyle in mustella-->
+	<TestCase testID="DF_declarations_actualLocaleIDName_undefinedLocale_LOS_test19" description="Define a DateTimeFormatter instance in fx:script, set locale to an empty string by calling setStyle in mustella" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<SetStyle styleName="locale" target="dtFormatterLastOS_inline" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtFormatterLastOS_inline"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:script>, set locale to undefined by calling setStyle in mustella-->
+	<TestCase testID="DF_script_actualLocaleIDName_undefinedLocale_LOS_test20" description="Define a DateTimeFormatter instance in fx:Declaration, set locale to an empty string by calling setStyle in mustella" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="application.addStyleClient_script(application.dtFormatterLastOS)"/>
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatterLastOS" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtFormatterLastOS"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:Declaration>, set locale to undefined inline when define the DateTimeFormatter instance-->
+	<TestCase testID="DF_declarations_actualLocaleIDName_undefinedLocale_LOS_test21" description="Define a DateTimeFormatter instance in fx:Declaration, set locale to undefined inline when define the DateTimeFormatter instance" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtFormatterLastOS_inline_localeUndefined"/>
+		</body>
+	</TestCase>
+	<!--the test case is for test fall back locale, the actual locale is "en-US"-->
+	<TestCase testID="DF_actualLocaleIDName_en_test22" description="test fall back locale, the actual locale is 'en-US'" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtFormatter" value="en" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtFormatter"/>
+		</body>
+	</TestCase>
+	<!--Define a DateTimeFormatter instance in <fx:Declaration>, set locale to 'en' inline when define the DateTimeFormatter instance-->
+	<TestCase testID="DF_declarations_actualLocaleIDName_inline_en_test23" description="Define a DateTimeFormatter instance in fx:Declaration, set locale to en inline when define the DateTimeFormatter instance" keywords="[DateTimeFormatter, actualLocaleIDName]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtf_inline_en"/>
+			<AssertPropertyValue propertyName="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" target="dtf_inline_en"/>
+		</body>
+	</TestCase>
+
+</testCases>
+
+</UnitTester>

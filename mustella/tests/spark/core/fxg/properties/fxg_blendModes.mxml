@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/core/fxg/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="fxgtemplate.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		
+		import fxg.blend_mode.ai_blendmodes.*;
+	]]>
+	</mx:Script>
+
+	<testCases>
+            <TestCase testID="blendMode_color_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_color)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_colorburn_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_colorburn)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_colordodge_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_colordodge)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_darken_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_darken)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_difference_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_difference)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_exclusion_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_exclusion)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_hardlight_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_hardlight)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_hue_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_hue)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_lighten_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_lighten)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_luminosity_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_luminosity)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_multiply_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_multiply)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_overlay_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_overlay)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_saturation_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_saturation)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_screen_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_screen)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+            <TestCase testID="blendMode_softlight_onBitmapImage" keywords="[fxg]">
+		<setup>
+		    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+		    <RunCode code="application.grp.addElement(new fxg_blendModes_softlight)" waitEvent="updateComplete" waitTarget="grp"/>
+		</setup>
+		<body>
+		    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+		</body>
+	    </TestCase>
+	    
+     <TestCase testID="blendMode_color_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_color_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_colorburn_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_colorburn_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_colordodge_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_colordodge_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_darken_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_darken_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_difference_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_difference_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_exclusion_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_exclusion_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_hardlight_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_hardlight_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_hue_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_hue_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_lighten_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_lighten_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_luminosity_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_luminosity_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+   </TestCase>
+   <TestCase testID="blendMode_multiply_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_multiply_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+   </TestCase>
+   <TestCase testID="blendMode_overlay_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_overlay_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_saturation_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_saturation_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_screen_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_screen_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_softlight_onGroup" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_softlight_group)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_colorBurn_onBitmapImage_dualOverlap" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_colorBurn_dualOverlap)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+    <TestCase testID="blendMode_luminosity_onBitmapImage_scaledAndRotated" keywords="[fxg]">
+        <setup>
+            <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
+            <RunCode code="application.grp.addElement(new fxg_blendModes_luminosity_rotatedScaled)" waitEvent="updateComplete" waitTarget="grp"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
+        </body>
+    </TestCase>
+</testCases>
+</UnitTester>

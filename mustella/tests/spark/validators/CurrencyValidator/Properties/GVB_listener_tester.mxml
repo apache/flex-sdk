@@ -1,0 +1,204 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="GVB_listener.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.LocaleID;
+			import spark.globalization.LastOperationStatus;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="GVB_listener_default_inline_test_1" description="the test case is for Checking default listener in declaration" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="listener" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_default_script_test_2" description="the test case is for Checking listener in script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="listener" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_default_inline_test_3" description="the test case is for Checking default listener in declaration" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvb" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="listener" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_default_script_test_4" description="the test case is for Checking listener in script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvbScript" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="listener" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_set_script_test_5" description="the test case is for setting listener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setVListener(application.gvbScript,application.myTI1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="listener" valueExpression="value=application.myTI1"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_set_script_test_6" description="the test case is for setting listener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="application.setVListener(application.gvb,application.myTI1)"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="listener" valueExpression="value=application.myTI1"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_set_inline_test_7" description="set listener inline" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbInline" propertyName="listener" valueExpression="value=application.myTI2"/>
+                <AssertPropertyValue target="gvbInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_nolistener_script_test_8" description="set script listener to nolistener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'listener',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="listener" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_nolistener_script_test_9" description="set inline listener to nolistener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'listener',null)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="listener" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_nolistener_inline_test_10" description="set listener to nolistener inline" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbNull,'listener',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbNull" propertyName="listener" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbNull" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_default_listener_test_11" description="without setting listener defaults to listener" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="myTI1"/>
+                <SetProperty target="myTI1" propertyName="text" value=""/>
+                <DispatchKeyEvent keys="[TAB]"/>
+				<AssertPropertyValue target="myTI1" propertyName="errorString" value="This field is required."/>
+				<AssertEvent target="gvbInline1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="gvbInline1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_set_otherthan_listener_test_12" description="with setting listener uses its setting other than listener" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <DispatchMouseClickEvent target="myTI2"/>
+                <SetProperty target="myTI2" propertyName="text" value=""/>
+                <DispatchKeyEvent keys="[TAB]"/>
+				<AssertPropertyValue target="myTA" propertyName="errorString" value="This field is required."/>
+				<AssertEvent target="gvbInline2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="gvbInline2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_invalid_script_test_13" description="set script listener to nolistener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'listener','invalid')" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="listener" value="invalid"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_invalid_script_test_14" description="set inline listener to nolistener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'listener','invalid')" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="listener" value="invalid"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_emptystring_script_test_15" description="set script listener to nolistener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'listener','')" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="listener" value=""/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_emptystring_script_test_16" description="set inline listener to nolistener from script" keywords="[GlobalizationValidatorBase, listener]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'listener','')" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="listener" value=""/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_only_listener_script_test_17" description="only listener, no source" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=application.myValidate(application.gvbL)" value="No_Error"/>
+                <AssertPropertyValue target="myTI3" propertyName="errorString" value="This field is required."/>
+                <AssertPropertyValue target="gvbL" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_listener_only_listener_script_test_18" description="only listener, no source" keywords="[GlobalizationValidatorBase, listener]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=application.myValidate(application.gvbLScript)" value="No_Error"/>
+                <AssertPropertyValue target="myTI4" propertyName="errorString" value=""/>
+                <AssertPropertyValue target="gvbLScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

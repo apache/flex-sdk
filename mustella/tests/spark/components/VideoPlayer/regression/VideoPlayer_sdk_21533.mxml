@@ -1,0 +1,37 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SDK_21533.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_21533" 
+            keywords="[VideoPlayer]" 
+            description="Setting chromeColor should not affect the progressBar fill.">
+            <!--bugs>
+                <Bug bugID="SDK-21533"/>
+            </bugs-->
+            <setup>
+                <RunCode code="application.testPlayer.setStyle('chromeColor', '0x00FF00')" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer" url="../regression/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

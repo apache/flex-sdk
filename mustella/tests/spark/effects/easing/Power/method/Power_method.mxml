@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/Power/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Power_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.Power;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Power_constructor_Null" keywords="[Power, method, constructor]" description="Test the default values of the acceleration/deceleration with a null constructor.">
+            <body>
+                <RunCode code="application.testEaser = new Power();" />
+                <AssertMethodValue method="value=application.testEaser.easeInFraction" value=".5" />
+                <AssertMethodValue method="value=application.testEaser.exponent" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Power_constructor_Values" keywords="[Power, method, constructor]" description="Test the set values of the acceleration/deceleration with a valued constructor.">
+            <body>
+                <RunCode code="application.testEaser = new Power(.1, 4);" />
+                <AssertMethodValue method="value=application.testEaser.easeInFraction" value=".1" />
+                <AssertMethodValue method="value=application.testEaser.exponent" value="4" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Power_ease_OneTenth" keywords="[Power, method, ease]" description="Test the return value of the ease function at 1/10.">
+            <setup>
+                <RunCode code="application.testEaser = new Power();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEaser.ease(.1)" value=".02" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Power_ease_OneHalf" keywords="[Power, method, ease]" description="Test the return value of the ease function at 1/2.">
+            <setup>
+                <RunCode code="application.testEaser = new Power();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEaser.ease(.5)" value=".5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Power_ease_NineTenths" keywords="[Power, method, ease]" description="Test the return value of the ease function at 9/10.">
+            <setup>
+                <RunCode code="application.testEaser = new Power();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEaser.ease(.9)" value=".98" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

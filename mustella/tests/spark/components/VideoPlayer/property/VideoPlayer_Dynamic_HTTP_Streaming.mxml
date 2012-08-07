@@ -1,0 +1,133 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/OSMF10/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_Dynamic_HTTP_Streaming_src.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+	        import spark.components.VideoPlayer;
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.media.MediaPlayerState;
+			import mx.utils.ObjectUtil;
+    	    public static function init(o:DisplayObject):void{}
+        
+	        public function xShouldBe():int{
+	        	var xShouldBeThis:int = Math.round(application.width/2 - application.testPlayer.width/2);
+	        	return(xShouldBeThis);
+	        }
+	        
+	        public function yShouldBe():int{
+	        	var yShouldBeThis:int = Math.round(application.height/2 - application.testPlayer.height/2);
+	        	return(yShouldBeThis);
+	        }   
+			
+	      	public function testPlayerInit():void
+	        {
+		            application.testPlayer.addEventListener("mediaPlayerStateChange", mediaPlayerStateChangeHandler);
+					trace("******************* testPlayerInit*********************");
+	        }
+	            
+	        public function mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+	        {
+					
+					trace("******************* current state: " + ObjectUtil.toString(event.state) );
+		            if (event.state == MediaPlayerState.READY)
+			                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsReady"));
+		            else if (event.state == MediaPlayerState.PLAYING)
+			                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPlaying"));
+			    else if (event.state == MediaPlayerState.PAUSED)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPaused"));
+			    else if (event.state == MediaPlayerState.BUFFERING)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsBuffering"));
+			    else if (event.state == MediaPlayerState.LOADING)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsLoading"));
+	        }
+        
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_150Kbps" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid150Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+			</setup>
+			<body>
+				<!--<CompareBitmap url="../regression/baseline/$testID.png" />-->
+				<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_500Kbps" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid500Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+			</setup>
+			<body>
+				<!--<CompareBitmap url="../regression/baseline/$testID.png" />-->
+				<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_700Kbps" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid700Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+			</setup>
+			<body>
+				<!--<CompareBitmap url="../regression/baseline/$testID.png" />-->
+				<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_1000Kbps" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid1000Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+			</setup>
+			<body>
+				<!--<CompareBitmap url="../regression/baseline/$testID.png" />-->
+				<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase 
+			testID="VideoPlayer_HTTP_Streaming_1500Kbps" 
+			keywords="[VideoPlayer, HTTP, Streaming, DynamicHTTPStreaming]" 
+			description="Test new OSMF 1.0 Feature Dynamic HTTP Streaming">
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+
+				<RunCode code="application.testPlayer.source = application.dHTTPStreamingVid1500Kbps" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+			</setup>
+			<body>
+				<!--<CompareBitmap url="../regression/baseline/$testID.png" />-->
+				<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+			</body>
+		</TestCase>
+        
+    </testCases>
+</UnitTester>

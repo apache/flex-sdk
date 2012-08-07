@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:mx="library://ns.adobe.com/flex/mx"
+xmlns:em="*"
+width="800" height="800"
+backgroundColor="0x999999">
+
+
+	<!-- Control bar -->
+	<s:Group horizontalCenter="0" verticalCenter="0" click="seqS3.play()">
+		<s:Rect id="s3" width="30" height="30">
+			<s:fill>
+				<mx:SolidColor color="0xDDDDDD"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+	<!-- Effects -->
+	<fx:Declarations>
+
+		<s:Sequence id="seqS3" target="{s3}">
+			<s:Move xBy="43.30127018922193" yBy="-25"/>
+			<s:Parallel>
+				<mx:Glow alphaFrom="1" alphaTo="0" blurXFrom="0" blurXTo="100" blurYFrom="0" blurYTo="100" color="0x00FF00"/>
+				<s:Rotate3D angleZFrom="0" angleZTo="360" autoCenterTransform="true" />
+			</s:Parallel>
+			<s:Move xBy="-43.30127018922193" yBy="25"/>
+		</s:Sequence>
+
+	</fx:Declarations>
+</s:Application>

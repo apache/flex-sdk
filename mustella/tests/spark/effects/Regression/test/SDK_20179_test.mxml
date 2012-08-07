@@ -1,0 +1,38 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_20179.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_20179" 
+			keywords="[SDK_20179]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-20179">
+			<!--bugs>
+				<Bug bugID="SDK-20179"/>
+			</bugs -->
+			<body>
+				<DispatchMouseClickEvent target="button0" localX="5" localY="5" />
+				<DispatchMouseClickEvent target="button1" localX="5" localY="5" />
+				<DispatchMouseClickEvent target="button2" localX="5" localY="5" />
+				<Pause timeout="500"/>
+				<AssertMethodValue method="value=application.button0.label" value="2000"/>
+				<AssertMethodValue method="value=application.button1.label" value="2000"/>
+				<AssertMethodValue method="value=application.button2.label" value="2000"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

@@ -1,0 +1,170 @@
+<UnitTester testDir="spark/collections/Sort/Properties/" testSWF="SF_sortField_name.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+			import flash.globalization.LastOperationStatus;
+			import assets.newClasses.SFConstant;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_Property_name_default_inline_1" keywords="[SortField, name, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sf" propertyName="name" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_default_script_2" keywords="[SortField, name, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sfScript" propertyName="name" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_set_inline_3" keywords="[SortField, name, set]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sfInline" propertyName="name" value="negativeCurrencyFormatError"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_binding_inline_4" keywords="[SortField, name, binding]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="sfComp.sfInlineBinding" propertyName="name" value="new" waitEvent="nameChanged"/>
+                <AssertPropertyValue target="sfComp.LabelInlineBinding" propertyName="text" value="new"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_binding_script_5" keywords="[SortField, name, binding]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="sfComp.sfScriptBinding" propertyName="name" value="new" waitEvent="nameChanged"/>
+                <AssertPropertyValue target="sfComp.LabelScriptBinding" propertyName="text" value="new"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_valid_inline_6" keywords="[SortField, name, valid]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,'name','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_valid_script_7" keywords="[SortField, name, valid]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,'name','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="JaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_nonexist_inline_8" keywords="[SortField, name, nonexist]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,'sex','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_nonexist_script_9" keywords="[SortField, name, nonexist]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,'sex','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_empty_inline_10" keywords="[SortField, name, empty]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,'','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_empty_script_11" keywords="[SortField, name, empty]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,'','address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_no_inline_12" keywords="[SortField, name, no]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.st,null,'address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_name_no_script_13" keywords="[SortField, name, no]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_name" waitEvent="updateComplete"/>
+                <RunCode code="application.sfComp.creST()"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.createView(application.sfComp.stScript,null,'address')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method=" value =application.sfComp.cursor.current.name " value="ToName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="WaName"/>
+                <AssertMethodValue method="application.sfComp.cursor.moveNext();value =application.sfComp.cursor.current.name " value="JaName"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

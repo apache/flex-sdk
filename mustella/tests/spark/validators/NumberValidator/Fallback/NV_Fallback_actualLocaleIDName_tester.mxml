@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_Fallback_actualLocaleIDName_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test "actualLocaleIDName" property-->
+	<testCases>
+		<!--the test case is for test actualLocaleIDName property for numbervalidator object defined in declarations tag-->
+		<TestCase testID="NV_Fallback_actualLocaleIDName_i_default_test1" description="the test case is for test default locale, the actual locale name should be en-US" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nv" propertyName="actualLocaleIDName" value="en-US" />
+				<AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_i_default_script_test2" description="the test case is for test default locale, the actual locale name should be en-US" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvScript" propertyName="actualLocaleIDName" value="en-US" />
+				<AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_pa_Arab_PK_test3" description="the test case is for set locale with a valid value and actualLocaleIDName should still en-US" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+				<SetStyle target="nvComp.nv" styleName="locale" value="pa_Arab_PK" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nv" propertyName="actualLocaleIDName" value="en-US" />
+				<AssertPropertyValue target="nvComp.nv" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_ar_JO_script_test4" description="the test case is for set locale with a valid value and actualLocaleIDName should still en-US" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+				<SetStyle target="nvComp.nvScript" styleName="locale" value="ar_JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvScript" propertyName="actualLocaleIDName" value="en-US" />
+				<AssertPropertyValue target="nvComp.nvScript" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_binding_test5" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+				<SetStyle target="nvComp.nv" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvL" propertyName="text" value="en-US" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_binding_test6" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<SetStyle target="nvComp.nv" styleName="locale" value="az-Arab" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvL" propertyName="text" value="en-US" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_binding_script_test7" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+				<SetStyle target="nvComp.nvScript" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvScriptL" propertyName="text" value="en-US" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_binding_script_test8" description="the test case is for test binding machenism of locale" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<!--Due to this case is to test binding mechanism, no <ResetComponent> needed here -->
+				<SetStyle target="nvComp.nvScript" styleName="locale" value="az-Arab" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvScriptL" propertyName="text" value="en-US" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_undefined_test9" description="the test case is for test set locale to undefined" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+				<SetStyle target="nvComp.nvUndefinedLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvUndefinedLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvComp.nvUndefinedLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_Fallback_actualLocaleIDName_undefined_script_test10" description="the test case is for test set locale to undefined" keywords="[NumberValidator, Fallback, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete"/>
+				<SetStyle target="nvComp.nvScriptUndefinedLocale" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvComp.nvScriptUndefinedLocale" propertyName="actualLocaleIDName" valueExpression="value=undefined" />
+				<AssertPropertyValue target="nvComp.nvScriptUndefinedLocale" propertyName="lastOperationStatus" valueExpression="value=NVConstants.localeUndefinedErrMsg"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

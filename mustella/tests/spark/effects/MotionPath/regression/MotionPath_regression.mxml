@@ -1,0 +1,31 @@
+﻿<UnitTester
+    testSWF="../SWFs/MotionPath_regression_main.mxml"
+    testDir="spark/effects/MotionPath/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import Components.*;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="MotionPath_SDK_19966" keywords="[MotionPath, regression, SDK-19966]" description="http://bugs.adobe.com/jira/browse/SDK-19966">
+            <body>
+                <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.mp1.getValue(0))" value="0"/>
+                <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.mp1.getValue(.5))" value="350"/>
+                <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.mp1.getValue(1))" value="50"/>
+                <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.mp2.getValue(0))" value="0"/>
+                <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.mp2.getValue(.5))" value="175"/>
+                <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.mp2.getValue(1))" value="350"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

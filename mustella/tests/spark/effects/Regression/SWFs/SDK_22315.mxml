@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:mx="library://ns.adobe.com/flex/mx"
+xmlns:em="*"
+width="800" height="800"
+backgroundColor="0x999999">
+
+	<mx:HRule width="200" horizontalCenter="0" verticalCenter="0"/>
+	<mx:VRule height="200" horizontalCenter="0" verticalCenter="0"/>
+
+	<s:Group id="g1" x="401" y="349" >
+		<s:Rect width="58" height="50">
+			<s:fill>
+				<mx:SolidColor color="0xFFAAAA"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+	<s:Group id="g2" x="401" y="401" >
+		<s:Rect width="58" height="50">
+			<s:fill>
+				<mx:SolidColor color="0xAAFFAA"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+	<s:Group id="g3" x="341" y="349" >
+		<s:Rect width="58" height="50">
+			<s:fill>
+				<mx:SolidColor color="0xAAAAFF"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+	<s:Group id="g4" x="341" y="401" >
+		<s:Rect width="58" height="50">
+			<s:fill>
+				<mx:SolidColor color="0xFFAAFF"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+	<!-- Effects -->
+	<fx:Declarations>
+
+		<s:Sequence id="seqS7">
+			<s:Parallel>
+				<s:Move3D target="{g1}" xBy="50" yBy="-50"/>
+				<s:Move3D target="{g2}" xBy="50" yBy="50"/>
+				<s:Move3D target="{g3}" xBy="-50" yBy="-50"/>
+				<s:Move3D target="{g4}" xBy="-50" yBy="50"/>
+			</s:Parallel>
+			<s:Parallel>
+				<s:Move3D target="{g1}" xBy="-50" yBy="50"/>
+				<s:Move3D target="{g2}" xBy="-50" yBy="-50"/>
+				<s:Move3D target="{g3}" xBy="50" yBy="50"/>
+				<s:Move3D target="{g4}" xBy="50" yBy="-50"/>
+			</s:Parallel>
+		</s:Sequence>
+
+	</fx:Declarations>
+
+</s:Application>

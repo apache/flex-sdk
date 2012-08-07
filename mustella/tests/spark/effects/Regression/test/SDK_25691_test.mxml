@@ -1,0 +1,38 @@
+<UnitTester
+    testSWF="../SWFs/SDK_25691.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_25691" 
+			keywords="[SDK_25691]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-25691">
+			<!--bugs>
+				<Bug bugID="SDK-25691"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.effect.play()" />
+                <Pause timeout="100"/>
+                <RunCode code="application.effect.stop()" />
+                <Pause timeout="1000"/>
+                
+                <AssertMethodValue method="value=application.target.x &lt; 100" value="true"/>
+                <AssertMethodValue method="value=application.target.y &lt; 100" value="true"/>
+			</body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>
+

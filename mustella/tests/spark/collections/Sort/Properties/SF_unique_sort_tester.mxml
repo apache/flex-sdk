@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+			testSWF="SF_unique_sort.mxml">
+	<mx:Script>
+		<![CDATA[
+
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			
+			public var sorttedLableStr:String = "MA\nME\nMI\nMN\nMO\nMS\nMT\n" ;
+			public var sorttedLabelWithIdt:String = "MA\nME\nMI\nMN\nMO\nMS\nMT\nMT\n" ; 
+			
+			public var sorttedLableWithIdt:String = "H\nab\nAB\nbcd\nwith\napple\nsmiles\nbindable\n" ; 
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="Sort_Property_unique_default_test1" description="verify the default value of unique is false"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=false" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_default_scripts_test2" description="verify the default value of unique is false when creating sorting from scripts"
+				  keywords="[Sort, unique, scripts,default]">
+			<setup>
+				<ResetComponent target="sortS" className="spark.collections.Sort" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sortS" propertyName="unique" valueExpression="value=false" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_null_test3" description="verify the default value of unique is false"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=null" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=false" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_null_scripts_test4" description="verify the default value of unique is false when creating sorting from scripts"
+				  keywords="[Sort, unique, scripts,default]">
+			<setup>
+				<ResetComponent target="sortS" className="spark.collections.Sort" />
+				<SetProperty target="sortS" propertyName="unique" valueExpression="value=null" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sortS" propertyName="unique" valueExpression="value=false" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_true_inline_test5" description="verify that unique can be set inline"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> 
+				<ResetComponent target="lb" className="spark.components.Label"  waitEvent="updateComplete" waitTarget="lb" />
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithoutIdentical" waitEvent="updateComplete" waitTarget="lbType" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sortInline" propertyName="unique" valueExpression="value=true" />
+				<DispatchMouseEvent target="btnSortInline" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" valueExpression="value=sorttedLableStr" waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_true_inline_identical_data_error_test6" description="verify that unique can be set inline as true and error for identical data"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> 
+				<ResetComponent target="lb" className="spark.components.Label"  waitEvent="updateComplete" waitTarget="lb" />
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithIdentical" waitEvent="updateComplete" waitTarget="lbType" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sortInline" propertyName="unique" valueExpression="value=true" />
+				<DispatchMouseEvent target="btnSortInline" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" value="Error: Non-unique values in items." waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_true_without_identical_data_test7" description="set unique as true and test non-identical data collection"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<!--<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> -->
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=true" />
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithoutIdentical" waitEvent="updateComplete" waitTarget="lbType" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=true" />
+				<DispatchMouseEvent target="btnSort" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" valueExpression="value=sorttedLableStr" waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_true_with_identical_error_test8" description="set unique as true and test identical data collection"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> 
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=true" />
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithIdentical" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=true" />
+				<DispatchMouseEvent target="btnSort" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" value="Error: Non-unique values in items." />
+			</body>
+		</TestCase> 
+		
+		<TestCase testID="Sort_Property_unique_false_with_identical_test9" description="set unique as false and test identical data collection"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<!--<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> -->
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=false" />
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithIdentical" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=false" />
+				<DispatchMouseEvent target="btnSort" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" valueExpression="value=sorttedLabelWithIdt" waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_false_without_identical_test10" description="set unique as false and test non-identical data collection"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=false" />
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithoutIdentical" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=false" />
+				<DispatchMouseEvent target="btnSort" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" valueExpression="value=sorttedLableStr" waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_true_with_identical_scripts_error_test11" description="set unique as true from action scripts and test identical data collection"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/>
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithIdentical" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="btnSortScript" type="click"  />
+				<WaitForEffectsToEnd/>
+				<AssertPropertyValue target="lb" propertyName="text" value="Error: Non-unique values in items." />
+			</body>
+		</TestCase> 
+		
+		<TestCase testID="Sort_Property_unique_true_without_identical_scripts_test12" description="set unique as true from action scripts and test non-identical data collection"
+				  keywords="[Sort, unique, default]">
+			<setup>
+				<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/>
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<SetProperty target="lbType" propertyName="text" value="CollectionWithoutIdentical" waitEvent="updateComplete" waitTarget="lbType"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="btnSortScript" type="click"  />
+				<WaitForEffectsToEnd/>
+				<AssertPropertyValue target="lb" propertyName="text" valueExpression="value=sorttedLableStr" waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_true_without_identical_data_compareFunction_test13" description="set unique as true and set customized compare function , test non-identical data collection"
+				  keywords="[Sort, unique, default, compareFunction ]">
+			<setup>
+				<!--<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> -->
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=true" />
+				<SetProperty target="sDefault" propertyName="compareFunction" valueExpression="value=application.mySortCompareFunction" />
+				<SetProperty target="lbType" propertyName="text" value="myCustomWithIdentical" waitEvent="updateComplete" waitTarget="lbType" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=true" />
+				<DispatchMouseEvent target="btnSort" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" value="Error: Non-unique values in items." waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Sort_Property_unique_false_without_identical_data_compareFunction_test14" description="set unique as true and set customized compare function , test non-identical data collection"
+				  keywords="[Sort, unique, default, compareFunction ]">
+			<setup>
+				<!--<ResetComponent target="sList" className="spark.components.List" waitEvent="updateComplete" waitTarget="sList"/> -->
+				<ResetComponent target="lb" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lb"/>
+				<ResetComponent target="lbType" className="spark.components.Label" waitEvent="updateComplete" waitTarget="lbType"/>
+				<ResetComponent target="sDefault" className="spark.collections.Sort" />
+				<SetProperty target="sDefault" propertyName="unique" valueExpression="value=false" />
+				<SetProperty target="sDefault" propertyName="compareFunction" valueExpression="value=application.mySortCompareFunction" />
+				<SetProperty target="lbType" propertyName="text" value="myCustomWithIdentical" waitEvent="updateComplete" waitTarget="lbType" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="sDefault" propertyName="unique" valueExpression="value=false" />
+				<DispatchMouseEvent target="btnSort" type="click"  />
+				<AssertPropertyValue target="lb" propertyName="text" valueExpression="value=sorttedLableWithIdt" waitEvent="updateComplete" />
+			</body>
+		</TestCase>  
+		
+		
+	</testCases>
+</UnitTester>

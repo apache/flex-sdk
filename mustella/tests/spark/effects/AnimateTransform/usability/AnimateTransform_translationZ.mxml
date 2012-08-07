@@ -1,0 +1,51 @@
+﻿<UnitTester
+    testSWF="../SWFs/AnimateTransform_translationZ_main.mxml"
+    testDir="spark/effects/AnimateTransform/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase 
+            testID="AnimateTransform_translationZ_act1" 
+            description="Set and apply translationZ."
+            keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_translationZ" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at_mp.property = 'translationZ'"/>
+                <RunCode code="application.at_mp.valueFrom = 0"/>
+                <RunCode code="application.at_mp.valueTo = 50"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="AnimateTransform_translationZ_act0"
+            description="Set and apply translationZ."
+            keywords="[AnimateTransform]">
+            <setup>
+                <ResetComponent target="cubePanel" className="CubePanel_translationZ" waitTarget="cubePanel" waitEvent="updateComplete"/>
+                <RunCode code="application.at.autoCenterTransform = true"/>
+                <RunCode code="application.at_mp.property = 'translationZ'"/>
+                <RunCode code="application.at_mp.valueFrom = 0"/>
+                <RunCode code="application.at_mp.valueTo = 50"/>
+            </setup>
+            <body>
+                <RunCode code="application.at.play([application.cubePanel.cube]);" waitTarget="at" waitEvent="effectEnd"/>
+                <CompareBitmap url="../usability/baseline/$testID.png" numColorVariances="10" maxColorVariance="100"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

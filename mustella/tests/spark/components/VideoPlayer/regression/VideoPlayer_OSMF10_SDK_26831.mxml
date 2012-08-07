@@ -1,0 +1,79 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/OSMF10_SDK_26831.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+	        import spark.components.VideoPlayer;
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.media.MediaPlayerState;
+			import mx.utils.ObjectUtil;
+    	    public static function init(o:DisplayObject):void{}
+        
+	        public function xShouldBe():int{
+	        	var xShouldBeThis:int = Math.round(application.width/2 - application.testPlayer.width/2);
+	        	return(xShouldBeThis);
+	        }
+	        
+	        public function yShouldBe():int{
+	        	var yShouldBeThis:int = Math.round(application.height/2 - application.testPlayer.height/2);
+	        	return(yShouldBeThis);
+	        }   
+			
+	      	public function testPlayerInit():void
+	        {
+		            application.testPlayer.addEventListener("mediaPlayerStateChange", mediaPlayerStateChangeHandler);
+					trace("******************* testPlayerInit*********************");
+	        }
+	            
+	        public function mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+	        {
+					
+					trace("******************* current state: " + ObjectUtil.toString(event.state) );
+		            if (event.state == MediaPlayerState.READY)
+			                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsReady"));
+		            else if (event.state == MediaPlayerState.PLAYING)
+			                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPlaying"));
+					else if (event.state == MediaPlayerState.PAUSED)
+						application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPaused"));
+	        }
+        
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+
+        <TestCase 
+            testID="VideoPlayer_OSMF10_SDK_26831" 
+            keywords="[VideoPlayer]" 
+            description="">
+            <!--bugs>
+                <Bug bugID="SDK-26831"/>
+            </bugs-->
+			<setup>
+				<ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+				<SetProperty target="testPlayer" propertyName="autoPlay" value="false" />
+				<SetProperty target="testPlayer" propertyName="autoDisplayFirstFrame" value="true"/>
+				<SetProperty target="testPlayer" propertyName="source" valueExpression="value=application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerIsPaused" />
+				<SetProperty target="testPlayer" propertyName="width" value="400" waitTarget="testPlayer" waitEvent="updateComplete"/>
+				<SetProperty target="testPlayer" propertyName="height" value="300" waitTarget="testPlayer" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="testPlayer" propertyName="autoPlay" value="false"/>
+				<AssertPropertyValue target="testPlayer.videoObject" propertyName="width" value="367"/>
+				
+            </body>
+        </TestCase>
+        
+    </testCases>
+	
+</UnitTester>

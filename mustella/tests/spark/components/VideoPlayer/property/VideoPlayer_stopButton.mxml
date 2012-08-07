@@ -1,0 +1,127 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayerPP_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkPPVideoPlayer;
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_stopButton_skin"
+            keywords="[VideoPlayer]"
+            description="Test the skin of the stopButton.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkPPVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.stopButton" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_stopButton_noSource"
+            description="Play nothing."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkPPVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.stopButton" localX="5" localY="5"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+        <TestCase
+            testID="VideoPlayer_stopButton_playStop_streaming"
+            description="Stop via button click."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkPPVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.stopButton" localX="5" localY="5" />
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_stopButton_playPauseStop_streaming"
+            description="Play, pause, stop via button click."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkPPVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.pauseButton" localX="5" localY="5" />
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <DispatchMouseClickEvent target="testPlayer.stopButton" localX="5" localY="5" />
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+        <TestCase
+            testID="VideoPlayer_stopButton_playStop_progressive"
+            description="Pause via button click."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkPPVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = 'http://helpexamples.com/flash/video/cuepoints.flv'" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.stopButton" localX="5" localY="5" />
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_stopButton_playPauseStop_progressive"
+            description="Play, pause, stop via button click."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkPPVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = 'http://helpexamples.com/flash/video/cuepoints.flv'" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="currentTimeChange"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <DispatchMouseClickEvent target="testPlayer.pauseButton" localX="5" localY="5" />
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <DispatchMouseClickEvent target="testPlayer.stopButton" localX="5" localY="5" />
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

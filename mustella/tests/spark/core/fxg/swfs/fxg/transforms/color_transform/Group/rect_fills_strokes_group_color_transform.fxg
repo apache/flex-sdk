@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		       -->
+<!-- FXG 1.0 Test ability to handle the 'rect' basic-shapes element with a group color transformation applied to it.
+The first group shows a set of  4 rectangles inside a bordering rectangle with no transform applied. The second
+group is the same 4 rectangles with a color transform applied to the group 
+This enables a user to study the shift from the first group due to color transformation                                               .    -->
+<!-- Author : Vivek Agrawal  3-March-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  3-March-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" viewHeight="359" viewWidth="479" xmlns="http://ns.adobe.com/fxg/2008">
+ <Group x="18" y="14">
+      <Rect x="4" y="0.5" width="50" height="80">
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>       
+      </Rect>
+      <Rect x="104" y="0.5" width="50" height="80" >
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>        
+      </Rect>
+       <Rect x="4" y="150.5" width="50" height="80">
+        <stroke>
+          <SolidColorStroke color="#0000ff" caps="none" weight="8" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Rect>
+      <Rect x="104" y="150.5" width="50" height="80">
+        <fill>
+          <SolidColor color="#00ff00"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke color="#0000ff" caps="none" weight="8" joints="miter" miterLimit="4"/>
+        </stroke>		        
+      </Rect>
+    <Rect x="0.5" y="0.5" width="478" height="358">
+      <stroke>
+        <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+      </stroke>  
+    </Rect>
+</Group>
+ <Group x="18" y="14">
+      <Rect x="4" y="0.5" width="50" height="80">
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>       
+      </Rect>
+      <Rect x="104" y="0.5" width="50" height="80" >
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>        
+      </Rect>
+       <Rect x="4" y="150.5" width="50" height="80">
+        <stroke>
+          <SolidColorStroke color="#0000ff" caps="none" weight="8" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Rect>
+      <Rect x="104" y="150.5" width="50" height="80">
+        <fill>
+          <SolidColor color="#00ff00"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke color="#0000ff" caps="none" weight="8" joints="miter" miterLimit="4"/>
+        </stroke>		        
+      </Rect>
+    <Rect x="0.5" y="0.5" width="478" height="358">
+      <stroke>
+        <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+      </stroke>  
+    </Rect>
+		<transform>
+			<Transform>
+				<colorTransform>
+					<ColorTransform alphaMultiplier="0.5" alphaOffset="0.3" blueMultiplier="0.2" blueOffset="10" greenMultiplier="0.5" greenOffset="30" redMultiplier="5" redOffset="20"/>
+				</colorTransform>
+			</Transform>
+        </transform>
+</Group>
+</Graphic>

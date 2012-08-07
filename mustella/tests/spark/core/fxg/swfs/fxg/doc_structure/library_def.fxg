@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test a FXG document fragment contains 2 object definitions and instance of each definition.                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 20 April-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  20 April-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+	<Library>
+		<Definition name="MyRect">
+			<Group>
+				<Rect width="100" height="100">
+					<fill>
+						<SolidColor color="#FF0000" />
+					</fill>
+				</Rect>
+			</Group>
+		</Definition>	
+		<Definition name="MyGraphics">
+			<Group>
+				<Rect x="20" y="10" scaleX="1.5" scaleY="1.5" width="100" height="25" radiusX="8" radiusY="8">
+					<stroke>
+						<SolidColorStroke color="#000000" weight="1"/>
+					</stroke>
+					<fill>
+						<SolidColor color="#FF9900" />
+					</fill>
+				</Rect>
+				<Ellipse alpha="0.75" x="100" y="10" width="120" height="80">
+					<fill>
+						<RadialGradient x="50" y="10" scaleX="100" scaleY="60" focalPointRatio="0">
+							<GradientEntry color="#0900b2" ratio="0"/>
+							<GradientEntry color="#ff0000" ratio="0.5"/>
+							<GradientEntry color="#fffc00" ratio="1"/>
+						</RadialGradient>
+					</fill>
+				</Ellipse>
+				<Path y="60" winding="nonZero" data="M  72 0   q   -100   50    0   50   Q -28  50   72  100  q   100  -50   0   -50   Q   172  50    72 0 z" >
+					<fill>
+						<LinearGradient x = "10" y = "10" scaleX = "50" rotation = "-17">
+							<GradientEntry color="#203c00" ratio="0" alpha="1"/>
+							<GradientEntry color="#1b971b" ratio="0.28" alpha="1"/>
+							<GradientEntry color="#1e4f45" ratio="0.45" alpha="1"/>
+							<GradientEntry color="#6aec01" ratio="0.6" alpha="1"/>
+							<GradientEntry color="#1b971b" ratio="0.75" alpha="1"/>
+							<GradientEntry color="#203c00" ratio="1" alpha="1"/>
+						</LinearGradient>
+					</fill>
+					<stroke>
+					  <SolidColorStroke color="#00cf00" caps="none" weight="2" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+				<BitmapGraphic alpha="0.75" x="80" y="60" width="120" height="100" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false"/>
+				<Group y="150">
+					<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on" x="10" y="30">
+					<content><p><span>A library definition of a group of graphic contents</span></p></content>
+					</TextGraphic>
+				</Group>
+				<Line xFrom="0" yFrom="0" xTo="280" yTo="0">
+					<stroke>
+						<SolidColorStroke color="#000000"/>
+					</stroke>
+				</Line>
+				<Path winding="nonZero" data="M 280 0 l 0 220 l -280 0 l 0 -220 z" >
+					<stroke>
+						<SolidColorStroke color="#000000" caps="none" weight="1" joints="miter" miterLimit="4"/>
+					</stroke>
+				</Path>
+			</Group>
+		</Definition>
+	</Library>
+	<MyRect x="20" y="20"/>
+	<TextGraphic x="20" y="140" fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on">
+		<content><p><span>First instance of a rectangle object definition</span></p></content>
+	</TextGraphic>
+	<MyRect x="20" y="200" scaleY="1.5"/>
+	<TextGraphic x="20" y="360" fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" whiteSpaceCollapse="preserve" kerning="on">
+		<content><p><span>Second instance of the same rectangle with scaleY=1.5</span></p></content>
+	</TextGraphic>	
+	<MyGraphics x="300" y="20"/>
+</Graphic>

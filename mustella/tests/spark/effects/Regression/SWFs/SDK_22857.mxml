@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	width="450" height="600"
+	backgroundColor="0x000000">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+
+
+
+	<s:BitmapImage id="ball" source="@Embed('../../../../../Assets/Images/yellowrect.jpg')" horizontalCenter="0" y="-75"/>
+
+	<mx:HBox horizontalCenter="0" bottom="10">
+		<s:Button label="Effect 1" click="eff1.play()"/>
+		<s:Button label="Effect 2" click="eff2.play()"/>
+		<s:Button label="Effect 3" click="eff3.play()"/>
+	</mx:HBox>
+
+	<fx:Declarations>
+		<!-- Bind easer inline -->
+		<s:Bounce id="bounce"/>
+		<s:Elastic id="elastic"/>
+
+		<s:Move id="eff1" target="{ball}" yFrom="-75" yTo="450" easer="{bounce}" duration="3000"/>
+
+		<s:Parallel id="eff2">
+			<s:Move target="{ball}" yFrom="-75" yTo="450" easer="{bounce}" duration="3000"/>
+			<s:Rotate target="{ball}" angleFrom="0" angleTo="360" easer="{bounce}" duration="3000"/>
+		</s:Parallel>
+
+		<s:Parallel id="eff3">
+			<s:Move target="{ball}" yFrom="-75" yTo="450" easer="{bounce}" duration="3000"/>
+			<s:Rotate target="{ball}" angleFrom="0" angleTo="360" easer="{bounce}" duration="3000"/>
+			<s:Move target="{ball}" yFrom="450" yTo="-75" easer="{bounce}" startDelay="3000" duration="1000"/>
+		</s:Parallel>
+	</fx:Declarations>
+
+</s:Application>

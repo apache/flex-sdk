@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	width="500" height="500"
+    backgroundColor="0xFFFFFF"
+    creationComplete="Init()">
+
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+    <fx:Script>
+        <![CDATA[
+        import mx.effects.EffectManager;
+        import mx.events.StateChangeEvent;
+        
+        public function Init():void
+        {
+            this.addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "State1";
+        }
+        
+        public function Reset():void
+        {
+            //Manually reset components
+    		this.gumboGroup.alpha = 1;
+    		this.gumboGroup.x = 50;
+    		this.gumboGroup.y = 50;
+    		this.gumboGroup.percentHeight = NaN;
+    		this.gumboGroup.setStyle("left", "NaN");
+        	//this.gumboGroup.setStyle("left", 50);
+        	//this.gumboGroup.setStyle("top", 50);
+
+    		this.gumboButton.alpha = 1;
+    		this.gumboButton.x = 120;
+    		this.gumboButton.y = 50;
+            this.gumboButton.visible = true;
+        	//this.gumboButton.setStyle("left", 120);
+        	//this.gumboButton.setStyle("top", 50);
+
+    		this.haloButton.alpha = 1;
+    		this.haloButton.x = 230;
+    		this.haloButton.y = 50;
+        	//this.haloButton.setStyle("left", 230);
+        	//this.haloButton.setStyle("top", 50);
+
+    		this.haloLabel.alpha = 1;
+    		this.haloLabel.x = 340;
+    		this.haloLabel.y = 50;
+        	//this.haloLabel.setStyle("left", 340);
+        	//this.haloLabel.setStyle("top", 50);
+        
+            //Flip state
+            GoToState("State1");   
+        }
+        
+
+
+        private function GoToState(destinationState:String):void
+        {
+            //Flip state
+            if(this.currentState == destinationState)
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                this.currentState = destinationState;   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+    	]]>
+    </fx:Script>
+
+    <fx:Declarations>
+
+        <!-- Default setAction works -->
+        <s:SetAction id="defaultEffect" target="{gumboGroup}" />
+
+        <!-- SetAction works with various constructor initializations -->
+        <s:SetAction id="constructorEffect" />
+
+        <!-- SetAction works with various interrupt methods-->
+        <s:SetAction id="interruptEffect" property="y" value="100" target="{gumboGroup}" duration="1000" />
+
+        <!-- SetAction works repeatedly -->
+        <s:SetAction id="repeatEffect" property="y" value="100" target="{gumboGroup}" repeatCount="3"/>
+
+        <!-- SetAction works with a start delay -->
+        <s:SetAction id="startDelayEffect" property="y" value="115" target="{gumboGroup}" startDelay="1000" />
+
+        <!-- Simple setAction works -->
+        <s:SetAction id="simpleEffect" property="y" value="100" target="{gumboGroup}" />
+
+        <!-- SetAction affects a variable -->
+        <s:SetAction id="effectVariable" property="y" value="160" target="{gumboGroup}" />
+
+        <!-- SetAction affects an accessor -->
+        <s:SetAction id="effectAccessor" property="alpha" value=".7" target="{gumboGroup}" />
+
+        <!-- SetAction affects an style -->
+        <s:SetAction id="effectStyle" property="left" value="5" target="{gumboGroup}" />
+
+        <!-- SetAction errs on type mismatch-->
+        <s:SetAction id="effectErr" property="x" value="A" target="{gumboGroup}" />
+
+        <!-- SetAction works with % in value -->
+        <s:SetAction id="effectPercent" property="height" value="50%" target="{gumboGroup}" />
+
+        <!-- SetAction works with a color string -->
+        <s:SetAction id="effectColor" property="color" value="0xFF0000" target="{testFill}" />
+
+        <!-- SetAction works with a color string -->
+        <s:SetAction id="effectNegative" property="x" value="-10" target="{haloButton}" />
+
+        <!-- SetAction works with an object -->
+        <s:SetAction id="effectObjectTarget" property="y" value="135"/>
+        <s:SetAction id="effectObject" property="target" value="{haloLabel}" target="{effectObjectTarget}" />
+
+        <!-- SetAction works with an array -->
+        <s:SetAction id="effectArrayTarget" property="y" value="85"/>
+        <s:SetAction id="effectArray" property="targets" value="{[gumboGroup, gumboButton, haloButton, haloLabel]}" target="{effectArrayTarget}" />
+
+        <!-- SetAction works with a string -->
+        <s:SetAction id="effectString" property="text" value="Effect World" target="{haloLabel}" />
+
+        <!-- SetAction works with a Boolean -->
+        <s:SetAction id="effectBoolean" property="visible" value="false" target="{gumboButton}" />
+        <s:SetAction id="effectBooleanCaps" property="visible" value="TRUE" target="{gumboButton}" />
+
+
+
+        <!-- SetAction works on a gumbo group -->
+        <s:SetAction id="effectGumboGroup" property="y" value="100" target="{gumboGroup}" />
+
+        <!-- SetAction works on a gumbo button -->
+        <s:SetAction id="effectGumboButton" property="y" value="110" target="{gumboButton}" />
+
+        <!-- SetAction works on a halo button -->
+        <s:SetAction id="effectHaloButton" property="y" value="120" target="{haloButton}" />
+
+        <!-- SetAction works on a halo label -->
+        <s:SetAction id="effectHaloLabel" property="y" value="130" target="{haloLabel}" />
+
+        
+        
+        <!-- Simple effect works with a single target -->
+        <s:SetAction id="effectTarget" property="y" value="90" target="{gumboGroup}" />
+
+        <!-- Simple effect works with multiple targets -->
+        <s:SetAction id="effectTargets" property="y" value="100" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}" />
+
+
+        
+        <!-- Parallel effect works with target on the composite -->
+        <mx:Parallel id="parallelTarget" target="{gumboGroup}">
+            <s:SetAction property="y" value="105" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Parallel>
+
+        <!-- Parallel effect works with targets on the composite -->
+        <mx:Parallel id="parallelTargets" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}">
+            <s:SetAction property="y" value="110"/>
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Parallel>
+
+        <!-- Parallel effect works with target on the child effect -->
+        <mx:Parallel id="parallelChildTarget" >
+            <s:SetAction property="y" value="115" target="{gumboButton}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" target="{haloButton}"/>
+        </mx:Parallel>
+
+        <!-- Parallel effect works with targets on the child effects -->
+        <mx:Parallel id="parallelChildTargets">
+            <s:SetAction property="y" value="120" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" targets="{[gumboButton, haloButton]}"/>
+        </mx:Parallel>
+
+
+
+        <!-- Sequence effect works with target on the composite -->
+        <mx:Sequence id="sequenceTarget" target="{gumboGroup}">
+            <s:SetAction property="y" value="125" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Sequence>
+
+        <!-- Sequence effect works with targets on the composite -->
+        <mx:Sequence id="sequenceTargets" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}">
+            <s:SetAction property="y" value="130" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" />
+        </mx:Sequence>
+
+        <!-- Sequence effect works with target on the child effect -->
+        <mx:Sequence id="sequenceChildTarget">
+            <s:SetAction property="y" value="135" target="{gumboButton}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" target="{haloButton}"/>
+        </mx:Sequence>
+
+        <!-- Sequence effect works with targets on the child effects -->
+        <mx:Sequence id="sequenceChildTargets">
+            <s:SetAction property="y" value="140" targets="{[gumboGroup, gumboButton, haloButton, haloLabel]}" />
+            <s:Fade alphaFrom=".1" alphaTo=".7" targets="{[gumboButton, haloButton]}"/>
+        </mx:Sequence>
+
+
+
+        <!-- Transition with start/end values from the effect -->
+        <s:SetAction id="effectStartEnd" property="y" value="145" target="{gumboGroup}" />
+
+        <!-- Transition and verify the property value is overwritten by the state syntax -->
+        <s:SetAction id="effectSyntaxStartEnd" property="y" value="250" target="{gumboButton}" />
+
+
+        <!-- Effect for event testing -->
+        <s:SetAction id="effectForEvents" property="y" value="140" target="{gumboGroup}"  />
+    </fx:Declarations>
+
+    <s:states>
+        <s:State name="State1"/>
+        <s:State name="State2"/>
+        <s:State name="State3"/>
+        <s:State name="State4"/>
+        <s:State name="State5"/>
+        <s:State name="State6"/>
+        <s:State name="State7"/>
+        <s:State name="State8"/>
+        <s:State name="State9"/>
+        <s:State name="State10"/>
+        <s:State name="State11"/>
+        <s:State name="StateN"/>
+    </s:states>
+
+    <s:transitions>
+        <!-- Transition with simple effect - effect with target -->
+        <mx:Transition fromState="State1" toState="State2" effect="{effectTarget}"/>
+
+        <!-- Transition with simple effect - effect with targets -->
+        <mx:Transition fromState="State1" toState="State3" effect="{effectTargets}"/>
+
+        <!-- Transition with composite effect - composite with target -->
+        <mx:Transition fromState="State1" toState="State4" effect="{parallelTarget}"/>
+
+        <!-- Transition with composite effect - composite with targets -->
+        <mx:Transition fromState="State1" toState="State5" effect="{sequenceTargets}"/>
+
+        <!-- Transition with composite effect - child effects with target -->
+        <mx:Transition fromState="State1" toState="State6" effect="{parallelChildTarget}"/>
+
+        <!-- Transition with composite effect - child effects with targets -->
+        <mx:Transition fromState="State1" toState="State7" effect="{sequenceChildTargets}"/>
+
+
+
+        <!-- Transition with start/end values from the effect -->
+        <mx:Transition fromState="State1" toState="State8" effect="{effectStartEnd}"/>
+
+        <!-- Transition with start/end values from the state syntax -->
+        <mx:Transition fromState="State1" toState="State9" effect="{effectSyntaxStartEnd}"/>
+
+    </s:transitions>
+
+    <s:Group id="gumboGroup"
+    	x.State1="50"
+    	y.State1="50"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <mx:SolidColor id="testFill" color="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke id="testStroke" color="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <s:Button id="gumboButton"
+    	x.State1="120"
+    	y.State1="50"
+        y.State9="150"
+    	width="100"
+    	label="Flex 4 Button"/>
+
+    <mx:Button id="haloButton"
+    	x.State1="230"
+    	y.State1="50"
+    	width="100"
+    	color="0x000000"
+    	label="Flex 3 Button"/>
+    
+    <mx:Label id="haloLabel"
+		x.State1="340"
+		y.State1="50"
+		text="Hello World"
+		fontSize="14"
+		color="0xFF0000"/>
+
+</s:Application>

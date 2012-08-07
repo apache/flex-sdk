@@ -1,0 +1,157 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_stop_nothing"
+        description="Test the stop() method while nothing." keywords="[VideoPlayer, Stop]">
+            <setup>
+
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()" />
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_stop_playing_streaming"
+        description="Test the stop() method while playing."
+        keywords="[VideoPlayer, Stop]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="3000"/>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_stop_stopped_streaming"
+        description="Test the stop() method while stopped."
+        keywords="[VideoPlayer, Stop]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()"/>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_stop_paused_streaming"
+        description="Test the stop() method while paused."
+        keywords="[VideoPlayer, Stop]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.pause()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="2000"/>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_stop_playing_progressive"
+        description="Test the stop() method while playing."
+        keywords="[VideoPlayer, Stop]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="3000"/>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_stop_stopped_progressive"
+        description="Test the stop() method while stopped."
+        keywords="[VideoPlayer, Stop]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()"/>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_stop_paused_progressive"
+        description="Test the stop() method while paused."
+        keywords="[VideoPlayer, Stop]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid2" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="3000"/>
+                <RunCode code="application.testPlayer.pause()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.stop()"/>
+                <Pause timeout="3000"/>
+                <AssertMethodValue method="value=application.testPlayer.playing" value="false"/>
+                <AssertMethodValue method="value=application.testPlayer.scrubBar.value" value="0"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

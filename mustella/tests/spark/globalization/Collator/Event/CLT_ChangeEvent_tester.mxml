@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Event/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_ChangeEvent.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.Collator;
+			import spark.globalization.SortingCollator;
+			import spark.globalization.MatchingCollator;
+			
+			import assets.CollatorTestConstants;
+			
+			import mx.core.Application;
+			
+			public static function init(o:DisplayObject):void
+			{
+				// public var localListInTest = Application.
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test whether change event of a Collator can be dispatched by changing locale, properties -->
+	<testCases>
+		<!--case1 to case20 are used to test SortingCollator-->
+		<!--test change for locale -->
+		<TestCase testID="SortingCollator_ChangeEvent_locale_Change_Test1" description="test change for locale" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<SetStyle target="clt_sorting" styleName="locale" value="ru-RU" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" waitEvent="change"/>	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event"  />
+			</body>
+		</TestCase>
+		
+		<!--test no change for locale-->
+		<TestCase testID="SortingCollator_ChangeEvent_locale_NOChange_Test2" description="test no change for locale" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN" />	
+			</setup>
+			<body>
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCase property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreCase_Change_Test3" description="test change for ignoreCase property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreCase property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreCase_NOChange_Test4" description="test no change for ignoreCase property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCharacterwidth property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreCharacterwidth_Change_Test5" description="test change for ignoreCharacterwidth property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreCharacterwidth property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreCharacterwidth_NOChange_Test6" description="test no change for ignoreCharacterwidth property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreDiacritics property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreDiacritics_Change_Test7" description="test change for ignoreDiacritics property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreDiacritics property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreDiacritics_NOChange_Test8" description="test no change for ignoreDiacritics property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreKanaType property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreKanaType_Change_Test9" description="test change for ignoreKanaType property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreKanaType property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreKanaType_NOChange_Test10" description="test no change for ignoreKanaType property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreSymbols property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreSymbols_Change_Test11" description="test change for ignoreSymbols property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreSymbols property-->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreSymbols_NOChange_Test12" description="test no change for ignoreSymbols property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for numericComparison property-->
+		<TestCase testID="SortingCollator_ChangeEvent_numericComparison_Change_Test13" description="test change for numericComparison property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for numericComparison property-->
+		<TestCase testID="SortingCollator_ChangeEvent_numericComparison_NOChange_Test14" description="test no change for numericComparison property" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCase property when locale is setted to null -->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreCase_nolocale_Test15" description="test change for ignoreCase property when locale is setted to null" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" valueExpression="value=undefined"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreCase" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCharacterwidth property when locale is setted to null -->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreCharacterwidth_nolocale_Test16" description="test change for ignoreCharacterwidth property when locale is setted to null" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" valueExpression="value=undefined"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreCharacterWidth" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreDiacritics property when locale is setted to null -->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreDiacritics_nolocale_Test17" description="test change for ignoreDiacritics property when locale is setted to null" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" valueExpression="value=undefined"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreDiacritics" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreKanaType property when locale is setted to null -->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreKanaType_nolocale_Test18" description="test change for ignoreKanaType property when locale is setted to null" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" valueExpression="value=undefined"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreKanaType" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreSymbols property when locale is setted to null -->
+		<TestCase testID="SortingCollator_ChangeEvent_ignoreSymbols_nolocale_Test19" description="test change for ignoreSymbols property when locale is setted to null" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" valueExpression="value=undefined"/>
+				<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="ignoreSymbols" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for numericComparison property when locale is setted to null -->
+		<TestCase testID="SortingCollator_ChangeEvent_numericComparison_nolocale_Test20" description="test change for numericComparison property when locale is setted to null" keywords="[SortingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_sorting" className=" spark.globalization.SortingCollator"/>
+				<RunCode code="application.clt_sorting.initialized(null , 'clt_sorting')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_sorting" styleName="locale" valueExpression="value=undefined"/>
+				<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_sorting" propertyName="numericComparison" valueExpression="value=false" />	
+				<AssertEvent target="clt_sorting" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--case21 to case40 are used to test MatchingCollator-->
+		<!--test change for locale -->
+		<TestCase testID="MatchingCollator_ChangeEvent_locale_Change_Test21" description="test change for locale" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<SetStyle target="clt_matching" styleName="locale" value="ru-RU" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN" waitEvent="change"/>	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event"  />
+			</body>
+		</TestCase>
+		
+		<!--test no change for locale-->
+		<TestCase testID="MatchingCollator_ChangeEvent_locale_NOChange_Test22" description="test no change for locale" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN" />	
+			</setup>
+			<body>
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCase property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreCase_Change_Test23" description="test change for ignoreCase property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreCase property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreCase_NOChange_Test24" description="test no change for ignoreCase property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCharacterwidth property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreCharacterwidth_Chnage_Test25" description="test change for ignoreCharacterwidth property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreCharacterwidth property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreCharacterwidth_NOChnage_Test26" description="test no change for ignoreCharacterwidth property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreDiacritics property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreDiacritics_Change_Test27" description="test change for ignoreDiacritics property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreDiacritics property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreDiacritics_NOChange_Test28" description="test no change for ignoreDiacritics property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreKanaType property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreKanaType_Change_Test29" description="test change for ignoreKanaType property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreKanaType property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreKanaType_NOChange_Test30" description="test no change for ignoreKanaType property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreSymbols property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreSymbols_Change_Test31" description="test change for ignoreSymbols property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for ignoreSymbols property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreSymbols_NOChange_Test32" description="test no change for ignoreSymbols property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for numericComparison property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_numericComparison_Change_Test33" description="test change for numericComparison property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test no change for numericComparison property-->
+		<TestCase testID="MatchingCollator_ChangeEvent_numericComparison_NOChange_Test34" description="test no change for numericComparison property" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" value="zh-CN"/>
+				<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=true" />	
+				<AssertNoEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCase property when locale is setted to null -->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreCase_nolocale_Test35" description="test change for ignoreCase property when locale is setted to null" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" valueExpression="value=null"/>
+				<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreCase" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreCharacterwidth property when locale is setted to null -->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreCharacterwidth_nolocale_Test36" description="test change for ignoreCharacterwidth property when locale is setted to null" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" valueExpression="value=null"/>
+				<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreCharacterWidth" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreDiacritics property when locale is setted to null -->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreDiacritics_nolocale_Test37" description="test change for ignoreDiacritics property when locale is setted to null" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" valueExpression="value=null"/>
+				<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreDiacritics" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreKanaType property when locale is setted to null -->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreKanaType_nolocale_Test38" description="test change for ignoreKanaType property when locale is setted to null" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" valueExpression="value=null"/>
+				<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreKanaType" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for ignoreSymbols property when locale is setted to null -->
+		<TestCase testID="MatchingCollator_ChangeEvent_ignoreSymbols_nolocale_Test39" description="test change for ignoreSymbols property when locale is setted to null" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" valueExpression="value=null"/>
+				<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="ignoreSymbols" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--test change for numericComparison property when locale is setted to null -->
+		<TestCase testID="MatchingCollator_ChangeEvent_numericComparison_nolocale_Test40" description="test change for numericComparison property when locale is setted to null" keywords="[MatchingCollator, changeEvent]">
+			<setup>
+				<ResetComponent target="clt_matching" className="spark.globalization.MatchingCollator"/>
+				<RunCode code="application.clt_matching.initialized(null , 'clt_matching')" />
+				<Pause timeout="{CollatorTestConstants.pauseTime}" />
+				<SetStyle target="clt_matching" styleName="locale" valueExpression="value=null"/>
+				<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=true" />	
+			</setup>
+			<body>
+				<SetProperty target="clt_matching" propertyName="numericComparison" valueExpression="value=false" />	
+				<AssertEvent target="clt_matching" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+	</testCases>
+	
+	
+</UnitTester>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Tests scaling grid applied in a group with overlapping rect and ellipse with a very narrow scale grid 
+                                                                                                -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Vivek Agrawal 15 March-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  15-March-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" >
+      <Group x="10" y="10" >
+				<Rect width = "100" height="200" radiusX="30" radiusY="30"> 
+					<fill>
+						<SolidColor color="#ff3600" alpha="0.5"/>
+					</fill>
+		                   <stroke >
+						<SolidColorStroke color="#00ff00" joints="bevel"  alpha="0.5" weight="12" />
+					</stroke>			
+                         </Rect>
+                         <Ellipse x="50" y="100" width="50" height="50" >
+                              <stroke>
+                                    <SolidColorStroke color="#000000" alpha="0.5" weight="1"/>
+                              </stroke>
+                              <fill>
+                                    <SolidColor color="#FF9900" alpha="0.5" />
+                              </fill>
+                         </Ellipse>
+                         <Ellipse x="40" y="90" width="20" height="20" >
+                              <stroke>
+                                    <SolidColorStroke color="#000000" alpha="0.5" weight="1"/>
+                              </stroke>
+                              <fill>
+                                    <SolidColor color="#FF9900" alpha="0.5" />
+                              </fill>
+                         </Ellipse>
+
+
+      </Group>
+
+</Graphic>

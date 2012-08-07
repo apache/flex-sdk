@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/SetAction/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SetAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.SetAction;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- Construtor -->
+        <TestCase testID="SetAction_constructorEmpty"  keywords="[SetAction, method, constructor]" description="Try to initialize the constructor with an empty arg.">
+            <body>
+                <RunCode code="application.constructorEffect = new SetAction();"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_Constructor_Null"  keywords="[SetAction, method, constructor]" description="Try to initialize the constructor with the null arg.">
+            <body>
+                <RunCode code="application.constructorEffect = new SetAction(null);"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_Constructor_Object"  keywords="[SetAction, method, constructor]" description="Try to initialize the constructor with an object.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.constructorEffect = new SetAction(application.gumboGroup);" />
+                <SetProperty target="constructorEffect" propertyName="property" value="y"/>
+                <SetProperty target="constructorEffect" propertyName="value" value="170"/>
+                <RunCode code="application.constructorEffect.play()" waitTarget="constructorEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="170"/>
+            </body>
+        </TestCase>
+
+        <!-- getAffectedProperties() -->
+        <TestCase testID="SetAction_getAffectedProperties" keywords="[SetAction, method, originY]" description="Test the toString() method.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.simpleEffect.getAffectedProperties()" value="y"/>
+            </body>
+        </TestCase>
+
+
+        <!-- toString() -->
+        <TestCase testID="SetAction_toString" keywords="[SetAction, method, toString]" description="Test the toString() method.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).toString().substr(8,9).replace(']','')" value="SetAction"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

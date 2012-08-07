@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_Fallback_Properties.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.NationalDigitsType;
+			import assets.NFConstants;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	
+	<testCases>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_default_test1" description="check default decimalSeparator value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="decimalSeparator" value="." />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_default_script_test2" description="check default decimalSeparator value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="decimalSeparator" value="." />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_default_locale_zh_CN_test3" description="check default decimalSeparator value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="decimalSeparator" value="." />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_default_script_locale_zh_CN_test4" description="check default decimalSeparator value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="decimalSeparator" value="." />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_comma_test5" description="set decimalSeparator property to comma with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_decimalSeparator" propertyName="decimalSeparator" value="," />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_comma_script_test6" description="set decimalSeparator property to comma with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="decimalSeparator" value="," />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_comma_locale_zh_CN_test7" description="set decimalSeparator property to comma and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_decimalSeparator_locale" propertyName="decimalSeparator" value="," />
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_decimalSeparator_comma_script_locale_zh_CN_test8" description="set decimalSeparator property to comma and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="decimalSeparator" value="," waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="decimalSeparator" value="," />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_digitsType_default_test9" description="check default digitsType value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="digitsType" valueExpression="value=NationalDigitsType.EUROPEAN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_default_script_test10" description="check default digitsType value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.EUROPEAN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_default_locale_zh_CN_test11" description="check default digitsType value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="digitsType" valueExpression="value=NationalDigitsType.EUROPEAN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_default_script_locale_zh_CN_test12" description="check default digitsType value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.EUROPEAN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_cham_test13" description="set digitsType property to NationalDigitsType.CHAM with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_digitsType" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_cham_script_test14" description="set digitsType property to NationalDigitsType.CHAM with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_cham_locale_zh_CN_test15" description="set digitsType property to NationalDigitsType.CHAM and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_digitsType_locale" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_digitsType_cham_script_locale_zh_CN_test16" description="set digitsType property to NationalDigitsType.CHAM and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="digitsType" valueExpression="value=NationalDigitsType.CHAM"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_default_test17" description="check default fractionalDigits value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="fractionalDigits" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_default_script_test18" description="check default fractionalDigits value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="fractionalDigits" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_default_locale_zh_CN_test19" description="check default fractionalDigits value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="fractionalDigits" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_default_script_locale_zh_CN_test20" description="check default fractionalDigits value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="fractionalDigits" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_3_test21" description="set fractionalDigits property to 3 with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_fractionalDigits" propertyName="fractionalDigits" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_3_script_test22" description="set fractionalDigits property to 3 with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="fractionalDigits" valueExpression="value=3" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="fractionalDigits" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_3_locale_zh_CN_test23" description="set fractionalDigits property to 3 and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_fractionalDigits_locale" propertyName="fractionalDigits" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_fractionalDigits_3_script_locale_zh_CN_test24" description="set fractionalDigits property to 3 and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="fractionalDigits" valueExpression="value=3" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="fractionalDigits" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_groupingPattern_default_test25" description="check default groupingPattern value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="groupingPattern" value="3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_default_script_test26" description="check default groupingPattern value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="groupingPattern" value="3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_default_locale_zh_CN_test27" description="check default groupingPattern value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="groupingPattern" value="3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_default_script_locale_zh_CN_test28" description="check default groupingPattern value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="groupingPattern" value="3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_3_test29" description="set groupingPattern property to '2' with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_groupingPattern" propertyName="groupingPattern" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_3_script_test30" description="set groupingPattern property to '2' with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="groupingPattern" value="2" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="groupingPattern" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_3_locale_zh_CN_test31" description="set groupingPattern property to '2' and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_groupingPattern_locale" propertyName="groupingPattern" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingPattern_3_script_locale_zh_CN_test32" description="set groupingPattern property to '2' and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="groupingPattern" value="2" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="groupingPattern" value="2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_default_test33" description="check default groupingSeparator value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="groupingSeparator" value=","/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_default_script_test34" description="check default groupingSeparator value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="groupingSeparator" value=","/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_default_locale_zh_CN_tes35" description="check default groupingSeparator value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="groupingSeparator" value=","/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_default_script_locale_zh_CN_test36" description="check default groupingSeparator value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="groupingSeparator" value=","/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_3_test37" description="set groupingSeparator property to ; with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_groupingSeparator" propertyName="groupingSeparator" value=";"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_3_script_test38" description="set groupingSeparator property to ; with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="groupingSeparator" value=";"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_3_locale_zh_CN_test39" description="set groupingSeparator property to ; and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_groupingSeparator_locale" propertyName="groupingSeparator" value=";"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_groupingSeparator_3_script_locale_zh_CN_test40" description="set groupingSeparator property to ; and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="groupingSeparator" value=";"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_leadingZero_default_test41" description="check default leadingZero value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="leadingZero" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_default_script_test42" description="check default leadingZero value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="leadingZero" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_default_locale_zh_CN_tes43" description="check default leadingZero value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="leadingZero"  valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_default_script_locale_zh_CN_test44" description="check default leadingZero value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="leadingZero" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_3_test45" description="set leadingZero property to false with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_leadingZero" propertyName="leadingZero" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_3_script_test46" description="set leadingZero property to false with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="leadingZero" valueExpression="value=false" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="leadingZero" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_3_locale_zh_CN_test47" description="set leadingZero property to false and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_leadingZero_locale" propertyName="leadingZero" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_leadingZero_3_script_locale_zh_CN_test48" description="set leadingZero property to false and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="leadingZero" valueExpression="value=false" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="leadingZero" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_default_test49" description="check default negativeSymbol value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="negativeSymbol" value="-"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_default_script_test50" description="check default negativeSymbol value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="negativeSymbol" value="-"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_default_locale_zh_CN_tes51" description="check default negativeSymbol value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="negativeSymbol"  value="-"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_default_script_locale_zh_CN_test52" description="check default negativeSymbol value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="negativeSymbol" value="-"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_3_test53" description="set negativeSymbol property to '--' with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_negativeSymbol" propertyName="negativeSymbol" value="--"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_3_script_test54" description="set negativeSymbol property to '--' with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="negativeSymbol" value="--" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="negativeSymbol" value="--"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_3_locale_zh_CN_test55" description="set negativeSymbol property to '--' and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_negativeSymbol_locale" propertyName="negativeSymbol" value="--"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeSymbol_3_script_locale_zh_CN_test56" description="set negativeSymbol property to '--' and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="negativeSymbol" value="--"  waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="negativeSymbol" value="--"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_trailingZeros_default_test57" description="check default trailingZeros value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="trailingZeros" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_default_script_test58" description="check default trailingZeros value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="trailingZeros" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_default_locale_zh_CN_tes59" description="check default trailingZeros value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="trailingZeros"  valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_default_script_locale_zh_CN_test60" description="check default trailingZeros value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="trailingZeros" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_3_test61" description="set trailingZeros property to true with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_trailingZeros" propertyName="trailingZeros" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_3_script_test62" description="set trailingZeros property to true with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="trailingZeros" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="trailingZeros" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_3_locale_zh_CN_test63" description="set trailingZeros property to true and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_trailingZeros_locale" propertyName="trailingZeros" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_trailingZeros_3_script_locale_zh_CN_test64" description="set trailingZeros property to true and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="trailingZeros" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="trailingZeros" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_useGrouping_default_test65" description="check default useGrouping value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="useGrouping" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_default_script_test66" description="check default useGrouping value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="useGrouping" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_default_locale_zh_CN_tes67" description="check default useGrouping value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="useGrouping"  valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_default_script_locale_zh_CN_test68" description="check default useGrouping value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="useGrouping" valueExpression="value=false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_3_test69" description="set useGrouping property to true with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_useGrouping" propertyName="useGrouping" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_3_script_test70" description="set useGrouping property to true with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="useGrouping" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="useGrouping" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_3_locale_zh_CN_test71" description="set useGrouping property to true and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_useGrouping_locale" propertyName="useGrouping" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_useGrouping_3_script_locale_zh_CN_test72" description="set useGrouping property to true and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="useGrouping" valueExpression="value=true" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="useGrouping" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_default_test73" description="check default negativeNumberFormat value with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="negativeNumberFormat" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_default_script_test74" description="check default negativeNumberFormat value with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="negativeNumberFormat" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_default_locale_zh_CN_tes75" description="check default negativeNumberFormat value with inline nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_locale" propertyName="negativeNumberFormat"  valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_default_script_locale_zh_CN_test76" description="check default negativeNumberFormat value with script nf object which set locale to zh_CN" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="negativeNumberFormat" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_3_test77" description="set negativeNumberFormat property to 3 with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_negativeNumberFormat" propertyName="negativeNumberFormat" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_3_script_test78" description="set negativeNumberFormat property to 3 with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=3" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="negativeNumberFormat" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_3_locale_zh_CN_test79" description="set negativeNumberFormat property to 3 and locale to zh_CN with inline nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline_negativeNumberFormat_locale" propertyName="negativeNumberFormat" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_properties_negativeNumberFormat_3_script_locale_zh_CN_test80" description="set negativeNumberFormat property to 3 and locale to zh_CN with script nf object" keywords="[NumberFormatter, properties]">
+			<setup>
+				<ResetComponent target="nf" className="assets.FallbackNF"/> 
+				<RunCode code="application.nf_inline.initialized(null,'nf')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				
+				
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="nf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" valueExpression="value=3" waitEvent="change"/>
+				<AssertPropertyValue target="nf" propertyName="negativeNumberFormat" valueExpression="value=3"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

@@ -1,0 +1,130 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import Components.TrixSparkVideoPlayer;
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_scrubBar_skin"
+            keywords="[VideoPlayer]"
+            description="Test the skin of the scrubBar.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.scrubBar" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+        <TestCase
+            testID="VideoPlayer_scrubBar_seekPlay_streaming"
+            keywords="[VideoPlayer]"
+            description="Seek dragging the scrubBar.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body> 
+            	<AssertPropertyValue target="testPlayer" propertyName="duration" value="10.08"/>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.scrubBar" localX="7" localY="12" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="testPlayer.scrubBar" localX="119" localY="12"/>
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.scrubBar" localX="119" localY="12" />
+                <Pause timeout="2500"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="6"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_scrubBar_seek_click_streaming"
+            keywords="[VideoPlayer]"
+            description="Seek clicking the scrubBar track.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="5000"/>
+            </setup>
+            <body><!--
+                <DispatchMouseClickEvent target="testPlayer.scrubBar" localX="40" localY="12" waitEvent="currentTimeChange" waitTarget="testPlayer"/>
+                <Pause timeout="2000"/>-->
+		<DispatchMouseEvent target="testPlayer" type="rollOver" localX="73" localY="215"/>
+
+		<DispatchMouseEvent target="testPlayer" type="mouseDown" localX="73" localY="215" waitEvent="currentTimeChange" waitTarget="testPlayer"/>
+
+		<DispatchMouseEvent target="testPlayer" type="mouseUp" localX="73" localY="215" />
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="5" />
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+        <TestCase
+            testID="VideoPlayer_scrubBar_seekPlay_progressive"
+            keywords="[VideoPlayer]"
+            description="Seek using the scrubBar.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="testPlayer" propertyName="duration" value="10"/>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.scrubBar" localX="6" localY="12" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="testPlayer.scrubBar" localX="102" localY="12"/>
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.scrubBar" localX="102" localY="12" />
+                <Pause timeout="2500"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="5.28"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_scrubBar_seek_click_progressive"
+            keywords="[VideoPlayer]"
+            description="Seek clicking the scrubBar track.">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange"/>
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.scrubBar" localX="40" localY="12" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="testPlayer.scrubBar" localX="40" localY="12"/>
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.scrubBar" localX="40" localY="12" />
+                <Pause timeout="3000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="3.041"/>
+            <!--
+		<DispatchMouseEvent target="testPlayer" type="mouseMove" localX="101" localY="223"/>
+		<DispatchMouseEvent target="testPlayer" type="mouseDown" localX="101" localY="223"/>
+		<DispatchMouseEvent target="testPlayer" type="mouseUp" localX="101" localY="223" />
+		<DispatchMouseClickEvent target="testPlayer" localX="101" localY="223" />
+		<WaitForEvent eventName="currentTimeChange" target="testPlayer"/>
+                <AssertPropertyValue target="testPlayer" propertyName="currentTime" value="7" />
+                -->
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

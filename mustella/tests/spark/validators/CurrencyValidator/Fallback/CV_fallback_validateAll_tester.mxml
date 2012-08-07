@@ -1,0 +1,130 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Fallback/" testSWF="CV_fallback_validateAll.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_validateAll_method_valid_program_1" description="testcase for validateAll method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, validateAll, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.FallBackCustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="positiveCurrencyFormat" value="3"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="fractionalDigits" value="3"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="currencySymbol" value="€"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cf" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cf" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cf" propertyName="groupingSeparator" value=" "/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98 €" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" valueExpression="value=application.uiCustomComp.cf.format(12345.98)" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_program_2" description="testcase for validateAll method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.FallBackCustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar-AE"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="true"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="EUR12 789,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="$12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_valid_program_3" description="testcase for validateAll method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, validateAll, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.FallBackCustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="positiveCurrencyFormat" value="3"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="fractionalDigits" value="3"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="currencySymbol" value="€"/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="decimalSeparator" value=","/>
+				<SetProperty target="uiCustomComp.sparkCurV" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cf" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cf" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cf" propertyName="groupingSeparator" value=" "/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="12 345,98 €" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" valueExpression="value=application.uiCustomComp.cf.format(12345.98)" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="invalid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateAll_method_invalid_program_4" description="testcase for validateAll method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, validateAll, default, trigger programmatically, ActionScript, valid, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.FallBackCustomCompAll" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.sparkCurV" styleName="locale" value="fr_FR"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.sparkCurV" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar-AE"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTISparkCVScript"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="true"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTISpakrCV" propertyName="text" value="EUR12 789,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISpakrCV"/>
+                <SetProperty target="uiCustomComp.uiTISparkCVScript" propertyName="text" value="$12 345,98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTISparkCVScript"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBTAllMx" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiLb"/>
+                <AssertEvent target="uiCustomComp.sparkCurV" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.sparkCurV" eventName="valid"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiLb" propertyName="text" valueExpression="value=2"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

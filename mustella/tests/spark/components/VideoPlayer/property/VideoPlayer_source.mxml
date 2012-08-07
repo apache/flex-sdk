@@ -1,0 +1,152 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+
+                private function getStreamingSource():String
+	        {
+	            return(application.testPlayer.source.host + application.testPlayer.source.streamItems[0].streamName);
+	        }
+
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_source_Default"
+        description="Test the default value of the source property."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPlayer" propertyName="source" value="null"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_source_none"
+        description="Don't specify a source. Verify the player doesn't collapse."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer" url="../property/baseline/$testID.png" />
+                <AssertPropertyValue target="testPlayer" propertyName="width" value="400"/>
+                <AssertPropertyValue target="testPlayer" propertyName="height" value="300"/>
+            </body>
+        </TestCase>
+
+
+        <!-- ********* -->
+        <!-- RTMP STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+        testID="VideoPlayer_source_playing_streaming"
+        description="Test the behavior of the source property while playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000"/>
+                <Pause timeout="8000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            	<AssertMethodValue method="value=this.getStreamingSource()" value="rtmp://10.59.8.148/vod/GreenBoxStream"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+        testID="VideoPlayer_source_changeWhilePlaying_streaming"
+        description="Change the source while already playing. Verify change and play."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+		<RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000" />
+                <Pause timeout="4000"/>      
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000" />
+                <Pause timeout="4000"/>
+            	<AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            	<AssertMethodValue method="value=this.getStreamingSource()" value="rtmp://10.59.8.148/vod/GreenBoxStream"/>
+            </body>
+        </TestCase>
+
+        
+        <TestCase
+            testID="VideoPlayer_source_changeWhilePlaying_streaming"
+            description="Change the source while already playing. Verify change and play."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000" />
+                <Pause timeout="4000"/>      
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVidStream" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" timeout="5000" />
+                <Pause timeout="4000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+                <AssertMethodValue method="value=this.getStreamingSource()" value="rtmp://10.59.8.148/vod/GreenBoxStream"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase
+        testID="VideoPlayer_source_playing_progressive"
+        description="Test the behavior of the source property while playing."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+	        <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+		<AssertPropertyValue target="testPlayer" propertyName="source" value="video/GreenBox.flv"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="VideoPlayer_source_changeWhilePlaying_progressive"
+        description="Change the source while already playing. Verify change and play."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.play()" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.source = application.GreenBoxVid" waitTarget="testPlayer" waitEvent="mediaPlayerStateChange" />
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+		<AssertPropertyValue target="testPlayer" propertyName="source" value="video/GreenBox.flv"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

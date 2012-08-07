@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_Fallback_validate.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NVConstants;
+		
+		import flash.globalization.NationalDigitsType;
+		
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<testCases>
+	
+	<TestCase testID="NV_Fallback_ValidateNumber_allowNegative_invalid_test1" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="allowNegative" value="false" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_allowNegative_script_valid_test2" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="allowNegative" value="true"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<!--Pls refer to 23rd open issue of Validator on NumberValidate test plan-->
+	<TestCase testID="NV_Fallback_ValidateNumber_decimalSeparator_valid_test3" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVN" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12.34" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="noValidateError"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_decimalSeparator_script_valid_test4" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12*34" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_domain_invalid_test5" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12.2" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_domain_script_valid_test6" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="fractionalDigits" value="1" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12.2" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_fractionalDigits_invalid_test7" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVN" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12;20200" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_fractionalDigits_script_valid_test8" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="fractionalDigits" value="5" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12.20200" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<!--For case 9, under fallbakc environment, it cannot validate other language-->
+	<TestCase testID="NV_Fallback_ValidateNumber_digitsType_invalid_test9" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="digitsType" valueExpression="value=NationalDigitsType.ARABIC_INDIC" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVN" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+												<SetProperty target="nvComp.nvVNTI" propertyName="text" value="٩٩٩٦*٧*٥٦*٧*٨*٩٩٩٠" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_digitsType_script_valid_test10" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="digitsType" valueExpression="value=NationalDigitsType.DEVANAGARI" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12*34*123" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="noValidateError"/>
+		</body>
+	</TestCase>
+	<!--Pls refer to 23rd open issue of Validator on NumberValidate test plan-->
+	<TestCase testID="NV_Fallback_ValidateNumber_groupingSeparator_valid_test11" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="groupingSeparator" value="*" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12,34,123" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="noValidateError"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_groupingSeparator_script_valid_test12" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="groupingSeparator" value="(" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12(34(123" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_maxValue_invalid_test13" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="maxValue" value="10" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_maxValue_script_valid_test14" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="maxValue" value="100" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="99" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_minValue_invalid_test15" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="minValue" value="10" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="8" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_minValue_script_valid_test16" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="minValue" value="100" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="102" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<!--Pls refer to 23rd open issue of Validator on NumberValidate test plan-->
+	<TestCase testID="NV_Fallback_ValidateNumber_negativeNumberFormat_valid_test17" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="negativeNumberFormat" value="1" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="(56)" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="noValidateError"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_negativeNumberFormat_script_valid_test18" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="negativeNumberFormat" value="0"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="(12)" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_negativeSymbol_invalid_test19" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="allowNegative" value="true"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="*56" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_negativeSymbol_script_valid_test20" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="allowNegative" value="true" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_decimalPointCountErr_test21" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="decimalSeparator" value="."/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12.12.12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_decimalPointCountErr_script_test22" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="decimalSeparator" value="."/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12.12.12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_invalidFormatCharsErr_test23" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="decimalSeparator" value=":"/>
+			<SetProperty target="nvComp.nvVN" propertyName="groupingSeparator" value=":"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12:12:12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_invalidFormatCharsErr_script_test24" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="decimalSeparator" value=":"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="groupingSeparator" value=":"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12:12:12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_negativeSymbolErr_test25" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="-2-45-5" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_negativeSymbolErr_script_test26" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="-2-45-5" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_parseErr_test27" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="0 1 2 3 4 5" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_parseErr_script_test28" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="0 1 2 3 4 5" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_undefinedLocale_invalid_test29" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="maxValue" value="10" waitEvent="change"/>
+			<SetStyle target="nvComp.nvVN" styleName="locale" valueExpression="value=undefined"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVN" propertyName="lastOperationStatus" value="localeUndefinedError"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_undefinedLocale_script_invalid_test30" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="maxValue" value="100" waitEvent="change"/>
+			<SetStyle target="nvComp.nvVNScript" styleName="locale" valueExpression="value=undefined"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="99" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<DispatchMouseEvent target="nvComp.triBTVN" type="click"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVNScript" propertyName="lastOperationStatus" value="localeUndefinedError"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_nullInput_invalid_test31" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVN" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVN" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVN" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVN" propertyName="maxValue" value="10" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVN" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<RunCode code="application.nvComp.validateNumberNullInput()"/>
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVN" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="NoResult"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="NV_Fallback_ValidateNumber_nullInput_script_valid_test32" keywords="[NumberValidator, Fallback, validateNumber]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="source" valueExpression="value=application.nvComp.nvVNTI"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvVNScript" propertyName="maxValue" value="100" waitEvent="change"/>
+			<SetProperty target="nvComp.nvVNtypeTI" propertyName="text" value="nvVNScript" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvVNTI" propertyName="text" value="99" waitEvent="updateComplete" waitTarget="nvComp.nvVNTI"/>
+			<RunCode code="application.nvComp.validateNumberNullInput()"/>
+			<Pause timeout="{NVConstants.pauseTime}"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvVNScript" eventName="invalid"/>
+			<AssertPropertyValue target="nvComp.nvVNResultTI" propertyName="text" value="NoResult"/>
+			
+		</body>
+	</TestCase>
+</testCases>
+
+</UnitTester>

@@ -1,0 +1,478 @@
+﻿<UnitTester
+    testDir="spark/components/VideoDisplay/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoDisplay_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <!-- autoDisplayFirstFrame -->
+        <TestCase testID="VideoDisplay_autoDisplayFirstFrame_Default" keywords="[VideoDisplay, accessor, autoDisplayFirstFrame]" description="Test the default value of the autoDisplayFirstFrame property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).autoDisplayFirstFrame" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- enabled -->
+        <TestCase testID="VideoDisplay_enabled_Default" keywords="[VideoDisplay, accessor, enabled]" description="Test the default value of the enabled property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).enabled" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- bytesLoaded -->
+        <TestCase testID="VideoDisplay_bytesLoaded_Default" keywords="[VideoDisplay, accessor, bytesLoaded]" description="Test the default value of the bytesLoaded property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).bytesLoaded" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- bytesTotal -->
+        <TestCase testID="VideoDisplay_bytesTotal_Default" keywords="[VideoDisplay, accessor, bytesTotal]" description="Test the default value of the bytesTotal property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).bytesTotal" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- loop -->
+        <TestCase testID="VideoDisplay_loop_Default" keywords="[VideoDisplay, accessor, loop]" description="Test the default value of the loop property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).loop" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- mediaPlayerState -->
+        <TestCase testID="VideoDisplay_mediaPlayerState_Default" keywords="[VideoDisplay, accessor, mediaPlayerState]" description="Test the default value of the mediaPlayerState property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).mediaPlayerState" value="uninitialized"/>
+            </body>
+        </TestCase>
+
+        <!-- pauseWhenHidden -->
+        <TestCase testID="VideoDisplay_pauseWhenHidden_Default" keywords="[VideoDisplay, accessor, pauseWhenHidden]" description="Test the default value of the pauseWhenHidden property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).pauseWhenHidden" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- playing -->
+        <TestCase testID="VideoDisplay_playing_Default" keywords="[VideoDisplay, accessor, playing]" description="Test the default value of the playing property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- muted -->
+        <TestCase testID="VideoDisplay_muted_Default" keywords="[VideoDisplay, accessor, muted]" description="Test the default value of the muted property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).muted" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- currentTime -->
+        <TestCase testID="VideoDisplay_currentTime_Default" keywords="[VideoDisplay, accessor, currentTime]" description="Test the default value of the currentTime property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).currentTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- source -->
+        <TestCase testID="VideoDisplay_source_Default" keywords="[VideoDisplay, accessor, source]" description="Test the default value of the source property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).source" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- autoPlay -->
+        <TestCase testID="VideoDisplay_autoPlay_Default" keywords="[VideoDisplay, accessor, autoPlay]" description="Test the default value of the autoPlay property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).autoPlay" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="VideoDisplay_duration_Default" keywords="[VideoDisplay, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).duration" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- autoRewind -->
+        <TestCase testID="VideoDisplay_autoRewind_Default" keywords="[VideoDisplay, accessor, autoRewind]" description="Test the default value of the autoRewind property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).autoRewind" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- volume -->
+        <TestCase testID="VideoDisplay_volume_Default" keywords="[VideoDisplay, accessor, volume]" description="Test the default value of the volume property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).volume" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- videoObject -->
+        <TestCase testID="VideoDisplay_videoObject_Default" keywords="[VideoDisplay, accessor, videoObject]" description="Test the default value of the videoObject property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).videoObject" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- scaleMode -->
+        <TestCase testID="VideoDisplay_scaleMode_Default" keywords="[VideoDisplay, accessor, scaleMode]" description="Test the default value of the scaleMode property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).scaleMode" value="letterbox"/>
+            </body>
+        </TestCase>
+
+        <!-- transformX -->
+        <TestCase testID="VideoDisplay_transformX_Default" keywords="[VideoDisplay, accessor, transformX]" description="Test the default value of the transformX property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).transformX" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- transformY -->
+        <TestCase testID="VideoDisplay_transformY_Default" keywords="[VideoDisplay, accessor, transformY]" description="Test the default value of the transformY property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).transformY" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- transformZ -->
+        <TestCase testID="VideoDisplay_transformZ_Default" keywords="[VideoDisplay, accessor, transformZ]" description="Test the default value of the transformZ property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).transformZ" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- bottom -->
+        <TestCase testID="VideoDisplay_bottom_Default" keywords="[VideoDisplay, accessor, bottom]" description="Test the default value of the bottom property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).bottom" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- scaleX -->
+        <TestCase testID="VideoDisplay_scaleX_Default" keywords="[VideoDisplay, accessor, scaleX]" description="Test the default value of the scaleX property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).scaleX" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- scaleY -->
+        <TestCase testID="VideoDisplay_scaleY_Default" keywords="[VideoDisplay, accessor, scaleY]" description="Test the default value of the scaleY property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).scaleY" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- scaleZ -->
+        <TestCase testID="VideoDisplay_scaleZ_Default" keywords="[VideoDisplay, accessor, scaleZ]" description="Test the default value of the scaleZ property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).scaleZ" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- top -->
+        <TestCase testID="VideoDisplay_top_Default" keywords="[VideoDisplay, accessor, top]" description="Test the default value of the top property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).top" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- explicitHeight -->
+        <TestCase testID="VideoDisplay_explicitHeight_Default" keywords="[VideoDisplay, accessor, explicitHeight]" description="Test the default value of the explicitHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).explicitHeight" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- minWidth -->
+        <TestCase testID="VideoDisplay_minWidth_Default" keywords="[VideoDisplay, accessor, minWidth]" description="Test the default value of the minWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).minWidth" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- explicitWidth -->
+        <TestCase testID="VideoDisplay_explicitWidth_Default" keywords="[VideoDisplay, accessor, explicitWidth]" description="Test the default value of the explicitWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).explicitWidth" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- offsets -->
+        <TestCase testID="VideoDisplay_offsets_Default" keywords="[VideoDisplay, accessor, postLayoutTransformOffsets]" description="Test the default value of the postLayoutTransformOffsets property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).postLayoutTransformOffsets" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- layer -->
+        <TestCase testID="VideoDisplay_layer_Default" keywords="[VideoDisplay, accessor, depth]" description="Test the default depth of the layer property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).depth" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- id -->
+        <TestCase testID="VideoDisplay_id_Default" keywords="[VideoDisplay, accessor, id]" description="Test the default value of the id property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).id" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- width -->
+        <TestCase testID="VideoDisplay_width_Default" keywords="[VideoDisplay, accessor, width]" description="Test the default value of the width property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).width" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- measuredWidth -->
+        <TestCase testID="VideoDisplay_measuredWidth_Default" keywords="[VideoDisplay, accessor, measuredWidth]" description="Test the default value of the measuredWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).measuredWidth" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- alpha -->
+        <TestCase testID="VideoDisplay_alpha_Default" keywords="[VideoDisplay, accessor, alpha]" description="Test the default value of the alpha property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).alpha" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- minHeight -->
+        <TestCase testID="VideoDisplay_minHeight_Default" keywords="[VideoDisplay, accessor, minHeight]" description="Test the default value of the minHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).minHeight" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- x -->
+        <TestCase testID="VideoDisplay_x_Default" keywords="[VideoDisplay, accessor, x]" description="Test the default value of the x property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).x" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- y -->
+        <TestCase testID="VideoDisplay_y_Default" keywords="[VideoDisplay, accessor, y]" description="Test the default value of the y property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).y" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- z -->
+        <TestCase testID="VideoDisplay_z_Default" keywords="[VideoDisplay, accessor, z]" description="Test the default value of the z property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).z" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- baseline -->
+        <TestCase testID="VideoDisplay_baseline_Default" keywords="[VideoDisplay, accessor, baseline]" description="Test the default value of the baseline property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).baseline" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- horizontalCenter -->
+        <TestCase testID="VideoDisplay_horizontalCenter_Default" keywords="[VideoDisplay, accessor, horizontalCenter]" description="Test the default value of the horizontalCenter property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).horizontalCenter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- verticalCenter -->
+        <TestCase testID="VideoDisplay_verticalCenter_Default" keywords="[VideoDisplay, accessor, verticalCenter]" description="Test the default value of the verticalCenter property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).verticalCenter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- explicitMinWidth -->
+        <TestCase testID="VideoDisplay_explicitMinWidth_Default" keywords="[VideoDisplay, accessor, explicitMinWidth]" description="Test the default value of the explicitMinWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).explicitMinWidth" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- visible -->
+        <TestCase testID="VideoDisplay_visible_Default" keywords="[VideoDisplay, accessor, visible]" description="Test the default value of the visible property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).visible" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- percentHeight -->
+        <TestCase testID="VideoDisplay_percentHeight_Default" keywords="[VideoDisplay, accessor, percentHeight]" description="Test the default value of the percentHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).percentHeight" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- explicitMinHeight -->
+        <TestCase testID="VideoDisplay_explicitMinHeight_Default" keywords="[VideoDisplay, accessor, explicitMinHeight]" description="Test the default value of the explicitMinHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).explicitMinHeight" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- rotation -->
+        <TestCase testID="VideoDisplay_rotation_Default" keywords="[VideoDisplay, accessor, rotation]" description="Test the default value of the rotation property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).rotation" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- explicitMaxWidth -->
+        <TestCase testID="VideoDisplay_explicitMaxWidth_Default" keywords="[VideoDisplay, accessor, explicitMaxWidth]" description="Test the default value of the explicitMaxWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).explicitMaxWidth" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- blendMode -->
+        <TestCase testID="VideoDisplay_blendMode_Default" keywords="[VideoDisplay, accessor, blendMode]" description="Test the default value of the blendMode property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).blendMode" value="normal"/>
+            </body>
+        </TestCase>
+
+        <!-- rotationX -->
+        <TestCase testID="VideoDisplay_rotationX_Default" keywords="[VideoDisplay, accessor, rotationX]" description="Test the default value of the rotationX property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).rotationX" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- rotationY -->
+        <TestCase testID="VideoDisplay_rotationY_Default" keywords="[VideoDisplay, accessor, rotationY]" description="Test the default value of the rotationY property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).rotationY" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- rotationZ -->
+        <TestCase testID="VideoDisplay_rotationZ_Default" keywords="[VideoDisplay, accessor, rotationZ]" description="Test the default value of the rotationZ property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).rotationZ" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- measuredHeight -->
+        <TestCase testID="VideoDisplay_measuredHeight_Default" keywords="[VideoDisplay, accessor, measuredHeight]" description="Test the default value of the measuredHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).measuredHeight" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- parent -->
+        <TestCase testID="VideoDisplay_parent_Default" keywords="[VideoDisplay, accessor, parent]" description="Test the default value of the parent property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).parent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- explicitMaxHeight -->
+        <TestCase testID="VideoDisplay_explicitMaxHeight_Default" keywords="[VideoDisplay, accessor, explicitMaxHeight]" description="Test the default value of the explicitMaxHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).explicitMaxHeight" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- includeInLayout -->
+        <TestCase testID="VideoDisplay_includeInLayout_Default" keywords="[VideoDisplay, accessor, includeInLayout]" description="Test the default value of the includeInLayout property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).includeInLayout" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- height -->
+        <TestCase testID="VideoDisplay_height_Default" keywords="[VideoDisplay, accessor, height]" description="Test the default value of the height property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).height" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- percentWidth -->
+        <TestCase testID="VideoDisplay_percentWidth_Default" keywords="[VideoDisplay, accessor, percentWidth]" description="Test the default value of the percentWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).percentWidth" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- mask -->
+        <TestCase testID="VideoDisplay_mask_Default" keywords="[VideoDisplay, accessor, mask]" description="Test the default value of the mask property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).mask" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- baselinePosition -->
+        <TestCase testID="VideoDisplay_baselinePosition_Default" keywords="[VideoDisplay, accessor, baselinePosition]" description="Test the default value of the baselinePosition property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).baselinePosition" value="NaN"/>
+            </body>
+        </TestCase>
+
+        <!-- maxHeight -->
+        <TestCase testID="VideoDisplay_maxHeight_Default" keywords="[VideoDisplay, accessor, maxHeight]" description="Test the default value of the maxHeight property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).maxHeight" value="10000"/>
+            </body>
+        </TestCase>
+
+        <!-- filters -->
+        <TestCase testID="VideoDisplay_filters_Default" keywords="[VideoDisplay, accessor, filters]" description="Test the default value of the filters property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).filters" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- maxWidth -->
+        <TestCase testID="VideoDisplay_maxWidth_Default" keywords="[VideoDisplay, accessor, maxWidth]" description="Test the default value of the maxWidth property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).maxWidth" value="10000"/>
+            </body>
+        </TestCase>
+
+        <!-- left -->
+        <TestCase testID="VideoDisplay_left_Default" keywords="[VideoDisplay, accessor, left]" description="Test the default value of the left property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).left" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- right -->
+        <TestCase testID="VideoDisplay_right_Default" keywords="[VideoDisplay, accessor, right]" description="Test the default value of the right property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).right" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- owner -->
+        <TestCase testID="VideoDisplay_owner_Default" keywords="[VideoDisplay, accessor, owner]" description="Test the default value of the owner property.">
+            <body>
+                <AssertMethodValue method="value=(new VideoDisplay()).owner" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

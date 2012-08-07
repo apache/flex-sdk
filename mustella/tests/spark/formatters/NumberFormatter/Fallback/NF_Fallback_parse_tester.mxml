@@ -1,0 +1,1248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_Fallback_parse.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NFConstants;
+			
+			import flash.globalization.NumberParseResult;
+			public var nfResult:NumberParseResult;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	
+	<testCases>
+		<TestCase testID="NF_Fallback_parse_int_test1" description="parse string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+
+				<RunCode code="nfResult=application.nf_inline.parse('-1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_int_test2" description="parse string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+
+				<RunCode code="nfResult=application.nf_inline.parse('0000')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_int_test3" description="parse string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('4567')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_int_script_test4" description="parse string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfResult=application.nf.parse('-1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_int_script_test5" description="parse string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfResult=application.nf.parse('0000')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_int_script_test6" description="parse string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="application.addStyleClient(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfResult=application.nf.parse('4567')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_character_test7" description="parse normal string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfResult=application.nf_inline.parse('abc -1234 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=10"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_test8" description="parse normal string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+
+				<RunCode code="nfResult=application.nf_inline.parse('00def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_test9" description="parse normal string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('ab 000')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=6"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_test10" description="parse normal string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+
+				<RunCode code="nfResult=application.nf_inline.parse('4567 abc')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_test11" description="parse normal string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+
+				<RunCode code="nfResult=application.nf_inline.parse('abc 4 5 6')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=6"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_script_test12" description="parse normal string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+
+				<RunCode code="nfResult=application.nf.parse('abc -1234 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=10"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_script_test13" description="parse normal string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('00def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_script_test14" description="parse normal string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('ab 000')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=6"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_script_test15" description="parse normal string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('4567 abc')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_character_script_test16" description="parse normal string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('abc 4 5 6')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=6"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_number_test17" description="parse number string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('1234,45,67.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=12344567.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_test18" description="parse number string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('-1234,4,5.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=13"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_test19" description="parse number string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('1324.456')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=8"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1324.456"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_test20" description="parse number string using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('123.456')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=7"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123.456"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_script_test21" description="parse number string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('1234,45,67.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=12344567.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_script_test22" description="parse number string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('-1234,4,5.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=13"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_script_test23" description="parse number string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('1324.456')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=8"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1324.456"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_script_test24" description="parse number string using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('123.456')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=7"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123.456"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_number_character_test25" description="parse number string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('abc-1234.567')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=12"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-1234.567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_character_test26" description="parse number string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('1234.567 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=9"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1234.567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_character_test27" description="parse number string with character using inline nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_inline.parse('ab 123456.34567 cde')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=16"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123456.34567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_character_script_test28" description="parse number string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('abc-1234.567')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=12"/>
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-1234.567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_character_script_test29" description="parse number string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('1234.567 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=9"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1234.567"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_number_character_script_test30" description="parse number string with character using script nf object set nothing property" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf.parse('ab 123456.34567 cde')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=16"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123456.34567"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_semicolon_test31" description="parse string using inline nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_decimalSeparator.parse('-123;45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_decimalSeparator" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=7"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_semicolon_test32" description="parse string using inline nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_decimalSeparator.parse('4567;123')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=8"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_semicolon_test33" description="parse string using inline nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_decimalSeparator.parse('abc -123;45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=11"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_semicolon_test34" description="parse string using inline nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_decimalSeparator.parse('4567;123 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=9"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_semicolon_test35" description="parse string using inline nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_decimalSeparator.parse('abc 123.456 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=12"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123.456"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_semicolon_test36" description="parse string using script nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="application.addStyleClient(application.nfProperty)"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('-123;45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfProperty" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=7"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_semicolon_test37" description="parse string using script nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('4567;123')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=8"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_semicolon_test38" description="parse string using script nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('abc -123;45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=11"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_semicolon_test39" description="parse string using script nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('4567;123 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=9"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_semicolon_test40" description="parse string using script nf object set decimalSeparator to ';'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('abc 123.456 def')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=12"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123.456"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_groupingSeparator_questionMark_test41" description="parse string using inline nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_groupingSeparator.parse('-123?456.45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_groupingSeparator" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=11"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_groupingSeparator_questionMark_test42" description="parse string using inline nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_groupingSeparator.parse('45?6?7.123')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=10"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_groupingSeparator_questionMark_test43" description="parse string using inline nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_groupingSeparator.parse('aa -123?456.45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_groupingSeparator_questionMark_test44" description="parse string using inline nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_groupingSeparator.parse('ab 4?567.123cd')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=12"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_groupingSeparator_questionMark_test45" description="parse string using inline nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<RunCode code="nfResult=application.nf_groupingSeparator.parse('ab 1234?5?6.789 de')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=16"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123456.789"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_script_groupingSeparator_questionMark_test46" description="parse string using script nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="?" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('-123?456.45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfProperty" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=11"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_groupingSeparator_questionMark_test47" description="parse string using script nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="?" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('45?6?7.123')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=10"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_groupingSeparator_questionMark_test48" description="parse string using script nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="?" waitEvent="change"/>
+				<RunCode code="nfResult=application.nfProperty.parse('aa -123?456.45')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456.45"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_groupingSeparator_questionMark_test49" description="parse string using script nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="?" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('ab 4?567.123cd')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=12"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4567.123"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_groupingSeparator_questionMark_test50" description="parse string using script nf object set groupingSeparator to '?'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="?" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('ab 1234?5?6.789 de')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=16"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123456.789"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_gtSymbol_ggroupingSeparator_doubleQuestionMark_test51" description="parse string using inline nf object set decimalSeparator to '>' and groupingSeparator to '??'" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_properties.parse('-123??456??789>1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_properties" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=19"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456789.1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_gtSymbol_ggroupingSeparator_doubleQuestionMark_test52" description="parse string using inline nf object set decimalSeparator to '>' and groupingSeparator to '??'" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_properties.parse('123??456??789>0')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=15"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123456789.0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_decimalSeparator_gtSymbol_ggroupingSeparator_doubleQuestionMark_test53" description="parse string using inline nf object set decimalSeparator to '>' and groupingSeparator to '??'" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_properties.parse('-123??456>1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456.1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_gtSymbol_ggroupingSeparator_doubleQuestionMark_test54" description="parse string using script nf object set decimalSeparator to '>' and groupingSeparator to '??'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=">"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="??" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('-123??456??789>1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfProperty" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=19"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456789.1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_gtSymbol_ggroupingSeparator_doubleQuestionMark_test55" description="parse string using script nf object set decimalSeparator to '>' and groupingSeparator to '??'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=">"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="??" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('123??456??789>0')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=15"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=123456789.0"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_decimalSeparator_gtSymbol_ggroupingSeparator_doubleQuestionMark_test56" description="parse string using script nf object set decimalSeparator to '>' and groupingSeparator to '??'" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="decimalSeparator" value=">"/>
+				<SetProperty target="nfProperty" propertyName="groupingSeparator" value="??" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('-123??456>1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123456.1234"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_0_test57" description="parse string using inline nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf0.parse('(1234,4,5.091)')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_nnf0" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_0_test58" description="parse string using inline nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf0.parse('( 1234,4,5.091)')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=15"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_0_test59" description="parse string using inline nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf0.parse('(1234,4,5.091 )')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=15"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_0_test60" description="parse string using inline nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf0.parse('( 1234,4,5.091 )')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=16"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_1_test61" description="parse string using inline nf object set negativeNumberFormat to 1" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf1.parse('-1234,4,5.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_nnf1" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=13"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_2_test62" description="parse string using inline nf object set negativeNumberFormat to 2" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf2.parse('- 1234,4,5.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_nnf2" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_3_test63" description="parse string using inline nf object set negativeNumberFormat to 3" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf3.parse('1234,4,5.091-')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_nnf3" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=13"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_negativeNumberFormat_4_test64" description="parse string using inline nf object set negativeNumberFormat to 4" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_nnf4.parse('1234,4,5.091 -')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_nnf4" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_0_test65" description="parse string using script nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=0" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('(1234,4,5.091)')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfProperty" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_0_test66" description="parse string using script nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=0" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('( 1234,4,5.091)')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=15"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_0_test67" description="parse string using script nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=0" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('(1234,4,5.091 )')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=15"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_0_test68" description="parse string using script nf object set negativeNumberFormat to 0" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=0" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('( 1234,4,5.091 )')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=16"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_1_test69" description="parse string using script nf object set negativeNumberFormat to 1" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=1" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('-1234,4,5.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=13"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_2_test70" description="parse string using script nf object set negativeNumberFormat to 2" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=2" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('- 1234,4,5.091')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_3_test71" description="parse string using script nf object set negativeNumberFormat to 3" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=3" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('1234,4,5.091-')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=13"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_negativeNumberFormat_4_test72" description="parse string using script nf object set negativeNumberFormat to 4" keywords="[NumberFormatter, parse]">
+			<setup>
+				<ResetComponent target="nfProperty" className="assets.FallbackNF"/> 
+				<RunCode code="application.nfProperty.initialized(null,'nfProperty')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfProperty" propertyName="negativeNumberFormat" valueExpression="value=4" waitEvent="change"/>
+				
+				<RunCode code="nfResult=application.nfProperty.parse('1234,4,5.091 -')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=14"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-123445.091"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_invalid_test73" description="parse invalid string using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('12ab34cd')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=12"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_invalid_test74" description="parse invalid string using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('$4534*.78')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=1"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4534"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_invalid_test75" description="parse invalid string using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('1,,,234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=1"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_invalid_test76" description="parse invalid string using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse(',1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=1"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_invalid_test77" description="parse invalid string using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('1.23.23,2.3')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1.23"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_invalid_test78" description="parse invalid string using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('12ab34cd')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=2"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=12"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_invalid_test79" description="parse invalid string using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('$4534*.78')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=1"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=4534"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_invalid_test80" description="parse invalid string using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('1,,,234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=1"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_invalid_test81" description="parse invalid string using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse(',1234')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=1"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1234"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_invalid_test82" description="parse invalid string using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('1.23.23,2.3')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=1.23"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_exponentNotation_test83" description="parse string in exponent notation using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('1e7')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=10000000"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_exponentNotation_test84" description="parse string in exponent notation using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('1e-7')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0.0000001"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_exponentNotation_test85" description="parse string in exponent notation using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('-1e-6')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-0.000001"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_script_exponentNotation_test86" description="parse string in exponent notation using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('1e7')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=3"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=10000000"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_exponentNotation_test87" description="parse string in exponent notation using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('1e-7')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=4"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0.0000001"/> 
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_exponentNotation_test88" description="parse string in exponent notation using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('-1e-6')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=5"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=-0.000001"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_empty_test89" description="parse empty string using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf_inline.parse('')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+<!--				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> -->
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NF_Fallback_parse_script_empty_test90" description="parse empty string using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="nfResult=application.nf.parse('')"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<!--				<AssertMethodValue method="value=nfResult.startIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.endIndex" valueExpression="value=0"/> 
+				<AssertMethodValue method="value=nfResult.value" valueExpression="value=0"/> -->
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_null_test91" description="parse null using inline nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="application.testTypeError(application.nf_inline)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
+				<AssertPropertyValue propertyName="text" target="testError" value="TypeError: Error #1009: Cannot access a property or method of a null object reference."/>
+			</body>
+		</TestCase>
+		<TestCase testID="NF_Fallback_parse_script_null_test92" description="parse null using script nf object set no property" keywords="[NumberFormatter, parse]">
+			<setup>
+				
+				<RunCode code="application.testTypeError(application.nf)"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
+				<AssertPropertyValue propertyName="text" target="testError" value="TypeError: Error #1009: Cannot access a property or method of a null object reference."/>
+			</body>
+		</TestCase>
+		
+		
+		
+	</testCases>
+</UnitTester>

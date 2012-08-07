@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/SetAction/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SetAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.Application;
+        import spark.effects.SetAction;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="SetAction_gumboGroup" keywords="[SetAction, usability, group]" description="Affect a gumbo group.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectGumboGroup.play()" waitTarget="effectGumboGroup" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_gumboButton" keywords="[SetAction, usability, button]" description="Affect a gumbo button.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectGumboButton.play()" waitTarget="effectGumboButton" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="110"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_haloButton" keywords="[SetAction, usability, button]" description="Affect a halo button.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectHaloButton.play()" waitTarget="effectHaloButton" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="120"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_haloLabel" keywords="[SetAction, usability, label]" description="Affect a halo label.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectHaloLabel.play()" waitTarget="effectHaloLabel" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="130"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_target" keywords="[SetAction, usability, target]" description="Verify effect works with a single target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTarget.play()" waitTarget="effectTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="90"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_targets" keywords="[SetAction, usability, targets]" description="Verify effect works with multiple targets.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTargets.play()" waitTarget="effectTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="100"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="100"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="100"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_parallelTarget" keywords="[SetAction, usability, parallel, target]" description="Verify effect works in a parallel with a single target on that parallel.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelTarget.play()" waitTarget="parallelTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="105"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_parallelTargets" keywords="[SetAction, usability, parallel, targets]" description="Verify effect works in a parallel with multiple targets on that parallel.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelTargets.play()" waitTarget="parallelTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="110"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="110"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="110"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="110"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_parallelChildTarget" keywords="[SetAction, usability, parallel, target]" description="Verify effect works in a parallel with a single target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelChildTarget.play()" waitTarget="parallelChildTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="115"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_parallelChildTargets" keywords="[SetAction, usability, parallel, targets]" description="Verify effect works in a parallel with multiple targets.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelChildTargets.play()" waitTarget="parallelChildTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="120"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="120"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="120"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="120"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_sequenceTarget" keywords="[SetAction, usability, sequence, target]" description="Verify effect works in a sequence with a single target on that sequence.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceTarget.play()" waitTarget="sequenceTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="125"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_sequenceTargets" keywords="[SetAction, usability, sequence, targets]" description="Verify effect works in a sequence with multiple targets on that sequence.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceTargets.play()" waitTarget="sequenceTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="130"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="130"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="130"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="130"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloLabel" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_sequenceChildTarget" keywords="[SetAction, usability, sequence, target]" description="Verify effect works in a sequence with a single target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceChildTarget.play()" waitTarget="sequenceChildTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="135"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetAction_sequenceChildTargets" keywords="[SetAction, usability, sequence, targets]" description="Verify effect works in a sequence with multiple targets.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceChildTargets.play()" waitTarget="sequenceChildTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="140"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="140"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="140"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="140"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+
+        <!-- Transition with simple effect - effect with target -->
+        <TestCase testID="SetAction_transitionSimpleTarget" keywords="[SetAction, usability, transition, target]" description="Verify a simple effect with a target works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTarget.play()" waitTarget="effectTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="90"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with simple effect - effect with targets -->
+        <TestCase testID="SetAction_transitionSimpleTargets" keywords="[SetAction, usability, transition, targets]" description="Verify a simple effect with multiple targets works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectTargets.play()" waitTarget="effectTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="100"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="100"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="100"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="100"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - composite with target -->
+        <TestCase testID="SetAction_transitionCompositeTarget" keywords="[SetAction, usability, transition, composite, target]" description="Verify a composite effect with a target works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelTarget.play()" waitTarget="parallelTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="105"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - composite with targets -->
+        <TestCase testID="SetAction_transitionCompositeTargets" keywords="[SetAction, usability, transition, composite, targets]" description="Verify a composite effect with multiple targets works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceTargets.play()" waitTarget="sequenceTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="130"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="130"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="130"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="130"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloLabel" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - child effects with target -->
+        <TestCase testID="SetAction_transitionCompositeChildTarget" keywords="[SetAction, usability, transition, composite, target]" description="Verify a composite effect with a target on the child effect works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.parallelChildTarget.play()" waitTarget="parallelChildTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="115"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with composite effect - child effects with targets -->
+        <TestCase testID="SetAction_transitionCompositeChildTargets" keywords="[SetAction, usability, transition, composite, targets]" description="Verify a composite effect with multiple targets on the child effects works in a transition.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sequenceChildTargets.play()" waitTarget="sequenceChildTargets" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="140"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="140"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="140"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="140"/>
+                <AssertPropertyValue target="gumboButton" propertyName="alpha" value=".699219"/>
+                <AssertPropertyValue target="haloButton" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+
+        
+        <!-- BINDING/STATES SYNTAX -->
+        <!-- Transition with start/end values from the effect -->
+        <TestCase testID="SetAction_effectStartEnd" keywords="[SetAction, usability, transition, state]" description="Verify a transition effect works with start/end values from the effect, but still binds to ending state values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState = 'State8'" waitTarget="effectStartEnd" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- Transition with start/end values from the state syntax -->
+        <TestCase testID="SetAction_effectSyntaxStartEnd" keywords="[SetAction, usability, transition, state]" description="Verify a transition effect works with start/end values from the states syntax on the target.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState = 'State9'" waitEvent="manualResetComplete"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="150"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

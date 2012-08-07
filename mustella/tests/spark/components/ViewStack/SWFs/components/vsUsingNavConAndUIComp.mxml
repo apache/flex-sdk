@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="300" height="200" x="800" y="0" >
+	
+	<s:NumericStepper id="num_stepper" y="0"/>
+<!-- uncomment when ViewStack becomes available	
+	<s:DropDownList id="myDropDownList" dataProvider="{mainViewStack}" selectedIndex="0" y="25"/>
+	
+	<s:ViewStack id="mainViewStack" width="400" height="300" selectedIndex="{num_stepper.value}" selectedElement="@{myDropDownList.selectedItem}">
+		<s:NavigatorContent id="view1" label="View 1">
+			<s:layout>
+				<s:BasicLayout />
+			</s:layout>
+			<s:Rect width="20" height="20" top="0" left="0" >
+				<s:stroke>
+					<s:SolidColorStroke weight="1" color="0x880000" />
+				</s:stroke>
+				<s:fill>
+					<s:SolidColor alpha="1" color="0x008800" />
+				</s:fill>
+			</s:Rect>
+			<s:Button label="Button" top="0" right="0" />
+			<s:CheckBox label="CheckBox" bottom="0" left="0" />
+			<s:TextInput text="TextInput" bottom="0" right="0" width="60" />
+		</s:NavigatorContent>
+		<s:NavigatorContent id="view2" label="View 2">
+			<s:layout>
+				<s:VerticalLayout />
+			</s:layout>
+			<s:Rect width="20" height="20" >
+				<s:stroke>
+					<s:SolidColorStroke weight="1" color="0x880000" />
+				</s:stroke>
+				<s:fill>
+					<s:SolidColor alpha="1" color="0x008800" />
+				</s:fill>
+			</s:Rect>
+			<s:Button label="Button" />
+			<s:CheckBox label="CheckBox" />
+			<s:TextInput text="TextInput" width="60" />
+		</s:NavigatorContent>
+		<s:Button id="directButton" label="Direct child of VS" />
+		<s:Label id="directLabel" text="Label: Direct child of VS" />
+		<s:Panel id="directPanel1">
+			<s:Rect width="20" height="20" top="0" left="0" >
+				<s:stroke>
+					<s:SolidColorStroke weight="1" color="0x880000" />
+				</s:stroke>
+				<s:fill>
+					<s:SolidColor alpha="1" color="0x008800" />
+				</s:fill>
+			</s:Rect>
+		</s:Panel>
+		<s:Panel id="directPanel2" height="300">
+			<s:Scroller width="100%" height="100%">
+				<s:VGroup>
+					<s:Button label="Panel List Button 1"/>
+					<s:Button label="Panel List Button 2"/>
+					<s:Button label="Panel List Button 3"/>
+					<s:CheckBox label="Panel List Checkbox 1" />
+					<s:CheckBox label="Panel List Checkbox 2" />
+					<s:CheckBox label="Panel List Checkbox 3" />
+					<s:Button label="Panel List Button 12"/>
+					<s:Button label="Panel List Button 22"/>
+					<s:Button label="Panel List Button 32"/>
+					<s:CheckBox label="Panel List Checkbox 12" />
+					<s:CheckBox label="Panel List Checkbox 22" />
+					<s:CheckBox label="Panel List Checkbox 32" /> 
+					<s:Button label="Panel List Button 13"/>
+					<s:Button label="Panel List Button 23"/>
+					<s:Button label="Panel List Button 33"/>
+					<s:CheckBox label="Panel List Checkbox 13" />
+					<s:CheckBox label="Panel List Checkbox 23" />
+					<s:CheckBox label="Panel List Checkbox 33" /> 
+				</s:VGroup>
+			</s:Scroller>
+		</s:Panel>
+		
+		<s:HGroup id="directHgroup">
+			<s:ComboBox id="hGroupComboBox1">
+				<s:dataProvider>
+					<s:ArrayCollection>
+						<fx:String>1</fx:String>
+						<fx:String>2</fx:String>
+						<fx:String>3</fx:String>
+						<fx:String>4</fx:String>
+					</s:ArrayCollection>
+				</s:dataProvider>
+			</s:ComboBox>
+		</s:HGroup>
+		
+		<s:Rect id="directRect" width="20" height="20" top="30" left="0" >
+			<s:stroke>
+				<s:SolidColorStroke weight="1" color="0x880000" />
+			</s:stroke>
+			<s:fill>
+				<s:SolidColor alpha="1" color="0x000000" />
+			</s:fill>
+		</s:Rect>
+	</s:ViewStack>
+-->	
+</s:Group>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:newComps="newComps.*"
+		 updateComplete="updateCompleteHandler(event)"
+		 width="100%" height="100%">
+
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.*;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			
+			public var mySortScript:Sort = new Sort();
+			public var mySortFieldScript:SortField = new SortField();
+			public var mySortFieldScript2:SortField = new SortField();
+
+			public var myStr:String ; 
+			
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(mySortScript ) ; 
+				this.addStyleClient(mySortFieldScript ) ; 
+				this.addStyleClient(mySortFieldScript2 ) ; 
+			}
+			
+			public function getArrayOfField(fieldName:String ) :Array{
+				if ( mxDataGrid.dataProvider != null ) {
+					var ac:ArrayCollection = mxDataGrid.dataProvider as ArrayCollection ;
+					var fieldArr:Array = SFConstant.getArrayOfField(fieldName , ac ) ;
+					return fieldArr ; 
+				}
+				
+				return null ;
+			}
+
+			public function  sparkSortedArrayField(field:String):Array {
+				if ( mxDataGrid.dataProvider != null ) {
+					var ac:ArrayCollection = mxDataGrid.dataProvider as ArrayCollection ;
+					var fieldArr:Array = SFConstant.getArrayOfField(field, ac);
+					fieldArr.sort(sparkCollator.compare);
+					
+					return fieldArr;
+				}
+				
+				return null;
+			}
+			
+			public function assign_field_object(orig:SortField , newField:SortField ) :void {
+				orig.name = "name" ; 
+				newField.name = "address" ;
+				newField = orig ;
+				
+			}
+			
+			public function assign_script_sort_object (  ):void {
+				mySortFieldScript.name = "age" ; 
+				mySortFieldScript2.name = "name" ; 
+				
+				mySortScript.fields = ( [ mySortFieldScript] ) ;
+				
+				var sort:Sort = new Sort( ) ; 
+				this.addStyleClient(sort) ; 
+				sort.fields = ( [ mySortFieldScript2] ) ; 
+				
+				mySortScript = sort ;
+				
+				//return null ;
+			}
+			
+			public function assign_script_sortfield_object (  ):void {
+				mySortFieldScript.setStyle("locale", "fr-FR");
+				mySortFieldScript.name = "address" ; 
+				mySortFieldScript2.name = "name" ; 
+				
+				mySortFieldScript2 = mySortFieldScript ; 
+				
+				
+				mySortScript.fields = ( [ mySortFieldScript2 ] ) ;
+				
+				sparkCollator.setStyle("locale"  , "fr-FR" ) ; 
+				
+				//return null ;
+			}
+			
+			public function getSortFieldName(sortName:String):String {
+				if ( sortName == "mySortNew" )
+					return mySortNew.fields[0].name ;
+				else if ( sortName == "mySort" ) 
+					return mySort.fields[0].name ;
+				else if ( sortName == "mySortScript" ) 
+					return mySortScript.fields[0].name ;
+				else 
+					return null ;
+			}
+			
+			
+			public function mySortCompareFunction(str1:String , str2:String , fields:Array = null ):int {
+				
+				return 0 ;
+				
+			}
+			
+			public function sortPrintOut(sort:Sort):Boolean{
+				if(sort.toString().length > 0)
+					return true;
+				else 
+					return false;
+			}
+			
+			public function sortFieldPrintOut(sortfield:SortField):Boolean{
+				if(sortfield.toString().length > 0)
+					return true;
+				else 
+					return false;
+			}
+			
+
+			
+
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>	
+		<s:Sort id="mySort" />
+		<s:Sort id="mySortNew" /> 
+		
+		<s:SortField id="mySortField"/>
+		<s:SortField id="mySortField2"/>
+		
+		<s:SortingCollator id="sparkCollator" /> 
+	</fx:Declarations>
+	
+	<newComps:BaseDataComp id="baseDataComp" />
+	
+	<mx:DataGrid id="mxDataGrid" />
+			
+	
+	<s:Label id="lbOrderStr" /> 
+	
+</s:VGroup>

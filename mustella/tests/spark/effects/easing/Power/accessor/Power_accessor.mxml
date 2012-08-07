@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/Power/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/Power_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.Power;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Power_exponent_Default" keywords="[Power, exponent, acceleration]" description="Test the default value of the exponent accessor.">
+            <body>
+                <AssertMethodValue method="value=(new Power()).exponent" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Power_easeInFraction_Default" keywords="[Power, accessor, easeInFraction]" description="Test the default value of the easeInFraction accessor.">
+            <body>
+                <AssertMethodValue method="value=(new Power()).easeInFraction" value=".5"/>
+            </body>
+        </TestCase>
+        
+        <!-- IMHO: THis should FAIL -->
+        <TestCase testID="Power_exponent_Negative" keywords="[Power, accessor, exponent]" description="Set the value of the exponent accessor to a negative value.">
+            <body>
+                <SetProperty target="testEaser" propertyName="exponent" value="-5"/>
+            </body>
+        </TestCase>        
+        
+    </testCases>
+
+</UnitTester>

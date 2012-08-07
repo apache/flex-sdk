@@ -1,0 +1,1802 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_validate.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NVConstants;
+		
+		import flash.globalization.*;
+		
+		import flashx.textLayout.formats.Float;
+		
+		import mx.events.ValidationResultEvent;
+		
+		private var num:String = '12.0';
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<testCases>
+	
+
+	<TestCase testID="NV_validate_default_valid_number_test1" 
+			  description="Test NumberValidator with default locale and properties to validate a number with grouping and decimal separator"  
+			  keywords="[NumberValidator, validate, default, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123,456,789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_number_test2" 
+			  description=" Test NumberValidator with default locale and properties to validate a number"  
+			  keywords="[NumberValidator, validate, default, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0.34" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_number_test3" 
+			  description="Test NumberValidator with default locale and properties to validate a negative number "  
+			  keywords="[NumberValidator, validate, default, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_number_test4" 
+			  description=" Test NumberValidator with default locale and properties to validate an integer number "  
+			  keywords="[NumberValidator, validate, default, valid, enabled is false, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="1234567" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_number_test5" 
+			  description="Test NumberValidator with default locale and properties to validate an invalid number  "  
+			  keywords="[NumberValidator, validate, default, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123456.789.9876" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_number_test6" 
+			  description=" Test NumberValidator with default locale and properties to validate an invalid number "  
+			  keywords="[NumberValidator, validate, default, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="abc0.345678" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_number_test7" 
+			  description=" Test NumberValidator with default locale and properties to validate an invalid number "  
+			  keywords="[NumberValidator, validate, default, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_number_test8" 
+			  description=" Test NumberValidator with default locale and properties to validate an invalid number "  
+			  keywords="[NumberValidator, validate, default, invalid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_trigger_properties_test9" 
+			  description="Validate a valid number with trigger and triggerEvent properties and default locale  "  
+			  keywords="[NumberValidator, validate, default, trigger, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123,456,789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_trigger_properteis_test10" 
+			  description=" Validate a valid number with trigger and triggerEvent properties and default locale "  
+			  keywords="[NumberValidator, validate, default, trigger, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0.34" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_trigger_properties_test11" 
+			  description="Validate a valid number with trigger and triggerEvent properties and default locale  "  
+			  keywords="[NumberValidator, validate, default, trigger, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_trigger_enabled_false_test12" 
+			  description=" Validate a valid number with trigger and triggerEvent properties and default locale  "  
+			  keywords="[NumberValidator, validate, default, trigger, valid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_trigger_test13" 
+			  description=" Validate an invalid number with trigger and triggerEvent properties and default locale  "  
+			  keywords="[NumberValidator, validate, default, trigger, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123456.789.9876" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_trigger_test14" 
+			  description=" Validate an invalid number with trigger and triggerEvent properties and default locale "  
+			  keywords="[NumberValidator, validate, default, trigger, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="abc0.345678" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_trigger_test15" 
+			  description=" Validate an invalid number with trigger and triggerEvent properties and default locale "  
+			  keywords="[NumberValidator, validate, default, trigger, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_trigger_test16" 
+			  description=" Validate an invalid number with trigger and triggerEvent properties and default locale "  
+			  keywords="[NumberValidator, validate, default, trigger, valid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" />
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid" />
+		</body>  
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validate_default_valid_model_test17" 
+			  description="Test validator with data Model propertis, fx:Model, to validat valid number"  
+			  keywords="[NumberValidator, validate, default, model, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123,456,789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvModel" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validate_default_valid_model_test18" description=" Test validator with data Model propertis, fx:Model, to validat valid number "  keywords="[NumberValidator, validate, default, model, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>			
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0.34" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvModel" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_model_test19" description=" Test validator with data Model propertis, fx:Model, to validat valid number "  keywords="[NumberValidator, validate, default, model, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="negativeNumberFormat" value="1"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvModel" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_model_test20" description=" Test validator with data Model propertis, fx:Model, to validat valid number "  keywords="[NumberValidator, validate, default, model, valid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_model_test21" description=" Test validator with data Model propertis, fx:Model, to validat invalid number "  keywords="[NumberValidator, validate, default, model, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123456.789.9876" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvModel" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_model_test22" description=" Test validator with data Model propertis, fx:Model, to validat invalid number "  keywords="[NumberValidator, validate, default, model, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="abc0.345678" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvModel" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_model_test23" description=" Test validator with data Model propertis, fx:Model, to validat invalid number "  keywords="[NumberValidator, validate, default, model, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvModel" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_model_test24" description=" Test validator with data Model propertis, fx:Model, to validat invalid number "  keywords="[NumberValidator, validate, default, model, invalid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="source" valueExpression="value=application.myCustomNVComp.RegInfo"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="property" value="weight"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="listener" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="required" value="false"/>
+			<SetProperty target="myCustomNVComp.nvModel" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvModel" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validate_default_valid_setListenerInScripts_test25" 
+			  description="Setting validator listener in action scripts and validate valid number  "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123,456,789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="invalid" />
+			<AssertPropertyValue target="myCustomNVComp.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validate_default_valid_setListenerInScripts_test26" 
+			  description=" Setting validator listener in action scripts and validate valid number "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0.34" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="invalid" />
+			<AssertPropertyValue target="myCustomNVComp.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_setListenerInScripts_test27" 
+			  description=" Setting validator listener in action scripts and validate valid number "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="invalid" />
+			<AssertPropertyValue target="myCustomNVComp.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.VALID"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_valid_setListenerInScripts_enabled_false_test28" 
+			  description=" Setting validator listener in action scripts and validate valid number, but set enabled as false "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, valid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiProgType"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-100.40" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="invalid" />
+			<AssertPropertyValue target="myCustomNVComp.uiLb" propertyName="text" valueExpression="value=''"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_setListenerInScripts_test29" 
+			  description=" Setting validator listener in action scripts and validate invalid number  "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123456.789.9876" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_setListenerInScripts_test30" 
+			  description=" Setting validator listener in action scripts and validate invalid number   "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="abc0.345678" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_setListenerInScripts_test31" 
+			  description="  Setting validator listener in action scripts and validate invalid number  "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_default_invalid_setListenerInScripts_test32" 
+			  description="  Setting validator listener in action scripts and validate invalid number , but set enabled properties as false "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid, enabled is false]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.uiProgType" propertyName="text" value="disabled" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiProgType"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click"/>
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_method_invalid_trigger_decimalPointErr_test33" 
+			  description="Set listener from action scripts and moving mouse to focus and show validator error tips and compare bitmap to validate an invalid number to generate decimalPointError "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123456.789.9876" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiLb"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+			
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/decimalPointCountError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000" />
+			
+		</body>
+	</TestCase>
+
+	<TestCase testID="NV_validate_method_invalid_trigger_invalideCharErr_test34" 
+			  description="Set listener from action scripts and moving mouse to focus and show validator error tips and compare bitmap to validate an invalid number to generate invalidCharError "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="abc0.345678" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiLb"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+			
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/invalidCharError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000" />
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_method_invalid_trigger_invalideCharErr_test35" 
+			  description="Set listener from action scripts and moving mouse to focus and show validator error tips and compare bitmap to validate an invalid number to generate invalidCharError "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10o0.04550000" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiLb"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+			
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/invalidCharError2.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000" />
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_method_invalid_trigger_by_mouse_test36" 
+			  description="Set listener from action scripts and moving mouse to focus and show validator error tips and compare bitmap to validate an invalid number to generate error "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12,34,56,78,9.0.1" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTGenTrigger" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiLb"/>
+			<AssertEvent target="myCustomNVComp.nvProg" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvProg" eventName="valid" />
+			
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/decimalError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000" />
+			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_inline_fr_FR_locale_valid_number_test37" 
+			  description="Test NumberValidator with inline locale to validate a number with decimal separator"  
+			  keywords="[NumberValidator, validate, locale, valid, decimalSeparator]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-123456789,98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvLocale" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvLocale" eventName="invalid" />
+		</body>  
+	</TestCase>
+	
+	<TestCase testID="NV_validate_inline_fr_FR_locale_valid_number_test38" 
+			  description="Test NumberValidator with inline locale to validate a number with decimal separator"  
+			  keywords="[NumberValidator, validate, locale, valid, decimalSeparator]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123 456 789,98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvLocale" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvLocale" eventName="invalid" />
+		</body>  
+	</TestCase>	
+	
+	<TestCase testID="NV_validate_inline_fr_FR_locale_invalid_number_test39" 
+			  description="Test NumberValidator with inline locale to validate a number with decimal separator"  
+			  keywords="[NumberValidator, validate, locale, valid, decimalSeparator]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-123,345,678.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvLocale" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvLocale" eventName="valid" />
+			
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/fr_FR_invalidCharError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000" />
+		</body>  
+	</TestCase>	
+	
+	<TestCase testID="NV_validate_inline_fr_FR_locale_invalid_number_test40" 
+			  description="Test NumberValidator with inline locale to validate a number with decimal separator"  
+			  keywords="[NumberValidator, validate, locale, valid, decimalSeparator]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/> 
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvLocale" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123 456 789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchKeyEvent keys="[TAB, TAB]"/>
+			<AssertEvent target="myCustomNVComp.nvLocale" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="myCustomNVComp.nvLocale" eventName="valid" />
+			
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="" url="../Methods/baselines/fr_FR_invalidCharError2.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000" />			
+		</body>  
+	</TestCase>	
+	
+	
+	<TestCase testID="NV_default_decimalPointCountError_buttonTrig_bitmap_test41" 
+			  description="Test NumberValidator with default and validate invalid number to generate decimalPointCountError"
+			  keywords="[NumberValidator, decimalPointCountError, default, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123,456.789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/decimalPointCountError2.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_default_decimalPointCountError_actionscripts_buttonTrig_bitmap_test42" 
+			  description="Test NumberValidator with default and validate invalid number to generate decimalPointCountError"
+			  keywords="[NumberValidator, decimalPointCountError, default, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="decimalPointCountError" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="123,456.789.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/decimalPointCountError_custom.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_default_custom_decimalPointCountError_invalid_buttonTrig_test43" 
+			  description="Test NumberValidator with  and negativeEorror properties and validate invalid number"
+			  keywords="[NumberValidator, custom decimalPointCountError, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="decimalPointCountError" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.98.38" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_decimalSeparator_colon_custom_decimalPointCountError_invalid_script_buttonTrig_test44" 
+			  description="Test NumberValidator with decimalSeparator as colon and validate invalid number to generate decimalPointCountError"
+			  keywords="[NumberValidator, decimalSepator, custom decimalPointCountError, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="decimalSeparator" value=":"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="decimalPointCountError" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12:98:38" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.DECIMALPOINTCOUNT_ERROR"/>
+		</body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="NV_maxValue_greaterThanMaxError_buttonTrig_bitmap_test45" 
+			  description="Test NumberValidator with maxValue and validate invalid number to generate greaterThanMaxError"
+			  keywords="[NumberValidator, greaterThanMaxError, maxValue, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="maxValue" value="999"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="1234" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/greaterThanMaxError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_maxValue_greaterThanMaxError_actionscripts_buttonTrig_bitmap_test46" 
+			  description="Test NumberValidator with maxValue properties and validate invalid number to generate greaterThanMaxError"
+			  keywords="[NumberValidator, greaterThanMaxError, maxValue, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="maxValue" value="999"/>
+			<SetStyle target="myCustomNVComp.nvScript" styleName="locale" value="hi-IN" waitEvent="change"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="greaterThanMaxError" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="1234" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/greaterThanMaxError2.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_maxValue_custom_greaterThanMaxError_buttonTrig_test47" 
+			  description="Test NumberValidator with maxValue and greaterThanMaxError and validate invalid number to generate greaterThanMaxError"
+			  keywords="[NumberValidator, greaterThanMaxError, maxValue, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="maxValue" value="999"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="greaterThanMaxError" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="1234.56" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_maxValue_custom_greaterThanMaxError_actionscripts_buttonTrig_test48" 
+			  description="Test NumberValidator with maxValue and greaterThanMaxError properties and validate invalid number to generate greaterThanMaxError"
+			  keywords="[NumberValidator, greaterThanMaxError, maxValue, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="maxValue" value="-100"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="greaterThanMaxError" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.GREATER_THAN_MAX_ERROR"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_maxValue_lessThanMinError_buttonTrig_bitmap_test49" 
+			  description="Test NumberValidator with maxValue and validate invalid number to generate lessThanMinError"
+			  keywords="[NumberValidator, lessThanMinError, minValue, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="minValue" value="100"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="lessThanMinError" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/lessThanMinError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_maxValue_lessThanMinError_actionscripts_buttonTrig_bitmap_test50" 
+			  description="Test NumberValidator with maxValue properties and validate invalid number to generate lessThanMinError"
+			  keywords="[NumberValidator, lessThanMinError, minValue, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="minValue" value="100"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="lessThanMinError" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/lessThanMinError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_maxValue_custom_lessThanMinError_buttonTrig_test51" 
+			  description="Test NumberValidator with maxValue and lessThanMinError and validate invalid number to generate lessThanMinError"
+			  keywords="[NumberValidator, lessThanMinError, minValue, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="minValue" value="0"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="lessThanMinError" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-10" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_maxValue_custom_lessThanMinError_actionscripts_buttonTrig_test52" 
+			  description="Test NumberValidator with maxValue and lessThanMinError properties and validate invalid number to generate lessThanMinError"
+			  keywords="[NumberValidator, lessThanMinError, minValue, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="minValue" value="-10"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="lessThanMinError" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.LESS_THAN_MIN_ERROR"/>
+		</body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="NV_allowNegative_false_negativeError_invalid_buttonTrig_test53" 
+			  description="Test NumberValidator with allowNegative properties and validate invalid number"
+			  keywords="[NumberValidator, allowNegative, negativeError, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeError" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-0.23" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/negativeError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_allowNegative_false_negativeError_invalid_actionscripts_buttonTrig_test54" 
+			  description="Test NumberValidator with allowNegative properties and validate invalid number"
+			  keywords="[NumberValidator, allowNegative, negativeError, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeError" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-0.23" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/negativeError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_allowNegative_false_custom__negativeError_invalid_buttonTrig_test55" 
+			  description="Test NumberValidator with allowNegative and negativeEorror properties and validate invalid number"
+			  keywords="[NumberValidator, allowNegative, custom negativeError, default, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeError" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+		</body>
+	</TestCase>
+	<TestCase testID="NV_allowNegative_false_custom_negativeError_invalid_script_buttonTrig_test56" 
+			  description="Test NumberValidator with allowNegative properties and negativeError and validate invalid number"
+			  keywords="[NumberValidator, allowNegative, custom negativeError, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="allowNegative" value="false"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeError" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.98" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.NEGATIVE_ERROR"/>
+		</body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="NV_domain_notAnIntegerError_buttonTrig_bitmap_test57" 
+			  description="Test NumberValidator with domain and validate invalid number to generate notAnIntegerError"
+			  keywords="[NumberValidator, notAnIntegerError, domain, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="domain" value="int"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="notAnIntegerError" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.34" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/notAnIntegerError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_domain_notAnIntegerError_actionscripts_buttonTrig_bitmap_test58" 
+			  description="Test NumberValidator with domain properties and validate invalid number to generate notAnIntegerError"
+			  keywords="[NumberValidator, notAnIntegerError, domain, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="domain" value="int"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="notAnIntegerError" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.34" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/notAnIntegerError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_property_domain_custom_notAnIntegerError_errorString_test59" 
+			  description="Test NumberValidator with domain and notAnIntegerError and validate invalid number to generate notAnIntegerError"
+			  keywords="[NumberValidator, notAnIntegerError, domain, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="domain" value="int"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="notAnIntegerError" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" valueExpression="value=num" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_property_domain_custom_notAnIntegerError_actionscripts_valid_test60" 
+			  description="Test NumberValidator with domain and notAnIntegerError properties and validate valid number"
+			  keywords="[NumberValidator, notAnIntegerError, domain, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="domain" value="real"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="notAnIntegerError" valueExpression="value=NVConstants.INTEGER_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="10.04" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="invalid"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_fractionalDigitsError_buttonTrig_bitmap_test61" 
+			  description="Test NumberValidator with fraction Digits and validate invalid number to generate fractionDigitsError"
+			  keywords="[NumberValidator, fractionDigitsError, fractionalDigits, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.3456" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/fractionalDigitsError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_fractionalDigitsError_actionscripts_buttonTrig_bitmap_test62" 
+			  description="Test NumberValidator with fractionDigits properties and validate invalid number to generate fractionalDigitsError"
+			  keywords="[NumberValidator, fractionalDigitsError, fractionDigits, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.3456" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/fractionalDigitsError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_custom_fractionalDigitsError_errorString_invalid_test63" 
+			  description="Test NumberValidator with fractionDigits and fractionalDigitsError and validate invalid number to generate fractionalDigitsError"
+			  keywords="[NumberValidator, fractionalDigitsError, fractionDigits, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="4"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="10.0000001" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_custom_fractionalDigitsError_actionscripts_valid_test64" 
+			  description="Test NumberValidator with fractionDigits and fractionDigitsError properties and validate valid number "
+			  keywords="[NumberValidator, fractionalDigitsError, fractionDigits, trigger programmatically, valid, ]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigits" value="0"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigitsError" valueExpression="value=NVConstants.FRACTIONAL_DIGITS_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="10" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="invalid" />
+		</body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="NV_negativeNumberFormatError_buttonTrig_bitmap_test69" 
+			  description="Test NumberValidator with negativeNumberFormat and validate invalid number to generate negativeNumberFormatError"
+			  keywords="[NumberValidator, negativeNumberFormatError, negativeNumberFormat, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="4"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="decimalSeparator" value="."/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/negativeNumberFormatError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_negativeNumberFormatError_actionscripts_buttonTrig_bitmap_test70" 
+			  description="Test NumberValidator with negativeNumberFormat properties and validate invalid number to generate negativeNumberFormatError"
+			  keywords="[NumberValidator, negativeNumberFormatError, negativeNumberFormat, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormat" value="4"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/negativeNumberFormatError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_custom_negativeNumberFormatError_buttonTrig_errorString_test71" 
+			  description="Test NumberValidator with fractionDigits and negativeNumberFormatError and validate invalid number to generate negativeNumberFormatError"
+			  keywords="[NumberValidator, negativeNumberFormatError, negativeNumberFormat, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="3"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="(10)" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_custom_negativeNumberFormatError_actionscripts_valid_test72" 
+			  description="Test NumberValidator with negativeFormat and negativeNumberFormatError properties and validate valid number "
+			  keywords="[NumberValidator, negativeNumberFormatError, negativeNumberFormat, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormat" value="3"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormatError" valueExpression="value=NVConstants.NEGATIVENUMBERFORMAT_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12-" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="invalid"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_negativeSymbolError_buttonTrig_bitmap_test73" 
+			  description="Test NumberValidator  and validate invalid number to generate negativeSymbolError"
+			  keywords="[NumberValidator, negativeSymbolError, negativeSymbol, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="1"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeSymbolError" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="--12.3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/negativeSymbolError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_negativeSymbolError_actionscripts_buttonTrig_bitmap_test74" 
+			  description="Test NumberValidator with negativeSymbol properties and validate invalid number to generate negativeSymbolError"
+			  keywords="[NumberValidator, negativeSymbolError, negativeSymbol, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigits" value="1"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeSymbolError" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="--12.3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/negativeSymbolError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_custom_negativeSymbolError_buttonTrig_errorString_test75" 
+			  description="Test NumberValidator with negativeSymbolError and validate invalid number to generate negativeSymbolError"
+			  keywords="[NumberValidator, negativeSymbolError, negativeSymbol, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeNumberFormat" value="3"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="negativeSymbolError" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0.12--" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+		</body>
+	</TestCase>
+	
+
+	<TestCase testID="NV_custom_negativeSymbolError_actionscripts_valid_test76" 
+			  description="Test NumberValidator with negativeFormat and negativeSymbolError properties and validate valid number "
+			  keywords="[NumberValidator, negativeSymbolError, negativeSymbol, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeNumberFormat" value="3"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="negativeSymbolError" valueExpression="value=NVConstants.NEGATIVE_SYMBOL_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.34-" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+		</body>
+	</TestCase>
+
+	
+	<TestCase testID="NV_invalidCharError_buttonTrig_bitmap_test77" 
+			  description="Test NumberValidator  and validate invalid number to generate invalidCharError"
+			  keywords="[NumberValidator, invalidCharError,  trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="invalidCharError" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.3*3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/invalidCharError3.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_invalidCharError_actionscripts_buttonTrig_bitmap_test78" 
+			  description="Test NumberValidator  and validate invalid number to generate invalidCharError"
+			  keywords="[NumberValidator, invalidCharError, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="invalidCharError" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-12.3*3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/invalidCharError3.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_custom_invalidCharError_buttonTrig_errorString_test79" 
+			  description="Test NumberValidator with invalidCharError properties and validate invalid number to generate invalidCharError"
+			  keywords="[NumberValidator, invalidCharError, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="invalidCharError" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.3*3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_custom_invalidCharError_actionscripts_invalid_test80" 
+			  description="Test NumberValidator with invalidCharError properties and validate valid number "
+			  keywords="[NumberValidator, invalidCharError, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="invalidCharError" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="12.3*3" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.INVALIDCHAR_ERROR"/>
+		</body>
+	</TestCase>
+		
+	<TestCase testID="NV_invalidFormatCharsError_buttonTrig_bitmap_test81" 
+			  description="Test NumberValidator  and validate invalid number to generate invalidFormatCharsError"
+			  keywords="[NumberValidator, invalidFormatCharsError,  trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="groupingSeparator" value=":"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="decimalSeparator" value=":"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="1"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="234:567:8" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/invalidFormatCharsError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_invalidFormatCharsError_actionscripts_buttonTrig_bitmap_test82" 
+			  description="Test NumberValidator  and validate invalid number to generate invalidFormatCharsError"
+			  keywords="[NumberValidator, invalidFormatCharsError, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="groupingSeparator" value=":"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="decimalSeparator" value=":"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="fractionalDigits" value="1"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="234:567:8" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/invalidFormatCharsError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_custom_invalidFormatCharsError_buttonTrig_errorString_test83" 
+			  description="Test NumberValidator with invalidFormatCharsError properties and validate invalid number to generate invalidFormatCharsError"
+			  keywords="[NumberValidator, invalidFormatCharsError, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="groupingSeparator" value="-"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="decimalSeparator" value="-"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-123-345-78" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_custom_invalidFormatCharsError_actionscripts_invalid_test84" 
+			  description="Test NumberValidator with invalidFormatCharsError properties and validate valid number "
+			  keywords="[NumberValidator, invalidFormatCharsError, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="groupingSeparator" value="-"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="decimalSeparator" value="-"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="invalidFormatCharsError" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="-123-345-78" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.INVALIDFORMATCHAR_ERROR"/>
+		</body>
+	</TestCase>
+		
+	<TestCase testID="NV_parseError_buttonTrig_bitmap_test85" 
+			  description="Test NumberValidator  and validate invalid number to generate parseError"
+			  keywords="[NumberValidator, parseError,  trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0 1 2 3 4" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/parseError1.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_parseError_actionscripts_buttonTrig_bitmap_test86" 
+			  description="Test NumberValidator  and validate invalid number to generate parseError"
+			  keywords="[NumberValidator, parseError, trigger programmatically, invalid, bitmap]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="parseError" valueExpression="value=NVConstants.PARSE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0 1 2 3 4" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiTI" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomNVComp.uiTI"/>
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="" url="../Methods/baselines/parseError.png" numColorVariances="15" ignoreMaxColorVariance="true" timeout="2000"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_custom_parseError_buttonTrig_errorString_test87" 
+			  description="Test NumberValidator with parseError properties and validate invalid number to generate parseError"
+			  keywords="[NumberValidator, parseError, trigger programmatically, invalid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="parseError" valueExpression="value=NVConstants.PARSE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0 1 2 3 4" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvDefault" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.PARSE_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_custom_parseError_actionscripts_invalid_test88" 
+			  description="Test NumberValidator with parseError properties and validate valid number "
+			  keywords="[NumberValidator, parseError, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="source" valueExpression="value=application.myCustomNVComp.uiTI"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="property" value="text"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="trigger" valueExpression="value=application.myCustomNVComp.uiBT"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="parseError" valueExpression="value=NVConstants.PARSE_ERROR"/>
+			<SetProperty target="myCustomNVComp.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="myCustomNVComp.uiTI" propertyName="text" value="0 1 2 3 4" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<DispatchMouseEvent target="myCustomNVComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiTI"/>
+			<AssertEvent target="myCustomNVComp.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="myCustomNVComp.nvScript" eventName="valid"/>
+			<AssertPropertyValue target="myCustomNVComp.uiTI" propertyName="errorString" valueExpression="value=NVConstants.PARSE_ERROR"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validate_non_string_object_error_test89" 
+			  description=" Setting validator listener in action scripts and validate valid number "  
+			  keywords="[NumberValidator, validate, default, trigger programmatically, valid]">
+		<setup>
+			<ResetComponent target="myCustomNVComp" className="assets.CustomNV" waitEvent="updateComplete" waitTarget="myCustomNVComp"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="myCustomNVComp.uiBTAll" type="click" waitEvent="updateComplete" waitTarget="myCustomNVComp.uiLb"/>
+			<AssertPropertyValue target="myCustomNVComp.uiLb" propertyName="text" valueExpression="value=ValidationResultEvent.INVALID"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

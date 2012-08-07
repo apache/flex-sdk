@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/integration/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Filters.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import mx.graphics.*;
+       import mx.graphics.*;
+       import mx.filters.*;
+       import spark.filters.*;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		public function clearSpace(): void
+		{
+		    application.graphic1.visible = false;
+		    application.graphic2.visible = false;
+		    application.graphic3.visible = false;
+		    application.graphic4.visible = false;
+		    application.graphic5.visible = false;
+		    application.graphic6.visible = false;
+		    application.graphic7.visible = false;
+		    application.graphic8.visible = false;
+
+		    application.graphic1.includeInLayout = false;
+			application.graphic2.includeInLayout = false;
+			application.graphic3.includeInLayout = false;
+			application.graphic4.includeInLayout = false;
+			application.graphic5.includeInLayout = false;
+			application.graphic6.includeInLayout = false;
+			application.graphic7.includeInLayout = false;
+		    application.graphic8.includeInLayout = false;
+		}
+
+		public function addFilter(num:int, target:int): void
+		{
+		    var newFilters:Array = new Array()
+		    var f:spark.filters.DropShadowFilter = new spark.filters.DropShadowFilter();
+		    f.blurX=5;
+		    f.blurY=6;
+		    f.distance = 8;
+		    f.color = 0x55EE99;
+		    newFilters.push(f);
+
+            if (num ==2)
+            {
+               var b:spark.filters.BlurFilter = new spark.filters.BlurFilter();
+               b.blurX = 5;
+               b.blurY = 5;
+               newFilters.push(b);
+
+            }
+
+            if(target==1)
+            {
+                application.graphic9.getChildAt(0).filters = newFilters;
+            }
+            else
+            {
+                application.graphic9.group1.filters = newFilters; // getChildAt(0).elements[1]
+            }
+
+		}
+
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+	  <TestCase testID="GraphicTags_Filters_DropShadowFilter_MXML" description="Test that a DropShadow set on a Graphic looks right" keywords="[DropShadowFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/dropShadowGraphic_mxml.png" target="graphic1.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+
+	  <TestCase testID="GraphicTags_Filters_BevelFilter_MXML" description="Test that a Bevel set on a Graphic looks right" keywords="[BevelFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/BevelGraphic_mxml.png" target="graphic2.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_BlurFilter_MXML" description="Test that a Blur set on a Graphic looks right" keywords="[BlurFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/BlurGraphic_mxml.png" target="graphic3.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_ColorMatrixFilter_MXML" description="Test that a ColorMatrix set on a Graphic looks right" keywords="[ColorMatrixFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/ColorMatrixGraphic_mxml.png" target="graphic4.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_ConvolutionFilter_MXML" description="Test that a Convolution set on a Graphic looks right" keywords="[ConvolutionFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/ConvolutionGraphic_mxml.png" target="graphic5.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_GlowFilter_MXML" description="Test that a Glow set on a Graphic looks right" keywords="[GlowFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/GlowGraphic_mxml.png" target="graphic6.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_GradientBevelFilter_MXML" description="Test that a GradientBevel set on a Graphic looks right" keywords="[GradientBevelFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/GradientBevelGraphic_mxml.png" target="graphic7.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_GradientGlowFilter_MXML" description="Test that a GradientGlow set on a Graphic looks right" keywords="[GradientGlowFilter, Filters, Graphic, MXMLG-219]">
+		<body>
+		    <CompareBitmap url="../Integration/baselines/GradientGlowGraphic_mxml.png" target="graphic8.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_DropShadowFilter_AS" description="Test that a DropShadow set on a Graphic looks right" keywords="[DropShadowFilter, Filters, Graphic, MXMLG-219]">
+	    <setup>
+	        <RunCode code="clearSpace()" />
+	        <RunCode code="addFilter(1,1)" />
+	        <Pause timeout="300" />
+	    </setup>
+	    <body>
+	  	    <CompareBitmap url="../Integration/baselines/AddFilter_AS.png" target="graphic9" timeout="2000" />
+	    </body>
+	  </TestCase>
+     <TestCase testID="GraphicTags_Filters_DropShadowFilter_AS_mac" description="Test that a DropShadow set on a Graphic looks right" keywords="[DropShadowFilter, Filters, Graphic, MXMLG-219]">
+	    <setup>
+	        <RunCode code="clearSpace()" />
+	        <RunCode code="addFilter(1,1)" />
+	        <Pause timeout="300" />
+	    </setup>
+	    <body>
+	  	    <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic9" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_MultipleFilters_AS" description="Test that a multiple filters set on a Graphic looks right" keywords="[DropShadowFilter, BlurFilter, Filters, Graphic, MXMLG-219]">
+	    <setup>
+	        <ResetComponent className="comps.EverythingGraphicComp" target="graphic9" waitEvent="updateComplete" waitTarget="graphic9" />
+	        <RunCode code="clearSpace()" />
+	        <RunCode code="addFilter(2,1)" />
+	        <Pause timeout="100" />
+	    </setup>
+	    <body>
+	  	    <CompareBitmap url="../Integration/baselines/MultipleFilters_AS.png" target="graphic9.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_Filters_AddFilter2Group_AS" description="Test that you can add a filter to a Graphic element looks right" keywords="[DropShadowFilter, BlurFilter, Filters, Graphic, MXMLG-219]">
+	    <setup>
+	        <ResetComponent className="comps.EverythingGraphicComp" target="graphic9" waitEvent="updateComplete" waitTarget="graphic9" />
+	        <RunCode code="addFilter(2,2)" />
+	    </setup>
+	    <body>
+	        <Pause timeout="100" />
+	  	    <CompareBitmap url="../Integration/baselines/AddFilterToElement_AS.png" target="graphic9.getChildAt(0)" timeout="2000" />
+	    </body>
+	  </TestCase>
+</testCases>
+
+
+</UnitTester>

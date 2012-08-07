@@ -1,0 +1,46 @@
+﻿<UnitTester
+    testDir="spark/effects/AddAction/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/AddAction_transition_main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="AddAction_createInstances"
+        description="Call createInstances manually."
+        keywords="[AddAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(application.rubik.aa1.createInstances()).length.toString()" value="2"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+        testID="RemoveAction_createInstances"
+        description="Call createInstances manually."
+        keywords="[RemoveAction]">
+            <setup>
+                <ResetComponent target="rubik" className="TrixRubiks" waitEvent="updateComplete" waitTarget="rubik" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(application.rubik.ra1.createInstances()).length.toString()" value="2"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

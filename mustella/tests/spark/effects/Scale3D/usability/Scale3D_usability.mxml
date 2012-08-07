@@ -1,0 +1,581 @@
+﻿<UnitTester
+    testSWF="../SWFs/Scale3D_main.mxml"
+    testDir="spark/effects/Scale3D/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.Scale3D;
+        import Controls.*;
+        import Components.*;
+
+		[Bindable]public var timeout:int = 200;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="Scale3D_Button" keywords="[Scale3D, usability]" description="Scale3D a Button.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_CheckBox" keywords="[Scale3D, usability]" description="Scale3D a CheckBox.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_ColorPicker" keywords="[Scale3D, usability]" description="Scale3D a ColorPicker.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixColorPicker();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_ComboBox" keywords="[Scale3D, usability]" description="Scale3D a ComboBox.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixComboBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_DataGrid" keywords="[Scale3D, usability]" description="Scale3D a DataGrid.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixDataGrid();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_DateChooser" keywords="[Scale3D, usability]" description="Scale3D a DateChooser.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixDateChooser();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_DateField" keywords="[Scale3D, usability]" description="Scale3D a DateField.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixDateField();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_HorizontalList" keywords="[Scale3D, usability]" description="Scale3D a HorizontalList.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixHorizontalList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_HRule" keywords="[Scale3D, usability]" description="Scale3D a HRule.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixHRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_HSlider" keywords="[Scale3D, usability]" description="Scale3D a HSlider.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixHSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_Label" keywords="[Scale3D, usability]" description="Scale3D a Label.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixLabel();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_List" keywords="[Scale3D, usability]" description="Scale3D a List.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_NumericStepper" keywords="[Scale3D, usability]" description="Scale3D a NumericStepper.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_PopUpButton" keywords="[Scale3D, usability]" description="Scale3D a PopUpButton.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixPopUpButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_PopUpMenuButton" keywords="[Scale3D, usability]" description="Scale3D a PopUpMenuButton.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixPopUpMenuButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_ProgressBar" keywords="[Scale3D, usability]" description="Scale3D a ProgressBar.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixProgressBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_RadioButton" keywords="[Scale3D, usability]" description="Scale3D a RadioButton.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_Text" keywords="[Scale3D, usability]" description="Scale3D a Text.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixText();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_TextArea" keywords="[Scale3D, usability]" description="Scale3D a TextArea.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixTextArea();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_TextInput" keywords="[Scale3D, usability]" description="Scale3D a TextInput.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_Tree" keywords="[Scale3D, usability]" description="Scale3D a Tree.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixTree();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="1000" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_VRule" keywords="[Scale3D, usability]" description="Scale3D a VRule.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixVRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_VScrollBar" keywords="[Scale3D, usability]" description="Scale3D a VScrollBar.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixVScrollBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_VSlider" keywords="[Scale3D, usability]" description="Scale3D a VSlider.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixVSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkRect" keywords="[Scale3D, usability]" description="Scale3D a SparkRect.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkRect();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkButton" keywords="[Scale3D, usability]" description="Scale3D a SparkButton.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkCheckBox" keywords="[Scale3D, usability]" description="Scale3D a SparkCheckBox.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkList" keywords="[Scale3D, usability]" description="Scale3D a SparkList.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkNumericStepper" keywords="[Scale3D, usability]" description="Scale3D a SparkNumericStepper.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkNumericStepper();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkRadioButton" keywords="[Scale3D, usability]" description="Scale3D a SparkRadioButton.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}" />
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Scale3D_SparkTextInput" keywords="[Scale3D, usability]" description="Scale3D a SparkTextInput.">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.stop()" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent = new TrixSparkTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="FlexGlobals.topLevelApplication.testPanel.addElement(FlexGlobals.topLevelApplication.uiComponent)" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.x = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.uiComponent.y = 50" />
+                <RunCode code="FlexGlobals.topLevelApplication.atr_object.target = FlexGlobals.topLevelApplication.uiComponent" />
+            </setup>
+            <body>
+                <RunCode code="application.atr_object.playheadTime = 300" />
+                <Pause timeout="{timeout}"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleX" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleY" value="0.672746"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="scaleZ" value="0.672746"/>
+			</body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

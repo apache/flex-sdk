@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/Collator/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CLT_Fallback_equals_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.CollatorTestConstants;
+		import mx.utils.ObjectUtil;
+		
+		public static function init(o:DisplayObject):void
+        {
+ 
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+
+<testCases>
+	<TestCase testID="CLT_Fallback_equals_null_valid_SortingCollator_in_scipt_test1" description="compare null with a valid string, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort.equals(null,'abc')" valueExpression="value=mx.utils.ObjectUtil.stringCompare(null,'abc',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_null_valid_MatchingCollator_in_declaration_test2" description="compare null with a valid string, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltMatch_inline.equals(null,'abc')" valueExpression="value=mx.utils.ObjectUtil.stringCompare(null,'abc',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_valid_null_SortingCollator_in_scipt_test3" description="compare a valid string with null, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort.equals('abc',null)" valueExpression="value=mx.utils.ObjectUtil.stringCompare('abc',null,false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_valid_null_MatchingCollator_in_declaration_test4" description="compare a valid string with null, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltMatch_inline.equals('abc',null)" valueExpression="value=mx.utils.ObjectUtil.stringCompare('abc',null,true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_null_null_SortingCollator_in_scipt_test5" description="compare two null strings, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort.equals(null,null)" valueExpression="value=mx.utils.ObjectUtil.stringCompare(null,null,false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_null_null_MatchingCollator_in_declaration_test6" description="compare two null strings, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltMatch_inline.equals(null,null)" valueExpression="value=mx.utils.ObjectUtil.stringCompare(null,null,true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_inline"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreCase_true_MatchingCollator_in_script_test7" description="compare two valid strings, set ignoreCase to true, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<SetProperty propertyName="ignoreCase" target="cltMatch_ignCase" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_ignCase.equals('abc','aBC')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('abc','aBC',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_ignCase"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreCase_false_MatchingCollator_in_script_test8" description="compare two valid strings, set ignoreCase to false, verify the return value" keywords="[MatchingCollator, equals]">
+		<setup>
+			<ResetComponent target="cltMatch_ignCase" className="assets.FallbackMatchingCLT"/> 
+			<RunCode code="application.cltMatch_ignCase.initialized(null,'cltMatch_ignCase')"/>
+			<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="ignoreCase" target="cltMatch_ignCase" valueExpression="value=false" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_ignCase.equals('abc','aBC')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('abc','aBC',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_ignCase"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreCase_true_SortingCollator_in_declaration_test9" description="compare two valid strings, set ignoreCase to true, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_ignCase_true.equals('abc','aBC')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('abc','aBC',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_ignCase_true"/>
+		</body>
+	</TestCase>
+	<TestCase testID="CLT_Fallback_equals_ignoreCase_false_SortingCollator_in_declaration_test10" description="compare two valid strings, set ignoreCase to false, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_ignCase_false.equals('abc','aBC')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('abc','aBC',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_ignCase_false"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreCase_ignoreCharacterWidth_true_MatchingCollator_in_script_test11" description="compare two valid strings, set ignoreCase and ignoreCharacterWidth to true, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<SetProperty propertyName="ignoreCase" target="cltMatch_ignCase" valueExpression="value=true" waitEvent="change"/>
+			<SetProperty propertyName="ignoreCharacterWidth" target="cltMatch_ignCase" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_ignCase.equals('a','Ａ')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('a','Ａ',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_ignCase"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreCase_ignoreCharacterWidth_true_SortingCollator_in_declaration_test12" description="compare two valid strings, set ignoreCase and ignoreCharacterWidth to true, set ignoreCase to false, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_ignCase_true.equals('a','Ａ')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('a','Ａ',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_ignCase_true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreDiacritics_true_MatchingCollator_in_script_test13" description="compare two valid strings, set ignoreDiacritics to true, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<SetProperty propertyName="ignoreDiacritics" target="cltMatch_ignDiac" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_ignDiac.equals('Ô','Ö')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('Ô','Ö',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_ignDiac"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreDiacritics_true_SortingCollator_in_declaration_test14" description="compare two valid strings, set ignoreDiacritics to true, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_ignDiac_true.equals('Ô','Ö')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('Ô','Ö',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_ignDiac_true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreKanaType_true_MatchingCollator_in_script_test15" description="compare two valid strings, set ignoreKanaType to true, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<SetProperty propertyName="ignoreKanaType" target="cltMatch_ignKanaT" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_ignKanaT.equals('ぁ','ｧ')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('ぁ','ｧ',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_ignKanaT"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreKanaType_true_SortingCollator_in_declaration_test16" description="compare two valid strings, set ignoreKanaType to true, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_ignKanaT_true.equals('ぁ','ｧ')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('ぁ','ｧ',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_ignKanaT_true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreSymbols_true_MatchingCollator_in_script_test17" description="compare two valid strings, set ignoreSymbols to true, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<SetProperty propertyName="ignoreSymbols" target="cltMatch_ignSymb" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_ignSymb.equals('Obrain','O!@brain')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('Obrain','O!@brain',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_ignSymb"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_ignoreSymbols_true_SortingCollator_in_declaration_test18" description="compare two valid strings, set ignoreSymbols to true, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_ignSymb_true.equals('Obrain','O!@brain')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('Obrain','O!@brain',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_ignSymb_true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_numericComparison_true_MatchingCollator_in_script_test19" description="compare two valid strings, set numericComparison to true, verify the return value" keywords="[MatchingCollator, equals]">
+		<body>
+			<SetProperty propertyName="numericComparison" target="cltMatch_numComp" valueExpression="value=true" waitEvent="change"/>
+			<AssertMethodValue method="value=application.cltMatch_numComp.equals('version2','version10')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('version2','version10',true)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltMatch_numComp"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="CLT_Fallback_equals_numericComparison_true_SortingCollator_in_declaration_test20" description="compare two valid strings, set numericComparison to true, verify the return value" keywords="[SortingCollator, equals]">
+		<body>
+			<AssertMethodValue method="value=application.cltSort_numComp_true.equals('version2','version10')" valueExpression="value=mx.utils.ObjectUtil.stringCompare('version2','version10',false)==0"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="cltSort_numComp_true"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+</UnitTester>

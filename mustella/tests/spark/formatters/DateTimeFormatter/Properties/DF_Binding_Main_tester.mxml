@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_Binding_Main.mxml">
+   
+	<mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		private var aDate:Date =  new Date(2000, 0, 1);
+		
+       public static function init(o:DisplayObject):void
+        {
+		   
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test binding mechanism on all methods and getters-->
+<testCases>
+	<!--testcase1 to testcase6 are used to test format methods on dateStyle, timeStyle and dateTimePattern between two different locales-->
+	<TestCase testID="DF_Binding_format_zh_CN_short_long_test1" description="test format methods on dateStyle, timeStyle and dateTimePattern between two different locales" keywords="[DateTimeFormatter, format, dateStyle, Binding]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'short', 'long')"/>	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dFormatterShort" value="zh_CN" waitEvent="change" />
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.format(aDate)" target="dateShort" />
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dFormatterShort"/>
+		</body>
+	</TestCase>
+	<!--testcase1 to testcase6 are used to test format methods on dateStyle, timeStyle and dateTimePattern between two different locales-->
+	<TestCase testID="DF_Binding_format_ru_RU_short_long_test2" description="test format methods on dateStyle, timeStyle and dateTimePattern between two different locales" keywords="[DateTimeFormatter, format, dateStyle, Binding]">
+		<setup>
+			<ResetComponent target="dFormatterShort" className="spark.formatters.DateTimeFormatter"/> 
+			<RunCode code="application.dFormatterShort.initialized(null , 'dFormatterShort')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru_RU', 'short', 'long')"/>	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dFormatterShort" value="ru_RU"  waitEvent="change" />
+			<SetProperty propertyName="dateStyle" target="dFormatterShort" value="short" waitEvent="change" />
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.format(aDate)" target="dateShort" />
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dFormatterShort"/>
+		</body>
+	</TestCase>
+	<!--testcase1 to testcase6 are used to test format methods on dateStyle, timeStyle and dateTimePattern between two different locales-->
+	<TestCase testID="DF_Binding_format_zh_CN_long_short_test3" description="test format methods on dateStyle, timeStyle and dateTimePattern between two different locales" keywords="[DateTimeFormatter, format, timeStyle, Binding]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN', 'long', 'short')"/>	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="tFormatterShort" value="zh_CN" waitEvent="change" />
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.format(aDate)" target="timeShort" />
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="tFormatterShort"/>
+		</body>
+	</TestCase>
+	<!--testcase1 to testcase6 are used to test format methods on dateStyle, timeStyle and dateTimePattern between two different locales-->
+	<TestCase testID="DF_Binding_format_ru_RU_long_short_test4" description="test format methods on dateStyle, timeStyle and dateTimePattern between two different locales" keywords="[DateTimeFormatter, format, timeStyle, Binding]">
+		<setup>
+			<ResetComponent target="tFormatterShort" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.tFormatterShort.initialized(null , 'tFormatterShort')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru_RU', 'long', 'short')"/>	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="tFormatterShort" value="ru_RU" waitEvent="change" />
+			<SetProperty propertyName="timeStyle" target="tFormatterShort" value="short" />
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.format(aDate)" target="timeShort" />	
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="tFormatterShort"/>
+		</body>
+	</TestCase>
+	<!--testcase1 to testcase6 are used to test format methods on dateStyle, timeStyle and dateTimePattern between two different locales-->
+	<TestCase testID="DF_Binding_format_zh_CN_dateTimePattern_test5" description="test format methods on dateStyle, timeStyle and dateTimePattern between two different locales" keywords="[DateTimeFormatter, format, dateTimePattern, Binding]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')"/>
+			<RunCode code="flashDF.setDateTimePattern('EEEE, MMMM. d, yyyy \'at\' h:mm a')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dtFormatterMaskFull" value="zh_CN" waitEvent="change" />
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterMaskFull" value="EEEE, MMMM. d, yyyy 'at' h:mm a" />
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.format(aDate)" target="dateFormatOutputDefaultMaskFull" />	
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatterMaskFull"/>
+		</body>
+	</TestCase>
+	<!--testcase1 to testcase6 are used to test format methods on dateStyle, timeStyle and dateTimePattern between two different locales-->
+	<TestCase testID="DF_Binding_format_ru_RU_dateTimePattern_test6" description="test format methods on dateStyle, timeStyle and dateTimePattern between two different locales" keywords="[DateTimeFormatter, format, dateTimePattern, Binding]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru_RU')"/>
+			<RunCode code="flashDF.setDateTimePattern('MMM. d, yyyy')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dtFormatterMaskMedium" value="ru_RU" waitEvent="change" />
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterMaskMedium" value="MMM. d, yyyy" />
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.format(aDate)" target="dateFormatOutputDefaultMaskMedium" />
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatterMaskMedium"/>
+		</body>
+	</TestCase>
+	
+	<!--testcase7 to test case10 are used to test other methods and getters-->
+	<TestCase testID="DF_Binding_methods_zh_CN_test7" description="test binding of methods getFirstWeekday,getMonthNames,getWeekdayNames,actualLocaleIDName,lastOperationStatus" keywords="[DateTimeFormatter, Binding]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')"/>	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dtFormatter" value="zh_CN" waitEvent="change" />
+			<AssertPropertyValue propertyName="text" target="getFirstWeekday"
+								 valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="text" target="monthName_1"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.FULL,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="monthName_2"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.FULL,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="monthName_3"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.FORMAT)" />	
+			<AssertPropertyValue propertyName="text" target="monthName_4"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="monthName_5"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="monthName_6"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_1"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.FULL,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_2"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.FULL,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_3"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.FORMAT)" />	
+			<AssertPropertyValue propertyName="text" target="weekdayName_4"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_5"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_6"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" />
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>		
+	</TestCase>
+	<!--testcase7 to test case10 are used to test other methods and getters-->
+	<TestCase testID="DF_Binding_methods_ru_RU_test8" description="test binding of methods getFirstWeekday,getMonthNames,getWeekdayNames,actualLocaleIDName,lastOperationStatus" keywords="[DateTimeFormatter, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru_RU')"/>	
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetStyle styleName="locale" target="dtFormatter" value="ru_RU" waitEvent="change" />
+			<AssertPropertyValue propertyName="text" target="getFirstWeekday"
+								 valueExpression="value=flashDF.getFirstWeekday()" />
+			<AssertPropertyValue propertyName="text" target="monthName_1"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.FULL,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="monthName_2"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.FULL,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="monthName_3"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.FORMAT)" />	
+			<AssertPropertyValue propertyName="text" target="monthName_4"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="monthName_5"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="monthName_6"
+								 valueExpression="value=flashDF.getMonthNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_1"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.FULL,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_2"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.FULL,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_3"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.FORMAT)" />	
+			<AssertPropertyValue propertyName="text" target="weekdayName_4"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.LONG_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_5"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.FORMAT)" />
+			<AssertPropertyValue propertyName="text" target="weekdayName_6"
+								 valueExpression="value=flashDF.getWeekdayNames(DateTimeNameStyle.SHORT_ABBREVIATION,DateTimeNameContext.STANDALONE)" />
+			<AssertPropertyValue propertyName="text" target="actualLocaleIDName" valueExpression="value=flashDF.actualLocaleIDName" />
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>		
+	</TestCase>	
+	<!--testcase7 to test case10 are used to test other methods and getters-->
+	<TestCase testID="DF_Binding_dateTimePattern_test9" description="test binding of dateTimePattern,lastOperationStatus" keywords="[DateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')"/>	
+			<RunCode code="flashDF.setDateTimePattern('EEEE, MMMM. d, yyyy \'at\' h:mm a')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatter" value="EEEE, MMMM. d, yyyy 'at' h:mm a" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" target="dtPattern" valueExpression="value=flashDF.getDateTimePattern()" />	
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>		
+	</TestCase>
+	<!--testcase7 to test case10 are used to test other methods and getters-->
+	<TestCase testID="DF_Binding_dateTimePattern_test10" description="test binding of dateTimePattern,lastOperationStatus" keywords="[DateTimeFormatter, dateTimePattern, Binding]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')" />
+			<RunCode code="flashDF.setDateTimePattern('MMM. d, yyyy')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatter" value="MMM. d, yyyy" waitEvent="change"/>
+			<AssertPropertyValue propertyName="text" target="dtPattern" valueExpression="value=flashDF.getDateTimePattern()" />		
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" target="dtFormatter"/>
+		</body>		
+	</TestCase>
+	
+	<!--cases 11-12 are to test binding mechanism of lastOperationStatus property -->
+	<TestCase testID="DF_Binding_lastOperationStatus_test11" description="test binding of lastOperationStatus" keywords="[DateTimeFormatter, lastOperationStatus, Binding]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN')"/>	
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtfLOS" value="zh_CN" waitEvent="change" />
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" target="dtfLOS" valueExpression="value=flashDF.actualLocaleIDName" />	
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.lastOperationStatus" target="dtlosTI"/>
+		</body>		
+	</TestCase>
+	<TestCase testID="DF_Binding_lastOperationStatus_test12" description="test binding of lastOperationStatus" keywords="[DateTimeFormatter, lastOperationStatus, Binding]">
+		<setup>
+			<ResetComponent target="dtfLOS" className="spark.formatters.DateTimeFormatter"/>
+			<RunCode code="application.dtfLOS.initialized(null , 'dtfLOS')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123')"/>	
+			<Pause timeout="200"/>
+			<SetStyle styleName="locale" target="dtfLOS" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="actualLocaleIDName" target="dtfLOS" valueExpression="value=flashDF.actualLocaleIDName" />	
+			<AssertPropertyValue propertyName="text" valueExpression="value=flashDF.lastOperationStatus" target="dtlosTI"/>
+		</body>		
+	</TestCase>
+</testCases>
+	
+</UnitTester>

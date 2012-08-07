@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0x008800" width="800" height="600" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:comps="comps.*" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ICollectionView;
+			import mx.collections.IList;
+			import mx.collections.IViewCursor;
+			import mx.collections.ListCollectionView;
+			import mx.controls.*;
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.core.FlexGlobals;
+			import mx.core.UIComponent;
+			import mx.events.DataGridEvent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			import mx.utils.ObjectUtil;
+			
+			import spark.collections.*;
+			
+			// These skins are copied from DataGridMain.mxml.
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/GridImages/dg_header_skin.gif")]
+			public var dg_header_skin:Class;
+			
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/GridImages/vertical_Separator_Skin.gif")]
+			public var dg_v_s_skin:Class;
+			
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/GridImages/horizontal_Separator_Skin.gif")]
+			public var dg_h_s_skin:Class;
+			
+			/**
+			 * These variables are set when calling setUpItemEditBegin, and 
+			 * are private to indicate that.  
+			 * They are all things that we may want to fiddle with 
+			 * during doItemEditBegin.
+			 **/
+			private var useCustomEditor:Boolean = false;
+			private var useCustomPosition:Boolean = false;
+			private var customCol:int = -1; 
+			private var customRow:int = -1;
+			
+			/**
+			 * This is used to give the DataGrid an array of columns.
+			 **/
+			private var colArray:Array
+			
+			/**
+			 * This is used in dataArray2 so we can have a Date object.
+			 **/
+			[Bindable]
+			private var date:Date = new Date("12/25/2001");
+			
+			/**
+			 * This is so that we can have a generic object for
+			 * testing binding.
+			 **/
+			[Bindable]
+			public var aBindableObject:Object;
+			
+			/**
+			 * This is an array of the fields used in dataArray3.
+			 * It is used so we can have one function to set up
+			 * column arrays of different lengths.
+			 * e.g. See setUpDataArray3Columns().
+			 **/
+			private var dataArray3Fields:Array = ["name", "family", "age", "breed", "hobby", "thoughts"];
+			
+			/**
+			 * This is the dark blue selected color of a selected row.
+			 **/
+			public const ROW_SELECTED_COLOR:uint = 0xA8C6EE;
+			
+			/**
+			 * This is the grey of alternating rows.
+			 **/
+			public const ROW_DARK_ALTERNATING_COLOR:uint = 0xEFF3FA;
+			
+			/**
+			 * This is the white of alternating rows.
+			 **/
+			public const ROW_LIGHT_ALTERNATING_COLOR:uint = 0xFFFFFF;
+			
+			/**
+			 * These are used for "Functions regarding a WaitForEvent step".
+			 **/
+			private var waitForEventsCount:int;
+			private var waitForEventsNeeded:int;
+			private var waitForEventsDispatcher:EventDispatcher;
+			
+			/**
+			 * This will hide all of the DataGrids except the ones
+			 * that is passed in via the array.  This is so that we 
+			 * can make tests that use other or multiple DataGrids without
+			 * leaving them visible for all the rest of the tests.
+			 * It might not be essential, but having those others hanging 
+			 * around is annoying.
+			 **/
+			public function showOnlyTheseDataGrids(keepUs:Array):void{
+				//var children:Array = getChildren();
+				var obj:DisplayObject;
+				
+				for(var i:int = 0; i < FlexGlobals.topLevelApplication.numElements; ++i){
+					obj = FlexGlobals.topLevelApplication.getElementAt(i);
+					if(obj is mx.controls.DataGrid || obj is SubclassedDataGrid ){
+						if(keepUs.indexOf(obj) == -1){
+							DataGrid(obj).height = 0;
+							DataGrid(obj).visible = false;
+						}
+					}
+				}
+			}
+			
+			/************************************************************
+			 * Functions regarding columns
+			 *************************************************************/
+			
+			/**
+			 * Create arrays of just the columns which are handy for 
+			 * multi-line and renderer issue testing.
+			 * 1: Contains 6 columns, with an image in the 2nd
+			 *    column.  This is used so we can have an image
+			 *    in a locked column.
+			 * It is used with dataArray1.
+			 **/
+			public function setColumnConfig1(dg:DataGrid):void{
+				
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				var col2:DataGridColumn = new DataGridColumn();
+				var col3:DataGridColumn = new DataGridColumn();
+				var col4:DataGridColumn = new DataGridColumn();
+				var col5:DataGridColumn = new DataGridColumn();
+				var col6:DataGridColumn = new DataGridColumn();
+				
+				col1.dataField = "recordName";
+				col2.dataField = "image";
+				col3.dataField = "recordAmount";
+				col4.dataField = "who";
+				col5.dataField = "where";
+				col6.dataField = "when";
+				
+				col2.itemRenderer = ImageRenderer;
+				
+				colArray.push(col1);
+				colArray.push(col2);
+				colArray.push(col3);
+				colArray.push(col4);
+				colArray.push(col5);
+				colArray.push(col6);
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * Decrement the columns.  You can't just write
+			 * dg.columns.pop().
+			 **/
+			public function decrementColumns(dg:DataGrid):void{
+				var arr:Array = dg.columns;
+				arr.pop();
+				dg.columns = arr;
+			}
+			
+			/**
+			 * This one is used so we can have an image in the
+			 * unlocked column to the right of a locked column.
+			 * It is used with dataArray1.
+			 **/
+			public function setColumnConfig2(dg:DataGrid):void{
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				var col2:DataGridColumn = new DataGridColumn();
+				var col3:DataGridColumn = new DataGridColumn();
+				var col4:DataGridColumn = new DataGridColumn();
+				var col5:DataGridColumn = new DataGridColumn();
+				var col6:DataGridColumn = new DataGridColumn();
+				
+				col1.dataField = "recordName";
+				col2.dataField = "recordAmount";
+				col3.dataField = "image";
+				col4.dataField = "who";
+				col5.dataField = "where";
+				col6.dataField = "when";
+				
+				col3.itemRenderer = ImageRenderer;
+				
+				colArray.push(col1);
+				colArray.push(col2);
+				colArray.push(col3);
+				colArray.push(col4);
+				colArray.push(col5);
+				colArray.push(col6);
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * This one is used so we can have very few columns.
+			 * It is used with dataArray1.
+			 **/
+			public function setColumnConfig3(dg:DataGrid):void{
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				var col2:DataGridColumn = new DataGridColumn();
+				var col3:DataGridColumn = new DataGridColumn();
+				
+				col1.dataField = "recordName";
+				col2.dataField = "recordAmount";
+				col3.dataField = "who";
+				
+				colArray.push(col1);
+				colArray.push(col2);
+				colArray.push(col3);
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * This one is used for dataArray2, for testing
+			 * things like createColumnItemRenderer().
+			 **/
+			public function setColumnConfig4(dg:DataGrid):void{
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				var col2:DataGridColumn = new DataGridColumn();
+				
+				col1.dataField = "controlType";
+				col2.dataField = "info";
+				
+				col1.headerText = "Control Type";
+				col2.headerText = "Example";
+				
+				colArray.push(col1);
+				colArray.push(col2);
+				
+				dg.columns = colArray;
+				
+			}
+			
+			/**
+			 * This one has a column which has a headerRenderer that is
+			 * a TextArea.  The header will need to scroll.
+			 * It is used with data array 1.
+			 **/
+			public function setColumnConfig5(dg:DataGrid):void{
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				
+				col1.dataField = "fieldA";
+				col1.headerRenderer = new ClassFactory(mx.controls.TextArea);
+				col1.headerText = "start This is the song that never ends. Yes, it goes on and on my friends. Some people started singing it, not knowing what it was and they'll continue singing it forever just because this is the song that never ends. Yes, it goes on and on my friends. Some people started singing it, not knowing what it was and they'll continue singing it forever just because end";
+				colArray.push(col1);
+				dg.columns = colArray;        
+			}
+			
+			/**
+			 * This one uses all of the columns.
+			 * It is used with dataArray1.
+			 **/
+			public function setColumnConfig6(dg:DataGrid):void{
+				
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				var col2:DataGridColumn = new DataGridColumn();
+				var col3:DataGridColumn = new DataGridColumn();
+				var col4:DataGridColumn = new DataGridColumn();
+				var col5:DataGridColumn = new DataGridColumn();
+				var col6:DataGridColumn = new DataGridColumn();
+				var col7:DataGridColumn = new DataGridColumn();
+				var col8:DataGridColumn = new DataGridColumn();
+				var col9:DataGridColumn = new DataGridColumn();
+				var col10:DataGridColumn = new DataGridColumn();
+				var col11:DataGridColumn = new DataGridColumn();
+				
+				col1.dataField = "recordName";
+				col2.dataField = "image";
+				col3.dataField = "recordAmount";
+				col4.dataField = "who";
+				col5.dataField = "where";
+				col6.dataField = "when";
+				col7.dataField = "fieldA";
+				col8.dataField = "fieldB";
+				col9.dataField = "fieldC";
+				col10.dataField = "fieldD";
+				col11.dataField = "fieldE";
+				
+				colArray.push(col1);
+				colArray.push(col2);
+				colArray.push(col3);
+				colArray.push(col4);
+				colArray.push(col5);
+				colArray.push(col6);
+				colArray.push(col7);
+				colArray.push(col8);
+				colArray.push(col9);
+				colArray.push(col10);
+				colArray.push(col11);
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * This one has just one column with an image.
+			 **/
+			public function setColumnConfig7(dg:DataGrid):void{
+				colArray = new Array();
+				var col1:DataGridColumn = new DataGridColumn();
+				
+				col1.itemRenderer = ImageRenderer;   
+				col1.dataField = "image";
+				colArray.push(col1);
+				dg.columns = colArray;        
+			}
+			
+			/**
+			 * This one has three columns with no data fields.
+			 **/
+			public function setColumnConfig8(dg:DataGrid):void{
+				var dgc1:DataGridColumn = new DataGridColumn();
+				var dgc2:DataGridColumn = new DataGridColumn();
+				var dgc3:DataGridColumn = new DataGridColumn();
+				var dgc4:DataGridColumn = new DataGridColumn();
+				
+				colArray = new Array();
+				
+				dgc1.headerText = "a";
+				colArray.push(dgc1);
+				
+				dgc2.headerText = "b";
+				colArray.push(dgc2);
+				
+				dgc3.headerText = "c";
+				colArray.push(dgc3);
+				
+				dgc4.headerText = "d";
+				colArray.push(dgc4);
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * This will set up a number of columns.  It is 
+			 * compatible with dataArray3.  Defaults to 
+			 * all columns if passed a number of columns
+			 * which is out of bounds.  The backwards
+			 * parameter will start taking fields from
+			 * the end.  The resizable parameter sets
+			 * the value of the resizable property of the 
+			 * individual DataGridColumns. 
+			 **/
+			public function setUpDataArray3Columns(dg:DataGrid, numCols:int, backwards:Boolean = false, resizableColumns:Boolean = true, useBGColors:Boolean = false):void{
+				var i:int;
+				var col:DataGridColumn;
+				var bgColor:uint = 0;
+				
+				if(numCols < 0 || numCols > dataArray3Fields.length){
+					trace("DataGridApp.mxml, setUpDataArray3Columns(): numCols is " + numCols.toString() + ", changing to " + dataArray3Fields.length.toString());
+					numCols = dataArray3Fields.length;
+				}
+				
+				colArray = new Array();
+				
+				for(i = 0; i < numCols; ++i){
+					col = new DataGridColumn();
+					
+					if(backwards)
+						col.dataField = dataArray3Fields[dataArray3Fields.length - 1 - i];
+					else
+						col.dataField = dataArray3Fields[i];
+					
+					if(resizableColumns)
+						col.resizable = true;
+					else
+						col.resizable = false;
+					
+					if(useBGColors){
+						bgColor += 10500;
+						col.setStyle("backgroundColor", bgColor);
+					}
+					
+					colArray.push(col);
+				}
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * This will rearrange the columns of the 
+			 * DataGrid provided.
+			 **/
+			public function rearrangeDataArray3Columns(dg:DataGrid):void{
+				var col:DataGridColumn;
+				var i:int;
+				
+				colArray = new Array();
+				
+				for(i = dg.columns.length - 1; i >= 0; --i){
+					col = new DataGridColumn();
+					col.dataField = dataArray3Fields[i];
+					colArray.push(col);
+				}
+				
+				dg.columns = colArray;
+			}
+			
+			/**
+			 * This will duplicate the columns of the 
+			 * DataGrid provided.
+			 **/
+			public function duplicateDataArray3Columns(dg:DataGrid):void{
+				var col:DataGridColumn;
+				var i:int;
+				var j:int;
+				
+				colArray = new Array();
+				
+				for(i = 0; i < dg.columns.length; ++i){
+					for(j = 0; j < 2; ++j){
+						col = new DataGridColumn();
+						col.dataField = dataArray3Fields[i];
+						colArray.push(col);
+					}
+				}
+				
+				dg.columns = colArray;
+			}
+			
+			/************************************************************
+			 * Functions regarding itemEdit
+			 *************************************************************/
+			
+			/**
+			 * This function allows you to specify what's going to happen
+			 * when ItemEditBegin occurs.
+			 * useEditor: The custom editor (a ComboBox) will be used.
+			 *            Using false = the default, a TextInput.
+			 * usePosition: Whether to create the editor at the specified col and row.
+			 *            Using false = the column and row from the event.
+			 * col: The column.  Using -1 = the column from the event.
+			 * row: The row.  Using -1 = the column from the event.
+			 **/
+			public function setUpItemEditBegin(dg:DataGrid,
+											   useEditor:Boolean = false,
+											   usePosition:Boolean = false,
+											   col:int = -1,
+											   row:int = -1 ):void{
+				
+				useCustomEditor = useEditor;
+				useCustomPosition = usePosition;
+				customCol = col;
+				customRow = row;
+				dg.addEventListener(mx.events.DataGridEvent.ITEM_EDIT_BEGIN, doItemEditBegin);
+			}
+			
+			/**
+			 * This function allows you to specify what's going to happen
+			 * when ItemEditEnd occurs.  Right now, it just sets up a 
+			 * listener to call our custom method.
+			 **/
+			public function setUpItemEditEnd(dg:DataGrid):void{
+				dg.addEventListener(mx.events.DataGridEvent.ITEM_EDIT_END, doItemEditEnd);
+			}
+			
+			/**
+			 * I would like to have put this in datagrid_methods.mxml, but
+			 * we want to keep the custom components consolidated in a subdir
+			 * of the SWFs directory, and I couldn't figure out how to refer
+			 * to a custom control in ../SWFs/comps from a file in the Methods
+			 * directory.  Maybe it will be handy here when we get to testing 
+			 * events.
+			 * See setUpItemEditBegin for descriptions of the useCustomPosition,
+			 * etc... variables.  We dispatch an event at the end so that
+			 * Mustella will have something to listen for.
+			 **/
+			public function doItemEditBegin(e:DataGridEvent):void{
+				var column:int;
+				var row:int;
+				
+				column = (useCustomPosition && customCol >= 0) ? customCol : e.columnIndex;
+				row =    (useCustomPosition && customRow >= 0) ? customRow : e.rowIndex;
+				
+				e.preventDefault();
+				
+				if(useCustomEditor)
+					dg1.columns[column].itemEditor = new ClassFactory(comps.CustomEditor);
+				
+				dg1.createItemEditor(column, row);
+			}
+			
+			/**
+			 * This is a custom handler for the itemEditEnd event.
+			 **/
+			public function doItemEditEnd(e:DataGridEvent):void{
+				e.preventDefault();
+				dg1.destroyItemEditor();
+			}
+			
+			
+			/************************************************************
+			 * Functions regarding the data provider
+			 *************************************************************/
+			
+			/**
+			 * Use this function to reset the dataProvider.  Do
+			 * not just re-use the dataProvider that is in the
+			 * main app. file because edits made to the DataGrid
+			 * will continue to appear in subsequent tests. Instead,
+			 * use that one as a template to populate this one
+			 * which we reset all the time.
+			 * Passing in no int will default to 1 because a lot of test cases
+			 *     were already written before a parameter could be passed in.
+			 **/
+			public function setDataProvider(dg:DataGrid, dpNum:int = 1):void{
+				switch(dpNum){
+					case 1:
+						dg.dataProvider = ObjectUtil.copy(dataArray1);
+						break;
+					case 2:
+						dg.dataProvider = ObjectUtil.copy(dataArray2);
+						break;
+					case 3:
+						dg.dataProvider = ObjectUtil.copy(dataArray3);
+						break;
+					case 4:
+						dg.dataProvider = ObjectUtil.copy(dataArray4);
+						break;
+					case 5:
+						dg.dataProvider = [1, 2, 3];
+						break;
+					case 6:
+						dg.dataProvider = ObjectUtil.copy(dataArray6);
+						break;
+					case 7:
+						dg.dataProvider = ObjectUtil.copy(dataArray7);
+						break;
+				}
+			}
+			
+			/**
+			 * Use this function to add a new object to the dataProvider
+			 * of a DataGrid which is using the indicated dataArray.
+			 **/
+			public function addNewDataArrayItems(dg:DataGrid, dataArray:int, numAdditions:int):void{
+				var obj:Object = new Object();
+				var i:int;
+				
+				switch(dataArray){
+					case 1:
+						for(i = 0; i < numAdditions; ++i){
+							obj.fieldA = "cellA" + (18 + i).toString();
+							obj.fieldB = "cellB" + (18 + i).toString();
+							obj.fieldC = "cellC" + (18 + i).toString();
+							obj.fieldD = "cellD" + (18 + i).toString();
+							obj.fieldE = "cellE" + (18 + i).toString();
+							obj.recordName = "Record name # "  + (18 + i).toString();
+							obj.recordAmount = "Record amount " + (18 + i).toString();
+							obj.who = "Person " + (18 + i).toString();
+							obj.where = "Location " + (18 + i).toString();
+							obj.when = "Date " + (18 + i).toString();
+							obj.image = "Image location " + (18 + i).toString();
+							
+							dg.dataProvider.addItem(obj);
+						}
+						
+						break;
+					default:
+						break;
+				}
+			}
+			
+			/**
+			 * Given an ICollectionView and some other info., finds 
+			 * and replaces the provided string in the provided field.
+			 * This is used, for example, in datagrid_properties_dataProvider.mxml,
+			 * in test case dataProvider_binding_change.
+			 **/    
+			public function changeData(view:ICollectionView, sortFields:Array, editMe:Object, fieldName:String, newVal:String):void{
+				var sort:Sort = new Sort();
+				this.addStyleClient(sort);
+				
+				if (sortFields != null) {
+					for each (var sf:SortField in sortFields) {
+						this.addStyleClient(sf);
+					}
+				}
+				
+				var cursor:IViewCursor = view.createCursor();
+				var foundObj:Object;
+				
+				sort.fields = sortFields;
+				view.sort = sort;
+				view.refresh();
+				
+				cursor.findFirst(editMe);
+				foundObj = cursor.current;
+				
+				for(var obj:Object in foundObj){
+					var propName:String = obj as String;
+					if(propName == fieldName){
+						foundObj[propName] = newVal;
+					}
+				}
+			}
+			
+			/************************************************************
+			 * Functions regarding filtering
+			 *************************************************************/
+			
+			/** 
+			 * This applies the filter function "filterStringStartsWithM".
+			 **/
+			public function applyFilterFunctionM(lcv:ListCollectionView):void{
+				lcv.filterFunction = filterStringStartsWithM;
+				lcv.refresh();
+			}
+			
+			/** 
+			 * This removes any filter function that may be present.
+			 **/
+			public function removeFilterFunctionM(lcv:ListCollectionView):void{
+				lcv.filterFunction = null;
+				lcv.refresh();
+			}
+			
+			/**
+			 * This is a filter function.
+			 **/
+			private function filterStringStartsWithM(item:Object):Boolean{
+				var ret:Boolean = false;
+				var s:String;
+				
+				try{
+					s = item.name;
+					
+					if( s.charAt(0).toLowerCase() == "m" )
+						ret = true;                
+				}catch(e:Error){
+					trace(e);
+				}
+				
+				return ret;    
+			}    
+			
+			/************************************************************
+			 * Functions regarding drag and drop
+			 *************************************************************/
+			
+			/**
+			 * This will set up the given DataGrid for drag and
+			 * drop using doDragEnter1() and doDragDrop1().
+			 **/
+			public function setUpDragDropListeners1(dg:DataGrid):void{
+				dg.addEventListener(mx.events.DragEvent.DRAG_ENTER, doDragEnter1); 
+				dg.addEventListener(mx.events.DragEvent.DRAG_DROP, doDragDrop1);
+			}
+			
+			/*
+			* This is called upon the dragEnter event of a 
+			* DataGrid that is being dragged to.
+			*/
+			private function doDragEnter1(event:DragEvent):void {
+				var dragInitiator:DataGrid=DataGrid(event.currentTarget);
+				
+				DragManager.acceptDragDrop(dragInitiator);
+			}
+			
+			/*
+			* This is called upon the dragDrop event of a
+			* DataGrid that is being dragged to.  It assumes 
+			* the use of dataArray3 or dataArray4.
+			*/
+			private function doDragDrop1(event:DragEvent):void {
+				var dropTarget:DataGrid=DataGrid(event.currentTarget);
+				var items:Array = event.dragSource.dataForFormat("items") as Array;
+				var dropLoc:int = dropTarget.calculateDropIndex(event);
+				
+				for(var i:uint=0; i < items.length; i++)
+				{
+					var newObj:Object = new Object();
+					var oldObj:Object = items[i];
+					
+					newObj.name = oldObj.name;
+					newObj.family = oldObj.family;
+					newObj.age = oldObj.age;
+					newObj.hobby = oldObj.hobby;
+					newObj.thoughts = oldObj.thoughts;
+					
+					IList(dropTarget.dataProvider).addItemAt(newObj, dropLoc);            
+				}
+			}
+			
+			/************************************************************
+			 * Functions regarding a WaitForEvent step:
+			 * These items are a workaround so that we will be able to listen for
+			 * a number of events before continuing.  To use:
+			 *   Call initializeWaitForEvents with the number of events needed,
+			 *   the event, and the event dispatcher (the DataGrid, for example).
+			 * When the correct number of events has occurred, it
+			 * will dispatch a new event ('waitForEventsFinished').  The next step
+			 * of your test case should be waiting for this event.
+			 *************************************************************/
+			public function initializeWaitForEvents(eventsNeeded:int, event:String, dispatcher:EventDispatcher):void{
+				waitForEventsCount = 0;
+				waitForEventsNeeded = eventsNeeded;
+				waitForEventsDispatcher = dispatcher;
+				waitForEventsDispatcher.addEventListener(event, waitForEventsFunction);
+			}
+			
+			public function waitForEventsFunction(e:Event):void{
+				++waitForEventsCount;
+				
+				if(waitForEventsCount >= waitForEventsNeeded){
+					waitForEventsDispatcher.dispatchEvent(new Event('waitForEventsFinished'));
+				}
+			}
+			
+			/************************************************************
+			 * Functions regarding label function
+			 *************************************************************/
+			
+			/*
+			* This is a very basic labelFunction function.  It doesn't matter
+			* what the source data provider is.
+			*/
+			public function basicLabelFunction(item:Object, column:DataGridColumn):String
+			{
+				return "column: " + column.headerText + ", data: " + item.toString();
+			}	
+			
+			
+			/************************************************************
+			 * Functions regarding sorting
+			 *************************************************************/
+			public function sortTestFunction(event:DataGridEvent):void
+			{
+				var dg:DataGrid = DataGrid(event.target);
+				var dgc:DataGridColumn = dg.columns[event.columnIndex] as DataGridColumn;
+				var s:Sort = new Sort();
+				var sf:SortField = new SortField(dgc.dataField);
+				
+				this.addStyleClient(s);
+				this.addStyleClient(sf);
+				
+				var dp:ICollectionView = dg.dataProvider as ICollectionView;
+				
+				event.preventDefault();
+				
+				sf.descending = !dgc.sortDescending;
+				
+				if(dgc.headerText == "numeric")
+					sf.numeric = true;
+				else if(dgc.headerText == "alpha")
+					sf.numeric = false;
+				else
+					sf.numeric = null;
+				
+				dgc.sortDescending = sf.descending;
+				s.fields = [ sf ];
+				
+				dp.sort = s;
+				dp.refresh();
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		/**********************
+		* Flex 4 embedding
+		**********************/
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVeraCFF;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVeraCFF;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVeraCFF;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: EmbeddedVeraCFF;
+			embedAsCFF: true;
+		}
+		
+		/**********************
+		* Pre-Flex 4 embedding
+		**********************/
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: EmbeddedVera;
+			embedAsCFF: false;
+		}
+		
+		global {
+			font-family: EmbeddedVera;
+			fontAntiAliasType: "normal";
+		}
+		
+		.redText {
+			color:  #DD0000;
+			fontSize: 14;
+		}
+		
+		.italicText {
+			fontStyle: "italic";
+		}
+		
+		.boldBig {
+			fontSize: 16;
+			textDecoration: "underline";
+		}
+	</fx:Style>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<fx:Declarations>
+		<fx:Component id="ImageRenderer">
+			<mx:Box horizontalAlign="center" height="50" width="100%" >
+				<mx:Image source="{data.image}" width="100%" height="100%" id="theImage" />
+			</mx:Box>
+		</fx:Component>
+		
+		<mx:ArrayCollection id="dataArray1">
+			<fx:Object fieldA="cellA1" fieldB="cellB1" fieldC="cellC1" fieldD="cellD1" fieldE="cellE1" recordName="100 Meter Run" recordAmount="9.74 seconds" who="Asafa Powell" where="Rieti, Italy" when="9/9/2007" image="../../../../../Assets/Images/redrect.jpg" />
+			<fx:Object fieldA="cellA2" fieldB="cellB2" fieldC="cellC2" fieldD="cellD2" fieldE="cellE2" recordName="200 Meter Run" recordAmount="19.32 seconds" who="Michael Johnson" where="Atlanta, GA, USA" when="9/1/1996" image="../../../../../Assets/Images/orangerect.jpg" />
+			<fx:Object fieldA="cellA3" fieldB="cellB3" fieldC="cellC3" fieldD="cellD3" fieldE="cellE3" recordName="400 Meter Run" recordAmount="43.18 seconds" who="Michael Johnson" where="Seville, Spain" when="9/26/1999" image="../../../../../Assets/Images/yellowrect.jpg" />
+			<fx:Object fieldA="cellA4" fieldB="cellB4" fieldC="cellC4" fieldD="cellD4" fieldE="cellE4" recordName="800 Meter Run" recordAmount="1:41.11" who="Wilson Kipketer" where="Cologne, Germany" when="9/24/1997" image="../../../../../Assets/Images/greenrect.jpg" />
+			<fx:Object fieldA="cellA5" fieldB="cellB5" fieldC="cellC5" fieldD="cellD5" fieldE="cellE5" recordName="1000 Meter Run" recordAmount="2:11.96" who="Noah Ngeny" where="Rieti, Italy" when="9/5/1999" image="../../../../../Assets/Images/bluerect.jpg" />
+			<fx:Object fieldA="cellA6" fieldB="cellB6" fieldC="cellC6" fieldD="cellD6" fieldE="cellE6" recordName="1 Hour Run" recordAmount="21.285 km" who="Haile Gebrselassie" where="Ostrava, Czech Republic" when="6/27/2007" image="../../../../../Assets/Images/purplerect.jpg" />
+			<fx:Object fieldA="cellA7" fieldB="cellB7" fieldC="cellC7" fieldD="cellD7" fieldE="cellE7" recordName="3000 Meter Steeplechase" recordAmount="7:53.63" who="Saif Saaeed Shaheen" where="Brussels, Belgium" when="9/3/2004" image="../../../../../Assets/Images/blackrect.jpg" />
+			<fx:Object fieldA="cellA8" fieldB="cellB8" fieldC="cellC8" fieldD="cellD8" fieldE="cellE8" recordName="Discus" recordAmount="74.08 m" who=" Jürgen Schult" where="Neubrandenburg, Germany" when="6/6/2006" image="../../../../../Assets/Images/whiterect.jpg" />
+			<fx:Object fieldA="cellA9" fieldB="cellB9" fieldC="cellC9" fieldD="cellD9" fieldE="cellE9" recordName="Hammer" recordAmount="86.74 m" who="Yuriy Sedykh" where="Stuttgart, Germany" when="9/30/1986" image="../../../../../Assets/Images/brownrect.jpg" />
+			<fx:Object fieldA="cellA10" fieldB="cellB10" fieldC="cellC10" fieldD="cellD10" fieldE="cellE10" recordName="2000 Meter Run" recordAmount="5:25.36" who="Sonia O'Sullivan" where="Edinburgh, Scotland" when="7/8/1994" image="../../../../../Assets/Images/tanrect.jpg" />
+			<fx:Object fieldA="cellA11" fieldB="cellB11" fieldC="cellC11" fieldD="cellD11" fieldE="cellE11" recordName="3000 Meter Run" recordAmount="8:06.11" who="Wang Junxia" where="Beijing, China" when="9/13/1993" image="../../../../../Assets/Images/bwrect.jpg" />
+			<fx:Object fieldA="cellA12" fieldB="cellB12" fieldC="cellC12" fieldD="cellD12" fieldE="cellE12" recordName="High Jump" recordAmount="2.09 m" who="Stefka Kostadinova" where="Rome, Italy" when="8/30/1987" image="../../../../../Assets/Images/rgrect.jpg" />
+			<fx:Object fieldA="cellA13" fieldB="cellB13" fieldC="cellC13" fieldD="cellD13" fieldE="cellE13" recordName="Pole Vault" recordAmount="5.01 m" who="Yelena Isinbayeva" where="Helsinki, Finland" when="8/12/2005" image="../../../../../Assets/Images/ybrect.jpg" />
+			<fx:Object fieldA="cellA14" fieldB="cellB14" fieldC="cellC14" fieldD="cellD14" fieldE="cellE14" recordName="Long Jump" recordAmount="7.52 m" who="Galina Chistyakova" where="Leningrad, USSR" when="6/11/1998" image="../../../../../Assets/Images/oprect.jpg" />
+			<fx:Object fieldA="cellA15" fieldB="cellB15" fieldC="cellC15" fieldD="cellD15" fieldE="cellE15" recordName="Triple Jump" recordAmount="15.50 m" who="Inessa Kravets" where="Göteborg, Sweden" when="8/10/1995" image="../../../../../Assets/Images/cyanrect.jpg" />
+			<fx:Object fieldA="cellA16" fieldB="cellB16" fieldC="cellC16" fieldD="cellD16" fieldE="cellE16" recordName="Heptathlon" recordAmount="7291 points" who="Jackie Joyner-Kersee" where="Seoul, S. Korea" when="9/24/1988" image="../../../../../Assets/Images/magentarect.jpg" />
+			<fx:Object fieldA="cellA17" fieldB="cellB17" fieldC="cellC17" fieldD="cellD17" fieldE="cellE17" recordName="Javelin" recordAmount="71.70 m" who="Osleidys Menéndez" where="Helsinki, Finland" when="8/14/2005" image="../../../../../Assets/Images/ltgrayrect.jpg" />
+		</mx:ArrayCollection>
+		
+		<mx:ArrayCollection id="dataArray2">
+			<fx:Object controlType="Button" info="A Button!" />
+			<fx:Object controlType="Image" info="assets/image1.jpg" />
+			<fx:Object controlType="TextArea" info="A TextArea!" />
+			<fx:Object controlType="NumericStepper" info="4" />
+			<fx:Object controlType="ComboBox" info="Item 1,Item2,Item3"  />
+			<fx:Object controlType="TextInput" info="A TextInput!"  />
+			<fx:Object controlType="Label" info="A Label!"  />
+			<fx:Object controlType="DateField" info="{date}" />
+		</mx:ArrayCollection>                     
+		
+		<mx:ArrayCollection id="dataArray3">
+			<fx:Object name="Ted" family="Canidae" age="9" breed="Whippet" hobby="Guarding uneaten treats" thoughts="I often look forward to knocking over the trash can once everyone leaves the house.  Then I can pick out the best pieces of trash, take them to bed, and guard them." />
+			<fx:Object name="Imari" family="Canidae" age="3" breed="Whippet" hobby="Studying pigeons" thoughts="When I go for a walk, I like to keep an eye out for pigeons.  Someday I'll break free from my leash and run after one.  I'm not sure what I'll do if I actually catch one." />
+			<fx:Object name="Umbra" family="Felidae" age="8" breed="Domestic Medium Hair" hobby="Hairball Connoisseur" thoughts="While depositing a hairball on the carpet does give it a better texture, I prefer to aim for the router and network cables.  Doesn't that improve connectivity?" />
+			<fx:Object name="Izzy" family="Canidae" age="12" breed="Whippet" hobby="Warming the pillows" thoughts="I spent twelve years living in a garage/outdoor run.  Now that I have new owners and live in the house, I need to make up for lost bed time by sleeping exclusively on the pillows at the head of the bed.  Nowhere else will do." />
+			<fx:Object name="TJ" family="Canidae" age="1" breed="Whippet" hobby="Licking a stuffed donkey" thoughts="There is something about the fat nose of the stuffed donkey toy which makes me want to chew and lick it every time I get excited.  It gets crunchy and smelly, and loses its ears and limbs, but every month or so he magically regenerates." />
+			<fx:Object name="Bo" family="Canidae" age="16" breed="Mix" hobby="Herding humans" thoughts="Chasing frisbees and tennis balls is fun, but my favorite thing is to single-handedly encircle and herd the children that come over to play with me." />
+			<fx:Object name="Danny" family="Equidae" age="20" breed="Shagya Arabian" hobby="Scheming" thoughts="Once I untie the rope attached to my halter, I can push the gate open.  Maybe the caretaker left the lid off the oats again.  Hmmm.  How can I intimdate him?" />
+			<fx:Object name="Molly" family="Canidae" age="4" breed="Black Lab" hobby="Fetching and eating" thoughts="I'm a lab.  Throw the tennis ball.  Feed me.  Throw the tennis ball.  Feed me.  Throw the tennis ball.  Feed me.  When do we go in the water again?" />
+			<fx:Object name="Matisse" family="Canidae" age="8" breed="Australian Cattle Dog" hobby="Keeping everyone in line" thoughts="You there, calm down.  Hey cat, don't get so close to the lab.  What is that man working on in the garage?  Isn't it time for someone to start dinner?  I need the names of everyone in the room and their reason for being here." />
+			<fx:Object name="Carmen" family="Felidae" age="12" breed="Domestic Short Hair" hobby="?" thoughts="Wouldn't you like to know?" />
+			<fx:Object name="Chumley" family="Bovidae" age="9" breed="Kamieniec" hobby="Becoming an omnivore" thoughts="Sheep are supposed to eat plants, but someone gave me a Cheeto a few years ago.  I don't know what's in them, but they sure are good.  Do you have another?" />
+			<fx:Object name="Moe" family="Bovidae" age="6" breed="Derbyshire Gritstone" hobby="Keeping away" thoughts="Run away!  Oh, you have food?  Nevermind, run away!  Oh, you have food?  Nevermind, run away!  Oh, you have food?" />    
+			<fx:Object name="Cadbury" family="Leporidae" age="7" breed="Netherland Dwarf" hobby="Chewing furniture" thoughts="Mahogany?  Teak?  Wicker?  Mmmmmm." />    
+			<fx:Object name="Bunny" family="Leporidae" age="4" breed="New Zealand" hobby="Eating" thoughts="I love carrots, alfalfa, and the occasional piece of lettuce.  Don't pick me up!" />
+			<fx:Object name="Daisy" family="Bovidae" age="3" breed="Holstein" hobby="Following the herd" thoughts="Hey!  It's hay!" />
+		</mx:ArrayCollection>                     
+		
+		<mx:ArrayCollection id="dataArray4">
+			<fx:Object name="Uncle Ted" family="Smith" age="39" hobby="Building model ships" thoughts="What a cute litle ship!" />
+			<fx:Object name="Aunt Imari" family="Smith" age="37" hobby="Building model airplanes" thoughts="What a cute litle airplane!" />
+			<fx:Object name="Uncle Umbra" family="Smith" age="28" hobby="Building model cars" thoughts="What a cute litle car!" />
+			<fx:Object name="Aunt Izzy" family="Smith" age="91" hobby="Building model trains" thoughts="What a cute litle train!" />
+			<fx:Object name="Uncle TJ" family="Smith" age="51" hobby="Building model trucks" thoughts="What a cute litle truck!" />
+			<fx:Object name="Uncle Bo" family="Hampton" age="38" hobby="Photographing real ships" thoughts="What a big ship!" />
+			<fx:Object name="Uncle Danny" family="Hampton" age="27" hobby="Photographing real airplanes" thoughts="What a big airplane!" />
+			<fx:Object name="Aunt Molly" family="Hampton" age="42" hobby="Photographing real cars" thoughts="What a beautiful car!" />
+			<fx:Object name="Uncle Matisse" family="Hampton" age="47" hobby="Photographing real trains" thoughts="What a fast train!" />
+			<fx:Object name="Aunt Carmen" family="Hampton" age="87" hobby="Photographing real trucks" thoughts="What a big truck!" />
+			<fx:Object name="Uncle Chumley" family="BrPlayer" age="79" hobby="Piloting ships" thoughts="Look out for the bridge!" />
+			<fx:Object name="Uncle Moe" family="BrPlayer" age="61" hobby="Flying airplanes" thoughts="Look out for the radio tower!" />    
+			<fx:Object name="Uncle Cadbury" family="BrPlayer" age="74" hobby="Driving cars" thoughts="Don't forget to stop for the stop sign!" />    
+			<fx:Object name="Aunt Bunny" family="BrPlayer" age="32" hobby="Riding trains" thoughts="Look out for the pennies!" />
+			<fx:Object name="Aunt Daisy" family="BrPlayer" age="36" hobby="Driving trucks" thoughts="Breaker-breaker! " />
+		</mx:ArrayCollection>                     
+		
+		<!-- Number 5 is defined in setDataProvider(). -->
+		
+		<mx:ArrayCollection id="dataArray6">
+			<fx:Object key1="0" key2="item zero" key3="A" />
+			<fx:Object key1="1" key2="item one" key3="B" />
+			<fx:Object key1="2" key2="item two" key3="C" />
+			<fx:Object key1="3" key2="item three" key3="D" />
+			<fx:Object key1="4" key2="item four" key3="E" />
+			<fx:Object key1="5" key2="item five" key3="F" />
+			<fx:Object key1="6" key2="item six" key3="G" />
+			<fx:Object key1="7" key2="item seven" key3="H" />
+			<fx:Object key1="8" key2="item eight" key3="I" />
+			<fx:Object key1="9" key2="item nine" key3="J" />
+			<fx:Object key1="10" key2="item nine" key3="K" />
+		</mx:ArrayCollection>
+		
+		<!-- This one is handy for testing sorting. -->
+		<mx:ArrayCollection id="dataArray7">
+			<fx:Object alpha="1" introspectAlpha="a" introspectNumeric="1" numeric="1" />
+			<fx:Object alpha="2" introspectAlpha="1" introspectNumeric="2" numeric="2" />
+			<fx:Object alpha="3" introspectAlpha="2" introspectNumeric="10" numeric="3" />
+			<fx:Object alpha="10" introspectAlpha="10" introspectNumeric="a" numeric="10" />
+		</mx:ArrayCollection>
+	</fx:Declarations>
+	
+	<mx:DataGrid id="dg1" />
+	<comps:SubclassedDataGrid id="dg2" visible="false" />
+	<mx:DataGrid id="dg3" visible="false" />
+	<mx:CheckBox id="ck1" visible="false" />
+	
+</s:Application>

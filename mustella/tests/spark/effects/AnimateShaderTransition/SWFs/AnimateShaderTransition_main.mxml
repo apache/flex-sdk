@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:trix="assets.*"
+	width="600" height="600"
+    backgroundColor="0xFFFFFF">
+
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+
+    <fx:Script>
+        <![CDATA[
+        import mx.core.UIComponent;
+		import mx.controls.Image;
+        
+        //Pubs
+        public var pauseQuanta:int = 500;
+        
+		
+		[Embed(source='assets/clear_100x30.png')]
+		public var clearImage:Class;
+        [Bindable]
+		public var clearBitmap:Bitmap = new clearImage();
+
+        [Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')]
+		public var twistShader:Class;
+
+
+        public function ShowContainer(container:UIComponent):void
+        {
+            if(container == this.controls1)
+                this.controls1.visible = true;
+            else
+                this.controls1.visible = false;
+            
+            if(container == this.controls2)
+                this.controls2.visible = true;
+            else
+                this.controls2.visible = false;
+            
+            if(container == this.controls3)
+                this.controls3.visible = true;
+            else
+                this.controls3.visible = false;
+            
+            if(container == this.controls4)
+                this.controls4.visible = true;
+            else
+                this.controls4.visible = false;
+            
+            if(container == this.card)
+                this.card.visible = true;
+            else
+                this.card.visible = false;
+        }
+        
+        public function IsInRange(current:Number, low:Number, high:Number):Boolean
+        {
+            if((low <= current) && (high >= current))
+            {
+                return(true);
+            }
+            
+            return(false);
+        }
+		]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <s:AnimateTransitionShader id="e_AnimateTransitionShader"/>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxAnimate">
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:Animate>
+                <s:motionPaths>
+                    <s:SimpleMotionPath property="x" valueBy="20" />
+                    <s:SimpleMotionPath property="y" valueBy="20" />
+                </s:motionPaths>
+            </s:Animate>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxAnimateColor">
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxFade">
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:Fade alphaFrom="1" alphaTo="0" />
+        </mx:Parallel>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxMove" >
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:Move yFrom="100" yTo="200"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxResize">
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:Resize widthFrom="100" widthTo="200"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxRotate">
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:Rotate angleFrom="0" angleTo="70"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_AnimateTransitionShader_fxRotate3D">
+            <s:AnimateTransitionShader
+                shaderByteCode="@Embed(source='shaders/twist.pbj', mimeType='application/octet-stream')"
+	        	bitmapFrom="{clearBitmap.bitmapData}"/>
+            <s:Rotate3D angleXFrom="0" angleXTo="70" angleYFrom="0" angleYTo="40" angleZFrom="0" angleZTo="30"/>
+        </mx:Parallel>
+
+    </fx:Declarations>
+
+    <trix:Controls1 id="controls1" visible="true"
+        x="100" y="10"
+        height="570"/>
+
+    <trix:Controls2 id="controls2" visible="false"
+        x="100" y="10"
+        height="570"/>
+
+    <trix:Controls3 id="controls3" visible="false"
+        x="100" y="10"
+        height="570"/>
+
+    <trix:Controls4 id="controls4" visible="false"
+        x="100" y="10"/>
+
+    <trix:Card id="card" visible="false"
+		x="100" y="10"/>
+
+</s:Application>
+

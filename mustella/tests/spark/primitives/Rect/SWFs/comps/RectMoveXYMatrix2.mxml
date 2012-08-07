@@ -1,0 +1,27 @@
+<s:Rect
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="60" height="60" x="100" y="100" visible="false">
+
+
+    <s:fill>
+        <mx:SolidColor color="0x1010E8"/>
+    </s:fill>
+
+    <s:stroke>
+        <mx:SolidColorStroke color="0x666666" weight="1"/>
+    </s:stroke>
+
+    <!-- This matrix should cause the rect to move to location (500,500) -->
+
+    <s:transform>
+        <s:Transform>
+            <s:matrix>
+                <s:Matrix tx="500" ty="500" />
+            </s:matrix>
+        </s:Transform>
+    </s:transform>
+
+</s:Rect>
+

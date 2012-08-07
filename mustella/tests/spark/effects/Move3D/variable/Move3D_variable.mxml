@@ -1,0 +1,215 @@
+﻿<UnitTester
+    testSWF="../SWFs/Move3D_main.mxml"
+    testDir="spark/effects/Move3D/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import spark.effects.Move3D;
+        import Components.*;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- xFrom -->
+        <TestCase testID="Move3D_xFrom_Default" keywords="[Move3D, variable, xFrom]" description="Test the default value of the xFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).xFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- xTo -->
+        <TestCase testID="Move3D_xTo_Default" keywords="[Move3D, variable, xTo]" description="Test the default value of the xTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).xTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- xBy -->
+        <TestCase testID="Move3D_xBy_Default" keywords="[Move3D, variable, xBy]" description="Test the default value of the xBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).xBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Move3D_xFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with xFrom and xTo.">
+            <setup>
+                <RunCode code="application.atm_xFromTo.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_xFromTo.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_xFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_xFromBy" keywords="[AnimateTransform, usability]" description="Verify effect behavior with xFrom and xBy.">
+            <setup>
+                <RunCode code="application.atm_xFromBy.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_xFromBy.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_xFromBy.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_xByTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with xBy and xTo.">
+            <setup>
+                <RunCode code="application.atm_xByTo.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_xByTo.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_xByTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="x" value="65.450850"/>
+			</body>
+        </TestCase>
+
+
+
+
+
+
+        <!-- zFrom -->
+        <TestCase testID="Move3D_zFrom_Default" keywords="[Move3D, variable, zFrom]" description="Test the default value of the zFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).zFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- zTo -->
+        <TestCase testID="Move3D_zTo_Default" keywords="[Move3D, variable, zTo]" description="Test the default value of the zTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).zTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- zBy -->
+        <TestCase testID="Move3D_zBy_Default" keywords="[Move3D, variable, zBy]" description="Test the default value of the zBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).zBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Move3D_zFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with zFrom and zTo.">
+            <setup>
+                <RunCode code="application.atm_zFromTo.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_zFromTo.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_zFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_zFromBy" keywords="[AnimateTransform, usability]" description="Verify effect behavior with zFrom and zBy.">
+            <setup>
+                <RunCode code="application.atm_zFromBy.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_zFromBy.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_zFromBy.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_zByTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with zBy and zTo.">
+            <setup>
+                <RunCode code="application.atm_zByTo.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_zByTo.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_zByTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="z" value="65.450850"/>
+			</body>
+        </TestCase>
+
+
+
+
+
+        <!-- yFrom -->
+        <TestCase testID="Move3D_yFrom_Default" keywords="[Move3D, variable, yFrom]" description="Test the default value of the yFrom variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).yFrom" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- yTo -->
+        <TestCase testID="Move3D_yTo_Default" keywords="[Move3D, variable, yTo]" description="Test the default value of the yTo variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).yTo" value="NaN"/>
+            </body>
+        </TestCase>
+        <!-- yBy -->
+        <TestCase testID="Move3D_yBy_Default" keywords="[Move3D, variable, yBy]" description="Test the default value of the yBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Move3D()).yBy" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Move3D_yFromTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with yFrom and yTo.">
+            <setup>
+                <RunCode code="application.atm_yFromTo.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_yFromTo.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_yFromTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_yFromBy" keywords="[AnimateTransform, usability]" description="Verify effect behavior with yFrom and yBy.">
+            <setup>
+                <RunCode code="application.atm_yFromBy.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_yFromBy.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_yFromBy.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+			</body>
+        </TestCase>
+        <TestCase testID="Move3D_yByTo" keywords="[AnimateTransform, usability]" description="Verify effect behavior with yBy and yTo.">
+            <setup>
+                <RunCode code="application.atm_yByTo.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.atm_yByTo.target = application.uiComponent"/>
+            </setup>
+            <body>
+                <RunCode code="application.atm_yByTo.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent.postLayoutTransformOffsets" propertyName="y" value="65.450850"/>
+			</body>
+        </TestCase>
+
+
+
+    </testCases>
+</UnitTester>
+

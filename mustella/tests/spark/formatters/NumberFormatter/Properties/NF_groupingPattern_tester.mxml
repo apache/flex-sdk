@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NF_groupingPattern.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.NFConstants;
+			
+			import flash.globalization.*;
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{ 
+			} 
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file tests groupingPattern property-->
+	<testCases>
+		<!--Set/Get default groupingPattern properties -->
+		<TestCase testID="NF_groupingPattern_defaultValue_test1" description="Set/Get default groupingPattern properties" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfDefault" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+				<AssertPropertyValue target="nfDefault" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with positive value -->
+		<TestCase testID="NF_groupingPattern_setPositiveValue_3semicolonStar_test2" description="Set/Get groupingPattern with positive value" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nfPositive1" propertyName="groupingPattern" value="3;*" waitEvent="change"/>
+				<AssertPropertyValue target="nfPositive1" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+				<AssertPropertyValue target="nfPositive1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with positive value -->
+		<TestCase testID="NF_groupingPattern_setPositiveValue_3semicolon2semicolonStar_test3" description="Set/Get groupingPattern with positive value" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3;2;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nfPositive2" propertyName="groupingPattern" value="3;2;*" waitEvent="change"/>
+				<AssertPropertyValue target="nfPositive2" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+			</body>
+		</TestCase>
+		
+		<!--Set/Get groupingPattern with positive value -->
+		<TestCase testID="NF_groupingPattern_setPositiveValue_3_test4" description="Set/Get groupingPattern with positive value " keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nfPositive3" propertyName="groupingPattern" value="3" waitEvent="change"/>
+				<AssertPropertyValue target="nfPositive3" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with positive value with inline definition -->
+		<TestCase testID="NF_groupingPattern_setPositiveValue_3semicolonStar_test5" 
+				  description="Set/Get groupingPattern with positive value with inline definition" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfInline1" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+				<AssertPropertyValue target="nfInline1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with positive value with inline definition -->
+		<TestCase testID="NF_groupingPattern_setPositiveValue_3semicolon2semicolonStar_test6" 
+				  description="Set/Get groupingPattern with positive value with inline definition" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3;2;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfInline2" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with positive value with inline definition -->
+		<TestCase testID="NF_groupingPattern_setPositiveValue_3_test7" 
+				  description="Set/Get groupingPattern with positive value with inline definition" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfInline3" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+			</body>
+		</TestCase>
+		
+		<!-- Test function of groupingPattern property -->
+		<TestCase testID="NF_groupingPattern_function_format_test8" description="Test function of groupingPattern property" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.useGrouping=true" />
+				<RunCode code="nfGSLib.groupingSeparator=','"/>
+				<RunCode code="nfGSLib.groupingPattern='3;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nfFormat1" propertyName="groupingPattern" value="3;*" waitEvent="change"/>
+				<AssertMethodValue method="value=application.nfFormat1.format(123456789.12)" valueExpression="value=nfGSLib.formatNumber(123456789.12)" />
+				<AssertPropertyValue target="nfFormat1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!-- Test function of groupingPattern property -->
+		<TestCase testID="NF_groupingPattern_function_format_test9" description="Test function of groupingPattern property" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.useGrouping=true" />
+				<RunCode code="nfGSLib.groupingSeparator=','"/>
+				<RunCode code="nfGSLib.groupingPattern='3;2;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nfFormat2" propertyName="groupingPattern" value="3;2;*" waitEvent="change"/>
+				<AssertMethodValue method="value=application.nfFormat2.format(123456789.12)" valueExpression="value=nfGSLib.formatNumber(123456789.12)" />
+			</body>
+		</TestCase>
+		
+		<!-- Test function of groupingPattern property -->
+		<TestCase testID="NF_groupingPattern_function_format_test10" description="Test function of groupingPattern property" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.useGrouping=true" />
+				<RunCode code="nfGSLib.groupingSeparator=','"/>
+				<RunCode code="nfGSLib.groupingPattern='3'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="nfFormat3" propertyName="groupingPattern" value="3" waitEvent="change"/>
+				<AssertMethodValue method="value=application.nfFormat3.format(123456789.12)" valueExpression="value=nfGSLib.formatNumber(123456789.12)" />
+			</body>
+		</TestCase>
+		
+		<!--Set/Get groupingPattern within <fx:Script> -->
+		<TestCase testID="NF_groupingPatternsetValue_setInScript_test11" description="Set/Get groupingPattern within fx:Script" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.groupingPattern='3;*'" />
+				<RunCode code="application.setNFGroupingPattern()"/>
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfScript" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern"/>
+				<AssertPropertyValue target="nfScript" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>			
+		
+		<!--Binding property by lable text-->
+		<TestCase testID="NF_groupingPattern_binding_test12" description="Binding property by lable text" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<RunCode code="nfGSLib.useGrouping=true" />
+				<RunCode code="nfGSLib.groupingSeparator=','"/>
+				<RunCode code="nfGSLib.groupingPattern='3;2;*'" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetProperty target="nfBinding" propertyName="groupingPattern" value="3;2;*" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfLabel" propertyName="text" valueExpression="value=nfGSLib.groupingPattern" />
+				<AssertPropertyValue target="nfBinding" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with negative value -->
+		<TestCase testID="NF_groupingPattern_setNegativeValue_test13" description="Set/Get groupingPattern with negative value" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative1,'groupingPattern',null)" 
+								   valueExpression="value=NFConstants.testArgError(nfGSLib,'groupingPattern',null)"/>
+				<AssertPropertyValue target="nfNegative1" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern" />
+				<AssertPropertyValue target="nfNegative1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set/Get groupingPattern with negative value -->
+		<TestCase testID="NF_groupingPattern_setNegativeValue_test14" description="Set/Get groupingPattern with negative value" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NFConstants.testArgError(application.nfNegative2,'groupingPattern','3;;3')" 
+								   valueExpression="value=NFConstants.testArgError(nfGSLib,'groupingPattern','3;;3')"/>
+				<AssertPropertyValue target="nfNegative2" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern" />
+				<AssertPropertyValue target="nfNegative2" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>			
+		
+		<!--Binding property when locale change-->
+		<TestCase testID="NF_groupingPattern_bindingAndChangeLocale_test15" description="Binding property when locale change" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('bn-BD')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle target="nfBLocale1" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nfBLocale1" styleName="locale" value="bn-BD" waitEvent="change"/>
+				<AssertPropertyValue target="nfLa" propertyName="text" valueExpression="value=nfGSLib.groupingPattern" />
+				<AssertPropertyValue target="nfBLocale1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Binding property when locale change-->
+		<TestCase testID="NF_groupingPattern_bindingAndChangeLocale_test16" description="Binding property when locale change" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+				<SetStyle target="nfBLocale2" styleName="locale" value="bn-BD" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="nfBLocale2" styleName="locale" value="zh-CN" waitEvent="change"/>
+				<AssertPropertyValue target="nfLb" propertyName="text" valueExpression="value=nfGSLib.groupingPattern" />
+			</body>
+		</TestCase>	
+		
+		<!--	test property without setting any locale -->
+		<TestCase testID="NF_groupingPattern_without_locale_test17" description="test property without setting any locale" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfNoLocaleInline" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern" />
+				<AssertPropertyValue target="nfNoLocaleInline" propertyName="lastOperationStatus" value="noError"/>
+				
+				<AssertPropertyValue target="nfNoLocaleScript" propertyName="groupingPattern" valueExpression="value=nfGSLib.groupingPattern" />
+				<AssertPropertyValue target="nfNoLocaleScript" propertyName="lastOperationStatus" value="noError"/>
+			</body>
+		</TestCase>
+		
+		<!-- if property groupingPattern has been set inline, it doesnot change with locale -->
+		<TestCase testID="NF_groupingPattern_inline_changeLocale_test18" description="if property groupingPattern has been set inline, it doesnot change with locale" keywords="[NumberFormatter, groupingPattern]">
+			<setup>
+				<SetStyle target="nfInline_ChangeLocale" styleName="locale" value="bn-BD" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfInline_ChangeLocale" propertyName="groupingPattern" value="3;*"/>
+			</body>
+		</TestCase>	
+
+	</testCases>
+</UnitTester>

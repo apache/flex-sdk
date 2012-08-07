@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   creationComplete="init()">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+ 		.nullStyle{
+			locale: ClassReference(null);
+		} 
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import spark.globalization.StringTools;
+			
+			import mx.controls.Alert;
+			
+			[Bindable]
+			public var st:spark.globalization.StringTools = new spark.globalization.StringTools;
+			
+			public var stScript:spark.globalization.StringTools = new spark.globalization.StringTools;
+			
+			//StringTools instance used to test lastOperationStatus when set locale to null
+			public var stLastOSSetStyle:spark.globalization.StringTools = new spark.globalization.StringTools();
+			public var stLastOS:spark.globalization.StringTools = new spark.globalization.StringTools();
+			
+			[Bindable]
+			public var stlastOperationStatus_script:spark.globalization.StringTools = new spark.globalization.StringTools;
+			
+			[Bindable]
+			private var errorInfo:String;
+			
+			import mx.core.FlexGlobals;
+			
+			public function get appLocale():String
+			{
+				return FlexGlobals.topLevelApplication.getStyle("locale");
+			}
+			
+			public function testError(testObj:spark.globalization.StringTools):void
+			{
+				errorInfo = 'No Error';
+				try
+				{
+					testObj.setStyle('locale',null);
+				}
+				catch(error:Error)
+				{
+					errorInfo = error.toString();
+				}
+			}
+			
+			public var stInherit_script:StringTools;
+			
+			public function testStyleInherit_script():void
+			{
+				stInherit_script = new StringTools;
+				labelUndefined.addStyleClient(stInherit_script);
+			}
+			
+			public function testStyleInherit_declaration():void
+			{
+				labelNull.addStyleClient(stInherit_inline);
+			}
+			
+			public function addStyleClient_script(obj:spark.globalization.StringTools):void
+			{
+				this.addStyleClient(obj);
+			}
+			
+			public function setLocaleUndefined(obj:spark.globalization.StringTools):void
+			{
+				obj.setStyle('locale',undefined);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:StringTools id="stInline"/>
+		<s:StringTools id="st_inline"/>
+		<s:StringTools id="stInherit_inline"/>
+		<s:StringTools id="stError_inline"/>
+		<s:StringTools id="stlastOperationStatus_inline"/>
+		
+		<s:StringTools id="stInline_en" locale="en"/>
+		
+		<fx:String id="undefinedObj"></fx:String>
+		
+		<!--StringTools instance used to test lastOperationStatus when set locale to null -->
+		<s:StringTools id="stLastOSSetStyle_inline"/>
+		<s:StringTools id="stLastOS_inline"/>
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout>
+			
+		</s:VerticalLayout>
+	</s:layout>
+	<s:Label id="labelUndefined" locale="{undefined}"/>
+	<s:Label id="labelNull" styleName="nullStyle"/>
+	<mx:Form>
+		<mx:FormItem>
+			<s:Label id="errorInfoLable" text="{errorInfo}"/>			
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:TextInput id="stBinding_inline" text="{st_inline.actualLocaleIDName}"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:TextInput id="stBinding_script" text="{st.actualLocaleIDName}"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:TextInput id="stLOPS_inline" text="{stlastOperationStatus_inline.lastOperationStatus}"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:TextInput id="stLOPS_script" text="{stlastOperationStatus_script.lastOperationStatus}"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+</s:Application>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.formatters.NumberFormatter;
+			
+			public var nfScript:spark.formatters.NumberFormatter = new spark.formatters.NumberFormatter();
+			
+			public var nfNoLocaleScript: spark.formatters.NumberFormatter = new spark.formatters.NumberFormatter();
+			
+			public function setNFGroupingPattern():void
+			{
+				this.addStyleClient(nfScript);
+				nfScript.setStyle("locale","en-US");
+				nfScript.groupingPattern = "3;*";
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->	
+		<s:NumberFormatter id="nfDefault" locale="en-US" />	
+		
+		<s:NumberFormatter id="nfNoLocaleInline" />
+		
+		<s:NumberFormatter id="nfPositive1" locale="en-US" />
+		<s:NumberFormatter id="nfPositive2" locale="en-US" />
+		<s:NumberFormatter id="nfPositive3" locale="en-US" />
+		
+		<s:NumberFormatter id="nfInline1" locale="en-US" groupingPattern="3;*"/>	
+		<s:NumberFormatter id="nfInline2" locale="en-US" groupingPattern="3;2;*"/>	
+		<s:NumberFormatter id="nfInline3" locale="en-US" groupingPattern="3"/>	
+	
+		<s:NumberFormatter id="nfFormat1" locale="en-US" useGrouping="true" groupingSeparator="," />
+		<s:NumberFormatter id="nfFormat2" locale="en-US" useGrouping="true" groupingSeparator="," />
+		<s:NumberFormatter id="nfFormat3" locale="en-US" useGrouping="true" groupingSeparator="," />
+		
+		<s:NumberFormatter id="nfNegative1" locale="en-US" />
+		<s:NumberFormatter id="nfNegative2" locale="en-US" />
+		
+		<s:NumberFormatter id="nfBinding" locale="en-US" useGrouping="true" groupingSeparator="," />
+		<s:NumberFormatter id="nfBLocale1"/>
+		<s:NumberFormatter id="nfBLocale2"/>
+		
+		<s:NumberFormatter id="nfInline_ChangeLocale" locale="zh-CN" groupingPattern="3;*"/>
+		
+	</fx:Declarations> 
+	<s:Label id="nfLabel" text="{nfBinding.groupingPattern}" />
+	
+	<s:Label id="nfLa" text="{nfBLocale1.groupingPattern}"/>
+	<s:Label id="nfLb" text="{nfBLocale2.groupingPattern}"/>
+	
+</s:Application>

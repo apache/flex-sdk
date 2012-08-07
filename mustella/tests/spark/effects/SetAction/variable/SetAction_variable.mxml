@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/SetAction/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SetAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.SetAction;
+        import mx.managers.LayoutManager;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- property -->
+        <TestCase testID="SetAction_property_Default" keywords="[SetAction, variable, property]" description="Test the setting of the property variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).property" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_property" keywords="[SetAction, variable, property]" description="Verify property returns the value declared in mxml.">
+            <body>
+                <AssertPropertyValue target="simpleEffect" propertyName="property" value="y"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_propertyIsVariable" keywords="[SetAction, variable, property]" description="Verify setAction works with variables.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectVariable.play()" waitTarget="effectVariable" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="160"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_propertyIsAccessor" keywords="[SetAction, variable, property]" description="Verify setAction works with accessors.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAccessor.play()" waitTarget="effectAccessor" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="alpha" value=".699219"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_propertyIsStyle" keywords="[SetAction, variable, property]" description="Verify setAction works with styles.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectStyle.play()" waitTarget="effectStyle" waitEvent="effectEnd"/>
+                <AssertStyleValue target="gumboGroup" styleName="left" value="5"/>
+            </body>
+        </TestCase>
+
+
+        <!-- value -->
+        <TestCase testID="SetAction_value_Default" keywords="[SetAction, variable, value]" description="Test the setting of the value variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).value" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_value" keywords="[SetAction, variable, value]" description="Test the setting of the value variable.">
+            <body>
+                <AssertPropertyValue target="simpleEffect" propertyName="value" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueError" keywords="[SetAction, variable, value]" description="Verify hno error when setting a value that mismatches the property data type.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectAccessor.play()" waitTarget="effectAccessor" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valuePercent" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles width/height vars with %.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectPercent.play()" waitTarget="effectPercent" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="percentHeight" value="50"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueColor" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles color values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectColor.play()" waitTarget="effectColor" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xFF0000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueNegative" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles negative values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectNegative.play()" waitTarget="effectNegative" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="haloButton" propertyName="x" value="-10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueObject" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles object values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectObject.play()" waitTarget="effectObject" waitEvent="effectEnd"/>
+                <RunCode code="application.effectObjectTarget.play()" waitTarget="effectObjectTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="135"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueArray" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles array values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectArray.play()" waitTarget="effectArray" waitEvent="effectEnd"/>
+                <RunCode code="application.effectArrayTarget.play()" waitTarget="effectArrayTarget" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboGroup" propertyName="y" value="85"/>
+                <AssertPropertyValue target="gumboButton" propertyName="y" value="85"/>
+                <AssertPropertyValue target="haloButton" propertyName="y" value="85"/>
+                <AssertPropertyValue target="haloLabel" propertyName="y" value="85"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueString" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles string values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectString.play()" waitTarget="effectString" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="haloLabel" propertyName="text" value="Effect World"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SetAction_valueBoolean" keywords="[SetAction, variable, value]" description="Verify SetAction properly handles boolean values.">
+            <setup>
+                <RunCode code="application.Reset()" waitEvent="manualResetComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.effectBoolean.play()" waitTarget="effectBoolean" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboButton" propertyName="visible" value="false"/>
+                <RunCode code="application.effectBooleanCaps.play()" waitTarget="effectBooleanCaps" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="gumboButton" propertyName="visible" value="true"/>
+            </body>
+        </TestCase>
+
+
+
+
+
+        <!-- repeatCount -->
+        <TestCase testID="SetAction_repeatCount_Default" keywords="[SetAction, variable, repeatCount]" description="Test the setting of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="SetAction_startDelay_Default" keywords="[SetAction, variable, startDelay]" description="Test the setting of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="SetAction_suspendBackgroundProcessing_Default" keywords="[SetAction, variable, suspendBackgroundProcessing]" description="Test the setting of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="SetAction_repeatDelay_Default" keywords="[SetAction, variable, repeatDelay]" description="Test the setting of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- instanceClass -->
+        <TestCase testID="SetAction_instanceClass_Default" keywords="[SetAction, variable, instanceClass]" description="Test the setting of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new SetAction()).instanceClass.toString().substr(7,17).replace(']','')" value="SetActionInstance"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

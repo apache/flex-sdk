@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test DropShadowFilter applied to various types of graphic content                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 18 March-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  18-March-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group x="50" y="50">
+	<Group>
+		<TextGraphic fontFamily="MyVeraSpark" fontSize="18" lineHeight="120%" color="#333333" kerning="on" x="10" y="10">
+		<content><p><span>DropShadowFilter applied to various graphic content</span></p></content>
+		</TextGraphic>
+		<Group>
+		    <Group x="30" y="80">
+		      	<Group>
+				<Group x="0" y="0">
+					<filters>
+						<DropShadowFilter angle="45" color="#808080" distance="8" inner="true"/>
+					</filters>
+					<BitmapGraphic width="120" height="100" source="@Embed('../../../../../../../Assets/Images/spectrum.png')" repeat="false"/>
+				</Group>
+				<Group x="180" y="0">
+					<Rect radiusX="20" radiusY="40" width="120" height="100">
+						<filters>
+							<DropShadowFilter alpha="0.5" blurX="2" blurY="4" distance="15" quality="2"/>
+						</filters>
+						<fill>
+							<LinearGradient x = "20" y = "20" scaleX = "50" rotation = "-17">
+								<GradientEntry color="#0900b2" ratio="0"/>
+								<GradientEntry color="#ff0000" ratio="0.5"/>
+								<GradientEntry color="#fffc00" ratio="1"/>
+							</LinearGradient>
+						</fill>
+						<stroke>
+						  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+						</stroke>
+					</Rect>
+				</Group>
+			</Group>
+		      	<Group y="20">
+				<Group x="0" y="170">
+					<Ellipse width="120" height="80">
+						<filters>
+							<DropShadowFilter distance="10" inner="true" hideObject="true"/>
+						</filters>	
+						<fill>
+							<RadialGradient x="50" y="10" scaleX="100" scaleY="60" focalPointRatio="0">
+								<GradientEntry color="#0900b2" ratio="0"/>
+								<GradientEntry color="#ff0000" ratio="0.5"/>
+								<GradientEntry color="#fffc00" ratio="1"/>
+							</RadialGradient>
+						</fill>
+						<stroke>
+						  <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+						</stroke>
+					</Ellipse>
+				</Group>
+				<Group x="180" y="170">
+					<Rect x="10" y="10" width="120" height="120">
+						<filters>
+							<DropShadowFilter angle="315" distance="10" quality="1"/>
+						</filters>
+						<fill>
+							<BitmapFill x="0" y="0" scaleX="0.5" scaleY="0.5" rotation="225" source="@Embed('../../../../../../../Assets/Images/greenrect.jpg')"/>
+						</fill>
+						<stroke>
+							<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+						</stroke>
+					</Rect>
+				</Group>
+			</Group>
+		      	<Group y="40">
+				<Group x="0" y="370">
+					<filters>
+						<DropShadowFilter color="#333333" distance="15" knockout="true" strength="1.0"/>
+					</filters>
+					<Ellipse width="120" height="80">
+						<fill>
+							<SolidColor color="#0000FF"/>
+						</fill>
+					</Ellipse>
+				</Group>
+				<Group x="180" y="350">
+					<Path winding="nonZero" y="30" data="M  72 0   q   -100   50    0   50   Q -28  50   72  100  q   100  -50   0   -50   Q   172  50    72 0 z" >
+						<filters>
+							<DropShadowFilter color="#333333" distance="15" strength="0.5"/>
+						</filters>
+						<fill>
+							<LinearGradient x = "10" y = "10" scaleX = "50" rotation = "-17">
+								<GradientEntry color="#203c00" ratio="0" alpha="1"/>
+								<GradientEntry color="#1b971b" ratio="0.28" alpha="1"/>
+								<GradientEntry color="#1e4f45" ratio="0.45" alpha="1"/>
+								<GradientEntry color="#6aec01" ratio="0.6" alpha="1"/>
+								<GradientEntry color="#1b971b" ratio="0.75" alpha="1"/>
+								<GradientEntry color="#203c00" ratio="1" alpha="1"/>
+							</LinearGradient>
+						</fill>
+						<stroke>
+						  <SolidColorStroke color="#00cf00" caps="none" weight="2" joints="miter" miterLimit="4"/>
+						</stroke>
+					</Path>
+				</Group>
+			</Group>
+	            </Group>
+	      	</Group>
+	      	<Group x="30" y="10">
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on" y="30">
+			<content><p><span>BitmapGraphic: </span></p>
+			<p><span>angle,color,distance,inner,quality</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on" x="200" y="30">
+			<content><p><span>LinearGradient fill: </span></p>
+			<p><span>alpha,blurX,blurY,quality</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on" x="0" y="230">
+			<content><p><span>RadialGradient fill: </span></p>
+			<p><span>distance,inner,hideObject</span></p></content>
+			</TextGraphic>
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on" x="200" y="230">
+			<content><p><span>BitmapFill: </span></p>
+			<p><span>angle,distance,quality</span></p></content>
+			</TextGraphic>		      
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on" x="0" y="430">
+			<content><p><span>SolidColor fill: </span></p>
+			<p><span>color,distance,knockout,strength</span></p></content>
+			</TextGraphic>		      
+			<TextGraphic fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on" x="200" y="430">
+			<content><p><span>Close path LinearGradient fill: </span></p>
+			<p><span>color,distance,strength</span></p></content>
+			</TextGraphic>	
+		</Group>
+	</Group>
+
+	  <Rect x="0.25" y="0.25" width="440" height="620">
+	      <stroke>
+		<SolidColorStroke caps="none" weight="0.5" joints="miter" miterLimit="4"/>
+	      </stroke>
+	  </Rect>
+    </Group>
+</Graphic>

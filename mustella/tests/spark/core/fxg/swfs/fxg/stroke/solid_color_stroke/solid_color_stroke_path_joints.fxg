@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Waring: FXG Viewer doesn't render miter the same way as bevel. Okay in Illustrator CS4. -->
+
+<!-- FXG 1.0 Test Stroke a path with solid color with joints.                   -->
+<!-- FXG strokes support three ways of rendering the joints between path segments, specified with the joints attribute. Legal values are:
+
+bevel: The joint is capped by the line running through the joint perpendicular to the line bisecting the joint angle. 
+miter: The joint is rendered by slicing the stroke of the two joining segments with the outer edge of the opposite segment's stroke. 
+round: The joint is rendered with a circle whose diameter matches the weight of the stroke centered on the joint. 
+FXG strokes also support the miterLimit attribute. This is a numeric value that imposes a limit on the ratio between the stroke weight and the miter length. When the limit is exceeded, the join is converted from a miter to a bevel. Valid values range from 0 to 255. 
+-->
+<!-- Author : Min Plunkett  27 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History: 
+  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group x="25.5449" y="25.2915">
+    <Group>
+      <Path winding="nonZero" data="M26.249 6.68799C12.0864 20.874 3.3252 43.3765 1.12744 61.6382 -2.97461 95.7241 12.856 113.87 54.1167 125.304 73.6953 130.729 93.6733 132.584 112.529 130.742 143.955 127.67 172.263 114.327 190.406 90.125 202.602 73.8579 218.232 42.4248 207.878
+ 23.3457 202.042 12.5903 126.796 42.165 122.617 50.8101 117.67 61.0425 80.1611 59.958 66.7891 59.4731 66.7891 59.4731 88.1187 0.479492 89.4507 0.5 110.741 0.824219 132.009 0.819336 153.325 0.84668" >
+        <stroke>
+          <SolidColorStroke caps="none" weight="30" joints="round"/>
+        </stroke>
+      </Path>
+    </Group>
+    <Group y="180">
+      <Path winding="nonZero" data="M26.249 6.68799C12.0864 20.874 3.3252 43.3765 1.12744 61.6382 -2.97461 95.7241 12.856 113.87 54.1167 125.304 73.6953 130.729 93.6733 132.584 112.529 130.742 143.955 127.67 172.263 114.327 190.406 90.125 202.602 73.8579 218.232 42.4248 207.878
+ 23.3457 202.042 12.5903 126.796 42.165 122.617 50.8101 117.67 61.0425 80.1611 59.958 66.7891 59.4731 66.7891 59.4731 88.1187 0.479492 89.4507 0.5 110.741 0.824219 132.009 0.819336 153.325 0.84668" >
+        <stroke>
+          <SolidColorStroke caps="none" weight="30" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+    </Group>
+    <Group y="380">
+      <Path winding="nonZero" data="M26.249 6.68799C12.0864 20.874 3.3252 43.3765 1.12744 61.6382 -2.97461 95.7241 12.856 113.87 54.1167 125.304 73.6953 130.729 93.6733 132.584 112.529 130.742 143.955 127.67 172.263 114.327 190.406 90.125 202.602 73.8579 218.232 42.4248 207.878
+ 23.3457 202.042 12.5903 126.796 42.165 122.617 50.8101 117.67 61.0425 80.1611 59.958 66.7891 59.4731 66.7891 59.4731 88.1187 0.479492 89.4507 0.5 110.741 0.824219 132.009 0.819336 153.325 0.84668" >
+        <stroke>
+          <SolidColorStroke caps="none" weight="30" joints="bevel"/>
+        </stroke>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

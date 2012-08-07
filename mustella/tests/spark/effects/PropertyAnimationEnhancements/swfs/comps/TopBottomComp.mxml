@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         width="300" height="380">
+    <s:states> 
+        <s:State name="s1"/> 
+        <s:State name="s2"/> 
+    </s:states> 
+    <s:transitions> 
+        <s:Transition> 
+            <s:Parallel id="para" duration="500" effectEnd="callLater(dispatchCustomEffectEnd);">
+                <!-- top/bottom -->
+                <s:Animate targets="{[b6, b7, b8]}" startDelay="{pauseTime}">
+                    <s:SimpleMotionPath property="top"/>
+                    <s:SimpleMotionPath property="bottom"/>
+                </s:Animate>
+                <s:Animate target="{b9}" startDelay="{pauseTime}">
+                    <s:SimpleMotionPath property="top"/>
+                </s:Animate>
+                <s:Animate target="{b10}" startDelay="{pauseTime}">
+                    <s:SimpleMotionPath property="bottom"/>
+                </s:Animate>
+                <!-- // END top/bottom -->
+            </s:Parallel> 
+        </s:Transition> 
+    </s:transitions> 
+    
+    <fx:Script>
+        <![CDATA[
+            [Bindable]
+            public var pauseTime:Number = 0;
+            
+            protected function dispatchCustomEffectEnd():void {
+                dispatchEvent(new Event("customEffectEnd"));
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="black"/>
+        </s:stroke>
+    </s:Rect>
+    
+    <s:Button id="b6"
+              label="Top->Bottom"
+              x="0"
+              top="100" top.s2="{NaN}" bottom.s2="100" />
+    
+    <s:Button id="b7"
+              label="Bottom->Top"
+              x="100"
+              bottom="100" bottom.s2="{NaN}" top.s2="100"/>
+    
+    <s:Button id="b8"
+              label="TopBottom"
+              x="200"
+              top="100" top.s2="{NaN}" bottom="100" bottom.s2="{NaN}"/>
+    
+    <s:Button id="b9"
+              label="Top"
+              x="200"
+              top="0" top.s2="50" />
+    
+    <s:Button id="b10"
+              label="Bottom"
+              x="200"
+              bottom="0" bottom.s2="50"/>
+    
+</s:Group>

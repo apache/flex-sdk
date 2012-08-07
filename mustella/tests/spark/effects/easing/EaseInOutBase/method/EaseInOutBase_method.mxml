@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/EaseInOutBase/method/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/EaseInOutBase_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.EaseInOutBase;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="EaseInOutBase_constructor_Null" keywords="[EaseInOutBase, method, constructor]" description="Test the default values of the easeInFraction with a null constructor.">
+            <body>
+                <RunCode code="application.testEaser = new EaseInOutBase();" />
+                <AssertMethodValue method="value=application.testEaser.easeInFraction" value=".5" />
+            </body>
+        </TestCase>
+        <TestCase testID="EaseInOutBase_constructor_Values" keywords="[EaseInOutBase, method, constructor]" description="Test the set values of the easeInFraction with a valued constructor.">
+            <body>
+                <RunCode code="application.testEaser = new EaseInOutBase(.3);" />
+                <AssertMethodValue method="value=application.testEaser.easeInFraction" value=".3" />
+            </body>
+        </TestCase>
+        <!-- Author: IMHO, this should fail -->
+        <TestCase testID="EaseInOutBase_constructor_GreaterThan1" keywords="[EaseInOutBase, method, constructor]" description="Test the set values of the easeInFraction with a valued constructor where easeInFraction > 1. Verify it can be set.">
+            <body>
+                <RunCode code="application.testEaser = new EaseInOutBase(1.7);" />
+                <AssertMethodValue method="value=application.testEaser.easeInFraction" value="1.7" />
+            </body>
+        </TestCase>
+
+        <!-- Ease -->
+        <TestCase testID="EaseInOutBase_ease_OneTenth" keywords="[EaseInOutBase, method, ease]" description="Test the return value of the ease function at 1/10.">
+            <setup>
+                <RunCode code="application.testEaser = new EaseInOutBase();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEaser.ease(.1)" value=".1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="EaseInOutBase_ease_OneHalf" keywords="[EaseInOutBase, method, ease]" description="Test the return value of the ease function at 1/2.">
+            <setup>
+                <RunCode code="application.testEaser = new EaseInOutBase();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEaser.ease(.5)" value=".5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="EaseInOutBase_ease_NineTenths" keywords="[EaseInOutBase, method, ease]" description="Test the return value of the ease function at 9/10.">
+            <setup>
+                <RunCode code="application.testEaser = new EaseInOutBase();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testEaser.ease(.9)" value=".9" />
+            </body>
+        </TestCase>
+
+
+		<TestCase testID="EaseInOutBase_easeIn" keywords="[EaseInOutBase, method, ease]" description="Test easeIn">
+			<body>
+				<AssertMethodValue method="value=(new MyEaser().EaseIn(.1))" value=".1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="EaseInOutBase_easeOut" keywords="[EaseInOutBase, method, ease]" description="Test easeIn">
+			<body>
+				<AssertMethodValue method="value=(new MyEaser().EaseOut(.1))" value=".1" />
+			</body>
+		</TestCase>
+		
+    </testCases>
+
+</UnitTester>

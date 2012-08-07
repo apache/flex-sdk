@@ -1,0 +1,166 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="GVB_triggerEvent.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.LocaleID;
+			import spark.globalization.LastOperationStatus;
+			import spark.validators.CurrencyValidator;
+			import mx.events.*;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="GVB_triggerEvent_default_inline_test_1" description="the test case is for Checking default triggerEvent in declaration" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="triggerEvent" valueExpression="value=FlexEvent.VALUE_COMMIT"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_default_script_test_2" description="the test case is for Checking triggerEvent in script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="triggerEvent" valueExpression="value=FlexEvent.VALUE_COMMIT"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_default_inline_test_3" description="the test case is for Checking default triggerEvent in declaration" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvb" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="triggerEvent" valueExpression="value=FlexEvent.VALUE_COMMIT"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_default_script_test_4" description="the test case is for Checking triggerEvent in script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="gvbScript" styleName="locale" value="fr-FR"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="triggerEvent" valueExpression="value=FlexEvent.VALUE_COMMIT"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_set_script_test_5" description="the test case is for setting triggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="gvbScript" propertyName="triggerEvent" value="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvbScript" propertyName="triggerEvent" value="change"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_set_script_test_6" description="the test case is for setting triggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="gvb" propertyName="triggerEvent" value="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gvb" propertyName="triggerEvent" value="change"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_set_inline_test_7" description="set triggerEvent inline" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="gvbInline" propertyName="triggerEvent" value="change"/>
+                <AssertPropertyValue target="gvbInline" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_notriggerEvent_script_test_8" description="set script triggerEvent to notriggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'triggerEvent',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="triggerEvent" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_notriggerEvent_script_test_9" description="set inline triggerEvent to notriggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'triggerEvent',null)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="triggerEvent" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_notriggerEvent_inline_test_10" description="set triggerEvent to notriggerEvent inline" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup/>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbNull,'triggerEvent',null)" value="No Error"/>
+                <AssertPropertyValue target="gvbNull" propertyName="triggerEvent" valueExpression="value=null"/>
+                <AssertPropertyValue target="gvbNull" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_invalid_script_test_11" description="set script triggerEvent to notriggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'triggerEvent',true)" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="triggerEvent" value="true"/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_invalid_script_test_12" description="set inline triggerEvent to notriggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'triggerEvent',true)" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="triggerEvent" value="true"/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_emptystring_script_test_13" description="set script triggerEvent to notriggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvbScript,'triggerEvent','')" value="No Error"/>
+                <AssertPropertyValue target="gvbScript" propertyName="triggerEvent" value=""/>
+                <AssertPropertyValue target="gvbScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+        <TestCase testID="GVB_triggerEvent_emptystring_script_test_14" description="set inline triggerEvent to notriggerEvent from script" keywords="[GlobalizationValidatorBase, triggerEvent]">
+            <setup>
+                <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=CVConstant.testArgError(application.gvb,'triggerEvent','')" value="No Error"/>
+                <AssertPropertyValue target="gvb" propertyName="triggerEvent" value=""/>
+                <AssertPropertyValue target="gvb" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,58 @@
+<UnitTester 
+    testSWF="../SWFs/Fade_main.mxml" 
+    testDir="spark/effects/Fade/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.Fade;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[
+
+[Mixin]
+
+]]></mx:Metadata>
+    <testCases>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="Fade_suspendBackgroundProcessing_Default" keywords="[Fade, variable, suspendBackgroundProcessing]" description="Test the default value  of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- instanceClass -->
+        <TestCase testID="Fade_instanceClass_Default" keywords="[Fade, variable, instanceClass]" description="Test the default value  of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).instanceClass.toString().replace('[class ', '').replace(']','')" value="FadeInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="Fade_repeatDelay_Default" keywords="[Fade, variable, repeatDelay]" description="Test the default value  of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+
+
+        <!-- startDelay -->
+        <TestCase testID="Fade_startDelay_Default" keywords="[Fade, variable, startDelay]" description="Test the default value  of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatCount -->
+        <TestCase testID="Fade_repeatCount_Default" keywords="[Fade, variable, repeatCount]" description="Test the default value  of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

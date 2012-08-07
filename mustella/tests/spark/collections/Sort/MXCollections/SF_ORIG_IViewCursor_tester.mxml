@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/collections/Sort/MXCollections/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+			testSWF="SF_ORIG_IViewCursor.mxml">
+	<mx:Script>
+		<![CDATA[
+			import spark.collections.*;
+			public static function init(o:DisplayObject):void
+			{
+				
+			}					
+		]]>
+	</mx:Script>
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>	
+	
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.IViewCursor;
+			import mx.collections.CursorBookmark;
+			
+			public var cursor:IViewCursor;
+			public var boundCursor:IViewCursor;
+			
+			
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		<TestCase testID="IViewCursor_Method_seek_sorted" keywords="[IViewCursor, Method, seek]">
+			<setup>
+				<RunCode code="cursor = application.airportCollectionSorted.createCursor();" />
+			</setup>
+			<body>
+				<AssertMethodValue method=" script:cursor.seek(CursorBookmark.FIRST);value=cursor.current.abbreviation "   value="IAH" />
+				<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="JAX" />
+				<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="LAX" />
+				<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="MHT" />
+				<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="JFK" />
+				<AssertMethodValue method=" script:cursor.seek(CursorBookmark.LAST);value=cursor.current.abbreviation "   value="JFK" />
+				
+			</body>	   
+		</TestCase>
+		
+		<TestCase testID="IViewCursor_Method_XML_Sort" keywords="[IViewCursor, Method, sort]">
+			<setup>
+				<RunCode code="application.initEmployees()" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.cursorXML_AS.current['last-name'] " value="Freely" />
+				<AssertMethodValue method="application.cursorXML_AS.moveNext(); value=application.cursorXML_AS.current['last-name'] " value="Nearly" />
+				<AssertMethodValue method="application.cursorXML_AS.moveNext(); value=application.cursorXML_AS.current['last-name'] " value="Wayens" />
+				<AssertMethodValue method="application.cursorXML_AS.moveNext(); value=application.cursorXML_AS.current['last-name'] " value="Wiley" />
+				
+			</body>	   
+		</TestCase>
+		
+		<TestCase testID="IViewCursor_Method_XML_Cursor_Bookmark" keywords="[IViewCursor, Method, sort, bookmark]">
+			<setup>
+				<RunCode code="application.initEmployees()" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.cursorXML_AS.seek(CursorBookmark.CURRENT, 2);
+								   var bookmark:CursorBookmark = application.cursorXML_AS.bookmark;
+								   value=bookmark.value.@id " value="3333-333-3333" />
+			</body>	   
+		</TestCase>
+		
+		<TestCase testID="IViewCursor_Method_XML_Sort_Cursor_Bookmark" keywords="[IViewCursor, Method, sort, bookmark]">
+			<setup>
+				<RunCode code="application.initEmployees()" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.cursorXML_AS.seek(CursorBookmark.CURRENT, 2);
+								   var bookmark:CursorBookmark = application.cursorXML_AS.bookmark;
+								   var s:spark.collections.Sort = new spark.collections.Sort();
+								   var sf:spark.collections.SortField = new spark.collections.SortField('@id');
+								   application.addStyleClient(s);application.addStyleClient(sf);
+								   s.fields = [sf];
+								   application.colXML_AS.sort = s;
+								   application.cursorXML_AS.seek(bookmark);
+								   value=application.cursorXML_AS.current.@id " value="3333-333-3333" />
+			</body>	   
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

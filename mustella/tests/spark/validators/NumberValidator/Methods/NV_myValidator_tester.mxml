@@ -1,0 +1,86 @@
+<UnitTester testDir="spark/validators/NumberValidator/Methods/" 
+			testSWF="NV_custom.mxml" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.NVConstants;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+ 
+        <TestCase testID="NV_validate_custom_numberValidator_valid_test1" keywords="[NumberValidator, validate, custom validator, extends from NumberValidator, valid]">
+            <setup>
+                <ResetComponent target="uiMyValidatorComp" className="assets.MyNumValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+                <SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+                <SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="property" value="text"/>
+                <SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="125" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+                <DispatchKeyEvent keys="[TAB, TAB]"/>
+                <AssertEvent target="uiMyValidatorComp.myNumberValidator" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiMyValidatorComp.myNumberValidator" eventName="invalid"/>
+            </body>
+        </TestCase>
+		
+			
+		<TestCase testID="NV_validate_custom_numberValidator_invalid_test2" keywords="[NumberValidator, validate, custom validator, extends from NumberValidator, invalid]">
+			<setup>
+				<ResetComponent target="uiMyValidatorComp" className="assets.MyNumValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="property" value="text"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="123" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiMyValidatorComp.myNumberValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiMyValidatorComp.myNumberValidator" eventName="valid"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NV_validate_custom_numberValidator_invalid_test3" keywords="[NumberValidator, validate, custom validator, extends from NumberValidator, invalid]">
+			<setup>
+				<ResetComponent target="uiMyValidatorComp" className="assets.MyNumValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="property" value="text"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="-125" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiMyValidatorComp.myNumberValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiMyValidatorComp.myNumberValidator" eventName="valid"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NV_validate_custom_numberValidator_invalid_error_msg_test4" keywords="[NumberValidator, validate, custom validator, extends from NumberValidator, invalid]">
+			<setup>
+				<ResetComponent target="uiMyValidatorComp" className="assets.MyNumValidatorComp" waitEvent="updateComplete" waitTarget="uiMyValidatorComp"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="source" valueExpression="value=application.uiMyValidatorComp.uiTI"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="property" value="text"/>
+				<SetProperty target="uiMyValidatorComp.myNumberValidator" propertyName="required" value="false"/>
+			</setup>
+			<body>
+				<SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="1" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="uiMyValidatorComp.myNumberValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="uiMyValidatorComp.myNumberValidator" eventName="valid"/>
+				<AssertPropertyValue target="uiMyValidatorComp.uiTI" propertyName="errorString" value="Number is not the multiples of five"/>
+			</body>
+		</TestCase>
+		
+		
+    </testCases>
+</UnitTester>

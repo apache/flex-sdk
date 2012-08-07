@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="NF_Ext_Style.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import flash.globalization.NumberFormatter;
+			import assets.NFConstants;
+			
+			
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			
+			public static function init(o:DisplayObject):void 
+			{
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<!--This test file is to test whether NumberFormatter can load style from an external css style file.
+	Here include three ways of css defination: class selector, type selector and id selector  -->	
+	<testCases>
+		
+		<!--Test case for typeSelector -->
+		<TestCase testID="NF_Ext_Style_typeSelector_test1" description="Test case for typeSelector" keywords="[NumberFormatter, style extern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh_TW')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfTypeSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfTypeSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+		<!-- Test case for IdSelector -->
+		<TestCase testID="NF_Ext_Style_IdSelector_test2" description="Test case for IdSelector" keywords="[NumberFormatter, style extern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru-RU')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfIdSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfIdSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+		<!-- Test case for classSelector -->
+		<TestCase testID="NF_Ext_Style_classSelector_test3" description="Test case for classSelector" keywords="[NumberFormatter, style extern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja-JP')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfClassSelector1" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfClassSelector1" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+		<!--Test local defined style has higher priority than external when it has confliction -->
+		<TestCase testID="NF_Ext_Style_priority_test4" 
+				  description="Test local defined style has higher priority than external when it has confliction" keywords="[NumberFormatter, style extern]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru_RU')" />
+				<Pause timeout="{NFConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nfClassSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+				<AssertPropertyValue target="nfClassSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase> 
+		
+	</testCases>
+	
+</UnitTester>

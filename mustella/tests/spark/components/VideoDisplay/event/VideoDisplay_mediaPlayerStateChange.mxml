@@ -1,0 +1,105 @@
+<UnitTester
+    testDir="spark/components/VideoDisplay/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoDisplay_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+  <testCases>
+
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+
+        <TestCase testID="VideoDisplay_mediaPlayerStateChange_setSource_S" keywords="[VideoDisplay, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is set.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_mediaPlayerStateChange_changeSource_S" keywords="[VideoDisplay, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.source = application.streamingVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_mediaPlayerStateChange_removeSource_S" keywords="[VideoDisplay, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+            </setup>
+            <body>
+		<RunCode code="application.testDisplay.source = null" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+
+        <TestCase testID="VideoDisplay_mediaPlayerStateChange_setSource_P" keywords="[VideoDisplay, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is set.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_mediaPlayerStateChange_changeSource_P" keywords="[VideoDisplay, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.source = application.progressiveVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_mediaPlayerStateChange_removeSource_P" keywords="[VideoDisplay, event, mediaPlayerStateChange]" description="Verify mediaPlayerStateChange is raised when a source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="1000"/>
+
+            </setup>
+            <body>
+		<RunCode code="application.testDisplay.source = null" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

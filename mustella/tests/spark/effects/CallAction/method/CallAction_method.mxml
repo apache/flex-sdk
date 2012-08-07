@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="spark/effects/CallAction/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/CallAction_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+import spark.effects.CallAction;
+        import mx.controls.Button;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!--constructor-->
+        <TestCase testID="CallActionInstance_constructorNull" keywords="[CallActionInstance, Methods, constructor]" description="Test the CallActionInstance constructor with null args.">
+            <body>
+                <RunCode code="new CallAction(null)"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CallActionInstance_constructorValid" keywords="[CallActionInstance, Methods, constructor]" description="Test the CallActionInstance constructor with a valid object.">
+            <body>
+                <RunCode code="new CallAction(this)"/>
+            </body>
+        </TestCase>
+
+        <!-- getAffectedProperties -->
+        <TestCase testID="CallAction_GetAffectedProperties" keywords="[CallAction, Methods, GetAffectedProperties]" description="Test the CallAction.GetAffectedProperties method.">
+            <body>
+                <AssertMethodValue method="value=(new CallAction()).getAffectedProperties()" value="" />
+            </body>
+        </TestCase>
+        
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:SortingCollator id="clt_inline_ignoreCase" />
+		<s:SortingCollator id="clt_inline_true_ignoreCase" ignoreCase="true"/>
+		<s:MatchingCollator id="clt_inline_false_ignoreCase" ignoreCase="false" />
+		
+		<s:SortingCollator id="clt_inline_ignoreCharacterWidth" />
+		<s:SortingCollator id="clt_inline_true_ignoreCharacterWidth" ignoreCharacterWidth="true"/>
+		<s:MatchingCollator id="clt_inline_false_ignoreCharacterWidth" ignoreCharacterWidth="false" />
+		
+		<s:SortingCollator id="clt_inline_ignoreDiacritics" />
+		<s:SortingCollator id="clt_inline_true_ignoreDiacritics" ignoreDiacritics="true"/>
+		<s:MatchingCollator id="clt_inline_false_ignoreDiacritics" ignoreDiacritics="false" />
+		
+		<s:SortingCollator id="clt_inline_ignoreKanaType" />
+		<s:SortingCollator id="clt_inline_true_ignoreKanaType" ignoreKanaType="true"/>
+		<s:MatchingCollator id="clt_inline_false_ignoreKanaType" ignoreKanaType="false" />
+		
+		<s:SortingCollator id="clt_inline_ignoreSymbols" />
+		<s:SortingCollator id="clt_inline_true_ignoreSymbols" ignoreSymbols="true"/>
+		<s:MatchingCollator id="clt_inline_false_ignoreSymbols" ignoreSymbols="false" />
+		
+		<s:SortingCollator id="clt_inline_numericComparison" />
+		<s:SortingCollator id="clt_inline_true_numericComparison" numericComparison="true"/>
+		<s:MatchingCollator id="clt_inline_false_numericComparison" numericComparison="false" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			import flash.globalization.CollatorMode;
+			
+			import mx.rpc.soap.SOAPFault;
+			
+			import spark.globalization.MatchingCollator;
+			import spark.globalization.SortingCollator;
+			[Bindable]
+			public var clt_ignoreCase:SortingCollator = new SortingCollator();
+			public var cltMatch_ignoreCase:MatchingCollator = new MatchingCollator();
+			public var cltSort_ignoreCase:SortingCollator = new SortingCollator();
+			public var cltNew_ignoreCase:MatchingCollator = new MatchingCollator();
+			
+			[Bindable]
+			public var clt_ignoreCharacterWidth:SortingCollator = new SortingCollator();
+			public var cltMatch_ignoreCharacterWidth:MatchingCollator = new MatchingCollator();
+			public var cltSort_ignoreCharacterWidth:SortingCollator = new SortingCollator();
+			public var cltNew_ignoreCharacterWidth:MatchingCollator = new MatchingCollator();
+			
+			[Bindable]
+			public var clt_ignoreDiacritics:SortingCollator = new SortingCollator();
+			public var cltMatch_ignoreDiacritics:MatchingCollator = new MatchingCollator();
+			public var cltSort_ignoreDiacritics:SortingCollator = new SortingCollator();
+			public var cltNew_ignoreDiacritics:MatchingCollator = new MatchingCollator();
+			
+			[Bindable]
+			public var clt_ignoreKanaType:SortingCollator = new SortingCollator();
+			public var cltMatch_ignoreKanaType:MatchingCollator = new MatchingCollator();
+			public var cltSort_ignoreKanaType:SortingCollator = new SortingCollator();
+			public var cltNew_ignoreKanaType:MatchingCollator = new MatchingCollator();
+			
+			[Bindable]
+			public var clt_ignoreSymbols:SortingCollator = new SortingCollator();
+			public var cltMatch_ignoreSymbols:MatchingCollator = new MatchingCollator();
+			public var cltSort_ignoreSymbols:SortingCollator = new SortingCollator();
+			public var cltNew_ignoreSymbols:MatchingCollator = new MatchingCollator();
+			
+			[Bindable]
+			public var clt_numericComparison:SortingCollator = new SortingCollator();
+			public var cltMatch_numericComparison:MatchingCollator = new MatchingCollator();
+			public var cltSort_numericComparison:SortingCollator = new SortingCollator();
+			public var cltNew_numericComparison:MatchingCollator = new MatchingCollator();
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:Label text="ignoreCase property testing" color="blue" fontSize="30" />
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt_ignoreCase.ignoreCase}" id="scriptBinding_ignoreCase" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline_ignoreCase.ignoreCase}" id="inlineBinding_ignoreCase"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Label text="ignoreCharacterWidth property testing" color="blue" fontSize="30" />
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt_ignoreCharacterWidth.ignoreCharacterWidth}" id="scriptBinding_ignoreCharacterWidth" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline_ignoreCharacterWidth.ignoreCharacterWidth}" id="inlineBinding_ignoreCharacterWidth"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Label text="ignoreDiacritics property testing" color="blue" fontSize="30" />
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt_ignoreDiacritics.ignoreDiacritics}" id="scriptBinding_ignoreDiacritics" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline_ignoreDiacritics.ignoreDiacritics}" id="inlineBinding_ignoreDiacritics"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Label text="ignoreKanaType property testing" color="blue" fontSize="30" />
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt_ignoreKanaType.ignoreKanaType}" id="scriptBinding_ignoreKanaType" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline_ignoreKanaType.ignoreKanaType}" id="inlineBinding_ignoreKanaType"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Label text="ignoreSymbols property testing" color="blue" fontSize="30" />
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt_ignoreSymbols.ignoreSymbols}" id="scriptBinding_ignoreSymbols" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline_ignoreSymbols.ignoreSymbols}" id="inlineBinding_ignoreSymbols"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Label text="numericComparison property testing" color="blue" fontSize="30" />
+	<mx:Form >
+		<mx:FormItem label="script instance: ">
+			<s:TextInput text="{clt_numericComparison.numericComparison}" id="scriptBinding_numericComparison" />
+		</mx:FormItem>
+		<mx:FormItem label="inline instances: ">
+			<s:TextInput text="{clt_inline_numericComparison.numericComparison}" id="inlineBinding_numericComparison"/>
+		</mx:FormItem>
+	</mx:Form>
+</s:Application>

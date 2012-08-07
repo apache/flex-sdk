@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test a FXG document fragment contains PlaceObject concept at various levels.                      -->
+<!--     															-->
+<!--                                                                             			-->
+<!-- Author : Min Plunkett 20 April-2009                       			                  -->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  20 April-2009, created.                                         			            -->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" viewWidth="600" viewHeight="600" maskType="clip">
+	<Library>
+		<Definition name="MyRect">
+			<Group>
+				<Rect width="100" height="80">
+					<fill>
+						<SolidColor color="#FF0000" />
+					</fill>
+				</Rect>
+			</Group>
+		</Definition>	
+		<Definition name="MyRect2">
+			<Group>
+				<MyRect  alpha="0.75">
+					<filters>
+						<BevelFilter distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" type="inner"/>
+						<DropShadowFilter angle="315" distance="10" quality="1"/>
+					</filters>	
+					<transform>
+						<Transform>
+							<matrix>
+								<Matrix a="1" b="-2" c="2" d="3" tx="-200" ty="18"/>
+							</matrix>
+						</Transform>
+					</transform>
+				</MyRect>
+			</Group>
+		</Definition>	
+	</Library>
+	<TextGraphic x="90" y="20" fontFamily="MyVeraSpark" fontSize="16" lineHeight="120%" color="#333333" kerning="on">
+		<content><p><span>Test PlaceObject concept at various levels</span></p></content>
+	</TextGraphic>	
+	<MyRect x="40" y="60"/>
+	<TextGraphic x="40" y="150" fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on">
+		<content><p><span>Place an instance of MyRect under Graphic element</span></p></content>
+	</TextGraphic>
+	<Group id="MyGroup">
+		<MyRect x="350" y="60"/>
+	</Group>
+	<TextGraphic x="350" y="150" fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on">
+		<content><p><span>Second instance of MyRect in a Group instance</span></p></content>
+	</TextGraphic>			
+	<MyRect2 x="250" y="380"/>
+	<TextGraphic x="300" y="480" fontFamily="MyVeraSpark" fontSize="12" lineHeight="120%" color="#333333" kerning="on">
+		<content><p><span>Place an instance of MyRect2 under Graphic element</span></p>
+		<p><span>MyRect2 is based on MyRect with filters and transform applied</span></p></content>
+	</TextGraphic>	
+</Graphic>

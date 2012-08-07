@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_domain_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NumberFormatter;
+			
+			import mx.validators.NumberValidatorDomainType;
+			
+			
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="NV_domain_default_test1" description="the test case is for test default domain" keywords="[NumberValidator, domain]">
+			<body>
+				<AssertPropertyValue target="nv" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_default_script_test2" description="the test case is for test default domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvScript" styleName="locale" value="bg-BG" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_real_test3" description="the test case is for test set valid value to domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nv1" styleName="locale" value="is-IS" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_int_test4" description="the test case is for test set valid value to domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<ResetComponent target="nv1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nv1.initialized(null,'nv1')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nv1" styleName="locale" value="sq-AL" waitEvent="change"/>
+				<SetProperty target="nv1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nv1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_real_script_test5" description="the test case is for test set valid value to domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvScript1" styleName="locale" value="pt-BR" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_int_script_test6" description="the test case is for test set valid value to domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<ResetComponent target="nvScript1" className="spark.validators.NumberValidator" />
+				<RunCode code="application.nvScript1.initialized(null,'nvScript1')"/>
+				<Pause timeout="{NVConstants.pauseTime}"/>
+				<SetStyle target="nvScript1" styleName="locale" value="tr-TR" waitEvent="change"/>
+				<SetProperty target="nvScript1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScript1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" />
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_inline_real_test7" description="the test case is for test set valid value to domain inline" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvInline" styleName="locale" value="he-IL" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" />
+				<AssertPropertyValue target="nvInline" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_inline_int_test8" description="the test case is for test set valid value to domain inline" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvInline2" styleName="locale" value="id-ID" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvInline2" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" />
+				<AssertPropertyValue target="nvInline2" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<!--when set domain to null/undefined, no excption is thrown, the value will read from res bundle-->
+		<TestCase testID="NV_domain_invalid_null_test9" description="the test case is for test set invalid value to domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvInvalid" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvInvalid,'domain',undefined)" 
+								   value="noError"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="domain" valueExpression="value=value=NumberValidatorDomainType.REAL"/>
+				<AssertPropertyValue target="nvInvalid" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>
+		<!--when set domain with invalid value other than int and real, ArgumentError will be thrown, won't override previous value, 
+		since this throw an exception, lastOperationStatus is not set-->
+		<TestCase testID="NV_domain_invalid_xyz_script_test10" description="the test case is for test set invalid value to domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvScriptInvalid" styleName="locale" value="hu-HU" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=NVConstants.testArgError(application.nvScriptInvalid,'domain','xyz')" 
+								   value="ArgumentError"/>
+				<AssertPropertyValue target="nvScriptInvalid" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_function_real_test11" description="Test function with property domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetProperty target="nvFunction1" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+				<SetProperty target="nvFunction1" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="12*12" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT1"/>
+				<AssertEvent target="nvFunction1" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_domain_function_int_test12" description="Test function with property domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetProperty target="nvFunction2" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+				<SetProperty target="nvFunction2" propertyName="decimalSeparator" value="*" waitEvent="change"/>
+				<!--Other properties of number validator are set inline when define the boject-->
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="567*89" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT2"/>
+				<AssertEvent target="nvFunction2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvFunction2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_domain_function_real_script_test13" description="Test function with property domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetProperty target="nvScriptFunction3" propertyName="source" valueExpression="value=application.nvSourceTI" />
+				<SetProperty target="nvScriptFunction3" propertyName="property" value="text" />
+				<SetProperty target="nvScriptFunction3" propertyName="trigger" valueExpression="value=application.triggerBT3"/>
+				<SetProperty target="nvScriptFunction3" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction3" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL"/>
+				<SetProperty target="nvScriptFunction3" propertyName="decimalSeparator" value="*"  waitEvent="change"/>
+				<SetStyle target="nvScriptFunction3" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="7*89" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT3"/>
+				<AssertEvent target="nvScriptFunction3" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction3" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_domain_function_int_script_test14" description="Test function with property domain" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetProperty target="nvScriptFunction5" propertyName="source" valueExpression="value=application.nvSourceTI"/>
+				<SetProperty target="nvScriptFunction5" propertyName="property" value="text"/>
+				<SetProperty target="nvScriptFunction5" propertyName="trigger" valueExpression="value=application.triggerBT5"/>
+				<SetProperty target="nvScriptFunction5" propertyName="triggerEvent" value="click"/>
+				<SetProperty target="nvScriptFunction5" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+				<SetProperty target="nvScriptFunction5" propertyName="decimalSeparator" value=";" waitEvent="change"/>
+				<SetProperty target="nvScriptFunction5" propertyName="groupingSeparator" value="," waitEvent="change"/>
+				<SetStyle target="nvScriptFunction5" styleName="locale" value="pa-IN" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-6,23,456;789" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="triggerBT5"/>
+				<AssertEvent target="nvScriptFunction5" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="nvScriptFunction5" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_domain_binding_int_test15" description="Binding property by lable text" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+				<SetProperty target="nvBinding" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=NumberValidatorDomainType.INT" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_domain_binding_real_test16" description="Binding property by lable text" keywords="[NumberValidator, domain]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<SetProperty target="nvBinding" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvBindingL" propertyName="text" valueExpression="value=NumberValidatorDomainType.REAL" />
+				<AssertPropertyValue target="nvBinding" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_domain_binding_int_script_test17" description="Binding property by lable text" keywords="[NumberValidator, domain]">
+			<setup>
+				<SetStyle target="nvScriptBinding" styleName="locale" value="sw-KE" waitEvent="change"/>
+				<SetProperty target="nvScriptBinding" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=NumberValidatorDomainType.INT" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_domain_binding_real_script_test18" description="Binding property by lable text" keywords="[NumberValidator, domain]">
+			<setup>
+				<!--Due to test binding machenism, no resetComponent needed here. -->
+				<SetProperty target="nvScriptBinding" propertyName="domain" valueExpression="value=NumberValidatorDomainType.REAL" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="nvScriptBindingL" propertyName="text" valueExpression="value=NumberValidatorDomainType.REAL" />
+				<AssertPropertyValue target="nvScriptBinding" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

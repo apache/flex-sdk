@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<fx:XML id="myMenuData">
+			<root>
+				<menuitem label="MenuItem 1" eventName="copy"/>
+				<menuitem label="MenuItem 2" eventName="paste"/>
+			</root>
+		</fx:XML>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="defaultState" />
+		<s:State name="state1" />
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.*;
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			public var myDP:ArrayCollection = new ArrayCollection(
+				[ {product:"ProductGreen", price:100},
+					{product:"ProductBlue", price:200},
+					{product:"ProductRed", price:300},
+					{product:"ProductBlk", price:400} ]);
+			
+			public var myMenu:Menu;
+			
+			
+			// Create and display the Menu control.
+			public function createMyMenu():void{
+				myMenu = Menu.createMenu(menuGrp, myMenuData, false);
+				myMenu.labelField = "@label";
+			}
+			
+			public function showMenu():void {
+				myMenu.show(menuGrp.x + 50, menuGrp.y + 50);
+			}
+			
+			private function showAlert():void{
+				Alert.show();
+			}
+		]]>
+	</fx:Script>
+	<s:VGroup x="20" y="20">
+		<s:HGroup>
+			<s:Panel id="sparkPnl" dropShadowVisible.state1="false" width="131" height="127"/>
+			<mx:Panel id="haloPnl" headerHeight="10" height="100" width="100" dropShadowVisible.state1="false"/>
+			<mx:TitleWindow id="haloTW" headerHeight="10" height="100" width="100" dropShadowVisible.state1="false"/>
+		</s:HGroup>
+		<s:HGroup id="menuGrp">
+			<s:Button id="menuBtn" label="Show menu" creationComplete="createMyMenu()" click="showMenu()"/>
+			<s:DropDownList id="sparkDDL" dataProvider="{myDP}" labelField="product" dropShadowVisible.state1="false"/>
+			<mx:ComboBox dataProvider="['a', 'b', 'c']" id="haloCB" dropDownStyleName.defaultState="noShadow" dropDownStyleName.state1="showShadow"/>
+		</s:HGroup>	
+		<s:Button id="alertBtn" click="showAlert()" label="Show Alert"/>
+	</s:VGroup>
+</s:Group>

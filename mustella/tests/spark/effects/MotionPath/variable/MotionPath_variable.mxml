@@ -1,0 +1,94 @@
+﻿<UnitTester
+    testSWF="../SWFs/MotionPath_main.mxml"
+    testDir="spark/effects/MotionPath/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.animation.MotionPath;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- property -->
+        <TestCase testID="MotionPath_property_Default" keywords="[MotionPath, variable, property]" description="Test the default value of the property variable.">
+            <body>
+                <AssertMethodValue method="value=(new MotionPath()).property" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_interpolator_Custom" keywords="[MotionPath, variable, interpolator]" description="Test a motion path with a different/custom interpolator.">
+            <body>
+                <AssertPropertyValue target="mp1" propertyName="property" value="y"/>
+            </body>
+        </TestCase>
+        
+        <!-- interpolator -->
+        <TestCase testID="MotionPath_interpolator_Default" keywords="[MotionPath, variable, interpolator]" description="Test the default value of the interpolator variable.">
+            <body>
+                <AssertMethodValue method="value=(new MotionPath()).interpolator.interpolate(.5, 0x444444, 0x000000)" value="0x222222"/>
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_interpolator_CustomWImage" keywords="[MotionPath, variable, interpolator]" description="Test the default value of the interpolator variable.">
+            <setup>
+                <RunCode code="application.fxa2.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa2.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa2.playheadTime  = 250"/>
+                <Pause timeout="200"/>
+                <CompareBitmap url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- keyframes -->
+        <TestCase testID="MotionPath_keyframes_Default" keywords="[MotionPath, variable, keyframes]" description="Test the default value of the keyframes variable.">
+            <body>
+                <AssertMethodValue method="value=(new MotionPath()).keyframes" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_keyframes_Multiple" keywords="[MotionPath, variable, keyframes]" description="Test an animation with greater than 2 keyframes.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa1.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa1.play()" waitTarget="fxa1" waitEvent="effectEnd"/>
+                <CompareBitmap url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_keyframes_Standard" keywords="[MotionPath, variable, keyframes]" description="Test an animation with 2 keyframes.">
+            <setup>
+                <RunCode code="application.fxa2.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa2.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa2.playheadTime = 350"/>
+                <Pause timeout="200"/>
+                <CompareBitmap url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="MotionPath_keyframes_Single" keywords="[MotionPath, variable, keyframes]" description="Test an animation with only 1 keyframe.">
+            <setup>
+                <RunCode code="application.fxa4.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa4.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa4.playheadTime = 350"/>
+                <Pause timeout="200"/>
+                <CompareBitmap url="../variable/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>
+

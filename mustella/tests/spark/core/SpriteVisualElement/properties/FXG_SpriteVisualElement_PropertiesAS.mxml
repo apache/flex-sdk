@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/core/SpriteVisualElement/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SpriteVisualElement_Main.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import spark.primitives.Rect;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	   public function setMatrix(target:Rect): void
+	   {
+	       target.transform = application.transform_move_rotate;
+	   }
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!-- property: x -->
+        <TestCase testID="SpriteVisualElement_x_20" description="Set x value of a Static FXG component" keywords="[SpriteVisualElement, x, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="x" value="20" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFFFFFF" x="15" y="0" target="group1" />
+			    <AssertPropertyValue value="101" propertyName="width" target="group1" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_x_neg20" description="Set x value of a Static FXG component" keywords="[SpriteVisualElement, x, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="x" value="-20" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertPropertyValue value="61" propertyName="width" target="group1" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+		</TestCase>
+    <!-- property: y -->
+        <TestCase testID="SpriteVisualElement_y_20" description="Set y value of a Static FXG component" keywords="[SpriteVisualElement, y, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="y" value="20" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertPixelValue value="0xFFFFFF" y="15" x="0" target="group1" />
+			    <AssertPropertyValue value="111" propertyName="height" target="group1" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_y_neg20" description="Set y value of a Static FXG component" keywords="[SpriteVisualElement, y, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="y" value="-20" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertPropertyValue value="71" propertyName="height" target="group1" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+		</TestCase>
+    <!-- property: z -->
+        <TestCase testID="SpriteVisualElement_z_20" description="Set z value of a Static FXG component" keywords="[SpriteVisualElement, z, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="z" value="20" waitTarget="group1" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="4" maxColorVariance="8" target="group1" url="../properties/baselines/$testID.png" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_z_neg20" description="Set z value of a Static FXG component" keywords="[SpriteVisualElement, z, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1" propertyName="x" value="40" waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="y" value="40" waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1.graphic1" propertyName="z" value="-20" waitTarget="group1" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="4" maxColorVariance="8" target="group1" url="../properties/baselines/$testID.png" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+	    </TestCase>
+    <!-- property: rotation -->
+        <TestCase testID="SpriteVisualElement_rotation_45" description="Set y value of a Static FXG component" keywords="[SpriteVisualElement, rotation, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="x" value="45" />
+			    <SetProperty target="group1" propertyName="y" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertMethodValue value="122" method="value=Math.round(application.group1.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="122" method="value=Math.round(application.group1.graphic1.getLayoutBoundsHeight())" />
+			</body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_rotation_neg20" description="Set rotation value of a Static FXG component" keywords="[SpriteVisualElement, rotation, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="x" value="45" />
+			    <SetProperty target="group1" propertyName="y" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="rotation" value="-20" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertMethodValue value="107" method="value=Math.round(application.group1.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="113" method="value=Math.round(application.group1.graphic1.getLayoutBoundsHeight())" />
+			</body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_rotation15_Visual" description="Set rotation value of a Static FXG component" keywords="[SpriteVisualElement, rotation, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="x" value="45" />
+			    <SetProperty target="group1" propertyName="y" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="rotation" value="15" waitTarget="group1" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="18" target="group1" url="../properties/baselines/$testID.png" />
+			 </body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_rotationX_Visual" description="Set rotationX value of a Static FXG component" keywords="[SpriteVisualElement, rotationX, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="x" value="15" />
+			    <SetProperty target="group1" propertyName="y" value="15" waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="rotationX" value="15" waitTarget="group1" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" target="parentGroup" url="../properties/baselines/$testID.png" />
+			        
+			 </body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_rotationY_Visual" description="Set rotationY value of a Static FXG component" keywords="[SpriteVisualElement, rotationY, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="x" value="15" />
+			    <SetProperty target="group1" propertyName="y" value="15" waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="rotationY" value="15" waitTarget="group1" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="4" maxColorVariance="8" target="parentGroup" url="../properties/baselines/" >
+			         <ConditionalValue os="mac" />
+			    </CompareBitmap>
+			 </body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_rotationZ_Visual" description="Set rotationZ value of a Static FXG component" keywords="[SpriteVisualElement, rotationZ, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			    <SetProperty target="group1" propertyName="x" value="25" waitTarget="group1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="rotationZ" value="15" waitTarget="group1" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="18" target="parentGroup" url="../properties/baselines/$testID.png" />
+			 </body>
+		</TestCase>
+        <TestCase testID="SpriteVisualElement_scaleX_2" description="Set scaleX value of a Static FXG component" keywords="[SpriteVisualElement, scaleX, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="scaleX" value="2" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertMethodValue value="162" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_scaleX_05" description="Set scaleX value of a Static FXG component" keywords="[SpriteVisualElement, scaleX, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="scaleX" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertMethodValue value="40.5" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="91" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_scaleY_2" description="Set scaleY value of a Static FXG component" keywords="[SpriteVisualElement, scaleY, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="scaleY" value="2" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="182" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_scaleY_05" description="Set scaleY value of a Static FXG component" keywords="[SpriteVisualElement, scaleY, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group1"  waitTarget="group1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group1.graphic1" propertyName="scaleY" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+			    <AssertMethodValue value="81" method="value=application.group1.graphic1.getLayoutBoundsWidth()" />
+			    <AssertMethodValue value="45.5" method="value=application.group1.graphic1.getLayoutBoundsHeight()" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_transform_rotate" description="Set a transform value that rotates the Static FXG component" keywords="[SpriteVisualElement, transform, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group2"  waitTarget="group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group2.graphic1" propertyName="transform" valueExpression="value=application.transform_move_rotate1" waitTarget="group2" waitEvent="updateComplete" />
+			    <AssertPropertyValue value="115" propertyName="x" target="group2.graphic1" />
+			    <AssertPropertyValue value="40" propertyName="y" target="group2.graphic1" />
+			    <AssertMethodValue method="value=Math.round(application.group2.graphic1.rotation)" value="-20" />
+                            <AssertMethodValue value="107" method="value=Math.round(application.group2.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="113" method="value=Math.round(application.group2.graphic1.getLayoutBoundsHeight())" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_transform_rotatationAfterTransform" description="Set a transform value that rotates the Static FXG component" keywords="[SpriteVisualElement, transform, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group2"  waitTarget="group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group2.graphic1" propertyName="transform" valueExpression="value=application.transform_move_rotate1" waitTarget="group2" waitEvent="updateComplete" />
+			    <SetProperty target="group2.graphic1" propertyName="rotation" value="59"
+			        waitEvent="updateComplete" waitTarget="group2" />
+			    <AssertPropertyValue value="115" propertyName="x" target="group2.graphic1" />
+			    <AssertPropertyValue value="40" propertyName="y" target="group2.graphic1" />
+			    <AssertMethodValue method="value=Math.round(application.group2.graphic1.rotation)" value="59" />
+                            <AssertMethodValue value="120" method="value=Math.round(application.group2.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="116" method="value=Math.round(application.group2.graphic1.getLayoutBoundsHeight())" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_transform_matrix" description="Set a transform.matrix value that rotates the Static FXG component" keywords="[SpriteVisualElement, transform, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group2"  waitTarget="group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group2.graphic1.transform" propertyName="matrix" valueExpression="value=application.matrix_rotate" waitTarget="group2" waitEvent="updateComplete" />
+			    <AssertPropertyValue value="5" propertyName="x" target="group2.graphic1" />
+			    <AssertPropertyValue value="30" propertyName="y" target="group2.graphic1" />
+			    <AssertMethodValue method="value=Math.round(application.group2.graphic1.rotation)" value="-20" />
+                            <AssertMethodValue value="107" method="value=Math.round(application.group2.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="113" method="value=Math.round(application.group2.graphic1.getLayoutBoundsHeight())" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_transform_matrix3D" description="Set a transform.matrix3D value that rotates the Static FXG component" keywords="[SpriteVisualElement, transform, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group2"  waitTarget="group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group2.graphic1.transform" propertyName="matrix3D" valueExpression="value=application.matrix3D_scale" waitTarget="group2" waitEvent="updateComplete" />
+			    <AssertPropertyValue value="2" propertyName="scaleX" target="group2.graphic1" />
+			    <AssertPropertyValue value=".5" propertyName="scaleY" target="group2.graphic1" />
+                <AssertMethodValue value="162" method="value=Math.round(application.group2.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="46" method="value=Math.round(application.group2.graphic1.getLayoutBoundsHeight())" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_transform_3D" description="Set a transform.matrix3D value that rotates the Static FXG component" keywords="[SpriteVisualElement, transform, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group2"  waitTarget="group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group2.graphic1" propertyName="transform" valueExpression="value=application.transform2" waitTarget="group2" waitEvent="updateComplete" />
+			    <AssertPropertyValue value="2" propertyName="scaleX" target="group2.graphic1" />
+			    <AssertPropertyValue value=".5" propertyName="scaleY" target="group2.graphic1" />
+                            <AssertMethodValue value="162" method="value=Math.round(application.group2.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="46" method="value=Math.round(application.group2.graphic1.getLayoutBoundsHeight())" />
+			</body>
+	    </TestCase>
+        <TestCase testID="SpriteVisualElement_scaleXAftermatrix3D" description="Set a transform.matrix3D value that rotates the Static FXG component" keywords="[SpriteVisualElement, transform, Graphic]">
+			<setup>
+			    <ResetComponent className="comps.GroupComp" target="group2"  waitTarget="group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="group2.graphic1.transform" propertyName="matrix3D" valueExpression="value=application.matrix3D_scale" waitTarget="group2" waitEvent="updateComplete" />
+			    <SetProperty target="group2.graphic1" propertyName="scaleX" value="1.3" waitEvent="updateComplete"
+			        waitTarget="group2" />
+			    <AssertPropertyValue value="1.3" propertyName="scaleX" target="group2.graphic1" />
+			    <AssertPropertyValue value=".5" propertyName="scaleY" target="group2.graphic1" />
+                <AssertMethodValue value="105" method="value=Math.round(application.group2.graphic1.getLayoutBoundsWidth())" />
+			    <AssertMethodValue value="46" method="value=Math.round(application.group2.graphic1.getLayoutBoundsHeight())" />
+			</body>
+	    </TestCase>
+	</testCases>
+</UnitTester>

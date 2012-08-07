@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Form xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	 xmlns:s="library://ns.adobe.com/flex/spark" 
+	 xmlns:mx="library://ns.adobe.com/flex/mx" defaultButton="{btn}" >
+	<fx:Declarations>
+		<mx:StringValidator id="strVal" source="{ti1}" property="text" minLength="4" maxLength="8" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Label;
+			public var newLbl:Label = new Label();
+			
+		]]>
+	</fx:Script>
+	<s:FormHeading id="fh" label="Spark Form Heading" />
+	<s:FormItem id="fi1" label="Username:" >
+		<s:TextInput id="ti1" />
+	</s:FormItem>
+	<s:FormItem id="fi2">
+		<s:CheckBox id="cb1" label="Save?" />
+		<s:TextInput id="ti3" visible="false" includeInLayout="false"/>
+	</s:FormItem>
+	<s:FormItem id="fi3" label="Select your favorite color">
+		<s:ComboBox id="cmbBox">
+			<s:dataProvider>
+				<s:ArrayCollection>
+					<fx:String>Red</fx:String>
+					<fx:String>Yellow</fx:String>
+					<fx:String>Green</fx:String>
+					<fx:String>Blue</fx:String>
+					<fx:String>Purple</fx:String>
+				</s:ArrayCollection>
+			</s:dataProvider>
+		</s:ComboBox>
+	</s:FormItem>
+	<s:FormItem id="fi4" label="Password:" required="true" >
+		<s:TextInput id="ti2" displayAsPassword="true" />
+		<s:Button id="btn" label="Submit" click="strVal.validate();newLbl.text='submitted';fi4.addElement(newLbl)"/>
+	</s:FormItem>
+</s:Form>

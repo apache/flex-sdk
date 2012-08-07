@@ -1,0 +1,133 @@
+<UnitTester testDir="spark/collections/Sort/SparkList/" testSWF="SF_SparkList_base.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		
+		import flash.globalization.*;
+		import assets.newClasses.SFConstant;
+		
+		public static function init(o:DisplayObject):void
+		{
+			
+		}
+	]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SF_SparkList_default_test_1" description="testcase for Sort, SortField of spark:List component with different locale and default properties" keywords="[Sort, SortField, spark:List, set locale, default properties]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="labelField" value="name"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="dataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="uiCustomListComp.uiList" waitEvent="focusIn"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="uiCustomListComp.uiList" propertyName="selectedIndex" value="2"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <AssertPropertyValue target="uiCustomListComp" propertyName="listSelectFieldValue" value="Umbra"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_SparkList_default_properties_declar_test_2" description="testcase for Sort, SortField of spark:List component with different locale and default properties" keywords="[Sort, SortField, spark:List, set locale, defined in Declarations tag, default properties]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="labelField" value="name"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="dataProvider" 
+							 valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp.dataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.dataComp.dataArrCollS.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.dataComp.dataArrCollS"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="uiCustomListComp.uiList" waitEvent="focusIn"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="uiCustomListComp.uiList" propertyName="selectedIndex" value="2"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <AssertPropertyValue target="uiCustomListComp" propertyName="listSelectFieldValue" value="Bunny"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_SparkList_default_properties_script_test_3" description="testcase for Sort, SortField of spark:List component with different locale and default properties" keywords="[Sort, SortField, spark:List, set locale, defined in ActionScript code, default properties]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="labelField" value="name"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="dataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" value="address"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp.dataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.dataComp.dataArrCollS.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.dataComp.dataArrCollS"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="uiCustomListComp.uiList" waitEvent="focusIn"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="uiCustomListComp.uiList" propertyName="selectedIndex" value="2"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <AssertPropertyValue target="uiCustomListComp" propertyName="listSelectFieldValue" value="cadbury"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_SparkList_multi_fields_default_properties_declar_test_4" description="testcase for Sort, SortField of spark:List component with different locale and default properties" keywords="[Sort, SortField, spark:List, set locale, defined in Declarations tag, default properties]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='fr'"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="labelField" value="address"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="dataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField2, application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp.dataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.dataComp.dataArrCollS.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.dataComp.dataArrCollS"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='fr'"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="uiCustomListComp.uiList" waitEvent="focusIn"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="uiCustomListComp.uiList" propertyName="selectedIndex" value="5"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <AssertPropertyValue target="uiCustomListComp" propertyName="listSelectFieldValue" value="Imari"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_SparkList_multi_fields_default_properties_script_test_5" description="testcase for Sort, SortField of spark:List component with different locale and default properties" keywords="[Sort, SortField, spark:List, set locale, defined in ActionScript code, default properties]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="labelField" value="age"/>
+                <SetProperty target="uiCustomListComp.uiList" propertyName="dataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" value="age"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp.dataComp.dataArrCollS" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.dataComp.dataArrCollS.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.dataComp.dataArrCollS"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.uiList" styleName="locale" valueExpression="value='en-US'"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="uiCustomListComp.uiList" waitEvent="focusIn"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]" waitTarget="uiCustomListComp.uiList" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="uiCustomListComp.uiList" propertyName="selectedIndex" value="5"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <AssertPropertyValue target="uiCustomListComp" propertyName="listSelectFieldValue" value="Moe"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

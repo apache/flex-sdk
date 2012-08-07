@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/interpolation/MultiValueInterpolator/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/MultiValueInterpolator_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.interpolation.*;
+        import Assets.Tinterpolator;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- Constructor -->
+        <TestCase testID="MultiValueInterpolator_Constructor_Empty"  keywords="[MultiValueInterpolator, method, constructor]" description="Try to initialize the constructor with an empty arg.">
+            <body>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator();"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="MultiValueInterpolator_Constructor_Null"  keywords="[MultiValueInterpolator, method, constructor]" description="Try to initialize the constructor with the null arg.">
+            <body>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator(null);"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="MultiValueInterpolator_Constructor_IInterpolator"  keywords="[MultiValueInterpolator, method, constructor]" description="Try to initialize the constructor with an IInterpolator.">
+            <body>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator(new Tinterpolator());" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="MultiValueInterpolator_Constructor_CustomInterpolator"  keywords="[MultiValueInterpolator, method, constructor]" description="Try to initialize the constructor with an new IInterpolator and verify it is used.">
+            <setup>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator(new Tinterpolator());" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, [0,100], [100, 200]).toString();" value="0.5,0.5" />
+            </body>
+        </TestCase>
+
+        <!-- Interpolate -->
+        <TestCase testID="MultiValueInterpolator_interpolate"  keywords="[MultiValueInterpolator, method, interpolate]" description="Verify the default interpolator returns values as expected.">
+            <setup>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.testInterpolator.interpolate(.5, [0,100], [100, 200]).toString();" value="50,150" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+
+</UnitTester>

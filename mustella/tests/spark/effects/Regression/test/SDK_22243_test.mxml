@@ -1,0 +1,63 @@
+<UnitTester
+    testSWF="../SWFs/SDK_22243.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_22243" 
+			keywords="[SDK_22243]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-22243">
+			<!--bugs>
+				<Bug bugID="SDK-22243"/>
+			</bugs -->
+			<body>
+				<RunCode code="application.mover.play()" waitTarget="mover" waitEvent="effectEnd"/>
+
+				<!-- these values seem to be off by less than 0.0001 once and a while so use a range test to make them more stable -->
+				<AssertMethodValue method="value=application.button1.x &lt; 151.5" value="true"/>
+				<AssertMethodValue method="value=application.button1.x &gt; 149.5" value="true"/>
+
+				<AssertMethodValue method="value=application.button1.y &lt; 151.5" value="true"/>
+				<AssertMethodValue method="value=application.button1.y &gt; 149.5" value="true"/>
+
+				<AssertMethodValue method="value=application.button1.z &gt; -50.5" value="true"/>
+				<AssertMethodValue method="value=application.button1.z &lt; -49.5" value="true"/>
+			</body>
+        </TestCase>
+
+		<TestCase
+			testID="SDK_22243_B"
+			keywords="[SDK_22243]"
+			description="http://bugs.adobe.com/jira/browse/SDK-22243">
+			<!--bugs>
+				<Bug bugID="SDK-22243"/>
+			</bugs -->
+			<setup>
+				<RunCode code="application.button1.x = 100"/>
+				<RunCode code="application.button1.y = 100"/>
+				<RunCode code="application.button1.z = -100"/>
+				<RunCode code="application.mover.applyChangesPostLayout = true"/>
+			</setup>
+			<body>
+				<RunCode code="application.mover.play()" waitTarget="mover" waitEvent="effectEnd"/>
+				<AssertMethodValue method="value=application.button1.postLayoutTransformOffsets.x > 49" value="true"/>
+				<AssertMethodValue method="value=application.button1.postLayoutTransformOffsets.y > 49" value="true"/>
+				<AssertMethodValue method="value=application.button1.postLayoutTransformOffsets.z > 49" value="true"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>
+

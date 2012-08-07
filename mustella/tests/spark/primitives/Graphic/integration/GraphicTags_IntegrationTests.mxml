@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Integration.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+<!-- Graphic in PopUps-->
+	  <TestCase testID="GraphicTags_PopUpManager_Rect" description="Test a Rect in a PopUp" keywords="[Rect, PopUpManager, Graphic]">
+		 <setup>
+			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
+			<WaitForEffectsToEnd />
+		</setup>
+		<body>
+		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
+		    <RunCode code="application.closePopUp()" />
+		    <WaitForEffectsToEnd />
+		</body>
+	  </TestCase>
+          <TestCase testID="GraphicTags_PopUpManager_Ellipse" description="Test a Ellipse in a PopUp" keywords="[Ellipse, PopUpManager, Graphic]">
+		 <setup>
+		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
+			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
+			<WaitForEffectsToEnd />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
+		    <RunCode code="application.closePopUp()" />
+		    <WaitForEffectsToEnd />
+		</body>
+	  </TestCase>
+	  <TestCase testID="GraphicTags_PopUpManager_Line" description="Test a Line in a PopUp" keywords="[Line, PopUpManager, Graphic]">
+		 <setup>
+		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
+			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
+			<WaitForEffectsToEnd />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(1)" timeout="2000" />
+		    <RunCode code="application.closePopUp()" />
+		    <WaitForEffectsToEnd />
+		</body>
+	   </TestCase>
+	   <TestCase testID="GraphicTags_PopUpManager_BitmapGraphic" description="Test a BitmapImage in a PopUp" keywords="[BitmapGraphic, PopUpManager, Graphic]">
+		 <setup>
+		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
+			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
+			<WaitForEffectsToEnd />
+		</setup>
+		<body>
+		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(1)" timeout="2000" />
+		    <RunCode code="application.closePopUp()" />
+		    <WaitForEffectsToEnd />
+		</body>
+	   </TestCase>
+	   <TestCase testID="GraphicTags_PopUpManager_Path" description="Test a Path in a PopUp" keywords="[Path, PopUpManager, Graphic]">
+		 <setup>
+		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
+			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
+			<WaitForEffectsToEnd />
+			<Pause timeout="200" />
+		</setup>
+		<body>
+		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
+		    <RunCode code="application.closePopUp()" />
+		    <WaitForEffectsToEnd />
+		</body>
+	    </TestCase>
+
+	    <!--Adding and removing Graphic objects-->
+	    <TestCase testID="FXG_removeElement_first_Graphic" description="Test removing a Graphic" keywords="[removeElementAt, Graphic]">
+		    <!--bugs>
+		        <Bug bugID="SDK-18745" />
+		    </bugs -->
+		    <setup>
+			    <ResetComponent target="hbox1" className="comps.GraphicStatesComp" waitTarget="hbox1"
+			        waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.hbox1.removeElementAt(0)" waitTarget="hbox1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="hbox1" timeout="2000" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_removeElement_last_Graphic" description="Test removing a Graphic" keywords="[removeElementAt, Graphic]">
+		    <!--bugs>
+		        <Bug bugID="SDK-18745" />
+		    </bugs -->
+		    <setup>
+			    <ResetComponent target="hbox1" className="comps.GraphicStatesComp" waitTarget="hbox1"
+			        waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.hbox1.removeElementAt(4)" waitTarget="hbox1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="hbox1" timeout="2000" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_addElement_Graphic" description="Test removing a Graphic" keywords="[removeElementAt, Graphic]">
+		    <!--bugs>
+		        <Bug bugID="SDK-18745" />
+		    </bugs -->
+		    <setup>
+			    <ResetComponent target="hbox1" className="comps.GraphicStatesComp" waitTarget="hbox1"
+			        waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.hbox1.removeElementAt(application.hbox1.ellipse1)" waitTarget="hbox1" waitEvent="updateComplete" />
+				<RunCode code="application.hbox1.addElement(application.hbox1.ellipse1)" waitTarget="hbox1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="hbox1" timeout="2000" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="FXG_dimensions_Graphic" description="Test the dimensions of children of a Graphic."
+	       keywords="[Graphic, width, height]" >
+	        <!--bugs>
+	            <Bug bugID="SDK-17560" />
+	        </bugs -->
+	        <body>
+	            <AssertPropertyValue target="imageGraphic" value="200" propertyName="width" />
+	            <AssertPropertyValue target="imageGraphic" value="200" propertyName="height" />
+	            <AssertPropertyValue target="imageRect" value="200" propertyName="width" />
+	            <AssertPropertyValue target="imageRect" value="200" propertyName="height" />
+	        </body>
+	    </TestCase>
+	    <TestCase testID="FXG_dimensions_change_Graphic" description="Test the dimensions of children of a Graphic."
+	       keywords="[Graphic, width, height]" >
+	        <!--bugs>
+	            <Bug bugID="SDK-17560" />
+	        </bugs -->
+	        <body>
+	            <SetProperty target="imageRect" value="300" propertyName="height" waitTarget="imageRect"
+	                waitEvent="updateComplete" />
+	            <AssertPropertyValue target="imageGraphic" value="200" propertyName="width" />
+	            <AssertPropertyValue target="imageGraphic" value="300" propertyName="height" />
+	            <AssertPropertyValue target="imageRect" value="200" propertyName="width" />
+	            <AssertPropertyValue target="imageRect" value="300" propertyName="height" />
+	        </body>
+	    </TestCase>
+</testCases>
+
+
+</UnitTester>

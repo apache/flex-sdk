@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:assets="assets.*"
+			   minWidth="955" minHeight="600">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace assets "assets.*";
+		/* 		s|DateTimeFormatter {
+		locale:'fr-FR'; 
+		} */
+		
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.NV_FlexModule;
+			
+			import mx.controls.Alert;
+			import mx.events.ModuleEvent;
+			import flash.globalization.*;
+			
+			private var myStyleManager:IStyleManager2;
+			private var myDynStyle:CSSStyleDeclaration;
+			//public static const modulURL:String = "assets/NF_FlexModule.swf";
+			
+			public function loadNVModule(url:String):void
+			{
+				NVModule.addEventListener(ModuleEvent.READY,handleModuleLoaded);
+				NVModule.addEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				NVModule.addEventListener(ModuleEvent.UNLOAD,removeModuleLoaded);
+				NVModule.url = url;
+				NVModule.loadModule();
+			}
+			public function unloadNVModule():void
+			{
+				NVModule.unloadModule();
+			}
+			
+			public function handleModuleLoaded(e:ModuleEvent):void
+			{
+				var nvModule:NV_FlexModule = NVModule.child as NV_FlexModule;
+				
+				nvModule.source = nvSourceTI;
+				nvModule.property = 'text';
+				nvModule.trigger = triggerBT;
+				nvModule.triggerEvent = 'click'; 
+				
+				e.currentTarget.removeEventListener(ModuleEvent.READY, handleModuleLoaded);		
+			}
+			public function removeModuleLoaded(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+			}
+			private function errorModuleHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				Alert.show(e.errorText);				
+			}
+			
+			public function set appLocale(locale:String):void
+			{
+				//test create style CSS declaration using styleManager API, and apply it to Application selector.
+				//notice that Application selector can just set style which is inherited.
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("spark.components.Application");
+				
+				myDynStyle.setStyle('locale',locale);
+			}
+			
+			public function set globalLocale(locale:String):void
+			{
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myDynStyle = myStyleManager.getStyleDeclaration("global");
+				
+				myDynStyle.setStyle('locale',locale);
+			}
+		]]>
+	</fx:Script>
+	<s:VGroup>
+		<s:TextInput id="nvSourceTI"/>
+		
+		<s:Button id="btLoad" label="load module" click="loadNVModule('assets/NV_FlexModule.swf')"/>
+		<s:Button id="btUnload" label="unload module" click="unloadNVModule()"/>
+		<s:Button id="triggerBT"/>
+		
+		<mx:ModuleLoader id="NVModule"/>
+	</s:VGroup>
+	
+</s:Application>

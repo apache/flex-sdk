@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" >
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.formatters.DateTimeFormatter;
+			import flash.globalization.DateTimeFormatter;
+						
+			public var dtfLocale:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dfgslib:flash.globalization.DateTimeFormatter  ; 
+			public var dtfGetStyle:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dtfActualLocale:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dtfFormat:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dtfGetFirstWeekday:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dtfGetMonthNames:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dtfGetWeekdayNames:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			public var dtFormatterError:spark.formatters.DateTimeFormatter;
+			public var dtFormatterAct:spark.formatters.DateTimeFormatter = new spark.formatters.DateTimeFormatter();
+			
+			[Bindable]
+			private var errorStr:String;
+			[Bindable]
+			private var gslibErrStr:String;
+			
+			public function testGslibArgError(errorObject:String):void
+			{
+				try
+				{
+					gslibErrStr = "No Error";
+					switch(errorObject)
+					{
+						case 'dateStyle':
+							dfgslib = new flash.globalization.DateTimeFormatter( 'en_US', 'illegal','long');
+						case 'timeStyle':
+							dfgslib = new flash.globalization.DateTimeFormatter( 'en_US','long','illegal');
+						case 'both':
+							dfgslib = new flash.globalization.DateTimeFormatter( 'en_US','illegal','illegal');
+					}
+				}catch(e:Error)
+				{
+					gslibErrStr = e.toString();
+				}
+				trace(gslibErrStr);
+			}
+			
+			public function testArgError(errorObject:String):void
+			{
+				try
+				{
+					errorStr = "No Error";
+					switch(errorObject)
+					{
+						case 'dateStyle':
+							dtFormatterError = new spark.formatters.DateTimeFormatter();
+							this.addStyleClient(dtFormatterError ) ; 
+							dtFormatterError.dateStyle = "illegal";
+						case 'timeStyle':
+							dtFormatterError = new spark.formatters.DateTimeFormatter();
+							this.addStyleClient(dtFormatterError ) ;
+							dtFormatterError.timeStyle = "illegal";
+						case 'both':
+							dtFormatterError = new spark.formatters.DateTimeFormatter();
+							this.addStyleClient(dtFormatterError ) ;
+							dtFormatterError.dateStyle = "illegal";
+							dtFormatterError.timeStyle = "illegal";
+					}
+				}catch(e:Error)
+				{
+					errorStr = e.toString();
+				}
+				trace(errorStr);
+			}
+			
+			public function testGslibTypeError(errorObject:String):void				
+			{				
+				try					
+				{					
+					gslibErrStr = "No Error";					
+					switch(errorObject)						
+					{						
+						case 'dateStyle':							
+							dfgslib = new flash.globalization.DateTimeFormatter( 'en_US', null,'long');							
+						case 'timeStyle':							
+							dfgslib = new flash.globalization.DateTimeFormatter( 'en_US','long',null);							
+						case 'both':							
+							dfgslib = new flash.globalization.DateTimeFormatter( 'en_US',null,null);							
+					}					
+				}catch(e:Error)					
+				{					
+					gslibErrStr = e.toString();					
+				}				
+				trace(gslibErrStr);				
+			}
+			
+			public function testTypeError(errorObject:String):void
+			{
+				try
+				{
+					errorStr = "No Error";
+					switch(errorObject)
+					{
+						case 'dateStyle':
+							dtFormatterError = new spark.formatters.DateTimeFormatter();
+							this.addStyleClient(dtFormatterError) ; 
+							dtFormatterError.dateStyle = null;
+						case 'timeStyle':
+							dtFormatterError = new spark.formatters.DateTimeFormatter();
+							this.addStyleClient(dtFormatterError) ; 
+							dtFormatterError.timeStyle = null;
+						case 'both':
+							dtFormatterError = new spark.formatters.DateTimeFormatter();
+							this.addStyleClient(dtFormatterError) ; 
+							dtFormatterError.dateStyle = null;
+							dtFormatterError.timeStyle = null;
+					}
+				}
+				catch(e:Error)
+				{
+					errorStr = e.toString();
+				}
+				trace(errorStr);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+		<s:DateTimeFormatter id="dtFormatter" />
+		<s:DateTimeFormatter id="dFormatterShort" dateStyle="short"/>	
+		<s:DateTimeFormatter id="dtfLocaleInline"/>
+
+	</fx:Declarations>
+
+	<s:VGroup>
+	<s:Label id="testArgErrorL" text="{errorStr}"/>
+	<s:Label id="testGslibArgErrorL" text="{gslibErrStr}"/>
+	</s:VGroup> 
+	
+</s:Application>

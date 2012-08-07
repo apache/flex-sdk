@@ -1,0 +1,225 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_default_no_comp.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+			
+			import spark.components.VideoPlayer;
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.media.MediaPlayerState;
+			import mx.utils.ObjectUtil;	
+			public static function init(o:DisplayObject):void{}
+			public var count:int = 0;	
+			public function testPlayerInit():void
+	        {
+		        application.testPlayer.addEventListener("mediaPlayerStateChange", mediaPlayerStateChangeHandler);
+				trace("******************* testPlayerInit*********************");
+	        }
+	            
+	        public function mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+	        {
+				count++;				
+				trace(count + " - ******************* current state: " + ObjectUtil.toString(event.state) );
+		
+		        if (event.state == MediaPlayerState.READY)
+			                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsReady"));
+				else if (event.state == MediaPlayerState.BUFFERING)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsBuffering"));
+				else if (event.state == MediaPlayerState.LOADING)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsLoading"));
+				            else if (event.state == MediaPlayerState.PLAYING)
+					                application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPlaying"));
+				else if (event.state == MediaPlayerState.PAUSED)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsPaused"));
+				else if (event.state == MediaPlayerState.UNINITIALIZED)
+					application.testPlayer.dispatchEvent(new Event("mediaPlayerIsUninitialized"));        
+		
+			}	
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_skin"
+            keywords="[VideoPlayer]"
+            description="Test the skin of the playPauseButton.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.playPauseButton" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_noSource"
+            description="Play nothing."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_play_streaming"
+            description="Play via button click."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+            </setup>
+            <body>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_playThenPause_streaming"
+            description="Play then pause."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsBuffering"/>
+            </setup>
+            <body>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_playPausePlay_streaming"
+            description="Play pause play."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.source = application.streamingVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsBuffering"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+       <TestCase
+    testID="VideoPlayer_playPauseButton_play_progressive"
+    description="Play via button click."
+    keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+            </setup>
+            <body>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_playThenPause_progressive"
+            description="Play then pause."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+            </setup>
+            <body>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_playPausePlay_progressive"
+            description="Play pause play."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsPlaying"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_playPauseButton_autoPlayFalse_progressive"
+            description="Play pause play."
+            keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+				<RunCode code="testPlayerInit()"/>
+                <RunCode code="application.testPlayer.autoPlay = false"/>
+                <RunCode code="application.testPlayer.source = application.progressiveVid" waitTarget="testPlayer" waitEvent="mediaPlayerIsPaused"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="false"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="testPlayer.playPauseButton" localX="5" localY="5"/>
+            	<Pause timeout="1000"/>
+                <AssertPropertyValue target="testPlayer" propertyName="playing" value="true"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

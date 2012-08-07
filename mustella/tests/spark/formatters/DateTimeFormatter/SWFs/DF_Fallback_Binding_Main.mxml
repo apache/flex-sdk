@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:assets="assets.*" minWidth="955" minHeight="700"
+			   creationComplete="addScriptObjToStyleClient()" >
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.DateTimeNameContext;
+			import flash.globalization.DateTimeNameStyle;
+			import flash.globalization.DateTimeStyle;
+			
+			[Bindable]
+			private var aDate:Date = new Date(2000,0,1);
+			
+			[Bindable]
+			private var param1:String = 'full';
+			
+			[Bindable]
+			private var param2:String = 'standalone';
+			
+			public function setParam(nameStyle:String, context:String):void {
+				param1 = nameStyle;
+				param2 = context;
+			}
+			
+			[Bindable]
+			public var dtFormatterScript:assets.FallbackDTF = new assets.FallbackDTF();
+			
+			public function addScriptObjToStyleClient():void
+			{
+				this.addStyleClient(dtFormatterScript);
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<assets:FallbackDTF id="dtFormatter"/>
+		
+		<!-- Declare dateStyle, timeStyle and dateTimePattern-->
+		<assets:FallbackDTF id="dFormatterShort" dateStyle="short"/>	
+		<assets:FallbackDTF id="tFormatterShort" timeStyle="short"/>	
+		<assets:FallbackDTF id="dtFormatterMaskMedium"  dateTimePattern="MMM. d, yyyy"/>
+		
+		<assets:FallbackDTF id="dtFormatterDTP" dateTimePattern="MMM. d, yyyy"/>
+		<assets:FallbackDTF id="dtFormatterDTP2" dateStyle="medium" timeStyle="medium"/>
+	</fx:Declarations>
+	
+	<!--UI components-->
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" gap="20"/>
+	</s:layout>
+	
+	<s:VGroup gap="20" paddingTop="20" horizontalAlign="center" textAlign="left" verticalAlign="top" x="0" y="0" width="980" height="700">
+		<s:Label text="Flex Integration Test Case - Methods - Binding" fontSize="15" fontWeight="bold"/>
+		<s:HGroup>
+			
+			<!--Panel for display flex DateTimeFormatter Methods-->
+			<s:Panel title="Methods in DateTimeFormatter" height="642" width="373">
+				<mx:Form width="370" x="0" y="0" height="59">
+					<s:Label text="format - dateStyle and timeStyle:" x="9" y="110"/>
+					<mx:FormItem label="dateShort">
+						<s:TextInput id="dateShort" text="{dFormatterShort.format(aDate)}"  width="210"/>
+						<s:TextInput id="dateShortScript" text="{dtFormatterScript.format(aDate)}"  width="210"/>
+					</mx:FormItem>
+					<mx:FormItem label="timeShort">
+						<s:TextInput id="timeShort" text="{tFormatterShort.format(aDate)}"  width="200"/>
+						<s:TextInput id="timeShortScript" text="{dtFormatterScript.format(aDate)}"  width="200"/>
+					</mx:FormItem>
+				</mx:Form>
+				
+				<mx:Form width="370" height="86" x="1" y="60">
+					<s:Label text="format - DateTimePattern:" x="9" y="127"/>
+					<mx:FormItem label="DefaultMaskMedium">
+						<s:TextInput id="dateFormatOutputDefaultMaskMedium" text="{dtFormatterMaskMedium.format(aDate)}" width="190"/>
+						<s:TextInput id="dateFormatOutputDefaultMaskMediumScript" text="{dtFormatterScript.format(aDate)}" width="190"/>
+					</mx:FormItem>
+				</mx:Form>
+				
+				<mx:Form x="0" y="241" width="371" height="61">
+					<s:Label text="getMonthNames" />
+					<mx:FormItem label="getMonthNames:" width="323" >
+						<s:TextInput id="monthName" text="{dtFormatter.getMonthNames(param1,param2)}"/>
+					</mx:FormItem>
+					<mx:FormItem label="getMonthNames:" width="323" >
+						<s:TextInput id="monthNameScript" text="{dtFormatterScript.getMonthNames(param1,param2)}"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form x="1" y="315" width="370" height="61">
+					<s:Label text="getWeekdayNames" />
+					<mx:FormItem label="getWeekdayNames:" width="320">
+						<s:TextInput id="weekdayName" text="{dtFormatter.getWeekdayNames(param1,param2)}"/>
+					</mx:FormItem>
+					<mx:FormItem label="getWeekdayNames:" width="320">
+						<s:TextInput id="weekdayNameScript" text="{dtFormatterScript.getWeekdayNames(param1,param2)}"/>
+					</mx:FormItem>
+				</mx:Form>
+				<mx:Form x="0" y="157" width="371">
+					<s:Label text="getFirstWeekday" />
+					<mx:FormItem label="getFirstWeekday:">
+						<s:TextInput id="getFirstWeekday" text="{dtFormatter.getFirstWeekday()}" width="226"/>
+						<s:TextInput id="getFirstWeekdayScript" text="{dtFormatterScript.getFirstWeekday()}" width="226"/>
+					</mx:FormItem>
+				</mx:Form>
+			</s:Panel>
+			
+			<!--Panel for display flex getters-->
+			<s:Panel title="Getters in DateTimeFormatter" height="642" width="384">					
+				<mx:Form width="369" x="3" y="0">
+					<s:Label text="get actualLocaleIDName"/>
+					<mx:FormItem label="actualLocaleIDName:">
+						<s:TextInput id="actualLocaleIDName" text="{dtFormatter.actualLocaleIDName}"  width="198"/>
+						<s:TextInput id="actualLocaleIDNameScript" text="{dtFormatterScript.actualLocaleIDName}"  width="198"/>
+					</mx:FormItem>
+				</mx:Form>
+				
+				<mx:Form width="372" x="2" y="80" height="519">
+					<s:Label text="get dateTimePattern"/>
+					<mx:FormItem label="dateTimePattern:" width="338" height="448">
+						<s:TextInput id="dtPattern" text="{dtFormatterDTP.dateTimePattern}" width="215"/>
+					</mx:FormItem>
+					<mx:FormItem label="dateTimePattern:" width="338" height="448">
+						<s:TextInput id="dtPattern2" text="{dtFormatterDTP2.dateTimePattern}" width="215"/>
+					</mx:FormItem>
+					<mx:FormItem label="dateTimePattern:" width="338" height="448">
+						<s:TextInput id="dtPatternScriptText" text="{dtFormatterScript.dateTimePattern}" width="215"/>
+					</mx:FormItem>
+				</mx:Form>
+			</s:Panel>
+			
+		</s:HGroup>
+	</s:VGroup>	
+	
+	<s:VGroup>
+		
+	</s:VGroup>
+</s:Application>

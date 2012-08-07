@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  		-->
+<!-- FXG 1.0 Test fill defined by a Radial Gradient and blend mode overlay                     -->
+<!-- The RadialGradient element fills a path or shape with a continuously smooth color transition between a list of colors along the radius of a circle.
+
+The circle used is the circle bounded by the box stretching from (-0.5, -0.5) to (0.5,0.5). Like LinearGradient, it is transformed by the matrix transform defined on the gradient.
+
+RadialGradient supports all the same transform attributes and child elements that LinearGradient does. Additionally, because its rendering is defined by a box and not just a horizontal vector, it supports a scaleY attribute that is used along with scaleX to scale the bounding box before the other transform attributes are applied.
+
+RadialGradient elements also define the attribute focalPointRatio. This defines where along the horizontal axis (of the untransformed box) the focal point of the radial gradient lies. A value of 1 places it at the right hand edge of the box (at 0.5,0). A value of -1 places it at the left hand edge of the box (at -0.5,0).
+
+RadialGradient elements use child GradientEntry elements the same way LinearGradient elements do.                                                                                       -->
+<!-- Author : Vivek Agrawal  26 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" >
+
+				<Path winding="evenOdd" data="M 104 207 C 104 207 105 207 105 207 C 108 199 118 173 125 169 C 125 169 126 169 126 169 C 138 149 211 130 216 166 C 217 178 214 195 218 207 C 228 219 249 226 266 226 C 324 226 310 119 358 119 C 446 119 369 230 474 220 C 472 219 477 217 478 217 C 492 209 523 87 561 116 C 620 161 593 319 551 324 C 542 338 483 325 471 321 C 471 321 471 320 471 320 C 455 320 441 237 390 247 C 363 251 365 359 309 339 C 310 337 306 338 308 337 C 303 335 287 323 286 319 C 273 313 245 282 235 272 C 235 272 234 272 234 272 C 216 247 187 259 168 273 C 168 273 168 274 168 274 C 143 298 116 312 81 307 C 68 294 64 256 64 240 C 63 236 63 215 71 218 C 69 216 73 216 74 216 C 74 216 74 215 74 215 L 82 215 L 82 214 L 97 212 C 97 212 97 211 97 211 C 99 210 107 209 106 206 C 106 206 104 207 104 207 Z " blendMode="overlay" alpha="1">
+					<fill>
+						<RadialGradient x = "329" y = "226" scaleX = "532" scaleY = "532" rotation = "0">
+							<GradientEntry color="#0900b2" ratio="0" alpha="1"/>
+							<GradientEntry color="#ff0000" ratio="0.5" alpha="1"/>
+							<GradientEntry color="#fffc00" ratio="1" alpha="1"/>
+						</RadialGradient>
+					</fill>
+					<stroke>
+						<SolidColorStroke color="#cc3300" weight="1"/>
+					</stroke>
+				</Path>
+				<Path winding="evenOdd" data="M 284 94" blendMode="overlay" alpha="1">
+					<stroke>
+						<SolidColorStroke color="#cc3300" weight="1"/>
+					</stroke>
+				</Path>
+</Graphic>

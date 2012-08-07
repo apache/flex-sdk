@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="spark/effects/interpolation/MultiValueInterpolator/accessor/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/MultiValueInterpolator_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.interpolation.*;
+        import Assets.Tinterpolator;
+        
+        public static function init(o:DisplayObject):void{}
+
+        private function ElementIntepolatorIsNumberInterpolator():Boolean
+        {
+            try
+            {
+                var obj:Object = application.testInterpolator.elementInterpolator;
+                
+                return(obj.toString() == '[object NumberInterpolator]');
+            }
+            catch(error:Error)
+            {
+                return(false);
+            }
+            
+            return(false);
+        }
+
+        private function ElementIntepolatorIsTintepolator():Boolean
+        {
+            try
+            {
+                var obj:Object = application.testInterpolator.elementInterpolator;
+                
+                return(obj.toString() == '[object Tinterpolator]');
+            }
+            catch(error:Error)
+            {
+                return(false);
+            }
+            
+            return(false);
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- ElementInterpolator -->
+        <TestCase testID="MultiValueInterpolator_elementInterpolator_Default"  keywords="[MultiValueInterpolator, accessor, elementInterpolator]" description="Test the default value of the elementInterpolator accessor.">
+            <setup>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=ElementIntepolatorIsNumberInterpolator()" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="MultiValueInterpolator_elementInterpolator_CustomInterpolator"  keywords="[MultiValueInterpolator, accessor, elementInterpolator]" description="Test the value of the elementInterpolator accessor after setting the custom interpolator via the constructor.">
+            <setup>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator(new Tinterpolator());" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=ElementIntepolatorIsTintepolator()" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="MultiValueInterpolator_elementInterpolator_SetInterpolator"  keywords="[MultiValueInterpolator, accessor, elementInterpolator]" description="Set and test the value of the elementInterpolator accessor.">
+            <setup>
+                <RunCode code="application.testInterpolator = new MultiValueInterpolator();" />
+                <RunCode code="application.testInterpolator.elementInterpolator = new Tinterpolator();" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=ElementIntepolatorIsTintepolator()" value="true" />
+            </body>
+        </TestCase>
+    
+    </testCases>
+
+</UnitTester>

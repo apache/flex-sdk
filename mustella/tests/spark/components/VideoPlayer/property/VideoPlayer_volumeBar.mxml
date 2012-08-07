@@ -1,0 +1,133 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/property/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_basic.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.*;
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+            testID="VideoPlayer_volumeBar_skin"
+            keywords="[VideoPlayer]"
+            description="Test the skin of the volumeBar.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="testPlayer.volumeBar" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_volumeBar_dropDown_skin"
+            keywords="[VideoPlayer]"
+            description="Test the skin of the volumeBar dropDown.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.volumeBar.openDropDown()"/>
+                <Pause timeout="1000"/>
+                <CompareBitmap target="testPlayer.volumeBar.dropDown" url="../property/baseline/$testID.png"/>
+                <RunCode code="application.testPlayer.volumeBar.closeDropDown(true)"/>
+                <Pause timeout="1000"/>
+            </body>
+        </TestCase>
+
+        <!-- Mustella cannot handle this case. It works fine in FB, but in mustella, the videoPlayer hides the volumeBar-->
+        <TestCase
+            testID="VideoPlayer_volumeBar_dropDown_fs"
+            keywords="[VideoPlayer]"
+            description="Make sure the volumeBar dropDown is available in fs.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <RunCode code="application.testPlayer.volumeBar.openDropDown()"/>
+                <AssertPropertyValue target="testPlayer.volumeBar" propertyName="isDropDownOpen" value="true"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.testPlayer.volumeBar.closeDropDown(true)"/>
+                <DispatchMouseClickEvent target="testPlayer.fullScreenButton" localX="5" localY="5" waitTarget="testPlayer" waitEvent="updateComplete"/>
+                <Pause timeout="1000"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_volumeBar_turnDown"
+            keywords="[VideoPlayer]"
+            description="Turn the volume down.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.volumeBar.openDropDown()"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.volumeBar.track" localX="3" localY="3" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="testPlayer.volumeBar.track" localX="3" localY="20"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.volumeBar.track" localX="3" localY="20" />
+                <Pause timeout="2000"/>
+                <AssertMethodValue method="value=application.testPlayer.volume" value=".72"/>
+                <RunCode code="application.testPlayer.volumeBar.closeDropDown(true)"/>
+                <Pause timeout="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_volumeBar_turnUp"
+            keywords="[VideoPlayer]"
+            description="Turn the volume up.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.volume = .5"/>
+                <AssertMethodValue method="value=application.testPlayer.volume" value=".5"/>
+                <RunCode code="application.testPlayer.volumeBar.openDropDown()"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.volumeBar.track" localX="3" localY="3" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseUp" target="testPlayer.volumeBar.track" localX="3" localY="3" />
+                <Pause timeout="2000"/>
+                <AssertMethodValue method="value=application.testPlayer.volume" value="1"/>
+                <RunCode code="application.testPlayer.volumeBar.closeDropDown(true)"/>
+                <Pause timeout="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase
+            testID="VideoPlayer_volumeBar_focusOut"
+            keywords="[VideoPlayer]"
+            description="Close the drop down by focusing out.">
+            <setup>
+                <ResetComponent target="testPlayer" className="spark.components::VideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.testPlayer.volumeBar.openDropDown()"/>
+                <Pause timeout="1000"/>
+                <DispatchMouseEvent type="mouseDown" target="testPlayer.volumeBar.track" localX="1" localY="1" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseMove" buttonDown="false" target="testPlayer" localX="5" localY="5"/>
+                <WaitForEffectsToEnd/>
+                <Pause timeout="1000"/>
+                <CompareBitmap target="testPlayer.volumeBar" url="../property/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

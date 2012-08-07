@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   creationComplete="application1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.NationalDigitsType;
+			
+			import mx.events.FlexEvent;
+			public var nvScript:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			public var nvScript1:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			public var nvScriptInvalid:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptInvalid2:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			[Bindable]
+			public var nvScriptBinding:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			[Bindable]
+			public var nvScriptBindingLocale:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			public var nvScriptGetWithoutLocale:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			public var nvScriptFunction3:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptFunction4:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptFunction5:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptsameGS:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			public var nvScriptsameNS:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+
+			public var nvScriptNumber:spark.validators.NumberValidator = new spark.validators.NumberValidator();
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(nvScript);
+				this.addStyleClient(nvScript1);
+				this.addStyleClient(nvScriptInvalid);
+				this.addStyleClient(nvScriptBinding);
+				this.addStyleClient(nvScriptBindingLocale);
+				this.addStyleClient(nvScriptFunction3);
+				this.addStyleClient(nvScriptFunction4);
+				this.addStyleClient(nvScriptFunction5);
+				this.addStyleClient(nvScriptsameGS);
+				this.addStyleClient(nvScriptsameNS);
+				this.addStyleClient(nvScriptNumber);
+				this.addStyleClient(nvScriptInvalid2);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:NumberValidator id="nv"/>
+		
+		<s:NumberValidator id="nv1"/>
+		<s:NumberValidator id="nv2"/>
+		
+		<s:NumberValidator id="nvInline" digitsType="{NationalDigitsType.LAO}"/>
+		<s:NumberValidator id="nvInline2" digitsType="{NationalDigitsType.EUROPEAN}"/>
+		<s:NumberValidator id="nvInvalid"/>
+		<s:NumberValidator id="nvInvalid2"/>
+		
+		<s:NumberValidator id="nvBinding"/>
+		<s:NumberValidator id="nvBindingLocale"/>
+		
+		<s:NumberValidator id="nvGetWithoutLocale"/>
+		
+		<s:NumberValidator id="nvFunction1" source="{nvSourceTI}" property="text" trigger="{triggerBT1}" triggerEvent="click" locale="fr-CH"/>
+		<s:NumberValidator id="nvFunction2" source="{nvSourceTI}" property="text" trigger="{triggerBT2}" triggerEvent="click" locale="bn-BD"/>
+		
+		<s:NumberValidator id="nvNumber" source="{nvSourceTI}" property="text" trigger="{triggerBT7}" triggerEvent="click"/>
+	
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:Label id="nvBindingL" text="{nvBinding.digitsType}"/>
+	<s:Label id="nvScriptBindingL" text="{nvScriptBinding.digitsType}"/>
+	
+	<s:Label id="nvBindingLocaleL" text="{nvBindingLocale.digitsType}"/>
+	<s:Label id="nvScriptBindingLocaleL" text="{nvScriptBindingLocale.digitsType}"/>
+	
+	<s:TextInput id="nvSourceTI"/>
+	
+	<s:Button id="triggerBT1"/>
+	<s:Button id="triggerBT2"/>
+	<s:Button id="triggerBT3"/>
+	<s:Button id="triggerBT4"/>
+	<s:Button id="triggerBT5"/>
+	<s:Button id="triggerBT6"/>
+	<s:Button id="triggerBT7"/>
+
+
+	
+</s:Application>

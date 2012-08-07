@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/NumberFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="NF_localCSSStyle.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+		import flash.globalization.NumberFormatter;
+		import assets.NFConstants;
+		
+		public var nfGSLib:flash.globalization.NumberFormatter;
+		
+		public static function init(o:DisplayObject):void      
+		{
+			
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test local style, it includes global selector, class selector, ID Selector -->
+<testCases>
+
+	<!-- This testcase is for global style -->
+	<TestCase testID="NF_localCSSStyle_globalSelector_test1" description="This testcase is for global style" keywords="[NumberFormatter, format(), global style]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja_JP')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfGlobal" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nfGlobal" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for class selector -->
+	<TestCase testID="NF_localCSSStyle_classSelector_test2" description="This testcase is for class selector" keywords="[NumberFormatter, format(), local defined styleName]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ru_RU')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="nfLocalClass" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="nfLocalClass" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for ID Selector -->
+	<TestCase testID="NF_localCSSStyle_IDSelector_test3" description="IDSelector" keywords="[NumberFormatter, format(), IDSelector]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CA')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="NFIDSelector" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="NFIDSelector" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for testing inline has higher priority than ID Selector -->
+	<TestCase testID="NF_localCSSStyle_priority_test4" description="This testcase is for testing inline has higher priority than ID Selector" keywords="[NumberFormatter, format(), IDSelector]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-CN')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="NFIDSelectorInline" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="NFIDSelectorInline" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for testing id selector has higher priority than Class Selector. -->
+	<TestCase testID="NF_localCSSStyle_priority_test5" 
+			  description="This testcase is for testing id selector has higher priority than Class Selector" keywords="[NumberFormatter, format(), IDSelector]">
+		<setup>
+			<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('fr-CA')" />
+			<Pause timeout="{NFConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="NFIDSelectorClass" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="NFIDSelectorClass" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+
+</testCases>
+
+	
+</UnitTester>

@@ -1,0 +1,156 @@
+<UnitTester
+    testDir="spark/components/VideoDisplay/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoDisplay_default.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+  <testCases>
+
+        <!-- ********* -->
+        <!-- STREAMING -->
+        <!-- ********* -->
+
+        <TestCase testID="VideoDisplay_currentTimeChange_Play_S" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is played.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.autoPlay = false"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.play()" waitTarget="testDisplay" waitEvent="currentTimeChange"/>
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_currentTimeChange_seek_S" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify currentTimeChange is raised when seek video.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="3000"/>
+		<RunCode code="application.testDisplay.seek(8)" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange"/>
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" timeout="5000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_currentTimeChange_autoRewind_S" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is auto rewound.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="3000"/>
+		<RunCode code="application.testDisplay.seek(111)" waitTarget="testDisplay" waitEvent="currentTimeChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" numExpectedEvents="1"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="VideoDisplay_currentTimeChange_changeSource_S" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify bytesLoadedChange is raised when video source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.streamingVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="5000"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+		<AssertEvent target="testDisplay" eventName="mediaPlayerStateChange" eventClass="org.osmf.events::MediaPlayerStateChangeEvent" numExpectedEvents="-1"/>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_currentTimeChange_removeSource_S" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify bytesLoadedChange is not raised when video source is removed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVidStream" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="5000"/>
+		<RunCode code="application.testDisplay.source = null" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <!-- *********** -->
+        <!-- PROGRESSIVE -->
+        <!-- *********** -->
+
+        <TestCase testID="VideoDisplay_currentTimeChange_play_P" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is played.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+                <RunCode code="application.testDisplay.autoPlay = false"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.play()" waitTarget="testDisplay" waitEvent="currentTimeChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_currentTimeChange_seek_P" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify currentTimeChange is raised when seek video.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.seek(5)" waitTarget="testDisplay" waitEvent="currentTimeChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_currentTimeChange_autoRewind_P" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify currentTimeChange is raised when video is auto rewound.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="2000"/>
+		<RunCode code="application.testDisplay.seek(16)" waitTarget="testDisplay" waitEvent="currentTimeChange" timeout="5000" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="VideoDisplay_currentTimeChange_changeSource_P" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify bytesLoadedChange is raised when video source is changed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.progressiveVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="5000"/>
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VideoDisplay_currentTimeChange_removeSource_P" keywords="[VideoDisplay, event, currentTimeChange]" description="Verify bytesLoadedChange is not raised when video source is removed.">
+            <setup>
+                <ResetComponent target="testDisplay" className="spark.components.VideoDisplay" waitTarget="testDisplay" waitEvent="updateComplete" />
+		<RunCode code="application.testDisplay.source = application.GreenBoxVid" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+		<Pause timeout="5000"/>
+		<RunCode code="application.testDisplay.source = null" waitTarget="testDisplay" waitEvent="mediaPlayerStateChange" />
+            </setup>
+            <body>
+                <AssertEvent target="testDisplay" eventName="currentTimeChange" eventClass="org.osmf.events::TimeEvent"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

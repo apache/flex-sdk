@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:comps="comps.*"
+	width="900" height="950">
+
+	<fx:Script>
+	<![CDATA[
+          import spark.primitives.Graphic;
+	]]>
+	</fx:Script>
+
+    <s:VGroup id="group1" gap="0">
+        <comps:BigCircle1 id="circle1_static" />
+        <comps:BigCircle2 id="circle2_static" />
+    </s:VGroup>
+
+    <s:VGroup id="group2" y="300" gap="0">
+        <comps:BigCircle1Comp id="circle1_runtime" />
+        <comps:BigCircle2Comp id="circle2_runtime" />
+    </s:VGroup>
+
+    <s:HGroup id="group3" x="300" gap="0">
+	    <comps:BigCircle1 id="circle1_static2" />
+	    <comps:BigCircle2 id="circle2_static2" />
+    </s:HGroup>
+
+    <s:HGroup id="group4" x="300" y="300" gap="0">
+        <comps:BigCircle1Comp id="circle1_runtime2" />
+        <comps:BigCircle2Comp id="circle2_runtime2" />
+    </s:HGroup>
+
+  	<s:Graphic x="10" y="150">
+  	<s:Ellipse id="shape1" x="119" y="20.5" width="70" height="70">
+	    <s:fill>
+		    <s:SolidColor color="#ffff00"/>
+		</s:fill>
+		<s:transform>
+			<s:Transform>
+			    <s:colorTransform>
+				    <s:ColorTransform alphaMultiplier="0.5" />
+				</s:colorTransform>
+			</s:Transform>
+	    </s:transform>
+	</s:Ellipse>
+	</s:Graphic>
+
+</s:Application>

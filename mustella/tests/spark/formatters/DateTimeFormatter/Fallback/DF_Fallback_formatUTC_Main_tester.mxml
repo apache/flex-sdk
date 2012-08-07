@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*"
+			testSWF="DF_Fallback_formatUTC_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.DFConstants;
+		
+		import flash.globalization.DateTimeFormatter;
+		
+		import mx.core.mx_internal;
+		use namespace mx_internal;
+		
+		private var date1:Date = new Date(2000, 0, 1);
+		private var date2:Date = new Date(65, 2, 6, 9, 42, 16, 0);
+		private var date3:Date = new Date(30000000, 11, 31, 23, 59, 59, 935);
+		private var date4:Date = new Date(0);
+		private var date5:Date = new Date('Mon Jul 21 1969 3:16 PM');
+		private var date6:Date = new Date(1, 1, 1, 1, 1, 1, 1);
+		private var date7:Date = new Date('2:57 PM');
+		private var date8:Date = new Date('Fri Nov 28 17:34:21 UTC-0500 2008');
+			
+		private var dtfGSLib:DateTimeFormatter = new DateTimeFormatter('en');
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+		
+		public function getExpectedValue(obj:*, dateStyle:String, timeStyle:String, date:Date):String
+		{
+			var expected:String = 'expect';
+			//when flash.globalization supported, compare actual result with GSLib result
+			if(obj.enforceFallback)
+			{
+				if(dateStyle =='long' && timeStyle == 'long')
+					dtfGSLib.setDateTimePattern('EEEE, MMMM d, yyyy h:mm:ss a');
+				
+				if(dateStyle == 'short' && timeStyle == 'medium')
+					dtfGSLib.setDateTimePattern('M/d/yyyy h:mm:ss a');
+				
+				if(dateStyle == 'medium' && timeStyle == 'none')
+					dtfGSLib.setDateTimePattern('EEEE, MMMM d, yyyy');
+				
+				if(dateStyle=='none' && timeStyle == 'short')
+					dtfGSLib.setDateTimePattern('h:mm a'); 
+				
+				return dtfGSLib.formatUTC(date);
+			}
+			else //when flash.globalization un-supported, compare the actual result with formatted string using US timezone
+			{
+				if(dateStyle == 'long' && timeStyle == 'long')
+				{
+					
+					switch(date)
+					{
+						case date1:
+							expected = 'Saturday, January 1, 2000 8:00:00 AM'; break;
+						case date2:
+							expected = 'Saturday, March 6, 1965 5:42:16 PM'; break;
+						case date3:
+							expected = 'Monday, January 1, 30000001 7:59:59 AM'; break;
+						case date4:
+							expected = 'Thursday, January 1, 1970 12:00:00 AM'; break;
+						case date5:
+							expected = 'Monday, July 21, 1969 10:16:00 PM'; break;
+						case date6:
+							expected = 'Friday, February 1, 1901 9:01:01 AM'; break;
+						case date7:
+							expected = ''; break;
+						case date8:
+							expected = 'Friday, November 28, 2008 10:34:21 PM'; break;
+					}
+				}
+				
+				if(dateStyle == 'short' && timeStyle == 'medium')
+				{
+					switch(date)
+					{
+						case date1:
+							expected = '1/1/2000 8:00:00 AM'; break;
+						case date2:
+							expected = '3/6/1965 5:42:16 PM'; break;
+						case date3:
+							expected = '1/1/30000001 7:59:59 AM'; break;
+						case date4:
+							expected = '1/1/1970 12:00:00 AM'; break;
+						case date5:
+							expected = '7/21/1969 10:16:00 PM'; break;
+						case date6:
+							expected = '2/1/1901 9:01:01 AM'; break;
+						case date7:
+							expected = ''; break;
+						case date8:
+							expected = '11/28/2008 10:34:21 PM'; break;
+					}
+				}
+				
+				if(dateStyle == 'medium' && timeStyle == 'none')
+				{
+					switch(date)
+					{
+						case date1:
+							expected = 'Saturday, January 1, 2000'; break;
+						case date2:
+							expected = 'Saturday, March 6, 1965'; break;
+						case date3:
+							expected = 'Monday, January 1, 30000001'; break;
+						case date4:
+							expected = 'Thursday, January 1, 1970'; break;
+						case date5:
+							expected = 'Monday, July 21, 1969'; break;
+						case date6:
+							expected = 'Friday, February 1, 1901'; break;
+						case date7:
+							expected = ''; break;
+						case date8:
+							expected = 'Friday, November 28, 2008'; break;
+					}
+				}
+				
+				if(dateStyle == 'none' && timeStyle == 'short')
+				{
+					switch(date)
+					{
+						case date1:
+							expected = '8:00 AM'; break;
+						case date2:
+							expected = '5:42 PM'; break;
+						case date3:
+							expected = '7:59 AM'; break;
+						case date4:
+							expected = '12:00 AM'; break;
+						case date5:
+							expected = '10:16 PM'; break;
+						case date6:
+							expected = '9:01 AM'; break;
+						case date7:
+							expected = ''; break;
+						case date8:
+							expected = '10:34 PM'; break;
+					}
+				}
+				return expected;
+			} 
+			
+			
+		}
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!-- This test file is to test format() different dates when setting with different properties -->
+
+<testCases>
+	<!--cases 1 to 6 are test format() with different dateTimeStyle combine -->
+	<TestCase testID="DTF_Fallback_formatUTC_dateLong_timeLong_test1" description="test format() with dateStyle 'long' and timeStyle 'long' " keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterLL" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date1)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date1)"/>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date2)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date2)"/>
+			<!--due to GSLib DateTimeFormatter and Fallback DateTimeFormatter have different behaviours, so compare actual result with formatted string under US timezone -->
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date3)" valueExpression="value=application.getExpectedValueofDate3('long','long',date3)"/>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date4)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date4)"/>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date5)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date5)"/>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date6)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date6)"/>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date7)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date7)"/>
+			<AssertMethodValue method="value=application.dtFormatterLL.format(date8)" valueExpression="value=getExpectedValue(application.dtFormatterLL,'long','long',date8)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_formatUTC_dateShort_timeMedium_test2" description="test format() with dateStyle 'short' and timeStyle 'medium'" keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterSM" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date1)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date1)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date2)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date2)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date3)" valueExpression="value=application.getExpectedValueofDate3('short','medium',date3)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date4)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date4)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date5)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date5)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date6)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date6)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date7)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date7)"/>
+			<AssertMethodValue method="value=application.dtFormatterSM.format(date8)" valueExpression="value=getExpectedValue(application.dtFormatterSM,'short','medium',date8)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_formatUTC_dateMedium_timeNone_test3" description="test format() with dateStyle 'medium' and timeStyle 'none'" keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterMN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date1)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date1)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date2)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date2)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date3)" valueExpression="value=application.getExpectedValueofDate3('medium','none',date3)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date4)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date4)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date5)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date5)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date6)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date6)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date7)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date7)"/>
+			<AssertMethodValue method="value=application.dtFormatterMN.format(date8)" valueExpression="value=getExpectedValue(application.dtFormatterMN,'medium','none',date8)"/>
+		</body>
+	</TestCase>
+	<!--Comment this case due to bug 2727894 in Waston-->
+	<TestCase testID="DTF_Fallback_formatUTC_dateNone_timeShort_test4" description="test format() with dateStyle 'none' and timeStyle 'short'" keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterNS" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date1)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date1)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date2)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date2)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date3)" valueExpression="value=application.getExpectedValueofDate3('none','short',date3)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date4)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date4)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date5)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date5)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date6)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date6)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date7)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date7)"/>
+			<AssertMethodValue method="value=application.dtFormatterNS.format(date8)" valueExpression="value=getExpectedValue(application.dtFormatterNS,'none','short',date8)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_formatUTC_dateNone_timeNone_test5" description="test format() with dateStyle 'none' and timeStyle 'none'" keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterNN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date1)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date2)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date3)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date4)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date5)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date6)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date7)" value=""/>
+			<AssertMethodValue method="value=application.dtFormatterNN.format(date8)" value=""/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_formatUTC_dateTimePattern_hhmma_test6" description="test change property dateTimePattern will not change return value of format(), return value should same as dtFormatterLL's format() result" keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterDTP" value="hh:mm a"/>
+			<Pause timeout="{DFConstants.pauseTime}"/>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterDTP" waitEvent="change"/>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterDTPLL" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date1)" valueExpression="value=application.dtFormatterDTPLL.format(date1)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date2)" valueExpression="value=application.dtFormatterDTPLL.format(date2)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date3)" valueExpression="value=application.dtFormatterDTPLL.format(date3)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date4)" valueExpression="value=application.dtFormatterDTPLL.format(date4)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date5)" valueExpression="value=application.dtFormatterDTPLL.format(date5)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date6)" valueExpression="value=application.dtFormatterDTPLL.format(date6)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date7)" valueExpression="value=application.dtFormatterDTPLL.format(date7)"/>
+			<AssertMethodValue method="value=application.dtFormatterDTP.format(date8)" valueExpression="value=application.dtFormatterDTPLL.format(date8)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="DTF_Fallback_formatUTC_locale_zh_CN_test7" description="test change locale will not change return value of format(), return value should same as dtFormatterLL's format() result" keywords="[FallbackDateTimeFormatter, format]">
+		<setup>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterLocale"/>
+			<SetProperty propertyName="useUTC" valueExpression="value=true" target="dtFormatterLocaleLL"/>
+			<SetStyle styleName="locale" target="dtFormatterLocale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date1)" valueExpression="value=application.dtFormatterLocaleLL.format(date1)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date2)" valueExpression="value=application.dtFormatterLocaleLL.format(date2)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date3)" valueExpression="value=application.dtFormatterLocaleLL.format(date3)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date4)" valueExpression="value=application.dtFormatterLocaleLL.format(date4)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date5)" valueExpression="value=application.dtFormatterLocaleLL.format(date5)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date6)" valueExpression="value=application.dtFormatterLocaleLL.format(date6)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date7)" valueExpression="value=application.dtFormatterLocaleLL.format(date7)"/>
+			<AssertMethodValue method="value=application.dtFormatterLocale.format(date8)" valueExpression="value=application.dtFormatterLocaleLL.format(date8)"/>
+		</body>
+	</TestCase>
+</testCases>
+
+</UnitTester>

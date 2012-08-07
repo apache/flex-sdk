@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Rect/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Rect_Mirroring_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.RectBasic;
+       import spark.primitives.Rect;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+       public function setMatrix(target:Rect): void
+       {
+           target.transform = application.transform_move_rotate;
+       }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+
+        <TestCase testID="FXG_Rect_Mirroring_x_positive" description="Rect x set to a positive int" keywords="[Rect, Mirroring,  x, Graphic]">
+            <setup>
+               <ResetComponent target="graphic2" className="comps.RectBasic2" waitTarget="graphic2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic2.rect2" propertyName="x" value="10" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="graphic2.rect2" propertyName="rotation" value="20" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" numColorVariances="6" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+  
+        <TestCase testID="FXG_Rect_Mirroring_radiusX_positive" description="Rect radiusX set to a positive int" keywords="[Rect, Mirroring,  radiusX, Graphic]">
+            <setup>
+               <ResetComponent target="graphic1" className="comps.RectBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="graphic1.rect1" propertyName="radiusX" value="10" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+            </body>
+        </TestCase>
+       <TestCase testID="FXG_Rect_Mirroring_LinearGradientStroke_xy_20_0" description="Rect with a LinearGradientStroke and and (x,y)=(20,0)" keywords="[Line, LinearGradientStroke, caps]">
+             <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitTarget="rect_linearGradientStroke" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="rect_linearGradientStroke.rect1" propertyName="x" value="20" waitTarget="rect_linearGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="2500" />
+            </body>
+        </TestCase>
+         <TestCase testID="FXG_Rect_Mirroring_Rotation_matrix_onLinearGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
+            description="Test a Rect with a matrix set on its LinearGradient stroke that rotates the fill." >
+            <!--bugs>
+                <Bug bugID="SDK-21571" />
+            </bugs -->
+            <setup>
+                <ResetComponent target="rect_linearGradientStroke" className="comps.RectGradientStroke" waitEvent="updateComplete" waitTarget="rect_linearGradientStroke" />
+                <SetProperty propertyName="matrix" target="rect_linearGradientStroke.rect1.stroke" valueExpression="value=application.transform_rotate1"
+                    waitTarget="rect_linearGradientStroke.rect1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_linearGradientStroke" timeout="5000" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

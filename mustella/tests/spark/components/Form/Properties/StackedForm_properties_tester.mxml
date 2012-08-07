@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/components/Form/Properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="StackedForm_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+  		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+
+		import spark.layouts.*;
+		import comps.*;
+		import spark.components.Group;
+		import flash.utils.getQualifiedClassName;
+
+		private var hlayout = new HorizontalLayout();
+
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace  "*";
+		
+		.myStyle{
+			color: #FF0000;
+		}
+	</fx:Style>
+	<testCases>
+		<TestCase testID="StackedForm_enabled_default" keywords="[Form, enabled]" description="Form defaults to enabled this test checks also that FormItem can have a CheckBox TextInput Button">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="true"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_disabled_runtime" keywords="[Form, enabled]" description="Form looks disabled when setting enabled false at runtime">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<SetProperty target="basicFrm" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="false"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_toggle_enabled_FormItems_disabled" keywords="[Form, enabled]" description="Form looks disabled when setting enabled false at runtime">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<SetProperty target="basicFrm" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="basicFrm.ti1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<SetProperty target="basicFrm.fi2" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="false"/>
+				<SetProperty target="basicFrm" propertyName="enabled" value="true" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="basicFrm.ti1" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="basicFrm.fi2" value="false"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormHeading_enabled_false_FormHeadingSkin" keywords="[Form, FormHeading, enabled]" description="Disabled FormHeading renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="enabled" value="false" target="basicFrm.fh" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>			
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormHeading_enabled_false_FormHeadingSkin_toggle" keywords="[Form, FormHeading, enabled]" description="Disabled FormHeading renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="enabled" value="false" target="basicFrm.fh" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>	
+				<SetProperty propertyName="enabled" value="true" target="basicFrm.fh" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormHeading_long_string_FormHeadingSkin" keywords="[Form, FormHeading, enabled]" description="Disabled FormHeading renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="label" value="This is a very long string for FormHeading with FormHeadingSkin" target="basicFrm.fh" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>			
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormHeading_styleName_label_FormHeadingSkin" keywords="[Form, FormHeading, enabled]" description="Disabled FormHeading renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="styleName" target="basicFrm.fh" value="myStyle" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="This is a very long string for FormHeading with FormHeadingSkin" target="basicFrm.fh" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>			
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormHeading_label_states" keywords="[FormHeading, states, label]" description="set label to different strings in different states for FormHeading">
+			<setup>
+				<ResetComponent target="stateFrm" className="comps.StackedStateForm" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="stateFrm"/>
+				<SetProperty propertyName="currentState" target="stateFrm" value="state2" waitEvent="updateComplete" waitTarget="stateFrm.fh.skin.labelDisplay"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="stateFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedForm_addFormItem_removeFormItem_runtime" keywords="[Form, FormItem]" description="Add FormItem at runtime">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>
+				<RunCode code="application.basicFrm.removeElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedForm_addGroup_removeGroup_runtime" keywords="[Form, Group]" description="Add Group with FormItemLayout at runtime">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<RunCode code="application.basicFrm.addElement(application.frmlayoutGrp)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<AssertPropertyValue propertyName="x" value="100" target="frmlayoutGrp.leftBtn"/>
+				<AssertPropertyValue propertyName="y" value="0" target="frmlayoutGrp.leftBtn"/>
+				<AssertPropertyValue propertyName="x" value="0" target="frmlayoutGrp.topBtn"/>
+				<AssertPropertyValue propertyName="y" value="100" target="frmlayoutGrp.topBtn"/>
+				<AssertPropertyValue propertyName="x" value="0" target="frmlayoutGrp.rowBtn"/>
+				<AssertPropertyValue propertyName="y" value="110" target="frmlayoutGrp.rowBtn"/>
+				<AssertPropertyValue propertyName="x" value="0" target="frmlayoutGrp.btmBtn"/>
+				<AssertPropertyValue propertyName="y" value="149" target="frmlayoutGrp.btmBtn"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>
+				<RunCode code="application.basicFrm.removeElement(application.frmlayoutGrp)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_addComponent_runtime" keywords="[Form]" description="Add Component at runtime verify it's not in the FormItemLayout">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<RunCode code="application.basicFrm.addElement(application.sparkLbl)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<RunCode code="application.basicFrm.addElement(application.haloLbl)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<RunCode code="application.basicFrm.addElement(application.newBtn)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_addImage_runtime" keywords="[Form]" description="Add Image at runtime verify it's not in the FormItemLayout">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<RunCode code="application.basicFrm.addElement(application.img)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_addImage_runtime" keywords="[Form]" description="Add Image at runtime to FormItem">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<RunCode code="application.basicFrm.fi1.contentGroup.addElement(application.img)" waitEvent="updateComplete" waitTarget="basicFrm.fi1"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_tabOrder_basic" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="selectionChange" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cb1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cmbBox" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm.cmbBox.textInput" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti2" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_4.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.btn" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_5.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedForm_tabOrder_disabled_FormItem" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="selectionChange" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<SetProperty propertyName="enabled" value="false" target="basicFrm.fi3" waitEvent="updateComplete"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cb1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti2" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_tabOrder_basic_horizontalLayout" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<RunCode code="application.basicFrm.layout=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="basicFrm"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="selectionChange" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cb1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cmbBox" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm.cmbBox.textInput" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti2" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_4.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.btn" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_5.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_tabOrder_basic_focusColor" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<SetStyle styleName="focusColor" value="red" target="basicFrm" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cb1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cmbBox" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm.cmbBox.textInput" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti2" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_4.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.btn" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_5.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_tabOrder_basic_horizontalLayout_focusColor" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<SetStyle styleName="focusColor" value="red" target="basicFrm" />
+				<RunCode code="application.basicFrm.layout=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="basicFrm"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cb1" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cmbBox" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm.cmbBox.textInput" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti2" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_4.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.btn" waitEvent="focusIn" />
+				<Pause timeout="200"/>
+				<CompareBitmap url="../Properties/baselines/$testID_5.png" target="basicFrm" ignoreMaxColorVariance="true" numColorVariances="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StackedForm_required_toolTip" keywords="[Form, required]" description="Hover over required icon verify Required tooltip appears">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseOver" target="basicFrm.fi4.skin.indicatorDisplay.skin" localX="1" localY="1" waitEvent="mouseOver" />
+				<DispatchMouseEvent type="mouseOver" target="basicFrm.fi4.skin.indicatorDisplay.skin" localX="1" localY="1"  />
+				<DispatchMouseEvent type="mouseMove" target="basicFrm.fi4.skin.indicatorDisplay.skin" localX="3" localY="3" waitEvent="toolTipShow" waitTarget="basicFrm.fi4.skin.indicatorDisplay" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_label_longString" keywords="[FormItem, label]" description="Long label in FormItem renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="label" target="basicFrm.fi1"  value="A very long FormItem label to make sure layout renders correctly" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_sequenceLabel_longString" keywords="[FormItem, label]" description="Long sequence label in FormItem renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="sequenceLabel" value="Long sequence label string" target="basicFrm.fi1" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="StackedFormItem_sequenceLabel_shortString" keywords="[FormItem, label]" description="Short sequence label in FormItem renders correctly">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="sequenceLabel" value="1." target="basicFrm.fi1" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_helpContent_VGroup" keywords="[FormItem, helpContent]" description="">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
+				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_helpContentGroup_height_VGroup" keywords="[FormItem, helpContent]" description="">
+			<setup>
+				<ResetComponent target="newFI" className="comps.StackNewFI" waitEvent="updateComplete" />
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
+				<SetProperty propertyName="height" value="100" target="newFI.skin.helpContentGroup" />
+				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_helpContentGroup_width_VGroup" keywords="[FormItem, helpContent]" description="">
+			<setup>
+				<ResetComponent target="newFI" className="comps.StackNewFI" waitEvent="updateComplete"/>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="700" target="newFI.ta" />
+				<SetProperty propertyName="width" value="500" target="newFI.skin.helpContentGroup" />
+				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_helpContentGroup_element_width" keywords="[FormItem, helpContent]" description="change width of element in helpContent at runtime">
+			<setup>
+				<ResetComponent target="newFI" className="comps.StackNewFI" waitEvent="updateComplete"/>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="300" target="newFI.ta" />
+				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_required_defaultButton_validation" keywords="[FormItem, required, defaultButton]" description="verify hitting default button causes validation to fire">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1"  />
+				<Pause timeout="200"/>
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="basicFrm.btn" waitEvent="click" />
+				<Pause timeout="500"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_remove_element_layout" keywords="[FormItem, layout]" description="Remove item from FormItem verify the layout is correct">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<RunCode code="application.basicFrm.fi4.removeElement(application.basicFrm.ti2)" waitEvent="updateComplete" waitTarget="basicFrm.fi4"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_add_element_layout" keywords="[FormItem, layout]" description="Add item from FormItem verify the layout is correct">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="includeInLayout" value="true" target="basicFrm.ti3" />
+				<SetProperty propertyName="visible" value="true" target="basicFrm.ti3" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_change_contentGroup_runtime_layout" keywords="[FormItem, layout]" description="Change contentGroup size at runtime item verify the layout is correct">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="basicFrm.fi1.contentGroup" />
+				<SetProperty propertyName="height" value="300" target="basicFrm.fi1.contentGroup" waitEvent="propertyChange" waitTarget="basicFrm.skin" />
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedFormItem_change_contentGroup_element_runtime_layout" keywords="[FormItem, layout]" description="Change contentGroup element size at runtime item verify the layout is correct">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="basicFrm.ti2" />
+				<SetProperty propertyName="height" value="300" target="basicFrm.ti2" waitEvent="propertyChange" waitTarget="basicFrm.skin" />
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedForm_mirroring" keywords="[FormItem, layout]" description="Change layoutDirection and direction on Form">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<SetStyle styleName="layoutDirection" value="rtl" target="basicFrm" />
+				<SetStyle styleName="direction" value="rtl" target="basicFrm" waitEvent="updateComplete" waitTarget="basicFrm" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="StackedForm_formItem_mirroring" keywords="[FormItem, layout]" description="Change layoutDirection and direction on FormItem">
+			<setup>
+				<ResetComponent target="basicFrm" className="comps.StackedBasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
+				<SetStyle styleName="layoutDirection" value="rtl" target="basicFrm.fi1" />
+				<SetStyle styleName="direction" value="rtl" target="basicFrm.fi1" waitEvent="updateComplete" waitTarget="basicFrm.fi1" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

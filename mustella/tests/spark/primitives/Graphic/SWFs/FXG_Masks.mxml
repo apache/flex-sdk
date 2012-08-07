@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application
+        xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:comps="comps.*"
+        backgroundColor="0xFFFFFF" 
+        width="900" height="750">
+    <fx:Script>
+    <![CDATA[
+
+            import spark.primitives.Ellipse;
+            import spark.components.Group;
+
+            public function makeMask():DisplayObject
+            {
+                var grp:Group = new Group();
+
+                var e:Ellipse = new Ellipse();
+                e.width = 100;
+                e.height = 100;
+                e.fill = new SolidColor(0xFFFFFF);
+                e.alpha=0.5;
+
+                grp.addElement(e);
+
+                return grp;
+            }
+
+            public function addMask():void
+            {
+                var i:DisplayObject = makeMask();
+                basicRect.graphic1.mask=i;
+            }
+    ]]>
+    </fx:Script>
+    <fx:Declarations>
+      <s:Group x="4" y="5" id="ellipseMask">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaska">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+       <s:Group x="4" y="5" id="ellipseMaskb">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaskc">
+                <s:Ellipse width="105" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaskd">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaske">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaskf">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaskg">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMaskh">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMask2">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMask3">
+                <s:Ellipse width="45" height="75" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMask11">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="ellipseMask12">
+                <s:Ellipse width="85" height="85" >
+                  <s:fill>
+                    <s:SolidColor color="#2D1FFF"/>
+                  </s:fill>
+                </s:Ellipse>
+      </s:Group>
+      <s:Group x="4" y="5" id="path1">
+          <s:Path data="M 0 0 L 0 165 L 70 110 Z" >
+              <s:fill>
+                 <s:SolidColor color="#2D1FFF"/>
+              </s:fill>
+          </s:Path>
+      </s:Group>
+      <s:Group x="4" y="5" id="path2">
+          <s:Path data="M 0 0 L 170 210 L 100 65 Z" >
+              <s:fill>
+                 <s:SolidColor color="#2D1FFF"/>
+              </s:fill>
+          </s:Path>
+      </s:Group>
+      <s:Group id="rectMask">
+          <s:Rect width="105" height="85" >
+              <s:fill>
+                  <s:SolidColor color="#2D1FFF"/>
+              </s:fill>
+          </s:Rect>
+      </s:Group>
+        <s:Group x="4.1665" y="5" id="biggerMask" >
+            <s:Ellipse x="0.5" y="0.499512" width="160" height="175" >
+        <s:fill>
+             <s:SolidColor color="#2D1FFF"/>
+        </s:fill>
+        </s:Ellipse>
+    </s:Group>
+    
+    <s:BevelFilter id="bevel1" distance="15" highlightAlpha="0.5" highlightColor="#228B22" shadowAlpha="0.5" shadowColor="#FF1493" type="full"/>
+                    
+    </fx:Declarations>
+    <mx:HBox>
+        <comps:RectMaskOverBitmap id="graphic1" />
+
+        <comps:EllipseMaskOverBitmap id="graphic2" />
+
+        <comps:RectBasic id="basicRect" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <comps:PathMaskOverBitmap id="graphic3" />
+        <s:Graphic id="graphic4" >
+            <s:mask>
+                <s:Graphic id="graphic5">
+                        <s:Rect id="rect1" width="50" height="50" x="2" y="5">
+                            <s:fill>
+                                <mx:SolidColor color="0" />
+                            </s:fill>
+                        </s:Rect>
+                        <s:Ellipse id="ellipse1" width="50" height="50" x="70" y="15" >
+                            <s:fill>
+                                <mx:SolidColor color="0" />
+                            </s:fill>
+                        </s:Ellipse>
+                        <s:Rect id="rect2" width="50" height="50" x="5" y="120" >
+                            <s:fill>
+                                <mx:SolidColor color="0" />
+                            </s:fill>
+                        </s:Rect>
+                        <s:Ellipse id="ellipse2" width="50" height="50" x="100" y="110" >
+                            <s:fill>
+                                <mx:SolidColor color="0" />
+                            </s:fill>
+                        </s:Ellipse>
+                </s:Graphic>
+            </s:mask>
+            <s:Rect id="rect3" width="300" height="300" >
+               <s:fill>
+                   <s:LinearGradient>
+                       <s:entries>
+                           <mx:GradientEntry color="0xC5C551" ratio="0" alpha="0.5"/>
+                           <mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+                           <mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+                       </s:entries>
+                   </s:LinearGradient>
+               </s:fill>
+            </s:Rect>
+            <s:BitmapImage id="bitmapGraphic1" source="@Embed('../../../../../Assets/Images/bluerect.jpg')" />
+        </s:Graphic>
+    </mx:HBox>
+    <s:HGroup>
+            <comps:BitmapImageComp id="pngImage" />
+            <comps:BitmapImageComp id="pngImage2" />
+        </s:HGroup>
+</mx:Application>

@@ -1,0 +1,101 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Fallback/" 
+			testSWF="CV_fallback_actualLocaleIDName.mxml" 
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import flash.globalization.CurrencyFormatter;
+			import flash.globalization.LocaleID;
+			import spark.validators.CurrencyValidator;
+			import spark.globalization.LastOperationStatus;
+			import assets.FallbackCV;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+		<TestCase testID="CV_fallback_actualLocaleIDName_inline_default_test_1" 
+				  description="test fallback inline CV's default actualLocaleIDName" keywords="[FallbackCurrencyValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="fbComp.cv" propertyName="actualLocaleIDName" valueExpression="value=application.fbComp.cf.actualLocaleIDName"/>
+				<AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_fallback_actualLocaleIDName_script_default_test_2" 
+				  description="test fallback script CV's default actualLocaleIDName" keywords="[FallbackCurrencyValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="fbComp.cv" propertyName="actualLocaleIDName" valueExpression="value=application.fbComp.cf.actualLocaleIDName"/>
+				<AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_fallback_actualLocaleIDName_inline_set_test_3" 
+				  description="test fallback script CV's default actualLocaleIDName" keywords="[FallbackCurrencyValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<SetStyle target="fbComp.cv" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<SetStyle target="fbComp.cf" styleName="locale" value="zh_CN" waitEvent="change"/>
+				<AssertPropertyValue target="fbComp.cv" propertyName="actualLocaleIDName" valueExpression="value=application.fbComp.cf.actualLocaleIDName"/>
+				<AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_fallback_actualLocaleIDName_script_set_test_4" 
+				  description="test fallback script CV's default actualLocaleIDName" keywords="[FallbackCurrencyValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+					<body>
+						<SetStyle target="fbComp.cvScript" styleName="locale" value="zh_CN" waitEvent="change"/>
+						<AssertPropertyValue target="fbComp.cvScript" propertyName="actualLocaleIDName" valueExpression="value=application.fbComp.cf.actualLocaleIDName"/>
+						<AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=application.fbComp.cf.lastOperationStatus"/>
+					</body>
+		</TestCase>
+		<TestCase testID="CV_fallback_actualLocaleIDName_inline_set_undefine_test_5" 
+				  description="test fallback script CV's default actualLocaleIDName" keywords="[FallbackCurrencyValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+					<body>
+						<SetStyle target="fbComp.cv" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+						<AssertPropertyValue target="fbComp.cv" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+						<AssertPropertyValue target="fbComp.cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.LOCALE_UNDEFINED_ERROR"/>
+					</body>
+		</TestCase>
+		<TestCase testID="CV_fallback_actualLocaleIDName_script_set_undefine_test_6" 
+				  description="test fallback script CV's default actualLocaleIDName" keywords="[FallbackCurrencyValidator, actualLocaleIDName]">
+			<setup>
+				<ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+					<body>
+						<SetStyle target="fbComp.cvScript" styleName="locale" valueExpression="value=undefined" waitEvent="change"/>
+						<AssertPropertyValue target="fbComp.cvScript" propertyName="actualLocaleIDName" valueExpression="value=undefined"/>
+						<AssertPropertyValue target="fbComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.LOCALE_UNDEFINED_ERROR"/>
+					</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

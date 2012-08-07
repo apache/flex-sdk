@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Others/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="CF_ComponentUsage.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+		import assets.CFConstant;
+		
+		import flash.globalization.CurrencyFormatter;
+		import flash.globalization.NationalDigitsType;
+		public var cfGSLib:flash.globalization.CurrencyFormatter;
+		
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!-- tests property and method of Component -->
+<testCases>
+	<!--test inherited public properties of cf with component usage-->
+	<TestCase testID="CF_ComponentUsage_property_groupingPattern_3semicolonStar_test1" description="test inherited public properties of cf with component usage" keywords="[CurrencyFormatter, Component]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.groupingPattern='3;*'" />
+			<SetProperty target="cfcGroupingPattern" propertyName="groupingPattern" value="3;*"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfcGroupingPattern" propertyName="groupingPattern" valueExpression="value=cfGSLib.groupingPattern"/>
+			<AssertPropertyValue target="cfcGroupingPattern" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcGroupingPattern.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+			<AssertPropertyValue target="cfcGroupingPattern" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcGroupingPattern.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+			<AssertPropertyValue target="cfcGroupingPattern" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test inherited public properties of cf with component usage-->
+	<TestCase testID="CF_ComponentUsage_property_groupingSeparator_space_test2" description="test inherited public properties of cf with component usage" keywords="[CurrencyFormatter, Component]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.groupingSeparator=' '"/>
+			<SetProperty target="cfcGroupingSeparator" propertyName="groupingSeparator" value=" "/>
+			<Pause timeout="{CFConstant.pauseTime}"/>			
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfcGroupingSeparator" propertyName="groupingSeparator" valueExpression="value=cfGSLib.groupingSeparator"/>
+			<AssertPropertyValue target="cfcGroupingSeparator" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcGroupingSeparator.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+			<AssertPropertyValue target="cfcGroupingSeparator" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcGroupingSeparator.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+			<AssertPropertyValue target="cfcGroupingSeparator" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test public properties of cf with component usage-->
+	<TestCase testID="CF_ComponentUsage_setLocale_test3" description="test inherited public properties of cf with component usage" keywords="[CurrencyFormatter, Component]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+			<SetProperty target="cfcLocale" propertyName="locale" value="ar-JO"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfcLocale" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+			<AssertPropertyValue target="cfcLocale" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test public properties of cf with component usage-->
+	<TestCase testID="CF_ComponentUsage_properties_currencyISOCode_USD_currencySymbol_USDollar_test4" description="test inherited public properties of cf with component usage" keywords="[CurrencyFormatter, Component]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.setCurrency('USD','$')"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfcCurrency" propertyName="currencyISOCode" value="USD"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<SetProperty target="cfcCurrency" propertyName="currencySymbol" value="$"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfcCurrency" propertyName="currencyISOCode" valueExpression="value=cfGSLib.currencyISOCode"/>
+			<AssertPropertyValue target="cfcCurrency" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertPropertyValue target="cfcCurrency" propertyName="currencySymbol" valueExpression="value=cfGSLib.currencySymbol"/>
+			<AssertPropertyValue target="cfcCurrency" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcCurrency.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+			<AssertPropertyValue target="cfcCurrency" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcCurrency.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+			<AssertPropertyValue target="cfcCurrency" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>	
+	
+	<!--test public properties of cf with component usage-->
+	<TestCase testID="CF_ComponentUsage_properties_negativeCurrencyFormat_6_positiveCurrencyFormat_0_test5" description="test inherited public properties of cf with component usage" keywords="[CurrencyFormatter, Component]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+			<RunCode code="cfGSLib.negativeCurrencyFormat=6" />
+			<RunCode code="cfGSLib.positiveCurrencyFormat=0" />
+			<SetProperty target="cfcCurrencyFormat" propertyName="negativeCurrencyFormat" valueExpression="value=6"/>
+			<SetProperty target="cfcCurrencyFormat" propertyName="positiveCurrencyFormat" valueExpression="value=0"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="negativeCurrencyFormat" valueExpression="value=cfGSLib.negativeCurrencyFormat"/>
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcCurrencyFormat.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012)" />
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcCurrencyFormat.format(1234567.89012)" valueExpression="value=cfGSLib.format(1234567.89012)" />
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcCurrencyFormat.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+			<AssertPropertyValue target="cfcCurrencyFormat" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!--test public properties of cf with component usage. NOTICE: flash.globalization.CurrencyFormatter doesnot have "useCurrencySymbol" property-->
+	<TestCase testID="CF_ComponentUsage_property_useCurrencySymbol_true_test6" description="test public properties of cf with component usage. NOTICE: flash.globalization.CurrencyFormatter doesnot have useCurrencySymbol property" keywords="[CurrencyFormatter, Component]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<SetProperty target="cfcUseCurrencySymbol" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfcUseCurrencySymbol" propertyName="useCurrencySymbol" valueExpression="value=true"/>
+			<AssertPropertyValue target="cfcUseCurrencySymbol" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+			<AssertMethodValue method="value=application.cfcUseCurrencySymbol.format(-1234567.89012)" valueExpression="value=cfGSLib.format(-1234567.89012,true)" />
+			<AssertPropertyValue target="cfcUseCurrencySymbol" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			<AssertMethodValue method="value=application.cfcUseCurrencySymbol.parse('12.345')" valueExpression="value=cfGSLib.parse('12.345')" />
+			<AssertPropertyValue target="cfcUseCurrencySymbol" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+</UnitTester>

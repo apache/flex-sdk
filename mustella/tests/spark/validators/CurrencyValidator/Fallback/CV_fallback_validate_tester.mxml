@@ -1,0 +1,431 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Fallback/" testSWF="CV_fallback_validate.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import spark.validators.CurrencyValidator;
+		import spark.validators.NumberValidator;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+		{
+			
+		}
+	]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_fallback_validate_inline_allowNegative_test_1" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, allowNegative]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="($123)" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_allowNegative_test_2" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, allowNegative]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="allowNegative" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="($123)" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The amount may not be negative."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_decimalSeparator_test_3" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, decimalSeparator]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="fractionalDigits" value="2"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="12.3" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_decimalSeparator_test_4" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, decimalSeparator]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="decimalSeparator" value="*"/>
+                <SetProperty target="fbComp.cvScript" propertyName="fractionalDigits" value="2"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="12=3" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_domain_test_5" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, domain]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="fractionalDigits" value="2"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="12.3" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_domain_test_6" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, domain]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="domain" value="int"/>
+                <SetProperty target="fbComp.cvScript" propertyName="fractionalDigits" value="2"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="12.3" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The number must be an integer."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_fractionalDigits_test_7" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, fractionalDigits]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="domain" value="real"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="12." waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_fractionalDigits_test_8" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, fractionalDigits]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="domain" value="real"/>
+                <SetProperty target="fbComp.cvScript" propertyName="fractionalDigits" value="2"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="12.345" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The amount entered has too many digits beyond the decimal point."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_groupingSeparator_test_9" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, groupingSeparator]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="123,456" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_groupingSeparator_test_10" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, groupingSeparator]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="groupingSeparator" value="*"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="123=456=789" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_maxValue_test_11" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, maxValue]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="123,456" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_maxValue_test_12" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, maxValue]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="maxValue" value="123"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="1234" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The number entered is too large."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_minValue_test_13" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, minValue]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="123,456" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_minValue_test_14" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, minValue]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="minValue" value="123"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="12" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The amount entered is too small."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_negativeCurrencyFormat_test_15" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="($123)" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_negativeCurrencyFormat_test_16" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, negativeCurrencyFormat]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="negativeCurrencyFormat" value="4"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="($ -123)" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The negative format of the input currency is incorrect."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_positiveCurrencyFormat_test_17" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, positiveCurrencyFormat]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="123" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_positiveCurrencyFormat_test_18" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, positiveCurrencyFormat]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="positiveCurrencyFormat" value="2"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="$123$" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_decimalPointCountError_test_19" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, decimalPointCountError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="fractionalDigits" value="3"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="$123." waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_decimalPointCountError_test_20" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, decimalPointCountError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="fractionalDigits" value="3"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="$12..12" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The decimal separator can occur only once."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_invalidFormatCharsError_test_21" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, invalidFormatCharsError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="decimalSeparator" value=":"/>
+                <SetProperty target="fbComp.cv" propertyName="groupingSeparator" value=":"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="$12:345:678" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value="One of the formatting parameters is invalid."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_invalidFormatCharsError_test_22" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, invalidFormatCharsError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="decimalSeparator" value=":"/>
+                <SetProperty target="fbComp.cvScript" propertyName="groupingSeparator" value=":"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="$12:345:678" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="One of the formatting parameters is invalid."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_negativeSymbolError_test_23" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, negativeSymbolError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="--12" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value="The negative symbol is repeated or not in right place."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_negativeSymbolError_test_24" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, negativeSymbolError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="--12" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The negative symbol is repeated or not in right place."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_parseError_test_25" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, parseError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="currencyISOCode" value="USD"/>
+                <SetProperty target="fbComp.cv" propertyName="currencySymbol" value="$"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="1 2 3 4" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_parseError_test_26" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, parseError]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="groupingSeparator" value=" "/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="0 1 2 3" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_currencyISOCode_test_27" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, currencyISOCode]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="USD123" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_currencyISOCode_test_28" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, currencyISOCode]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="currencyISOCode" value="CNY"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="USD123" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_currencySymbol_test_29" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, currencySymbol]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="123" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_currencySymbol_test_30" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, currencySymbol]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cvScript" propertyName="currencySymbol" value="￥"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="￥￥123" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="Currency name is repeated or not correct."/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_inline_digitsType_test_31" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, digitsType]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+                <SetProperty target="fbComp.cv" propertyName="digitsType" valueExpression="value=NationalDigitsType.TAMIL" waitEvent="change"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.inlineTI" propertyName="text" value="௨" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.inlineBT"/>
+                <AssertEvent target="fbComp.cv" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cv" eventName="invalid"/>
+                <AssertPropertyValue target="fbComp.inlineLB" propertyName="errorString" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_fallback_validate_script_digitsType_test_32" description="testcase for validate method of fallback CurrencyValidator with mainly different way user used" keywords="[CurrencyValidator, fallback, fallback, validate, digitsType]">
+            <setup>
+                <ResetComponent target="fbComp" className="assets.FallbackComp" waitEvent="updateComplete" waitTarget="fbComp"/>
+            </setup>
+            <body>
+                <SetProperty target="fbComp.scriptTI" propertyName="text" value="४" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="fbComp.scriptBT"/>
+                <AssertEvent target="fbComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="fbComp.cvScript" eventName="invalid"/>
+                <!--<AssertPropertyValue target="fbComp.scriptLB" propertyName="errorString" value="The input contains invalid characters."/>-->
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

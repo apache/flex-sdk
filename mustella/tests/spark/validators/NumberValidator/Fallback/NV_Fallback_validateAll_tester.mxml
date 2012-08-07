@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Fallback/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_Fallback_validate.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import assets.NVConstants ; 	
+		import mx.events.ValidationResultEvent;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<testCases>
+	
+	<TestCase testID="NV_Fallback_ValidateAll_valid_differentSource_test1" keywords="[NumberValidator, Fallback, validateAll]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<RunCode code="application.nvComp.nvAll3Script.initialized(null,'nvAll3Script')"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="source" valueExpression="value=application.nvComp.nvAll2TI"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="source" valueExpression="value=application.nvComp.nvAll3ScriptTI"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="fractionalDigits" value="2"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvAll1TI" propertyName="text" value="1.345" waitEvent="updateComplete" waitTarget="nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll2TI" propertyName="text" value="0.34" waitEvent="updateComplete" waitTarget="nvComp.nvAll2TI"/>
+			<SetProperty target="nvComp.nvAll3ScriptTI" propertyName="text" value="2.98" waitEvent="updateComplete" waitTarget="nvComp.nvAll3ScriptTI"/>
+			<DispatchMouseEvent target="nvComp.triBT" type="click"/>
+			<AssertEvent target="nvComp.nvAll1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll1" eventName="valid"/>
+			<AssertEvent target="nvComp.nvAll2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll2" eventName="invalid"/>
+			<AssertEvent target="nvComp.nvAll3Script" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll3Script" eventName="invalid"/>
+			<AssertPropertyValue target="nvComp.nvAllResultL" propertyName="text" value="1"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_Fallback_ValidateAll_allInvalid_differentSource_test2" keywords="[NumberValidator, Fallback, validateAll]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="source" valueExpression="value=application.nvComp.nvAll2TI"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="source" valueExpression="value=application.nvComp.nvAll3ScriptTI"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="fractionalDigits" value="2"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="negativeNumberFormat" value="0"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvAll1TI" propertyName="text" value="100.4114567" waitEvent="updateComplete" waitTarget="nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll2TI" propertyName="text" value="12.789.98" waitEvent="updateComplete" waitTarget="nvComp.nvAll2TI"/>
+			<SetProperty target="nvComp.nvAll3ScriptTI" propertyName="text" value="-12.9804545" waitEvent="updateComplete" waitTarget="nvComp.nvAll3ScriptTI"/>
+			<DispatchMouseEvent target="nvComp.triBT" type="click"/>
+			<AssertEvent target="nvComp.nvAll1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll1" eventName="valid"/>
+			<AssertEvent target="nvComp.nvAll2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll2" eventName="valid"/>
+			<AssertEvent target="nvComp.nvAll3Script" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll3Script" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvAllResultL" propertyName="text" valueExpression="value=3"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_Fallback_ValidateAll_invalid_sameSource_test3" keywords="[NumberValidator, Fallback, validateAll]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="fractionalDigits" value="3"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="decimalSeparator" value="!"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="groupingSeparator" value="*"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="fractionalDigits" value="4"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="decimalSeparator" value="!"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="fractionalDigits" value="3"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvAll1TI" propertyName="text" value="123!4567" waitEvent="updateComplete" waitTarget="nvComp.nvAll1TI"/>
+			<DispatchMouseEvent target="nvComp.triBT" type="click"/>
+			<AssertEvent target="nvComp.nvAll1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll1" eventName="valid"/>
+			<AssertEvent target="nvComp.nvAll2" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll2" eventName="invalid"/>
+			<AssertEvent target="nvComp.nvAll3Script" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll3Script" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvAllResultL" propertyName="text" valueExpression="value=2"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_Fallback_ValidateAll_disabled_sameSource_test4" keywords="[NumberValidator, Fallback, validateAll]">
+		<setup>
+			<ResetComponent target="nvComp" className="assets.FallbackNVComp" waitEvent="updateComplete" waitTarget="nvComp"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll1" propertyName="enabled" value="false"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll2" propertyName="enabled" value="false"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="source" valueExpression="value=application.nvComp.nvAll1TI"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="property" value="text"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="required" value="false"/>
+			<SetProperty target="nvComp.nvAll3Script" propertyName="enabled" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="nvComp.nvAll1TI" propertyName="text" value="abc0.35" waitEvent="updateComplete" waitTarget="nvComp.nvAll1TI"/>
+			<DispatchMouseEvent target="nvComp.triBT" type="click"/>
+			<AssertNoEvent target="nvComp.nvAll1" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll1" eventName="valid"/>
+			<AssertNoEvent target="nvComp.nvAll2" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll2" eventName="valid"/>
+			<AssertNoEvent target="nvComp.nvAll3Script" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			<AssertNoEvent target="nvComp.nvAll3Script" eventName="valid"/>
+			<AssertPropertyValue target="nvComp.nvAllResultL" propertyName="text" valueExpression="value=0"/>
+		</body>
+	</TestCase>
+	
+	
+</testCases>
+
+</UnitTester>

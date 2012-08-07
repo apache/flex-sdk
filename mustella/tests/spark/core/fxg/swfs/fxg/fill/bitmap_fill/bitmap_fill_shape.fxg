@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- Warning: FXG Viewer doesn't render embedded file correctly. Okay in Illustrator CS4.                                                                                		-->
+<!-- FXG 1.0 Test BitmapFill fills a shape with repeating bitmap image (tiling)                   -->
+<!-- The BitmapFill element fills a path or shape with an optionally repeating bitmap image.
+
+By default, the bitmap image is used to paint a fill rectangle stretching from (0,0) at the top left to the (width,height) of the bitmap image, in the coordinate space of the shape's parent grouping element's coordinate system, transformed by any matrix transformation defined on the Fill.
+   		
+-->
+<!-- Author : Min Plunkett  26 Feb-2009                       			-->
+<!--                                                                       				-->
+<!-- History:                                                              				-->
+<!--  26-Feb-2009, created.                                         			-->
+<!-- ==========================================	-->
+<!-- ==========================================	-->
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008">
+	<Rect x="50" y="10" width="300" height="200">
+		<fill>
+			<BitmapFill x="0" y="0" scaleX="0.5" scaleY="0.5" rotation="225" source="@Embed('../../../../../../../../Assets/Images/next.JPG')"/>
+		</fill>
+	</Rect>
+	<Ellipse x="50" y="320" width="300" height="200">
+		<fill>
+			<BitmapFill x="0" y="0" scaleX="0.5" scaleY="0.5" rotation="225" source="@Embed('../../../../../../../../Assets/Images/next.JPG')"/>
+		</fill>
+		<stroke>
+	  		<SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+		</stroke>
+	</Ellipse>
+</Graphic>

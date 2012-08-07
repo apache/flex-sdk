@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="CF_localStyle.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+		import flash.globalization.CurrencyFormatter;
+		import assets.CFConstant;
+		
+		public var cfGSLib:flash.globalization.CurrencyFormatter;
+		
+		public static function init(o:DisplayObject):void      
+		{
+			
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test local style, it includes global selector, class selector, ID Selector -->
+<testCases>
+
+	<!-- This testcase is for global selector -->
+	<TestCase testID="CF_localStyle_global_test1" description="This testcase is for global selector" keywords="[CurrencyFormatter, local style]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ja_JP')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfGlobal" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="cfGlobal" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for class selector -->
+	<TestCase testID="CF_localStyle_classSelector_test2" description="This testcase is for class selector" keywords="[CurrencyFormatter, local style]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ru_RU')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="cfLocalClass" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="cfLocalClass" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for ID Selector -->
+	<TestCase testID="CF_localStyle_IDSelector_test3" description="This testcase is for ID Selector" keywords="[CurrencyFormatter, local style]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-CA')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="CFIDSelector" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="CFIDSelector" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for testing inline has higher priority than ID Selector -->
+	<TestCase testID="CF_localStyle_priority_test4" description="This testcase is for testing inline has higher priority than ID Selector" keywords="[CurrencyFormatter, local style]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="CFIDSelectorInline" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="CFIDSelectorInline" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	
+	<!-- This testcase is for testing id selector has higher priority than Class Selector. -->
+	<TestCase testID="CF_localStyle_priority_test5" description="This testcase is for testing id selector has higher priority than Class Selector." keywords="[CurrencyFormatter, local style]">
+		<setup>
+			<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-CA')" />
+			<Pause timeout="{CFConstant.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="CFIDSelectorClass" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName" />
+			<AssertPropertyValue target="CFIDSelectorClass" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+		</body>
+	</TestCase>
+
+</testCases>
+
+	
+</UnitTester>

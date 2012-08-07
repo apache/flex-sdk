@@ -1,0 +1,1584 @@
+<UnitTester testDir="spark/collections/Sort/Properties/" testSWF="SF_Sort_fields.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.newClasses.SFConstant;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SF_Sort_fields_without_sortfield_test_1" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_script_test_2" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_locale_test_3" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myAddressStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="fr-BE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_locale_script_test_4" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myAddressStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="fr-BE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_test_5" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid locale value: '']">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+				<!--<SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>-->
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_script_test_6" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid locale value: '', define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+				<!--<SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>-->
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_test_7" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid locale value: undefined, null ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+				<SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myAddressStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+				
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value=null"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_script_test_8" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid locale value: undefined, null, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+				<SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myAddressStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+				
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value=null"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_test_9" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid locale value: part of locale, not a locale ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value=''"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myAddressStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value=''"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='notLocale'"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_script_test_10" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid locale value: part of locale, not a locale, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value=''"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value=''"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='notLocale'"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_compareFunc_test_11" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set compareFunction property]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_compareFunc_script_test_12" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set compareFunction property, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_compareFunc_test_13" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction property: undefined]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=undefined"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+                <!--<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_compareFunc_script_test_14" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction property: undefined, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=undefined"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+                <!--<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_compareFunc_test_15" 
+				  description="testcase for sort function of Sort without SortField set to fields property on spark:List component" 
+				  keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction property: empty, error sigunature ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <!-- none instance function will cause an error popup -->
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+				waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+				
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="SF_Sort_fields_without_sortfield_invalid_compareFunc_test_152" 
+				  description="testcase for sort function of Sort without SortField set to fields property on spark:List component" 
+				  keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction property: empty, error sigunature ]">
+			<setup>
+				<ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+				<SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+				<SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+				<SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+				<!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>-->
+				<SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+				<!-- none instance function will cause an error popup -->
+				<SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.errorCompFunc"/>
+				<!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.errorCompFunc"/>-->
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" valueExpression="value=true"/>
+
+			</body>
+		</TestCase>
+		
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_compareFunc_script_test_16" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction property: empty, error sigunature, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <!-- none instance function will cause an error popup -->
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_compareFunc_script_test_162" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction property: empty, error sigunature, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <!-- none instance function will cause an error popup -->
+            </setup>
+            <body>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.errorCompFunc"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_locale_compareFunc_test_17" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set compareFunction and locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_locale_compareFunc_script_test_18" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set compareFunction and locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_locale_change_compareFunc_test_19" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set compareFunction and locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_locale_change_compareFunc_script_test_20" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set compareFunction and locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_valid_locale_invalid_compareFunc_test_21" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction and valid locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>-->
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <!--<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_valid_locale_invalid_compareFunc_script_test_22" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction and valid locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <!--<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_invalid_compareFunc_test_23" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction and valid locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='notaLocale'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <!-- bug existed -->
+				<!-- todo: issue 4, "locale undefined" -->
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='notaLocale'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <!--<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_without_sortfield_invalid_locale_invalid_compareFunc_script_test_24" description="testcase for sort function of Sort without SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, without SortField, set invalid compareFunction and valid locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='notaLocale'"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <!-- bug existed -->
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='notaLocale'"/>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <!--<AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <!-- begin one sortfield in sort test -->
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_test_25" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" value="name"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_script_test_26" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" value="name"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_test_27" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value=null"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_test_272" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='abc'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_script_test_28" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value=null"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_script_test_282" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='abc'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_test_29" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value=''"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_test_292" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+				<!--<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="TypeError: Error #2007: Parameter string1 must be non-null."/>-->
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_script_test_30" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value=''"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_invalid_sortfield_script_test_302" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one invalid SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myNameStrArr"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_on_sort_test_31" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="fr-BE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+				<!-- todo:locale inheritance issue -->
+                <!--<AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='fr-BE'"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_on_sort_script_test_32" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="fr-BE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <!--<AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-BE'"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_on_sortfield_test_33" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_on_sortfield_script_test_34" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_on_sort_sortfield_test_35" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_on_sort_sortfield_script_test_36" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_locale_on_sortfield_test_37" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='abc'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='abc'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_locale_on_sortfield_script_test_38" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='abc'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='abc'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_locale_on_sort_sortfield_test_39" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='abc'"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='def'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='abc'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='def'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_locale_on_sort_sortfield_script_test_40" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='abc'"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='def'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='abc'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='def'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_compareFunc_test_41" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction property]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_compareFunc_script_test_42" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction property, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_compareFunc_test_43" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction property: undefined]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_compareFunc_script_test_44" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction property: undefined, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_compareFunc_test_45" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction property: empty, error sigunature ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_compareFunc_test_452" 
+				  description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" 
+				  keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction property: empty, error sigunature ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.errorCompFunc"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.uiCustomListComp.mySort"/>
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_compareFunc_script_test_46" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction property: empty, error sigunature, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.getCatchErrRefresh()" 
+								   value="noError"/>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_compareFunc_script_test_462" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction property: empty, error sigunature, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.errorCompFunc"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <!--<RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>-->
+            </setup>
+            <body>
+				<AssertMethodValue method="value=application.uiCustomListComp.hasErrRefresh()" 
+								   value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_compareFunc_test_47" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_compareFunc_script_test_48" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_change_compareFunc_test_49" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='fr-BE'"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_locale_change_compareFunc_script_test_50" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <!--<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de"/>-->
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_valid_locale_invalid_compareFunc_test_51" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction and valid locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+				
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>-->
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" 
+							 valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='de-DE'"/>
+                <!--<AssertMethodValue 
+				method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+				valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_valid_locale_invalid_compareFunc_script_test_52" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction and valid locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="de-DE"/>
+                <!--<SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>-->
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <!--<AssertMethodValue 
+				method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+				valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_locale_invalid_compareFunc_test_53" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction and valid locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='notaLocale'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='notaLocale'"/>
+                <!--<AssertMethodValue 
+				method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+				valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_invalid_locale_invalid_compareFunc_script_test_54" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set invalid compareFunction and valid locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='notaLocale'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.emptyFunc"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='notaLocale'"/>
+                <!--<AssertMethodValue 
+				method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+				valueExpression="value=application.uiCustomListComp.mxSortedArray"/>-->
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_compareFunc_on_sort_sortfield_test_55" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set compareFunction, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myMollySpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_one_sortfield_compareFunc_on_sort_sortfield_script_test_56" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set compareFunction, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myMollySpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <!-- begin multiple sortfield test cases -->
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_test_57" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, NOT set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" value="age"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" value="address"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_script_test_58" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, NOT set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" value="age"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" value="address"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" 
+						 waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_on_one_sortfeild_test_59" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='age'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressFrArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_on_one_sortfield_script_test_60" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='age'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="fr-BE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressFrArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_on_sort_one_sortfeild_test_61" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetStyle target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='sv-SE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='isTrue'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollMX"/>
+				
+				<SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="sv-SE"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='sv-SE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_on_sort_one_sortfield_script_test_62" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='sv-SE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='isTrue'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollMX"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="sv-SE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='sv-SE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_on_sort_one_sortfeild_test_612" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetStyle target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='isTrue'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollMX"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="myid"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByIsTrueNameDeArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_on_sort_one_sortfield_script_test_622" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='isTrue'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" 
+							 valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollMX"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="myid"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="fr-BE"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByIsTrueNameDeArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_compareFunc_on_one_sortfield_test_63" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction property]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" 
+							 valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" 
+							 valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" 
+							 valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_compareFunc_on_one_sortfield_script_test_64" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction property, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_compareFunc_on_sort_one_sortfield_test_65" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction property]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myMollySpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_compareFunc_on_sort_one_sortfield_script_test_66" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction property, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myMollySpecialCompField"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="compareFunction" valueExpression="value=SFConstant.myUmbraSpecialComp"/>
+                <SetProperty target="uiCustomListComp.myMxSortField" propertyName="name" valueExpression="value='name'"/>
+                <SetProperty target="uiCustomListComp.myMxSort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.myMxSortField]"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.mxSortedArray"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_compareFunc_test_67" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myNumSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='age'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressNumTrdArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_compareFunc_script_test_68" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myNumSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='en-US'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='age'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='en-US'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressNumTrdArr"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_compareFunc_test_672" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value ]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="compareFunction" valueExpression="value=SFConstant.myNumSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortField" propertyName="name" valueExpression="value='age'"/>
+                <SetProperty target="uiCustomListComp.mySortField2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySort" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortField, application.uiCustomListComp.mySortField2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortField2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressNumFrTrdArr"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SF_Sort_fields_with_multiple_sortfield_locale_compareFunc_script_test_682" description="testcase for sort function of Sort with one SortField set to fields property on spark:List component" keywords="[Sort, SortField, spark:List, set locale, fields property, with one SortField, set compareFunction and locale value, define in Action Script]">
+            <setup>
+                <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="compareFunction" valueExpression="value=SFConstant.myNumSpecialCompField"/>
+                <SetStyle target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <SetStyle target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript" propertyName="name" valueExpression="value='age'"/>
+                <SetProperty target="uiCustomListComp.mySortFieldScript2" propertyName="name" valueExpression="value='address'"/>
+                <SetProperty target="uiCustomListComp.mySortScript" propertyName="fields" valueExpression="value=[application.uiCustomListComp.mySortFieldScript, application.uiCustomListComp.mySortFieldScript2]"/>
+                <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.dataArrCollS"/>
+                <SetProperty target="uiCustomListComp" propertyName="listValueField" value="name"/>
+                <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySortScript"/>
+                <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomListComp.mySortScript" styleName="locale" valueExpression="value='de-DE'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript" styleName="locale" valueExpression="value='en'"/>
+                <AssertStyleValue target="uiCustomListComp.mySortFieldScript2" styleName="locale" valueExpression="value='fr-BE'"/>
+                <AssertMethodValue 
+					method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" 
+					valueExpression="value=application.uiCustomListComp.dataComp.sortByAgeAddressNumFrTrdArr"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

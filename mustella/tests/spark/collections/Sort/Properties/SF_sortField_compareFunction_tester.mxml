@@ -1,0 +1,320 @@
+<UnitTester testDir="spark/collections/Sort/Properties/" testSWF="SF_sortField_compareFunction.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script><![CDATA[
+			import flash.globalization.LastOperationStatus;
+			import assets.newClasses.SFConstant;
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="SortField_Property_compareFunctions_default_inline_1" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sf, 1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sf,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,1,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(2,1,application.sfComp.sf,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_inline_2" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfEN, 'a')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('a','b',application.sfComp.sfEN,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('xxx','xxx',application.sfComp.sfEN,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('b','a',application.sfComp.sfEN,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_inline_3" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sf, new Date(2010,3,1))"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(new Date(2010,3,1),new Date(2010,3,2),application.sfComp.sf,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(new Date(2010,3,2),new Date(2010,3,2),application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(new Date(2010,3,2),new Date(2010,3,1),application.sfComp.sf,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_inline_4" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sf, application.sfComp.myObj1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj1,application.sfComp.myObj2,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj1,application.sfComp.myObj1,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj2,application.sfComp.myObj1,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_inline_5" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sf, application.sfComp.obj1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.obj1,application.sfComp.obj2,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.obj1,application.sfComp.obj1,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.obj2,application.sfComp.obj1,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_script_6" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfScript, 1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sfScript,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,1,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(2,1,application.sfComp.sfScript,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_script_7" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfScriptEN, 'a')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('a','b',application.sfComp.sfScriptEN,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('xxx','xxx',application.sfComp.sfScriptEN,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('b','a',application.sfComp.sfScriptEN,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_script_8" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfScript, new Date(2010,3,1))"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(new Date(2010,3,1),new Date(2010,3,2),application.sfComp.sfScript,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(new Date(2010,3,2),new Date(2010,3,2),application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(new Date(2010,3,2),new Date(2010,3,1),application.sfComp.sfScript,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_script_9" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfScript, application.sfComp.myObj1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj1,application.sfComp.myObj2,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj1,application.sfComp.myObj1,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj2,application.sfComp.myObj1,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_default_script_10" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfScript, application.sfComp.obj1)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.obj1,application.sfComp.obj2,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.obj1,application.sfComp.obj1,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.obj2,application.sfComp.obj1,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_withName_inline_11" keywords="[SortField, compareFunctions, withName]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfName, application.sfComp.myObj3)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj3,application.sfComp.myObj4,application.sfComp.sfName,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj3,application.sfComp.myObj3,application.sfComp.sfName,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj4,application.sfComp.myObj3,application.sfComp.sfName,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_withName_script_12" keywords="[SortField, compareFunctions, withName]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfScriptName, application.sfComp.myObj3)"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj3,application.sfComp.myObj4,application.sfComp.sfScriptNameEN,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj3,application.sfComp.myObj3,application.sfComp.sfScriptNameEN,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(application.sfComp.myObj4,application.sfComp.myObj3,application.sfComp.sfScriptNameEN,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_set_inline_13" keywords="[SortField, compareFunctions, set]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="sfComp.sf" propertyName="compareFunction" valueExpression="value=application.sfComp.myCompare"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sf,'spark')" valueExpression="value=2"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,1,application.sfComp.sf,'spark')" valueExpression="value=4"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(2,1,application.sfComp.sf,'spark')" valueExpression="value=6"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_set_script_14" keywords="[SortField, compareFunctions, set]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="sfComp.sfScript" propertyName="compareFunction" valueExpression="value=application.sfComp.myCompare"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sfScript,'spark')" valueExpression="value=2"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,1,application.sfComp.sfScript,'spark')" valueExpression="value=4"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(2,1,application.sfComp.sfScript,'spark')" valueExpression="value=6"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_inlineSetter_15" keywords="[SortField, compareFunctions, inline]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="sfComp.sfInline" propertyName="compareFunction" valueExpression="value=application.sfComp.noParameterCompare"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_nofunction_inline_16" keywords="[SortField, compareFunctions, null]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.trySet(application.sfComp.sf,'compareFunction',null,'spark')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.trySet(application.sfComp.mxSF,'compareFunction',null,'mx')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.mxSF,'mx')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_nofunction_script_17" keywords="[SortField, compareFunctions, null]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.trySet(application.sfComp.sfScript,'compareFunction',null,'spark')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.trySet(application.sfComp.mxSF,'compareFunction',null,'mx')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.mxSF,'mx')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_no_parameter_inline_18" keywords="[SortField, compareFunctions, invalid]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.trySet(application.sfComp.sf,'compareFunction',application.sfComp.noParameterCompare,'spark')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.trySet(application.sfComp.mxSF,'compareFunction',application.sfComp.noParameterCompare,'mx')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.mxSF,'mx')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_no_parameter_script_19" keywords="[SortField, compareFunctions, invalid]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.trySet(application.sfComp.sfScript,'compareFunction',application.sfComp.noParameterCompare,'spark')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <RunCode code="application.sfComp.trySet(application.sfComp.mxSF,'compareFunction',application.sfComp.noParameterCompare,'mx')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.mxSF,'mx')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" valueExpression="value=application.sfComp.errLabelMX.text"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_wrong_return_type_inline_20" keywords="[SortField, compareFunctions, invalid]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.trySet(application.sfComp.sf,'compareFunction',application.sfComp.wrongReturnTypeCompare,'spark')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sf,'spark')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_wrong_return_type_script_21" keywords="[SortField, compareFunctions, invalid]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.trySet(application.sfComp.sfScript,'compareFunction',application.sfComp.wrongReturnTypeCompare,'spark')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare(1,2,application.sfComp.sfScript,'spark')" valueExpression="value=0"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_InlineLocale_22" keywords="[SortField, compareFunctions, default]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.sfComp.initSF(application.sfComp.sfInlineLocaleEN, 'a')"/>
+                <Pause timeout="{SFConstant.pauseTime}"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('a','b',application.sfComp.sfInlineLocaleEN,'spark')" valueExpression="value=-1"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('xxx','xxx',application.sfComp.sfInlineLocaleEN,'spark')" valueExpression="value=0"/>
+                <AssertMethodValue method="value=application.sfComp.SortCompare('b','a',application.sfComp.sfInlineLocaleEN,'spark')" valueExpression="value=1"/>
+                <AssertPropertyValue target="sfComp.errLabel" propertyName="text" value="No Error"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_sortWithCF_inline_23" keywords="[SortField, compareFunctions, sortWithCF]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="creationComplete"/>
+                <RunCode code="application.sfComp.doit(application.sfComp.stCF)" waitEvent="collectionChange" waitTarget="sfComp.dataComp.myMXNameAgeStrArr"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.sfComp.dataComp.myMXNameAgeStrArr)" value="TJ,Bo,Ted,Moe,Izzy,Umbra,Danny,Daisy,Imari,Molly,Bunny,barmen,Chumley,cadbury,cadbury,Matisse"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SortField_Property_compareFunctions_sortWithCF_script_24" keywords="[SortField, compareFunctions, sortWithCF]">
+            <setup>
+                <ResetComponent target="sfComp" className="newComps.CustComp_sortField_compareFunction" waitEvent="creationComplete"/>
+                <RunCode code="application.sfComp.doit(application.sfComp.stCFScript)" waitEvent="collectionChange" waitTarget="sfComp.dataComp.myMXNameAgeStrArr"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.sfComp.dataComp.myMXNameAgeStrArr)" value="TJ,Bo,Ted,Moe,Izzy,Umbra,Danny,Daisy,Imari,Molly,Bunny,barmen,Chumley,cadbury,cadbury,Matisse"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,197 @@
+<UnitTester
+    testSWF="../SWFs/AnimateTransform3D_main.mxml"
+    testDir="spark/effects/AnimateTransform3D/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.AnimateTransform3D;
+        import Components.*;
+        import flash.utils.*;
+        
+        public var startTime:Number;
+        public var endTime:Number;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- duration -->
+        <TestCase testID="AnimateTransform3D_duration_Default" keywords="[AnimateTransform3D, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform3D_duration_KeyframeOverride" keywords="[AnimateTransform3D, accessor, duration]" description="Verify keyframes with greater length than duration override duration.">
+            <setup>
+                <RunCode code="application.fxaDuration.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent);" />
+                <RunCode code="application.fxaDuration.target = application.uiComponent;"/>
+            </setup>
+            <body>
+                <RunCode code="this.startTime = getTimer();" />
+                <RunCode code="application.fxaDuration.play()" waitTarget="fxaDuration" waitEvent="effectEnd"/>
+                <RunCode code="this.endTime = getTimer();" />
+                <AssertMethodValue method="value=((this.endTime - this.startTime) >= 1000)" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform3D_duration" keywords="[AnimateTransform3D, accessor, duration]" description="Verify effect runs for duration.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent);" />
+                <RunCode code="application.fxa1.target = application.uiComponent;"/>
+            </setup>
+            <body>
+                <RunCode code="this.startTime = getTimer();" />
+                <RunCode code="application.fxa1.play()" waitTarget="fxa1" waitEvent="effectEnd"/>
+                <RunCode code="this.endTime = getTimer();" />
+                <AssertMethodValue method="value=((this.endTime - this.startTime) > 500)" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="AnimateTransform3D_filter_Default" keywords="[AnimateTransform3D, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).filter" value="null"/>
+            </body>
+        </TestCase>
+        <!-- triggerEvent -->
+        <TestCase testID="AnimateTransform3D_triggerEvent_Default" keywords="[AnimateTransform3D, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+        <!-- customFilter -->
+        <TestCase testID="AnimateTransform3D_customFilter_Default" keywords="[AnimateTransform3D, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+        <!-- target -->
+        <TestCase testID="AnimateTransform3D_target_Default" keywords="[AnimateTransform3D, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).target" value="null"/>
+            </body>
+        </TestCase>
+        <!-- effectTargetHost -->
+        <TestCase testID="AnimateTransform3D_effectTargetHost_Default" keywords="[AnimateTransform3D, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+        <!-- targets -->
+        <TestCase testID="AnimateTransform3D_targets_Default" keywords="[AnimateTransform3D, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).targets" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform3D_targets" keywords="[AnimateTransform3D, accessor, targets]" description="Verify the effect affects all targets.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <RunCode code="application.uiComponent2 = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent2)" />
+                <Pause timeout="500"/>
+                <RunCode code="application.uiComponent2.label = 'BACK HERE'"/>
+                <RunCode code="application.fxa1.targets = [application.uiComponent, application.uiComponent2]"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa1.playheadTime = 300"/>
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="117.800000"/>
+				<AssertPropertyValue target="uiComponent2" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent2" propertyName="y" value="117.800000"/>
+			</body>
+        </TestCase>
+        
+        <!-- isPlaying -->
+        <TestCase testID="AnimateTransform3D_isPlaying_Default" keywords="[AnimateTransform3D, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        
+        <!-- playheadTime -->
+        <TestCase testID="AnimateTransform3D_playheadTime_Default" keywords="[AnimateTransform3D, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform3D_playheadTime_accessor" keywords="[AnimateTransform3D, accessor, targets]" description="Test the playheadTime accessor.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent);" />
+                <RunCode code="application.fxa1.target = application.uiComponent;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa1.playheadTime = 300"/>
+                <AssertMethodValue method="value=application.fxa1.playheadTime" value="300"/>
+            </body>
+        </TestCase>
+        <TestCase testID="AnimateTransform3D_playheadTime" keywords="[AnimateTransform3D, accessor, playheadTime]" description="Verify the effect affects all targets.">
+            <setup>
+                <RunCode code="application.fxaMethod.stop()"/>
+                <RunCode code="application.uiComponent = new TrixSparkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixSparkPanel2" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addElement(application.uiComponent)" />
+                <RunCode code="application.fxaMethod.target = application.uiComponent;" />
+            </setup>
+            <body>
+                <RunCode code="application.fxaMethod.playheadTime = 450" />
+                <Pause timeout="200"/>
+				<AssertPropertyValue target="uiComponent" propertyName="x" value="0"/>
+				<AssertPropertyValue target="uiComponent" propertyName="y" value="126.500000"/>
+			</body>
+        </TestCase>
+        
+        <!-- hideFocusRing -->
+        <TestCase testID="AnimateTransform3D_hideFocusRing_Default" keywords="[AnimateTransform3D, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- relevantProperties -->
+        <TestCase testID="AnimateTransform3D_relevantProperties_Default" keywords="[AnimateTransform3D, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).relevantProperties" value="translationX,translationY,translationZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ,postLayoutTranslationX,postLayoutTranslationY,postLayoutTranslationZ,postLayoutRotationX,postLayoutRotationY,postLayoutRotationZ,postLayoutScaleX,postLayoutScaleY,postLayoutScaleZ,left,right,top,bottom,horizontalCenter,verticalCenter,baseline,width,height"/>
+            </body>
+        </TestCase>
+        <!-- perElementOffset -->
+        <TestCase testID="AnimateTransform3D_perElementOffset_Default" keywords="[AnimateTransform3D, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+        <!-- className -->
+        <TestCase testID="AnimateTransform3D_className_Default" keywords="[AnimateTransform3D, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).className" value="AnimateTransform3D"/>
+            </body>
+        </TestCase>
+        <!-- relevantStyles -->
+        <TestCase testID="AnimateTransform3D_relevantStyles_Default" keywords="[AnimateTransform3D, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new AnimateTransform3D()).relevantStyles" value="left,right,top,bottom,horizontalCenter,verticalCenter,baseline"/>
+            </body>
+        </TestCase>
+
+
+
+    </testCases>
+</UnitTester>
+

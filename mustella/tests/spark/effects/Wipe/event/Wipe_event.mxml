@@ -1,0 +1,68 @@
+﻿<UnitTester 
+    testSWF="../SWFs/Wipe_main.mxml" 
+    testDir="spark/effects/Wipe/event/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.Wipe;
+        import spark.effects.WipeDirection;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="Wipe_effectStart" keywords="[Wipe, events, effectStart]" description="Test the effectStart event.">
+            <setup>
+                <RunCode code="application.e_Wipe.stop();"/>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();" waitTarget="e_Wipe" waitEvent="effectStart" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="Wipe_effectEnd" keywords="[Wipe, events, effectEnd]" description="Test the effectEnd event.">
+            <setup>
+                <RunCode code="application.e_Wipe.stop();"/>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();" waitTarget="e_Wipe" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+
+        <!-- effectStop -->
+        <TestCase testID="Wipe_effectStop" keywords="[Wipe, events, effectStop]" description="Test the effectStop event.">
+            <setup>
+                <RunCode code="application.e_Wipe.stop();"/>
+                <ResetComponent target="controls1" className="assets.Controls1" waitEvent="updateComplete" />
+                <RunCode code="application.ShowContainer(application.controls1);" />
+                <ResetComponent target="e_Wipe" className="spark.effects.Wipe"/>
+                <RunCode code="application.e_Wipe.bitmapTo = application.wipeClearBitmap.bitmapData;" />
+                <RunCode code="application.e_Wipe.targets = [application.controls1.control_Button];" />
+                <RunCode code="application.e_Wipe.direction = WipeDirection.LEFT" />
+            </setup>
+            <body>
+                <RunCode code="application.e_Wipe.play();" />
+                <Pause timeout="200"/>
+                <RunCode code="application.e_Wipe.stop();" waitTarget="e_Wipe" waitEvent="effectStop" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

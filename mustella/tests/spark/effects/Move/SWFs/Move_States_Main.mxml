@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="500" width="500"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:trixControls="Controls.*" 
+    xmlns:trixContainers="Containers.*" 
+    backgroundColor="0xFFFFFF">
+
+    <s:states>
+        <mx:State name="stateOne"/>
+        <mx:State name="stateTwo"/>
+    </s:states>
+
+    <s:transitions>
+        <mx:Transition effect="{toStateTwo}" fromState="stateOne" toState="stateTwo" />
+        <mx:Transition effect="{toStateOne}" fromState="stateTwo" toState="stateOne" />
+    </s:transitions>
+
+    <fx:Declarations>
+        <!-- Simple Effects -->
+        <s:Move id="testEffect" duration="250"/>
+
+        <!-- Effects for transitions -->
+        <mx:Parallel id="toStateTwo">
+            <s:Move targets="{[testButton, testButton2]}" duration="1000" />
+        </mx:Parallel>
+        <mx:Parallel id="toStateOne">
+            <s:Move targets="{[testButton, testButton2]}" duration="1000" />
+        </mx:Parallel>
+    </fx:Declarations>
+
+    <fx:Script>
+        <![CDATA[
+        import mx.events.StateChangeEvent;
+            
+        public function doManualReset():void
+        {
+            if(currentState == "stateOne")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "stateOne";   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        ]]>
+    </fx:Script>
+
+    <s:Button id="testButton"
+            x="150"
+            y="10"
+            width="200"
+            height="30"
+            label="Test Button"
+            y.stateOne="10"
+            y.stateTwo="40"/>
+
+    <s:Button id="testButton2"
+            x="150"
+            y="50"
+            width="200"
+            height="30"
+            label="Test Button"
+            y.stateOne="50"
+            y.stateTwo="80"/>
+
+
+</s:Application>

@@ -1,0 +1,116 @@
+﻿<UnitTester
+    testSWF="../SWFs/KeyFrame_main.mxml"
+    testDir="spark/effects/KeyFrame/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import spark.effects.animation.Keyframe;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- easer -->
+        <TestCase testID="Keyframe_easer_Default" keywords="[Keyframe, variable, easer]" description="Test the default value of the easer variable.">
+            <body>
+                <AssertMethodValue method="value=(new Keyframe()).easer.ease(.4)" value=".4"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Keyframe_easer_IgnoreFirst" keywords="[Keyframe, variable, valueBy]" description="Verify that a first-key-frame easer is ignored..">
+            <setup>
+                <RunCode code="application.fxa2.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa2.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa2.playheadTime = 250"/>
+                <Pause timeout="200"/>
+                <AssertPropertyValue target="t1" propertyName="y" value="250" />
+            </body>
+        </TestCase>
+
+        <!-- time -->
+        <TestCase testID="Keyframe_time_Default" keywords="[Keyframe, variable, time]" description="Test the default value of the time variable.">
+            <body>
+                <AssertMethodValue method="value=(new Keyframe()).time" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Keyframe_time" keywords="[Keyframe, variable, valueBy]" description="Verify value is applied to target at time.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa1.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa1.playheadTime = 500"/>
+                <Pause timeout="200"/>
+                <AssertPropertyValue target="t1" propertyName="y" value="349.95" />
+            </body>
+        </TestCase>
+
+        <!-- value -->
+        <TestCase testID="Keyframe_value_Default" keywords="[Keyframe, variable, value]" description="Test the default value of the value variable.">
+            <body>
+                <AssertMethodValue method="value=(new Keyframe()).value" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Keyframe_value" keywords="[Keyframe, variable, valueBy]" description="Verify the keyframe value is applied to the target.">
+            <setup>
+                <RunCode code="application.fxa1.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa1.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa1.play()" waitTarget="fxa1" waitEvent="effectEnd" />
+                <AssertPropertyValue target="t1" propertyName="y" value="50" />
+            </body>
+        </TestCase>
+        
+        <!-- valueBy -->
+        <TestCase testID="Keyframe_valueBy_Default" keywords="[Keyframe, variable, valueBy]" description="Test the default value of the valueBy variable.">
+            <body>
+                <AssertMethodValue method="value=(new Keyframe()).valueBy" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Keyframe_valueBy_AffectPrior" keywords="[Keyframe, variable, valueBy]" description="Verify a second keyframe with valueBy+value affects the first key frame value.">
+            <setup>
+                <RunCode code="application.fxa2.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa2.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa2.playheadTime = 0" />
+                <AssertPropertyValue target="t1" propertyName="y" value="150" />
+            </body>
+        </TestCase>
+        <TestCase testID="Keyframe_valueBy_AddToPrior" keywords="[Keyframe, variable, valueBy]" description="Verify a keyframe with valueBy following a keyframe with value sums correctly.">
+            <setup>
+                <RunCode code="application.fxa3.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa3.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa3.play()" waitTarget="fxa3" waitEvent="effectEnd" />
+                <AssertPropertyValue target="t1" propertyName="y" value="250" />
+            </body>
+        </TestCase>
+        <TestCase testID="Keyframe_valueBy_NoOp" keywords="[Keyframe, variable, valueBy]" description="Verify a first keyframe with valueBy ignores the valueBy parameter.">
+            <setup>
+                <RunCode code="application.fxa3.stop()"/>
+                <ResetComponent target="t1" className="Components.TrixSparkButton" waitTarget="t1" waitEvent="updateComplete" />
+                <RunCode code="application.fxa3.target = application.t1;"/>
+            </setup>
+            <body>
+                <RunCode code="application.fxa3.play()" waitTarget="fxa3" waitEvent="effectEnd" />
+                <AssertPropertyValue target="t1" propertyName="y" value="250" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

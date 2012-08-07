@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/EaseInOutBase/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/EaseInOutBase_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.EaseInOutBase;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="EaseInOutBase_CustomEaserCompetition" keywords="[EaseInOutBase, usability, easer]" description="Test two easers side-by-side.">
+            <setup>
+                <RunCode code="application.testEaser = new EaseInOutBase();" />
+                <RunCode code="application.testEffect.easer = application.testEaser;" />
+                <RunCode code="application.testEffect2.easer = application.testEaser2;" />
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play()" />
+                <RunCode code="application.testEffect2.play()" waitTarget="testEffect" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

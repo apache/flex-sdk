@@ -1,0 +1,265 @@
+﻿<UnitTester
+    testSWF="../SWFs/EffectTestingUnitTests.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+        
+        <!--
+        
+        Unit tests for the EffectTesting.as class added to Mustella.
+        
+        -->
+ 
+        <TestCase testID="EffectTesting_assertPropertySet_NaN_1" keywords="[EffectTesting]" description="check that NaN's assert properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test1, 'width, percentWidth', '70,NaN|35,50|0,NaN|70,0', 0)" value="FAIL: test1Btn.percentWidth: expected 0 plus or minus 0, but received NaN" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_NaN_2" keywords="[EffectTesting]" description="check that NaN's assert properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test1, 'width, percentWidth', '70,undefined|35,50|0,undefined|70,0', 0)" value="FAIL: test1Btn.percentWidth: expected 0 plus or minus 0, but received NaN" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_NaN_3" keywords="[EffectTesting]" description="check that NaN's assert properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test1, 'width, percentWidth', '70,NaN|35,50|0,NaN|70,NaN', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_NaN_4" keywords="[EffectTesting]" description="check that NaN's assert properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test2, 'width, percentWidth', '0,NaN', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_NaN_5" keywords="[EffectTesting]" description="check that NaN's assert properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test2, 'width, percentWidth', '0,undefined', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_decimal_1" keywords="[EffectTesting]" description="check decimal values work">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '45.5,45.5', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_decimal_2" keywords="[EffectTesting]" description="check decimal values work">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '50,50', 0)" value="FAIL: test3.width: expected 50 plus or minus 0, but received 45.5" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_spaces_1" keywords="[EffectTesting]" description="check that spaces in expected string are stripped properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '45.5,45.5', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_spaces_2" keywords="[EffectTesting]" description="check that spaces in expected string are stripped properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, '   width   ,   height    ', '45.5,45.5', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_spaces_3" keywords="[EffectTesting]" description="check that spaces in expected string are stripped properly">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, ' width  ,  height ', '50,50', 0)" value="FAIL: test3.width: expected 50 plus or minus 0, but received 45.5" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_tolerance_1" keywords="[EffectTesting]" description="check different tolerance values">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '45,45', 0.5)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_tolerance_2" keywords="[EffectTesting]" description="check different tolerance values">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '46,46', 0.7)" value="PASS" />
+            </body>
+        </TestCase>
+        <TestCase testID="EffectTesting_assertPropertySet_tolerance_3" keywords="[EffectTesting]" description="check different tolerance values">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '46,46', 10)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_tolerance_4" keywords="[EffectTesting]" description="check different tolerance values">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '46,46', 0.4)" value="FAIL: test3.width: expected 46 plus or minus 0.4, but received 45.5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="EffectTesting_assertPropertySet_tolerance_5" keywords="[EffectTesting]" description="check different tolerance values">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test3, 'width, height', '45,45', 0.4)" value="FAIL: test3.width: expected 45 plus or minus 0.4, but received 45.5" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_existence_1" keywords="[EffectTesting]" description="check existence is taken into account">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test4, 'width', '0', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_existence_2" keywords="[EffectTesting]" description="check existence is taken into account">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test4, 'width', '0|0', 0)" value="FAIL: number of elements (1) != number of expected elements (2)" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_existence_3" keywords="[EffectTesting]" description="check existence is taken into account (root is not a container)">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test5, 'width', '70|70', 0)" value="FAIL: number of elements (1) != number of expected elements (2)" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_misc_1" keywords="[EffectTesting]" description="root is not a container">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test5, 'width', '70', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPostLayoutPropertySet_decimal_1" keywords="[EffectTesting]" description="check values on post layout">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.test6, 'rotationX, rotationY', 'null,null|45,45', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPostLayoutPropertySet_decimal_2" keywords="[EffectTesting]" description="check values on post layout (root is not a container)">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.test6Btn, 'rotationX, rotationY', '45,45', 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPostLayoutPropertySet_decimal_3" keywords="[EffectTesting]" description="check values on post layout">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.test6, 'rotationX, rotationY', '99,99|45,45', 0)" value="FAIL: test6.postLayoutTransformOffsets.rotationX: null, but expected 99" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPostLayoutPropertySet_numProperties_1" keywords="[EffectTesting]" description="check that number of properties does not equal number of expected properties">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.test6, 'rotationX, rotationY', 'null|45,45', 0)" value="FAIL: number of properties != number of expected values for test6" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_numProperties_2" keywords="[EffectTesting]" description="check that number of properties does not equal number of expected properties">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test6, 'rotationX, rotationY', 'null|45,45', 0)" value="FAIL: number of properties != number of expected values for test6" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPostLayoutPropertySet_numProperties_3" keywords="[EffectTesting]" description="check that number of properties does not equal number of expected properties">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.test6, 'rotationX, rotationY', 'null,null,null|45,45', 0)" value="FAIL: number of properties != number of expected values for test6" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_numProperties_4" keywords="[EffectTesting]" description="check that number of properties does not equal number of expected properties">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test6, 'rotationX, rotationY', 'null,null,null|45,45', 0)" value="FAIL: number of properties != number of expected values for test6" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_1" keywords="[EffectTesting]" description="check basic string generation">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test1, 'x,y')" value="0,0|0,0|0,0|0,0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_2" keywords="[EffectTesting]" description="check basic string generation (post layout)">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test1, 'x,y', true)" value="null,null|null,null|null,null|null,null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_depth_1" keywords="[EffectTesting]" description="check the string generates to the right depth (post layout)">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test7, 'x,y', true, 1)" value="null,null|null,null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_depth_2" keywords="[EffectTesting]" description="check the string generates to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test7, 'width,height', false)" value="50,50|50,50|50,50|50,50|25,25" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_depth_3" keywords="[EffectTesting]" description="check the string generates to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test7, 'width,height', false, -1)" value="50,50|50,50|50,50|50,50|25,25" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_depth_4" keywords="[EffectTesting]" description="check the string generates to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test7, 'width,height', false, 0)" value="50,50" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_depth_5" keywords="[EffectTesting]" description="check the string generates to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test7, 'width,height', false, 1)" value="50,50|50,50" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_generatePropertySet_depth_6" keywords="[EffectTesting]" description="check the string generates to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.generatePropertySet(application.test7, 'width,height', false, 2)" value="50,50|50,50|50,50|25,25" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPostLayoutPropertySet_depth_1" keywords="[EffectTesting]" description="assert to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPostLayoutPropertySet(application.test7, 'width, height', 'null,null|null,null', 0, 1)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_depth_2" keywords="[EffectTesting]" description="assert to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test7, 'width, height', '50,50|50,50|50,50|50,50|25,25')" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_depth_3" keywords="[EffectTesting]" description="assert to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test7, 'width, height', '50,50|50,50|50,50|50,50|25,25', 0, -1)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_depth_4" keywords="[EffectTesting]" description="assert to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test7, 'width, height', '50,50', 0, 0)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_depth_5" keywords="[EffectTesting]" description="assert to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test7, 'width, height', '50,50|50,50', 0, 1)" value="PASS" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTesting_assertPropertySet_depth_6" keywords="[EffectTesting]" description="assert to the right depth">
+            <body>
+                <AssertMethodValue method="value=EffectTesting.assertPropertySet(application.test7, 'width, height', '50,50|50,50|50,50|25,25', 0, 2)" value="PASS" />
+            </body>
+        </TestCase>
+        
+	</testCases>
+</UnitTester>
+

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_Graphic_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.BigCircle1Comp;
+       import comps.BigCircle2Comp;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+        public function createGroup2(): void
+        {
+            var newCircle1:BigCircle1Comp = new BigCircle1Comp();
+            var newCircle2:BigCircle2Comp = new BigCircle2Comp();
+            application.group2.addElementAt(newCircle1, 0);
+            application.group2.addElementAt(newCircle2, 1);
+        }
+
+        public function createGroup4(): void
+        {
+            var newCircle3:BigCircle1Comp = new BigCircle1Comp();
+            var newCircle4:BigCircle2Comp = new BigCircle2Comp();
+            application.group4.addElementAt(newCircle3, 0);
+            application.group4.addElementAt(newCircle4, 1);
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+    <!-- viewHeight and viewWidth tests -->
+        <TestCase testID="StaticFXG_Graphic_viewHeight" description="Use viewHeight on a Graphic specified in an FXG file." keywords="[viewHeight, FXG, Graphic]">
+            <body>
+                <AssertPropertyValue target="group1" propertyName="height" value="120" />
+                <CompareBitmap target="group1" url="../Properties/baselines/$testID.png" timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="StaticFXG_Graphic_viewWidth" description="Use viewWidth on a Graphic specified in an FXG file." keywords="[viewWidth, FXG, Graphic]">
+            <body>
+                <AssertPropertyValue target="group3" propertyName="width" value="120" />
+                <CompareBitmap target="group3" url="../Properties/baselines/$testID.png" timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Graphic_viewHeight_mxml" description="Use viewHeight on a Graphic specified in an MXML Graphic." keywords="[viewHeight, FXG, Graphic]">
+            <body>
+                <AssertPropertyValue target="group2" propertyName="height" value="120" />
+                <CompareBitmap target="group2" url="../Properties/baselines/$testID.png" timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Graphic_viewWidth_mxml" description="Use viewWidth on a Graphic specified in an MXML Graphic." keywords="[viewWidth, FXG, Graphic]">
+            <body>
+                <AssertPropertyValue target="group4" propertyName="width" value="120" />
+                <CompareBitmap target="group4" url="../Properties/baselines/$testID.png" timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Graphic_viewHeight_AS" description="Use viewHeight on a Graphic specified in an MXML Graphic." keywords="[viewHeight, FXG, Graphic]">
+            <body>
+                <SetProperty propertyName="viewHeight" value="10" target="group2.getElementAt(0)" waitTarget="group2"
+                    waitEvent="updateComplete" />
+                <AssertPropertyValue target="group2" propertyName="height" value="80" />
+                <CompareBitmap target="group2" url="../Properties/baselines/$testID.png" timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Graphic_viewWidth_AS" description="Use viewWidth on a Graphic specified in an MXML Graphic." keywords="[viewWidth, FXG, Graphic]">
+            <body>
+                <SetProperty propertyName="viewWidth" value="20" target="group4.getElementAt(0)" waitTarget="group4"
+                    waitEvent="updateComplete" />
+                <AssertPropertyValue target="group4" propertyName="width" value="90" />
+                <CompareBitmap target="group4" url="../Properties/baselines/$testID.png" timeout="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Graphic_viewHeight_changeHeight" description="Use viewHeight on a Graphic specified in an MXML Graphic and change the height of the Graphic at runtime."
+            keywords="[viewHeight, FXG, Graphic]">
+            <setup>
+                <ResetComponent target="group2" className="spark.components.VGroup" waitEvent="updateComplete" waitTarget="group2" />
+                <RunCode code="createGroup2()" waitEvent="updateComplete" waitTarget="group2" />
+                <SetProperty propertyName="gap" value="0" target="group2" waitTarget="group2"
+                    waitEvent="updateComplete" />
+                <SetProperty propertyName="y" value="300" target="group2" waitEvent="updateComplete" waitTarget="group2" />
+           </setup>
+            <body>
+                <SetProperty propertyName="height" value="250" target="group2.getElementAt(0).getElementAt(0).getElementAt(0)" waitTarget="group2.getElementAt(0).getElementAt(0).getElementAt(0)"
+                    waitEvent="updateComplete" />
+                <AssertPropertyValue target="group2" propertyName="height" value="120" />
+                <AssertPropertyValue target="group2.getElementAt(1)" propertyName="y" value="50" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_Graphic_viewWidth_changeWidth" description="Use viewWidth on a Graphic specified in an MXML Graphic." keywords="[viewWidth, FXG, Graphic]">
+             <setup>
+               <ResetComponent target="group4" className="spark.components.HGroup" waitEvent="updateComplete" waitTarget="group4" />
+               <SetProperty propertyName="y" value="300" target="group4"  />
+               <SetProperty propertyName="x" value="300" target="group4" waitEvent="updateComplete" waitTarget="group4" />
+               <SetProperty propertyName="gap" value="0" target="group4" waitTarget="group4"
+                  waitEvent="updateComplete" />
+              <RunCode code="createGroup4()" waitEvent="updateComplete" waitTarget="group4" />
+           </setup>
+            <body>
+                <SetProperty propertyName="width" value="250" target="group4.getElementAt(0).getElementAt(0).getElementAt(0)"
+                    waitTarget="group4.getElementAt(0).getElementAt(0).getElementAt(0)" waitEvent="updateComplete" />
+                <AssertPropertyValue target="group4" propertyName="width" value="120" />
+                <AssertPropertyValue target="group4.getElementAt(1)" propertyName="x" value="50" />
+            </body>
+        </TestCase>
+        <TestCase testID="FXG_transform_noMatrix_mxml" description="Use a ColorTransform on a GraphicElement and be sure the current convenience properties aren't wiped out."
+            keywords="[transform, FXG, Graphic]">
+            <!--bugs>
+                <Bug bugID="SDK-22390" />
+            </bugs -->
+            <body>
+                <AssertPropertyValue target="shape1" propertyName="x" value="119" />
+                <AssertPropertyValue target="shape1" propertyName="y" value="20.5" />
+                <AssertPropertyValue target="shape1.fill" propertyName="color" value="0xFFFF00" />
+                <AssertPropertyValue target="shape1.transform.colorTransform" propertyName="alphaMultiplier" value="0.5" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

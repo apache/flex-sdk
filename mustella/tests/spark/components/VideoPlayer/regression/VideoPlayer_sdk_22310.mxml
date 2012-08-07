@@ -1,0 +1,43 @@
+<UnitTester
+    testDir="spark/components/VideoPlayer/regression/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SDK_22310.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        
+        private function loadedRangeCheck():Boolean
+		{
+		    return((application.vp.scrubBar.loadedRangeArea.width == 126) || (application.vp.scrubBar.loadedRangeArea.width == 127))
+        }
+        
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase 
+            testID="VideoPlayer_sdk_22310" 
+            keywords="[VideoPlayer]" 
+            description="Buffered Area Not Showing in Spark Video Player.">
+            <!--bugs>
+                <Bug bugID="SDK-22310"/>
+            </bugs-->
+            <setup>
+                <Pause timeout="9000" reason="Wait for Video to load AND BUFFER."/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=this.loadedRangeCheck()" value="true"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

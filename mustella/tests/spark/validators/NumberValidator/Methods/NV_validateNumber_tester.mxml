@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_validateNumber.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.*;
+		import assets.NVConstants ; 	
+		import mx.events.ValidationResultEvent;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<testCases>
+	
+	<TestCase testID="NV_validateNumber_Number_object_invalid_default_properties_test1" 
+			  description="This case test validateNumber method of spark.NumberValidator, invalide Number" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvDefault" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="triggerEvent" value="click"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.uiTI" propertyName="text" value="0.34.456" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiTI"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>		 
+			<AssertEvent target="CustomNVComponent.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="Error"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_Number_object_valid_default_properties_test2" 
+			  description="This case test validateNumber method of spark.NumberValidator, valid number" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvDefault" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.uiTI" propertyName="text" value="456.7" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiTI"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" />
+			<AssertEvent target="CustomNVComponent.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="noValidateError"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_Number_object_valid_with_properties_test3" 
+			  description="This case test validateNumber method of spark.NumberValidator, valid number with some properties" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvDefault" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="required" value="false"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="negativeNumberFormat" value="1"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="groupingSeparator" value=":"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.uiTI" propertyName="text" value="-456:000.7" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiTI"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertEvent target="CustomNVComponent.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="noValidateError"/>
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="NV_validateNumber_Number_object_invalid_with_properties_test4" 
+			  description="This case test validateNumber method of spark.NumberValidator, invalid number and setting some properties" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvDefault" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="negativeNumberFormat" value="3"/>
+			<SetProperty target="CustomNVComponent.nvDefault" propertyName="fractionalDigits" value="2"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.uiTI" propertyName="text" value="-456.789" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiTI"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertEvent target="CustomNVComponent.nvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="Error"/>
+		</body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="NV_validateNumber_UI_TextInput_object_valid_program_test5" 
+			  description="This case test validateNumber method of spark.NumberValidator" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvScript" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="required" value="false"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.tiScript" propertyName="text" value="123" waitEvent="updateComplete" waitTarget="CustomNVComponent.tiScript"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertEvent target="CustomNVComponent.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvScript" eventName="invalid" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="noValidateError"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_UI_TextInput_object_invalid_program_test6" 
+			  description="This case test validateNumber method of spark.NumberValidator" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvScript" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="triggerEvent" value="click"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.tiScript" propertyName="text" value="--123" waitEvent="updateComplete" waitTarget="CustomNVComponent.tiScript"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertEvent target="CustomNVComponent.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvScript" eventName="valid" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="Error"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_UI_TextInput_object_valid_with_properties_test7" 
+			  description="This case test validateNumber method of spark.NumberValidator" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvScript" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="required" value="false"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="fractionalDigits" value="3"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="decimalSeparator" value=":"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.tiScript" propertyName="text" value="123:456" waitEvent="updateComplete" waitTarget="CustomNVComponent.tiScript"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertEvent target="CustomNVComponent.nvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvScript" eventName="invalid" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="noValidateError"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_UI_TextInput_object_invalid_with_properties_test8" 
+			  description="This case test validateNumber method of spark.NumberValidator" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, invalid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvScript" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="trigger" valueExpression="value=application.CustomNVComponent.uiBTvalidateNumber"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="triggerEvent" value="click"/>
+			<SetProperty target="CustomNVComponent.nvScript" propertyName="decimalSeparator" value=":"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.tiScript" propertyName="text" value="123:456:789" waitEvent="updateComplete" waitTarget="CustomNVComponent.tiScript"/>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertEvent target="CustomNVComponent.nvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+			<AssertNoEvent target="CustomNVComponent.nvScript" eventName="valid" />
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="Error"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_non_object_error_message_test9" 
+			  description="This case test validateNumber method of spark.NumberValidator, valid null object to get error as expected." 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nvNull" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="Error"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_Number_object_bindable_results_test10" 
+			  description="This case test validateNumber method of spark.NumberValidator, valid number with some properties and bind the results to a label" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.uiTI" propertyName="text" value="-456.000.7" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiTI"/>
+			<AssertPropertyValue target="CustomNVComponent.uiBindableLb" propertyName="text" value="true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_UI_TextInput_object_bindable_result_test11" 
+			  description="This case test validateNumber method of spark.NumberValidator, bind results to a label" 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+		</setup>
+		<body>
+			<SetProperty target="CustomNVComponent.tiScript" propertyName="text" value="--1234.5" waitEvent="updateComplete" waitTarget="CustomNVComponent.tiScript"/>
+			<AssertPropertyValue target="CustomNVComponent.uiScriptBindableLb" propertyName="text" value="true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="NV_validateNumber_non_string_object_error_message_test12" 
+			  description="This case test validateNumber method of spark.NumberValidator, valid null object to get error as expected." 
+			  keywords="[NumberValidator, validateNumber, default, trigger programmatically, ActionScript, valid]">
+		<setup>
+			<ResetComponent target="CustomNVComponent" className="assets.CustomNVComp" waitEvent="updateComplete" waitTarget="CustomNVComponent"/>
+			<SetProperty target="CustomNVComponent.uiProgType" propertyName="text" value="nonString" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiProgType"/>					
+		</setup>
+		<body>
+			<DispatchMouseEvent target="CustomNVComponent.uiBTvalidateNumber" type="click" waitEvent="updateComplete" waitTarget="CustomNVComponent.uiLb"/>
+			<AssertPropertyValue target="CustomNVComponent.uiLb" propertyName="text" value="Error"/>
+		</body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

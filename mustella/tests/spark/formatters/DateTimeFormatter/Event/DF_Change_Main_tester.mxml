@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Event/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_Change_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.DateTimeFormatter;
+			
+			import mx.core.Application;
+			private var flashDF:flash.globalization.DateTimeFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				// public var localListInTest = Application.
+				
+			}
+						
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<!--This test file is to test whether change event of a DateTimeFormatter can be dispatched by changing locale,dateStyle, timeStyle and dateTimePattern -->
+	
+	<testCases>
+		<!--This test case is for locale change-->
+		<TestCase testID="DF_ChangeEvent_locale_Test1" description="dispatch change event by changing locale" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<SetStyle target="dtFormatter" styleName="locale" value="zh-TW" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="dtFormatter" styleName="locale" value="sr-Cyrl-RS" />	
+				<AssertEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--This test case is for locale change-->
+		<TestCase testID="DF_ChangeEvent_locale_noChange_Test2" description="dispatch change event by changing locale" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetStyle target="dtFormatter" styleName="locale" value="en-US" waitEvent="change"/>	
+			</setup>
+			<body>
+				<SetStyle target="dtFormatter" styleName="locale" value="zh-CN"/>
+				<AssertEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event"  />
+			</body>
+		</TestCase>		
+		
+		<!--This test case is for dateStyle change-->
+		<TestCase testID="DF_ChangeEvent_dateStyle_Test3" description="dispatch change event by changing dateStyle" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="dtFormatter" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<AssertEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--This test case is for dateStyle change-->
+		<TestCase testID="DF_ChangeEvent_dateStyle_noChange_Test4" description="no change event when no value change of dateStyle" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="dtFormatter" propertyName="dateStyle" value="short"/>
+				<AssertNoEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--This test case is for timeStyle change-->
+		<TestCase testID="DF_ChangeEvent_timeStyle_Test5" description="dispatch change event by changing timeStyle" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetProperty target="dtFormatter" propertyName="timeStyle" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="dtFormatter" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<AssertEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--This test case is for timeStyle change-->
+		<TestCase testID="DF_ChangeEvent_timeStyle_noChange_Test6" description="no change event when no value change of timeStyle" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetProperty target="dtFormatter" propertyName="timeStyle" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="dtFormatter" propertyName="timeStyle" value="short"/>
+				<AssertNoEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--This test case is for DateTimePattern change-->
+		<TestCase testID="DF_ChangeEvent_dateTimePattern_Test7" description="dispatch change event by changing dateTimePattern" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy" waitEvent="change"/>
+				<AssertEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+		
+		<!--This test case is for DateTimePattern change-->
+	    <TestCase testID="DF_ChangeEvent_dateTimePattern_noChange_Test8" description="no change event when no value change of dateTimePattern" keywords="[DateTimeFormatter, changeEvent]">
+			<setup>
+				<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter"/> 
+				<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+				<Pause timeout="200"/>
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM"/>
+				<AssertNoEvent target="dtFormatter" eventName="change" eventClass="flash.events::Event" />
+			</body>
+		</TestCase>
+	</testCases>
+		
+</UnitTester>

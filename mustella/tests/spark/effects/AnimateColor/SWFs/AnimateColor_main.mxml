@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	width="100%"
+	height="100%"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    backgroundColor="0xFFFFFF">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+		@font-face
+		{
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: vera1;
+		embedAsCFF: true;
+		}
+
+		global
+		{
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: blue;
+		}
+
+		s|SkinnableComponent
+		{
+		fontFamily: vera1;
+		fontLookup: embeddedCFF;
+		color: black;
+		}
+	</fx:Style>
+
+	<fx:Script>
+        <![CDATA[
+        import spark.effects.AnimateColor;
+        import mx.controls.Label;
+        import mx.events.StateChangeEvent;
+        
+        
+        //Privies
+        private var actionscriptTarget:Label;
+        private var actionscriptEffect:AnimateColor;
+        private var defaultColor:int = 0x000000;
+
+        //Pubs
+        public var fillColor:Number = 0;
+        public var fillAlpha:Number = 1;
+        public var fill2Color:Number = 0;
+        public var fill2Alpha:Number = 1;
+        public var strokeColor:Number = 0;
+        public var stroke2Color:Number = 0;
+        public var labelColor:Number = 0;
+            
+        //State switching stuff
+        public function doManualReset():void
+        {
+            //Reset colors
+            testFill.color = this.defaultColor;
+            testFill2.color = this.defaultColor;
+            testStroke.color = this.defaultColor;
+            this.testStroke2.color = this.defaultColor;
+            this.flex3Button.setStyle("color", this.defaultColor);
+            this.testLabel.setStyle("color", this.defaultColor);
+
+            //Reset alpha
+            this.testFill.alpha = 1;
+            this.testFill2.alpha = 1;
+            this.testStroke.alpha = 1;
+            this.testStroke2.alpha = 1;
+            this.flex3Button.alpha = 1;
+            this.flex4Button.alpha = 1;
+            this.testLabel.alpha = 1;
+            
+            //Reset bools
+            this.fillColor = 0;
+            this.fill2Color = 0;
+            this.fillAlpha = 1;
+            this.fill2Alpha = 1;
+            this.strokeColor = 0;
+            this.stroke2Color = 0;
+            this.labelColor = 0;
+            
+            //Flip state
+            if(currentState == "State1")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+
+                currentState = "State1";   
+            }
+        }
+
+        public function ResetStateTo(destinationState:String):void
+        {
+            //Flip state
+            if(currentState == destinationState)
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+
+                currentState = destinationState;   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        
+        public function NullConstructor():Boolean
+        {
+            try
+            {
+                this.actionscriptEffect = new AnimateColor(null);
+            }
+            catch(error:Error)
+            {
+                return(false);
+            }
+            
+            return(true);
+        }
+
+        public function ValidConstructor():Boolean
+        {
+            try
+            {
+                this.actionscriptEffect = new AnimateColor(new Object());
+            }
+            catch(error:Error)
+            {
+                return(false);
+            }
+            
+            return(true);
+        }
+
+        public function TargetConstructor():Boolean
+        {
+            try
+            {
+                this.actionscriptTarget = new Label();
+                this.actionscriptEffect = new AnimateColor(this.actionscriptTarget);
+            }
+            catch(error:Error)
+            {
+                return(false);
+            }
+            
+            if(this.actionscriptEffect.target == null)
+                return(false);
+            
+            return(this.actionscriptEffect.target == this.actionscriptTarget);s
+        }        
+        
+        
+        public function CaptureColors():void
+        {
+            this.fillColor = testFill.color;
+            this.fill2Color = testFill2.color;
+            this.strokeColor = testStroke.color;
+            this.stroke2Color = testStroke2.color;
+            this.labelColor = testLabel.getStyle("color");
+        }
+        
+        public function CaptureAlpha():void
+        {
+            this.fillAlpha = testFill.alpha;
+            this.fill2Alpha = testFill.alpha;
+        }
+
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <s:AnimateColor id="testEffect" colorFrom="0xFFAAAA" colorTo="0xAAAAFF" target="{testFill}" duration="500" />
+
+        <s:AnimateColor id="tp1A" colorFrom="0x333333" colorTo="0xBBBBBB" target="{testFill}" />
+        <s:AnimateColor id="tp1B" colorFrom="0x333333" colorTo="0xBBBBBB" target="{testStroke}" />
+        <s:AnimateColor id="tp1C" colorFrom="0x333333" colorTo="0xBBBBBB" target="{flex3Button}" />
+        <s:AnimateColor id="tp1D" colorFrom="0x333333" colorTo="0xBBBBBB" target="{flex4Button}" />
+        <s:AnimateColor id="tp1E" colorFrom="0x333333" colorTo="0xBBBBBB" target="{testLabel}" duration="1000"/>
+        <s:AnimateColor id="tp1F" colorFrom="0x333333" colorTo="0xBBBBBB" targets="{[testFill, testStroke, flex3Button, flex4Button, testLabel]}" />
+
+        <mx:Parallel id="tp2A" target="{testFill}" duration="2500">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" effectEnd="CaptureColors()"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7" effectEnd="CaptureAlpha()"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="tp2B" targets="{[testFill, testStroke]}">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="tp2C">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" target="{testFill}" effectEnd="CaptureColors()"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="tp2D">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" targets="{[testFill, testStroke2]}"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="tp2E">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" targets="{[testFill, testStroke2]}"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7" target="{flex3Button}"/>
+        </mx:Parallel>
+
+        <mx:Sequence id="tp3A" target="{testFill}">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp3B" targets="{[testFill, testFill2]}">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" effectEnd="CaptureColors()"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7" effectEnd="CaptureAlpha()"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp3C">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" target="{testFill}"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp3D">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" targets="{[testFill, testStroke2]}" effectEnd="CaptureColors()"/>
+            <s:Fade alphaFrom=".2" alphaTo=".7" target="{flex3Button}"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp3E">
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x0000FF" targets="{[testFill, testStroke2]}"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF" targets="{[testStroke, testFill2]}"/>
+        </mx:Sequence>
+
+        <s:AnimateColor id="tp5AEff" colorFrom="0xFFFF22" colorTo="0xBBBBBB" target="{testLabel}" duration="1000" effectEnd="CaptureColors()"/>
+        <s:AnimateColor id="tp5BEff" target="{testLabel}" duration="1000"/>
+        <s:AnimateColor id="tp5CEff" colorFrom="0xFFFF22" target="{testLabel}" duration="1000"/>
+        <s:AnimateColor id="tp5DEff" colorTo="0xFFFF22" target="{testLabel}" duration="1000" effectEnd="CaptureColors()"/>
+    </fx:Declarations>
+
+    <s:states>
+        <mx:State name="State1"/>
+        <mx:State name="tp4A"/>
+        <mx:State name="tp4B"/>
+        <mx:State name="tp4C"/>
+        <mx:State name="tp4D"/>
+        <mx:State name="tp4E"/>
+        <mx:State name="tp5A"/>
+        <mx:State name="tp5B"/>
+        <mx:State name="tp5C"/>
+        <mx:State name="tp5D"/>
+    </s:states>
+
+    <s:transitions>
+        <mx:Transition fromState="*" toState="tp4A" effect="{tp2A}"/>
+        <mx:Transition fromState="*" toState="tp4B" effect="{tp3B}"/>
+        <mx:Transition fromState="*" toState="tp4C" effect="{tp2C}"/>
+        <mx:Transition fromState="*" toState="tp4D" effect="{tp3D}"/>
+        <mx:Transition fromState="*" toState="tp4E" effect="{tp2E}"/>
+        <mx:Transition fromState="*" toState="tp5A" effect="{tp5AEff}"/>
+        <!-- use start/end values from effect -->
+        <mx:Transition fromState="*" toState="tp5B" effect="{tp5BEff}"/>
+        <!-- use start/end values from state syntax -->
+        <mx:Transition fromState="*" toState="tp5C" effect="{tp5CEff}"/>
+        <!-- use start value from effect, end from state syntax -->
+        <mx:Transition fromState="*" toState="tp5D" effect="{tp5DEff}"/>
+        <!-- use start value from state syntax, end from effect -->
+    </s:transitions>
+
+    <s:Group id="testGroup"
+    	left="10"
+    	top="10"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <s:SolidColor id="testFill" color.State1="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <s:SolidColorStroke id="testStroke" color.State1="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <s:Group id="testGroup2"
+    	left="130"
+    	top="10"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <s:SolidColor id="testFill2" color.State1="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <s:SolidColorStroke id="testStroke2" color.State1="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <mx:Button id="flex3Button"
+    	left="10"
+    	top="120"
+    	width="100"
+    	color.State1="0xFF"
+    	label="Flex 3 Button"/>
+
+    <s:Button id="flex4Button"
+    	left="10"
+    	top="150"
+    	width="100"
+    	label="Flex 4 Button"/>
+
+    <mx:Label id="testLabel"
+		left="10"
+		top="180"
+		text="Hello World"
+		fontSize="30"
+		color.State1="0xFF0000"
+		color.tp5B="0x00FF00"
+		color.tp5C="0x0000FF"/>
+
+</s:Application>

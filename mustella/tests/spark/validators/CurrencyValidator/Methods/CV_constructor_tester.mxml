@@ -1,0 +1,151 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_constructor.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		import flash.globalization.CurrencyFormatter;
+		
+		public var cfGSLib:flash.globalization.CurrencyFormatter;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_Constructor_noLocaleSet_test_1" 
+				  description="testcase for Default CV without locale setting" 
+				  keywords="[CurrencyFormatter, Constructor, set locale, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="actualLocaleIDName" valueExpression="value='en-US'"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvProg" propertyName="actualLocaleIDName" valueExpression="value='en-US'"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvProg" propertyName="lastOperationStatus" valueExpression="value='noError'"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setLocale_i_default_test_2" 
+				  description="testcase for Construct CV with no parameter in action scripts , then set locale to some supported locale" 
+				  keywords="[CurrencyFormatter, Constructor, set locale, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <SetStyle target="uiCustomValidatorComp.cvScript" styleName="locale" value="i-default" waitEvent="change"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('i-default')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setLocale_zh_TW_test_3" 
+				  description="testcase for Construct CV with no parameter in action scripts , then set locale to some supported locale" 
+				  keywords="[CurrencyFormatter, Constructor, set locale, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <SetStyle target="uiCustomValidatorComp.cvScript" styleName="locale" value="zh_TW" waitEvent="change"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh_TW')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setProperty_useGrouping_true_test_4" 
+				  description="testcase for Construct CV with no parameter in action scripts , then set some properties in action scripts" 
+				  keywords="[CurrencyFormatter, Constructor, set properties, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <SetStyle target="uiCustomValidatorComp.cvScript" styleName="locale" value="en_US" waitEvent="change"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="uiCustomValidatorComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <RunCode code="cfGSLib.decimalSeparator=';'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setLocaleInline_test_5" 
+				  description="testcase for Declare a cf inline" 
+				  keywords="[CurrencyFormatter, Constructor, set properties, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <SetStyle target="uiCustomValidatorComp.cvProg" styleName="locale" value="i-default" waitEvent="change"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('i-default')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvProg" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvProg" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setPropertyInline_trailingZeros_false_test_6" 
+				  description="testcase for Declare cf object inline with some properties" 
+				  keywords="[CurrencyFormatter, Constructor, set properties, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvDefault" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setPropertyInline_decimalSeparator_semicolon_test_7" 
+				  description="testcase for Declare cf object inline with some properties" 
+				  keywords="[CurrencyFormatter, Constructor, set properties, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cfGSLib.decimalSeparator=';'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvDefaultProp" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvDefaultProp" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_setPropertyInline_groupingSeparator_semicolon_test_8" 
+				  description="testcase for Declare cf object inline with some properties" 
+				  keywords="[CurrencyFormatter, Constructor, set properties, lastOperationStatus, actualLocaleIDName]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en_US')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <RunCode code="cfGSLib.groupingSeparator=';'"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty target="uiCustomValidatorComp.cvDefault" propertyName="groupingSeparator" value=";" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvDefault" propertyName="actualLocaleIDName" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_Constructor_binding_lastOperationStatus_test_9" 
+				  description="Binding lastOperationStatus by lable text" 
+				  keywords="[CurrencyFormatter, Constructor, binding, lastOperationStatus]">
+            <setup>
+                <ResetComponent target="uiCustomValidatorComp" className="assets.CustomValidatorComp" waitEvent="updateComplete" waitTarget="uiCustomValidatorComp"/>
+                <RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle target="uiCustomValidatorComp.cvProg" styleName="locale" value="ar-JO" waitEvent="change"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvLabel_actLocale" propertyName="text" valueExpression="value=cfGSLib.actualLocaleIDName"/>
+                <AssertPropertyValue target="uiCustomValidatorComp.cvLabel_lastOpt" propertyName="text" valueExpression="value=cfGSLib.lastOperationStatus"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/primitives/Graphic/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_MXML.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+    <!-- Rect properties -->
+        <TestCase testID="GraphicTags_Rect_width_MXML" description="A Rect width is set correctly in mxml" keywords="[Rect, MXML, width, Graphic]">
+            <body>
+                <AssertPixelValue value="0x00FF00" x="0" y="10" target="canvas1" />
+                <AssertPixelValue value="0x93A9B4" x="151" y="10" target="canvas1" />
+                <AssertPixelValue value="0x00FF00" x="149" y="10" target="canvas1" />
+                <AssertPropertyValue value="150" propertyName="width" target="canvas1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Rect_height_MXML" description="A Rect height is set correctly in mxml" keywords="[Rect, MXML, height, Graphic]">
+            <body>
+                <AssertPixelValue value="0x00FF00" x="16" y="0" target="canvas1" />
+                <AssertPixelValue value="0x93A9B4" x="16" y="82" target="canvas1" />
+                <AssertPixelValue value="0x00FF00" x="16" y="79" target="canvas1" />
+                <AssertPropertyValue value="80" propertyName="height" target="canvas1.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Rect_xy_MXML" description="Rect x and y is set correctly in mxml" keywords="[Rect, MXML, x, Graphic]">
+            <body>
+                <AssertPixelValue value="0xFFFFFF" x="19" y="50" target="graphic2" />
+                <AssertPixelValue value="0xFFFFFF" x="20" y="49" target="graphic2" />
+                <AssertPixelValue value="0x0000FF" x="20" y="50" target="graphic2" />
+                <AssertPixelValue value="0xFFFFFF" x="122" y="50" target="graphic2" />
+                <AssertPixelValue value="0x0000FF" x="119" y="50" target="graphic2" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Rect_radiusXY_MXML" description="Rect radiusX and radiusY is set correctly in mxml" keywords="[Rect, MXML, x, Graphic]">
+            <body>
+                <CompareBitmap url="../Properties/baselines/radiusStyles_MXML.png" target="graphic1" timeout="2000" />
+            </body>
+        </TestCase>
+    <!-- Line properties -->
+        <TestCase testID="GraphicTags_Line_xFromYFrom_MXML" description="Line yTo, xFrom is set in mxml" keywords="[Line, yFrom, MXML, xFrom, Graphic]">
+            <body>
+                <AssertPixelValue value="0x6A6A6A" x="10" y="5" target="graphic3" />
+                <AssertPixelValue value="0xFFFFFF" x="8" y="5" target="graphic3" />
+                <AssertPixelValue value="0xFFFFFF" x="10" y="3" target="graphic3" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Line_xToYFrom_MXML" description="Line xTo, yTo is set in mxml" keywords="[Line, MXML, yTo, xTo, Graphic]">
+            <body>
+                <AssertPixelValue value="0xDFDFDF" x="50" y="70" target="graphic3" />
+                <AssertPixelValue value="0xFFFFFF" x="52" y="70" target="graphic3" />
+                <AssertPixelValue value="0xFFFFFF" x="50" y="68" target="graphic3" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Line_visible" description="Line visible property is false, set in mxml" keywords="[Line, MXML, visible, Graphic]">
+            <body>
+                <AssertPixelValue value="0xFFFFFF" x="85" y="15" target="graphic3" />
+                <AssertPixelValue value="0xFFFFFF" x="85" y="50" target="graphic3" />
+                <AssertPixelValue value="0xFFFFFF" x="85" y="80" target="graphic3" />
+            </body>
+        </TestCase>
+    <!-- Ellipse properties -->
+        <TestCase testID="GraphicTags_Ellipse_widthHeightXY" description="Test for setting width, height, x and y for Ellipse in MXML" keywords="[Ellipse, width, height, x, y, MXML, visible, Graphic]">
+            <body>
+                <CompareBitmap url="../Properties/baselines/ellipse_basicMXMLProperties.png" target="graphic4" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Ellipse_visibleFalse" description="Test for setting visible=false Ellipse in MXML" keywords="[Ellipse, visible, MXML, visible, Graphic]">
+            <body>
+                <AssertPixelValue value="0xFFFFFF" x="71" y="163" target="graphic4" />
+                <AssertPixelValue value="0xFFFFFF" x="49" y="131" target="graphic4" />
+                <AssertPixelValue value="0xFFFFFF" x="138" y="160" target="graphic4" />
+            </body>
+        </TestCase>
+    <!-- Path Bezier Curve Segments -->
+        <TestCase testID="GraphicTags_Path_QuadraticBezierSegment" description="Test for setting control1X, control1Y, x and y for a QuadraticBezierSegment in MXML" keywords="[QuadraticBezierSegment, control1X, control1Y, x, y, MXML, Graphic]">
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic5" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_LineCubicBezierSegment" description="Test for setting a Path with a
+             CubicBezierSegement and LineSegment in mxml" keywords="[CubicBezierSegment, LineSegment, MXML, Graphic]">
+            <body>
+                <SetProperty propertyName="visible" value="false" target="path2" waitEvent="updateComplete" waitTarget="graphic5" /> <!-- graphic5.getItemAt(2) -->
+                <CompareBitmap url="../Properties/baselines/cubicBezierSegment_mxml.png" target="graphic5" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_Path_CompactSyntax" description="Test for the compact syntax used for Path data." keywords="[CubicBezierSegment, LineSegment, compact syntax, MXML, Graphic]">
+            <body>
+                <SetProperty propertyName="visible" value="false" target="path2" /> <!-- graphic5.getItemAt(2) -->
+                <SetProperty propertyName="visible" value="false" target="path1" waitEvent="updateComplete" waitTarget="graphic5" /> <!-- graphic5.getItemAt(1) -->
+                <CompareBitmap url="../Properties/baselines/Path_compactSyntax_mxml.png" target="graphic5" timeout="2000" />
+            </body>
+        </TestCase>
+<!--TextGraphic -->
+        <TestCase testID="GraphicTags_TextGraphic_widthxy" description="Test x, y, and width properties for TextGraphic." keywords="[TextGraphic, MXML, Graphic]">
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="textGraphic" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_TextGraphic_height" description="Test height properties for TextGraphic." keywords="[TextGraphic, MXML, Graphic]">
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="textGraphic" />
+            </body>
+        </TestCase>
+        <TestCase testID="GraphicTags_TextGraphic_fontFamilyStyleDecoration" description="Test styles fontFamily, fontStyle and textDecoration for TextGraphic." keywords="[TextGraphic, MXML, Graphic]">
+            <body>
+                <CompareBitmap url="../Properties/baselines/textGraphic_fontFamilyStyleDecoration_mxml.png" numColorVariances="5" maxColorVariance="20" target="graphic3" timeout="2000" />
+            </body>
+        </TestCase>
+<!-- BitmapImage -->
+        <TestCase testID="GraphicTags_BitmapGraphic" description="Test setting width, height, and source for a BitmapGraphic." keywords="[Bitmap, MXML, Graphic]">
+            <body>
+                <SetProperty target="graphic6.getElementAt(0)" propertyName="fillMode" value="clip" waitEvent="updateComplete"
+                    waitTarget="graphic6" />
+                <CompareBitmap url="../Properties/baselines/bitmapGraphic_mxml.png" target="graphic6" timeout="2000" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

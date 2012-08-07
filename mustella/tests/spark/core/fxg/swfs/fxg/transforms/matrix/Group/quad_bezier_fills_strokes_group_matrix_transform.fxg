@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--                                                                                  									-->
+<!-- FXG 1.0 Tests of  cubic                                               									-->
+<!-- Quadratic bezier curves drawn with commands, M, m, Q. q. T. t. Z, z   with a group matrix coordinate transformation   		  	-->
+<!-- There are 7 subtests, each composed from the quadric Bezier path commands per
+the label by the subtest.  On-curve control points (i.e., the curve position)
+are marked by small colored squares.  Subtests are filled, or stroked, or 
+both, using simple style properties and colors.
+
+This is a test that the viewer has the basic capability to handle the 'path' element and data (d) attribute in combination with the quadratic Bezier curveto commands and coordinate transformation matrix, both regular and shorthand/smooth forms - Q, q, T, t (along with Mm and Zz).   
+
+The top group comprises of 7 paths and the bottom group comrpises of the same paths with the exception that a group
+matrix coordinate transformation has been applied to the  group.                                                                         										  -->
+<!-- Author : Vivek Agrawal  3 March-2009                       										-->
+<!--                                                                       											-->
+<!-- History:                                                              											-->
+<!--  3 March-2009, created.                                         										-->
+<!-- ==========================================								-->
+<!-- ==========================================								-->
+<Graphic version="1.0" viewHeight="359" viewWidth="479" xmlns="http://ns.adobe.com/fxg/2008">
+<!--======================================================================-->
+<!--Content of Test Case follows...                                                      =====================-->
+<!--======================================================================-->
+  
+	  <!-- ====================================================================== -->
+	  <!-- Quad Bezier with sub-path using M, Q, M, q, & z ====================== -->
+	  <!-- ====================================================================== -->
+
+<Group >
+      <Path winding="nonZero" data="M  15   20      Q  30  120    130   30      M 180   80      q  -75 -100    -163  -60z" >
+        <stroke>
+          <SolidColorStroke color="#0000ff" caps="none" weight="3" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+   
+      <Rect x="13" y="18" width="4" height="4">
+        <fill>
+          <SolidColor color="#00c000"/>
+        </fill>
+      </Rect>
+      <Rect x="128" y="28" width="4" height="4">
+        <fill>
+          <SolidColor color="#00c000"/>
+        </fill>
+      </Rect>
+      <Rect x="178" y="78" width="4" height="4">
+        <fill>
+          <SolidColor color="#00c000"/>
+        </fill>
+      </Rect>
+      <Rect x="15" y="18" width="4" height="4">
+        <fill>
+          <SolidColor color="#00c000"/>
+        </fill>
+      </Rect>
+      <!-- ====================================================================== -->
+      <!-- Quad Bezier with sub-path using M, Q, z, m, q, z =================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero" data="M 372 130   Q 272 50   422 10 z   m7 0    q  50  -150   -80  -90  z" >
+        <fill>
+          <SolidColor color="#ffff00"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke color="#cf0000" caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+
+      <Rect x="370" y="128" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="420" y="8" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="440" y="128" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="360" y="38" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <!-- ====================================================================== -->
+      <!-- Simple Bezier using M, Q, & Z ======================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero" data="M  224 103   Q  234  -12   304 33 Z" >
+        <stroke>
+          <SolidColorStroke color="#00ffff" caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>	
+      </Path>
+   
+      <Rect x="222" y="101" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="302" y="31" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <!-- ====================================================================== -->
+      <!-- Tri Bezier using M, Q, T, Q, & z ===================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="M  208 168   Q  258 268   308 168  T  258 118   Q128 88    208 168  z" >
+        <fill>
+          <SolidColor color="#00c000"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+ 
+      <Rect x="206" y="166" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="306" y="166" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="256" y="116" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="206" y="206" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <!-- ====================================================================== -->
+      <!-- Double Bezier using M, Q, Q, & z ===================================== -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data=" M   60 100      Q  -40 150      60 200      Q  160 150      60 100       z  " >
+        <fill>
+          <SolidColor color="#cf0000"/>
+        </fill>
+      </Path>
+ 
+      <Rect x="58" y="98" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="58" y="198" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="58" y="98" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <!-- ====================================================================== -->
+      <!-- Sin Wave using M, q, t, t, t, t, & z ================================ -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="M  240  296   q  25  -100    47   0  t   47 0  t  47 0  t   47 0  t   47 0 z" >
+        <stroke>
+          <SolidColorStroke color="#ff0000" caps="none" weight="1" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+  
+      <Rect x="238" y="294" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="285" y="294" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="332" y="294" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="379" y="294" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="426" y="294" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <Rect x="473" y="294" width="4" height="4">
+        <fill>
+          <SolidColor color="#0000ff"/>
+        </fill>
+      </Rect>
+      <!-- ====================================================================== -->
+      <!-- Double Spade using M, q, Q, q, Q, & z ================================ -->
+      <!-- ====================================================================== -->
+      <Path winding="nonZero"  data="M  172 193   q   -100   50    0   50   Q 72  243   172  293  q   100  -50   0   -50   Q   272  243    172 193 z" >
+        <fill>
+          <SolidColor color="#0000c0"/>
+        </fill>
+        <stroke>
+          <SolidColorStroke color="#00cf00" caps="none" weight="2" joints="miter" miterLimit="4"/>
+        </stroke>
+      </Path>
+ 
+      <Rect x="170" y="191" width="4" height="4">
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>
+      </Rect>
+      <Rect x="170" y="241" width="4" height="4">
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>
+      </Rect>
+      <Rect x="170" y="291" width="4" height="4">
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>
+      </Rect>
+      <Rect x="170" y="241" width="4" height="4">
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>
+      </Rect>
+      <Rect x="170" y="191" width="4" height="4">
+        <fill>
+          <SolidColor color="#ff0000"/>
+        </fill>
+      </Rect>
+  
+      <Rect x="0.5" y="0.5" width="478" height="358" >
+       <stroke>
+        <SolidColorStroke caps="none" weight="1" joints="miter" miterLimit="4"/>
+       </stroke>
+      </Rect>
+      <!--transform>
+		<Transform>
+			<matrix>
+				<Matrix tx="100.0" ty="200.0" a="0" b="1" c="1" d="1"/>
+			</matrix>
+		</Transform>
+        </transform-->
+</Group>
+</Graphic>

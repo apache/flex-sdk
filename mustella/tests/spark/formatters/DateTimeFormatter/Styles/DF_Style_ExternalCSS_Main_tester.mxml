@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="DF_Style_ExternalCSS_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import flash.globalization.DateTimeFormatter;
+			public var flashDF:flash.globalization.DateTimeFormatter;
+			
+			private var aDate:Date =  new Date(2000, 0, 1);
+			
+			public static function init(o:DisplayObject):void 
+			{
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	<!--This test file is to test whether DateTimeFormatter can load style from an external css style file. Here include three ways of css defination: class selector, type selector and id selector  -->
+	<testCases>
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_long_long_test1" description="typeSelector 'zh-TW','long','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','long','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterTypeSelector" value="long" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_medium_long_test2" description="typeSelector 'zh-TW','medium','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','medium','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterTypeSelector2" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector2.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_none_long_test3" description="typeSelector 'zh-TW','none','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','none','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterTypeSelector3" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector3.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_short_long_test4" description="typeSelector 'zh-TW','short','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','short','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterTypeSelector4" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector4.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_long_short_test5" description="typeSelector" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','long','short')" />
+				<Pause timeout="200" />
+				<!--Needs to reset dateStyle to long, because in previous test cases it has already change to "short" and what's more there is no <ResetComponent> -->
+				<SetProperty propertyName="dateStyle" target="dtFormatterTypeSelector5" value="long"/>
+				<SetProperty propertyName="timeStyle" target="dtFormatterTypeSelector5" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector5.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_long_medium_test6" description="typeSelector 'zh-TW','long','medium'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','long','medium')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterTypeSelector6" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector6.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!--Test cases 1-7 are for typeSelector -->
+		<TestCase testID="DF_ExternalCSS_typeSelector_zh_CN_long_none_test7" description="typeSelector 'zh-TW','long','none'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh-TW','long','none')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterTypeSelector7" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterTypeSelector7.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_long_long_test8" description="IdSelector 'ru-RU','long','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterIdSelector" value="long"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_medium_long_test9" description="IdSelector 'ru-RU','medium','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','medium','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterIdSelector9" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector9.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_none_long_test10" description="IdSelector 'ru-RU','none','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','none','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterIdSelector10" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector10.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_short_long_test11" description="IdSelector 'ru-RU','short','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','short','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterIdSelector11" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector11.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_long_short_test12" description="IdSelector 'ru-RU','long','short'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','short')" />
+				<Pause timeout="200" />
+				<!--Needs to reset dateStyle to long, because in previous test cases it has already change to "short" and what's more there is no <ResetComponent> -->
+				<SetProperty propertyName="dateStyle" target="dtFormatterIdSelector12" value="long"/>
+				<SetProperty propertyName="timeStyle" target="dtFormatterIdSelector12" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector12.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_long_medium_test13" description="IdSelector 'ru-RU','long','medium'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','medium')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterIdSelector13" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector13.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+		<!-- Test cases 8-14 are for IdSelector -->
+		<TestCase testID="DF_ExternalCSS_IdSelector_ru_RU_long_none_test14" description="IdSelector 'ru-RU','long','none'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','none')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterIdSelector14" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterIdSelector14.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_long_long_test15" description="ClassSelector, 'fr-CH','long','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','long','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterClassSelector" value="long"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_medium_long_test16" description="ClassSelector 'fr-CH','medium','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','medium','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterClassSelector16" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector16.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_none_long_test17" description="ClassSelector 'fr-CH','none','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','none','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterClassSelector17" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector17.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_short_long_test18" description="ClassSelector 'fr-CH','short','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','short','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterClassSelector18" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector18.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_long_short_test19" description="ClassSelector 'fr-CH','long','short'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','long','short')" />
+				<Pause timeout="200" />
+				<!--Needs to reset dateStyle to long, because in previous test cases it has already change to "short" and what's more there is no <ResetComponent> -->
+				<SetProperty propertyName="dateStyle" target="dtFormatterClassSelector19" value="long"/>
+				<SetProperty propertyName="timeStyle" target="dtFormatterClassSelector19" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector19.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_long_medium_test20" description="ClassSelector 'fr-CH','long','medium'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','long','medium')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterClassSelector20" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector20.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 15-21 are for ClassSelector -->
+		<TestCase testID="DF_ExternalCSS_ClassSelector_fr_CH_long_none_test21" description="ClassSelector 'fr-CH','long','none'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CH','long','none')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterClassSelector21" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterClassSelector21.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_frCA_long_long_test22" description="'fr-CA','long','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','long','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterExtLocal" value="long" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_fr_CA_medium_long_test23" description="'fr-CA','medium','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','medium','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterExtLocal23" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal23.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_fr_CA_none_long_test24" description="'fr-CA','none','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','none','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterExtLocal24" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal24.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_fr_CA_short_long_test25" description="'fr-CA','short','long'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','short','long')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="dateStyle" target="dtFormatterExtLocal25" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal25.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_fr_CA_long_short_test26" description="'fr-CA','long','short'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','long','short')" />
+				<Pause timeout="200" />
+				<!--Needs to reset dateStyle to long, because in previous test cases it has already change to "short" and what's more there is no <ResetComponent> -->
+				<SetProperty propertyName="dateStyle" target="dtFormatterExtLocal26" value="long"/>
+				<SetProperty propertyName="timeStyle" target="dtFormatterExtLocal26" value="short" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal26.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_fr_CA_long_medium_test27" description="'fr-CA','long','medium'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','long','medium')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterExtLocal27" value="medium" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal27.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase> 
+		<!-- Test cases 22-28 are to test inheritance from external style file and local style when two styles has conflict -->
+		<TestCase testID="DF_ExternalCSS_styleInheritance_fr_CA_long_none_test28" description="'fr-CA','long','none'" keywords="[DateTimeFormatter, style extern]">
+			<setup>
+				<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','long','none')" />
+				<Pause timeout="200" />
+				<SetProperty propertyName="timeStyle" target="dtFormatterExtLocal28" value="none" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dtFormatterExtLocal28.format(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			</body>
+		</TestCase>
+	</testCases>
+	
+</UnitTester>

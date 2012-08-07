@@ -1,0 +1,123 @@
+<UnitTester testDir="spark/globalization/Collator/Styles/" testSWF="CLT_locale_inheritance_module_global.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import assets.CollatorTestConstants;
+		
+		import flash.globalization.*;
+		import spark.globalization.*;
+		
+		public var cltGSLibSorting:flash.globalization.Collator;
+		public var cltGSLibMatching:flash.globalization.Collator;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CLT_locale_inheritance_default_test_1" description="the test case is for Checking default locale style inheritance" keywords="[Collator, locale, style inherit]">
+            <setup>
+				<RunCode code="cltGSLibSorting=new flash.globalization.Collator('zh-CN')"/>
+				<RunCode code="cltGSLibMatching=new flash.globalization.Collator('zh-CN','matching')"/>
+                <ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+				<SetProperty target="" propertyName="globalLocale" value="zh-CN" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibSorting.actualLocaleIDName"/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="lastOperationStatus" valueExpression="value=cltGSLibSorting.lastOperationStatus"/>
+				<AssertEvent target="styleComp.child.cltSorting" eventName="change" eventClass="flash.events::Event"/>
+				
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibMatching.actualLocaleIDName"/>
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="lastOperationStatus" valueExpression="value=cltGSLibMatching.lastOperationStatus"/>
+				<AssertEvent target="styleComp.child.cltMatching" eventName="change" eventClass="flash.events::Event"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnLoad" waitTarget="styleComp" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+		
+		
+        <TestCase testID="CLT_locale_inheritance_default_test_2" description="the test case is for Checking default locale style inheritance" keywords="[Collator, locale, style inherit]">
+            <setup>
+				<RunCode code="cltGSLibSorting=new flash.globalization.Collator('ru')"/>
+				<RunCode code="cltGSLibMatching=new flash.globalization.Collator('ru','matching')"/>
+                <ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+                
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+				<SetProperty target="" propertyName="globalLocale" value="ru" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+				
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibSorting.actualLocaleIDName"/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="lastOperationStatus" valueExpression="value=cltGSLibSorting.lastOperationStatus"/>
+				<AssertEvent target="styleComp.child.cltSorting" eventName="change" eventClass="flash.events::Event"/>
+				
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibMatching.actualLocaleIDName"/>
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="lastOperationStatus" valueExpression="value=cltGSLibMatching.lastOperationStatus"/>
+				<AssertEvent target="styleComp.child.cltMatching" eventName="change" eventClass="flash.events::Event"/>
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnLoad" waitTarget="styleComp" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+		
+		
+        <TestCase testID="CLT_locale_inheritance_default_compare_test_3" description="the test case is for Checking default locale style inheritance" keywords="[Collator, locale, style inherit]">
+            <setup>
+				<RunCode code="cltGSLibSorting=new flash.globalization.Collator('fr')"/>
+				<RunCode code="cltGSLibMatching=new flash.globalization.Collator('fr','matching')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="cltGSLibMatching.ignoreCase=false"/>
+                <ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+                
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+				<SetProperty target="" propertyName="globalLocale" value="fr" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+				
+				<AssertMethodValue method="value=application.styleComp.child.cltSorting.compare('côte','coté')" valueExpression="value=cltGSLibSorting.compare('côte','coté')"/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="lastOperationStatus" valueExpression="value=cltGSLibSorting.lastOperationStatus"/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibSorting.actualLocaleIDName"/>
+				<AssertEvent target="styleComp.child.cltSorting" eventName="change" eventClass="flash.events::Event"/>
+				
+				<SetProperty target="styleComp.child.cltMatching" propertyName="ignoreCase" value="false" waitEvent="change"/>
+				<AssertMethodValue method="value=application.styleComp.child.cltMatching.compare('cÔte','côte')" valueExpression="value=cltGSLibMatching.compare('cÔte','côte')"/>
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="lastOperationStatus" valueExpression="value=cltGSLibMatching.lastOperationStatus"/>
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibMatching.actualLocaleIDName"/>
+				<AssertEvent target="styleComp.child.cltMatching" eventName="change" numExpectedEvents="2" eventClass="flash.events::Event"/>
+				
+            </body>
+            <cleanup>
+                <DispatchMouseClickEvent target="btUnLoad" waitTarget="styleComp" waitEvent="unload"/>
+            </cleanup>
+        </TestCase>
+        <TestCase testID="CLT_locale_inheritance_default_equals_with_test_4" description="the test case is for Checking default locale style inheritance" keywords="[Collator, locale, style inherit]">
+            <setup>
+				<RunCode code="cltGSLibSorting=new flash.globalization.Collator('fr')"/>
+				<RunCode code="cltGSLibMatching=new flash.globalization.Collator('fr','matching')"/>
+				<Pause timeout="{CollatorTestConstants.pauseTime}"/>
+				<RunCode code="cltGSLibSorting.ignoreCase=true"/>
+				<ResetComponent target="styleComp" className="mx.modules.ModuleLoader" waitEvent="updateComplete" waitTarget="styleComp"/>
+				
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="bt" localX="5" localY="5" waitTarget="" waitEvent="uiCustomModuleLoadDone"/>
+				<SetProperty target="" propertyName="globalLocale" value="fr" waitEvent="myGlobalLocaleChangedEve" waitTarget=""/>
+				
+				<SetProperty target="styleComp.child.cltSorting" propertyName="ignoreCase" value="true" waitEvent="change"/>
+				<AssertMethodValue method="value=application.styleComp.child.cltSorting.equals('cÔte','côte')" valueExpression="value=cltGSLibSorting.equals('cÔte','côte')"/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="lastOperationStatus" valueExpression="value=cltGSLibSorting.lastOperationStatus"/>
+				<AssertPropertyValue target="styleComp.child.cltSorting" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibSorting.actualLocaleIDName"/>
+				
+				<AssertMethodValue method="value=application.styleComp.child.cltMatching.equals('cÔte','côte')" valueExpression="value=cltGSLibMatching.equals('cÔte','côte')"/>
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="lastOperationStatus" valueExpression="value=cltGSLibMatching.lastOperationStatus"/>
+				<AssertPropertyValue target="styleComp.child.cltMatching" propertyName="actualLocaleIDName" valueExpression="value=cltGSLibMatching.actualLocaleIDName"/>
+				
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

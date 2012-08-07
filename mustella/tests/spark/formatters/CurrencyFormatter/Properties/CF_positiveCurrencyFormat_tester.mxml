@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/CurrencyFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="cf_positiveCurrencyFormat.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.CFConstant;			
+			import flash.globalization.*;
+			
+			public var cfGSLib:flash.globalization.CurrencyFormatter;
+			
+			// for testing function of positiveCurrencyFormat by setting useCurrencySymbol as true 
+			public var cfGSLibFormat1:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat3:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibFormat4:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			
+			// for testing function of positiveCurrencyFormat without setting useCurrencySymbol
+			public var cfGSLibRandomFormat1:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat2:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat3:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public var cfGSLibRandomFormat4:flash.globalization.CurrencyFormatter = new flash.globalization.CurrencyFormatter("en-US");
+			public static function init(o:DisplayObject):void
+			{ 
+			} 
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		
+		[Mixin]
+		
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file tests positiveCurrencyFormat property-->
+	<testCases>
+		<!--Set/Get default positiveCurrencyFormat properties -->
+		<TestCase testID="cf_positiveCurrencyFormat_default_test1" description="Set/Get default positiveCurrencyFormat properties" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfNoLocaleInline" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+				<AssertPropertyValue target="cfNoLocaleInline" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--get positiveCurrencyFormat default value with setting locale to "ar-JO"-->
+		<TestCase testID="cf_positiveCurrencyFormat_ar_JO_test2" description="get positiveCurrencyFormat default value with setting locale to ar-JO" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<ResetComponent target="cfNoLocaleInline" className="spark.formatters.CurrencyFormatter"/> 
+				<RunCode code="application.cfNoLocaleInline.initialized(null,'cfNoLocaleInline')"/>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetStyle target="cfNoLocaleInline" styleName="locale" value="ar-JO" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfNoLocaleInline" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>
+		
+		<!--get positiveCurrencyFormat default value with setting locale to "zh_CN"-->
+		<TestCase testID="cf_positiveCurrencyFormat_zh_CN_test3" description="get positiveCurrencyFormat default value with setting locale to zh_CN" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<ResetComponent target="cfNoLocaleInline" className="spark.formatters.CurrencyFormatter"/> 
+				<RunCode code="application.cfNoLocaleInline.initialized(null,'cfNoLocaleInline')"/>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh_CN')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetStyle target="cfNoLocaleInline" styleName="locale" value="zh_CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfNoLocaleInline" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>	
+		
+		<!--set positiveCurrencyFormate as positive value-->
+		<TestCase testID="cf_positiveCurrencyFormat_setValue_positive_test4" description="set positiveCurrencyFormate as positive value" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.positiveCurrencyFormat=0" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetProperty target="cfPositive1" propertyName="positiveCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+				<SetStyle target="cfPositive1" styleName="locale" value="en-US" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfPositive1" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+				<AssertPropertyValue target="cfPositive1" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		
+		<!--set positiveCurrencyFormate as positive value-->
+		<TestCase testID="cf_positiveCurrencyFormat_setValue_positive_test5" description="et positiveCurrencyFormate as positive value" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('fr-FR')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.positiveCurrencyFormat=3" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetProperty target="cfPositive2" propertyName="positiveCurrencyFormat" valueExpression="value=3" waitEvent="change"/>
+				<SetStyle target="cfPositive1" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfPositive2" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+				<AssertPropertyValue target="cfPositive2" propertyName="lastOperationStatus" valueExpression="value=cfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--set positiveCurrencyFormate as illegal value-->
+		<TestCase testID="cf_positiveCurrencyFormat_illegal_test6" description="set positiveCurrencyFormate as illegal value" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="application.setGSLibpositiveCurrencyFormat('en-US',-1)" />
+				<SetStyle target="cfScript" styleName="locale" value="en-US" waitEvent="change"/>
+				<RunCode code="application.setcfpositiveCurrencyFormat(application.cfScript,-1)" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfErrorLabel" propertyName="text" valueExpression="value=application.cfGslibErrorLabel.text"/>
+				<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.cfGSLibTestError.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--set positiveCurrencyFormate as illegal value-->
+		<TestCase testID="cf_positiveCurrencyFormat_illegal_test7" description="set positiveCurrencyFormate as illegal value" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+				<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="application.setGSLibpositiveCurrencyFormat('en-US',5)" />
+				<SetStyle target="cfScript" styleName="locale" value="en-US" waitEvent="change"/>
+				<RunCode code="application.setcfpositiveCurrencyFormat(application.cfScript,5)" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfErrorLabel" propertyName="text" valueExpression="value=application.cfGslibErrorLabel.text"/>
+				<AssertPropertyValue target="cfScript" propertyName="lastOperationStatus" valueExpression="value=application.cfGSLibTestError.lastOperationStatus"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set positiveCurrencyFormat with inline definition -->
+		<TestCase testID="cf_positiveCurrencyFormat_inline_test8" description="Set positiveCurrencyFormat with inline definition" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLib.positiveCurrencyFormat=3" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfInline" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>	
+		
+		<!--Set positiveCurrencyFormat from <fx:script>-->
+		<TestCase testID="cf_positiveCurrencyFormat_positiveCurrencyFormat_script_test9" description="Set positiveCurrencyFormat in script" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<ResetComponent target="cfScript" className="spark.formatters.CurrencyFormatter"/> 
+				<RunCode code="application.cfScript.initialized(null,'cfScript')"/>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('en-US')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="application.setcfpositiveCurrencyFormat(application.cfScript,2)" />
+				<RunCode code="cfGSLib.positiveCurrencyFormat=2" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfScript" propertyName="positiveCurrencyFormat" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>	
+		
+		<!-- Test function of positiveCurrencyFormat by setting useCurrencySymbol as true -->
+		<TestCase testID="cf_positiveCurrencyFormat_useCurrencySymbol_test10" description="Test function of positiveCurrencyFormat by setting useCurrencySymbol as true" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLibFormat1.positiveCurrencyFormat=0" />
+				<RunCode code="cfGSLibFormat2.positiveCurrencyFormat=1" />
+				<RunCode code="cfGSLibFormat3.positiveCurrencyFormat=2" />
+				<RunCode code="cfGSLibFormat4.positiveCurrencyFormat=3" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<RunCode code="cfGSLibFormat1.negativeSymbol='-'" />
+				<RunCode code="cfGSLibFormat2.negativeSymbol='-'" />
+				<RunCode code="cfGSLibFormat3.negativeSymbol='-'" />
+				<RunCode code="cfGSLibFormat4.negativeSymbol='-'" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetProperty target="cfFormat1" propertyName="positiveCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+				<SetProperty target="cfFormat2" propertyName="positiveCurrencyFormat" valueExpression="value=1" waitEvent="change"/>
+				<SetProperty target="cfFormat3" propertyName="positiveCurrencyFormat" valueExpression="value=2" waitEvent="change"/>
+				<SetProperty target="cfFormat4" propertyName="positiveCurrencyFormat" valueExpression="value=3" waitEvent="change"/>		
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.cfFormat1.format(12345789.456)" valueExpression="value=cfGSLibFormat1.format(12345789.456,true)" />
+				<AssertMethodValue method="value=application.cfFormat2.format(22345789.456)" valueExpression="value=cfGSLibFormat2.format(22345789.456,true)" />
+				<AssertMethodValue method="value=application.cfFormat3.format(32345789.456)" valueExpression="value=cfGSLibFormat3.format(32345789.456,true)" />
+				<AssertMethodValue method="value=application.cfFormat4.format(42345789.456)" valueExpression="value=cfGSLibFormat4.format(42345789.456,true)" />
+			</body>
+		</TestCase>	
+		
+		<!-- Test function of positiveCurrencyFormat without setting useCurrencySymbol-->
+		<TestCase testID="cf_positiveCurrencyFormat_without_useCurrencySymbol_test11" description="Test function of positiveCurrencyFormat without setting useCurrencySymbol" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLibRandomFormat1.positiveCurrencyFormat=0" />
+				<RunCode code="cfGSLibRandomFormat2.positiveCurrencyFormat=1" />
+				<RunCode code="cfGSLibRandomFormat3.positiveCurrencyFormat=2" />
+				<RunCode code="cfGSLibRandomFormat4.positiveCurrencyFormat=3" />
+				<Pause timeout="{CFConstant.pauseTime}"/>			
+				<SetProperty target="cfRandomFormat1" propertyName="positiveCurrencyFormat" valueExpression="value=0" waitEvent="change"/>
+				<SetProperty target="cfRandomFormat2" propertyName="positiveCurrencyFormat" valueExpression="value=1" waitEvent="change"/>
+				<SetProperty target="cfRandomFormat3" propertyName="positiveCurrencyFormat" valueExpression="value=2" waitEvent="change"/>
+				<SetProperty target="cfRandomFormat4" propertyName="positiveCurrencyFormat" valueExpression="value=3" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.cfRandomFormat1.format(12345789.456)" valueExpression="value=cfGSLibRandomFormat1.format(12345789.456)" />
+				<AssertMethodValue method="value=application.cfRandomFormat2.format(22345789.456)" valueExpression="value=cfGSLibRandomFormat2.format(22345789.456)" />
+				<AssertMethodValue method="value=application.cfRandomFormat3.format(32345789.456)" valueExpression="value=cfGSLibRandomFormat3.format(32345789.456)" />
+				<AssertMethodValue method="value=application.cfRandomFormat4.format(42345789.456)" valueExpression="value=cfGSLibRandomFormat4.format(42345789.456)" />
+			</body>
+		</TestCase>	
+		
+		<!-- binding positiveCurrencyFormat value by changing locale-->
+		<TestCase testID="cf_positiveCurrencyFormat_binding_test12" description="binding positiveCurrencyFormat value by changing locale" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<ResetComponent target="cfBinding" className="spark.formatters.CurrencyFormatter"/> 
+				<RunCode code="application.cfBinding.initialized(null,'cfBinding')"/>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetStyle target="cfBinding" styleName="locale" value="zh-CN" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfLabel" propertyName="text" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>	
+		
+		<!--Binding property when locale change-->
+		<TestCase testID="CF_positiveCurrencyFormat_binding_test13" description="Binding property when locale change" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('ar-JO')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetStyle target="cfBLocale1" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="cfBLocale1" styleName="locale" value="ar-JO"/>
+				<AssertEvent target="cfLa" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="cfLa" propertyName="text" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>	
+		
+		<!--Binding property when locale change-->
+		<TestCase testID="CF_positiveCurrencyFormat_binding_test14" description="Binding property when locale change" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<RunCode code="cfGSLib=new flash.globalization.CurrencyFormatter('zh-CN')" />
+				<Pause timeout="{CFConstant.pauseTime}"/>
+				<SetStyle target="cfBLocale2" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetStyle target="cfBLocale2" styleName="locale" value="zh-CN"/>
+				<AssertEvent target="cfLb" eventName="updateComplete" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="cfLb" propertyName="text" valueExpression="value=cfGSLib.positiveCurrencyFormat"/>
+			</body>
+		</TestCase>	
+		
+		<!-- if property positiveCurrencyFormat has been set inline, it doesnot change with locale -->
+		<TestCase testID="CF_positiveCurrencyFormat_inline_changeLocale_test15" description="if property positiveCurrencyFormat has been set inline, it doesnot change with locale" keywords="[CurrencyFormatter, positiveCurrencyFormat]">
+			<setup>
+				<SetStyle target="cfInline_ChangeLocale" styleName="locale" value="fr-FR" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cfInline_ChangeLocale" propertyName="positiveCurrencyFormat" valueExpression="value=1"/>
+			</body>
+		</TestCase>	
+		
+	</testCases>
+	
+</UnitTester>

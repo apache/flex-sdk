@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" testSWF="DF_StyleManager_Main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.globalization.*;
+			public var dFlashShort:flash.globalization.DateTimeFormatter;
+			public var dFlashLong:flash.globalization.DateTimeFormatter;
+			public var dFlashNone:flash.globalization.DateTimeFormatter;
+			public var dFlashMedium:flash.globalization.DateTimeFormatter;
+			public var tFlashShort:flash.globalization.DateTimeFormatter;
+			public var tFlashLong:flash.globalization.DateTimeFormatter;
+			public var tFlashNone:flash.globalization.DateTimeFormatter;
+			public var tFlashMedium:flash.globalization.DateTimeFormatter;
+			private var aDate:Date =  new Date(2000, 0, 1);
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!--This test file is to test set style by StyleManager -->
+	<testCases>
+		<!--Test cases 1 is for testing current style -->
+		<TestCase testID="DF_StyleManager_currentStyle_test1" description="Test cases 1 is for testing current style " keywords="[DateTimeFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testDateFormatter('1')"  />
+				<SetProperty target="dFShort" propertyName="dateStyle" value="short" waitEvent="change"/>
+				<SetProperty target="dFLong" propertyName="dateStyle" value="long" />
+				<SetProperty target="dFNone" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<SetProperty target="dFMedium" propertyName="dateStyle" value="medium" waitEvent="change"/>
+				<SetProperty target="tFShort" propertyName="timeStyle" value="short" waitEvent="change"/>
+				<SetProperty target="tFLong" propertyName="timeStyle" value="long" />
+				<SetProperty target="tFNone" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<SetProperty target="tFMedium" propertyName="timeStyle" value="medium" waitEvent="change"/>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('en_US','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('en_US','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('en_US','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('en_US','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('en_US','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('en_US','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('en_US','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('en_US','long','medium')" />
+				<Pause timeout="200" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dFShort.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLong.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dFNone.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dFMedium.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.tFShort.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLong.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.tFNone.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.tFMedium.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+		<!--Test cases 2 is using styleManger API to set styles using global Selector CSS style -->		
+		<TestCase testID="DF_StyleManager_global_test2" description="Test cases 2 is using styleManger API to set styles using global Selector CSS style" keywords="[DateTimeFormatter,StyleManager]">
+			<setup>				
+				<RunCode code="application.testDateFormatter('2')"  />
+				<SetProperty target="dFShort2" propertyName="dateStyle" value="short" waitEvent="change"/>
+				<SetProperty target="dFLong2" propertyName="dateStyle" value="long" />
+				<SetProperty target="dFNone2" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<SetProperty target="dFMedium2" propertyName="dateStyle" value="medium" waitEvent="change"/>
+				<SetProperty target="tFShort2" propertyName="timeStyle" value="short" waitEvent="change"/>
+				<SetProperty target="tFLong2" propertyName="timeStyle" value="long" />
+				<SetProperty target="tFNone2" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<SetProperty target="tFMedium2" propertyName="timeStyle" value="medium" waitEvent="change"/>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('fr_FR','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('fr_FR','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('fr_FR','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('fr_FR','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('fr_FR','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('fr_FR','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('fr_FR','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('fr_FR','long','medium')" />
+				<Pause timeout="200" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dFShort2.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLong2.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dFNone2.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dFMedium2.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.tFShort2.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLong2.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.tFNone2.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.tFMedium2.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+		<!--Test cases 3 is using styleManger API to set styles using Type Selector CSS style -->	
+		<TestCase testID="DF_StyleManager_typeSelector_test3" description="Test cases 3 is using styleManger API to set styles using Type Selector CSS style" keywords="[DateTimeFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testDateFormatter('3')"  />
+				<SetProperty target="dFShort3" propertyName="dateStyle" value="short" waitEvent="change"/>
+				<SetProperty target="dFLong3" propertyName="dateStyle" value="long" />
+				<SetProperty target="dFNone3" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<SetProperty target="dFMedium3" propertyName="dateStyle" value="medium" waitEvent="change"/>
+				<SetProperty target="tFShort3" propertyName="timeStyle" value="short" waitEvent="change"/>
+				<SetProperty target="tFLong3" propertyName="timeStyle" value="long" />
+				<SetProperty target="tFNone3" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<SetProperty target="tFMedium3" propertyName="timeStyle" value="medium" waitEvent="change"/>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('ru_RU','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('ru_RU','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('ru_RU','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('ru_RU','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('ru_RU','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('ru_RU','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('ru_RU','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('ru_RU','long','medium')" />
+				<Pause timeout="200" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dFShort3.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLong3.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dFNone3.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dFMedium3.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.tFShort3.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLong3.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.tFNone3.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.tFMedium3.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+		<!--Test cases 4 is using styleManger API to set styles using Class Selector CSS style -->	
+		<TestCase testID="DF_StyleManager_classSelector_test4" description="Test cases 4 is using styleManger API to set styles using Class Selector CSS style" keywords="[DateTimeFormatter,StyleManager]">
+			<setup>				
+				<RunCode code="application.testDateFormatter('4')"  />
+				<SetProperty target="dFLocalShort" propertyName="dateStyle" value="short" waitEvent="change"/>
+				<SetProperty target="dFLocalLong" propertyName="dateStyle" value="long" />
+				<SetProperty target="dFLocalNone" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<SetProperty target="dFLocalMedium" propertyName="dateStyle" value="medium" waitEvent="change"/>
+				<SetProperty target="tFLocalShort" propertyName="timeStyle" value="short" waitEvent="change"/>
+				<SetProperty target="tFLocalLong" propertyName="timeStyle" value="long" />
+				<SetProperty target="tFLocalNone" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<SetProperty target="tFLocalMedium" propertyName="timeStyle" value="medium" waitEvent="change"/>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('ja_JP','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('ja_JP','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('ja_JP','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('ja_JP','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('ja_JP','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('ja_JP','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('ja_JP','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('ja_JP','long','medium')" />
+				<Pause timeout="200" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dFLocalShort.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLocalLong.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLocalNone.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLocalMedium.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalShort.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalLong.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalNone.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalMedium.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+		<!--test loading Class Selector style CSS declaration using styleManager  API-->
+		<TestCase testID="DF_StyleManager_loadingClassSelecltor_test5" description="test loading Class Selector style CSS declaration using styleManager  API" keywords="[DateTimeFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testDateFormatter('5')"  />
+				<SetProperty target="dFShort5" propertyName="dateStyle" value="short" waitEvent="change"/>
+				<SetProperty target="dFLong5" propertyName="dateStyle" value="long" />
+				<SetProperty target="dFNone5" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<SetProperty target="dFMedium5" propertyName="dateStyle" value="medium" waitEvent="change"/>
+				<SetProperty target="tFShort5" propertyName="timeStyle" value="short" waitEvent="change"/>
+				<SetProperty target="tFLong5" propertyName="timeStyle" value="long" />
+				<SetProperty target="tFNone5" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<SetProperty target="tFMedium5" propertyName="timeStyle" value="medium" waitEvent="change"/>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('de_DE','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('de_DE','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('de_DE','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('de_DE','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('de_DE','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('de_DE','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('de_DE','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('de_DE','long','medium')" />
+				<Pause timeout="200" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dFShort5.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLong5.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dFNone5.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dFMedium5.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.tFShort5.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLong5.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.tFNone5.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.tFMedium5.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+		<!--Test cases 6 is using styleManger API to clear style -->	
+		<TestCase testID="DF_StyleManager_clearStyle_test6" description="using styleManger API to clear style" keywords="[DateTimeFormatter,StyleManager]">
+			<setup>
+				<RunCode code="application.testDateFormatter('6')"  />
+				<SetProperty target="dFLocalShort6" propertyName="dateStyle" value="short" waitEvent="change"/>
+				<SetProperty target="dFLocalLong6" propertyName="dateStyle" value="long" />
+				<SetProperty target="dFLocalNone6" propertyName="dateStyle" value="none" waitEvent="change"/>
+				<SetProperty target="dFLocalMedium6" propertyName="dateStyle" value="medium" waitEvent="change"/>
+				<SetProperty target="tFLocalShort6" propertyName="timeStyle" value="short" waitEvent="change"/>
+				<SetProperty target="tFLocalLong6" propertyName="timeStyle" value="long" />
+				<SetProperty target="tFLocalNone6" propertyName="timeStyle" value="none" waitEvent="change"/>
+				<SetProperty target="tFLocalMedium6" propertyName="timeStyle" value="medium" waitEvent="change"/>
+				<RunCode code="dFlashShort=new flash.globalization.DateTimeFormatter('en_US','short')" />
+				<RunCode code="dFlashLong=new flash.globalization.DateTimeFormatter('en_US','long')" />
+				<RunCode code="dFlashNone=new flash.globalization.DateTimeFormatter('en_US','none')" />
+				<RunCode code="dFlashMedium=new flash.globalization.DateTimeFormatter('en_US','medium')" />
+				<RunCode code="tFlashShort=new flash.globalization.DateTimeFormatter('en_US','long','short')" />
+				<RunCode code="tFlashLong=new flash.globalization.DateTimeFormatter('en_US','long','long')" />
+				<RunCode code="tFlashNone=new flash.globalization.DateTimeFormatter('en_US','long','none')" />
+				<RunCode code="tFlashMedium=new flash.globalization.DateTimeFormatter('en_US','long','medium')" />
+				<Pause timeout="200" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.dFLocalShort6.format(aDate)" valueExpression="value=dFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLocalLong6.format(aDate)" valueExpression="value=dFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLocalNone6.format(aDate)" valueExpression="value=dFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.dFLocalMedium6.format(aDate)" valueExpression="value=dFlashMedium.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalShort6.format(aDate)" valueExpression="value=tFlashShort.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalLong6.format(aDate)" valueExpression="value=tFlashLong.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalNone6.format(aDate)" valueExpression="value=tFlashNone.format(aDate)" />
+				<AssertMethodValue method="value=application.tFLocalMedium6.format(aDate)" valueExpression="value=tFlashMedium.format(aDate)" />
+			</body>
+		</TestCase>
+	</testCases>
+	
+</UnitTester>

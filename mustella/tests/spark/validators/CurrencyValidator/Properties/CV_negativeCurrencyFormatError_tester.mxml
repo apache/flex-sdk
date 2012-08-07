@@ -1,0 +1,173 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Properties/" testSWF="CV_negativeCurrencyFormatError.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.CVConstant;
+			
+			import mx.validators.CurrencyValidator;
+			
+			import flash.globalization.LocaleID;
+			import spark.validators.CurrencyValidator;
+			import spark.globalization.LastOperationStatus;
+			
+			public var cvGSLib:flash.globalization.CurrencyFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		
+		[Mixin]
+		
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_negativeCurrencyFormatError_default_test_1" description="the test case is for Checking default negativeCurrencyFormatError" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="CV_negativeCurrencyFormatError_default_test_1_2" description="the test case is for Checking default negativeCurrencyFormatError" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="application.createCV()"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_negativeCurrencyFormatError_zh_CN_test_5" description="the test case is for Checking negativeCurrencyFormatError for specified locale" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('fr-xx')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<SetStyle styleName="locale" target="cv" value="fr-xx" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cv" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+				<AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.USING_FALLBACK_WARNING"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_negativeCurrencyFormatError_zh_CN_test_4" description="the test case is for Checking negativeCurrencyFormatError for specified locale" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cv.initialized(null,'cv')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<RunCode code="cvGSLib=new flash.globalization.CurrencyFormatter('ar-xx')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+				<SetStyle styleName="locale" target="cv" value="ar-xx" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="cv" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+				<AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.USING_FALLBACK_WARNING"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="CV_negativeCurrencyFormatError_setnegativeCurrencyFormatError_test_2" description="the test case is for setting negativeCurrencyFormatError for default locale" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetProperty propertyName="negativeCurrencyFormatError" target="cv" value="this is negativeCurrencyFormatError"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="negativeCurrencyFormatError" value="this is negativeCurrencyFormatError"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+		
+		
+        <TestCase testID="CV_negativeCurrencyFormatError_setnegativeCurrencyFormatError_test_3" description="set negativeCurrencyFormatError for specified locale" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cv" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cv.initialized(null,'cv')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cv" value="zh_CN" waitEvent="change"/>
+                <SetProperty propertyName="negativeCurrencyFormatError" target="cv" value="this is negativeCurrencyFormatError"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cv" propertyName="negativeCurrencyFormatError" value="this is negativeCurrencyFormatError"/>
+                <AssertPropertyValue target="cv" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CV_negativeCurrencyFormatError_setnegativeCurrencyFormatError_test_6" description="set negativeCurrencyFormatError in script" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+                <RunCode code="application.setCVnegativeCurrencyFormatError(application.cvScript, 'this is negativeCurrencyFormatError')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormatError" value="this is negativeCurrencyFormatError"/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+		
+        <TestCase testID="CV_negativeCurrencyFormatError_inline_test_7" description="Set negativeCurrencyFormatError from inline" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup/>
+            <body>
+                <AssertPropertyValue target="cvInline" propertyName="negativeCurrencyFormatError" value="this is negativeCurrencyFormatError"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_negativeCurrencyFormatError_invalid_test_8" description="set invalid negativeCurrencyFormatError" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="en-US" waitEvent="change"/>
+                <RunCode code="application.setCVnegativeCurrencyFormatError(application.cvScript,'')"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_negativeCurrencyFormatError_nall_test_9" description="set negativeCurrencyFormatError to nall" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+            <setup>
+                <ResetComponent target="cvScript" className="spark.validators.CurrencyValidator"/>
+                <RunCode code="application.cvScript.initialized(null,'cvScript')"/>
+                <Pause timeout="{CVConstant.pauseTime}"/>
+                <SetStyle styleName="locale" target="cvScript" value="zh_CN" waitEvent="change"/>
+                <RunCode code="application.setCVnegativeCurrencyFormatError(application.cvScript,null)"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="cvScript" propertyName="negativeCurrencyFormatError" value="The negative format of the input currency is incorrect."/>
+                <AssertPropertyValue target="cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="CV_negativeCurrencyFormatError_binding_inline_test_10" description="check binding with inline CV" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+			<setup>
+				<ResetComponent target="cvBinding" className="spark.validators.CurrencyValidator"/>
+				<RunCode code="application.cvBinding.initialized(null,'cvBinding')"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="cvBinding" propertyName="negativeCurrencyFormatError" value="this is new" waitEvent="change"/>
+				<AssertPropertyValue target="inlineLB" propertyName="text" value="this is new"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CV_negativeCurrencyFormatError_binding_script_test_11" description="check binding with script CV" keywords="[CurrencyValidator, negativeCurrencyFormatError]">
+			<setup>
+				<RunCode code="application.creCV(application.cvScriptBinding)"/>
+				<Pause timeout="{CVConstant.pauseTime}"/>
+			</setup>
+			<body>
+				<SetProperty target="cvScriptBinding" propertyName="negativeCurrencyFormatError" value="this is newer" waitEvent="change"/>
+				<AssertPropertyValue target="scriptLB" propertyName="text" value="this is newer"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

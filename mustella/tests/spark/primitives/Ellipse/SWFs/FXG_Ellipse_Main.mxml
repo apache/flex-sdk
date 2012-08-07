@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="comps.*" width="800" height="700">
+
+    <fx:Declarations>
+        <!-- These transforms should make the rotation -20 -->
+        <s:Transform id="transform_move_rotate1">
+	       <s:matrix>
+	           <s:Matrix a="0.9396926207859084" b="-0.3420201433256687" c="0.3420201433256687" d="0.9396926207859084"
+	               tx="215" ty="400" />
+	        </s:matrix>
+        </s:Transform>
+        <s:Transform id="transform_move_rotate2">
+	       <s:matrix>
+	           <s:Matrix a="0.9396926207859084" b="-0.3420201433256687" c="0.3420201433256687" d="0.9396926207859084"
+	               tx="215" ty="400" />
+	        </s:matrix>
+        </s:Transform>
+        <s:Transform id="transform_move_rotate3">
+	       <s:matrix>
+	           <s:Matrix a="0.9396926207859084" b="-0.3420201433256687" c="0.3420201433256687" d="0.9396926207859084"
+	               tx="215" ty="400" />
+	        </s:matrix>
+        </s:Transform>
+        <s:Transform id="transform_move_rotate4">
+	       <s:matrix>
+	           <s:Matrix a="0.9396926207859084" b="-0.3420201433256687" c="0.3420201433256687" d="0.9396926207859084"
+	               tx="215" ty="400" />
+	        </s:matrix>
+        </s:Transform>
+        <s:Transform id="transform_move_rotate5">
+	       <s:matrix>
+	           <s:Matrix a="0.9396926207859084" b="-0.3420201433256687" c="0.3420201433256687" d="0.9396926207859084"
+	               tx="215" ty="400" />
+	        </s:matrix>
+        </s:Transform>
+        <s:Transform id="transform_move_rotate6">
+	       <s:matrix>
+	           <s:Matrix a="0.9396926207859084" b="-0.3420201433256687" c="0.3420201433256687" d="0.9396926207859084"
+	               tx="215" ty="215" />
+	        </s:matrix>
+        </s:Transform>
+        <s:Matrix id="transform_rotate1" a="132" b="49" c="-50" d="-10" tx="0" ty="0"/>
+        <s:Matrix id="transform_rotate2" a="132" b="49" c="-50" d="-10" tx="25" ty="35"/>
+        <s:Matrix id="transform_xy1" a="100" b="10" c="-50" d="100" tx="10" ty="0"/>
+        <s:Matrix id="transform_xy2" a="100" b="10" c="-50" d="100" tx="15" ty="35"/>
+    </fx:Declarations>
+
+<!-- 200x200 Canvas with Ellipse at (5, 5) -->
+<local:EllipseBasic id="graphic1" />
+
+<!-- 75x75 Group with Ellipse at (5, 215) -->
+<local:myEllipseVfalse id="myEllipse_Vfalse" />
+
+<!-- 75x75 Group with Ellipse at (215, 5) -->
+<local:myEllipseVtrue id="myEllipse_Vtrue" />
+
+<!-- 50x60 Group with Ellipse at (310, 5) -->
+<local:EllipseGradientStroke id="ellipse_linearGradientStroke" />
+
+<!-- 50x60 Group with Ellipse at (375, 420) -->
+<local:EllipseRadialGradientStroke id="ellipse_radialGradientStroke" />
+
+<!-- 60x60 Ellipse at (100, 310) -->
+<local:EllipseRotateMatrix id="ellipse_rotate_matrix" />
+
+<!-- 60x60 Ellipse at (500, 500) -->
+<local:EllipseMoveXYMatrix id="ellipse_xy_matrix" />
+
+<!-- 60x60 Ellipse at (225, 350) -->
+<local:EllipseScaleMatrix id="ellipse_scale_matrix" />
+
+<!-- 60x60 Ellipse at (100, 310) visible=false-->
+<local:EllipseRotateMatrix2 id="ellipse_rotate_matrix_override" />
+
+<!-- 60x60 Ellipse at (500, 500) visible=false-->
+<local:EllipseMoveXYMatrix2 id="ellipse_xy_matrix_override" />
+
+<!-- 60x60 Ellipse at (225, 350) visible=false-->
+<local:EllipseScaleMatrix2 id="ellipse_scale_matrix_override" />
+
+</s:Application>

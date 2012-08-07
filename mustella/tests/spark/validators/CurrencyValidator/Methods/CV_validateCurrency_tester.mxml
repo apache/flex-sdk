@@ -1,0 +1,366 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_validateCurrency.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant; 	
+		import mx.events.ValidationResultEvent;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_validateCurrency_valid_test_1" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="ja_JP"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" value="JPY12,345"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" value="CNY12,345.40"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="2"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_valid_test_2" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="fr"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="currencyISOCode" value="JPY"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="fractionalDigits" value="2"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="currencyISOCode" value="CNY"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" value="JPY12345"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" value="CNY12345.40"/>
+				<DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiBindableLb" propertyName="text" value="false"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiBindableLbScript" propertyName="text" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_3" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="fr"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="currencyISOCode" value="JPY"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="fractionalDigits" value="2"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="currencyISOCode" value="CNY"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" valueExpression="value=application.uiCustomCompCurrency.uiTI"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" valueExpression="value=application.uiCustomCompCurrency.uiScriptTI"/>
+				<DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.parseErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.parseErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiBindableLb" propertyName="text" value="true"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiBindableLbScript" propertyName="text" value="true"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_valid_test_4" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="de"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <SetProperty target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiInvalidLb"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency.uiTI" propertyName="text" value="EUR12.345,40" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiTI"/>
+                <SetProperty target="uiCustomCompCurrency.uiScriptTI" propertyName="text" value="12.40" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiScriptTI"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethodScript" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="2"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_5" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="ja_JP"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" value="CNY12,345"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" value="$12,345.40"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_6" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="fr"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="fractionalDigits" value="3"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="zh"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+				<SetProperty target="uiCustomCompCurrency.cvScript" propertyName="fractionalDigits" value="3"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" value="CNY12,345"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" value="$12,345.40"/>
+				<DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiBindableLb" propertyName="text" value="true"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiBindableLbScript" propertyName="text" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_7" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="de"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <SetProperty target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiInvalidLb"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency.uiTI" propertyName="text" value="CNY12.345,40" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiTI"/>
+                <SetProperty target="uiCustomCompCurrency.uiScriptTI" propertyName="text" value="JNY12.40" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiScriptTI"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethodScript" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_valid_test_8" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="ja_JP"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" valueExpression="value=''"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" valueExpression="value=''"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="2"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_valid_test_9" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="de"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <SetProperty target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiInvalidLb"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency.uiTI" propertyName="text" valueExpression="value=''"/>
+                <SetProperty target="uiCustomCompCurrency.uiScriptTI" propertyName="text" valueExpression="value=''"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethodScript" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="2"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_10" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="ja_JP"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" valueExpression="value=undefined"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_valid_test_11" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="de"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <SetProperty target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiInvalidLb"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency.uiTI" propertyName="text" valueExpression="value=undefined"/>
+                <SetProperty target="uiCustomCompCurrency.uiScriptTI" propertyName="text" valueExpression="value=undefined"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethodScript" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="2"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_12" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="ja_JP"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyStr" valueExpression="value=null"/>
+                <SetProperty target="uiCustomCompCurrency" propertyName="currencyScriptStr" valueExpression="value=null"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethod" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_validateCurrency_invalid_test_13" description="testcase for validateCurrency method with mainly different way user used" keywords="[CurrencyValidator, validateCurrency, default, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomCompCurrency" className="assets.CustomCompCurrency" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="required" value="true"/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvDefault" styleName="locale" value="de"/>
+                <SetProperty target="uiCustomCompCurrency.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomCompCurrency.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetStyle waitEvent="change" target="uiCustomCompCurrency.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <SetProperty target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="text" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiInvalidLb"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomCompCurrency.uiTI" propertyName="text" valueExpression="value=null"/>
+                <SetProperty target="uiCustomCompCurrency.uiScriptTI" propertyName="text" valueExpression="value=null"/>
+                <DispatchMouseEvent target="uiCustomCompCurrency.uiBTMethodScript" type="click" waitEvent="updateComplete" waitTarget="uiCustomCompCurrency.uiValidLb"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvDefault" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.cvScript" propertyName="lastOperationStatus" valueExpression="value=CVConstant.noErrorMsg"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomCompCurrency.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiValidLb" propertyName="text" value="2"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiOtherLb" propertyName="text" value="0"/>
+                <AssertPropertyValue target="uiCustomCompCurrency.uiInvalidLb" propertyName="text" value="0"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

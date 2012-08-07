@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:TabNavigator
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	width="600" height="500" creationPolicy="all">
+
+    <fx:Script>
+        <![CDATA[
+		private function raiseOpen(event:Event):void
+		{
+			this.dispatchEvent(new Event('openComplete', true));
+		}
+		]]>
+    </fx:Script>
+
+    <mx:Accordion label="Controls 1" width="100%" height="100%" creationPolicy="all">
+        <mx:Canvas id="can_Button" label="Button" width="100%" height="100%">
+            <mx:Button id="control_Button" width="100" height="30" x="20" y="20" label="Hello World"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_ButtonBar" label="ButtonBar" width="100%" height="100%">
+            <mx:ButtonBar id="control_ButtonBar" width="200" height="30" x="20" y="20">
+                <fx:String>1</fx:String>
+                <fx:String>2</fx:String>
+                <fx:String>3</fx:String>
+            </mx:ButtonBar>
+        </mx:Canvas>
+        <mx:Canvas id="can_CheckBox" label="CheckBox" width="100%" height="100%">
+            <mx:CheckBox id="control_CheckBox" x="20" y="20" label="Hello World"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_ColorPicker" label="ColorPicker" width="100%" height="100%">
+            <mx:ColorPicker id="control_ColorPicker" x="20" y="20" />
+        </mx:Canvas>
+        <mx:Canvas id="can_ComboBox" label="ComboBox" width="100%" height="100%">
+            <mx:ComboBox id="control_ComboBox" width="200" x="20" y="20" />
+        </mx:Canvas>
+        <mx:Canvas id="can_DataGrid" label="DataGrid" width="100%" height="100%">
+            <mx:DataGrid id="control_DataGrid" width="200" x="20" y="20"
+	            dataProvider="[1,2,3,4,5]"
+	            selectedIndex="2">
+                <mx:columns>
+                    <mx:DataGridColumn headerText="Left" />
+                    <mx:DataGridColumn headerText="Right" />
+                </mx:columns>
+            </mx:DataGrid>
+        </mx:Canvas>
+        <mx:Canvas id="can_DateChooser" label="DateChooser" width="100%" height="100%">
+            <mx:DateChooser id="control_DateChooser" width="200" x="20" y="20" selectedDate="{new Date(2007, 0, 1)}"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_DateField" label="DateField" width="100%" height="100%">
+            <mx:DateField id="control_DateField" width="200" x="20" y="20" />
+        </mx:Canvas>
+        <mx:Canvas id="can_HorizontalList" label="HorizontalList" width="100%" height="100%">
+            <mx:HorizontalList id="control_HorizontalList" width="200" x="20" y="20">
+                <s:Button label="1"/>
+                <s:Button label="2"/>
+                <s:Button label="3"/>
+            </mx:HorizontalList>
+        </mx:Canvas>
+        <mx:Canvas id="can_HRule" label="HRule" width="100%" height="100%">
+            <mx:HRule id="control_HRule" width="200" x="20" y="20"/>
+        </mx:Canvas>
+    </mx:Accordion>
+    <mx:Accordion label="Controls 2" width="100%" height="100%" creationPolicy="all">
+        <mx:Canvas id="can_HScrollBar" label="HScrollBar" width="100%" height="100%">
+            <mx:HScrollBar id="control_HScrollBar" width="200" height="20" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_HSlider" label="HSlider" width="100%" height="100%">
+            <mx:HSlider id="control_HSlider" width="200" height="20" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_Image" label="Image" width="100%" height="100%">
+            <mx:Image id="control_Image" width="50" height="50" x="20" y="20" source="../../../../../../Assets/Images/redrect.jpg"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_Label" label="Label" width="100%" height="100%">
+            <mx:Label id="control_Label" width="200" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_LinkBar" label="LinkBar" width="100%" height="100%">
+            <mx:LinkBar id="control_LinkBar" height="30">
+                <fx:String>1</fx:String>
+                <fx:String>2</fx:String>
+                <fx:String>3</fx:String>
+            </mx:LinkBar>
+        </mx:Canvas>
+        <mx:Canvas id="can_LinkButton" label="LinkButton" width="100%" height="100%">
+            <mx:LinkButton id="control_LinkButton" width="200" height="30" label="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_List" label="List" width="100%" height="100%">
+            <mx:List id="control_List" width="200" height="50" x="20" y="20">
+                <s:Button label="1"/>
+                <s:Button label="2"/>
+                <s:Button label="3"/>
+            </mx:List>
+        </mx:Canvas>
+        <mx:Canvas id="can_MenuBar" label="MenuBar" width="100%" height="100%">
+            <mx:MenuBar id="control_MenuBar" width="200" height="40" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_NumericStepper" label="NumericStepper" width="100%" height="100%">
+            <mx:NumericStepper id="control_NumericStepper" width="200" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_PopUpButton" label="PopUpButton" width="100%" height="100%">
+            <mx:PopUpButton id="control_PopUpButton" width="200" height="30" label="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+    </mx:Accordion>
+    <mx:Accordion label="Controls 3" width="100%" height="100%" creationPolicy="all">
+        <mx:Canvas id="can_PopUpMenuButton" label="PopUpMenuButton" width="100%" height="100%">
+            <mx:PopUpMenuButton id="control_PopUpMenuButton" width="200" height="30" label="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_ProgressBar" label="ProgressBar" width="100%" height="100%">
+            <mx:ProgressBar id="control_ProgressBar" width="200" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_RadioButton" label="RadioButton" width="100%" height="100%">
+            <mx:RadioButton id="control_RadioButton" width="200" label="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_RichTextEditor" label="RichTextEditor" width="100%" height="100%">
+            <mx:RichTextEditor id="control_RichTextEditor" width="200" height="200" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_TabBar" label="TabBar" width="100%" height="100%">
+            <mx:TabBar id="control_TabBar" width="200" x="20" y="20">
+                <fx:String>1</fx:String>
+                <fx:String>2</fx:String>
+                <fx:String>3</fx:String>
+            </mx:TabBar>
+        </mx:Canvas>
+        <mx:Canvas id="can_Text" label="Text" width="100%" height="100%">
+            <mx:Text id="control_Text" width="200" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_TextArea" label="TextArea" width="100%" height="100%">
+            <mx:TextArea id="control_TextArea" width="200" height="50" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_TextInput" label="TextInput" width="100%" height="100%">
+            <mx:TextInput id="control_TextInput" width="200" height="50" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_TileList" label="TileList" width="100%">
+            <mx:TileList id="control_TileList" width="200" height="50">
+                <s:Button label="1"/>
+                <s:Button label="2"/>
+                <s:Button label="3"/>
+            </mx:TileList>
+        </mx:Canvas>
+        <mx:Canvas id="can_ToggleButtonBar" label="ToggleButtonBar" width="100%" height="100%">
+            <mx:ToggleButtonBar id="control_ToggleButtonBar" width="200" x="20" y="20">
+                <fx:String>1</fx:String>
+                <fx:String>2</fx:String>
+                <fx:String>3</fx:String>
+            </mx:ToggleButtonBar>
+        </mx:Canvas>
+    </mx:Accordion>
+    <mx:Accordion label="Controls 4" width="100%" height="100%" creationPolicy="all">
+        <mx:Canvas id="can_Tree" label="Tree" width="100%" height="100%">
+            <mx:Tree id="control_Tree" width="200" height="50" x="20" y="20" dataProvider="[One, Two, Three, Four, Five]"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_VRule" label="VRule" width="100%" height="100%">
+            <mx:VRule id="control_VRule" width="200" height="50" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_VScrollBar" label="VScrollBar" width="100%" height="50">
+            <mx:VScrollBar id="control_VScrollBar" width="200" height="20" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_VSlider" label="VSlider" width="100%" height="100%">
+            <mx:VSlider id="control_VSlider" width="200" height="50" x="20" y="20"/>
+        </mx:Canvas>
+    </mx:Accordion>
+    <mx:Accordion label="Components" width="100%" height="100%" creationPolicy="all">
+        <mx:Canvas id="can_FxButton" label="FxButton" width="100%" height="100%">
+            <s:Button id="control_FxButton" width="100" height="30" x="20" y="20" label="Hello World"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxCheckBox" label="FxCheckBox" width="100%" height="100%">
+            <s:CheckBox id="control_FxCheckBox" x="20" y="20" label="Hello World"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxHScrollBar" label="FxHScrollBar" width="100%" height="100%">
+            <s:HScrollBar id="control_FxHScrollBar" width="200" height="20" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxHSlider" label="FxHSlider" width="100%" height="100%">
+            <s:HSlider id="control_FxHSlider" width="200" height="20" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxNumericStepper" label="FxNumericStepper" width="100%" height="100%">
+            <s:NumericStepper id="control_FxNumericStepper" width="200" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxRadioButton" label="FxRadioButton" width="100%" height="100%">
+            <s:RadioButton id="control_FxRadioButton" width="200" label="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxTextArea" label="FxTextArea" width="100%" height="100%">
+            <s:TextArea id="control_FxTextArea" width="200" height="50" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxTextInput" label="FxTextInput" width="100%" height="100%">
+            <s:TextInput id="control_FxTextInput" width="200" height="50" text="Hello World" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxToggleButton" label="FxToggleButton" width="100%" height="100%">
+            <s:ToggleButton id="control_FxToggleButton" width="200" height="30" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxVScrollBar" label="FxVScrollBar" width="100%" height="50">
+            <s:VScrollBar id="control_FxVScrollBar" height="100" x="20" y="20"/>
+        </mx:Canvas>
+        <mx:Canvas id="can_FxVSlider" label="FxVSlider" width="100%" height="100%">
+            <s:VSlider id="control_FxVSlider" width="20" height="50" x="20" y="20"/>
+        </mx:Canvas>
+    </mx:Accordion>
+    <mx:Accordion label="FxG" width="100%" height="100%">
+        <mx:Canvas id="can_Triangle" label="Triangle" width="100%" height="100%">
+            <s:Group id="control_FxGTriangle"
+		    	left="50"
+		    	top="50"
+		    	height="50"
+		    	width="50">
+                <s:Path data="M 50 50 L 0 0 50 0 Z" >
+                    <s:fill>
+                        <mx:SolidColor id="testFill2" color="0x00FF00"/>
+                    </s:fill>
+                    <s:stroke>
+                        <mx:SolidColorStroke id="testStroke2" color="0x0000FF" weight="5"/>
+                    </s:stroke>
+                </s:Path>
+            </s:Group>
+        </mx:Canvas>
+    </mx:Accordion>
+
+</mx:TabNavigator>

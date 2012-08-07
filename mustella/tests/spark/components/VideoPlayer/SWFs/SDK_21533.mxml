@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+    width="1000" height="1000"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:trix="Components.*"
+    backgroundColor="0xFFFFFF">
+
+	<fx:Style source="EmbeddedFonts.css"/>
+
+	<s:VideoPlayer id="testPlayer"
+        width="300"
+        autoPlay="false" />
+
+</s:Application>

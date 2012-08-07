@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/validators/NumberValidator/Others/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="NV_ModuleUsage.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.NVConstants;
+			
+			import flash.globalization.NationalDigitsType;
+			import flash.globalization.NumberFormatter;
+			
+			import mx.validators.NumberValidatorDomainType;
+			public var nfGSLib:flash.globalization.NumberFormatter;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- tests property and method of Module Usage -->
+	<testCases>
+		<!--test properties of module-->
+		<TestCase testID="NV_ModuleUsage_actualLocaleIDName_test1" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-JO')" />
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<!--Due to no event defined in custom component, no waitEvent here. Same for all below cases-->
+				<SetProperty target="NVModule.child" propertyName="locale" value="ar-JO" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="actualLocaleIDName" valueExpression="value=nfGSLib.actualLocaleIDName"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ModuleUsage_allowNegative_test2" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="allowNegative" value="false"/>
+				<!--<SetProperty target="NVModule.child" propertyName="locale" value="zh-CN" waitTarget="NVModule.child.nvC" waitEvent="change"/>-->
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="allowNegative" value="false"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="12345" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="NV_ModuleUsage_decimalSeparator_test3" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE')"/>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="nfGSLib.decimalSeparator=';'"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="decimalSeparator" value=";"/>
+				<SetProperty target="NVModule.child" propertyName="fractionalDigits" value="1"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="de-DE" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="decimalSeparator" valueExpression="value=nfGSLib.decimalSeparator"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-1234;7" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NV_ModuleUsage_domain_test4" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="567.89" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="NV_ModuleUsage_fractionalDigits_test5" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ar-SA')"/>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="nfGSLib.fractionalDigits=2"/>
+				<RunCode code="nfGSLib.decimalSeparator='.'"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="fractionalDigits" value="2"/>
+				<SetProperty target="NVModule.child" propertyName="decimalSeparator" value="."/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="ar-SA" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="fractionalDigits" valueExpression="value=nfGSLib.fractionalDigits"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+				<SetProperty target="nvSourceTI" propertyName="text" valueExpression="value=nfGSLib.formatNumber(12.20)" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="NV_ModuleUsage_groupingPattern_test6" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('ja-JP')"/>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="ja-JP" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<SetProperty target="nvSourceTI" propertyName="text" value="5,123,456,78.9" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="NV_ModuleUsage_groupingSeparator_test7" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('de-DE')"/>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="nfGSLib.groupingSeparator='*'"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="groupingSeparator" value="*"/>
+				<SetProperty target="NVModule.child" propertyName="fractionalDigits" value="1"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="de-DE" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="groupingSeparator" valueExpression="value=nfGSLib.groupingSeparator"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-6*23*456,7" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_maxValue_test8" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="maxValue" value="100"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="fr-FR" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="maxValue" value="100"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="100.1" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="NV_ModuleUsage_minValue_test9" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="minValue" value="100"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="de-LI" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="minValue" value="100"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="100.1" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_negativeNumberFormat_test10" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('zh-SG')"/>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="nfGSLib.negativeNumberFormat=4"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="negativeNumberFormat" value="4"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="zh-SG" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="negativeNumberFormat" valueExpression="value=nfGSLib.negativeNumberFormat"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="(1234)" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_negativeSymbol_test11" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<RunCode code="nfGSLib=new flash.globalization.NumberFormatter('en-US')"/>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="negativeSymbol" valueExpression="value=nfGSLib.negativeSymbol"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=nfGSLib.lastOperationStatus"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="-123" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>	
+		<!--error messages-->
+		<TestCase testID="NV_ModuleUsage_decimalPointCountError_test12" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="decimalPointCountError" value="The decimal separator can occur only once."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_greaterThanMaxError_test13" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="greaterThanMaxError" value="The number entered is too large."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_fractionalDigitsError_test14" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="fractionalDigitsError" value="The amount entered has too many digits beyond the decimal point."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_notAnIntegerError_test16" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="notAnIntegerError" value="The number must be an integer."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_invalidCharError_test17" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="invalidCharError" value="The input contains invalid characters."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_invalidFormatCharsErrorr_test18" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="invalidFormatCharsError" value="One of the formatting parameters is invalid."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_lessThanMinError_test19" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="lessThanMinError" value="The amount entered is too small."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_negativeError_test20" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="negativeError" value="The amount may not be negative."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_negativeSymbolError_test21" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="negativeSymbolError" value="The negative symbol is repeated or not in right place."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_negativeNumberFormatError_test22" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="negativeNumberFormatError" value="The negative format of the input number is incorrect."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_parseError_test23" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="parseError" value="The input string could not be parsed."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_localeUndefinedError_test24" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="localeUndefinedError" value="Locale is undefined."/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<!--Module locale style-->
+		<TestCase testID="NV_ModuleUsage_localeStyle_appSelector_test25" description="test application selector of locale style in module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="" propertyName="appLocale" value="ru-RU"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="actualLocaleIDName" value="ru-RU"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_localeStyle_classSelector_test26" description="test class selector of locale style in module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="actualLocaleIDNameClass" value="ja-JP"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_localeStyle_IDSelector_test27" description="test id selector of locale style in module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="actualLocaleIDNameID" value="fr-CA"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="NV_ModuleUsage_localeStyle_inlineLocale_test28" description="test set locale inline in module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="actualLocaleIDNameInline" value="de-DE"/>
+				<AssertPropertyValue target="NVModule.child" propertyName="lastOperationStatus" valueExpression="value=NVConstants.noErrorMsg"/>
+			</body>
+		</TestCase>	
+		<!--Add new property digitsType-->
+		<TestCase testID="NV_ModuleUsage_digitsType_test29" description="test properties of module" keywords="[NumberValidator, Module]">
+			<setup>
+				<ResetComponent target="NVModule" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="btLoad" waitTarget="NVModule" waitEvent="ready"/>
+				<SetProperty target="NVModule.child" propertyName="digitsType" valueExpression="value=NationalDigitsType.DEVANAGARI"/>
+				<SetProperty target="NVModule.child" propertyName="locale" value="fr-FR" waitTarget="NVModule.child.nvC" waitEvent="change"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="NVModule.child" propertyName="digitsType" valueExpression="value=NationalDigitsType.DEVANAGARI"/>
+				<SetProperty target="nvSourceTI" propertyName="text" value="२३४५६७८९" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="triggerBT" type="click"/>
+				<AssertEvent target="NVModule.child.nvC" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+				<AssertNoEvent target="NVModule.child.nvC" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

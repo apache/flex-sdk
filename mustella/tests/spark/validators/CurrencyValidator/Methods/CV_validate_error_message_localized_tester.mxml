@@ -1,0 +1,1043 @@
+<UnitTester testDir="spark/validators/CurrencyValidator/Methods/" testSWF="CV_validate_error_message_localized.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+		import flash.globalization.*;
+		import assets.CVConstant;
+		import mx.events.ValidationResultEvent;
+		import mx.validators.NumberValidatorDomainType;
+		
+		public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]></mx:Script>
+    <mx:Metadata><![CDATA[
+        [Mixin]
+    ]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="CV_errorTip_custom_currencyStringError_invalid_buttonTrig_1" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, currencySymbol, custom currencyStringError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='#'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyStringError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_currencyStringError_invalid_script_buttonTrig_2" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, currencySymbol, currencyStringError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="zh"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='#'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencyStringError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_currencyStringError_invalid_buttonTrig_3" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, currencyISOCode, custom currencyStringError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="fr-FR"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyISOCode" valueExpression="value='CNN'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyStringError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="CNY12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_currencyStringError_invalid_script_buttonTrig_4" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, currencyISOCode, currencyStringError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencyISOCode" valueExpression="value='CNN'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencyStringError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="CNY12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_negativeError_invalid_buttonTrig_5" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, allowNegative, custom negativeError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=false"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="-$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_negativeError_invalid_script_buttonTrig_6" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, allowNegative, custom negativeError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ja"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="-$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_decimalPointCountError_invalid_buttonTrig_7" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, decimalSeparator, custom decimalPointCountError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="zh-HK"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value=';'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalPointCountError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_decimalPointCountError_invalid_script_buttonTrig_8" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, decimalSeparator, custom decimalPointCountError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="de"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" valueExpression="value=';'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalPointCountError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_invalidCharError_invalid_buttonTrig_9" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom invalidCharError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="de-CH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value=';'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidCharError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_invalidCharError_invalid_script_buttonTrig_10" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom invalidCharError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="en-BZ"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" valueExpression="value=';'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="invalidCharError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_notAnIntegerError_invalid_buttonTrig_11" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, domain, custom notAnIntegerError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="en-GB"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="notAnIntegerError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_notAnIntegerError_invalid_script_buttonTrig_12" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, domain, custom notAnIntegerError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="en-HK"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="domain" valueExpression="value=NumberValidatorDomainType.INT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="notAnIntegerError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_greaterThanMaxError_invalid_buttonTrig_13" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, maxValue, custom greaterThanMaxError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="en-TT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="maxValue" valueExpression="value=10"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="greaterThanMaxError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_greaterThanMaxError_invalid_script_buttonTrig_14" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, maxValue, custom greaterThanMaxError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="es-AR"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="maxValue" valueExpression="value=10"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="greaterThanMaxError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_lessThanMinError_invalid_buttonTrig_15" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, minValue, custom lessThanMinError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="fr-BE"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="minValue" valueExpression="value=20"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="lessThanMinError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_lessThanMinError_invalid_script_buttonTrig_16" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, minValue, custom lessThanMinError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="fr-CH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="minValue" valueExpression="value=20"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="lessThanMinError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_fractionalDigitsError_invalid_buttonTrig_17" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, fractionalDigits, custom fractionalDigitsError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="haw-US"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="fractionalDigits" valueExpression="value=1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="fractionalDigitsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_fractionalDigitsError_invalid_script_buttonTrig_18" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, fractionalDigits, custom fractionalDigitsError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="hy-AM"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="fractionalDigits" valueExpression="value=1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="fractionalDigitsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_invalidCharError_invalid_buttonTrig_19" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom invalidCharError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="ml-IN"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" valueExpression="value=','"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidCharError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$123;456;789.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_invalidCharError_invalid_script_buttonTrig_20" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom invalidCharError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="nb-NO"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" valueExpression="value=','"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="invalidCharError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$123;456;789.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_negativeCurrencyFormatError_invalid_buttonTrig_21" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom negativeCurrencyFormatError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="pa-PK"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormatError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$-12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_negativeCurrencyFormatError_invalid_script_buttonTrig_22" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom negativeCurrencyFormatError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="pl-PL"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormatError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$-12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_positiveCurrencyFormatError_invalid_buttonTrig_23" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom positiveCurrencyFormatError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="ti-ET"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormatError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_positiveCurrencyFormatError_invalid_script_buttonTrig_24" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom positiveCurrencyFormatError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ar"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='$'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormatError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_localeUndefinedError_invalid_buttonTrig_25" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, locale style value, custom localeUndefinedError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="currencyISOCode" value="MNY"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="localeUndefinedError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvLocaleUndef" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomComp.cvLocaleUndef" styleName="locale" value="en"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="MNY12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvLocaleUndef" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvLocaleUndef" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_localeUndefinedError_invalid_script_buttonTrig_26" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, locale style value, custom localeUndefinedError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="currencyISOCode" value="MNY"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="localeUndefinedError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScriptLocaleUndef" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="uiCustomComp.cvScriptLocaleUndef" styleName="locale" value="en"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="$12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScriptLocaleUndef" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScriptLocaleUndef" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_negativeSymbolError_invalid_buttonTrig_27" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom negativeSymbolError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="es-EE"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeSymbolError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="--12;98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_negativeSymbolError_invalid_script_buttonTrig_28" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom negativeSymbolError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="en-US"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value=" "/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeSymbolError" valueExpression="value=CVConstant.CUST_ERROR"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="--12.98" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_parseError_invalid_buttonTrig_29" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom parseError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="fr-CH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="parseError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="1 2 3 4" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_parseError_invalid_script_buttonTrig_30" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom parseError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=";"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="parseError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="1 2 3 4" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_requiredFieldError_invalid_buttonTrig_31" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom requiredFieldError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="fr-CH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="groupingSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="requiredFieldError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value=""/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_requiredFieldError_invalid_script_buttonTrig_32" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom requiredFieldError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" value=","/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="groupingSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="requiredFieldError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value=""/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+		<!-- this test is change to valid because that at some locale, currencySymbol and currencyISOCode is same.-->
+        <TestCase testID="CV_invalidFormatCharsError_custom_invalid_buttonTrig_33" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, invalidFormatCharsError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="zh"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" value="."/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value='.'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value='ETT12,345.67'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" />
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="invalid"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_invalidFormatCharsError_invalid_buttonTrig_34" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom invalidFormatCharsError, trigger programmatically, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value=application.uiCustomComp.cvDefault.negativeSymbol"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value='.'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value=application.uiCustomComp.cvDefault.negativeSymbol + 'ETT12,345.67'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_errorTip_custom_invalidFormatCharsError_invalid_script_buttonTrig_35" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, custom invalidFormatCharsError, trigger programmatically, ActionScript, invalid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="gv"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='@'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" valueExpression="value=','"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" value="ETT12345.67" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_invalidFormatCharsError_custom_invalid_buttonTrig_36" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, invalidFormatCharsError, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="fil-PH"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='@'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value='@12,345ETT67'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_invalidFormatCharsError_custom_invalid_buttonTrig_37" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, invalidFormatCharsError, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="zh-HK"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='@'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value=','"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" valueExpression="value='-@12ETT345,67'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+		<!-- because of the same value for locale 'kk-KZ,ky-KG' on windows between negative/decimal symbols being same, negative/grouping symbol, it's valid now. -->
+        <TestCase testID="CV_invalidFormatCharsError_custom_invalid_script_buttonTrig_38" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, invalidFormatCharsError, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="ru"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='@'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" valueExpression="value=application.uiCustomComp.cvScript.negativeSymbol"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" 
+							 valueExpression="value=application.uiCustomComp.cvScript.negativeSymbol + '@12' + application.uiCustomComp.cvScript.groupingSeparator + '345' + application.uiCustomComp.cvScript.negativeSymbol + '67'" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" />
+                <AssertEvent target="uiCustomComp.cvScript" eventName="valid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="invalid"/>
+                <!--<AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>-->
+            </body>
+        </TestCase>
+        <TestCase testID="CV_invalidFormatCharsError_custom_invalid_buttonTrig_39" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, invalidFormatCharsError, trigger programmatically, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvDefault" styleName="locale" value="zh_CN"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencySymbol" valueExpression="value='@'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="decimalSeparator" valueExpression="value=application.uiCustomComp.cvDefault.groupingSeparator"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvDefault" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvDefault" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" 
+							 valueExpression="value='@12' + application.uiCustomComp.cvDefault.groupingSeparator + '345' + application.uiCustomComp.cvDefault.groupingSeparator + '67'" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <AssertEvent target="uiCustomComp.cvDefault" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvDefault" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CV_invalidFormatCharsError_custom_invalid_script_buttonTrig_40" 
+				  description="testcase for set/display localized error message when validate an invalid value." 
+				  keywords="[CurrencyValidator, invalidFormatCharsError, trigger programmatically, ActionScript, valid]">
+            <setup>
+                <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="zh"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="triggerEvent" value="click"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="positiveCurrencyFormat" value="0"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="negativeCurrencyFormat" value="1"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="allowNegative" valueExpression="value=true"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencySymbol" valueExpression="value='@'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="currencyISOCode" valueExpression="value='ETT'"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="decimalSeparator" valueExpression="value=application.uiCustomComp.cvScript.groupingSeparator"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="required" value="false"/>
+                <SetProperty target="uiCustomComp.cvScript" propertyName="invalidFormatCharsError" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="uiCustomComp.cvScript" propertyName="lastOperationStatus" valueExpression="value=LastOperationStatus.NO_ERROR"/>
+                <SetProperty target="uiCustomComp.uiTI" propertyName="text" 
+							 valueExpression="value='@12345' + application.uiCustomComp.cvScript.groupingSeparator + '67'" 
+							 waitEvent="updateComplete" waitTarget="uiCustomComp.uiTI"/>
+                <DispatchMouseEvent target="uiCustomComp.uiBT" type="click" />
+                <AssertEvent target="uiCustomComp.cvScript" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
+                <AssertNoEvent target="uiCustomComp.cvScript" eventName="valid"/>
+                <AssertPropertyValue target="uiCustomComp.uiTI" propertyName="errorString" valueExpression="value=CVConstant.CUST_ERROR_ZH"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

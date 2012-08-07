@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/globalization/StringTools/Methods/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ST_toLowerCase.mxml">
+
+    <mx:Script>
+    <![CDATA[
+		
+		import assets.StringToolsTestConstants;
+		
+		import flash.globalization.StringTools;
+		
+		import spark.globalization.StringTools;
+		
+		public var stGSLib:flash.globalization.StringTools;
+		
+        public static function init(o:DisplayObject):void
+        { 
+        }
+		
+    ]]>
+    </mx:Script>
+
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+<!--This test file is to test "toLowerCase()" method-->
+<testCases>
+	<!--case1 to case 5 test instances defined in <fx:Script> -->
+	<!--test valid locale, zh_CN -->
+	<TestCase testID="StringTools_toLowerCase_zh_CN_script_test1" description="test valid locale, zh_CN" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('zh-CN')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="st_Script" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('greek')" 
+							   valueExpression="value=stGSLib.toLowerCase('greek')"/>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('Æ Ä')" 
+							   valueExpression="value=stGSLib.toLowerCase('Æ Ä')"/>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('Turkish I: iI &amp; ıİ; Greek: ΣςσβΰΐΣ; German: ß')" 
+							   valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ; Greek: ΣςσβΰΐΣ; German: ß')"/>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('软件 あアｱ 18')" 
+							   valueExpression="value=stGSLib.toLowerCase('软件 あアｱ 18')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_Script"/>
+		</body>
+	</TestCase>	
+	
+	<!--test invalid locale, 123-->
+	<TestCase testID="StringTools_toLowerCase_123_script_test2" description="test invalid locale, 123" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<ResetComponent target="st_Script" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.st_Script.initialized(null,'st_Script')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="st_Script" styleName="locale" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('greek')" 
+							   valueExpression="value=stGSLib.toLowerCase('greek')"/>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('Æ Ä')" 
+							   valueExpression="value=stGSLib.toLowerCase('Æ Ä')"/>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('Turkish I: iI &amp; ıİ; Greek: ΣςσβΰΐΣ; German: ß')" 
+							   valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ; Greek: ΣςσβΰΐΣ; German: ß')"/>
+			<AssertMethodValue method="value=application.st_Script.toLowerCase('软件 あアｱ 18')" 
+							   valueExpression="value=stGSLib.toLowerCase('软件 あアｱ 18')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_Script"/>
+		</body>
+	</TestCase>
+	
+	<!--test instance without setting locale, verify lastOperationStatus is 'localeUndefinedError'-->
+	<TestCase testID="StringTools_toLowerCase_localeUndefinedError_script_test3" description="test instance without setting locale, verify lastOperationStatus is 'localeUndefinedError'" keywords="[StringTools, toLowerCase]">
+		<body>
+			<AssertStyleValue target="stScript_undefined" styleName="locale" valueExpression="value=application.appLocale"/>
+			<AssertMethodValue method="value=application.stScript_undefined.toLowerCase('Greek')" 
+							   value="greek"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="stScript_undefined"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_toLowerCase_binding_script_test4" description="test Binding mechanism with locale change" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stBinding_script" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ')" target="stScript"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_toLowerCase_binding_script_test5" description="test Binding mechanism with locale change" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<ResetComponent target="stBinding_script" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.stBinding_script.initialized(null,'stBinding_script')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('az-Arab')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stBinding_script" styleName="locale" value="az-Arab" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ')" target="stScript"/>
+		</body>
+	</TestCase>
+	
+	<!--case6 to case 10 test instances defined in <fx:Declarations> -->
+	<!--test valid locale, zh_CN -->
+	<TestCase testID="StringTools_toLowerCase_zh_CN_inline_test6" description="test valid locale, zh_CN" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('zh-CN')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="st_inline" styleName="locale" value="zh-CN" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('greek')" 
+							   valueExpression="value=stGSLib.toLowerCase('greek')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('Æ Ä')" 
+							   valueExpression="value=stGSLib.toLowerCase('Æ Ä')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('Turkish I: iI &amp; ıİ; Greek: ΣςσβΰΐΣ; German: ß')" 
+							   valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ; Greek: ΣςσβΰΐΣ; German: ß')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('软件 あアｱ 18')" 
+							   valueExpression="value=stGSLib.toLowerCase('软件 あアｱ 18')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_inline"/>
+		</body>
+	</TestCase>	
+	
+	<!--test invalid locale, 123-->
+	<TestCase testID="StringTools_toLowerCase_123_inline_test7" description="test invalid locale, 123" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('123')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="st_inline" styleName="locale" value="123" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('The Quick Brown Fox Jumps Over The Lazy Dog')" 
+							   valueExpression="value=stGSLib.toLowerCase('The Quick Brown Fox Jumps Over The Lazy Dog')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('Turkish I: iI &amp; ıİ Ä±Ä°')" 
+							   valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ Ä±Ä°')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('German ÃŸ')" 
+							   valueExpression="value=stGSLib.toLowerCase('German ÃŸ')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('Greek Î£Ï‚ÏƒÎ²Î°Î�Î£')" 
+							   valueExpression="value=stGSLib.toLowerCase('Greek Î£Ï‚ÏƒÎ²Î°Î�Î£')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('ΣςσβΰΐΣ')" 
+							   valueExpression="value=stGSLib.toLowerCase('ΣςσβΰΐΣ')"/>
+			<AssertMethodValue method="value=application.st_inline.toLowerCase('软件 あアｱ 18')" 
+							   valueExpression="value=stGSLib.toLowerCase('软件 あアｱ 18')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="st_inline"/>
+		</body>
+	</TestCase>
+	
+	<!--test instance without setting locale, verify lastOperationStatus is 'noError'-->
+	<TestCase testID="StringTools_toLowerCase_noError_inline_test8" description="test instance without setting locale, verify lastOperationStatus is 'noError'" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="stInline_undefined" styleName="locale" value="en"/>
+			<AssertMethodValue method="value=application.stInline_undefined.toLowerCase('Greek')" 
+							   valueExpression="value=stGSLib.toLowerCase('Greek')"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" valueExpression="value=stGSLib.lastOperationStatus" target="stInline_undefined"/>
+		</body>
+	</TestCase>
+	
+	<!--test instance setting locale to undefined, verify lastOperationStatus is 'localeUndefinedError'-->
+	<TestCase testID="StringTools_toLowerCase_localeUndefinedError_inline_test9" description="test instance setting locale to undefined, verify lastOperationStatus is 'localeUndefinedError'" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<ResetComponent target="stInline_undefined" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.stInline_undefined.initialized(null,'stInline_undefined')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<SetStyle styleName="locale" target="stInline_undefined" valueExpression="value=undefined"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="stInline_undefined" styleName="locale" valueExpression="value=application.appLocale"/>
+			<AssertMethodValue method="value=application.stInline_undefined.toLowerCase('Greek')" valueExpression="value=null"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="stInline_undefined"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_toLowerCase_binding_inline_test10" description="test Binding mechanism with locale change" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stBinding_inline" styleName="locale" value="en-US" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ')" target="stInline"/>
+		</body>
+	</TestCase>
+	
+	<!--test Binding mechanism-->
+	<TestCase testID="StringTools_toLowerCase_binding_inline_test11" description="test Binding mechanism with locale change" keywords="[StringTools, toLowerCase]">
+		<setup>
+			<ResetComponent target="stBinding_inline" className="spark.globalization.StringTools"/> 
+			<RunCode code="application.stBinding_inline.initialized(null,'stBinding_inline')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('az-Arab')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<SetStyle target="stBinding_inline" styleName="locale" value="az-Arab" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=stGSLib.toLowerCase('Turkish I: iI &amp; ıİ')" target="stInline"/>
+		</body>
+	</TestCase>
+	
+	<!--Test TypeError: Define a Collator instance in <fx:Script>, set toLowerCase() with null parameter --> 
+	<TestCase testID="StringTools_toLowerCase_TypeError_null_script_test12" description="Test TypeError: Define a Collator instance in ActionScript code, set toLowerCase() with null parameter" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st_Script" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_Script.initialized(null,'st_Script')"/>
+			<RunCode code="application.testErrorNull(application.st_Script)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="application.testErrorNullGSLib(stGSLib)" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=application.errorInfoGSLib" target="errorInfoLable"/>
+		</body>
+	</TestCase>
+	
+	<!--TypeError: Define a Collator instance in <fx:Declarations>, set toLowerCase() with null parameter -->
+	<TestCase testID="StringTools_toLowerCase_TypeError_null_inline_test13" description="TypeError: Define a Collator instance in Declarations, set toLowerCase() with null parameter" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<RunCode code="application.testErrorNull(application.st_inline)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="application.testErrorNullGSLib(stGSLib)" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=application.errorInfoGSLib" target="errorInfoLable"/>
+		</body>
+	</TestCase>
+	
+	<!--Test TypeError: Define a Collator instance in <fx:Script>, set toLowerCase() with empty parameter --> 
+	<TestCase testID="StringTools_toLowerCase_TypeError_empty_script_test14" description="Test TypeError: Define a Collator instance in ActionScript Code, set toLowerCase() with empty parameter" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st_Script" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_Script.initialized(null,'st_Script')"/>
+			<RunCode code="application.testErrorNone(application.st_Script)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="application.testErrorNoneGSLib(stGSLib)" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=application.errorInfoGSLib" target="errorInfoLable"/>
+		</body>
+	</TestCase>
+	
+	<!--TypeError: Define a Collator instance in <fx:Declarations>, set toLowerCase() with empty parameter -->
+	<TestCase testID="StringTools_toLowerCase_TypeError_empty_inline_test15" description="TypeError: Define a Collator instance in Declarations, set toLowerCase() with empty parameter" keywords="[StringTools,actualLocaleIDName">
+		<setup>
+			<ResetComponent target="st_inline" className="spark.globalization.StringTools"/>
+			<RunCode code="application.st_inline.initialized(null,'st_inline')"/>
+			<RunCode code="application.testErrorNone(application.st_inline)"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			
+			<RunCode code="stGSLib=new flash.globalization.StringTools('en-US')"/>
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+			<RunCode code="application.testErrorNoneGSLib(stGSLib)" />
+			<Pause timeout="{StringToolsTestConstants.pauseTime}"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="text" valueExpression="value=application.errorInfoGSLib" target="errorInfoLable"/>
+		</body>
+	</TestCase>
+	
+</testCases>	
+</UnitTester>

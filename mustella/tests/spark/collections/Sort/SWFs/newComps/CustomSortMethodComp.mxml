@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:newComps="newComps.*"
+		 updateComplete="updateCompleteHandler(event)"
+		 width="100%" height="100%">
+
+	<fx:Script>
+		<![CDATA[
+			import assets.newClasses.*;
+			
+			import flash.globalization.Collator;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			import mx.collections.ISortField;
+			import mx.events.FlexEvent;
+			import mx.utils.ObjectUtil;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField; 
+			
+			public var mySortScript:Sort = new Sort();
+			public var mySortFieldScript:SortField = new SortField();
+			public var mySortFieldScript2:SortField = new SortField();
+
+			public var myStr:String ; 
+		
+			
+			public var nonIdentArr:ArrayCollection = new ArrayCollection(['AA','AB','BC','a','b','dH','i','P']);
+			public var identArr:ArrayCollection = new ArrayCollection(['AA','AB','BC','a','b','dH','i','P','b','AB'] ) ; 
+				
+			
+			
+			protected function updateCompleteHandler(event:FlexEvent):void
+			{
+				this.addStyleClient(mySortScript) ;
+				this.addStyleClient(mySortFieldScript) ;
+				this.addStyleClient(mySortFieldScript2) ;
+			}
+			
+			public function sort_simple_array():String {
+				var origAC:ArrayList =  getTestList() as ArrayList ; 
+				var myAr:Array =  origAC.source; 
+				mySort.sort(myAr) ; 
+				var myAl:ArrayList = new ArrayList ( myAr ); 
+				return SFCommon.getSorttedStringFromCollection(myAl, null , null , null, null ) ; 
+			}
+
+			public function getTestList():IList{
+				if ( lbArrayName.text == "simpleNum" ) {					
+					return  new ArrayList(baseDataComp.mySimpleNumArr.source)  ; 		
+					
+				} else if ( lbArrayName.text == "simpleStr" ) {
+					return  new ArrayList( baseDataComp.mySimpleStrArr.source ) ; 
+					
+				} else if ( lbArrayName.text == "simpleDate" ) {
+					return  new ArrayList( baseDataComp.mySimpleDateArr.source )  ; 
+					
+				}else if ( lbArrayName.text == "simpleBool" ) {
+					return  new ArrayList( baseDataComp.mySimpleBooleanArr.source )  ; 
+					
+				}else if ( lbArrayName.text == "simpleXML" ) {
+					return  baseDataComp.dataXmlListArrS ; 
+					
+				}else if ( lbArrayName.text == "multiFieldArrayCol" ) {
+					return   baseDataComp.dataArrCollS  ; 
+					
+				}else if ( lbArrayName.text == "simpleFieldArrayCol" ) {
+					return   baseDataComp.myAddressStrArr   ; 
+					
+				}else if ( lbArrayName.text == "simpleNameArrayCol" ) {
+					return   baseDataComp.myNameStrArr   ; 
+					
+				}else if ( lbArrayName.text == "nullParameter" ) {
+					return baseDataComp.myNameStrArr   ; 
+					
+				}else if ( lbArrayName.text == "nonIdenticalArray" ) {
+					return nonIdentArr ; 
+					
+				}else if ( lbArrayName.text == "identicalArray" ) {
+					return  identArr ;
+					
+				}
+				else if (lbArrayName.text == null  ) {
+					return null ; 
+				}else 
+					return null ;
+				
+			}
+			
+			// Sort String from short length to long length 
+			// Sort String from short length to long length 
+			public function get flashSortedAry():String {
+				var flashCol:spark.globalization.SortingCollator = new SortingCollator();
+				flashCol.setStyle('locale','en');
+				var ary:Array = baseDataComp.mySimpleDateArr.source;
+				ary.sort(flashCol.compare);
+				var myAl:ArrayList = new ArrayList ( ary ); 
+				return SFCommon.getSorttedStringFromCollection(myAl, null , null , null, null ) ; 
+					
+			} 
+			
+			public function get dateSortedAry():String {
+				var ary:Array = baseDataComp.mySimpleDateArr.source;
+				ary.sort(ObjectUtil.dateCompare);
+				var myAl:ArrayList = new ArrayList ( ary ); 
+				return SFCommon.getSorttedStringFromCollection(myAl, null , null , null, null ) ; 
+				
+			} 
+			
+			
+			public function mySortCompareFunction(item1:Object, item2:Object , fields:Array = null):int {
+				
+				var fdName:String ; 
+				
+				if ( item1 == null && item2 == null ) 
+					return 0 ;
+				
+				if ( fields != null && fields.length == 1 ) {
+					if ( fields[0] is ISortField ) 
+					{
+						var fd:ISortField = fields[0] ;
+						fdName = fd.name ; 
+					}
+					
+				}
+				
+				if ( fields == null  ) {
+					if (item1.length > item2.length)
+						return 1 ; 
+					else if ( item1.length == item2.length)
+						return 0 ; 
+					else 
+						return -1 ; 
+				}else if ( fields.length == 1 ) {
+					//var name:String = fields[0] ; 
+					//trace ( fields[0].toString() ) ; 
+					var aStr:String = item1[fdName] ;
+					var bStr:String = item2[fdName] ; 
+					if ( aStr == null && bStr == null ) 
+						return 0 ; 
+					if (aStr.length > bStr.length)
+						return 1 ; 
+					else if ( aStr.length == bStr.length)
+						return 0 ; 
+					else 
+						return -1 ; 
+				}else
+					return 1 ; 
+				
+			}
+			
+			
+			// this is used for testing invalid compreFunction 
+			public function myInvalidCompareFunction(str1:Object,  fields:Array = null):int {
+				
+					 return 0 ; 
+				
+			}
+			
+			public function sort_arraycollection(field:String):String {
+					//make a copy of orig ac
+					var ac:ArrayCollection = getTestList() as ArrayCollection ;
+					var origAC:ArrayCollection = new ArrayCollection ( ac.source ) ; 
+					var myAr:Array ;
+					
+					
+				if ( field == "invalid"){  // test sort invalid parameter
+					//myAr = "abcd" ; 
+				}else if ( field == "nullParameter" ) {  // test sort null parameter
+					myAr = null ;
+				}else if ( field == null ) {
+					myAr =  origAC.toArray()  ;
+				}else {
+					myAr =  origAC.toArray()  ; 
+				}
+				
+				try{
+					mySort.sort(myAr)	
+				}catch ( e:Error) {
+					//return e.toString() ; 
+					return "Error" 
+				}
+				if ( myAr == null ) return null ; 
+				var newAC:ArrayCollection = new ArrayCollection ( myAr ) ; 
+				return SFCommon.getSorttedStringFromCollection(newAC , field , null , null , null ) ; 
+			}
+			
+			public function sort_xmlListCollection( sort:spark.collections.Sort ):String {
+				var myAr:Array = baseDataComp.dataXmlListArrS.toArray() ;
+				sort.sort(myAr) ; 
+				return SFCommon.getSorttedStringFromCollection(new ArrayCollection(myAr), null, null, null , null) ;
+			}
+			
+			public function sort_arrayCollection_array(field:String , sort:spark.collections.Sort):Array {
+				var ac:ArrayCollection = getTestList() as ArrayCollection ;
+				var origAC:ArrayCollection = new ArrayCollection ( ac.source ) ; 
+				var myAr:Array ;
+				
+				myAr =  origAC.toArray() ; 
+				sort.sort(myAr) ;
+				return SFConstant.getArrayOfField(field, new ArrayCollection(myAr) ) ; 
+			}
+			
+			public function sortScript_arraycollection(field:String):String {
+				var ac:ArrayCollection = getTestList() as ArrayCollection ; 
+				var origAC:ArrayCollection =  new ArrayCollection ( ac.source ) ;
+				var myAr:Array ;
+				
+				if ( field == "invalid"){  // test sort invalid parameter
+					//myAr = "abcd" ; 
+				}else if ( field == "nullParameter" ) {  // test sort null parameter
+					myAr = null ;
+				}else if ( field == null ) {
+					myAr= origAC.toArray() ; ;
+				}else {
+					myAr =  origAC.toArray() ;
+				}
+				
+				try{
+					mySortScript.sort(myAr)	
+				}catch ( e:Error) {
+					return e.toString() ; 
+					
+				}
+				if ( myAr == null ) return null ;
+				var newAC:ArrayCollection = new ArrayCollection ( myAr ) ; 
+				return SFCommon.getSorttedStringFromCollection(newAC , field , null , null , null ) ; 
+			}
+			
+			public function sorttedStringWithSparkCollator(field:String):String {
+				//make a copy of ac first
+				var ac:ArrayCollection = getTestList() as ArrayCollection ; 
+				var origAC:ArrayCollection =  new ArrayCollection ( ac.source ) ; 
+				var myAr:Array ;
+				
+				if ( field == "invalid"){  // test sort invalid parameter
+					//myAr = "abcd" ; 
+				}else if ( field == "nullParameter" ) {  // test sort null parameter
+					myAr = null ;
+				}else if ( field == null ) {
+					myAr = SFConstant.getArrayOfField(null, origAC) ;
+					myAr.sort(sparkCollator.compare);
+				}else {
+					myAr =  SFConstant.getArrayOfField(field, origAC); 
+					myAr.sort(sparkCollator.compare);
+				}
+				return  SFCommon.getSorttedStringFromCollection( new ArrayCollection (myAr) , null , null , null , null ) ; 
+				
+			}
+			
+			public function sorttedArraywithSparkCollection ( field:String ):Array {
+				var ac:ArrayCollection = getTestList() as ArrayCollection ; 
+				var origAC:ArrayCollection =  new ArrayCollection ( ac.source ) ; 
+				var myAr:Array ;
+				
+				myAr =  SFConstant.getArrayOfField(field, origAC); 
+				myAr.sort(sparkCollator.compare);
+				
+				return myAr ; 
+			}
+			
+			public function getSorttedSimpleXML() :String {
+				var myAr:Array = baseDataComp.dataXmlListArrS.toArray() ; 
+				myAr.sort(sparkCollator.compare)  ; 
+				
+				return SFCommon.getSorttedStringFromCollection(new ArrayCollection(myAr), null ,null ,null , null) ; 
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>	
+		<s:Sort id="mySort" />
+		
+		<s:SortField id="mySortField"/>
+		<s:SortField id="mySortField2"/>
+		
+		<s:SortingCollator id="sparkCollator" />
+		
+	</fx:Declarations>
+	
+	<newComps:BaseDataComp id="baseDataComp" />
+	<s:List id="uiList">
+		
+	</s:List>
+	
+	<s:Label id="lbArrayName" /> 
+	
+	<s:Label id="lbOrderStr" /> 
+	
+</s:VGroup>

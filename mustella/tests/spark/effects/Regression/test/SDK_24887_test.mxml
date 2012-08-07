@@ -1,0 +1,42 @@
+﻿<UnitTester
+    testSWF="../SWFs/SDK_24887.mxml"
+    testDir="spark/effects/Regression/test/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.*;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+	<mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+	<testCases>
+
+        <TestCase 
+			testID="SDK_24887" 
+			keywords="[SDK_24887]" 
+			description="http://bugs.adobe.com/jira/browse/SDK-24887">
+			<!--bugs>
+				<Bug bugID="SDK-24887"/>
+			</bugs -->
+			<body>
+                <ChangeState toState="s2" waitEvent="currentStateChange" />
+                <Pause timeout="250"/>
+                <ChangeState toState="s1" waitEvent="currentStateChange" />
+                <Pause timeout="250"/>
+                <ChangeState toState="s2" waitEvent="currentStateChange" />
+                <Pause timeout="250"/>
+                <ChangeState toState="s1" waitEvent="currentStateChange" />
+                <Pause timeout="250"/>
+
+				<CompareBitmap target="targetBitmapArea" url="../test/baselines/$testID.png" />
+			</body>
+        </TestCase>
+
+
+	</testCases>
+</UnitTester>
+

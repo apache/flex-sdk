@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Module/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="DF_FlexModuleLoader_Main.mxml">
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		private var aDate:Date =  new Date(2000, 0, 1);
+		
+		public static function init(o:DisplayObject):void
+        {
+			
+        }
+    ]]>
+    </mx:Script>
+	
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+	
+<!--This test file is to test define DateTimeFormatter in Flex Component, also test style defined in component and application-->
+<testCases>
+	<!--This test case is to test define DateTimeFormatter in Flex Component-->
+	<TestCase testID="DF_FlexModuleLoader_zh_CN_short_long_test1" description="'zh_CN','short','long'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('zh_CN','short','long')" />
+		</setup>
+		<body>
+			<RunCode code="application.moduleLoad.child.setDTFPro('zh_CN','short','long')"/>
+			<Pause timeout="200"/>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test define DateTimeFormatter in Flex Component-->
+	<TestCase testID="DF_FlexModuleLoader_fr_CA_medium_short_test2" description="'fr-CA','medium','short'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','medium','short')" />
+		</setup>
+		<body>
+			<RunCode code="application.moduleLoad.child.setDTFPro('fr-CA','medium','short')"/>
+			<Pause timeout="200"/>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test define DateTimeFormatter in Flex Component-->
+	<TestCase testID="DF_FlexModuleLoader_ar_JO_none_medium_test3" description="'ar-JO','none','medium'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ar-JO','none','medium')" />
+		</setup>
+		<body>
+			<RunCode code="application.moduleLoad.child.setDTFPro('ar-JO','none','medium')"/>
+			<Pause timeout="200"/>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test define DateTimeFormatter in Flex Component-->
+	<TestCase testID="DF_FlexModuleLoader_sr_Cyrl_RS_long_none_test4" description="'sr-Cyrl-RS','long','none'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('sr-Cyrl-RS','long','none')" />
+		</setup>
+		<body>
+			<RunCode code="application.moduleLoad.child.setDTFPro('sr-Cyrl-RS','long','none')"/>
+			<Pause timeout="200"/>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test define DateTimeFormatter in Flex Component-->
+	<TestCase testID="DF_FlexModuleLoader_default_short_medium_test5" description="'i-default','short','medium'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('i-default','short','medium')" />
+		</setup>
+		<body>
+			<RunCode code="application.moduleLoad.child.setDTFPro('i-default','short','medium')"/>
+			<Pause timeout="200"/>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test define DateTimeFormatter in Flex Component-->
+	<TestCase testID="DF_FlexModuleLoader_123_medium_long_test6" description="'123','medium','long'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('123','medium','long')" />
+		</setup>
+		<body>
+			<RunCode code="application.moduleLoad.child.setDTFPro('123','medium','long')"/>
+			<Pause timeout="200"/>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test the style defined in module -->
+	<TestCase testID="DF_FlexModuleLoader_ru_RU_long_long_test7" description="'ru-RU','long','long'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('ru-RU','long','long')" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.moduleLoad.child.formatDateModule(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatusModule" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+	<!--This test case is to test the style defined in application -->
+	<TestCase testID="DF_FlexModuleLoader_fr_CA_long_long_test8" description="'fr-CA','long','long'" keywords="[DateTimeFormatter, Flex Module]">
+		<setup>
+			<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+			<RunCode code="application.addModuleLoaderListener()" />
+			<Pause timeout="500" />
+			<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('fr-CA','long','long')" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.moduleLoad.child.FormatDate(aDate)" valueExpression="value=flashDF.format(aDate)"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" target="moduleLoad.child" valueExpression="value=flashDF.lastOperationStatus"/>
+			<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+		</body>
+	</TestCase>
+</testCases>
+	
+</UnitTester>

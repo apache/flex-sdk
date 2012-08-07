@@ -1,0 +1,35 @@
+﻿<UnitTester
+    testDir="spark/components/VideoPlayer/style/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/VideoPlayer_style.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoPlayer;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+
+        <TestCase
+        testID="VideoPlayer_verticalCenter"
+        description="Apply the verticalCenter style."
+        keywords="[VideoPlayer]">
+            <setup>
+                <ResetComponent target="testPlayer" className="Components.TrixSparkVideoPlayer" waitTarget="testPlayer" waitEvent="updateComplete" />
+                <RunCode code="application.testPlayer.setStyle('verticalCenter', '20')" waitTarget="testPlayer" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="vidParent" numColorVariances="7" maxColorVariance="10" url="../style/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester
+    testDir="spark/effects/easing/EaseInOutBase/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/EaseInOutBase_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.effects.easing.EaseInOutBase;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- Defaults -->
+        <TestCase testID="EaseInOutBase_easeInFraction_Default" keywords="[EaseInOutBase, accessor, easeInFraction]" description="Test the default value of the easeInFraction accessor.">
+            <body>
+                <AssertMethodValue method="value=(new EaseInOutBase()).easeInFraction" value=".5"/>
+            </body>
+        </TestCase>
+
+        <!-- These should fail, but don't by default behavior of the set accessors -->
+        <TestCase testID="EaseInOutBase_easeInFraction_GreaterThanOneOkay" keywords="[EaseInOutBase, accessor, easeInFraction]" description="Set the easeInFraction accessor > 1. Verify no error on SET.">
+            <body>
+                <SetProperty target="testEaser" propertyName="easeInFraction" value="1.3"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

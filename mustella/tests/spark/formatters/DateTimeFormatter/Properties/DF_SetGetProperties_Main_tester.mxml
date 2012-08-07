@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="spark/formatters/DateTimeFormatter/Properties/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" 
+			testSWF="DF_SetGetProperties_Main.mxml">
+    <mx:Script>
+    <![CDATA[
+		import flash.globalization.DateTimeFormatter;
+		import flash.globalization.DateTimeStyle;
+		public var flashDF:flash.globalization.DateTimeFormatter;
+		public static function init(o:DisplayObject):void 
+        {
+        }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+<!--This test file is to test properties: dateStyle, timeStyle and dateTimePattern, using set and get -->
+<testCases>
+	<!--test cases 1-4 for test datestyle-->
+	<TestCase testID="DF_SetGetProperties_dateStyle_short_test1" description="test dateStyle with short" keywords="[DateTimeFormatter, dateStyle, set property, get property]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="short" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 1-4 for test datestyle-->
+	<TestCase testID="DF_SetGetProperties_dateStyle_medium_test2" description="test dateStyle with medium" keywords="[DateTimeFormatter, dateStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="medium" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="medium" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 1-4 for test datestyle-->
+	<TestCase testID="DF_SetGetProperties_dateStyle_long_test3" description="test dateStyle with long" keywords="[DateTimeFormatter, dateStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="long"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="long" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 1-4 for test datestyle-->
+	<TestCase testID="DF_SetGetProperties_dateStyle_none_test4" description="test dateStyle with none" keywords="[DateTimeFormatter, dateStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="none" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" value="none" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 5-8 for test timestyle-->
+	<TestCase testID="DF_SetGetProperties_timeStyle_short_test5" description="test timeStyle with short" keywords="[DateTimeFormatter, timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="short" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="short" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 5-8 for test timestyle-->
+	<TestCase testID="DF_SetGetProperties_timeStyle_medium_test6" description="test timeStyle with medium" keywords="[DateTimeFormatter, timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="medium" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="medium" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 5-8 for test timestyle-->
+	<TestCase testID="DF_SetGetProperties_timeStyle_long_test7" description="test timeStyle with long" keywords="[DateTimeFormatter, timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="long"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="long" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 5-8 for test timestyle-->
+	<TestCase testID="DF_SetGetProperties_timeStyle_none_test8" description="test timeStyle with none" keywords="[DateTimeFormatter, timeStyle, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="none" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" value="none" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_maskFull_test9" description="test dateTimePattern MaskFull" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM. d, yyyy 'at' h:mm a" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM. d, yyyy 'at' h:mm a" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_maskLong_test10" description="test dateTimePattern MaskLong" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy 'at' h:mm a" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy 'at' h:mm a" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_maskMedium_test11" description="test dateTimePattern MaskMedium" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="MMM. d, yyyy" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_maskTime_test12" description="test dateTimePattern MaskTime" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="h:mm a" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="h:mm a" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_yy_test13" description="test dateTimePattern yy" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="yy" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="yy" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_yyyy_test14" description="test dateTimePattern yyyy" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="yyyy" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="yyyy" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_M_test15" description="test dateTimePattern M" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="M" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="M" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_MM_test16" description="test dateTimePattern MM" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MM" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="MM" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_MMM_test17" description="test dateTimePattern MMM" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMM" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="MMM" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_MMMM_test18" description="test dateTimePattern MMMM" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="MMMM" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="MMMM" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_d_test19" description="test dateTimePattern d" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="d" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="d" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_dd_test20" description="test dateTimePattern dd" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="dd" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="dd" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_E_test21" description="test dateTimePattern E" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="E" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="E" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_EEE_test22" description="test dateTimePattern EEE" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEE" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="EEE" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_EEEE_test23" description="test dateTimePattern EEEE" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="EEEE" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_a_test24" description="test dateTimePattern a" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="a" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="a" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_H_test25" description="test dateTimePattern H" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="H" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="H" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_k_test26" description="test dateTimePattern k" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="k" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="k" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_K_test27" description="test dateTimePattern K" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="K" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="K" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_h_test28" description="test dateTimePattern h" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="h" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="h" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_m_test29" description="test dateTimePattern m" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="m" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="m" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_mm_test30" description="test dateTimePattern mm" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="mm" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="mm" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_s_test31" description="test dateTimePattern s" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="s" waitEvent="change"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" value="s" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 9-32 for test datetimepattern-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_default_test32" description="test dateTimePattern default" keywords="[DateTimeFormatter, dateTimePattern, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')" />
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" valueExpression="value=flashDF.getDateTimePattern()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 33-34 for test useUTC -->
+	<TestCase testID="DF_SetGetProperties_useUTC_true_test33" description="test useUTC with true" keywords="[DateTimeFormatter,  useUTC, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="useUTC" valueExpression="value=true"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="useUTC" valueExpression="value=true"/>
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 33-34 for test useUTC -->
+	<TestCase testID="DF_SetGetProperties_useUTC_false_test34" description="test useUTC with false" keywords="[DateTimeFormatter, useUTC, set property, get property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="useUTC" valueExpression="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="useUTC" valueExpression="value=false"/>
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 35-36 for set dateStyle,timeStyle and dateTimePattern in different order. When set dateTimePattern at the last, 
+	it overrides the current time and date styles for this DateTimeFormatter object and set them to the value DateTimeStyle.CUSTOM-->
+	<TestCase testID="DF_SetGetProperties_setDateTimeStyleFirst_test35" description="set dateStyle,timeStyle first" keywords="[DateTimeFormatter, dateStyle, timeStyle, dateTimePattern, order, set property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short"  />
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="medium"  />
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM dd, yyyy h:mm:ss a" waitEvent="change"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')" />
+			<RunCode code="flashDF.setDateTimeStyles('short','medium')"/>
+			<RunCode code="flashDF.setDateTimePattern('EEEE, MMMM dd, yyyy h:mm:ss a')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" valueExpression="value=flashDF.getDateStyle()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" valueExpression="value=flashDF.getTimeStyle()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" valueExpression="value=flashDF.getDateTimePattern()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 35-36 for set dateStyle,timeStyle and dateTimePattern in different order. When set dateTimePattern at the last, 
+	it overrides the current time and date styles for this DateTimeFormatter object and set them to the value DateTimeStyle.CUSTOM-->
+	<TestCase testID="DF_SetGetProperties_setDateTimePatternFirst_test36" description="set dateTimePattern first" keywords="[DateTimeFormatter, dateStyle, timeStyle, dateTimePattern, order, set property]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" />
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<Pause timeout="200"/>
+			<SetProperty target="dtFormatter" propertyName="dateTimePattern" value="EEEE, MMMM dd, yyyy h:mm:ss a"  />
+			<SetProperty target="dtFormatter" propertyName="dateStyle" value="short"  />
+			<SetProperty target="dtFormatter" propertyName="timeStyle" value="medium" waitEvent="change"/>
+			<RunCode code="flashDF.setDateTimePattern('EEEE, MMMM dd, yyyy h:mm:ss a')"/>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')" />
+			<RunCode code="flashDF.setDateTimeStyles('short','medium')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="dtFormatter" propertyName="dateStyle" valueExpression="value=flashDF.getDateStyle()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="timeStyle" valueExpression="value=flashDF.getTimeStyle()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="dateTimePattern" valueExpression="value=flashDF.getDateTimePattern()" />
+			<AssertPropertyValue target="dtFormatter" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus"/>
+		</body>
+	</TestCase>
+	<!--test cases 37-43 for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="DF_SetGetProperties_dateTimeStyle_inline_test37" description="test set dateTimeStyle inline" keywords="[DateTimeFormatter, dateStyle, timeStyle, inline, set property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterDT1" propertyName="dateStyle" value="long" />
+			<AssertPropertyValue target="dtFormatterDT1" propertyName="timeStyle" value="long" />
+		</body>
+	</TestCase>
+	<!--test cases 37-43 for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="DF_SetGetProperties_dateTimeStyle_inline_test38" description="test set dateTimeStyle inline" keywords="[DateTimeFormatter, dateStyle, timeStyle, inline, set property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterDT2" propertyName="dateStyle" value="short" />
+			<AssertPropertyValue target="dtFormatterDT2" propertyName="timeStyle" value="medium" />
+		</body>
+	</TestCase>
+	<!--test cases 37-43 for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="DF_SetGetProperties_dateTimeStyle_inline_test39" description="test set dateTimeStyle inline" keywords="[DateTimeFormatter, dateStyle, timeStyle, inline, set property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterDT3" propertyName="dateStyle" value="none" />
+			<AssertPropertyValue target="dtFormatterDT3" propertyName="timeStyle" value="none" />
+		</body>
+	</TestCase>
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_inline_test40" description="test set dateTimePattern inline" keywords="[DateTimeFormatter, dateTimePattern, inline, set property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterP1" propertyName="dateTimePattern" value="MMM. d, yyyy 'at' h:mm a" />
+		</body>
+	</TestCase>
+	<!--test cases 37-43 for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="DF_SetGetProperties_dateTimePattern_inline_test41" description="test set dateTimePattern inline" keywords="[DateTimeFormatter, dateTimePattern, inline, set property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterP2" propertyName="dateTimePattern" value="h" />
+		</body>
+	</TestCase>
+	<!--test cases 37-43 for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="FallbackDateTimeFormatter_useUTC_inline_test42" description="test set useUTC inline" keywords="[DateTimeFormatter,  useUTC, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterUTCT" propertyName="useUTC" valueExpression="value=true"/>
+		</body>
+	</TestCase>
+	<!--test cases 37-43 for set dateStyle, timeStyle, useUTC, dateTimePattern inline-->
+	<TestCase testID="FallbackDateTimeFormatter_useUTC_inline_test43" description="test set useUTC inline" keywords="[DateTimeFormatter,  useUTC, inline, set property, get property]">
+		<body>
+			<AssertPropertyValue target="dtFormatterUTCF" propertyName="useUTC" valueExpression="value=false"/>
+		</body>
+	</TestCase>
+	<!--test case 44-47 test Throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM-->
+	<TestCase testID="DF_SetGetProperties_ArgumentError_invalidDateStyle_test44" description="Throws ArgumentError if the property value is not a valid dateStyle" keywords="[DateTimeFormatter, dateStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>			
+			<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'dateStyle','invalidDateStyle')" 
+							   valueExpression="value=application.testFlashArgError(flashDF,'invalidDateStyle','long')"/>
+		</body>
+	</TestCase>
+	<!--test case 44-47 test Throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM-->
+	<TestCase testID="DF_SetGetProperties_ArgumentError_invalidTimeStyle_test45" description="Throws ArgumentError if the property value is not a valid timeStyle" keywords="[DateTimeFormatter, timeStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'timeStyle','invalidTimeStyle')" 
+							   valueExpression="value=application.testFlashArgError(flashDF,'long','invalidTimeStyle')"/>
+		</body>
+	</TestCase>
+	<!--test case 44-47 test Throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM-->
+	<TestCase testID="DF_SetGetProperties_ArgumentError_customDateStyle_test46" description="Throws ArgumentError if dateStyle equals to 'custom'" keywords="[DateTimeFormatter, dateStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'dateStyle','custom')" 
+							   valueExpression="value=application.testFlashArgError(flashDF,'custom','long')"/>
+		</body>
+	</TestCase>
+	<!--test case 44-47 test Throws ArgumentError if the property value is not a valid DateTimeStyle constant or is DateTimeStyle.CUSTOM-->
+	<TestCase testID="DF_SetGetProperties_ArgumentError_customTimeStyle_test47" description="Throws ArgumentError if timeStyle equals to 'custom'" keywords="[DateTimeFormatter, timeStyle, ArgumentError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'timeStyle','custom')" 
+							   valueExpression="value=application.testFlashArgError(flashDF,'long','custom')"/>
+		</body>
+	</TestCase>
+	<!--test cases 48-49 Throws TypeError if the <code>dateStyle</code> or <code>timeStyle</code> parameter is null. -->
+	<TestCase testID="DF_SetGetProperties_TypeError_nullDateStyle_test48" description="Throws TypeError if the dateStyle parameter is null" keywords="[DateTimeFormatter, dateStyle, TypeError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'dateStyle',null)" 
+							   valueExpression="value=application.testFlashArgError(flashDF,null,'long')"/>
+		</body>
+	</TestCase>
+	<!--test cases 48-49 Throws TypeError if the <code>dateStyle</code> or <code>timeStyle</code> parameter is null. -->
+	<TestCase testID="DF_SetGetProperties_TypeError_nullTimeStyle_test49" description="Throws TypeError if the timeStyle parameter is null" keywords="[DateTimeFormatter, timeStyle, TypeError]">
+		<setup>
+			<ResetComponent target="dtFormatter" className="spark.formatters.DateTimeFormatter" /> 
+			<RunCode code="application.dtFormatter.initialized(null , 'dtFormatter')" />
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testArgError(application.dtFormatter,'timeStyle',null)" 
+							   valueExpression="value=application.testFlashArgError(flashDF,'long',null)"/>
+		</body>
+	</TestCase>
+	<!-- To test LastOperationStatus property is 'patternSyntaxError'  -->
+	<TestCase testID="DF_SetGetProperties_lastOperationStatus_test50" description="test LastOperationStatus property is 'patternSyntaxError'" keywords="[DateTimeFormatter, dateTimePattern, GlobalizationStatusEvent.LAST_OPERATION_STATUS]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en-US')"/>
+			<Pause timeout="200"/>
+			<RunCode code="flashDF.setDateTimePattern('www')"/>
+		</setup>
+		<body>
+			<SetProperty propertyName="dateTimePattern" target="dtFormatterLastOS" value="www" waitEvent="change"/>
+			<AssertPropertyValue target="dtFormatterLastOS" propertyName="lastOperationStatus" valueExpression="value=flashDF.lastOperationStatus" />
+		</body>
+	</TestCase>
+	<!--this test case is to test calling dateStyle getter of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_SetGetProperties_script_dateStyle_withoutSettingLocale_test51" description="test calling dateStyle getter of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, dateStyle]">
+		<body>
+			<AssertPropertyValue propertyName="dateStyle" value="long" target="dtfLocaleD"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfLocaleD"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling dateStyle getter of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_SetGetProperties_declaration_dateStyle_withoutSettingLocale_test52" description="test calling dateStyle getter of dtf defined in fx:Declaration without setting locale" keywords="[DateTimeFormatter, dateStyle]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInlineD" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="dateStyle" valueExpression="value=null" target="dtfLocaleInlineD"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInlineD"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling timeStyle getter of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_SetGetProperties_script_timeStyle_withoutSettingLocale_test53" description="test calling timeStyle getter of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, timeStyle]">
+		<body>
+			<AssertPropertyValue propertyName="timeStyle" value="long" target="dtfLocaleT"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfLocaleT"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling timeStyle getter of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_SetGetProperties_declaration_timeStyle_withoutSettingLocale_test54" description="test calling timeStyle getter of dtf defined in fx:Declaration without setting locale" keywords="[DateTimeFormatter, timeStyle]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInlineT" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="timeStyle" valueExpression="value=null" target="dtfLocaleInlineT"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInlineT"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling dateTimePattern getter of dtf defined in <fx:script> without setting locale -->
+	<TestCase testID="DF_SetGetProperties_script_dateTimePattern_withoutSettingLocale_test55" description="test calling dateTimePattern getter of dtf defined in fx:script without setting locale" keywords="[DateTimeFormatter, dateTimePattern]">
+		<setup>
+			<RunCode code="flashDF=new flash.globalization.DateTimeFormatter('en')"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="dateTimePattern" valueExpression="value=flashDF.getDateTimePattern()" target="dtfLocaleDTP"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="noError" target="dtfLocaleDTP"/>
+		</body>
+	</TestCase>
+	<!--this test case is to test calling dateTimePattern getter of dtf defined in <fx:Declaration> without setting locale -->
+	<TestCase testID="DF_SetGetProperties_declaration_dateTimePattern_withoutSettingLocale_test56" description="test calling dateTimePattern getter of dtf defined in fx:Declaration without setting locale" keywords="[DateTimeFormatter, dateTimePattern]">
+		<setup>
+			<!--Due to locale is null, no change event will dispatched. Use <Pause> here. -->
+			<SetStyle styleName="locale" target="dtfLocaleInlineDTP" valueExpression="value=undefined"/>
+			<Pause timeout="200"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="dateTimePattern" valueExpression="value=null" target="dtfLocaleInlineDTP"/>
+			<AssertPropertyValue propertyName="lastOperationStatus" value="localeUndefinedError" target="dtfLocaleInlineDTP"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>
